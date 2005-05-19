@@ -2438,6 +2438,9 @@ create_Teseodialog (void)
 
   radiotoolbutton3 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiotoolbutton3), "NN 1");
+  tmp_image = create_pixmap (Teseodialog, "brain_mri_small.xpm");
+  gtk_widget_show (tmp_image);
+  gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiotoolbutton3), tmp_image);
   gtk_widget_set_name (radiotoolbutton3, "radiotoolbutton3");
   gtk_widget_show (radiotoolbutton3);
   gtk_container_add (GTK_CONTAINER (toolbar3), radiotoolbutton3);
@@ -2446,6 +2449,9 @@ create_Teseodialog (void)
 
   radiotoolbutton4 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiotoolbutton4), "NN 2");
+  tmp_image = create_pixmap (Teseodialog, "brain_mri_small.xpm");
+  gtk_widget_show (tmp_image);
+  gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiotoolbutton4), tmp_image);
   gtk_widget_set_name (radiotoolbutton4, "radiotoolbutton4");
   gtk_widget_show (radiotoolbutton4);
   gtk_container_add (GTK_CONTAINER (toolbar3), radiotoolbutton4);
@@ -2454,6 +2460,9 @@ create_Teseodialog (void)
 
   radiotoolbutton5 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiotoolbutton5), "NN 3");
+  tmp_image = create_pixmap (Teseodialog, "brain_mri_small.xpm");
+  gtk_widget_show (tmp_image);
+  gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiotoolbutton5), tmp_image);
   gtk_widget_set_name (radiotoolbutton5, "radiotoolbutton5");
   gtk_widget_show (radiotoolbutton5);
   gtk_container_add (GTK_CONTAINER (toolbar3), radiotoolbutton5);

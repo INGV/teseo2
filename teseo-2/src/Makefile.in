@@ -158,9 +158,9 @@ bin_PROGRAMS = teseo-2
 
 teseo_2_SOURCES = \
 	plugin-intl.h	\
-        pixmaps/brain_mri_small_invert_gray.png	\
-        pixmaps/brain_mri_small_invert.png	\
-        pixmaps/brain_mri_small.png	\
+	pixmaps/brain_mri_small_invert_gray.png	\
+	pixmaps/brain_mri_small_invert.png	\
+	pixmaps/brain_mri_small.png	\
 	teseocallbacks.c	\
 	teseocallbacks.h	\
 	teseosupport.c	\
@@ -183,8 +183,11 @@ AM_CPPFLAGS = \
 INCLUDES = \
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
+	-DPACKAGE=\""$(PACKAGE)"\"	\
 	-I$(includedir)
 
+# new 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 
 LDADD = $(GIMP_LIBS)
 subdir = src
