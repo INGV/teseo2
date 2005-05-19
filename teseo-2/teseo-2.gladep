@@ -2,8 +2,8 @@
 <!DOCTYPE glade-project SYSTEM "http://glade.gnome.org/glade-project-2.0.dtd">
 
 <glade-project>
-  <name>test2</name>
-  <program_name>test2</program_name>
+  <name>teseo-2</name>
+  <program_name>teseo-2</program_name>
   <gnome_support>FALSE</gnome_support>
   <gettext_support>FALSE</gettext_support>
   <use_widget_names>TRUE</use_widget_names>
