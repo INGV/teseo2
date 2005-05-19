@@ -1,5 +1,5 @@
-/* GIMP Plug-in Template
- * Copyright (C) 2000-2004  Michael Natterer <mitch@gimp.org> (the "Author").
+/* Teseo-2 Plug-in
+ * Copyright (C) 2000-2004 Stefano Pintore, Matteo Quintiliani (the "Authors").
  * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -15,14 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
- * THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * THE Authors BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Author of the
+ * Except as contained in this notice, the name of the Authors of the
  * Software shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
- * authorization from the Author.
+ * Authorsization from the Authors.
  */
 
 #include "config.h"
@@ -69,25 +69,25 @@ dialog (gint32              image_ID,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
 {
-  GtkWidget *dlg;
+//   GtkWidget *dlg;
   GtkWidget *teseodlg;
-  GtkWidget *main_vbox;
+/*GtkWidget *main_vbox;
   GtkWidget *frame;
   GtkWidget *table;
   GtkWidget *hbox;
-  GtkWidget *hbox2;
-  GtkWidget *coordinates;
-  GtkWidget *combo;
+  GtkWidget *hbox2;*/
+  //GtkWidget *coordinates;
+  /*GtkWidget *combo;
   GtkObject *adj;
-  gint       row;
+  gint       row;*/
   gboolean   run = FALSE;
-  GimpUnit   unit;
-  gdouble    xres, yres;
+/*GimpUnit   unit;
+  gdouble    xres, yres;*/
 
   ui_state = ui_vals;
 
   gimp_ui_init (PLUGIN_NAME, TRUE);
-
+/*
   dlg = gimp_dialog_new (_("teseo-2 Plug-In"), PLUGIN_NAME,
                          NULL, 0,
 			 gimp_standard_help_func, "teseo-2",
@@ -95,9 +95,7 @@ dialog (gint32              image_ID,
 			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			 GTK_STOCK_OK,     GTK_RESPONSE_OK,
 
-			 NULL);
-
-
+			 NULL);*/
 
 /*INIZIO MODIFICARE*/
   //main_vbox = gtk_vbox_new (FALSE, 12); /*TODO richiamare la funzione che crea l'interfaccia*/
@@ -232,22 +230,21 @@ dialog (gint32              image_ID,
 
   //gtk_widget_show (main_vbox);
   gtk_widget_show (teseodlg);
-
+  //gtk_window_set_modal (GTK_WINDOW  (teseodlg) ,FALSE); USEFUL?
   /*TODO*/
   //gtk_widget_show (dlg);
   run = (gtk_dialog_run (GTK_DIALOG (teseodlg)) == GTK_RESPONSE_OK);
   //run = (gimp_dialog_run (GIMP_DIALOG (teseodlg)) == GTK_RESPONSE_OK);
   //run = (gimp_dialog_run (GIMP_DIALOG (dlg)) == GTK_RESPONSE_OK);
-  //run=0;
-  if (run)
+    if (run)
     {
       /*  Save ui values  */
-      ui_state->chain_active =
-        gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));
+/*      ui_state->chain_active =
+        gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));*/
     }
 
   //gtk_widget_destroy (dlg);
-  gtk_widget_destroy (dlg);
+  gtk_widget_destroy (teseodlg);
   return run;
 }
 

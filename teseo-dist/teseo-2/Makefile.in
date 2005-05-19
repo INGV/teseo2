@@ -159,12 +159,12 @@ EXTRA_DIST = \
 	BUGS			\
 	HACKING			\
 	autogen.sh		\
-        intltool-extract.in	\
-        intltool-merge.in	\
-        intltool-update.in	\
-        pixmaps/brain_mri_small_invert_gray.xpm	\
-        pixmaps/brain_mri_small_invert.xpm	\
-        pixmaps/brain_mri_small.xpm
+	intltool-extract.in	\
+	intltool-merge.in	\
+	intltool-update.in	\
+	pixmaps/brain_mri_small_invert_gray.xpm	\
+	pixmaps/brain_mri_small_invert.xpm	\
+	pixmaps/brain_mri_small.xpm
 
 
 
@@ -369,7 +369,7 @@ distcleancheck_listfiles = find . -type f -print
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs)  $(distdir)/pixmaps $(distdir)/po
+	$(mkinstalldirs) $(distdir)/pixmaps $(distdir)/po
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -526,7 +526,9 @@ info: info-recursive
 
 info-am:
 
-install-data-am:
+#install-data-am:
+
+install-data-am: install-data-local
 
 install-exec-am:
 
@@ -564,7 +566,7 @@ uninstall-info: uninstall-info-recursive
 	distclean-hdr distclean-recursive distclean-tags distcleancheck \
 	distdir distuninstallcheck dvi dvi-am dvi-recursive info \
 	info-am info-recursive install install-am install-data \
-	install-data-am install-data-recursive install-exec \
+	install-data-am install-data-local install-data-recursive install-exec \
 	install-exec-am install-exec-recursive install-info \
 	install-info-am install-info-recursive install-man \
 	install-recursive install-strip installcheck installcheck-am \
@@ -574,6 +576,28 @@ uninstall-info: uninstall-info-recursive
 	mostlyclean-recursive pdf pdf-am pdf-recursive ps ps-am \
 	ps-recursive tags tags-recursive uninstall uninstall-am \
 	uninstall-info-am uninstall-info-recursive uninstall-recursive
+
+
+install-data-local:
+	@$(NORMAL_INSTALL)
+	if test -d $(srcdir)/pixmaps; then \
+	  $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/pixmaps; \
+	  for pixmap in $(srcdir)/pixmaps/*; do \
+	    if test -f $$pixmap; then \
+	      $(INSTALL_DATA) $$pixmap $(DESTDIR)$(pkgdatadir)/pixmaps; \
+	    fi \
+	  done \
+	fi
+
+dist-hook:
+	if test -d pixmaps; then \
+	  mkdir $(distdir)/pixmaps; \
+	  for pixmap in pixmaps/*; do \
+	    if test -f $$pixmap; then \
+	      cp -p $$pixmap $(distdir)/pixmaps; \
+	    fi \
+	  done \
+	fi
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

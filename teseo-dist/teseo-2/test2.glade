@@ -3876,6 +3876,7 @@ and again . . .</property>
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">NN 1</property>
 			  <property name="use_underline">True</property>
+			  <property name="icon">brain_mri_small.xpm</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
 			  <property name="is_important">False</property>
@@ -3892,6 +3893,7 @@ and again . . .</property>
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">NN 2</property>
 			  <property name="use_underline">True</property>
+			  <property name="icon">brain_mri_small.xpm</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
 			  <property name="is_important">False</property>
@@ -3908,6 +3910,7 @@ and again . . .</property>
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">NN 3</property>
 			  <property name="use_underline">True</property>
+			  <property name="icon">brain_mri_small.xpm</property>
 			  <property name="visible_horizontal">True</property>
 			  <property name="visible_vertical">True</property>
 			  <property name="is_important">False</property>
