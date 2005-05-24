@@ -1,6 +1,9 @@
 #include <gtk/gtk.h>
 
 
+extern   GtkWidget *teseowin;
+extern   GtkWidget *preferencesdlg;
+
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -127,4 +130,34 @@ on_help1_activate                      (GtkMenuItem     *menuitem,
 
 void
 on_about1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_preferences_w_activate_item         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_preferences_w_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+gboolean
+on_win_neuronteseo_delete_event        (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
+
+void
+on_win_preferences_destroy             (GtkObject       *object,
+                                        gpointer         user_data);
+
+gboolean
+on_win_preferences_delete_event        (GtkWidget       *widget,
+                                        GdkEvent        *event,
                                         gpointer         user_data);

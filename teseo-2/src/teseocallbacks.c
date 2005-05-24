@@ -4,9 +4,16 @@
 
 #include <gtk/gtk.h>
 
+
 #include "teseocallbacks.h"
 #include "teseointerface.h"
 #include "teseosupport.h"
+
+
+
+GtkWidget * preferencesdlg;
+GtkWidget * teseowin;
+
 
 
 void
@@ -262,5 +269,41 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+}
+
+
+void
+on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+ gtk_widget_show(preferencesdlg);
+}
+
+
+void
+on_preferences_w_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+ gtk_widget_show(preferencesdlg);
+}
+
+
+gboolean
+on_win_neuronteseo_delete_event        (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data)
+{
+  gtk_main_quit();
+  return TRUE;
+}
+
+
+gboolean
+on_win_preferences_delete_event        (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data)
+{
+  gtk_widget_hide(preferencesdlg);
+  return TRUE;
 }
 
