@@ -3,4 +3,4 @@
  */
 
 GtkWidget* create_win_neuronteseo (void);
-GtkWidget* create_win_preferences (void);
+GtkWidget* create_preferences_dlg (void);

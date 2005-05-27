@@ -90,8 +90,8 @@ dialog (gint32              image_ID,
 
 
   teseowin = create_win_neuronteseo();
-  preferencesdlg = create_win_preferences();
-
+  
+  preferencesdlg = create_preferences_dlg ();
 
   //gtk_widget_show (teseodlg);
   gtk_widget_show (teseowin);

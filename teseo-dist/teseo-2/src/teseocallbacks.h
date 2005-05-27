@@ -161,3 +161,12 @@ gboolean
 on_win_preferences_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
+
+void
+on_preferences_dlg_response            (GtkDialog       *dialog,
+                                        gint             response_id,
+                                        gpointer         user_data);
+
+void
+on_preferences_dlg_close               (GtkDialog       *dialog,
+                                        gpointer         user_data);
