@@ -1419,444 +1419,432 @@ create_win_neuronteseo (void)
 }
 
 GtkWidget*
-create_win_preferences (void)
+create_preferences_dlg (void)
 {
-  GtkWidget *win_preferences;
-  GtkWidget *fixed2;
-  GtkWidget *button6;
-  GtkWidget *button5;
-  GtkWidget *button4;
-  GtkWidget *button3;
-  GtkWidget *notebook1;
-  GtkWidget *vbox8;
-  GtkWidget *frame6;
-  GtkWidget *vbox10;
-  GtkWidget *label17;
-  GtkWidget *frame5;
-  GtkWidget *vbox9;
-  GtkWidget *checkbutton_show_advice;
-  GtkWidget *label15;
-  GtkWidget *frame1;
-  GtkWidget *vbox5;
-  GtkWidget *checkbutton_reloc_origin;
-  GtkWidget *checkbutton_autoresample;
-  GtkWidget *label10;
-  GtkWidget *label_General;
-  GtkWidget *vbox2;
-  GtkWidget *frame3;
-  GtkWidget *vbox6;
-  GtkWidget *checkbutton_direct_bezier;
-  GtkWidget *label12;
-  GtkWidget *frame4;
-  GtkWidget *vbox7;
-  GtkWidget *hbox3;
-  GtkWidget *label14;
-  GtkObject *spinbutton3_adj;
-  GtkWidget *spinbutton3;
-  GtkWidget *checkbutton_ascendent;
-  GtkWidget *hbox4;
-  GtkWidget *checkbutton_autosave_tmppath;
-  GtkObject *spinbutton4_adj;
-  GtkWidget *spinbutton4;
-  GtkWidget *label13;
-  GtkWidget *frame2;
-  GtkWidget *hbox1;
-  GtkWidget *checkbutton_fitting;
-  GtkWidget *vbox3;
-  GtkWidget *radiobutton_polynomial;
-  GSList *radiobutton_polynomial_group = NULL;
-  GtkWidget *radiobutton_minimum_square;
-  GtkWidget *hbox2;
-  GtkWidget *label5;
-  GtkObject *spinbutton1_adj;
-  GtkWidget *spinbutton1;
-  GtkWidget *table1;
-  GtkWidget *label6;
-  GtkWidget *label7;
-  GtkWidget *label8;
-  GtkWidget *label9;
-  GtkWidget *entry_svdfit;
-  GtkWidget *entry_lfit;
-  GtkWidget *label11;
-  GtkWidget *label_Path;
-  AtkObject *atko;
+  GtkWidget *preferences_dlg;
+  GtkWidget *dialog_vbox3;
+  GtkWidget *notebook3;
+  GtkWidget *vbox55;
+  GtkWidget *frame44;
+  GtkWidget *vbox56;
+  GtkWidget *label147;
+  GtkWidget *frame45;
+  GtkWidget *vbox57;
+  GtkWidget *checkbutton26;
+  GtkWidget *label148;
+  GtkWidget *frame46;
+  GtkWidget *vbox58;
+  GtkWidget *checkbutton27;
+  GtkWidget *checkbutton28;
+  GtkWidget *label149;
+  GtkWidget *label150;
+  GtkWidget *vbox59;
+  GtkWidget *frame47;
+  GtkWidget *vbox60;
+  GtkWidget *checkbutton29;
+  GtkWidget *label151;
+  GtkWidget *frame48;
+  GtkWidget *vbox61;
+  GtkWidget *hbox23;
+  GtkWidget *label152;
+  GtkObject *spinbutton38_adj;
+  GtkWidget *spinbutton38;
+  GtkWidget *checkbutton30;
+  GtkWidget *hbox24;
+  GtkWidget *checkbutton31;
+  GtkObject *spinbutton39_adj;
+  GtkWidget *spinbutton39;
+  GtkWidget *label153;
+  GtkWidget *frame49;
+  GtkWidget *hbox25;
+  GtkWidget *checkbutton32;
+  GtkWidget *vbox62;
+  GtkWidget *radiobutton24;
+  GSList *radiobutton24_group = NULL;
+  GtkWidget *radiobutton25;
+  GSList *radiobutton25_group = NULL;
+  GtkWidget *hbox26;
+  GtkWidget *label154;
+  GtkObject *spinbutton40_adj;
+  GtkWidget *spinbutton40;
+  GtkWidget *table10;
+  GtkWidget *label155;
+  GtkWidget *label156;
+  GtkWidget *label157;
+  GtkWidget *label158;
+  GtkWidget *entry1;
+  GtkWidget *entry2;
+  GtkWidget *label159;
+  GtkWidget *label160;
+  GtkWidget *dialog_action_area3;
+  GtkWidget *cancelbutton2;
+  GtkWidget *okbutton2;
 
-  win_preferences = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (win_preferences, "win_preferences");
-  GTK_WIDGET_SET_FLAGS (win_preferences, GTK_CAN_DEFAULT);
-  gtk_window_set_title (GTK_WINDOW (win_preferences), "Preferences ...");
-  gtk_window_set_modal (GTK_WINDOW (win_preferences), TRUE);
+  preferences_dlg = gtk_dialog_new ();
+  gtk_widget_set_name (preferences_dlg, "preferences_dlg");
+  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences");
+  gtk_window_set_position (GTK_WINDOW (preferences_dlg), GTK_WIN_POS_MOUSE);
+  gtk_window_set_modal (GTK_WINDOW (preferences_dlg), TRUE);
+  gtk_window_set_type_hint (GTK_WINDOW (preferences_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  fixed2 = gtk_fixed_new ();
-  gtk_widget_set_name (fixed2, "fixed2");
-  gtk_widget_show (fixed2);
-  gtk_container_add (GTK_CONTAINER (win_preferences), fixed2);
-  GTK_WIDGET_SET_FLAGS (fixed2, GTK_CAN_FOCUS);
+  dialog_vbox3 = GTK_DIALOG (preferences_dlg)->vbox;
+  gtk_widget_set_name (dialog_vbox3, "dialog_vbox3");
+  gtk_widget_show (dialog_vbox3);
 
-  button6 = gtk_button_new_from_stock ("gtk-open");
-  gtk_widget_set_name (button6, "button6");
-  gtk_widget_show (button6);
-  gtk_fixed_put (GTK_FIXED (fixed2), button6, 16, 360);
-  gtk_widget_set_size_request (button6, 82, 31);
+  notebook3 = gtk_notebook_new ();
+  gtk_widget_set_name (notebook3, "notebook3");
+  gtk_widget_show (notebook3);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox3), notebook3, TRUE, TRUE, 0);
+  gtk_widget_set_size_request (notebook3, 508, 356);
+  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook3), TRUE);
 
-  button5 = gtk_button_new_from_stock ("gtk-save-as");
-  gtk_widget_set_name (button5, "button5");
-  gtk_widget_show (button5);
-  gtk_fixed_put (GTK_FIXED (fixed2), button5, 112, 360);
-  gtk_widget_set_size_request (button5, 82, 31);
+  vbox55 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox55, "vbox55");
+  gtk_widget_show (vbox55);
+  gtk_container_add (GTK_CONTAINER (notebook3), vbox55);
 
-  button4 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_set_name (button4, "button4");
-  gtk_widget_show (button4);
-  gtk_fixed_put (GTK_FIXED (fixed2), button4, 312, 360);
-  gtk_widget_set_size_request (button4, 82, 31);
+  frame44 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame44, "frame44");
+  gtk_widget_show (frame44);
+  gtk_box_pack_start (GTK_BOX (vbox55), frame44, TRUE, TRUE, 0);
 
-  button3 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_set_name (button3, "button3");
-  gtk_widget_show (button3);
-  gtk_fixed_put (GTK_FIXED (fixed2), button3, 400, 360);
-  gtk_widget_set_size_request (button3, 82, 31);
+  vbox56 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox56, "vbox56");
+  gtk_widget_show (vbox56);
+  gtk_container_add (GTK_CONTAINER (frame44), vbox56);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox56), 4);
 
-  notebook1 = gtk_notebook_new ();
-  gtk_widget_set_name (notebook1, "notebook1");
-  gtk_widget_show (notebook1);
-  gtk_fixed_put (GTK_FIXED (fixed2), notebook1, 0, 0);
-  gtk_widget_set_size_request (notebook1, 508, 356);
-  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook1), TRUE);
+  label147 = gtk_label_new ("Environment");
+  gtk_widget_set_name (label147, "label147");
+  gtk_widget_show (label147);
+  gtk_frame_set_label_widget (GTK_FRAME (frame44), label147);
 
-  vbox8 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox8, "vbox8");
-  gtk_widget_show (vbox8);
-  gtk_container_add (GTK_CONTAINER (notebook1), vbox8);
+  frame45 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame45, "frame45");
+  gtk_widget_show (frame45);
+  gtk_box_pack_start (GTK_BOX (vbox55), frame45, TRUE, TRUE, 0);
 
-  frame6 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame6, "frame6");
-  gtk_widget_show (frame6);
-  gtk_box_pack_start (GTK_BOX (vbox8), frame6, TRUE, TRUE, 0);
+  vbox57 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox57, "vbox57");
+  gtk_widget_show (vbox57);
+  gtk_container_add (GTK_CONTAINER (frame45), vbox57);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox57), 4);
 
-  vbox10 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox10, "vbox10");
-  gtk_widget_show (vbox10);
-  gtk_container_add (GTK_CONTAINER (frame6), vbox10);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox10), 4);
+  checkbutton26 = gtk_check_button_new_with_mnemonic ("Show advices");
+  gtk_widget_set_name (checkbutton26, "checkbutton26");
+  gtk_widget_show (checkbutton26);
+  gtk_box_pack_start (GTK_BOX (vbox57), checkbutton26, FALSE, FALSE, 0);
 
-  label17 = gtk_label_new ("Environment");
-  gtk_widget_set_name (label17, "label17");
-  gtk_widget_show (label17);
-  gtk_frame_set_label_widget (GTK_FRAME (frame6), label17);
+  label148 = gtk_label_new ("Miscellaneous");
+  gtk_widget_set_name (label148, "label148");
+  gtk_widget_show (label148);
+  gtk_frame_set_label_widget (GTK_FRAME (frame45), label148);
 
-  frame5 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame5, "frame5");
-  gtk_widget_show (frame5);
-  gtk_box_pack_start (GTK_BOX (vbox8), frame5, TRUE, TRUE, 0);
+  frame46 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame46, "frame46");
+  gtk_widget_show (frame46);
+  gtk_box_pack_start (GTK_BOX (vbox55), frame46, TRUE, TRUE, 0);
 
-  vbox9 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox9, "vbox9");
-  gtk_widget_show (vbox9);
-  gtk_container_add (GTK_CONTAINER (frame5), vbox9);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox9), 4);
+  vbox58 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox58, "vbox58");
+  gtk_widget_show (vbox58);
+  gtk_container_add (GTK_CONTAINER (frame46), vbox58);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox58), 4);
 
-  checkbutton_show_advice = gtk_check_button_new_with_mnemonic ("Show advices");
-  gtk_widget_set_name (checkbutton_show_advice, "checkbutton_show_advice");
-  gtk_widget_show (checkbutton_show_advice);
-  gtk_box_pack_start (GTK_BOX (vbox9), checkbutton_show_advice, FALSE, FALSE, 0);
+  checkbutton27 = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
+  gtk_widget_set_name (checkbutton27, "checkbutton27");
+  gtk_widget_show (checkbutton27);
+  gtk_box_pack_start (GTK_BOX (vbox58), checkbutton27, FALSE, FALSE, 0);
 
-  label15 = gtk_label_new ("Miscellaneous");
-  gtk_widget_set_name (label15, "label15");
-  gtk_widget_show (label15);
-  gtk_frame_set_label_widget (GTK_FRAME (frame5), label15);
+  checkbutton28 = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
+  gtk_widget_set_name (checkbutton28, "checkbutton28");
+  gtk_widget_show (checkbutton28);
+  gtk_box_pack_start (GTK_BOX (vbox58), checkbutton28, FALSE, FALSE, 0);
 
-  frame1 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame1, "frame1");
-  gtk_widget_show (frame1);
-  gtk_box_pack_start (GTK_BOX (vbox8), frame1, TRUE, TRUE, 0);
+  label149 = gtk_label_new ("Export");
+  gtk_widget_set_name (label149, "label149");
+  gtk_widget_show (label149);
+  gtk_frame_set_label_widget (GTK_FRAME (frame46), label149);
 
-  vbox5 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox5, "vbox5");
-  gtk_widget_show (vbox5);
-  gtk_container_add (GTK_CONTAINER (frame1), vbox5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox5), 4);
+  label150 = gtk_label_new ("General");
+  gtk_widget_set_name (label150, "label150");
+  gtk_widget_show (label150);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 0), label150);
 
-  checkbutton_reloc_origin = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
-  gtk_widget_set_name (checkbutton_reloc_origin, "checkbutton_reloc_origin");
-  gtk_widget_show (checkbutton_reloc_origin);
-  gtk_box_pack_start (GTK_BOX (vbox5), checkbutton_reloc_origin, FALSE, FALSE, 0);
+  vbox59 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox59, "vbox59");
+  gtk_widget_show (vbox59);
+  gtk_container_add (GTK_CONTAINER (notebook3), vbox59);
 
-  checkbutton_autoresample = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
-  gtk_widget_set_name (checkbutton_autoresample, "checkbutton_autoresample");
-  gtk_widget_show (checkbutton_autoresample);
-  gtk_box_pack_start (GTK_BOX (vbox5), checkbutton_autoresample, FALSE, FALSE, 0);
+  frame47 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame47, "frame47");
+  gtk_widget_show (frame47);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame47, TRUE, TRUE, 0);
 
-  label10 = gtk_label_new ("Export");
-  gtk_widget_set_name (label10, "label10");
-  gtk_widget_show (label10);
-  gtk_frame_set_label_widget (GTK_FRAME (frame1), label10);
+  vbox60 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox60, "vbox60");
+  gtk_widget_show (vbox60);
+  gtk_container_add (GTK_CONTAINER (frame47), vbox60);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox60), 4);
 
-  label_General = gtk_label_new ("General");
-  gtk_widget_set_name (label_General, "label_General");
-  gtk_widget_show (label_General);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 0), label_General);
+  checkbutton29 = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
+  gtk_widget_set_name (checkbutton29, "checkbutton29");
+  gtk_widget_show (checkbutton29);
+  gtk_box_pack_start (GTK_BOX (vbox60), checkbutton29, FALSE, FALSE, 0);
 
-  vbox2 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox2, "vbox2");
-  gtk_widget_show (vbox2);
-  gtk_container_add (GTK_CONTAINER (notebook1), vbox2);
+  label151 = gtk_label_new ("Miscellaneous");
+  gtk_widget_set_name (label151, "label151");
+  gtk_widget_show (label151);
+  gtk_frame_set_label_widget (GTK_FRAME (frame47), label151);
 
-  frame3 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame3, "frame3");
-  gtk_widget_show (frame3);
-  gtk_box_pack_start (GTK_BOX (vbox2), frame3, TRUE, TRUE, 0);
+  frame48 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame48, "frame48");
+  gtk_widget_show (frame48);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame48, TRUE, TRUE, 0);
 
-  vbox6 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox6, "vbox6");
-  gtk_widget_show (vbox6);
-  gtk_container_add (GTK_CONTAINER (frame3), vbox6);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox6), 4);
+  vbox61 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox61, "vbox61");
+  gtk_widget_show (vbox61);
+  gtk_container_add (GTK_CONTAINER (frame48), vbox61);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox61), 4);
 
-  checkbutton_direct_bezier = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
-  gtk_widget_set_name (checkbutton_direct_bezier, "checkbutton_direct_bezier");
-  gtk_widget_show (checkbutton_direct_bezier);
-  gtk_box_pack_start (GTK_BOX (vbox6), checkbutton_direct_bezier, FALSE, FALSE, 0);
+  hbox23 = gtk_hbox_new (FALSE, 6);
+  gtk_widget_set_name (hbox23, "hbox23");
+  gtk_widget_show (hbox23);
+  gtk_box_pack_start (GTK_BOX (vbox61), hbox23, TRUE, TRUE, 0);
 
-  label12 = gtk_label_new ("Miscellaneous");
-  gtk_widget_set_name (label12, "label12");
-  gtk_widget_show (label12);
-  gtk_frame_set_label_widget (GTK_FRAME (frame3), label12);
+  label152 = gtk_label_new ("Resampling step (pix)");
+  gtk_widget_set_name (label152, "label152");
+  gtk_widget_show (label152);
+  gtk_box_pack_start (GTK_BOX (hbox23), label152, FALSE, FALSE, 0);
 
-  frame4 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame4, "frame4");
-  gtk_widget_show (frame4);
-  gtk_box_pack_start (GTK_BOX (vbox2), frame4, TRUE, TRUE, 0);
+  spinbutton38_adj = gtk_adjustment_new (2, 0, 100, 1, 10, 10);
+  spinbutton38 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton38_adj), 1, 2);
+  gtk_widget_set_name (spinbutton38, "spinbutton38");
+  gtk_widget_show (spinbutton38);
+  gtk_box_pack_start (GTK_BOX (hbox23), spinbutton38, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton38), TRUE);
 
-  vbox7 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox7, "vbox7");
-  gtk_widget_show (vbox7);
-  gtk_container_add (GTK_CONTAINER (frame4), vbox7);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox7), 4);
+  checkbutton30 = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
+  gtk_widget_set_name (checkbutton30, "checkbutton30");
+  gtk_widget_show (checkbutton30);
+  gtk_box_pack_start (GTK_BOX (vbox61), checkbutton30, FALSE, FALSE, 0);
 
-  hbox3 = gtk_hbox_new (FALSE, 6);
-  gtk_widget_set_name (hbox3, "hbox3");
-  gtk_widget_show (hbox3);
-  gtk_box_pack_start (GTK_BOX (vbox7), hbox3, TRUE, TRUE, 0);
+  hbox24 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox24, "hbox24");
+  gtk_widget_show (hbox24);
+  gtk_box_pack_start (GTK_BOX (vbox61), hbox24, TRUE, TRUE, 0);
 
-  label14 = gtk_label_new ("Resampling step (pix)");
-  gtk_widget_set_name (label14, "label14");
-  gtk_widget_show (label14);
-  gtk_box_pack_start (GTK_BOX (hbox3), label14, FALSE, FALSE, 0);
+  checkbutton31 = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
+  gtk_widget_set_name (checkbutton31, "checkbutton31");
+  gtk_widget_show (checkbutton31);
+  gtk_box_pack_start (GTK_BOX (hbox24), checkbutton31, FALSE, FALSE, 0);
 
-  spinbutton3_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  spinbutton3 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton3_adj), 1, 2);
-  gtk_widget_set_name (spinbutton3, "spinbutton3");
-  gtk_widget_show (spinbutton3);
-  gtk_box_pack_start (GTK_BOX (hbox3), spinbutton3, FALSE, FALSE, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton3), TRUE);
+  spinbutton39_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  spinbutton39 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton39_adj), 1, 0);
+  gtk_widget_set_name (spinbutton39, "spinbutton39");
+  gtk_widget_show (spinbutton39);
+  gtk_box_pack_start (GTK_BOX (hbox24), spinbutton39, FALSE, TRUE, 0);
 
-  checkbutton_ascendent = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
-  gtk_widget_set_name (checkbutton_ascendent, "checkbutton_ascendent");
-  gtk_widget_show (checkbutton_ascendent);
-  gtk_box_pack_start (GTK_BOX (vbox7), checkbutton_ascendent, FALSE, FALSE, 0);
+  label153 = gtk_label_new ("Resampling");
+  gtk_widget_set_name (label153, "label153");
+  gtk_widget_show (label153);
+  gtk_frame_set_label_widget (GTK_FRAME (frame48), label153);
 
-  hbox4 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_set_name (hbox4, "hbox4");
-  gtk_widget_show (hbox4);
-  gtk_box_pack_start (GTK_BOX (vbox7), hbox4, TRUE, TRUE, 0);
+  frame49 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame49, "frame49");
+  gtk_widget_show (frame49);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame49, FALSE, FALSE, 0);
 
-  checkbutton_autosave_tmppath = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
-  gtk_widget_set_name (checkbutton_autosave_tmppath, "checkbutton_autosave_tmppath");
-  gtk_widget_show (checkbutton_autosave_tmppath);
-  gtk_box_pack_start (GTK_BOX (hbox4), checkbutton_autosave_tmppath, FALSE, FALSE, 0);
+  hbox25 = gtk_hbox_new (FALSE, 6);
+  gtk_widget_set_name (hbox25, "hbox25");
+  gtk_widget_show (hbox25);
+  gtk_container_add (GTK_CONTAINER (frame49), hbox25);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox25), 4);
 
-  spinbutton4_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  spinbutton4 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton4_adj), 1, 0);
-  gtk_widget_set_name (spinbutton4, "spinbutton4");
-  gtk_widget_show (spinbutton4);
-  gtk_box_pack_start (GTK_BOX (hbox4), spinbutton4, FALSE, TRUE, 0);
+  checkbutton32 = gtk_check_button_new_with_mnemonic ("Fitting");
+  gtk_widget_set_name (checkbutton32, "checkbutton32");
+  gtk_widget_show (checkbutton32);
+  gtk_box_pack_start (GTK_BOX (hbox25), checkbutton32, FALSE, FALSE, 0);
 
-  label13 = gtk_label_new ("Resampling");
-  gtk_widget_set_name (label13, "label13");
-  gtk_widget_show (label13);
-  gtk_frame_set_label_widget (GTK_FRAME (frame4), label13);
+  vbox62 = gtk_vbox_new (TRUE, 0);
+  gtk_widget_set_name (vbox62, "vbox62");
+  gtk_widget_show (vbox62);
+  gtk_box_pack_start (GTK_BOX (hbox25), vbox62, FALSE, TRUE, 0);
 
-  frame2 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame2, "frame2");
-  gtk_widget_show (frame2);
-  gtk_box_pack_start (GTK_BOX (vbox2), frame2, FALSE, FALSE, 0);
+  radiobutton24 = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
+  gtk_widget_set_name (radiobutton24, "radiobutton24");
+  gtk_widget_show (radiobutton24);
+  gtk_box_pack_start (GTK_BOX (vbox62), radiobutton24, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton24), radiobutton24_group);
+  radiobutton24_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton24));
 
-  hbox1 = gtk_hbox_new (FALSE, 6);
-  gtk_widget_set_name (hbox1, "hbox1");
-  gtk_widget_show (hbox1);
-  gtk_container_add (GTK_CONTAINER (frame2), hbox1);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox1), 4);
+  radiobutton25 = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
+  gtk_widget_set_name (radiobutton25, "radiobutton25");
+  gtk_widget_show (radiobutton25);
+  gtk_box_pack_start (GTK_BOX (vbox62), radiobutton25, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton25), radiobutton25_group);
+  radiobutton25_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton25));
 
-  checkbutton_fitting = gtk_check_button_new_with_mnemonic ("Fitting");
-  gtk_widget_set_name (checkbutton_fitting, "checkbutton_fitting");
-  gtk_widget_show (checkbutton_fitting);
-  gtk_box_pack_start (GTK_BOX (hbox1), checkbutton_fitting, FALSE, FALSE, 0);
+  hbox26 = gtk_hbox_new (FALSE, 5);
+  gtk_widget_set_name (hbox26, "hbox26");
+  gtk_widget_show (hbox26);
+  gtk_box_pack_start (GTK_BOX (hbox25), hbox26, TRUE, TRUE, 0);
 
-  vbox3 = gtk_vbox_new (TRUE, 0);
-  gtk_widget_set_name (vbox3, "vbox3");
-  gtk_widget_show (vbox3);
-  gtk_box_pack_start (GTK_BOX (hbox1), vbox3, FALSE, TRUE, 0);
+  label154 = gtk_label_new ("Order");
+  gtk_widget_set_name (label154, "label154");
+  gtk_widget_show (label154);
+  gtk_box_pack_start (GTK_BOX (hbox26), label154, FALSE, FALSE, 0);
 
-  radiobutton_polynomial = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
-  gtk_widget_set_name (radiobutton_polynomial, "radiobutton_polynomial");
-  gtk_widget_show (radiobutton_polynomial);
-  gtk_box_pack_start (GTK_BOX (vbox3), radiobutton_polynomial, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton_polynomial), radiobutton_polynomial_group);
-  radiobutton_polynomial_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton_polynomial));
+  spinbutton40_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  spinbutton40 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton40_adj), 1, 0);
+  gtk_widget_set_name (spinbutton40, "spinbutton40");
+  gtk_widget_show (spinbutton40);
+  gtk_box_pack_start (GTK_BOX (hbox26), spinbutton40, FALSE, FALSE, 0);
 
-  radiobutton_minimum_square = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
-  gtk_widget_set_name (radiobutton_minimum_square, "radiobutton_minimum_square");
-  gtk_widget_show (radiobutton_minimum_square);
-  gtk_box_pack_start (GTK_BOX (vbox3), radiobutton_minimum_square, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton_minimum_square), radiobutton_polynomial_group);
-  radiobutton_polynomial_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton_minimum_square));
+  table10 = gtk_table_new (2, 3, FALSE);
+  gtk_widget_set_name (table10, "table10");
+  gtk_widget_show (table10);
+  gtk_box_pack_start (GTK_BOX (hbox25), table10, TRUE, TRUE, 0);
+  gtk_table_set_col_spacings (GTK_TABLE (table10), 4);
 
-  hbox2 = gtk_hbox_new (FALSE, 5);
-  gtk_widget_set_name (hbox2, "hbox2");
-  gtk_widget_show (hbox2);
-  gtk_box_pack_start (GTK_BOX (hbox1), hbox2, TRUE, TRUE, 0);
-
-  label5 = gtk_label_new ("Order");
-  gtk_widget_set_name (label5, "label5");
-  gtk_widget_show (label5);
-  gtk_box_pack_start (GTK_BOX (hbox2), label5, FALSE, FALSE, 0);
-
-  spinbutton1_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  spinbutton1 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton1_adj), 1, 0);
-  gtk_widget_set_name (spinbutton1, "spinbutton1");
-  gtk_widget_show (spinbutton1);
-  gtk_box_pack_start (GTK_BOX (hbox2), spinbutton1, FALSE, FALSE, 0);
-
-  table1 = gtk_table_new (2, 3, FALSE);
-  gtk_widget_set_name (table1, "table1");
-  gtk_widget_show (table1);
-  gtk_box_pack_start (GTK_BOX (hbox1), table1, TRUE, TRUE, 0);
-  gtk_table_set_col_spacings (GTK_TABLE (table1), 4);
-
-  label6 = gtk_label_new ("SVDFIT");
-  gtk_widget_set_name (label6, "label6");
-  gtk_widget_show (label6);
-  gtk_table_attach (GTK_TABLE (table1), label6, 0, 1, 0, 1,
+  label155 = gtk_label_new ("SVDFIT");
+  gtk_widget_set_name (label155, "label155");
+  gtk_widget_show (label155);
+  gtk_table_attach (GTK_TABLE (table10), label155, 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label6), 0, 0.5);
+  gtk_misc_set_alignment (GTK_MISC (label155), 0, 0.5);
 
-  label7 = gtk_label_new ("LFIT");
-  gtk_widget_set_name (label7, "label7");
-  gtk_widget_show (label7);
-  gtk_table_attach (GTK_TABLE (table1), label7, 0, 1, 1, 2,
+  label156 = gtk_label_new ("LFIT");
+  gtk_widget_set_name (label156, "label156");
+  gtk_widget_show (label156);
+  gtk_table_attach (GTK_TABLE (table10), label156, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label7), 0, 0.5);
+  gtk_misc_set_alignment (GTK_MISC (label156), 0, 0.5);
 
-  label8 = gtk_label_new ("points");
-  gtk_widget_set_name (label8, "label8");
-  gtk_widget_show (label8);
-  gtk_table_attach (GTK_TABLE (table1), label8, 2, 3, 0, 1,
+  label157 = gtk_label_new ("points");
+  gtk_widget_set_name (label157, "label157");
+  gtk_widget_show (label157);
+  gtk_table_attach (GTK_TABLE (table10), label157, 2, 3, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label8), 0, 0.5);
+  gtk_misc_set_alignment (GTK_MISC (label157), 0, 0.5);
 
-  label9 = gtk_label_new ("points");
-  gtk_widget_set_name (label9, "label9");
-  gtk_widget_show (label9);
-  gtk_table_attach (GTK_TABLE (table1), label9, 2, 3, 1, 2,
+  label158 = gtk_label_new ("points");
+  gtk_widget_set_name (label158, "label158");
+  gtk_widget_show (label158);
+  gtk_table_attach (GTK_TABLE (table10), label158, 2, 3, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
+  gtk_misc_set_alignment (GTK_MISC (label158), 0, 0.5);
 
-  entry_svdfit = gtk_entry_new ();
-  gtk_widget_set_name (entry_svdfit, "entry_svdfit");
-  gtk_widget_show (entry_svdfit);
-  gtk_table_attach (GTK_TABLE (table1), entry_svdfit, 1, 2, 0, 1,
+  entry1 = gtk_entry_new ();
+  gtk_widget_set_name (entry1, "entry1");
+  gtk_widget_show (entry1);
+  gtk_table_attach (GTK_TABLE (table10), entry1, 1, 2, 0, 1,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (entry_svdfit, 60, -1);
+  gtk_widget_set_size_request (entry1, 60, -1);
 
-  entry_lfit = gtk_entry_new ();
-  gtk_widget_set_name (entry_lfit, "entry_lfit");
-  gtk_widget_show (entry_lfit);
-  gtk_table_attach (GTK_TABLE (table1), entry_lfit, 1, 2, 1, 2,
+  entry2 = gtk_entry_new ();
+  gtk_widget_set_name (entry2, "entry2");
+  gtk_widget_show (entry2);
+  gtk_table_attach (GTK_TABLE (table10), entry2, 1, 2, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (entry_lfit, 60, -1);
+  gtk_widget_set_size_request (entry2, 60, -1);
 
-  label11 = gtk_label_new ("Fitting");
-  gtk_widget_set_name (label11, "label11");
-  gtk_widget_show (label11);
-  gtk_frame_set_label_widget (GTK_FRAME (frame2), label11);
+  label159 = gtk_label_new ("Fitting");
+  gtk_widget_set_name (label159, "label159");
+  gtk_widget_show (label159);
+  gtk_frame_set_label_widget (GTK_FRAME (frame49), label159);
 
-  label_Path = gtk_label_new ("Adjustment");
-  gtk_widget_set_name (label_Path, "label_Path");
-  gtk_widget_show (label_Path);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), label_Path);
+  label160 = gtk_label_new ("Adjustment");
+  gtk_widget_set_name (label160, "label160");
+  gtk_widget_show (label160);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 1), label160);
 
-  g_signal_connect ((gpointer) win_preferences, "delete_event",
-                    G_CALLBACK (on_win_preferences_delete_event),
+  dialog_action_area3 = GTK_DIALOG (preferences_dlg)->action_area;
+  gtk_widget_set_name (dialog_action_area3, "dialog_action_area3");
+  gtk_widget_show (dialog_action_area3);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3), GTK_BUTTONBOX_END);
+
+  cancelbutton2 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (cancelbutton2, "cancelbutton2");
+  gtk_widget_show (cancelbutton2);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton2, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton2, GTK_CAN_DEFAULT);
+
+  okbutton2 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton2, "okbutton2");
+  gtk_widget_show (okbutton2);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton2, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton2, GTK_CAN_DEFAULT);
+
+  g_signal_connect ((gpointer) preferences_dlg, "response",
+                    G_CALLBACK (on_preferences_dlg_response),
+                    NULL);
+  g_signal_connect ((gpointer) preferences_dlg, "close",
+                    G_CALLBACK (on_preferences_dlg_close),
                     NULL);
 
-  atko = gtk_widget_get_accessible (label_Path);
-  atk_object_set_description (atko, "xxxxxxxxx");
-
-
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (win_preferences, win_preferences, "win_preferences");
-  GLADE_HOOKUP_OBJECT (win_preferences, fixed2, "fixed2");
-  GLADE_HOOKUP_OBJECT (win_preferences, button6, "button6");
-  GLADE_HOOKUP_OBJECT (win_preferences, button5, "button5");
-  GLADE_HOOKUP_OBJECT (win_preferences, button4, "button4");
-  GLADE_HOOKUP_OBJECT (win_preferences, button3, "button3");
-  GLADE_HOOKUP_OBJECT (win_preferences, notebook1, "notebook1");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox8, "vbox8");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame6, "frame6");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox10, "vbox10");
-  GLADE_HOOKUP_OBJECT (win_preferences, label17, "label17");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame5, "frame5");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox9, "vbox9");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_show_advice, "checkbutton_show_advice");
-  GLADE_HOOKUP_OBJECT (win_preferences, label15, "label15");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame1, "frame1");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox5, "vbox5");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_reloc_origin, "checkbutton_reloc_origin");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_autoresample, "checkbutton_autoresample");
-  GLADE_HOOKUP_OBJECT (win_preferences, label10, "label10");
-  GLADE_HOOKUP_OBJECT (win_preferences, label_General, "label_General");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox2, "vbox2");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame3, "frame3");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox6, "vbox6");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_direct_bezier, "checkbutton_direct_bezier");
-  GLADE_HOOKUP_OBJECT (win_preferences, label12, "label12");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame4, "frame4");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox7, "vbox7");
-  GLADE_HOOKUP_OBJECT (win_preferences, hbox3, "hbox3");
-  GLADE_HOOKUP_OBJECT (win_preferences, label14, "label14");
-  GLADE_HOOKUP_OBJECT (win_preferences, spinbutton3, "spinbutton3");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_ascendent, "checkbutton_ascendent");
-  GLADE_HOOKUP_OBJECT (win_preferences, hbox4, "hbox4");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_autosave_tmppath, "checkbutton_autosave_tmppath");
-  GLADE_HOOKUP_OBJECT (win_preferences, spinbutton4, "spinbutton4");
-  GLADE_HOOKUP_OBJECT (win_preferences, label13, "label13");
-  GLADE_HOOKUP_OBJECT (win_preferences, frame2, "frame2");
-  GLADE_HOOKUP_OBJECT (win_preferences, hbox1, "hbox1");
-  GLADE_HOOKUP_OBJECT (win_preferences, checkbutton_fitting, "checkbutton_fitting");
-  GLADE_HOOKUP_OBJECT (win_preferences, vbox3, "vbox3");
-  GLADE_HOOKUP_OBJECT (win_preferences, radiobutton_polynomial, "radiobutton_polynomial");
-  GLADE_HOOKUP_OBJECT (win_preferences, radiobutton_minimum_square, "radiobutton_minimum_square");
-  GLADE_HOOKUP_OBJECT (win_preferences, hbox2, "hbox2");
-  GLADE_HOOKUP_OBJECT (win_preferences, label5, "label5");
-  GLADE_HOOKUP_OBJECT (win_preferences, spinbutton1, "spinbutton1");
-  GLADE_HOOKUP_OBJECT (win_preferences, table1, "table1");
-  GLADE_HOOKUP_OBJECT (win_preferences, label6, "label6");
-  GLADE_HOOKUP_OBJECT (win_preferences, label7, "label7");
-  GLADE_HOOKUP_OBJECT (win_preferences, label8, "label8");
-  GLADE_HOOKUP_OBJECT (win_preferences, label9, "label9");
-  GLADE_HOOKUP_OBJECT (win_preferences, entry_svdfit, "entry_svdfit");
-  GLADE_HOOKUP_OBJECT (win_preferences, entry_lfit, "entry_lfit");
-  GLADE_HOOKUP_OBJECT (win_preferences, label11, "label11");
-  GLADE_HOOKUP_OBJECT (win_preferences, label_Path, "label_Path");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, preferences_dlg, "preferences_dlg");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox3, "dialog_vbox3");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, notebook3, "notebook3");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox55, "vbox55");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame44, "frame44");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox56, "vbox56");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label147, "label147");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame45, "frame45");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox57, "vbox57");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton26, "checkbutton26");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label148, "label148");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame46, "frame46");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox58, "vbox58");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton27, "checkbutton27");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton28, "checkbutton28");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label149, "label149");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label150, "label150");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox59, "vbox59");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame47, "frame47");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox60, "vbox60");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton29, "checkbutton29");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label151, "label151");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame48, "frame48");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox61, "vbox61");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox23, "hbox23");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label152, "label152");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton38, "spinbutton38");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton30, "checkbutton30");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox24, "hbox24");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton31, "checkbutton31");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton39, "spinbutton39");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label153, "label153");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame49, "frame49");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox25, "hbox25");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton32, "checkbutton32");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox62, "vbox62");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, radiobutton24, "radiobutton24");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, radiobutton25, "radiobutton25");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox26, "hbox26");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label154, "label154");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton40, "spinbutton40");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, table10, "table10");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label155, "label155");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label156, "label156");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label157, "label157");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label158, "label158");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, entry1, "entry1");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, entry2, "entry2");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area3, "dialog_action_area3");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton2, "cancelbutton2");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton2, "okbutton2");
 
-  gtk_widget_grab_default (win_preferences);
-  return win_preferences;
+  return preferences_dlg;
 }
 

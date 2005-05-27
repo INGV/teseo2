@@ -272,19 +272,31 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
 }
 
 
-void
-on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
- gtk_widget_show(preferencesdlg);
-}
 
 
 void
 on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- gtk_widget_show(preferencesdlg);
+
+ gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         g_message("OK pressed: save new preferences");
+         break;
+      case GTK_RESPONSE_CANCEL:
+         g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (preferencesdlg);
+  //gtk_widget_show(preferencesdlg);
+
 }
 
 
@@ -303,7 +315,27 @@ on_win_preferences_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
+  //gtk_widget_hide(preferencesdlg);
+  //return TRUE;
+}
+
+
+void
+on_preferences_dlg_response            (GtkDialog       *dialog,
+                                        gint             response_id,
+                                        gpointer         user_data)
+{
   gtk_widget_hide(preferencesdlg);
-  return TRUE;
+  //in response_id c'è ok o cancel
+  return response_id;
+}
+
+
+void
+on_preferences_dlg_close               (GtkDialog       *dialog,
+                                        gpointer         user_data)
+{
+  gtk_widget_hide(preferencesdlg);
+  return FALSE;
 }
 
