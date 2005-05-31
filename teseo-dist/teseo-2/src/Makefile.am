@@ -5,6 +5,13 @@ bin_PROGRAMS = teseo-2
 bindir = $(GIMP_LIBDIR)/plug-ins
 
 teseo_2_SOURCES = \
+	teseo_io.c	\
+	teseo_io.h	\
+	teseo_path.c	\
+	teseo_path.h	\
+	teseo_env.c	\
+	teseo_env.h	\
+	types.h	\
 	plugin-intl.h	\
 	pixmaps/brain_mri_small_invert_gray.xpm	\
 	pixmaps/brain_mri_small_invert.xpm	\

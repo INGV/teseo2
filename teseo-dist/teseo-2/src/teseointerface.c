@@ -1848,3 +1848,48 @@ create_preferences_dlg (void)
   return preferences_dlg;
 }
 
+GtkWidget*
+create_filechooserimport (void)
+{
+  GtkWidget *filechooserimport;
+  GtkWidget *dialog_vbox4;
+  GtkWidget *dialog_action_area4;
+  GtkWidget *button16;
+  GtkWidget *button17;
+
+  filechooserimport = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  gtk_widget_set_name (filechooserimport, "filechooserimport");
+  gtk_window_set_type_hint (GTK_WINDOW (filechooserimport), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox4 = GTK_DIALOG (filechooserimport)->vbox;
+  gtk_widget_set_name (dialog_vbox4, "dialog_vbox4");
+  gtk_widget_show (dialog_vbox4);
+
+  dialog_action_area4 = GTK_DIALOG (filechooserimport)->action_area;
+  gtk_widget_set_name (dialog_action_area4, "dialog_action_area4");
+  gtk_widget_show (dialog_action_area4);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4), GTK_BUTTONBOX_END);
+
+  button16 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (button16, "button16");
+  gtk_widget_show (button16);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button16, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (button16, GTK_CAN_DEFAULT);
+
+  button17 = gtk_button_new_from_stock ("gtk-open");
+  gtk_widget_set_name (button17, "button17");
+  gtk_widget_show (button17);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button17, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (button17, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, filechooserimport, "filechooserimport");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_vbox4, "dialog_vbox4");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_action_area4, "dialog_action_area4");
+  GLADE_HOOKUP_OBJECT (filechooserimport, button16, "button16");
+  GLADE_HOOKUP_OBJECT (filechooserimport, button17, "button17");
+
+  gtk_widget_grab_default (button17);
+  return filechooserimport;
+}
+
