@@ -47,6 +47,7 @@
 #define RANDOM_SEED_WIDTH  100
 
 
+
 /*  Local function prototypes  */
 
 static gboolean   dialog_image_constraint_func (gint32    image_id,
@@ -88,10 +89,11 @@ dialog (gint32              image_ID,
 
 			 NULL);*/
 
+  private_image=image_ID;
 
   teseowin = create_win_neuronteseo();
-  
   preferencesdlg = create_preferences_dlg ();
+  teseofilechooser = create_filechooserimport();
 
   //gtk_widget_show (teseodlg);
   gtk_widget_show (teseowin);

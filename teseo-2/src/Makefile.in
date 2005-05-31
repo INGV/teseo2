@@ -157,6 +157,12 @@ target_alias = @target_alias@
 bin_PROGRAMS = teseo-2
 
 teseo_2_SOURCES = \
+	teseo_io.c	\
+	teseo_io.h	\
+	teseo_path.c	\
+	teseo_path.h	\
+	teseo_env.c	\
+	teseo_env.h	\
 	plugin-intl.h	\
 	pixmaps/brain_mri_small_invert_gray.png	\
 	pixmaps/brain_mri_small_invert.png	\
@@ -200,7 +206,9 @@ PROGRAMS = $(bin_PROGRAMS)
 
 am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	render.$(OBJEXT) teseocallbacks.$(OBJEXT) \
-	teseosupport.$(OBJEXT) teseointerface.$(OBJEXT)
+	teseo_io.$(OBJEXT) teseo_path.$(OBJEXT) \
+	teseo_env.$(OBJEXT) teseosupport.$(OBJEXT)  \
+	teseointerface.$(OBJEXT)
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)

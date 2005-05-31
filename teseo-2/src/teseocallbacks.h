@@ -1,8 +1,14 @@
 #include <gtk/gtk.h>
+#include <libgimp/gimp.h>
+#include "teseo_io.h"
+#include "teseo_path.h"
 
 
 extern   GtkWidget *teseowin;
 extern   GtkWidget *preferencesdlg;
+extern   GtkWidget *teseofilechooser;
+extern   GimpDrawable *private_drawable ; //porcata
+extern   gint32  private_image ; //porcata
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
