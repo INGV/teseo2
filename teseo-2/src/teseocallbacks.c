@@ -9,6 +9,8 @@
 #include "teseointerface.h"
 #include "teseosupport.h"
 
+#include "teseo_resample.h"
+
 
 
 GtkWidget * preferencesdlg;
@@ -202,7 +204,8 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	// call_on_btnBezier_clicked(private_image, pivals);
+	call_on_btnBezier_clicked(private_image, 1, 1);
 }
 
 
