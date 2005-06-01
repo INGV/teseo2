@@ -8,7 +8,7 @@ extern   GtkWidget *teseowin;
 extern   GtkWidget *preferencesdlg;
 extern   GtkWidget *teseofilechooser;
 extern   GimpDrawable *private_drawable ; //porcata
-extern   gint32  private_image ; //porcata
+extern   gint32  teseo_image ; //porcata
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,

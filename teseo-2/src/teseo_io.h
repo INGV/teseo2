@@ -11,6 +11,8 @@
 #include <dirent.h>
 
 
+#define FILENAMELEN 200
+
 /*Funzioni di utilità sui file*/
 	gint test_dir( char *nome_dir);
 	gint fileesiste( char *nome_file);

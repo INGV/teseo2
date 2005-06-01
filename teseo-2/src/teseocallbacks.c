@@ -18,7 +18,7 @@ GtkWidget * teseowin;
 GtkWidget * teseofilechooser;
 
 GimpDrawable       *private_drawable ; //porcata
-gint32  private_image ; //porcata
+gint32  teseo_image ; //porcata
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -64,15 +64,19 @@ void
 on_path2_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+  char filename[FILENAMELEN];
+
   //TODO resource file
+
+  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-  char filename[160];
+
   switch (result)
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         g_message("OK pressed: open and display bezier  %s on image %d", filename, private_image);
-	 Carica_Bzr( private_image, filename );
+         g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
+	 Carica_Bzr( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything");
@@ -93,6 +97,31 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+  char filename[FILENAMELEN];
+
+  //TODO resource file
+  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
+  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+
+
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+         g_message("OK pressed: open and display DXF path  %s on image %d", filename, teseo_image);
+	 //TODO
+	 Carica_Dxf( teseo_image, filename );
+         break;
+      case GTK_RESPONSE_CANCEL:
+         g_message("Cancel pressed: don't do anything");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (teseofilechooser);
 }
 
 

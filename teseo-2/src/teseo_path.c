@@ -11,7 +11,7 @@ void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** ps
   gdouble offx, offy;
   glong i;
   //g_message(" neuronSismos_ruotastrokes..inizio");
-	
+
   strokes_ruotato = (gdouble *) malloc(sizeof(gdouble) * (num_strokes + 1) * 2);
   strokes_ruotato[num_strokes*2] = (gdouble) CANARY;
 
@@ -45,7 +45,7 @@ void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** ps
 	for(i=0; i < num_strokes ; i++) {
   	strokes[i*2] += offx;
   	strokes[i*2 +1] += offy;
-  	
+
   	strokes_ruotato[i*2] += offx;
   	strokes_ruotato[i*2 +1] += offy;
   }
@@ -179,15 +179,15 @@ void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, c
    	for(j=0; j<2; j++) {
    		vet_punti[k*3]=strokes[0];
    		vet_punti[k*3+1]=strokes[1];
-   		vet_punti[k*3+2]= (j == 0) ? 1.0 : 2.0;  	  	
+   		vet_punti[k*3+2]= (j == 0) ? 1.0 : 2.0;
    		k++;
-   	} 	
-   	
+   	}
+
     for (i=1; i<num_strokes && k<num_strokes*3; i++) {
     	for(j=0; j<3  && k<num_strokes*3; j++) {
     		vet_punti[k*3]=strokes[i*2];
     		vet_punti[k*3+1]=strokes[i*2+1];
-    		vet_punti[k*3+2]= ( (j % 3) == 1) ? 1.0 : 2.0;  	  	
+    		vet_punti[k*3+2]= ( (j % 3) == 1) ? 1.0 : 2.0;
     		k++;
     	}
     }
@@ -203,7 +203,7 @@ void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, c
      //g_message(gimp_path_get_current(g_image));
     }
     if(vet_punti[lpunti] != (gdouble) CANARY)
-    	g_message("Canaryin vet_punti is dead!");
+    	g_message("Canary in vet_punti is dead!");
   }
   else {
      if(vet_punti!=NULL)
@@ -442,7 +442,7 @@ void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
 
    gimp_path_delete(g_image,pathname);
 
-   gimp_path_set_points(g_image, pathname, 1, n_details, path_array);	
+   gimp_path_set_points(g_image, pathname, 1, n_details, path_array);
 
  }
   if(path_array)
