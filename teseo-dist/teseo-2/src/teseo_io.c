@@ -7,7 +7,7 @@
 #include <locale.h>
 
 //31/05#include "neuronutils.h"
-//TODO spostare o modificare salva_sisma_cm salva_dxf_cm salva_marcatempi_cm
+//TODO spostare o modificare save_sisma_cm save_dxf_cm save_marcatempi_cm
 
 
 int my_system(char * command, char * const argv[200], char * const env[]  ){
@@ -34,7 +34,7 @@ int my_system(char * command, char * const argv[200], char * const env[]  ){
 }
 
 
-gint fileesiste( char *nome_file)
+gint filexist( char *nome_file)
 {
   FILE *test = fopen( nome_file, "rb" );
   int app=0;
@@ -54,7 +54,7 @@ gint test_dir( char *nome_dir)
 {
   gint ret=0;
   DIR * directory=NULL;
-  if ( fileesiste( nome_dir )) {
+  if ( filexist( nome_dir )) {
    directory=opendir(nome_dir);
    if ( directory ){
     ret=1;
@@ -64,8 +64,8 @@ gint test_dir( char *nome_dir)
   return ret;
 }
 
-
-void Carica_Dxf ( gint32 g_image, char * NomeFileDxf  )
+/*Put on the image g_image the bezier path loaded from NomeFileDxf*/
+void import_dxf ( gint32 g_image, char * NomeFileDxf  )
 {
 
 FILE *fp = NULL;
@@ -245,8 +245,8 @@ void Carica_Traccia ( gint32 g_image, char * NomeFileTraccia  )
 }
 */
 
-
-void Carica_Bzr ( gint32 g_image, char * NomeFileBzr  )
+/*Put on the image g_image the bezier path loaded from NomeFileBzr*/
+void import_bzr ( gint32 g_image, char * NomeFileBzr  )
 {
  //g_message("%s",NomeFileBzr);
  FILE *fp = NULL;
@@ -308,13 +308,6 @@ void Carica_Bzr ( gint32 g_image, char * NomeFileBzr  )
 }
 
 
-
-/*
-void Carica_Timemarker ( gint32 g_image, char * NomeFileTimeMarker ){
-	g_message("Pazienza %s non lo so leggere", NomeFileTimeMarker );
-}
-*/
-
 /*Funzioni di output*/
 
 gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
@@ -367,7 +360,7 @@ return 1;
 
 
 
-//gint salva_path(gpointer user_data ){
+//gint save_path(gpointer user_data ){
 // //g_message("passa il tempo");
 // gint num_paths=0;
 // gimp_path_list (g_image_gen, &num_paths);
@@ -381,7 +374,9 @@ return 1;
 
 /*Da fare : introdurre un parametro in più per unificare le due di sotto*/
 
-void salva_path_dxf(gint32 g_image, char* filename, gint scalatura){
+/*Save the current path on the image g_image in filename in dxf format*/
+/*scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
+void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  //recupero il path in uno strokes, poi salva in dxf
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -401,7 +396,7 @@ void salva_path_dxf(gint32 g_image, char* filename, gint scalatura){
 }
 
 
-void	salva_path_timemarker(gint32 g_image, char* filename, gint scalatura){
+void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
@@ -416,10 +411,10 @@ void	salva_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  }
  if (strokes)
   free(strokes);
-
 }
 
-void salva_path_sisma(gint32 g_image, char* filename){
+/*Save the current path on the image g_image in filename in sisma format*/
+void save_path_sisma(gint32 g_image, char* filename){
  //recupero il path in uno strokes, poi salva in dxf
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -458,13 +453,13 @@ void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong
      {
 
       if ( tracciato ){
-      	//TODO salva_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
-	salva_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+      	//TODO save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+	save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
       else
       { //se salvo un marcatempo
-     		//TODO salva_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
-		salva_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+     		//TODO save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+		save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
      }
      else
@@ -494,14 +489,14 @@ void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , g
   if(!fstrokes)
     g_message("File \"%s\" not found.",file_sisma);
   else {
-    //TODO salva_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
-    salva_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
+    //TODO save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
+    save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
     fclose(fstrokes);
   }
 }
 
 /*
-void salva_path_traccia(gint32 g_image, char* filename){
+void save_path_traccia(gint32 g_image, char* filename){
  gdouble * strokes;
  glong n_strokes;
  gint num_paths;
@@ -529,7 +524,7 @@ void salva_path_traccia(gint32 g_image, char* filename){
 */
 
 /* Da usare sul path campionato a passo 1*/
-void salva_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
+void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
  //recupero il path in uno strokes, poi salva in dxf
 
  gdouble * strokes=NULL;
@@ -602,7 +597,7 @@ void salva_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar x
 
 
 
-void Carica_Timemarker ( gint32 g_image, char * NomeFileTimeMarker )
+void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 {
  //g_message("%s",NomeFileTimeMarker);
  FILE *fp = NULL;
@@ -687,7 +682,7 @@ void Carica_Timemarker ( gint32 g_image, char * NomeFileTimeMarker )
 
 /*NEW entries*/
 
-void salva_dxf(FILE * fp, gint num_punti, gdouble *vet_punti){
+void save_dxf(FILE * fp, gint num_punti, gdouble *vet_punti){
 
 int i=0;
 
@@ -735,9 +730,9 @@ EOF\n"
 
 //dpi risoluzione in DPI, height altezza immagine in pixel
 /* initialized_old
-void salva_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
+void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
 */
-void salva_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
+void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
 double x_zero=0.0;
 double y_zero=0.0;
 //double x,y;
@@ -791,9 +786,9 @@ EOF\n"
 }
 
 /* initialized_old
-void salva_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
+void save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
 */
-void salva_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
+void save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
 
 long counter = 32;
 double h_seg=10.0;
@@ -864,9 +859,9 @@ EOF\n"
 //Salvataggio in formato sisma
 //dpi risoluzione in DPI, height altezza immagine in pixel
 /* initialized_old
-void salva_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy=0){
+void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy=0){
 */
-void salva_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
+void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
 
 gdouble media=0;
 int i=0;
@@ -904,7 +899,7 @@ void wsac1(kname, yarray, nlen, beg, del, nerr, kname_s)
 
 //Salvataggio in formato sac
 //dpi risoluzione in DPI, height altezza immagine in pixel
-/*void salva_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
+/*void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
   long int max = 100 , j , nerr=0 ;
   float yfunc[ max ] , x , beg = 0. , del = 0.02 ;
   for ( j = 0 , x = beg ; j < max ; j++ , x += del )
@@ -916,7 +911,7 @@ void wsac1(kname, yarray, nlen, beg, del, nerr, kname_s)
 */
 
 /*Probabilmente non funziona !!!*/
-void salva_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
+void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
 
  float media=0;
  float * strokes_sac;
@@ -982,7 +977,7 @@ void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_s
   if(!fstrokes)
     g_message("Non riesco ad aprire %s",file_sac);
   else {
-    salva_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
+    save_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
     fclose(fstrokes);
   }
 }
