@@ -31,10 +31,6 @@ on_preferences_2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_path2_activate                      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
 on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -175,4 +171,24 @@ on_preferences_dlg_response            (GtkDialog       *dialog,
 
 void
 on_preferences_dlg_close               (GtkDialog       *dialog,
+                                        gpointer         user_data);
+
+void
+on_svg1_activate                       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_ascii1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_svg2_activate                       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_ascii2_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

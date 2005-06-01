@@ -74,7 +74,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separator2">
+		    <widget class="GtkSeparatorMenuItem" id="separator2">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -82,14 +82,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="preferences_2">
 		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">_Preferences ...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_preferences_w_activate" last_modification_time="Mon, 23 May 2005 13:58:29 GMT"/>
 		      <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image103">
+			<widget class="GtkImage" id="image135">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -103,7 +102,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separator4">
+		    <widget class="GtkSeparatorMenuItem" id="separator4">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -115,7 +114,7 @@
 		      <property name="use_underline">True</property>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image104">
+			<widget class="GtkImage" id="image136">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-back</property>
 			  <property name="icon_size">1</property>
@@ -130,11 +129,11 @@
 			<widget class="GtkMenu" id="import1_menu">
 
 			  <child>
-			    <widget class="GtkMenuItem" id="path2">
+			    <widget class="GtkMenuItem" id="svg1">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">_Path</property>
+			      <property name="label" translatable="yes">S_VG</property>
 			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_path2_activate" last_modification_time="Wed, 19 Nov 2003 17:14:11 GMT"/>
+			      <signal name="activate" handler="on_svg1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
 			    </widget>
 			  </child>
 
@@ -157,20 +156,20 @@
 			  </child>
 
 			  <child>
+			    <widget class="GtkMenuItem" id="ascii1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_ASCII</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_ascii1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
 			    <widget class="GtkMenuItem" id="sac2">
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">_SAC</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_sac2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkMenuItem" id="sac_xy2">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">SA_C XY</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_sac_xy2_activate" last_modification_time="Wed, 19 Nov 2003 17:11:07 GMT"/>
 			    </widget>
 			  </child>
 
@@ -191,6 +190,22 @@
 			      <signal name="activate" handler="on_timemark2_activate" last_modification_time="Wed, 19 Nov 2003 17:11:07 GMT"/>
 			    </widget>
 			  </child>
+
+			  <child>
+			    <widget class="GtkSeparatorMenuItem" id="separator6">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="bezier1">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Import old Bezier path GIMP 1.2</property>
+			      <property name="label" translatable="yes">Bezier</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_bezier1_activate" last_modification_time="Wed, 01 Jun 2005 10:24:51 GMT"/>
+			    </widget>
+			  </child>
 			</widget>
 		      </child>
 		    </widget>
@@ -203,7 +218,7 @@
 		      <property name="use_underline">True</property>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image105">
+			<widget class="GtkImage" id="image137">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-forward</property>
 			  <property name="icon_size">1</property>
@@ -218,11 +233,11 @@
 			<widget class="GtkMenu" id="export1_menu">
 
 			  <child>
-			    <widget class="GtkMenuItem" id="path1">
+			    <widget class="GtkMenuItem" id="svg2">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">_Path</property>
+			      <property name="label" translatable="yes">S_VG</property>
 			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_path1_activate" last_modification_time="Wed, 19 Nov 2003 17:14:11 GMT"/>
+			      <signal name="activate" handler="on_svg2_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
 			    </widget>
 			  </child>
 
@@ -245,20 +260,20 @@
 			  </child>
 
 			  <child>
+			    <widget class="GtkMenuItem" id="ascii2">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_ASCII</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_ascii2_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
 			    <widget class="GtkMenuItem" id="sac1">
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">_SAC</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_sac1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkMenuItem" id="sac_xy1">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">SA_C XY</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_sac_xy1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
 			    </widget>
 			  </child>
 
@@ -281,7 +296,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkMenuItem" id="separator5">
+			    <widget class="GtkSeparatorMenuItem" id="separator5">
 			      <property name="visible">True</property>
 			    </widget>
 			  </child>
@@ -289,6 +304,7 @@
 			  <child>
 			    <widget class="GtkMenuItem" id="examples2">
 			      <property name="visible">True</property>
+			      <property name="sensitive">False</property>
 			      <property name="label" translatable="yes">_Examples</property>
 			      <property name="use_underline">True</property>
 			    </widget>
@@ -299,7 +315,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separatormenuitem1">
+		    <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -390,7 +406,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separator3">
+		    <widget class="GtkSeparatorMenuItem" id="separator3">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -447,7 +463,7 @@
 		      <signal name="activate" handler="on_info_window_1_activate" last_modification_time="Wed, 19 Nov 2003 17:56:07 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image106">
+			<widget class="GtkImage" id="image138">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -481,7 +497,7 @@
 		      <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image107">
+			<widget class="GtkImage" id="image139">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-help</property>
 			  <property name="icon_size">1</property>
@@ -502,7 +518,7 @@
 		      <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image108">
+			<widget class="GtkImage" id="image140">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -2228,12 +2244,15 @@ and again . . .</property>
   </child>
 </widget>
 
-<widget class="GtkDialog" id="preferences_dlg">
+<widget class="GtkFileChooserDialog" id="filechooserimport">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Preferences</property>
+  <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+  <property name="local_only">True</property>
+  <property name="select_multiple">False</property>
+  <property name="show_hidden">False</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_MOUSE</property>
-  <property name="modal">True</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="decorated">True</property>
@@ -2241,23 +2260,20 @@ and again . . .</property>
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="has_separator">True</property>
-  <signal name="response" handler="on_preferences_dlg_response" last_modification_time="Thu, 26 May 2005 06:51:55 GMT"/>
-  <signal name="close" handler="on_preferences_dlg_close" last_modification_time="Thu, 26 May 2005 06:52:10 GMT"/>
 
   <child internal-child="vbox">
-    <widget class="GtkVBox" id="dialog-vbox3">
+    <widget class="GtkVBox" id="dialog-vbox4">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
+      <property name="spacing">24</property>
 
       <child internal-child="action_area">
-	<widget class="GtkHButtonBox" id="dialog-action_area3">
+	<widget class="GtkHButtonBox" id="dialog-action_area4">
 	  <property name="visible">True</property>
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 
 	  <child>
-	    <widget class="GtkButton" id="cancelbutton2">
+	    <widget class="GtkButton" id="button16">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -2270,7 +2286,84 @@ and again . . .</property>
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="okbutton2">
+	    <widget class="GtkButton" id="button17">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="has_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-open</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-5</property>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">True</property>
+	  <property name="pack_type">GTK_PACK_END</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+<widget class="GtkDialog" id="preferences_dlg">
+  <property name="visible">True</property>
+  <property name="title" translatable="yes">Preferences...</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="has_separator">True</property>
+
+  <child internal-child="vbox">
+    <widget class="GtkVBox" id="dialog-vbox5">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child internal-child="action_area">
+	<widget class="GtkHButtonBox" id="dialog-action_area6">
+	  <property name="visible">True</property>
+	  <property name="layout_style">GTK_BUTTONBOX_END</property>
+
+	  <child>
+	    <widget class="GtkButton" id="applybutton1">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-apply</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-10</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="cancelbutton3">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-cancel</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">-6</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="okbutton3">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -3112,72 +3205,6 @@ and again . . .</property>
 	  <property name="padding">0</property>
 	  <property name="expand">True</property>
 	  <property name="fill">True</property>
-	</packing>
-      </child>
-    </widget>
-  </child>
-</widget>
-
-<widget class="GtkFileChooserDialog" id="filechooserimport">
-  <property name="visible">True</property>
-  <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
-  <property name="local_only">True</property>
-  <property name="select_multiple">False</property>
-  <property name="show_hidden">False</property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
-  <property name="resizable">True</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-
-  <child internal-child="vbox">
-    <widget class="GtkVBox" id="dialog-vbox4">
-      <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">24</property>
-
-      <child internal-child="action_area">
-	<widget class="GtkHButtonBox" id="dialog-action_area4">
-	  <property name="visible">True</property>
-	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-
-	  <child>
-	    <widget class="GtkButton" id="button16">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <property name="response_id">-6</property>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkButton" id="button17">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="has_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-open</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <property name="response_id">-5</property>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">False</property>
-	  <property name="fill">True</property>
-	  <property name="pack_type">GTK_PACK_END</property>
 	</packing>
       </child>
     </widget>
