@@ -308,7 +308,7 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
 }
 
 
-/*Funzioni di output*/
+/*Output functions*/
 
 gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
   glong i=0, num_righe, len;
@@ -359,19 +359,6 @@ return 1;
 }
 
 
-
-//gint save_path(gpointer user_data ){
-// //g_message("passa il tempo");
-// gint num_paths=0;
-// gimp_path_list (g_image_gen, &num_paths);
-// if (num_paths>0){
-// //g_message("%s", ( char * ) user_data);
-// open_path_to_save(g_image_gen, gimp_path_get_current(g_image_gen), (char *) user_data);
-// }
-//return 1;
-//}
-
-
 /*Da fare : introdurre un parametro in più per unificare le due di sotto*/
 
 /*Save the current path on the image g_image in filename in dxf format*/
@@ -395,19 +382,20 @@ void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
   free(strokes);
 }
 
-
+/*Save the current timemarker path on the image g_image in filename in dxf format*/
+/*scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
 void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
  gint num_paths=0;
- /*Se esiste una traccia esegue*/
+ //if a path exist
  gimp_path_list (g_image, &num_paths);
  if (num_paths>0){
-   //prendo il nome del path corrente
+   //get the name of the current path
    strcpy(pathname, gimp_path_get_current(g_image));
    strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   strokes_dxf(g_image, filename, strokes, n_strokes, 0, scalatura ); //0 sta per salva marcatempi
+   strokes_dxf(g_image, filename, strokes, n_strokes, 0, scalatura ); //0 to save timemarker without resampling
  }
  if (strokes)
   free(strokes);
@@ -415,27 +403,27 @@ void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
 
 /*Save the current path on the image g_image in filename in sisma format*/
 void save_path_sisma(gint32 g_image, char* filename){
- //recupero il path in uno strokes, poi salva in dxf
+ 
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
  gint num_paths=0;
- /*Se esiste una traccia esegue*/
+  //if a path exist
  gimp_path_list (g_image, &num_paths);
  if (num_paths>0){
-   //prendo il nome del path corrente
+    //get the name of the current path
    strcpy(pathname, gimp_path_get_current(g_image));
    strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-//31/05   strokes_sisma(g_image, filename, strokes, n_strokes);
+   //31/05   strokes_sisma(g_image, filename, strokes, n_strokes);
    strokes_sisma(g_image, filename, strokes, n_strokes, 0);
  }
  if (strokes)
   free(strokes);
 }
 
-/* initialized_old
-void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato=1 , gint scalatura=0){
-*/
+//Put a strokes vector in a dxf file
+//tracciato = 0 -> timemarker
+//tracciato = 1 -> trace to be resampled
 void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura){
 
   FILE*  fstrokes;
@@ -453,28 +441,23 @@ void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong
      {
 
       if ( tracciato ){
-      	//TODO save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
-	save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+      	save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
       else
-      { //se salvo un marcatempo
-     		//TODO save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
-		save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+      { //timemarker
+     	save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
      }
      else
       {
       	// g_message("Non so proprio cosa salvare");
       }
-
      fclose(fstrokes);
 
   }
 }
 
-/* initialized_old
-void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy=0){
-*/
+//
 void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy){
   FILE*  fstrokes;
   gdouble xres;
