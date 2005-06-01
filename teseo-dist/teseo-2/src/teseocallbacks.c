@@ -61,33 +61,9 @@ on_preferences_2_activate              (GtkMenuItem     *menuitem,
 
 
 void
-on_path2_activate                      (GtkMenuItem     *menuitem,
+on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  char filename[FILENAMELEN];
-
-  //TODO resource file
-
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
-	 Carica_Bzr( teseo_image, filename );
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
-         break;
-      default:
-         break;
-    }
-  gtk_widget_hide (teseofilechooser);
 
 }
 
@@ -390,5 +366,61 @@ on_preferences_dlg_close               (GtkDialog       *dialog,
 {
   gtk_widget_hide(preferencesdlg);
   return FALSE;
+}
+
+
+
+void
+on_ascii1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_svg2_activate                       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_ascii2_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_bezier1_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+  char filename[FILENAMELEN];
+
+  //TODO resource file
+
+  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
+  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
+	 Carica_Bzr( teseo_image, filename );
+         break;
+      case GTK_RESPONSE_CANCEL:
+         g_message("Cancel pressed: don't do anything");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (teseofilechooser);
 }
 

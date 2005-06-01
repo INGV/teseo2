@@ -40,26 +40,28 @@ create_win_neuronteseo (void)
   GtkWidget *save_as1;
   GtkWidget *separator2;
   GtkWidget *preferences_2;
-  GtkWidget *image103;
+  GtkWidget *image135;
   GtkWidget *separator4;
   GtkWidget *import1;
-  GtkWidget *image104;
+  GtkWidget *image136;
   GtkWidget *import1_menu;
-  GtkWidget *path2;
+  GtkWidget *svg1;
   GtkWidget *dxf2;
   GtkWidget *trace2;
+  GtkWidget *ascii1;
   GtkWidget *sac2;
-  GtkWidget *sac_xy2;
   GtkWidget *sisma2;
   GtkWidget *timemark2;
+  GtkWidget *separator6;
+  GtkWidget *bezier1;
   GtkWidget *export1;
-  GtkWidget *image105;
+  GtkWidget *image137;
   GtkWidget *export1_menu;
-  GtkWidget *path1;
+  GtkWidget *svg2;
   GtkWidget *dxf1;
   GtkWidget *trace1;
+  GtkWidget *ascii2;
   GtkWidget *sac1;
-  GtkWidget *sac_xy1;
   GtkWidget *sisma1;
   GtkWidget *timemark1;
   GtkWidget *separator5;
@@ -83,13 +85,13 @@ create_win_neuronteseo (void)
   GtkWidget *neural_network1;
   GtkWidget *neural_network1_menu;
   GtkWidget *info_window_1;
-  GtkWidget *image106;
+  GtkWidget *image138;
   GtkWidget *menuitem7;
   GtkWidget *menuitem7_menu;
   GtkWidget *help1;
-  GtkWidget *image107;
+  GtkWidget *image139;
   GtkWidget *about1;
-  GtkWidget *image108;
+  GtkWidget *image140;
   GtkWidget *handlebox2;
   GtkWidget *alignment1;
   GtkWidget *toolbar1;
@@ -206,6 +208,9 @@ create_win_neuronteseo (void)
   GtkWidget *label54;
   GtkWidget *statusbar1;
   GtkAccelGroup *accel_group;
+  GtkTooltips *tooltips;
+
+  tooltips = gtk_tooltips_new ();
 
   accel_group = gtk_accel_group_new ();
 
@@ -253,7 +258,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (save_as1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), save_as1);
 
-  separator2 = gtk_menu_item_new ();
+  separator2 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator2, "separator2");
   gtk_widget_show (separator2);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), separator2);
@@ -263,17 +268,16 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (preferences_2, "preferences_2");
   gtk_widget_show (preferences_2);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), preferences_2);
-  GTK_WIDGET_SET_FLAGS (preferences_2, GTK_CAN_FOCUS);
   gtk_widget_add_accelerator (preferences_2, "activate", accel_group,
                               GDK_P, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image103 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image103, "image103");
-  gtk_widget_show (image103);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image103);
+  image135 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image135, "image135");
+  gtk_widget_show (image135);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image135);
 
-  separator4 = gtk_menu_item_new ();
+  separator4 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator4, "separator4");
   gtk_widget_show (separator4);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), separator4);
@@ -284,19 +288,19 @@ create_win_neuronteseo (void)
   gtk_widget_show (import1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), import1);
 
-  image104 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image104, "image104");
-  gtk_widget_show (image104);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image104);
+  image136 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image136, "image136");
+  gtk_widget_show (image136);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image136);
 
   import1_menu = gtk_menu_new ();
   gtk_widget_set_name (import1_menu, "import1_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (import1), import1_menu);
 
-  path2 = gtk_menu_item_new_with_mnemonic ("_Path");
-  gtk_widget_set_name (path2, "path2");
-  gtk_widget_show (path2);
-  gtk_container_add (GTK_CONTAINER (import1_menu), path2);
+  svg1 = gtk_menu_item_new_with_mnemonic ("S_VG");
+  gtk_widget_set_name (svg1, "svg1");
+  gtk_widget_show (svg1);
+  gtk_container_add (GTK_CONTAINER (import1_menu), svg1);
 
   dxf2 = gtk_menu_item_new_with_mnemonic ("_DXF");
   gtk_widget_set_name (dxf2, "dxf2");
@@ -308,15 +312,15 @@ create_win_neuronteseo (void)
   gtk_widget_show (trace2);
   gtk_container_add (GTK_CONTAINER (import1_menu), trace2);
 
+  ascii1 = gtk_menu_item_new_with_mnemonic ("_ASCII");
+  gtk_widget_set_name (ascii1, "ascii1");
+  gtk_widget_show (ascii1);
+  gtk_container_add (GTK_CONTAINER (import1_menu), ascii1);
+
   sac2 = gtk_menu_item_new_with_mnemonic ("_SAC");
   gtk_widget_set_name (sac2, "sac2");
   gtk_widget_show (sac2);
   gtk_container_add (GTK_CONTAINER (import1_menu), sac2);
-
-  sac_xy2 = gtk_menu_item_new_with_mnemonic ("SA_C XY");
-  gtk_widget_set_name (sac_xy2, "sac_xy2");
-  gtk_widget_show (sac_xy2);
-  gtk_container_add (GTK_CONTAINER (import1_menu), sac_xy2);
 
   sisma2 = gtk_menu_item_new_with_mnemonic ("S_ISMA");
   gtk_widget_set_name (sisma2, "sisma2");
@@ -328,24 +332,36 @@ create_win_neuronteseo (void)
   gtk_widget_show (timemark2);
   gtk_container_add (GTK_CONTAINER (import1_menu), timemark2);
 
+  separator6 = gtk_separator_menu_item_new ();
+  gtk_widget_set_name (separator6, "separator6");
+  gtk_widget_show (separator6);
+  gtk_container_add (GTK_CONTAINER (import1_menu), separator6);
+  gtk_widget_set_sensitive (separator6, FALSE);
+
+  bezier1 = gtk_menu_item_new_with_mnemonic ("Bezier");
+  gtk_widget_set_name (bezier1, "bezier1");
+  gtk_widget_show (bezier1);
+  gtk_container_add (GTK_CONTAINER (import1_menu), bezier1);
+  gtk_tooltips_set_tip (tooltips, bezier1, "Import old Bezier path GIMP 1.2", NULL);
+
   export1 = gtk_image_menu_item_new_with_mnemonic ("_Export ...");
   gtk_widget_set_name (export1, "export1");
   gtk_widget_show (export1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), export1);
 
-  image105 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image105, "image105");
-  gtk_widget_show (image105);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image105);
+  image137 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image137, "image137");
+  gtk_widget_show (image137);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image137);
 
   export1_menu = gtk_menu_new ();
   gtk_widget_set_name (export1_menu, "export1_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (export1), export1_menu);
 
-  path1 = gtk_menu_item_new_with_mnemonic ("_Path");
-  gtk_widget_set_name (path1, "path1");
-  gtk_widget_show (path1);
-  gtk_container_add (GTK_CONTAINER (export1_menu), path1);
+  svg2 = gtk_menu_item_new_with_mnemonic ("S_VG");
+  gtk_widget_set_name (svg2, "svg2");
+  gtk_widget_show (svg2);
+  gtk_container_add (GTK_CONTAINER (export1_menu), svg2);
 
   dxf1 = gtk_menu_item_new_with_mnemonic ("_DXF");
   gtk_widget_set_name (dxf1, "dxf1");
@@ -357,15 +373,15 @@ create_win_neuronteseo (void)
   gtk_widget_show (trace1);
   gtk_container_add (GTK_CONTAINER (export1_menu), trace1);
 
+  ascii2 = gtk_menu_item_new_with_mnemonic ("_ASCII");
+  gtk_widget_set_name (ascii2, "ascii2");
+  gtk_widget_show (ascii2);
+  gtk_container_add (GTK_CONTAINER (export1_menu), ascii2);
+
   sac1 = gtk_menu_item_new_with_mnemonic ("_SAC");
   gtk_widget_set_name (sac1, "sac1");
   gtk_widget_show (sac1);
   gtk_container_add (GTK_CONTAINER (export1_menu), sac1);
-
-  sac_xy1 = gtk_menu_item_new_with_mnemonic ("SA_C XY");
-  gtk_widget_set_name (sac_xy1, "sac_xy1");
-  gtk_widget_show (sac_xy1);
-  gtk_container_add (GTK_CONTAINER (export1_menu), sac_xy1);
 
   sisma1 = gtk_menu_item_new_with_mnemonic ("S_ISMA");
   gtk_widget_set_name (sisma1, "sisma1");
@@ -377,7 +393,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (timemark1);
   gtk_container_add (GTK_CONTAINER (export1_menu), timemark1);
 
-  separator5 = gtk_menu_item_new ();
+  separator5 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator5, "separator5");
   gtk_widget_show (separator5);
   gtk_container_add (GTK_CONTAINER (export1_menu), separator5);
@@ -387,8 +403,9 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (examples2, "examples2");
   gtk_widget_show (examples2);
   gtk_container_add (GTK_CONTAINER (export1_menu), examples2);
+  gtk_widget_set_sensitive (examples2, FALSE);
 
-  separatormenuitem1 = gtk_menu_item_new ();
+  separatormenuitem1 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separatormenuitem1, "separatormenuitem1");
   gtk_widget_show (separatormenuitem1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), separatormenuitem1);
@@ -443,7 +460,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (recover_last2);
   gtk_container_add (GTK_CONTAINER (path3_menu), recover_last2);
 
-  separator3 = gtk_menu_item_new ();
+  separator3 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator3, "separator3");
   gtk_widget_show (separator3);
   gtk_container_add (GTK_CONTAINER (path3_menu), separator3);
@@ -482,10 +499,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (info_window_1);
   gtk_container_add (GTK_CONTAINER (neural_network1_menu), info_window_1);
 
-  image106 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image106, "image106");
-  gtk_widget_show (image106);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (info_window_1), image106);
+  image138 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image138, "image138");
+  gtk_widget_show (image138);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (info_window_1), image138);
 
   menuitem7 = gtk_menu_item_new_with_mnemonic ("_Help");
   gtk_widget_set_name (menuitem7, "menuitem7");
@@ -501,20 +518,20 @@ create_win_neuronteseo (void)
   gtk_widget_show (help1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), help1);
 
-  image107 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image107, "image107");
-  gtk_widget_show (image107);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image107);
+  image139 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image139, "image139");
+  gtk_widget_show (image139);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image139);
 
   about1 = gtk_image_menu_item_new_with_mnemonic ("_About ...");
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), about1);
 
-  image108 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image108, "image108");
-  gtk_widget_show (image108);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image108);
+  image140 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image140, "image140");
+  gtk_widget_show (image140);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image140);
 
   handlebox2 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox2, "handlebox2");
@@ -1168,8 +1185,8 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) preferences_2, "activate",
                     G_CALLBACK (on_preferences_w_activate),
                     NULL);
-  g_signal_connect ((gpointer) path2, "activate",
-                    G_CALLBACK (on_path2_activate),
+  g_signal_connect ((gpointer) svg1, "activate",
+                    G_CALLBACK (on_svg1_activate),
                     NULL);
   g_signal_connect ((gpointer) dxf2, "activate",
                     G_CALLBACK (on_dxf2_activate),
@@ -1177,11 +1194,11 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) trace2, "activate",
                     G_CALLBACK (on_trace2_activate),
                     NULL);
+  g_signal_connect ((gpointer) ascii1, "activate",
+                    G_CALLBACK (on_ascii1_activate),
+                    NULL);
   g_signal_connect ((gpointer) sac2, "activate",
                     G_CALLBACK (on_sac2_activate),
-                    NULL);
-  g_signal_connect ((gpointer) sac_xy2, "activate",
-                    G_CALLBACK (on_sac_xy2_activate),
                     NULL);
   g_signal_connect ((gpointer) sisma2, "activate",
                     G_CALLBACK (on_sisma2_activate),
@@ -1189,8 +1206,11 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) timemark2, "activate",
                     G_CALLBACK (on_timemark2_activate),
                     NULL);
-  g_signal_connect ((gpointer) path1, "activate",
-                    G_CALLBACK (on_path1_activate),
+  g_signal_connect ((gpointer) bezier1, "activate",
+                    G_CALLBACK (on_bezier1_activate),
+                    NULL);
+  g_signal_connect ((gpointer) svg2, "activate",
+                    G_CALLBACK (on_svg2_activate),
                     NULL);
   g_signal_connect ((gpointer) dxf1, "activate",
                     G_CALLBACK (on_dxf1_activate),
@@ -1198,11 +1218,11 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) trace1, "activate",
                     G_CALLBACK (on_track1_activate),
                     NULL);
+  g_signal_connect ((gpointer) ascii2, "activate",
+                    G_CALLBACK (on_ascii2_activate),
+                    NULL);
   g_signal_connect ((gpointer) sac1, "activate",
                     G_CALLBACK (on_sac1_activate),
-                    NULL);
-  g_signal_connect ((gpointer) sac_xy1, "activate",
-                    G_CALLBACK (on_sac_xy1_activate),
                     NULL);
   g_signal_connect ((gpointer) sisma1, "activate",
                     G_CALLBACK (on_sisma1_activate),
@@ -1262,26 +1282,28 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, save_as1, "save_as1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator2, "separator2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, preferences_2, "preferences_2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image103, "image103");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image135, "image135");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator4, "separator4");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image104, "image104");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image136, "image136");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1_menu, "import1_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, path2, "path2");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, svg1, "svg1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf2, "dxf2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, trace2, "trace2");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, ascii1, "ascii1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, sac2, "sac2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sac_xy2, "sac_xy2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, sisma2, "sisma2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark2, "timemark2");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator6, "separator6");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, bezier1, "bezier1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image105, "image105");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image137, "image137");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1_menu, "export1_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, path1, "path1");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, svg2, "svg2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf1, "dxf1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, trace1, "trace1");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, ascii2, "ascii2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, sac1, "sac1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sac_xy1, "sac_xy1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, sisma1, "sisma1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark1, "timemark1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator5, "separator5");
@@ -1305,13 +1327,13 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, neural_network1, "neural_network1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, neural_network1_menu, "neural_network1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, info_window_1, "info_window_1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image106, "image106");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image138, "image138");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7, "menuitem7");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7_menu, "menuitem7_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image107, "image107");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image139, "image139");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image108, "image108");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image140, "image140");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox2, "handlebox2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, alignment1, "alignment1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar1, "toolbar1");
@@ -1412,6 +1434,7 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label59, "label59");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label54, "label54");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, statusbar1, "statusbar1");
+  GLADE_HOOKUP_OBJECT_NO_REF (win_neuronteseo, tooltips, "tooltips");
 
   gtk_window_add_accel_group (GTK_WINDOW (win_neuronteseo), accel_group);
 
@@ -1419,10 +1442,55 @@ create_win_neuronteseo (void)
 }
 
 GtkWidget*
+create_filechooserimport (void)
+{
+  GtkWidget *filechooserimport;
+  GtkWidget *dialog_vbox4;
+  GtkWidget *dialog_action_area4;
+  GtkWidget *button16;
+  GtkWidget *button17;
+
+  filechooserimport = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  gtk_widget_set_name (filechooserimport, "filechooserimport");
+  gtk_window_set_type_hint (GTK_WINDOW (filechooserimport), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox4 = GTK_DIALOG (filechooserimport)->vbox;
+  gtk_widget_set_name (dialog_vbox4, "dialog_vbox4");
+  gtk_widget_show (dialog_vbox4);
+
+  dialog_action_area4 = GTK_DIALOG (filechooserimport)->action_area;
+  gtk_widget_set_name (dialog_action_area4, "dialog_action_area4");
+  gtk_widget_show (dialog_action_area4);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4), GTK_BUTTONBOX_END);
+
+  button16 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (button16, "button16");
+  gtk_widget_show (button16);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button16, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (button16, GTK_CAN_DEFAULT);
+
+  button17 = gtk_button_new_from_stock ("gtk-open");
+  gtk_widget_set_name (button17, "button17");
+  gtk_widget_show (button17);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button17, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (button17, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, filechooserimport, "filechooserimport");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_vbox4, "dialog_vbox4");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_action_area4, "dialog_action_area4");
+  GLADE_HOOKUP_OBJECT (filechooserimport, button16, "button16");
+  GLADE_HOOKUP_OBJECT (filechooserimport, button17, "button17");
+
+  gtk_widget_grab_default (button17);
+  return filechooserimport;
+}
+
+GtkWidget*
 create_preferences_dlg (void)
 {
   GtkWidget *preferences_dlg;
-  GtkWidget *dialog_vbox3;
+  GtkWidget *dialog_vbox5;
   GtkWidget *notebook3;
   GtkWidget *vbox55;
   GtkWidget *frame44;
@@ -1476,25 +1544,24 @@ create_preferences_dlg (void)
   GtkWidget *entry2;
   GtkWidget *label159;
   GtkWidget *label160;
-  GtkWidget *dialog_action_area3;
-  GtkWidget *cancelbutton2;
-  GtkWidget *okbutton2;
+  GtkWidget *dialog_action_area6;
+  GtkWidget *applybutton1;
+  GtkWidget *cancelbutton3;
+  GtkWidget *okbutton3;
 
   preferences_dlg = gtk_dialog_new ();
   gtk_widget_set_name (preferences_dlg, "preferences_dlg");
-  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences");
-  gtk_window_set_position (GTK_WINDOW (preferences_dlg), GTK_WIN_POS_MOUSE);
-  gtk_window_set_modal (GTK_WINDOW (preferences_dlg), TRUE);
+  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences...");
   gtk_window_set_type_hint (GTK_WINDOW (preferences_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox3 = GTK_DIALOG (preferences_dlg)->vbox;
-  gtk_widget_set_name (dialog_vbox3, "dialog_vbox3");
-  gtk_widget_show (dialog_vbox3);
+  dialog_vbox5 = GTK_DIALOG (preferences_dlg)->vbox;
+  gtk_widget_set_name (dialog_vbox5, "dialog_vbox5");
+  gtk_widget_show (dialog_vbox5);
 
   notebook3 = gtk_notebook_new ();
   gtk_widget_set_name (notebook3, "notebook3");
   gtk_widget_show (notebook3);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox3), notebook3, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox5), notebook3, TRUE, TRUE, 0);
   gtk_widget_set_size_request (notebook3, 508, 356);
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook3), TRUE);
 
@@ -1766,33 +1833,32 @@ create_preferences_dlg (void)
   gtk_widget_show (label160);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 1), label160);
 
-  dialog_action_area3 = GTK_DIALOG (preferences_dlg)->action_area;
-  gtk_widget_set_name (dialog_action_area3, "dialog_action_area3");
-  gtk_widget_show (dialog_action_area3);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3), GTK_BUTTONBOX_END);
+  dialog_action_area6 = GTK_DIALOG (preferences_dlg)->action_area;
+  gtk_widget_set_name (dialog_action_area6, "dialog_action_area6");
+  gtk_widget_show (dialog_action_area6);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area6), GTK_BUTTONBOX_END);
 
-  cancelbutton2 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_set_name (cancelbutton2, "cancelbutton2");
-  gtk_widget_show (cancelbutton2);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton2, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (cancelbutton2, GTK_CAN_DEFAULT);
+  applybutton1 = gtk_button_new_from_stock ("gtk-apply");
+  gtk_widget_set_name (applybutton1, "applybutton1");
+  gtk_widget_show (applybutton1);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), applybutton1, GTK_RESPONSE_APPLY);
+  GTK_WIDGET_SET_FLAGS (applybutton1, GTK_CAN_DEFAULT);
 
-  okbutton2 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_set_name (okbutton2, "okbutton2");
-  gtk_widget_show (okbutton2);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton2, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (okbutton2, GTK_CAN_DEFAULT);
+  cancelbutton3 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (cancelbutton3, "cancelbutton3");
+  gtk_widget_show (cancelbutton3);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton3, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton3, GTK_CAN_DEFAULT);
 
-  g_signal_connect ((gpointer) preferences_dlg, "response",
-                    G_CALLBACK (on_preferences_dlg_response),
-                    NULL);
-  g_signal_connect ((gpointer) preferences_dlg, "close",
-                    G_CALLBACK (on_preferences_dlg_close),
-                    NULL);
+  okbutton3 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton3, "okbutton3");
+  gtk_widget_show (okbutton3);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton3, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton3, GTK_CAN_DEFAULT);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, preferences_dlg, "preferences_dlg");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox3, "dialog_vbox3");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox5, "dialog_vbox5");
   GLADE_HOOKUP_OBJECT (preferences_dlg, notebook3, "notebook3");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox55, "vbox55");
   GLADE_HOOKUP_OBJECT (preferences_dlg, frame44, "frame44");
@@ -1841,55 +1907,11 @@ create_preferences_dlg (void)
   GLADE_HOOKUP_OBJECT (preferences_dlg, entry2, "entry2");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area3, "dialog_action_area3");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton2, "cancelbutton2");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton2, "okbutton2");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area6, "dialog_action_area6");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, applybutton1, "applybutton1");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton3, "cancelbutton3");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton3, "okbutton3");
 
   return preferences_dlg;
-}
-
-GtkWidget*
-create_filechooserimport (void)
-{
-  GtkWidget *filechooserimport;
-  GtkWidget *dialog_vbox4;
-  GtkWidget *dialog_action_area4;
-  GtkWidget *button16;
-  GtkWidget *button17;
-
-  filechooserimport = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
-  gtk_widget_set_name (filechooserimport, "filechooserimport");
-  gtk_window_set_type_hint (GTK_WINDOW (filechooserimport), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox4 = GTK_DIALOG (filechooserimport)->vbox;
-  gtk_widget_set_name (dialog_vbox4, "dialog_vbox4");
-  gtk_widget_show (dialog_vbox4);
-
-  dialog_action_area4 = GTK_DIALOG (filechooserimport)->action_area;
-  gtk_widget_set_name (dialog_action_area4, "dialog_action_area4");
-  gtk_widget_show (dialog_action_area4);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4), GTK_BUTTONBOX_END);
-
-  button16 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_set_name (button16, "button16");
-  gtk_widget_show (button16);
-  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button16, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (button16, GTK_CAN_DEFAULT);
-
-  button17 = gtk_button_new_from_stock ("gtk-open");
-  gtk_widget_set_name (button17, "button17");
-  gtk_widget_show (button17);
-  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button17, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (button17, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, filechooserimport, "filechooserimport");
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_vbox4, "dialog_vbox4");
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_action_area4, "dialog_action_area4");
-  GLADE_HOOKUP_OBJECT (filechooserimport, button16, "button16");
-  GLADE_HOOKUP_OBJECT (filechooserimport, button17, "button17");
-
-  gtk_widget_grab_default (button17);
-  return filechooserimport;
 }
 
