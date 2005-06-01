@@ -567,7 +567,7 @@
 		  <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
 		  <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
 		  <property name="tooltips">True</property>
-		  <property name="show_arrow">True</property>
+		  <property name="show_arrow">False</property>
 
 		  <child>
 		    <widget class="GtkToolButton" id="button10">
@@ -738,8 +738,8 @@
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
-	  <property name="expand">False</property>
-	  <property name="fill">False</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
 	</packing>
       </child>
 
@@ -756,7 +756,7 @@
 	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
 	      <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
 	      <property name="tooltips">True</property>
-	      <property name="show_arrow">True</property>
+	      <property name="show_arrow">False</property>
 
 	      <child>
 		<widget class="GtkToolButton" id="button12">

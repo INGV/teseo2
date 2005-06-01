@@ -536,7 +536,7 @@ create_win_neuronteseo (void)
   handlebox2 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox2, "handlebox2");
   gtk_widget_show (handlebox2);
-  gtk_box_pack_start (GTK_BOX (vbox1), handlebox2, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox1), handlebox2, TRUE, TRUE, 0);
 
   alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment1, "alignment1");
@@ -548,6 +548,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (toolbar1);
   gtk_container_add (GTK_CONTAINER (alignment1), toolbar1);
   gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
+  gtk_toolbar_set_show_arrow (GTK_TOOLBAR (toolbar1), FALSE);
   tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar1));
 
   tmp_image = gtk_image_new_from_stock ("gtk-properties", tmp_toolbar_icon_size);
@@ -647,6 +648,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (toolbar2);
   gtk_container_add (GTK_CONTAINER (handlebox3), toolbar2);
   gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
+  gtk_toolbar_set_show_arrow (GTK_TOOLBAR (toolbar2), FALSE);
   tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar2));
 
   tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
