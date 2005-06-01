@@ -85,7 +85,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
          //g_message("OK pressed: open and display DXF path  %s on image %d", filename, teseo_image);
-	 Carica_Dxf( teseo_image, filename );
+	 import_dxf( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything");
@@ -410,7 +410,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
          //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
-	 Carica_Bzr( teseo_image, filename );
+	 import_bzr( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything");
@@ -423,4 +423,3 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     }
   gtk_widget_hide (teseofilechooser);
 }
-
