@@ -89,7 +89,7 @@ dialog (gint32              image_ID,
 
 			 NULL);*/
 
-  private_image=image_ID;
+  teseo_image=image_ID;
 
   teseowin = create_win_neuronteseo();
   preferencesdlg = create_preferences_dlg ();

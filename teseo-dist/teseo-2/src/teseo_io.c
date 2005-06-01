@@ -4,9 +4,10 @@
 
 #include "teseo_io.h"
 #include "teseo_path.h"
+#include <locale.h>
+
 //31/05#include "neuronutils.h"
 //TODO spostare o modificare salva_sisma_cm salva_dxf_cm salva_marcatempi_cm
-
 
 
 int my_system(char * command, char * const argv[200], char * const env[]  ){
@@ -85,8 +86,12 @@ gdouble dpi;
 gint image_height;
 gchar x_c[10],y_c[10];
 gchar *end = NULL;
+
 gdouble x,y;
 gdouble *v_punti = NULL;
+
+float my_x;
+float my_y;
 
 gdouble vertex[200];
 gint n_vertex=1;
@@ -101,8 +106,14 @@ char nome_path [] = "Imported Path" ;
 char jpolyline[2];
 
 
-gimp_image_get_resolution (g_image, &xres,&yres);
+setlocale(LC_NUMERIC, "C");
+
+gimp_image_get_resolution (g_image, &xres, &yres);
+//g_message("Risoluzione x=%f y=%f", xres, yres);
+
 image_height = gimp_image_height(g_image);
+//g_message("altezza y=%d", image_height);
+
 dpi = yres;
 
 fp = fopen( NomeFileDxf,"r" );
@@ -138,68 +149,82 @@ fp = fopen( NomeFileDxf,"r" );
  			 while(!feof(fp))
 				{
  			 		fscanf(fp,"%s\n",str);
- 			 		if(!strncmp(str,"AcDbPolyline",12) && fscanf(fp,"%s\n",jpolyline) && !strncmp(jpolyline,"90",2))
+ 			 		if(( !strncmp(str,"AcDbPolyline",12)) && (fscanf(fp,"%s\n",jpolyline)) && (!strncmp(jpolyline,"90",2)) )
  			 			{
 					 		a=1;
 
 					 		fscanf(fp,"%s\n70\n",n_punti_str);
  			 				n_punti = atoi(n_punti_str);
 
-             	fscanf(fp,"0\n");
+   					          	fscanf(fp,"0\n");
 
 							for(i=counter; i < n_punti ;i++, counter++ )
-             	{
-             		fscanf(fp,"10\n");
-             		fscanf(fp,"%s\n",x_c );
-             		fscanf(fp,"20\n" );
-            		fscanf(fp,"%s\n",y_c );
+             							{
 
-             		x = strtod( x_c, &end );
-            		y = strtod( y_c, &end );
+             								fscanf(fp,"10\n");
+             								fscanf(fp,"%f\n", &my_x );
 
+             								fscanf(fp,"20\n" );
+            								fscanf(fp,"%f\n",&my_y );
+									//printf("X=%f Y=%f \n",my_x, my_y );
 
-             		v_punti[counter*2] = ( x/2.54*dpi );
-                v_punti[(counter*2+1)] = ( image_height - ( y*dpi/2.54 + 1 ) );
-             	}
- 			 			}//chiude IF
-     	 			  else
-								if( !strncmp( str, "AcDb2dVertex", 12 )  )
-      			  	{
+									x=my_x;
+									y=my_y;
+
+						             		v_punti[counter*2] = ( x/2.54*dpi );
+                        						v_punti[(counter*2+1)] = ( image_height - ( y*dpi/2.54 + 1 ) );
+             							}
+ 					}//chiude IF
+     	 			  	else
+					if( !strncmp( str, "AcDb2dVertex", 12 )  )
+      			  			{
 	     						a=1;
 	     						test_vertex=1;
-                	{
-                		fscanf(fp," 10\n");
-                		fscanf(fp,"%s\n",x_c );
-                		fscanf(fp," 20\n" );
-	               		fscanf(fp,"%s\n",y_c );
+                				{
 
-                    //x = strtod( x_c, &end);//Necessario non si sa perchè
-  		           		x = strtod( x_c, &end);
-      	         		y = strtod( y_c, &end);
+/*						fscanf(fp," 10\n");
+                				fscanf(fp,"%s\n",x_c );
+                				fscanf(fp," 20\n" );
+	        		       		fscanf(fp,"%s\n",y_c );
+
+                                                //x = strtod( x_c, &end);//Necessario non si sa perchè
+		  		           	x = strtod( x_c, &end);
+      	         				y = strtod( y_c, &end);*/
 
 
-                		v_punti[counter*2] = ( x/2.54*dpi );
-										v_punti[counter*2+1] = ( image_height - ( y*dpi/2.54 + 1 ) );
+						fscanf(fp,"10\n");
+						fscanf(fp,"%f\n", &my_x );
+						fscanf(fp,"20\n" );
+						fscanf(fp,"%f\n",&my_y );
+	//					printf("X=%f Y=%f \n",my_x, my_y );
 
-                	  if(v_punti[counter*2]<0)
-                	  	v_punti[counter*2]=v_punti[(counter-1)*2];
+						x=my_x;
+						y=my_y;
 
-                	  counter++;
 
-                	}
+						v_punti[counter*2] = ( x/2.54*dpi );
+						v_punti[counter*2+1] = ( image_height - ( y*dpi/2.54 + 1 ) );
+
+                	  			if(v_punti[counter*2]<0)
+                	  			v_punti[counter*2]=v_punti[(counter-1)*2];
+
+                	  			counter++;
+
+                				}
         			  	} //fine else
  			  }//chiude WHILE
 
  			  if(!a)
  			  	g_message("File \"%s\" corrupted.", NomeFileDxf);
  			}
+
 strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
 
 if(v_punti)
 	free(v_punti);
 
 gimp_displays_flush();
-	
+
 fclose(fp);
 }
 
@@ -251,16 +276,16 @@ void Carica_Bzr ( gint32 g_image, char * NomeFileBzr  )
 	if ( closed==0 && draw==0 && state==2 )
 	{
 	  //g_message("Path corretto");
-  	path = (gdouble *) malloc( num_points * 3 * sizeof(gdouble) );
- 	  if (path != NULL) {
+  	 path = (gdouble *) malloc( num_points * 3 * sizeof(gdouble) );
+ 	 if (path != NULL) {
   	  for ( i=0; i<num_points; i++)    {
-          fscanf(fp,"TYPE: %ld X: %ld Y: %ld\n", &tipo, &X, &Y);
-          path[i*3] = ( double ) X;
-          path[i*3+1] = ( double ) Y;
-          path[i*3+2] = ( double ) tipo;
+           fscanf(fp,"TYPE: %ld X: %ld Y: %ld\n", &tipo, &X, &Y);
+           path[i*3] = ( double ) X;
+           path[i*3+1] = ( double ) Y;
+           path[i*3+2] = ( double ) tipo;
   	  }
      //  	  g_message("ancora ok");
-     gimp_path_set_points(g_image, pathname, 1, num_points * 3, path);
+        gimp_path_set_points(g_image, pathname, 1, num_points * 3, path);
 	  }
 	 else {
 	 	g_message("Not enough free memory for path.");
