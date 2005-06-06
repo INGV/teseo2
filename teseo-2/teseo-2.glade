@@ -1344,7 +1344,7 @@
 			      <child>
 				<widget class="GtkLabel" id="label81">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Low Color</property>
+				  <property name="label" translatable="yes">Low Colour</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1368,7 +1368,7 @@
 			      <child>
 				<widget class="GtkLabel" id="label82">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Trace Color</property>
+				  <property name="label" translatable="yes">Trace Colour</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1392,7 +1392,7 @@
 			      <child>
 				<widget class="GtkLabel" id="label83">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">High Color</property>
+				  <property name="label" translatable="yes">High Colour</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1502,7 +1502,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label80">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Color Selection</property>
+		      <property name="label" translatable="yes">Colour Selection</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1527,7 +1527,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label75">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Color selection</property>
+		  <property name="label" translatable="yes">Colour selection</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1803,7 +1803,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label57">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Color weighted mean</property>
+		      <property name="label" translatable="yes">Colour weighted mean</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1828,7 +1828,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label49">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Color weighted mean</property>
+		  <property name="label" translatable="yes">Colour weighted mean</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2146,7 +2146,7 @@ and again . . .</property>
 			  <child>
 			    <widget class="GtkLabel" id="label71">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Color snap</property>
+			      <property name="label" translatable="yes">Colour snap</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
