@@ -9,7 +9,7 @@
 //31/05#include "neuronutils.h"
 //TODO spostare o modificare save_sisma_cm save_dxf_cm save_marcatempi_cm
 
-
+/*To use for external commands*/
 int my_system(char * command, char * const argv[200], char * const env[]  ){
  int status = 0;
  int pid;
@@ -45,7 +45,6 @@ gint filexist( char *nome_file)
   	}
   	else
   		app = 0;
-  //g_message("file %s esiste %d",nome_file ,app);
   return app;
 }
 
@@ -97,7 +96,7 @@ gdouble vertex[200];
 gint n_vertex=1;
 
 
-vertex[0]=0.0;   //dovuto alle coordinate negative presenti nel DXF
+vertex[0]=0.0;   //for negative coordinate in DXF
 vertex[1]=0.0;
 
 
@@ -174,7 +173,7 @@ fp = fopen( NomeFileDxf,"r" );
 						             		v_punti[counter*2] = ( x/2.54*dpi );
                         						v_punti[(counter*2+1)] = ( image_height - ( y*dpi/2.54 + 1 ) );
              							}
- 					}//chiude IF
+ 					}//IF
      	 			  	else
 					if( !strncmp( str, "AcDb2dVertex", 12 )  )
       			  			{
@@ -182,21 +181,13 @@ fp = fopen( NomeFileDxf,"r" );
 	     						test_vertex=1;
                 				{
 
-/*						fscanf(fp," 10\n");
-                				fscanf(fp,"%s\n",x_c );
-                				fscanf(fp," 20\n" );
-	        		       		fscanf(fp,"%s\n",y_c );
-
-                                                //x = strtod( x_c, &end);//Necessario non si sa perchè
-		  		           	x = strtod( x_c, &end);
-      	         				y = strtod( y_c, &end);*/
-
 
 						fscanf(fp,"10\n");
 						fscanf(fp,"%f\n", &my_x );
 						fscanf(fp,"20\n" );
 						fscanf(fp,"%f\n",&my_y );
-	//					printf("X=%f Y=%f \n",my_x, my_y );
+
+						//					printf("X=%f Y=%f \n",my_x, my_y );
 
 						x=my_x;
 						y=my_y;
@@ -211,8 +202,8 @@ fp = fopen( NomeFileDxf,"r" );
                 	  			counter++;
 
                 				}
-        			  	} //fine else
- 			  }//chiude WHILE
+        			  	} //ELSE
+ 			  }//WHILE
 
  			  if(!a)
  			  	g_message("File \"%s\" corrupted.", NomeFileDxf);
@@ -259,13 +250,13 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
 
  if( fp = fopen(NomeFileBzr, "r" ))
  {
-  //fscanf(fp, "Name: %s\n", &linename);
+  
 	fgets(linename, 200, fp);
 	//Salto Name:
 	app=linename+6;
 	strcpy(pathname,app);
 
-	/*Controllo che non ci sia già un path con lo stesso nome*/
+	//Test to exclude path with same name
 
 	fscanf(fp,"#POINTS: %d\n" , &num_points);
 	fscanf(fp,"CLOSED: %d\n" , &closed);
@@ -284,7 +275,6 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
            path[i*3+1] = ( double ) Y;
            path[i*3+2] = ( double ) tipo;
   	  }
-     //  	  g_message("ancora ok");
         gimp_path_set_points(g_image, pathname, 1, num_points * 3, path);
 	  }
 	 else {
@@ -310,6 +300,7 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
 
 /*Output functions*/
 
+/*Write an open path in old gimp bezier format*/
 gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
   glong i=0, num_righe, len;
   gdouble * points_pairs=NULL;
@@ -320,9 +311,9 @@ gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
   char * canc=NULL;
   strcpy(s_tmp_app,nome_path);
 
-  //ottengo il path
+  //get the path
 	gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
-  //se il path è corretto lo salvo
+  //only open path are good
   if (!path_closed){
      //+3 perchè per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )
      num_righe=num_path_point_details/3;
@@ -359,10 +350,13 @@ return 1;
 }
 
 
-/*Da fare : introdurre un parametro in più per unificare le due di sotto*/
+//TODO: unify next two functions 
 
-/*Save the current path on the image g_image in filename in dxf format*/
-/*scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
+/* Save the current path on the image g_image in filename in dxf format
+ * scalatura = 1 -> shift first point of the trace in 0,0.0,0 
+ * Remember to resample before call.
+*/
+
 void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  //recupero il path in uno strokes, poi salva in dxf
  gdouble * strokes=NULL;
@@ -372,18 +366,17 @@ void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  /*Se esiste una traccia esegue*/
  gimp_path_list (g_image, &num_paths);
  if (num_paths>0){
-   //prendo il nome del path corrente
+   //get path name 
    strcpy(pathname, gimp_path_get_current(g_image));
    strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   /*campiono se necessario*/
    strokes_dxf(g_image,filename, strokes, n_strokes, 1, scalatura); //tracciato
  }
  if (strokes)
   free(strokes);
 }
 
-/*Save the current timemarker path on the image g_image in filename in dxf format*/
-/*scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
+/* Save the current timemarker path on the image g_image in filename in dxf format
+ * scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
 void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -421,9 +414,11 @@ void save_path_sisma(gint32 g_image, char* filename){
   free(strokes);
 }
 
-//Put a strokes vector in a dxf file
-//tracciato = 0 -> timemarker
-//tracciato = 1 -> trace to be resampled
+/* Put a strokes vector in a dxf file
+ * tracciato = 0 -> timemarker
+ * tracciato = 1 -> trace 
+ */
+
 void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura){
 
   FILE*  fstrokes;
@@ -450,14 +445,18 @@ void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong
      }
      else
       {
-      	// g_message("Non so proprio cosa salvare");
+      	// g_message("OOPS : What is it?");
       }
      fclose(fstrokes);
-
   }
 }
 
-//
+
+/*  Put a strokes vector in a sisma file
+ * xy = 0 -> only x coordinates
+ * xy = 1 -> x,y coordinates
+*/
+
 void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy){
   FILE*  fstrokes;
   gdouble xres;
@@ -472,7 +471,6 @@ void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , g
   if(!fstrokes)
     g_message("File \"%s\" not found.",file_sisma);
   else {
-    //TODO save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
     save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
     fclose(fstrokes);
   }
@@ -506,10 +504,12 @@ void save_path_traccia(gint32 g_image, char* filename){
 }
 */
 
-/* Da usare sul path campionato a passo 1*/
+/* Save the current open path in sac format 
+ * Remember: to use on a resampled path 
+ */
+  
 void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
- //recupero il path in uno strokes, poi salva in dxf
-
+ 
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
@@ -522,7 +522,7 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
  char argv3[100];
  char argv4[100];
 
- char *env[]={"SACAUX=/",NULL}; //Vuole SACAUX anche se non usata
+ char *env[]={"SACAUX=/",NULL};  //need SACAUX but don't use it 
 
  char filename_tmp [255];
 
@@ -536,16 +536,15 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
  gimp_image_get_resolution (g_image, &xres, &yres);
  passo=2.54/xres;
 
- /*Se esiste una traccia esegue*/
- gimp_path_list (g_image, &num_paths);
+  gimp_path_list (g_image, &num_paths);
  if (num_paths>0){
-   //prendo il nome del path corrente
+   //get current path name
    strcpy(pathname, gimp_path_get_current(g_image));
    strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   //strokes_sac(filename, strokes, n_strokes);
-   //scrivo file sisma temporaneo
+
+   //temporary saving in a sisma file
    strokes_sisma(g_image, filename_tmp, strokes, n_strokes, xy);
-   //converto il sisma temporaneo in sac
+   //convert sisma file in sac
    sprintf(strcmd, "%s/bin/sisma_to_sac.exe" , dir_teseo_bin );
 
    /*Prepara la lista di argomenti*/
@@ -570,7 +569,7 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
    sprintf(argv[3], "%s", filename);
    sprintf(argv[4], "%f", passo);
 
- 	 /*Chiamata al driver sisma_to_sac*/
+ 	 /*call to driver sisma_to_sac*/
  	 my_system (strcmd,argv,env);
 
  }
@@ -579,10 +578,10 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
 }
 
 
-
+/* Import a timemark file*/
 void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 {
- //g_message("%s",NomeFileTimeMarker);
+ 
  FILE *fp = NULL;
  glong num_path, closed, draw, state, tipo,X,Y;
  gdouble *strokes = NULL;
@@ -605,8 +604,7 @@ void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 
  if( fp = fopen(NomeFileTimeMarker, "r" ))
  {
-	/*Intestazione*/
-
+	/*Header*/
 	fscanf(fp,"%d\nSECTION\n%d\nENTITIES\n%d\n", &a, &b, &c);
 
 	if ( a==0 && b==2 && c==0 )
@@ -631,9 +629,8 @@ void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
    	  for ( i=0; i<counter; i++)    {
 
            fscanf(fp,"LINE\n5\n%ld\n6\nContinuous\n62\n3\n100\nAcDbLine\n10\n%lf\n20\n%lf\n30\n0.0\n11\n%lf\n21\n%lf\n31\n0.0\n0\n", &counter_void, &x1, &y1, &x2, &y2 );
-           //x=(vet_punti[i*2]-x_zero) * 2.54 / dpi;
+
            strokes[i*2] = x1*dpi/2.54;
-           //y=(height - vet_punti[i*2+1] - 1 - y_zero) * 2.54/dpi;  ... y_zero = height - vet_punti[1] - 1
            strokes[i*2+1] = image_height - y1 * dpi / 2.54 - 1;
            //g_message("X=%lf Y=%lf", strokes[i*2], strokes[i*2+1] );
    	  }
@@ -715,6 +712,13 @@ EOF\n"
 /* initialized_old
 void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
 */
+
+
+
+/* Save a vector in dxf format, in centimeters.  
+ * dpi resolution, height the height of the image in pixel
+ */
+
 void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
 double x_zero=0.0;
 double y_zero=0.0;
@@ -726,7 +730,7 @@ if( zero_start ) {
 	x_zero=vet_punti[0];
 	y_zero= height - vet_punti[1] - 1 ;
 }
-
+//Header
 fprintf(fp,
 "0\n\
 SECTION\n\
@@ -747,9 +751,9 @@ CONTINUOUS\n\
 100\n\
 AcDbPolyline\n\
 "
-);//intestazione
+);
 
-fprintf(fp,"90\n%d\n70\n", num_punti);   //numero punti
+fprintf(fp,"90\n%d\n70\n", num_punti);   //# points
 
 fprintf(fp,"0\n");
 
@@ -764,7 +768,7 @@ fp,"\
 ENDSEC\n\
 0\n\
 EOF\n"
-);  // chiudo il file
+);  //tail
 
 }
 
@@ -786,6 +790,9 @@ if( zero_start ) {
 	y_zero= height - vet_punti[1] - 1 ;
 }
 
+
+//Header
+
 fprintf(fp,
 "0\n\
 SECTION\n\
@@ -794,10 +801,8 @@ ENTITIES\n\
 0\n"
 );
 
-//intestazione
-
 for (i=0; i<num_punti; i++) {
-//scrivo le sezioni line
+//line sections
 
 x=(vet_punti[i*2]-x_zero) * 2.54 / dpi;
 y=(height - vet_punti[i*2+1] - 1 - y_zero) * 2.54/dpi;
@@ -836,7 +841,7 @@ fprintf(fp,
 "ENDSEC\n\
 0\n\
 EOF\n"
-);  // chiudo il file
+);  //Tail
 }
 
 //Salvataggio in formato sisma
@@ -844,6 +849,11 @@ EOF\n"
 /* initialized_old
 void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy=0){
 */
+
+/* Save the vector in sisma format, dpi resolution, height of the image in pixel, 
+    xy to have x,y couples 
+*/
+
 void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
 
 gdouble media=0;
@@ -893,7 +903,7 @@ void wsac1(kname, yarray, nlen, beg, del, nerr, kname_s)
 }
 */
 
-/*Probabilmente non funziona !!!*/
+/*TODO test !!!*/
 void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
 
  float media=0;
@@ -948,7 +958,7 @@ void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble d
 
 }
 
-/*Probabilmente non funziona !!!*/
+/*TODO test !!!*/
 void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_stroke){
   FILE*  fstrokes;
   gdouble xres;
@@ -958,7 +968,7 @@ void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_s
   image_height = gimp_image_height(g_image);
   fstrokes = fopen(file_sac,"wt");
   if(!fstrokes)
-    g_message("Non riesco ad aprire %s",file_sac);
+    g_message("Unable to open%s",file_sac);
   else {
     save_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
     fclose(fstrokes);
