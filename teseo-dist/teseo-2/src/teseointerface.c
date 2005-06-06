@@ -873,7 +873,7 @@ create_win_neuronteseo (void)
   gtk_table_set_row_spacings (GTK_TABLE (table6), 2);
   gtk_table_set_col_spacings (GTK_TABLE (table6), 12);
 
-  label81 = gtk_label_new ("Low Color");
+  label81 = gtk_label_new ("Low Colour");
   gtk_widget_set_name (label81, "label81");
   gtk_widget_show (label81);
   gtk_table_attach (GTK_TABLE (table6), label81, 0, 1, 0, 1,
@@ -881,7 +881,7 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label81), 0, 0.5);
 
-  label82 = gtk_label_new ("Trace Color");
+  label82 = gtk_label_new ("Trace Colour");
   gtk_widget_set_name (label82, "label82");
   gtk_widget_show (label82);
   gtk_table_attach (GTK_TABLE (table6), label82, 1, 2, 0, 1,
@@ -889,7 +889,7 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label82), 0, 0.5);
 
-  label83 = gtk_label_new ("High Color");
+  label83 = gtk_label_new ("High Colour");
   gtk_widget_set_name (label83, "label83");
   gtk_widget_show (label83);
   gtk_table_attach (GTK_TABLE (table6), label83, 2, 3, 0, 1,
@@ -921,12 +921,12 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
-  label80 = gtk_label_new ("Color Selection");
+  label80 = gtk_label_new ("Colour Selection");
   gtk_widget_set_name (label80, "label80");
   gtk_widget_show (label80);
   gtk_frame_set_label_widget (GTK_FRAME (frame19), label80);
 
-  label75 = gtk_label_new ("Color selection");
+  label75 = gtk_label_new ("Colour selection");
   gtk_widget_set_name (label75, "label75");
   gtk_widget_show (label75);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 1), label75);
@@ -1025,12 +1025,12 @@ create_win_neuronteseo (void)
   gtk_widget_show (spinbutton16);
   gtk_box_pack_start (GTK_BOX (vbox19), spinbutton16, FALSE, FALSE, 0);
 
-  label57 = gtk_label_new ("Color weighted mean");
+  label57 = gtk_label_new ("Colour weighted mean");
   gtk_widget_set_name (label57, "label57");
   gtk_widget_show (label57);
   gtk_frame_set_label_widget (GTK_FRAME (frame14), label57);
 
-  label49 = gtk_label_new ("Color weighted mean");
+  label49 = gtk_label_new ("Colour weighted mean");
   gtk_widget_set_name (label49, "label49");
   gtk_widget_show (label49);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 2), label49);
@@ -1149,7 +1149,7 @@ create_win_neuronteseo (void)
   gtk_widget_show (spinbutton17);
   gtk_box_pack_start (GTK_BOX (hbox12), spinbutton17, FALSE, FALSE, 0);
 
-  label71 = gtk_label_new ("Color snap");
+  label71 = gtk_label_new ("Colour snap");
   gtk_widget_set_name (label71, "label71");
   gtk_widget_show (label71);
   gtk_frame_set_label_widget (GTK_FRAME (frame17), label71);
