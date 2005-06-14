@@ -64,6 +64,30 @@ void
 on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+  char filename[FILENAMELEN];
+
+  //TODO resource file
+
+  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import Bezier Paths from SVG file");
+  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
+	     import_svg_vectors( teseo_image, filename );
+         break;
+      case GTK_RESPONSE_CANCEL:
+         g_message("Cancel pressed: don't do anything");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (teseofilechooser);
 
 }
 

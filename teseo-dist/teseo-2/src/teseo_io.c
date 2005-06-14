@@ -6,6 +6,8 @@
 #include "teseo_path.h"
 #include <locale.h>
 
+
+
 //31/05#include "neuronutils.h"
 //TODO spostare o modificare save_sisma_cm save_dxf_cm save_marcatempi_cm
 
@@ -973,4 +975,24 @@ void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_s
     save_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
     fclose(fstrokes);
   }
+}
+
+/*SVG section*/
+gboolean import_svg_vectors ( gint32 g_image, char * SVGfile  )
+{
+	gboolean ok ;
+	gboolean merge=FALSE;
+    
+    ok=gimp_path_import(g_image, SVGfile, merge, FALSE);
+	
+    if (ok == FALSE)
+    { 
+      /* Report error to user*/
+      fprintf (stderr, "Unable to write file: \n");
+    } 
+    return ok;
+}
+
+gboolean export_svg_vectors ( gint32 g_image, char * SVGfile  )
+{ 
 }

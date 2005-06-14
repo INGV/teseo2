@@ -50,4 +50,8 @@
 
 
 
+    gboolean export_svg_vectors ( gint32 g_image, char * SVGfile  );
+    gboolean import_svg_vectors ( gint32 g_image, char * SVGFile  );
+
+
 #endif
