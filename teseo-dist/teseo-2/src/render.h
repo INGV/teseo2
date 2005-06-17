@@ -22,7 +22,7 @@
  * Except as contained in this notice, the name of the Authors of the
  * Software shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
- * Authorsization from the Authors.
+ * authorization from the Authors.
  */
 
 #ifndef __RENDER_H__

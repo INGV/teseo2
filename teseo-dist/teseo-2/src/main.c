@@ -22,7 +22,7 @@
  * Except as contained in this notice, the name of the Authors of the
  * Software shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
- * Authorsization from the Authors.
+ * authorization from the Authors.
  */
 
 #include "config.h"
@@ -136,12 +136,12 @@ query (void)
 			  "Stefano Pintore, Matteo Quintiliani",
 			  "2005",
 			  N_("Teseo-2"),
-			  "RGB*, GRAY*, INDEXED*",
+			  "GRAY*",
 			  GIMP_PLUGIN,
 			  G_N_ELEMENTS (args), 0,
 			  args, NULL);
 
-  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>/");
+  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>");
 }
 
 static void
