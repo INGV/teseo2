@@ -1917,3 +1917,79 @@ create_preferences_dlg (void)
   return preferences_dlg;
 }
 
+GtkWidget*
+create_about_dlg (void)
+{
+  GtkWidget *about_dlg;
+  GtkWidget *dialog_vbox6;
+  GtkWidget *vbox63;
+  GtkWidget *label_teseo;
+  GtkWidget *image141;
+  GtkWidget *label_authors;
+  GtkWidget *label_institution;
+  GtkWidget *dialog_action_area7;
+  GtkWidget *okbutton4;
+
+  about_dlg = gtk_dialog_new ();
+  gtk_widget_set_name (about_dlg, "about_dlg");
+  gtk_window_set_title (GTK_WINDOW (about_dlg), "About");
+  gtk_window_set_type_hint (GTK_WINDOW (about_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox6 = GTK_DIALOG (about_dlg)->vbox;
+  gtk_widget_set_name (dialog_vbox6, "dialog_vbox6");
+  gtk_widget_show (dialog_vbox6);
+
+  vbox63 = gtk_vbox_new (FALSE, 8);
+  gtk_widget_set_name (vbox63, "vbox63");
+  gtk_widget_show (vbox63);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox6), vbox63, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox63), 8);
+
+  label_teseo = gtk_label_new ("Teseo 2.0beta\n\"Vectoriser of historical seismograms\"");
+  gtk_widget_set_name (label_teseo, "label_teseo");
+  gtk_widget_show (label_teseo);
+  gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
+  gtk_label_set_justify (GTK_LABEL (label_teseo), GTK_JUSTIFY_CENTER);
+
+  image141 = create_pixmap (about_dlg, "brain_mri_small.xpm");
+  gtk_widget_set_name (image141, "image141");
+  gtk_widget_show (image141);
+  gtk_box_pack_start (GTK_BOX (vbox63), image141, TRUE, TRUE, 0);
+
+  label_authors = gtk_label_new ("S. Pintore and M. Quintiliani");
+  gtk_widget_set_name (label_authors, "label_authors");
+  gtk_widget_show (label_authors);
+  gtk_box_pack_start (GTK_BOX (vbox63), label_authors, FALSE, FALSE, 0);
+  gtk_label_set_justify (GTK_LABEL (label_authors), GTK_JUSTIFY_CENTER);
+
+  label_institution = gtk_label_new ("Istituto Nazionale di Geofisica e Vulcanologia");
+  gtk_widget_set_name (label_institution, "label_institution");
+  gtk_widget_show (label_institution);
+  gtk_box_pack_start (GTK_BOX (vbox63), label_institution, FALSE, FALSE, 0);
+  gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
+
+  dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
+  gtk_widget_set_name (dialog_action_area7, "dialog_action_area7");
+  gtk_widget_show (dialog_action_area7);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area7), GTK_BUTTONBOX_SPREAD);
+
+  okbutton4 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton4, "okbutton4");
+  gtk_widget_show (okbutton4);
+  gtk_dialog_add_action_widget (GTK_DIALOG (about_dlg), okbutton4, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton4, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, about_dlg, "about_dlg");
+  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_vbox6, "dialog_vbox6");
+  GLADE_HOOKUP_OBJECT (about_dlg, vbox63, "vbox63");
+  GLADE_HOOKUP_OBJECT (about_dlg, label_teseo, "label_teseo");
+  GLADE_HOOKUP_OBJECT (about_dlg, image141, "image141");
+  GLADE_HOOKUP_OBJECT (about_dlg, label_authors, "label_authors");
+  GLADE_HOOKUP_OBJECT (about_dlg, label_institution, "label_institution");
+  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_action_area7, "dialog_action_area7");
+  GLADE_HOOKUP_OBJECT (about_dlg, okbutton4, "okbutton4");
+
+  return about_dlg;
+}
+

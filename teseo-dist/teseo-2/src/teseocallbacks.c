@@ -40,8 +40,9 @@
 
 
 
-GtkWidget * preferencesdlg;
 GtkWidget * teseowin;
+GtkWidget * preferencesdlg;
+GtkWidget * aboutdlg;
 GtkWidget * teseofilechooser;
 
 GimpDrawable       *private_drawable ; //porcata
@@ -348,7 +349,19 @@ void
 on_about1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+ gint result = gtk_dialog_run (GTK_DIALOG (aboutdlg));
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         // g_message("OK pressed: save new preferences");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+         // g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (aboutdlg);
 }
 
 

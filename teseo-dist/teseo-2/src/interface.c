@@ -93,6 +93,7 @@ dialog (gint32              image_ID,
 
   teseowin = create_win_neuronteseo();
   preferencesdlg = create_preferences_dlg ();
+  aboutdlg = create_about_dlg ();
   teseofilechooser = create_filechooserimport();
 
   //gtk_widget_show (teseodlg);
