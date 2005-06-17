@@ -1,14 +1,5 @@
 #include <gtk/gtk.h>
-#include <libgimp/gimp.h>
-#include "teseo_io.h"
-#include "teseo_path.h"
 
-
-extern   GtkWidget *teseowin;
-extern   GtkWidget *preferencesdlg;
-extern   GtkWidget *teseofilechooser;
-extern   GimpDrawable *private_drawable ; //porcata
-extern   gint32  teseo_image ; //porcata
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -28,6 +19,10 @@ on_save_as1_activate                   (GtkMenuItem     *menuitem,
 
 void
 on_preferences_2_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_path2_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
@@ -132,63 +127,4 @@ on_help1_activate                      (GtkMenuItem     *menuitem,
 
 void
 on_about1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_preferences_2_activate_item         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_preferences_w_activate_item         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_preferences_w_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-gboolean
-on_win_neuronteseo_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
-void
-on_win_preferences_destroy             (GtkObject       *object,
-                                        gpointer         user_data);
-
-gboolean
-on_win_preferences_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
-void
-on_preferences_dlg_response            (GtkDialog       *dialog,
-                                        gint             response_id,
-                                        gpointer         user_data);
-
-void
-on_preferences_dlg_close               (GtkDialog       *dialog,
-                                        gpointer         user_data);
-
-void
-on_svg1_activate                       (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_ascii1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_svg2_activate                       (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_ascii2_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

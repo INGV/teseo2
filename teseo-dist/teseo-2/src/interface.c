@@ -1,5 +1,5 @@
-/* Teseo-2 Plug-in
- * Copyright (C) 2000-2004 Stefano Pintore, Matteo Quintiliani (the "Authors").
+/* GIMP Plug-in Template
+ * Copyright (C) 2000-2004  Michael Natterer <mitch@gimp.org> (the "Author").
  * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -15,14 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
- * THE Authors BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Authors of the
+ * Except as contained in this notice, the name of the Author of the
  * Software shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
- * Authorsization from the Authors.
+ * authorization from the Author.
  */
 
 #include "config.h"
@@ -47,7 +47,6 @@
 #define RANDOM_SEED_WIDTH  100
 
 
-
 /*  Local function prototypes  */
 
 static gboolean   dialog_image_constraint_func (gint32    image_id,
@@ -59,6 +58,7 @@ static gboolean   dialog_image_constraint_func (gint32    image_id,
 
 static PlugInUIVals *ui_state = NULL;
 
+
 /*  Public functions  */
 
 gboolean
@@ -69,17 +69,25 @@ dialog (gint32              image_ID,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
 {
-//   GtkWidget *dlg;
-
+  GtkWidget *dlg;
+  GtkWidget *teseodlg;
+  GtkWidget *main_vbox;
+  GtkWidget *frame;
+  GtkWidget *table;
+  GtkWidget *hbox;
+  GtkWidget *hbox2;
+  GtkWidget *coordinates;
+  GtkWidget *combo;
+  GtkObject *adj;
+  gint       row;
   gboolean   run = FALSE;
-
-/*GimpUnit   unit;
-  gdouble    xres, yres;*/
+  GimpUnit   unit;
+  gdouble    xres, yres;
 
   ui_state = ui_vals;
 
   gimp_ui_init (PLUGIN_NAME, TRUE);
-/*
+
   dlg = gimp_dialog_new (_("teseo-2 Plug-In"), PLUGIN_NAME,
                          NULL, 0,
 			 gimp_standard_help_func, "teseo-2",
@@ -87,34 +95,159 @@ dialog (gint32              image_ID,
 			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			 GTK_STOCK_OK,     GTK_RESPONSE_OK,
 
-			 NULL);*/
+			 NULL);
 
-  teseo_image=image_ID;
 
-  teseowin = create_win_neuronteseo();
-  preferencesdlg = create_preferences_dlg ();
-  teseofilechooser = create_filechooserimport();
 
-  //gtk_widget_show (teseodlg);
-  gtk_widget_show (teseowin);
+/*INIZIO MODIFICARE*/
+  //main_vbox = gtk_vbox_new (FALSE, 12); /*TODO richiamare la funzione che crea l'interfaccia*/
+  //teseodlg = create_win_neuronteseo();
+  teseodlg = create_Teseodialog ();
+  //gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 12);
+/*FINE MODIFICARE*/
 
-  gtk_main ();
+  /*LASCIARE COSI'*/
+  //gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dlg)->vbox), main_vbox);
 
+  /*  gimp_scale_entry_new() examples  */
+
+/*INIZIO MODIFICARE*/
+
+//   frame = gimp_frame_new (_("ScaleEntry Examples"));
+//   gtk_box_pack_start (GTK_BOX (main_vbox), frame, FALSE, FALSE, 0);
+//   gtk_widget_show (frame);
+//
+//   table = gtk_table_new (3, 3, FALSE);
+//   gtk_table_set_col_spacings (GTK_TABLE (table), 6);
+//   gtk_table_set_row_spacings (GTK_TABLE (table), 2);
+//   gtk_container_add (GTK_CONTAINER (frame), table);
+//   gtk_widget_show (table);
+//
+//   row = 0;
+//
+//   adj = gimp_scale_entry_new (GTK_TABLE (table), 0, row++,
+// 			      _("Dummy 1:"), SCALE_WIDTH, SPIN_BUTTON_WIDTH,
+// 			      vals->dummy1, 0, 100, 1, 10, 0,
+// 			      TRUE, 0, 0,
+// 			      _("Dummy scale entry 1"), NULL);
+//   g_signal_connect (adj, "value_changed",
+//                     G_CALLBACK (gimp_int_adjustment_update),
+//                     &vals->dummy1);
+//
+//   adj = gimp_scale_entry_new (GTK_TABLE (table), 0, row++,
+// 			      _("Dummy 2:"), SCALE_WIDTH, SPIN_BUTTON_WIDTH,
+// 			      vals->dummy2, 0, 200, 1, 10, 0,
+// 			      TRUE, 0, 0,
+// 			      _("Dummy scale entry 2"), NULL);
+//   g_signal_connect (adj, "value_changed",
+//                     G_CALLBACK (gimp_int_adjustment_update),
+//                     &vals->dummy2);
+//
+//   adj = gimp_scale_entry_new (GTK_TABLE (table), 0, row++,
+// 			      _("Dummy 3:"), SCALE_WIDTH, SPIN_BUTTON_WIDTH,
+// 			      vals->dummy3, -100, 100, 1, 10, 0,
+// 			      TRUE, 0, 0,
+// 			      _("Dummy scale entry 3"), NULL);
+//   g_signal_connect (adj, "value_changed",
+//                     G_CALLBACK (gimp_int_adjustment_update),
+//                     &vals->dummy3);
+//
+//   /*  gimp_random_seed_new() example  */
+//
+//   frame = gimp_frame_new (_("A Random Seed Entry"));
+//   gtk_box_pack_start (GTK_BOX (main_vbox), frame, FALSE, FALSE, 0);
+//   gtk_widget_show (frame);
+//   hbox = gtk_hbox_new (FALSE, 6);
+//   gtk_container_add (GTK_CONTAINER (frame), hbox);
+//   gtk_widget_show (hbox);
+//
+//   hbox2 = gimp_random_seed_new (&vals->seed, &vals->random_seed);
+//   gtk_widget_set_size_request (GTK_WIDGET (GIMP_RANDOM_SEED_SPINBUTTON (hbox2)),
+//                                RANDOM_SEED_WIDTH, -1);
+//   gtk_box_pack_start (GTK_BOX (hbox), hbox2, FALSE, FALSE, 0);
+//   gtk_widget_show (hbox2);
+//
+//   /*  gimp_coordinates_new() example  */
+//
+//   frame = gimp_frame_new (_("A GimpCoordinates Widget\n"
+// 			   "Initialized with the Drawable's Size"));
+//   gtk_box_pack_start (GTK_BOX (main_vbox), frame, FALSE, FALSE, 0);
+//   gtk_widget_show (frame);
+//
+//   hbox = gtk_hbox_new (FALSE, 4);
+//   gtk_container_set_border_width (GTK_CONTAINER (hbox), 4);
+//   gtk_container_add (GTK_CONTAINER (frame), hbox);
+//   gtk_widget_show (hbox);
+//
+//   unit = gimp_image_get_unit (image_ID);
+//   gimp_image_get_resolution (image_ID, &xres, &yres);
+//
+//   coordinates = gimp_coordinates_new (unit, "%p", TRUE, TRUE, SPIN_BUTTON_WIDTH,
+// 				      GIMP_SIZE_ENTRY_UPDATE_SIZE,
+//
+// 				      ui_vals->chain_active, TRUE,
+//
+// 				      _("Width:"), drawable->width, xres,
+// 				      1, GIMP_MAX_IMAGE_SIZE,
+// 				      0, drawable->width,
+//
+// 				      _("Height:"), drawable->height, yres,
+// 				      1, GIMP_MAX_IMAGE_SIZE,
+// 				      0, drawable->height);
+//   gtk_box_pack_start (GTK_BOX (hbox), coordinates, FALSE, FALSE, 0);
+//   gtk_widget_show (coordinates);
+//
+//   /*  Image and drawable menus  */
+//
+//   frame = gimp_frame_new (_("Image and Drawable Menu Examples"));
+//   gtk_box_pack_start (GTK_BOX (main_vbox), frame, FALSE, FALSE, 0);
+//   gtk_widget_show (frame);
+//
+//   table = gtk_table_new (3, 2, FALSE);
+//   gtk_container_set_border_width (GTK_CONTAINER (table), 4);
+//   gtk_table_set_col_spacings (GTK_TABLE (table), 4);
+//   gtk_table_set_row_spacings (GTK_TABLE (table), 2);
+//   gtk_container_add (GTK_CONTAINER (frame), table);
+//   gtk_widget_show (table);
+//
+//   row = 0;
+//
+//   combo = gimp_layer_combo_box_new (NULL, NULL);
+//   gimp_int_combo_box_connect (GIMP_INT_COMBO_BOX (combo), drawable->drawable_id,
+//                               G_CALLBACK (gimp_int_combo_box_get_active),
+//                               &drawable_vals->drawable_id);
+//
+//   gimp_table_attach_aligned (GTK_TABLE (table), 0, row++,
+// 			     _("Layers:"), 0.0, 0.5, combo, 1, FALSE);
+//
+//   combo = gimp_image_combo_box_new (dialog_image_constraint_func, NULL);
+//   gimp_int_combo_box_connect (GIMP_INT_COMBO_BOX (combo), image_ID,
+//                               G_CALLBACK (gimp_int_combo_box_get_active),
+//                               &image_vals->image_id);
+//
+//   gimp_table_attach_aligned (GTK_TABLE (table), 0, row++,
+// 			     _("RGB Images:"), 0.0, 0.5, combo, 1, FALSE);
+/*FINE MODIFICARE*/
+  /*  Show the main containers  */
+
+  //gtk_widget_show (main_vbox);
+  gtk_widget_show (teseodlg);
 
   /*TODO*/
   //gtk_widget_show (dlg);
-
+  run = (gtk_dialog_run (GTK_DIALOG (teseodlg)) == GTK_RESPONSE_OK);
+  //run = (gimp_dialog_run (GIMP_DIALOG (teseodlg)) == GTK_RESPONSE_OK);
   //run = (gimp_dialog_run (GIMP_DIALOG (dlg)) == GTK_RESPONSE_OK);
-  /*EXP*/
-//     if (run)
-//     {
-//       /*  Save ui values  */
-// /*      ui_state->chain_active =
-//         gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));*/
-//     }
-  /*EXP*/
-  //gtk_widget_destroy (dlg);
+  //run=0;
+  if (run)
+    {
+      /*  Save ui values  */
+      ui_state->chain_active =
+        gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));
+    }
 
+  //gtk_widget_destroy (dlg);
+  gtk_widget_destroy (dlg);
   return run;
 }
 

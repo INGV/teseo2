@@ -4,21 +4,10 @@
 
 #include <gtk/gtk.h>
 
-
 #include "teseocallbacks.h"
 #include "teseointerface.h"
 #include "teseosupport.h"
 
-#include "teseo_resample.h"
-
-
-
-GtkWidget * preferencesdlg;
-GtkWidget * teseowin;
-GtkWidget * teseofilechooser;
-
-GimpDrawable       *private_drawable ; //porcata
-gint32  teseo_image ; //porcata
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -61,33 +50,9 @@ on_preferences_2_activate              (GtkMenuItem     *menuitem,
 
 
 void
-on_svg1_activate                       (GtkMenuItem     *menuitem,
+on_path2_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  char filename[FILENAMELEN];
-
-  //TODO resource file
-
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import Bezier Paths from SVG file");
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
-	     import_svg_vectors( teseo_image, filename );
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
-         break;
-      default:
-         break;
-    }
-  gtk_widget_hide (teseofilechooser);
 
 }
 
@@ -97,30 +62,6 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
-  char filename[FILENAMELEN];
-
-  //TODO resource file
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-
-
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display DXF path  %s on image %d", filename, teseo_image);
-	 import_dxf( teseo_image, filename );
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
-         break;
-      default:
-         break;
-    }
-  gtk_widget_hide (teseofilechooser);
 }
 
 
@@ -232,8 +173,7 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	// call_on_btnBezier_clicked(private_image, pivals);
-	call_on_btnBezier_clicked(teseo_image, 1, 1);
+
 }
 
 
@@ -324,126 +264,3 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
 
 }
 
-
-
-
-void
-on_preferences_w_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-
- gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         g_message("OK pressed: save new preferences");
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
-         break;
-      default:
-         break;
-    }
-  gtk_widget_hide (preferencesdlg);
-  //gtk_widget_show(preferencesdlg);
-
-}
-
-
-gboolean
-on_win_neuronteseo_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-  gtk_main_quit();
-  return TRUE;
-}
-
-
-gboolean
-on_win_preferences_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-  //gtk_widget_hide(preferencesdlg);
-  //return TRUE;
-}
-
-
-void
-on_preferences_dlg_response            (GtkDialog       *dialog,
-                                        gint             response_id,
-                                        gpointer         user_data)
-{
-  gtk_widget_hide(preferencesdlg);
-  //in response_id c'è ok o cancel
-  return response_id;
-}
-
-
-void
-on_preferences_dlg_close               (GtkDialog       *dialog,
-                                        gpointer         user_data)
-{
-  gtk_widget_hide(preferencesdlg);
-  return FALSE;
-}
-
-
-
-void
-on_ascii1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_svg2_activate                       (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_ascii2_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-
-}
-
-
-void
-on_bezier1_activate                    (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-  char filename[FILENAMELEN];
-
-  //TODO resource file
-
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
-	 import_bzr( teseo_image, filename );
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
-         break;
-      default:
-         break;
-    }
-  gtk_widget_hide (teseofilechooser);
-}

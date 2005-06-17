@@ -39,5 +39,4 @@ gboolean   dialog (gint32              image_ID,
 		   PlugInUIVals       *ui_vals);
 
 
-
 #endif /* __INTERFACE_H__ */

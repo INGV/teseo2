@@ -3,5 +3,7 @@
  */
 
 GtkWidget* create_win_neuronteseo (void);
-GtkWidget* create_filechooserimport (void);
-GtkWidget* create_preferences_dlg (void);
+GtkWidget* create_win_preferences (void);
+GtkWidget* create_win_testdevel (void);
+GtkWidget* create_window_wait (void);
+GtkWidget* create_Teseodialog (void);

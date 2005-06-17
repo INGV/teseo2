@@ -2,14 +2,13 @@
 <!DOCTYPE glade-project SYSTEM "http://glade.gnome.org/glade-project-2.0.dtd">
 
 <glade-project>
-  <name>teseo-2</name>
-  <program_name>teseo-2</program_name>
+  <name>test2</name>
+  <program_name>test2</program_name>
   <gnome_support>FALSE</gnome_support>
   <gettext_support>FALSE</gettext_support>
   <use_widget_names>TRUE</use_widget_names>
   <output_main_file>FALSE</output_main_file>
   <output_build_files>FALSE</output_build_files>
-  <backup_source_files>FALSE</backup_source_files>
   <main_source_file>teseointerface.c</main_source_file>
   <main_header_file>teseointerface.h</main_header_file>
   <handler_source_file>teseocallbacks.c</handler_source_file>

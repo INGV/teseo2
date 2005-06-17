@@ -1,5 +1,5 @@
-/* Teseo-2 Plug-in
- * Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
+/* GIMP Plug-in Template
+ * Copyright (C) 2000  Michael Natterer <mitch@gimp.org> (the "Author").
  * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -15,14 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
- * THE Authors BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Authors of the
+ * Except as contained in this notice, the name of the Author of the
  * Software shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
- * Authorsization from the Authors.
+ * authorization from the Author.
  */
 
 #include "config.h"
@@ -35,7 +35,6 @@
 #include "main.h"
 #include "interface.h"
 #include "render.h"
-#include "teseosupport.h"
 
 #include "plugin-intl.h"
 
@@ -132,16 +131,16 @@ query (void)
   gimp_install_procedure (PROCEDURE_NAME,
 			  "Blurb",
 			  "Help",
-			  "Stefano Pintore, Matteo Quintiliani",
-			  "Stefano Pintore, Matteo Quintiliani",
-			  "2005",
-			  N_("Teseo-2"),
+			  "Michael Natterer <mitch@gimp.org>",
+			  "Michael Natterer <mitch@gimp.org>",
+			  "2000-2004",
+			  N_("Plug-In teseo-2"),
 			  "RGB*, GRAY*, INDEXED*",
 			  GIMP_PLUGIN,
 			  G_N_ELEMENTS (args), 0,
 			  args, NULL);
 
-  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>/");
+  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>/Filters/Misc/");
 }
 
 static void
@@ -166,10 +165,6 @@ run (const gchar      *name,
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif
   textdomain (GETTEXT_PACKAGE);
-
-
-  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
-  //add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
 
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;

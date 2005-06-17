@@ -5,17 +5,10 @@ bin_PROGRAMS = teseo-2
 bindir = $(GIMP_LIBDIR)/plug-ins
 
 teseo_2_SOURCES = \
-	teseo_io.c	\
-	teseo_io.h	\
-	teseo_path.c	\
-	teseo_path.h	\
-	teseo_env.c	\
-	teseo_env.h	\
-	types.h	\
 	plugin-intl.h	\
-	pixmaps/brain_mri_small_invert_gray.xpm	\
-	pixmaps/brain_mri_small_invert.xpm	\
-	pixmaps/brain_mri_small.xpm	\
+        pixmaps/brain_mri_small_invert_gray.xpm	\
+        pixmaps/brain_mri_small_invert.xpm	\
+        pixmaps/brain_mri_small.xpm	\
 	teseocallbacks.c	\
 	teseocallbacks.h	\
 	teseosupport.c	\
@@ -27,11 +20,7 @@ teseo_2_SOURCES = \
 	main.c		\
 	main.h		\
 	render.c	\
-	render.h	\
-	teseo_bezier_point.c	\
-	teseo_bezier_point.h	\
-	teseo_resample.c	\
-	teseo_resample.h
+	render.h
 
 
 AM_CPPFLAGS = \
