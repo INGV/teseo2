@@ -36,6 +36,7 @@
 #include "interface.h"
 #include "render.h"
 #include "teseosupport.h"
+#include "gtkaddons.h"
 
 #include "plugin-intl.h"
 
@@ -170,6 +171,9 @@ run (const gchar      *name,
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   //add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
+
+  /*Initialize gtkaddons support */
+  init_store_widget("teseo");
 
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;

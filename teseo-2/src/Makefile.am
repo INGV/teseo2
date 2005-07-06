@@ -41,7 +41,9 @@ AM_CPPFLAGS = \
 INCLUDES =\
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
+	@GTKADDONS_CFLAGS@		\
 	-I$(includedir)
 
-LDADD = $(GIMP_LIBS)
+LDADD = $(GIMP_LIBS) \
+	$(GTKADDONS_LIBS)
 
