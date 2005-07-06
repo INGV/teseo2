@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+
+Name: Gtk-addons
+Description: Internationalized text handling
+Version: @VERSION@
+Requires: gimp-2.0
+Libs: -L${libdir} -lgtk-addons
+Cflags: -I${includedir}/gtk-addons
