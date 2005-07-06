@@ -309,7 +309,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO AMTAR install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM AWK SET_MAKE am__leading_dot CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE CPP EGREP MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT PKG_CONFIG GIMP_CFLAGS GIMP_LIBS GIMP_LIBDIR GETTEXT_PACKAGE INTLTOOL_DESKTOP_RULE INTLTOOL_DIRECTORY_RULE INTLTOOL_KEYS_RULE INTLTOOL_PROP_RULE INTLTOOL_OAF_RULE INTLTOOL_PONG_RULE INTLTOOL_SERVER_RULE INTLTOOL_SHEET_RULE INTLTOOL_SOUNDLIST_RULE INTLTOOL_UI_RULE INTLTOOL_XAM_RULE INTLTOOL_KBD_RULE INTLTOOL_XML_RULE INTLTOOL_XML_NOMERGE_RULE INTLTOOL_CAVES_RULE INTLTOOL_SCHEMAS_RULE INTLTOOL_THEME_RULE INTLTOOL_EXTRACT INTLTOOL_MERGE INTLTOOL_UPDATE INTLTOOL_PERL ICONV MSGFMT MSGMERGE XGETTEXT mkdir_p USE_NLS GMSGFMT CATALOGS CATOBJEXT DATADIRNAME GMOFILES INSTOBJEXT INTLLIBS PO_IN_DATADIR_TRUE PO_IN_DATADIR_FALSE POFILES POSUB MKINSTALLDIRS LOCALEDIR DATADIR LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO AMTAR install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM AWK SET_MAKE am__leading_dot CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE CPP EGREP MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT PKG_CONFIG GIMP_CFLAGS GIMP_LIBS GIMP_LIBDIR GTKADDONS_CFLAGS GTKADDONS_LIBS GTKADDONS_LIBDIR GETTEXT_PACKAGE INTLTOOL_DESKTOP_RULE INTLTOOL_DIRECTORY_RULE INTLTOOL_KEYS_RULE INTLTOOL_PROP_RULE INTLTOOL_OAF_RULE INTLTOOL_PONG_RULE INTLTOOL_SERVER_RULE INTLTOOL_SHEET_RULE INTLTOOL_SOUNDLIST_RULE INTLTOOL_UI_RULE INTLTOOL_XAM_RULE INTLTOOL_KBD_RULE INTLTOOL_XML_RULE INTLTOOL_XML_NOMERGE_RULE INTLTOOL_CAVES_RULE INTLTOOL_SCHEMAS_RULE INTLTOOL_THEME_RULE INTLTOOL_EXTRACT INTLTOOL_MERGE INTLTOOL_UPDATE INTLTOOL_PERL ICONV MSGFMT MSGMERGE XGETTEXT mkdir_p USE_NLS GMSGFMT CATALOGS CATOBJEXT DATADIRNAME GMOFILES INSTOBJEXT INTLLIBS PO_IN_DATADIR_TRUE PO_IN_DATADIR_FALSE POFILES POSUB MKINSTALLDIRS LOCALEDIR DATADIR LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -4384,12 +4384,55 @@ echo "$as_me: error: Library requirements (gimp-2.0 >= $GIMP_REQUIRED_VERSION gi
    { (exit 1); exit 1; }; }
   fi
 
-
-
-
-
 GIMP_LIBDIR=`$PKG_CONFIG --variable=gimplibdir gimp-2.0`
 
+##manually made
+GTKADDONS_REQUIRED_VERSION=0.1
+
+  succeeded=no
+
+        echo "$as_me:$LINENO: checking for gtk-addons >= $GTKADDONS_REQUIRED_VERSION" >&5
+        echo $ECHO_N "checking for gtk-addons >= $GTKADDONS_REQUIRED_VERSION... $ECHO_C" >&6
+
+
+	if $PKG_CONFIG --exists "gtk-addons >= $GTKADDONS_REQUIRED_VERSION" ; then
+            echo "$as_me:$LINENO: result: yes" >&5
+            echo "${ECHO_T}yes" >&6
+            succeeded=yes
+
+            echo "$as_me:$LINENO: checking GTKADDONS_CFLAGS" >&5
+            echo $ECHO_N "checking GTKADDONS_CFLAGS... $ECHO_C" >&6
+            GTKADDONS_CFLAGS=`$PKG_CONFIG --cflags "gtk-addons >= $GTKADDONS_REQUIRED_VERSION"`
+            echo "$as_me:$LINENO: result: $GTKADDONS_CFLAGS" >&5
+            echo "${ECHO_T}$GTKADDONS_CFLAGS" >&6
+
+            echo "$as_me:$LINENO: checking GTKADDONS_LIBS" >&5
+            echo $ECHO_N "checking GTKADDONS_LIBS... $ECHO_C" >&6
+            GTKADDONS_LIBS=`$PKG_CONFIG --libs "gtk-addons >= $GTKADDONS_REQUIRED_VERSION"`
+            echo "$as_me:$LINENO: result: $GTKADDONS_LIBS" >&5
+            echo "${ECHO_T}$GTKADDONS_LIBS" >&6
+        else
+            GTKADDONS_CFLAGS=""
+            GTKADDONS_LIBS=""
+            ## If we have a custom action on failure, don't print errors, but
+            ## do set a variable so people can do so.
+            GTKADDONS_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gtk-addons >= $GTKADDONS_REQUIRED_VERSION"`
+            echo $GTKADDONS_PKG_ERRORS
+        fi
+
+
+  if test $succeeded = yes; then
+     :
+  else
+     { { echo "$as_me:$LINENO: error: Library requirements (gtk-addons >= $GTKADDONS_REQUIRED_VERSION) not met; consider adjusting the PKG_CONFIG_PATH environment variable if your libraries are in a nonstandard prefix so pkg-config can find them." >&5
+echo "$as_me: error: Library requirements (gtk-addons >= $GTKADDONS_REQUIRED_VERSION) not met; consider adjusting the PKG_CONFIG_PATH environment variable if your libraries are in a nonstandard prefix so pkg-config can find them." >&2;}
+   { (exit 1); exit 1; }; }
+  fi
+
+GTKADDONS_LIBDIR=`$PKG_CONFIG --variable=libdir gtk-addons`
+
+
+##manually made end
 
 
 
@@ -4442,18 +4485,6 @@ INTLTOOL_SOUNDLIST_RULE='%.soundlist: %.soundlist.in $(INTLTOOL_MERGE) $(wildcar
     INTLTOOL_CAVES_RULE='%.caves:     %.caves.in     $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@'
   INTLTOOL_SCHEMAS_RULE='%.schemas:   %.schemas.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -s -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@'
     INTLTOOL_THEME_RULE='%.theme:     %.theme.in     $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@'
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -7020,6 +7051,9 @@ s,@PKG_CONFIG@,$PKG_CONFIG,;t t
 s,@GIMP_CFLAGS@,$GIMP_CFLAGS,;t t
 s,@GIMP_LIBS@,$GIMP_LIBS,;t t
 s,@GIMP_LIBDIR@,$GIMP_LIBDIR,;t t
+s,@GTKADDONS_CFLAGS@,$GTKADDONS_CFLAGS,;t t
+s,@GTKADDONS_LIBS@,$GTKADDONS_LIBS,;t t
+s,@GTKADDONS_LIBDIR@,$GTKADDONS_LIBDIR,;t t
 s,@GETTEXT_PACKAGE@,$GETTEXT_PACKAGE,;t t
 s,@INTLTOOL_DESKTOP_RULE@,$INTLTOOL_DESKTOP_RULE,;t t
 s,@INTLTOOL_DIRECTORY_RULE@,$INTLTOOL_DIRECTORY_RULE,;t t
