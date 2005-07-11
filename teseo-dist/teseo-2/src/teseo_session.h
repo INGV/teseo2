@@ -115,8 +115,17 @@ struct Session{
 	struct Notes       notes;
 };
 
-
-char save_session(char * filename);
-char load_session(char * filename);
+/*!
+save_session return 1 if session saving on file filename succeed
+	\param char * filename
+	\param struct Session * s
+*/
+char save_session(char * filename, struct Session * s);
+/*!
+load_session return 1 if session loading from file filename succeed
+	\param char * filename
+	\param struct Session * s
+*/
+char load_session(char * filename, struct Session * s);
 
 #endif

@@ -26,14 +26,14 @@
  */
 
 
+#include "teseo_session.h"
 
-
-char save_session(char * filename){
-
-
+char save_session(char * filename, struct Session * s){
+    char ret=0;
+    return ret;
 }
 
-char load_session(char * filename){
-
-
+char load_session(char * filename, struct Session * s){
+    char ret=0;
+    return ret;
 }
