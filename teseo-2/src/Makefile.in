@@ -185,7 +185,11 @@ teseo_2_SOURCES = \
 	teseo_bezier_point.c \
 	teseo_bezier_point.h	\
 	teseo_resample.c	\
-	teseo_resample.h
+	teseo_resample.h	\
+	teseo_session.c	\
+	teseo_session.h
+
+
 
 
 AM_CPPFLAGS = \
@@ -218,7 +222,8 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_env.$(OBJEXT) teseosupport.$(OBJEXT)  \
 	teseointerface.$(OBJEXT) \
 	teseo_resample.$(OBJEXT) \
-	teseo_bezier_point.$(OBJEXT)
+	teseo_bezier_point.$(OBJEXT) \
+	teseo_session.$(OBJEXT)
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)
