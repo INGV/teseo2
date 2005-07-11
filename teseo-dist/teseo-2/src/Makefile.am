@@ -31,7 +31,9 @@ teseo_2_SOURCES = \
 	teseo_bezier_point.c	\
 	teseo_bezier_point.h	\
 	teseo_resample.c	\
-	teseo_resample.h
+	teseo_resample.h	\
+	teseo_session.c	\
+	teseo_session.h
 
 
 AM_CPPFLAGS = \
