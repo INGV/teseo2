@@ -26,5 +26,7 @@ libgtk_addonsinclude_DATA = \
 libgtk_addons_la_LDFLAGS = 
 
 libgtk_addons_la_LIBADD = \
-	 -lgtk -lgimp -lgimpui \
 	 $(GIMP_LIBS)
+
+
+#	 -lgtk -lgimp -lgimpui \

@@ -106,7 +106,9 @@ libgtk_addonsinclude_DATA =      gtkaddons.h
 
 libgtk_addons_la_LDFLAGS = 
 
-libgtk_addons_la_LIBADD =  	 -lgtk -lgimp -lgimpui 	 $(GIMP_LIBS)
+#libgtk_addons_la_LIBADD =  	 -lgtk -lgimp -lgimpui 	 $(GIMP_LIBS)
+libgtk_addons_la_LIBADD =  	 $(GIMP_LIBS)
+
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
