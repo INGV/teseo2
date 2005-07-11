@@ -2527,7 +2527,7 @@ and again . . .</property>
 		      <property name="spacing">0</property>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton27">
+			<widget class="GtkCheckButton" id="teseo_reloc_checkbutton">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Export DXF path and timemark relocated in origin</property>
@@ -2546,7 +2546,7 @@ and again . . .</property>
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton28">
+			<widget class="GtkCheckButton" id="teseo_auto_res_checkbutton">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Export DXF path with automatic resampling</property>
@@ -2638,7 +2638,7 @@ and again . . .</property>
 		      <property name="spacing">0</property>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton29">
+			<widget class="GtkCheckButton" id="teseo_direct_bez_checkbutton">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Return directly Bezier Path</property>
@@ -2726,7 +2726,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton38">
+			    <widget class="GtkSpinButton" id="teseo_step_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -2752,7 +2752,7 @@ and again . . .</property>
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton30">
+			<widget class="GtkCheckButton" id="teseo_abscissa_asc_checkbutton">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Constant abscissa ascendent</property>
@@ -2777,7 +2777,7 @@ and again . . .</property>
 			  <property name="spacing">0</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton31">
+			    <widget class="GtkCheckButton" id="teseo_autosave_checkbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Autosave temporary path every minutes</property>
@@ -2796,7 +2796,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton39">
+			    <widget class="GtkSpinButton" id="teseo_auto_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -2864,7 +2864,7 @@ and again . . .</property>
 		      <property name="spacing">6</property>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton32">
+			<widget class="GtkCheckButton" id="teseo_fitting_checkbutton">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Fitting</property>
@@ -2889,7 +2889,7 @@ and again . . .</property>
 			  <property name="spacing">0</property>
 
 			  <child>
-			    <widget class="GtkRadioButton" id="radiobutton24">
+			    <widget class="GtkRadioButton" id="teseo_poly_radiobutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Polynomial</property>
@@ -2908,7 +2908,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkRadioButton" id="radiobutton25">
+			    <widget class="GtkRadioButton" id="teseo_ms_radiobutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Minimum Square</property>
@@ -2961,7 +2961,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton40">
+			    <widget class="GtkSpinButton" id="teseo_order_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3092,7 +3092,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry1">
+			    <widget class="GtkEntry" id="teseo_svdfit_entry">
 			      <property name="width_request">60</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
@@ -3115,7 +3115,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry2">
+			    <widget class="GtkEntry" id="teseo_lfit_entry">
 			      <property name="width_request">60</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>

@@ -36,7 +36,9 @@
 #include "interface.h"
 #include "render.h"
 #include "teseosupport.h"
+#include "teseo_session.h"
 #include "gtkaddons.h"
+
 
 #include "plugin-intl.h"
 
@@ -161,6 +163,9 @@ run (const gchar      *name,
   *nreturn_vals = 1;
   *return_vals  = values;
 
+  /*For compile test only*/
+  struct Session mysession;
+
   /*  Initialize i18n support  */
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
@@ -174,7 +179,9 @@ run (const gchar      *name,
 
   /*Initialize gtkaddons support */
   init_store_widget("teseo");
-
+  /**/
+  //g_message("%s",get_teseo_environment_path());
+  create_teseo_environment_path("teseo-2");
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;
   drawable = gimp_drawable_get (param[2].data.d_drawable);

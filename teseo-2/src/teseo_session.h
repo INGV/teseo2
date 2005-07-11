@@ -89,7 +89,7 @@ struct ImageInfo{
 	long Res;
 };
 
-enum TraceType{EVENT,TIMEMARKER};
+enum TraceType{EVENT,TIME_MARKER};
 
 struct TracesInfo{
 	char SVGFilename[FILENAMELEN];
@@ -121,11 +121,31 @@ save_session return 1 if session saving on file filename succeed
 	\param struct Session * s
 */
 char save_session(char * filename, struct Session * s);
+
 /*!
 load_session return 1 if session loading from file filename succeed
 	\param char * filename
 	\param struct Session * s
 */
 char load_session(char * filename, struct Session * s);
+
+/*!
+get_teseo_environment_path return a string containing the teseo environment path, the .gimp-majorversion.minorversion
+*/
+char * get_teseo_environment_path();
+
+/*!
+create_teseo_environment_path return 1 if teseo environment path creation succeed
+	\param char * filename
+
+*/
+char create_teseo_environment_path(char * filename);
+
+/*!
+save_preferences return 1 if current preferences saving on file filename succeed
+	\param char * filename
+
+*/
+char save_preferences(char * filename);
 
 #endif

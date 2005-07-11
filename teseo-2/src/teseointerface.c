@@ -1504,46 +1504,46 @@ create_preferences_dlg (void)
   GtkWidget *label148;
   GtkWidget *frame46;
   GtkWidget *vbox58;
-  GtkWidget *checkbutton27;
-  GtkWidget *checkbutton28;
+  GtkWidget *teseo_reloc_checkbutton;
+  GtkWidget *teseo_auto_res_checkbutton;
   GtkWidget *label149;
   GtkWidget *label150;
   GtkWidget *vbox59;
   GtkWidget *frame47;
   GtkWidget *vbox60;
-  GtkWidget *checkbutton29;
+  GtkWidget *teseo_direct_bez_checkbutton;
   GtkWidget *label151;
   GtkWidget *frame48;
   GtkWidget *vbox61;
   GtkWidget *hbox23;
   GtkWidget *label152;
-  GtkObject *spinbutton38_adj;
-  GtkWidget *spinbutton38;
-  GtkWidget *checkbutton30;
+  GtkObject *teseo_step_spinbutton_adj;
+  GtkWidget *teseo_step_spinbutton;
+  GtkWidget *teseo_abscissa_asc_checkbutton;
   GtkWidget *hbox24;
-  GtkWidget *checkbutton31;
-  GtkObject *spinbutton39_adj;
-  GtkWidget *spinbutton39;
+  GtkWidget *teseo_autosave_checkbutton;
+  GtkObject *teseo_auto_spinbutton_adj;
+  GtkWidget *teseo_auto_spinbutton;
   GtkWidget *label153;
   GtkWidget *frame49;
   GtkWidget *hbox25;
-  GtkWidget *checkbutton32;
+  GtkWidget *teseo_fitting_checkbutton;
   GtkWidget *vbox62;
-  GtkWidget *radiobutton24;
-  GSList *radiobutton24_group = NULL;
-  GtkWidget *radiobutton25;
-  GSList *radiobutton25_group = NULL;
+  GtkWidget *teseo_poly_radiobutton;
+  GSList *teseo_poly_radiobutton_group = NULL;
+  GtkWidget *teseo_ms_radiobutton;
+  GSList *teseo_ms_radiobutton_group = NULL;
   GtkWidget *hbox26;
   GtkWidget *label154;
-  GtkObject *spinbutton40_adj;
-  GtkWidget *spinbutton40;
+  GtkObject *teseo_order_spinbutton_adj;
+  GtkWidget *teseo_order_spinbutton;
   GtkWidget *table10;
   GtkWidget *label155;
   GtkWidget *label156;
   GtkWidget *label157;
   GtkWidget *label158;
-  GtkWidget *entry1;
-  GtkWidget *entry2;
+  GtkWidget *teseo_svdfit_entry;
+  GtkWidget *teseo_lfit_entry;
   GtkWidget *label159;
   GtkWidget *label160;
   GtkWidget *dialog_action_area6;
@@ -1620,15 +1620,15 @@ create_preferences_dlg (void)
   gtk_container_add (GTK_CONTAINER (frame46), vbox58);
   gtk_container_set_border_width (GTK_CONTAINER (vbox58), 4);
 
-  checkbutton27 = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
-  gtk_widget_set_name (checkbutton27, "checkbutton27");
-  gtk_widget_show (checkbutton27);
-  gtk_box_pack_start (GTK_BOX (vbox58), checkbutton27, FALSE, FALSE, 0);
+  teseo_reloc_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
+  gtk_widget_set_name (teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
+  gtk_widget_show (teseo_reloc_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox58), teseo_reloc_checkbutton, FALSE, FALSE, 0);
 
-  checkbutton28 = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
-  gtk_widget_set_name (checkbutton28, "checkbutton28");
-  gtk_widget_show (checkbutton28);
-  gtk_box_pack_start (GTK_BOX (vbox58), checkbutton28, FALSE, FALSE, 0);
+  teseo_auto_res_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
+  gtk_widget_set_name (teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
+  gtk_widget_show (teseo_auto_res_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox58), teseo_auto_res_checkbutton, FALSE, FALSE, 0);
 
   label149 = gtk_label_new ("Export");
   gtk_widget_set_name (label149, "label149");
@@ -1656,10 +1656,10 @@ create_preferences_dlg (void)
   gtk_container_add (GTK_CONTAINER (frame47), vbox60);
   gtk_container_set_border_width (GTK_CONTAINER (vbox60), 4);
 
-  checkbutton29 = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
-  gtk_widget_set_name (checkbutton29, "checkbutton29");
-  gtk_widget_show (checkbutton29);
-  gtk_box_pack_start (GTK_BOX (vbox60), checkbutton29, FALSE, FALSE, 0);
+  teseo_direct_bez_checkbutton = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
+  gtk_widget_set_name (teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
+  gtk_widget_show (teseo_direct_bez_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox60), teseo_direct_bez_checkbutton, FALSE, FALSE, 0);
 
   label151 = gtk_label_new ("Miscellaneous");
   gtk_widget_set_name (label151, "label151");
@@ -1687,33 +1687,33 @@ create_preferences_dlg (void)
   gtk_widget_show (label152);
   gtk_box_pack_start (GTK_BOX (hbox23), label152, FALSE, FALSE, 0);
 
-  spinbutton38_adj = gtk_adjustment_new (2, 0, 100, 1, 10, 10);
-  spinbutton38 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton38_adj), 1, 2);
-  gtk_widget_set_name (spinbutton38, "spinbutton38");
-  gtk_widget_show (spinbutton38);
-  gtk_box_pack_start (GTK_BOX (hbox23), spinbutton38, FALSE, FALSE, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton38), TRUE);
+  teseo_step_spinbutton_adj = gtk_adjustment_new (2, 0, 100, 1, 10, 10);
+  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
+  gtk_widget_show (teseo_step_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox23), teseo_step_spinbutton, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_step_spinbutton), TRUE);
 
-  checkbutton30 = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
-  gtk_widget_set_name (checkbutton30, "checkbutton30");
-  gtk_widget_show (checkbutton30);
-  gtk_box_pack_start (GTK_BOX (vbox61), checkbutton30, FALSE, FALSE, 0);
+  teseo_abscissa_asc_checkbutton = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
+  gtk_widget_set_name (teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
+  gtk_widget_show (teseo_abscissa_asc_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox61), teseo_abscissa_asc_checkbutton, FALSE, FALSE, 0);
 
   hbox24 = gtk_hbox_new (FALSE, 0);
   gtk_widget_set_name (hbox24, "hbox24");
   gtk_widget_show (hbox24);
   gtk_box_pack_start (GTK_BOX (vbox61), hbox24, TRUE, TRUE, 0);
 
-  checkbutton31 = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
-  gtk_widget_set_name (checkbutton31, "checkbutton31");
-  gtk_widget_show (checkbutton31);
-  gtk_box_pack_start (GTK_BOX (hbox24), checkbutton31, FALSE, FALSE, 0);
+  teseo_autosave_checkbutton = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
+  gtk_widget_set_name (teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
+  gtk_widget_show (teseo_autosave_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox24), teseo_autosave_checkbutton, FALSE, FALSE, 0);
 
-  spinbutton39_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  spinbutton39 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton39_adj), 1, 0);
-  gtk_widget_set_name (spinbutton39, "spinbutton39");
-  gtk_widget_show (spinbutton39);
-  gtk_box_pack_start (GTK_BOX (hbox24), spinbutton39, FALSE, TRUE, 0);
+  teseo_auto_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_auto_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_auto_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_auto_spinbutton, "teseo_auto_spinbutton");
+  gtk_widget_show (teseo_auto_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox24), teseo_auto_spinbutton, FALSE, TRUE, 0);
 
   label153 = gtk_label_new ("Resampling");
   gtk_widget_set_name (label153, "label153");
@@ -1731,29 +1731,29 @@ create_preferences_dlg (void)
   gtk_container_add (GTK_CONTAINER (frame49), hbox25);
   gtk_container_set_border_width (GTK_CONTAINER (hbox25), 4);
 
-  checkbutton32 = gtk_check_button_new_with_mnemonic ("Fitting");
-  gtk_widget_set_name (checkbutton32, "checkbutton32");
-  gtk_widget_show (checkbutton32);
-  gtk_box_pack_start (GTK_BOX (hbox25), checkbutton32, FALSE, FALSE, 0);
+  teseo_fitting_checkbutton = gtk_check_button_new_with_mnemonic ("Fitting");
+  gtk_widget_set_name (teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
+  gtk_widget_show (teseo_fitting_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox25), teseo_fitting_checkbutton, FALSE, FALSE, 0);
 
   vbox62 = gtk_vbox_new (TRUE, 0);
   gtk_widget_set_name (vbox62, "vbox62");
   gtk_widget_show (vbox62);
   gtk_box_pack_start (GTK_BOX (hbox25), vbox62, FALSE, TRUE, 0);
 
-  radiobutton24 = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
-  gtk_widget_set_name (radiobutton24, "radiobutton24");
-  gtk_widget_show (radiobutton24);
-  gtk_box_pack_start (GTK_BOX (vbox62), radiobutton24, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton24), radiobutton24_group);
-  radiobutton24_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton24));
+  teseo_poly_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
+  gtk_widget_set_name (teseo_poly_radiobutton, "teseo_poly_radiobutton");
+  gtk_widget_show (teseo_poly_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox62), teseo_poly_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton), teseo_poly_radiobutton_group);
+  teseo_poly_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton));
 
-  radiobutton25 = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
-  gtk_widget_set_name (radiobutton25, "radiobutton25");
-  gtk_widget_show (radiobutton25);
-  gtk_box_pack_start (GTK_BOX (vbox62), radiobutton25, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton25), radiobutton25_group);
-  radiobutton25_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton25));
+  teseo_ms_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
+  gtk_widget_set_name (teseo_ms_radiobutton, "teseo_ms_radiobutton");
+  gtk_widget_show (teseo_ms_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox62), teseo_ms_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton), teseo_ms_radiobutton_group);
+  teseo_ms_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton));
 
   hbox26 = gtk_hbox_new (FALSE, 5);
   gtk_widget_set_name (hbox26, "hbox26");
@@ -1765,11 +1765,11 @@ create_preferences_dlg (void)
   gtk_widget_show (label154);
   gtk_box_pack_start (GTK_BOX (hbox26), label154, FALSE, FALSE, 0);
 
-  spinbutton40_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  spinbutton40 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton40_adj), 1, 0);
-  gtk_widget_set_name (spinbutton40, "spinbutton40");
-  gtk_widget_show (spinbutton40);
-  gtk_box_pack_start (GTK_BOX (hbox26), spinbutton40, FALSE, FALSE, 0);
+  teseo_order_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_order_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_order_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_order_spinbutton, "teseo_order_spinbutton");
+  gtk_widget_show (teseo_order_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox26), teseo_order_spinbutton, FALSE, FALSE, 0);
 
   table10 = gtk_table_new (2, 3, FALSE);
   gtk_widget_set_name (table10, "table10");
@@ -1809,21 +1809,21 @@ create_preferences_dlg (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label158), 0, 0.5);
 
-  entry1 = gtk_entry_new ();
-  gtk_widget_set_name (entry1, "entry1");
-  gtk_widget_show (entry1);
-  gtk_table_attach (GTK_TABLE (table10), entry1, 1, 2, 0, 1,
+  teseo_svdfit_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_svdfit_entry, "teseo_svdfit_entry");
+  gtk_widget_show (teseo_svdfit_entry);
+  gtk_table_attach (GTK_TABLE (table10), teseo_svdfit_entry, 1, 2, 0, 1,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (entry1, 60, -1);
+  gtk_widget_set_size_request (teseo_svdfit_entry, 60, -1);
 
-  entry2 = gtk_entry_new ();
-  gtk_widget_set_name (entry2, "entry2");
-  gtk_widget_show (entry2);
-  gtk_table_attach (GTK_TABLE (table10), entry2, 1, 2, 1, 2,
+  teseo_lfit_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_lfit_entry, "teseo_lfit_entry");
+  gtk_widget_show (teseo_lfit_entry);
+  gtk_table_attach (GTK_TABLE (table10), teseo_lfit_entry, 1, 2, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (entry2, 60, -1);
+  gtk_widget_set_size_request (teseo_lfit_entry, 60, -1);
 
   label159 = gtk_label_new ("Fitting");
   gtk_widget_set_name (label159, "label159");
@@ -1872,41 +1872,41 @@ create_preferences_dlg (void)
   GLADE_HOOKUP_OBJECT (preferences_dlg, label148, "label148");
   GLADE_HOOKUP_OBJECT (preferences_dlg, frame46, "frame46");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox58, "vbox58");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton27, "checkbutton27");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton28, "checkbutton28");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label149, "label149");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label150, "label150");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox59, "vbox59");
   GLADE_HOOKUP_OBJECT (preferences_dlg, frame47, "frame47");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox60, "vbox60");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton29, "checkbutton29");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label151, "label151");
   GLADE_HOOKUP_OBJECT (preferences_dlg, frame48, "frame48");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox61, "vbox61");
   GLADE_HOOKUP_OBJECT (preferences_dlg, hbox23, "hbox23");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label152, "label152");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton38, "spinbutton38");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton30, "checkbutton30");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_step_spinbutton, "teseo_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, hbox24, "hbox24");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton31, "checkbutton31");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton39, "spinbutton39");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_spinbutton, "teseo_auto_spinbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label153, "label153");
   GLADE_HOOKUP_OBJECT (preferences_dlg, frame49, "frame49");
   GLADE_HOOKUP_OBJECT (preferences_dlg, hbox25, "hbox25");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, checkbutton32, "checkbutton32");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, vbox62, "vbox62");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, radiobutton24, "radiobutton24");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, radiobutton25, "radiobutton25");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_poly_radiobutton, "teseo_poly_radiobutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_ms_radiobutton, "teseo_ms_radiobutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, hbox26, "hbox26");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label154, "label154");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, spinbutton40, "spinbutton40");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_order_spinbutton, "teseo_order_spinbutton");
   GLADE_HOOKUP_OBJECT (preferences_dlg, table10, "table10");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label155, "label155");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label156, "label156");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label157, "label157");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label158, "label158");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, entry1, "entry1");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, entry2, "entry2");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_svdfit_entry, "teseo_svdfit_entry");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_lfit_entry, "teseo_lfit_entry");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
   GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
   GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area6, "dialog_action_area6");
