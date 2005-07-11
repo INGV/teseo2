@@ -37,7 +37,7 @@
 #include "teseosupport.h"
 
 #include "teseo_resample.h"
-
+#include "teseo_session.h"
 
 
 GtkWidget * teseowin;
@@ -372,7 +372,12 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+ //iface_save_rc(const char * file_rc,  GtkWidget * parent_widget);
+ //iface_load_rc(const char * file_rc,  GtkWidget * parent_widget );
+
+
  gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
+
   switch (result)
     {
       case GTK_RESPONSE_OK:
