@@ -130,18 +130,6 @@ load_session return 1 if session loading from file filename succeed
 char load_session(char * filename, struct Session * s);
 
 /*!
-get_teseo_environment_path return a string containing the teseo environment path, the .gimp-majorversion.minorversion
-*/
-char * get_teseo_environment_path();
-
-/*!
-create_teseo_environment_path return 1 if teseo environment path creation succeed
-	\param char * filename
-
-*/
-char create_teseo_environment_path(char * filename);
-
-/*!
 save_preferences return 1 if current preferences saving on file filename succeed
 	\param char * filename
 

@@ -29,7 +29,7 @@
 #include <libgimp/gimp.h>
 #include "teseo_io.h"
 #include "teseo_path.h"
-
+#include "teseo_env.h"
 
 extern   GtkWidget *teseowin;
 extern   GtkWidget *preferencesdlg;

@@ -93,10 +93,13 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
   char filename[FILENAMELEN];
+  char * path=NULL;
 
-  //TODO resource file
-
+  path=get_environment_path( SVGPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import Bezier Paths from SVG file");
+  gtk_file_chooser_set_current_folder(teseofilechooser, path );
+  free(path);
+
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
   switch (result)
@@ -126,9 +129,14 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
 {
 
   char filename[FILENAMELEN];
+  char * path=NULL;
 
-  //TODO resource file
+  path=get_environment_path( DXFPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
+  gtk_file_chooser_set_current_folder(teseofilechooser, path );
+  free(path);
+
+
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
 
@@ -468,10 +476,13 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
   char filename[FILENAMELEN];
+  char * path=NULL;
 
-  //TODO resource file
-
+  path=get_environment_path( BEZIERPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
+  gtk_file_chooser_set_current_folder(teseofilechooser, path );
+  free(path);
+
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
   switch (result)

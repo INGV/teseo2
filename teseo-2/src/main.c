@@ -45,7 +45,9 @@
 
 /*  Constants  */
 
-#define PROCEDURE_NAME   "teseo_2"
+#ifndef PROCEDURE_NAME
+#define PROCEDURE_NAME   "teseo-2"
+#endif
 
 #define DATA_KEY_VALS    "plug_in_teseo2"
 #define DATA_KEY_UI_VALS "plug_in_teseo2_ui"
@@ -179,9 +181,8 @@ run (const gchar      *name,
 
   /*Initialize gtkaddons support */
   init_store_widget("teseo");
-  /**/
-  //g_message("%s",get_teseo_environment_path());
-  create_teseo_environment_path("teseo-2");
+  create_environment();
+
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;
   drawable = gimp_drawable_get (param[2].data.d_drawable);

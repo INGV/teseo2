@@ -24,14 +24,63 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
+
 #ifndef NEURONENV
 #define NEURONENV 1
 
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include "teseo_io.h"
 
+#ifndef PROCEDURE_NAME
+#define PROCEDURE_NAME   "teseo-2"
+#endif
+
+
+
+
+/*OLDIES*/
 extern const char TESEO_BIN[];
 extern const char TESEO_DATA[];
 
 char *valore_parse(const char *nomefile, const char *nomevariabile);
 char *getenv_teseo(const char *name_var) ;
+/*END OLDIES*/
+
+
+/*!
+Environment default subpaths
+*/
+enum PATHNAMES          { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH };
+//in the source : const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences" };
+extern const char *SUBPATHS[];
+
+
+/*!
+get_teseo_environment_path returns a static string containing the teseo environment path, $HOME/.gimp-majorversio.minorversion/PROCEDURE_NAME
+*/
+char * get_teseo_environment_path( );
+
+/*!
+get_environment_path returns a newly allocated string containing the absolute path of the corresponding path resource.
+Free it after use!
+	\param char * pathname, in PATHNAMES
+*/
+char * get_environment_path( int pathname );
+
+
+/*!
+create_teseo_environment_path returns 1 if teseo environment path creation succeed
+	\param char * filename
+*/
+char create_teseo_environment_path( char* filename );
+
+/*!
+create_environment returns 1 if environment paths creation succeed,
+	\param char * name, the directory name to create under get_teseo_environment_path resulting path
+*/
+char create_environment();
+
+
 #endif

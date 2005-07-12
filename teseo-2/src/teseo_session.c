@@ -31,57 +31,14 @@
 
 #include "teseo_session.h"
 
-static char SESSION_PATH[FILENAMELEN];
-static char ENVIRONMENT_PATH[FILENAMELEN];
-
-char * get_teseo_environment_path(){
-
-    char ret=0;
-    char * home;
-    char path_session[FILENAMELEN]="";
-    char version[3];
-
-    home=getenv("HOME");
-    strcat(path_session,home);
-    strcat(path_session,"/.gimp-");
-    sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
-    strcat(path_session,version);
-
-    strcat(path_session,"/teseo-2");
-    strcpy(ENVIRONMENT_PATH,path_session);
-
-    return ENVIRONMENT_PATH;
-
-}
-
-char create_teseo_environment_path(char * filename){
-    char ret=0;
-    char * home;
-
-    char preferences[FILENAMELEN]="";
-
-    if ( test_dir( get_teseo_environment_path() ) == 0 ) {
-      if ( mkdir(get_teseo_environment_path(),S_IRWXU |  S_IRWXG | S_IRWXO ) == -1 ) {
-          g_message("Unable to create teseo environment path");
-      }
-      else
-          ret=1;
-    }
-    else {
-      //g_message("teseo environment path already exist");
-      ret=1;
-    }
-
-    return ret;
-}
+//static char SESSION_PATH[FILENAMELEN];
 
 
 char save_session(char * filename, struct Session * s){
     char ret=0;
-    char * home;
 
     char preferences[FILENAMELEN]="";
-    sprintf(preferences,"%s/%s",get_teseo_environment_path(),filename);
+    //sprintf(preferences,"%s/%s",get_teseo_environment_path(),filename);
 
     return ret;
 }
@@ -92,5 +49,4 @@ char load_session(char * filename, struct Session * s){
     char ret=0;
     return ret;
 }
-
 
