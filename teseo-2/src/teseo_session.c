@@ -36,7 +36,6 @@
 
 char save_session(char * filename, struct Session * s){
     char ret=0;
-
     char preferences[FILENAMELEN]="";
     //sprintf(preferences,"%s/%s",get_teseo_environment_path(),filename);
 

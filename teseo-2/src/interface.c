@@ -95,6 +95,7 @@ dialog (gint32              image_ID,
   preferencesdlg = create_preferences_dlg ();
   aboutdlg = create_about_dlg ();
   teseofilechooser = create_filechooserimport();
+  sessiondlg = create_session_dlg();
 
   //gtk_widget_show (teseodlg);
   gtk_widget_show (teseowin);
