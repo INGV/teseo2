@@ -24,7 +24,7 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
+
 #include <stdio.h>
 #include <string.h>
 #include "teseo_env.h"
@@ -33,6 +33,7 @@
 #define LEN_RIGA 1024
 
 
+/*OLDIES TODO eliminate !!!!*/
 const char TESEO_BIN[] = "TESEO_BIN";
 const char TESEO_DATA[] = "TESEO_DATA";
 
@@ -93,4 +94,100 @@ char *getenv_teseo(const char *name_var) {
     // g_message("Variabile d'ambiente %s = %s", name_var, s);
   }
   return s;
+}
+/*OLDIES END*/
+
+
+const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences" };
+
+
+char * get_teseo_environment_path( ){
+
+    static char ENVIRONMENT_PATH[FILENAMELEN];
+
+    char * home;
+    char version[3];
+
+    //TODO manage windows HOMEPATH and slashes
+    home=getenv("HOME");
+    strcpy(ENVIRONMENT_PATH,home);
+    strcat(ENVIRONMENT_PATH,"/.gimp-");
+    sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
+    strcat(ENVIRONMENT_PATH,version);
+    strcat(ENVIRONMENT_PATH,"/");
+    strcat(ENVIRONMENT_PATH,PROCEDURE_NAME);
+
+    return ENVIRONMENT_PATH;
+
+}
+
+
+char * get_environment_path( int pathname ){
+
+    char * path=NULL;
+
+    path = (char * ) malloc(sizeof(char)*FILENAMELEN);
+
+    if (path!=NULL) {
+        strcpy(path,get_teseo_environment_path());
+	//TODO windows it!!!
+        strcat(path,"/");
+        strcat(path,SUBPATHS[pathname]);
+    }
+    else {
+        g_message("Memory unavailable");
+	gtk_main_quit();
+    }
+
+    return path;
+}
+
+
+char create_teseo_environment_path(char * filename){
+    char ret=0;
+
+    if ( test_dir( filename ) == 0 ) {
+      if ( mkdir(filename,S_IRWXU |  S_IRWXG | S_IRWXO ) == -1 ) {
+          g_message("Unable to create teseo environment path: %s", filename);
+      }
+      else
+          ret=1;
+    }
+    else {
+      //g_message("teseo environment path already exist");
+      ret=1;
+    }
+
+    return ret;
+}
+
+char create_environment( ){
+
+ char * mainpath;
+ char error=0;
+ int i;
+ char path[FILENAMELEN]="";
+
+ mainpath=get_teseo_environment_path();
+
+ if (create_teseo_environment_path(mainpath) == 0 ) {
+     error=1;
+ }
+ else {
+     //creating subdirs
+     for (i=0; i<=PREFPATH; i++){
+	 strcpy(path, mainpath);
+	 //TODO windowsisation
+         strcat(path,"/");
+	 strcat(path,SUBPATHS[i]);
+         error = !(create_teseo_environment_path(path));
+     }
+ }
+
+ if (error){
+	g_message("Unable to create teseo environment");
+	gtk_main_quit();
+ }
+
+ return !error;
 }
