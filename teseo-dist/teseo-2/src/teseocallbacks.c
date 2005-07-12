@@ -44,6 +44,7 @@ GtkWidget * teseowin;
 GtkWidget * preferencesdlg;
 GtkWidget * aboutdlg;
 GtkWidget * teseofilechooser;
+GtkWidget * sessiondlg;
 
 GimpDrawable       *private_drawable ; //porcata
 gint32  teseo_image ; //porcata
@@ -52,6 +53,21 @@ void
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+
+ gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+          g_message("OK pressed: save new session");
+         break;
+      case GTK_RESPONSE_DELETE_EVENT:
+          g_message("Delete event, same as Cancel pressed");
+         break;
+      default:
+         break;
+    }
+  gtk_widget_hide (sessiondlg);
+
 
 }
 

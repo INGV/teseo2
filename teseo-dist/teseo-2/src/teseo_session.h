@@ -76,12 +76,13 @@ struct Location{
 	double quote;
 };
 
-struct EventInfo{
+struct RecordInfo{
 	struct teseoDate EventDate;
+//	struct teseoTime EventTime;
+	struct Location StaLocation;
+	char StaCode[5];
 	char ChCode[2];
 	char CompCod;
-	char StaCode[5];
-	struct Location StaLocation;
 };
 
 struct ImageInfo{
@@ -89,7 +90,7 @@ struct ImageInfo{
 	long Res;
 };
 
-enum TraceType{EVENT,TIME_MARKER};
+enum TraceType{EVENT, EVENT_TM, TM };
 
 struct TracesInfo{
 	char SVGFilename[FILENAMELEN];
@@ -108,7 +109,7 @@ struct Notes{
 };
 
 struct Session{
-	struct EventInfo   eventinfo;
+	struct RecordInfo  recordinfo;
 	struct ImageInfo   imageinfo;
 	struct TracesInfo  tracesinfo;
 	struct Preferences preferences;

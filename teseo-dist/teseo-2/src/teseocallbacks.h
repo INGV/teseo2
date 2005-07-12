@@ -36,7 +36,8 @@ extern   GtkWidget *preferencesdlg;
 extern   GtkWidget *aboutdlg;
 extern   GtkWidget *teseofilechooser;
 extern   GimpDrawable *private_drawable ; 
-extern   gint32  teseo_image ; 
+extern   GtkWidget * sessiondlg;
+extern   gint32  teseo_image ;
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
