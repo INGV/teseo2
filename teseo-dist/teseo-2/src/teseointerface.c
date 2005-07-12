@@ -2053,6 +2053,32 @@ create_session_dlg (void)
   GtkWidget *checkbutton31;
   GtkWidget *entry7;
   GtkWidget *button23;
+  GtkWidget *frame68;
+  GtkWidget *alignment20;
+  GtkWidget *hbox41;
+  GtkWidget *label199;
+  GtkObject *spinbutton33_adj;
+  GtkWidget *spinbutton33;
+  GtkWidget *label200;
+  GtkObject *spinbutton34_adj;
+  GtkWidget *spinbutton34;
+  GtkWidget *label201;
+  GtkObject *spinbutton35_adj;
+  GtkWidget *spinbutton35;
+  GtkWidget *label202;
+  GtkWidget *frame69;
+  GtkWidget *alignment21;
+  GtkWidget *hbox42;
+  GtkWidget *label207;
+  GtkObject *spinbutton36_adj;
+  GtkWidget *spinbutton36;
+  GtkWidget *label208;
+  GtkObject *spinbutton37_adj;
+  GtkWidget *spinbutton37;
+  GtkWidget *label209;
+  GtkObject *spinbutton38_adj;
+  GtkWidget *spinbutton38;
+  GtkWidget *label206;
   GtkWidget *tracesinfo;
   GtkWidget *vbox70;
   GtkWidget *checkbutton32;
@@ -2362,6 +2388,122 @@ create_session_dlg (void)
   gtk_widget_show (button23);
   gtk_box_pack_start (GTK_BOX (hbox37), button23, FALSE, FALSE, 0);
 
+  frame68 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame68, "frame68");
+  gtk_widget_show (frame68);
+  gtk_box_pack_start (GTK_BOX (vbox68), frame68, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (frame68), 3);
+
+  alignment20 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment20, "alignment20");
+  gtk_widget_show (alignment20);
+  gtk_container_add (GTK_CONTAINER (frame68), alignment20);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment20), 0, 0, 12, 0);
+
+  hbox41 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox41, "hbox41");
+  gtk_widget_show (hbox41);
+  gtk_container_add (GTK_CONTAINER (alignment20), hbox41);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox41), 5);
+
+  label199 = gtk_label_new ("Hour:  ");
+  gtk_widget_set_name (label199, "label199");
+  gtk_widget_show (label199);
+  gtk_box_pack_start (GTK_BOX (hbox41), label199, TRUE, FALSE, 0);
+
+  spinbutton33_adj = gtk_adjustment_new (0, 0, 23, 1, 10, 10);
+  spinbutton33 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton33_adj), 1, 0);
+  gtk_widget_set_name (spinbutton33, "spinbutton33");
+  gtk_widget_show (spinbutton33);
+  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton33, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton33), TRUE);
+
+  label200 = gtk_label_new ("Minute:");
+  gtk_widget_set_name (label200, "label200");
+  gtk_widget_show (label200);
+  gtk_box_pack_start (GTK_BOX (hbox41), label200, TRUE, FALSE, 0);
+
+  spinbutton34_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  spinbutton34 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton34_adj), 1, 0);
+  gtk_widget_set_name (spinbutton34, "spinbutton34");
+  gtk_widget_show (spinbutton34);
+  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton34, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton34), TRUE);
+
+  label201 = gtk_label_new ("Second:");
+  gtk_widget_set_name (label201, "label201");
+  gtk_widget_show (label201);
+  gtk_box_pack_start (GTK_BOX (hbox41), label201, TRUE, FALSE, 0);
+
+  spinbutton35_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  spinbutton35 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton35_adj), 1, 0);
+  gtk_widget_set_name (spinbutton35, "spinbutton35");
+  gtk_widget_show (spinbutton35);
+  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton35, FALSE, FALSE, 0);
+
+  label202 = gtk_label_new ("Event first sample time");
+  gtk_widget_set_name (label202, "label202");
+  gtk_widget_show (label202);
+  gtk_frame_set_label_widget (GTK_FRAME (frame68), label202);
+  gtk_label_set_use_markup (GTK_LABEL (label202), TRUE);
+
+  frame69 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame69, "frame69");
+  gtk_widget_show (frame69);
+  gtk_box_pack_start (GTK_BOX (vbox68), frame69, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (frame69), 3);
+
+  alignment21 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment21, "alignment21");
+  gtk_widget_show (alignment21);
+  gtk_container_add (GTK_CONTAINER (frame69), alignment21);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment21), 0, 0, 12, 0);
+
+  hbox42 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox42, "hbox42");
+  gtk_widget_show (hbox42);
+  gtk_container_add (GTK_CONTAINER (alignment21), hbox42);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox42), 5);
+
+  label207 = gtk_label_new ("Hour:  ");
+  gtk_widget_set_name (label207, "label207");
+  gtk_widget_show (label207);
+  gtk_box_pack_start (GTK_BOX (hbox42), label207, TRUE, FALSE, 0);
+
+  spinbutton36_adj = gtk_adjustment_new (0, 0, 23, 1, 10, 10);
+  spinbutton36 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton36_adj), 1, 0);
+  gtk_widget_set_name (spinbutton36, "spinbutton36");
+  gtk_widget_show (spinbutton36);
+  gtk_box_pack_start (GTK_BOX (hbox42), spinbutton36, FALSE, FALSE, 0);
+
+  label208 = gtk_label_new ("Minute:");
+  gtk_widget_set_name (label208, "label208");
+  gtk_widget_show (label208);
+  gtk_box_pack_start (GTK_BOX (hbox42), label208, TRUE, FALSE, 0);
+
+  spinbutton37_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  spinbutton37 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton37_adj), 1, 0);
+  gtk_widget_set_name (spinbutton37, "spinbutton37");
+  gtk_widget_show (spinbutton37);
+  gtk_box_pack_start (GTK_BOX (hbox42), spinbutton37, FALSE, FALSE, 0);
+
+  label209 = gtk_label_new ("Second:");
+  gtk_widget_set_name (label209, "label209");
+  gtk_widget_show (label209);
+  gtk_box_pack_start (GTK_BOX (hbox42), label209, TRUE, FALSE, 0);
+
+  spinbutton38_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  spinbutton38 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton38_adj), 1, 0);
+  gtk_widget_set_name (spinbutton38, "spinbutton38");
+  gtk_widget_show (spinbutton38);
+  gtk_box_pack_start (GTK_BOX (hbox42), spinbutton38, FALSE, FALSE, 0);
+
+  label206 = gtk_label_new ("Time markers first time");
+  gtk_widget_set_name (label206, "label206");
+  gtk_widget_show (label206);
+  gtk_frame_set_label_widget (GTK_FRAME (frame69), label206);
+  gtk_label_set_use_markup (GTK_LABEL (label206), TRUE);
+
   tracesinfo = gtk_label_new ("Traces");
   gtk_widget_set_name (tracesinfo, "tracesinfo");
   gtk_widget_show (tracesinfo);
@@ -2472,6 +2614,26 @@ create_session_dlg (void)
   GLADE_HOOKUP_OBJECT (session_dlg, checkbutton31, "checkbutton31");
   GLADE_HOOKUP_OBJECT (session_dlg, entry7, "entry7");
   GLADE_HOOKUP_OBJECT (session_dlg, button23, "button23");
+  GLADE_HOOKUP_OBJECT (session_dlg, frame68, "frame68");
+  GLADE_HOOKUP_OBJECT (session_dlg, alignment20, "alignment20");
+  GLADE_HOOKUP_OBJECT (session_dlg, hbox41, "hbox41");
+  GLADE_HOOKUP_OBJECT (session_dlg, label199, "label199");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton33, "spinbutton33");
+  GLADE_HOOKUP_OBJECT (session_dlg, label200, "label200");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton34, "spinbutton34");
+  GLADE_HOOKUP_OBJECT (session_dlg, label201, "label201");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton35, "spinbutton35");
+  GLADE_HOOKUP_OBJECT (session_dlg, label202, "label202");
+  GLADE_HOOKUP_OBJECT (session_dlg, frame69, "frame69");
+  GLADE_HOOKUP_OBJECT (session_dlg, alignment21, "alignment21");
+  GLADE_HOOKUP_OBJECT (session_dlg, hbox42, "hbox42");
+  GLADE_HOOKUP_OBJECT (session_dlg, label207, "label207");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton36, "spinbutton36");
+  GLADE_HOOKUP_OBJECT (session_dlg, label208, "label208");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton37, "spinbutton37");
+  GLADE_HOOKUP_OBJECT (session_dlg, label209, "label209");
+  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton38, "spinbutton38");
+  GLADE_HOOKUP_OBJECT (session_dlg, label206, "label206");
   GLADE_HOOKUP_OBJECT (session_dlg, tracesinfo, "tracesinfo");
   GLADE_HOOKUP_OBJECT (session_dlg, vbox70, "vbox70");
   GLADE_HOOKUP_OBJECT (session_dlg, checkbutton32, "checkbutton32");
@@ -2484,106 +2646,5 @@ create_session_dlg (void)
   GLADE_HOOKUP_OBJECT (session_dlg, okbutton5, "okbutton5");
 
   return session_dlg;
-}
-
-GtkWidget*
-create_window1 (void)
-{
-  GtkWidget *window1;
-  GtkWidget *fixed1;
-  GtkWidget *frame68;
-  GtkWidget *alignment20;
-  GtkWidget *hbox41;
-  GtkWidget *label196;
-  GtkObject *spinbutton31_adj;
-  GtkWidget *spinbutton31;
-  GtkWidget *label197;
-  GtkObject *spinbutton32_adj;
-  GtkWidget *spinbutton32;
-  GtkWidget *label198;
-  GtkObject *spinbutton33_adj;
-  GtkWidget *spinbutton33;
-  GtkWidget *label199;
-
-  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (window1, "window1");
-  gtk_window_set_title (GTK_WINDOW (window1), "window1");
-
-  fixed1 = gtk_fixed_new ();
-  gtk_widget_set_name (fixed1, "fixed1");
-  gtk_widget_show (fixed1);
-  gtk_container_add (GTK_CONTAINER (window1), fixed1);
-
-  frame68 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame68, "frame68");
-  gtk_widget_show (frame68);
-  gtk_fixed_put (GTK_FIXED (fixed1), frame68, 48, 24);
-  gtk_container_set_border_width (GTK_CONTAINER (frame68), 3);
-
-  alignment20 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment20, "alignment20");
-  gtk_widget_show (alignment20);
-  gtk_container_add (GTK_CONTAINER (frame68), alignment20);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment20), 0, 0, 12, 0);
-
-  hbox41 = gtk_hbox_new (TRUE, 0);
-  gtk_widget_set_name (hbox41, "hbox41");
-  gtk_widget_show (hbox41);
-  gtk_container_add (GTK_CONTAINER (alignment20), hbox41);
-
-  label196 = gtk_label_new ("Month: ");
-  gtk_widget_set_name (label196, "label196");
-  gtk_widget_show (label196);
-  gtk_box_pack_start (GTK_BOX (hbox41), label196, TRUE, FALSE, 0);
-
-  spinbutton31_adj = gtk_adjustment_new (12, 1, 12, 1, 10, 10);
-  spinbutton31 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton31_adj), 1, 0);
-  gtk_widget_set_name (spinbutton31, "spinbutton31");
-  gtk_widget_show (spinbutton31);
-  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton31, FALSE, FALSE, 0);
-
-  label197 = gtk_label_new ("Day: ");
-  gtk_widget_set_name (label197, "label197");
-  gtk_widget_show (label197);
-  gtk_box_pack_start (GTK_BOX (hbox41), label197, TRUE, FALSE, 0);
-
-  spinbutton32_adj = gtk_adjustment_new (31, 1, 31, 1, 10, 10);
-  spinbutton32 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton32_adj), 1, 0);
-  gtk_widget_set_name (spinbutton32, "spinbutton32");
-  gtk_widget_show (spinbutton32);
-  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton32, FALSE, FALSE, 0);
-
-  label198 = gtk_label_new ("Year: ");
-  gtk_widget_set_name (label198, "label198");
-  gtk_widget_show (label198);
-  gtk_box_pack_start (GTK_BOX (hbox41), label198, TRUE, FALSE, 0);
-
-  spinbutton33_adj = gtk_adjustment_new (1900, 1700, 3000, 1, 10, 10);
-  spinbutton33 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton33_adj), 1, 0);
-  gtk_widget_set_name (spinbutton33, "spinbutton33");
-  gtk_widget_show (spinbutton33);
-  gtk_box_pack_start (GTK_BOX (hbox41), spinbutton33, FALSE, FALSE, 0);
-
-  label199 = gtk_label_new ("Date");
-  gtk_widget_set_name (label199, "label199");
-  gtk_widget_show (label199);
-  gtk_frame_set_label_widget (GTK_FRAME (frame68), label199);
-  gtk_label_set_use_markup (GTK_LABEL (label199), TRUE);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
-  GLADE_HOOKUP_OBJECT (window1, fixed1, "fixed1");
-  GLADE_HOOKUP_OBJECT (window1, frame68, "frame68");
-  GLADE_HOOKUP_OBJECT (window1, alignment20, "alignment20");
-  GLADE_HOOKUP_OBJECT (window1, hbox41, "hbox41");
-  GLADE_HOOKUP_OBJECT (window1, label196, "label196");
-  GLADE_HOOKUP_OBJECT (window1, spinbutton31, "spinbutton31");
-  GLADE_HOOKUP_OBJECT (window1, label197, "label197");
-  GLADE_HOOKUP_OBJECT (window1, spinbutton32, "spinbutton32");
-  GLADE_HOOKUP_OBJECT (window1, label198, "label198");
-  GLADE_HOOKUP_OBJECT (window1, spinbutton33, "spinbutton33");
-  GLADE_HOOKUP_OBJECT (window1, label199, "label199");
-
-  return window1;
 }
 
