@@ -26,8 +26,8 @@ static char token [80]="";
 
 int init_store_widget(const char * mytoken){
     int ret=1;
-	strcpy(token,mytoken); 
-    return ret;	
+	strcpy(token,mytoken);
+    return ret;
 }
 
 
@@ -61,27 +61,27 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	GList *l;
     struct mydata *tmp=user_data;
 	//printf("Cerco %s nel container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
-    
+
 	if ( strcmp( (*tmp).w_name,  gtk_widget_get_name(data)) ==0){
-		
+
 		//		strcpy( user_data.w_content_to);
 		if (GTK_IS_TOGGLE_BUTTON(data) ){
-			// Contents of radiobuttons and togglebuttons	  
-			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {  
-				printf("Trovato %s viene posto a %s\n",(*tmp).w_name, (*tmp).w_content_to);			
-				if ( strcmp( (*tmp).w_content_to, "TRUE" ) ==0) { 
-					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==FALSE ) 
+			// Contents of radiobuttons and togglebuttons
+			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {
+				printf("Trovato %s viene posto a %s\n",(*tmp).w_name, (*tmp).w_content_to);
+				if ( strcmp( (*tmp).w_content_to, "TRUE" ) ==0) {
+					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==FALSE )
 						gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data),TRUE);
 				} else {
-					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==TRUE  )  
+					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==TRUE  )
 						gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data),FALSE);
 				}
-			}	
+			}
 		}
 		if (GTK_IS_ENTRY (data) ){
 			gtk_entry_set_text (GTK_ENTRY (data) ,(*tmp).w_content_to);
 			//gtk_editable_insert_text (GtkEditable *editable, const gchar *new_text, gint new_text_length, gint *position);
-		}	
+		}
 	}
 	else{
 		if(GTK_IS_CONTAINER (data)) {
@@ -95,27 +95,28 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	}
 }
 
-void iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
+char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	/*
-	read the file, skip lines with # or ##, look for marked widgets, 
-	if found in parent_widget set the widget value. 
+	read the file, skip lines with # or ##, look for marked widgets,
+	if found in parent_widget set the widget value.
 	*/
 	FILE *f;
-	
+	char ret=1;
+
 	gchar * subline = NULL;
 	char widget_name[80];
-	char widget_content[80];	
+	char widget_content[80];
 	char widget_type[80];
 
 
 	gchar line[1024];
 	size_t lenght = 0;
-    
+
 
 	guint n;
 	GList *l=NULL;
-	
-	struct mydata tmp; 
+
+	struct mydata tmp;
 	f = fopen(file_rc, "r");
 	if(f) {
 		while(fgets (line, 1024,  f)){
@@ -123,11 +124,11 @@ void iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 
 			// if  contains	#	skip line
 			if ( strstr(line, "#") == NULL  && strstr(line, "GtkWindow") ==NULL ) {
-				sscanf(line,"%s %s %s\n", widget_type, widget_name,widget_content);	
+				sscanf(line,"%s %s %s\n", widget_type, widget_name,widget_content);
 				subline = line + 2 +strlen(widget_type)+strlen(widget_name);
 				lenght=strlen(subline);
 				subline[lenght-1]='\0';
-				printf("%s %s %s\n", widget_type, widget_name,subline);	
+				printf("%s %s %s\n", widget_type, widget_name,subline);
 				if(GTK_IS_CONTAINER (parent_widget) ){
      				// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
    					l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
@@ -137,27 +138,31 @@ void iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 				//tmp.w_content_to=widget_content;
 				tmp.w_content_to=subline;
 				g_list_foreach( l, iface_load_rc_recursive , &tmp);
-			}	
+			}
 		}
 		fclose(f);
 	}
 	 else {
 		printf("\nError opening file \"%s\".\n", file_rc);
-	}	
+		ret=0;
+	}
+	return ret;
 }
 
-void iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
+char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	FILE *f;
+	char ret=1;
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.1 2005-07-06 13:06:07 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.2 2005-07-13 09:57:06 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
 		fclose(f);
 	} else {
 		printf("\nError opening file \"%s\".\n", file_rc);
+		ret=0;
 	}
 }
 

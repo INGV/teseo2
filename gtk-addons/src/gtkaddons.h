@@ -62,7 +62,7 @@ iface_save_rc write in a file the widget values of a container
 	\param file_rc file name
 	\param parent_widget pointer widget where starting
 */
-void iface_save_rc(const char * file_rc,  GtkWidget * parent_widget);
+char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget);
 
 /*!
 iface_save_rc_recursive browses recursively in a container and save in a file  the teseo widget name and its value
@@ -88,16 +88,16 @@ void print_iface(gpointer data, gpointer user_data) ;
 
 /*!
 iface_load_rc read in a file the widget values of a container it calls iface_load_rc_recursive
-	\param file_rc resourcefilename  
+	\param file_rc resourcefilename
 	\param user_data parent widget
 */
-void iface_load_rc(const char * file_rc,  GtkWidget * parent_widget );
+char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget );
 
 /*!
-iface_load_rc_recursive browses in a cointainer looking for a widget to setup 
+iface_load_rc_recursive browses in a cointainer looking for a widget to setup
 load the widget value.
   \param data current widget
-	\param user_data  mydata structure 
+	\param user_data  mydata structure
 */
 void iface_load_rc_recursive(gpointer data, gpointer user_data);
 
