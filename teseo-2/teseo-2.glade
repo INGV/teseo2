@@ -74,6 +74,27 @@
 		  </child>
 
 		  <child>
+		    <widget class="GtkImageMenuItem" id="options1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Options</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_options1_activate" last_modification_time="Thu, 14 Jul 2005 12:13:56 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image160">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-properties</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkSeparatorMenuItem" id="separator2">
 		      <property name="visible">True</property>
 		    </widget>
@@ -88,7 +109,7 @@
 		      <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image135">
+			<widget class="GtkImage" id="image161">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-preferences</property>
 			  <property name="icon_size">1</property>
@@ -114,7 +135,7 @@
 		      <property name="use_underline">True</property>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image136">
+			<widget class="GtkImage" id="image162">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-back</property>
 			  <property name="icon_size">1</property>
@@ -218,7 +239,7 @@
 		      <property name="use_underline">True</property>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image137">
+			<widget class="GtkImage" id="image163">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-forward</property>
 			  <property name="icon_size">1</property>
@@ -325,7 +346,7 @@
 		      <property name="visible">True</property>
 		      <property name="label">gtk-quit</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_quit1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
+		      <signal name="activate" handler="on_win_neuronteseo_delete_event" last_modification_time="Wed, 13 Jul 2005 07:52:31 GMT"/>
 		    </widget>
 		  </child>
 		</widget>
@@ -463,7 +484,7 @@
 		      <signal name="activate" handler="on_info_window_1_activate" last_modification_time="Wed, 19 Nov 2003 17:56:07 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image138">
+			<widget class="GtkImage" id="image164">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -497,7 +518,7 @@
 		      <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image139">
+			<widget class="GtkImage" id="image165">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-help</property>
 			  <property name="icon_size">1</property>
@@ -518,7 +539,7 @@
 		      <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image140">
+			<widget class="GtkImage" id="image166">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-dialog-info</property>
 			  <property name="icon_size">1</property>
@@ -543,8 +564,200 @@
       </child>
 
       <child>
-	<widget class="GtkHandleBox" id="handlebox2">
+	<widget class="GtkHandleBox" id="handlebox3">
 	  <property name="visible">True</property>
+	  <property name="shadow_type">GTK_SHADOW_OUT</property>
+	  <property name="handle_position">GTK_POS_LEFT</property>
+	  <property name="snap_edge">GTK_POS_TOP</property>
+
+	  <child>
+	    <widget class="GtkToolbar" id="toolbar2">
+	      <property name="visible">True</property>
+	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+	      <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
+	      <property name="tooltips">True</property>
+	      <property name="show_arrow">False</property>
+
+	      <child>
+		<widget class="GtkRadioToolButton" id="radiotoolbutton5">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Algorithm 1</property>
+		  <property name="label" translatable="yes"></property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-execute</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <property name="active">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkRadioToolButton" id="teseo_alg2_radiotoolbutton">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Algorithm 2</property>
+		  <property name="label" translatable="yes"></property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-execute</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		  <property name="active">False</property>
+		  <property name="group">radiotoolbutton5</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem4">
+		  <property name="visible">True</property>
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="teseo_alg_undo_toolbutton">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Undo</property>
+		  <property name="label" translatable="yes"></property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-undo</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolButton" id="teseo_alg_redo_toolbutton">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Redo</property>
+		  <property name="label" translatable="yes"></property>
+		  <property name="use_underline">True</property>
+		  <property name="stock_id">gtk-redo</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkSeparatorToolItem" id="separatortoolitem5">
+		  <property name="visible">True</property>
+		  <property name="draw">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolItem" id="toolitem3">
+		  <property name="visible">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+
+		  <child>
+		    <widget class="GtkButton" id="teseo_alg_back_toolbutton">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Back</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_teseo_alg_back_toolbutton_clicked" last_modification_time="Wed, 13 Jul 2005 07:24:10 GMT"/>
+		      <accelerator key="F3" modifiers="0" signal="clicked"/>
+
+		      <child>
+			<widget class="GtkImage" id="image143">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-go-back</property>
+			  <property name="icon_size">4</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkToolItem" id="toolitem4">
+		  <property name="visible">True</property>
+		  <property name="visible_horizontal">True</property>
+		  <property name="visible_vertical">True</property>
+		  <property name="is_important">False</property>
+
+		  <child>
+		    <widget class="GtkButton" id="teseo_alg_go_toolbutton">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Go</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_teseo_alg_go_toolbutton_clicked" last_modification_time="Wed, 13 Jul 2005 07:24:23 GMT"/>
+		      <accelerator key="F4" modifiers="0" signal="clicked"/>
+
+		      <child>
+			<widget class="GtkImage" id="image142">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-go-forward</property>
+			  <property name="icon_size">4</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="expand">False</property>
+		  <property name="homogeneous">False</property>
+		</packing>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHandleBox" id="handlebox2">
 	  <property name="shadow_type">GTK_SHADOW_OUT</property>
 	  <property name="handle_position">GTK_POS_LEFT</property>
 	  <property name="snap_edge">GTK_POS_TOP</property>
@@ -744,94 +957,6 @@
       </child>
 
       <child>
-	<widget class="GtkHandleBox" id="handlebox3">
-	  <property name="visible">True</property>
-	  <property name="shadow_type">GTK_SHADOW_OUT</property>
-	  <property name="handle_position">GTK_POS_LEFT</property>
-	  <property name="snap_edge">GTK_POS_TOP</property>
-
-	  <child>
-	    <widget class="GtkToolbar" id="toolbar2">
-	      <property name="visible">True</property>
-	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
-	      <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
-	      <property name="tooltips">True</property>
-	      <property name="show_arrow">False</property>
-
-	      <child>
-		<widget class="GtkToolButton" id="button12">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">button12</property>
-		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-execute</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="button13">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">button13</property>
-		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-execute</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="button14">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">button14</property>
-		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-execute</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkToolButton" id="button15">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">button15</property>
-		  <property name="use_underline">True</property>
-		  <property name="stock_id">gtk-execute</property>
-		  <property name="visible_horizontal">True</property>
-		  <property name="visible_vertical">True</property>
-		  <property name="is_important">False</property>
-		</widget>
-		<packing>
-		  <property name="expand">False</property>
-		  <property name="homogeneous">True</property>
-		</packing>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">True</property>
-	  <property name="fill">True</property>
-	</packing>
-      </child>
-
-      <child>
 	<widget class="GtkHBox" id="hbox10">
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
@@ -1000,7 +1125,6 @@
 
 		      <child>
 			<widget class="GtkFrame" id="frame22">
-			  <property name="visible">True</property>
 			  <property name="label_xalign">0</property>
 			  <property name="label_yalign">0.5</property>
 			  <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
@@ -1049,7 +1173,6 @@
 
 		      <child>
 			<widget class="GtkFrame" id="frame23">
-			  <property name="visible">True</property>
 			  <property name="label_xalign">0</property>
 			  <property name="label_yalign">0.5</property>
 			  <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
@@ -2735,7 +2858,7 @@ and again . . .</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">2 0 100 1 10 10</property>
+			      <property name="adjustment">1 0 100 1 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -2918,6 +3041,7 @@ and again . . .</property>
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <property name="group">teseo_poly_radiobutton</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -2970,7 +3094,7 @@ and again . . .</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">1 0 100 1 10 10</property>
+			      <property name="adjustment">2 0 100 1 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -3480,7 +3604,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton25">
+			    <widget class="GtkSpinButton" id="teseo_month_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3489,7 +3613,7 @@ and again . . .</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">12 1 12 1 10 10</property>
+			      <property name="adjustment">1 1 12 1 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -3520,7 +3644,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton26">
+			    <widget class="GtkSpinButton" id="teseo_day_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3529,7 +3653,7 @@ and again . . .</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">31 1 31 1 10 10</property>
+			      <property name="adjustment">1 1 31 1 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -3560,7 +3684,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton27">
+			    <widget class="GtkSpinButton" id="teseo_year_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3651,7 +3775,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="station_code_entry">
+			    <widget class="GtkEntry" id="teseo_station_code_entry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -3692,7 +3816,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry2">
+			    <widget class="GtkEntry" id="teseo_ch_code_entry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -3733,7 +3857,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry3">
+			    <widget class="GtkEntry" id="teseo_comp_code_entry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -3787,7 +3911,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton28">
+			    <widget class="GtkSpinButton" id="teseo_lat_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3827,7 +3951,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton29">
+			    <widget class="GtkSpinButton" id="teseo_lon_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -3867,7 +3991,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton30">
+			    <widget class="GtkSpinButton" id="teseo_quo_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4116,7 +4240,7 @@ and again . . .</property>
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkCheckButton" id="checkbutton27">
+		    <widget class="GtkCheckButton" id="teseo_event_checkbutton">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Event path</property>
@@ -4135,7 +4259,7 @@ and again . . .</property>
 		  </child>
 
 		  <child>
-		    <widget class="GtkEntry" id="entry5">
+		    <widget class="GtkEntry" id="teseo_event_tosave_file_entry">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
@@ -4183,7 +4307,7 @@ and again . . .</property>
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkCheckButton" id="checkbutton31">
+		    <widget class="GtkCheckButton" id="teseo_tm_checkbutton">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Time marks</property>
@@ -4202,7 +4326,7 @@ and again . . .</property>
 		  </child>
 
 		  <child>
-		    <widget class="GtkEntry" id="entry7">
+		    <widget class="GtkEntry" id="teseo_tm_tosave_file_entry">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
@@ -4292,7 +4416,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton33">
+			    <widget class="GtkSpinButton" id="teseo_event_hour_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4332,7 +4456,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton34">
+			    <widget class="GtkSpinButton" id="teseo_event_minute_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4372,7 +4496,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton35">
+			    <widget class="GtkSpinButton" id="teseo_event_second_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4469,7 +4593,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton36">
+			    <widget class="GtkSpinButton" id="eseo_tm_hour_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4509,7 +4633,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton37">
+			    <widget class="GtkSpinButton" id="teseo_tm_minute_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4549,7 +4673,7 @@ and again . . .</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton38">
+			    <widget class="GtkSpinButton" id="teseo_tm_second_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -4629,7 +4753,7 @@ and again . . .</property>
 	      <property name="spacing">0</property>
 
 	      <child>
-		<widget class="GtkCheckButton" id="checkbutton32">
+		<widget class="GtkCheckButton" id="teseo_savepref_checkbutton">
 		  <property name="border_width">3</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
@@ -4710,6 +4834,60 @@ and again . . .</property>
 	    <widget class="GtkLabel" id="preferences">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">Options</property>
+	      <property name="use_underline">False</property>
+	      <property name="use_markup">False</property>
+	      <property name="justify">GTK_JUSTIFY_LEFT</property>
+	      <property name="wrap">False</property>
+	      <property name="selectable">False</property>
+	      <property name="xalign">0.5</property>
+	      <property name="yalign">0.5</property>
+	      <property name="xpad">0</property>
+	      <property name="ypad">0</property>
+	    </widget>
+	    <packing>
+	      <property name="type">tab</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkScrolledWindow" id="scrolledwindow3">
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
+	      <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+	      <property name="shadow_type">GTK_SHADOW_IN</property>
+	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	      <child>
+		<widget class="GtkTextView" id="teseo_textview">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="editable">True</property>
+		  <property name="overwrite">False</property>
+		  <property name="accepts_tab">True</property>
+		  <property name="justification">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap_mode">GTK_WRAP_NONE</property>
+		  <property name="cursor_visible">True</property>
+		  <property name="pixels_above_lines">0</property>
+		  <property name="pixels_below_lines">0</property>
+		  <property name="pixels_inside_wrap">0</property>
+		  <property name="left_margin">0</property>
+		  <property name="right_margin">0</property>
+		  <property name="indent">0</property>
+		  <property name="text" translatable="yes">Insert comments ...</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="tab_expand">False</property>
+	      <property name="tab_fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkLabel" id="Notes">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">Notes</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>

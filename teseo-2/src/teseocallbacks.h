@@ -24,7 +24,7 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
+
 #include <gtk/gtk.h>
 #include <libgimp/gimp.h>
 #include "teseo_io.h"
@@ -35,7 +35,7 @@ extern   GtkWidget *teseowin;
 extern   GtkWidget *preferencesdlg;
 extern   GtkWidget *aboutdlg;
 extern   GtkWidget *teseofilechooser;
-extern   GimpDrawable *private_drawable ; 
+extern   GimpDrawable *private_drawable ;
 extern   GtkWidget * sessiondlg;
 extern   gint32  teseo_image ;
 
@@ -220,4 +220,17 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
 
 void
 on_bezier1_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_teseo_alg_back_toolbutton_clicked   (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
+                                        gpointer         user_data);
+
+
+void
+on_options1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

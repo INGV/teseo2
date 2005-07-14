@@ -109,7 +109,9 @@ char * get_teseo_environment_path( ){
     char version[3];
 
     //TODO manage windows HOMEPATH and slashes
-    home=getenv("HOME");
+    //home=getenv("HOME");
+    home=g_get_home_dir();/*portability ... in glib*/
+
     strcpy(ENVIRONMENT_PATH,home);
     strcat(ENVIRONMENT_PATH,"/.gimp-");
     sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
