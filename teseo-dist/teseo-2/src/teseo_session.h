@@ -57,14 +57,19 @@ Notes: User notes
 #define TESEOSESSION 1
 
 #include "teseo_io.h"
+#include "main.h"
 
-struct teseoDate{
+#define SESSION_EXT  ".tsf"
+#define SES_DLG_EXT  ".tsd"
+#define PREF_DLG_EXT ".tpd"
+#define NOTES_EXT    ".txt"
+struct TeseoDate{
 	long year;
 	int month;
 	int day;
 };
 
-struct teseoTime{
+struct TeseoTime{
 	int hours;
 	int minutes;
 	int seconds;
@@ -77,17 +82,17 @@ struct Location{
 };
 
 struct RecordInfo{
-	struct teseoDate EventDate;
+	struct TeseoDate EventDate;
 //	struct teseoTime EventTime;
 	struct Location StaLocation;
-	char StaCode[5];
-	char ChCode[2];
-	char CompCod;
+	char stacode[5];
+	char chcode[2];
+	char compcod;
 };
 
 struct ImageInfo{
 	char XCFfilename[FILENAMELEN];
-	long Res;
+	long res;
 };
 
 enum TraceType{EVENT, EVENT_TM, TM };
@@ -95,8 +100,8 @@ enum TraceType{EVENT, EVENT_TM, TM };
 struct TracesInfo{
 	char SVGFilename[FILENAMELEN];
 	char tracetype;
-	long SamplingRate;
-	struct teseoTime FirstSampleTime;
+	long samplingrate;
+	struct TeseoTime FirstSampleTime;
 };
 
 
@@ -105,7 +110,7 @@ struct Preferences{
 };
 
 struct Notes{
-	char  text[255];
+	char  text[80*25];
 };
 
 struct Session{
@@ -115,6 +120,47 @@ struct Session{
 	struct Preferences preferences;
 	struct Notes       notes;
 };
+
+
+/*!
+init_session return 1 if correctly initialise current session structure
+*/
+char init_session();
+
+/*!
+init_session return 1 if correctly initialise the session structure s with data from the interface widget
+*/
+char align_session(GtkWidget * sessiondlg, struct Session * s);
+
+/*!
+load_session_widget return 1 if correctly initialise the session widget
+*/
+char load_session_widget(const char * filename, GtkWidget * sessiondlg);
+
+char save_session_widget(const char * filename, GtkWidget * sessiondlg);
+
+/*!
+create_session_name return a newly allocated string containing a new valid session name.
+the name is s.imageinfo.XCFfilename-XXX.tsf the function create a filename not already present in dirname
+	\param char * dirname
+	\param struct Session * s
+*/
+char* create_name(char * dirname, char* order, char* ext);
+
+/*!
+verify_session_name return 1 if filename could be a valid session name for s, 0 otherwise.
+Valid name is s.imageinfo.XCFfilename-XXX.tsf
+	\param char * dirname
+	\param struct Session * s
+*/
+char verify_session_name(char * filename, struct Session * s);
+
+/*!
+save_session return 1 if session saving on file filename succeed
+	\param char * filename
+	\param struct Session * s
+*/
+char new_session(char * filename, char * preferences_dlg_filename, char* notes);
 
 /*!
 save_session return 1 if session saving on file filename succeed
@@ -128,13 +174,20 @@ load_session return 1 if session loading from file filename succeed
 	\param char * filename
 	\param struct Session * s
 */
-char load_session(char * filename, struct Session * s);
+char load_session(char * filename);
 
 /*!
 save_preferences return 1 if current preferences saving on file filename succeed
 	\param char * filename
-
+	\param struct Session * s
 */
-char save_preferences(char * filename);
+char save_preferences(char * filename, struct Session *s);
+
+/*!
+save_preferences return 1 if current preferences loading from file filename succeed
+	\param char * filename
+	\param struct Session * s
+*/
+char load_preferences(char * filename, struct Session *s);
 
 #endif

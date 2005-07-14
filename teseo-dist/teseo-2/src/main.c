@@ -179,10 +179,6 @@ run (const gchar      *name,
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   //add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
 
-  /*Initialize gtkaddons support */
-  init_store_widget("teseo");
-  create_environment();
-
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;
   drawable = gimp_drawable_get (param[2].data.d_drawable);
@@ -192,6 +188,12 @@ run (const gchar      *name,
   image_vals    = default_image_vals;
   drawable_vals = default_drawable_vals;
   ui_vals       = default_ui_vals;
+
+  /*Initialize gtkaddons support */
+  init_store_widget("teseo");
+  /*Initialize teseo environment */
+  create_environment();
+
 
   if (strcmp (name, PROCEDURE_NAME) == 0)
     {
