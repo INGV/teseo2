@@ -59,7 +59,9 @@ int is_teseo_widget(GtkWidget * widget) {
 void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	guint n;
 	GList *l;
-    struct mydata *tmp=user_data;
+	struct mydata *tmp=user_data;
+	GtkTextBuffer* gtb;
+	GtkTextIter start, stop;
 	//printf("Cerco %s nel container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
 
 	if ( strcmp( (*tmp).w_name,  gtk_widget_get_name(data)) ==0){
@@ -82,6 +84,12 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 			gtk_entry_set_text (GTK_ENTRY (data) ,(*tmp).w_content_to);
 			//gtk_editable_insert_text (GtkEditable *editable, const gchar *new_text, gint new_text_length, gint *position);
 		}
+
+                if (GTK_IS_TEXT_VIEW(data)){
+			gtb = gtk_text_view_get_buffer((GtkTextView *) data);
+			gtk_text_buffer_set_text (gtb,  (*tmp).w_content_to, -1);
+		}
+
 	}
 	else{
 		if(GTK_IS_CONTAINER (data)) {
@@ -107,11 +115,10 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	char widget_name[80];
 	char widget_content[80];
 	char widget_type[80];
-
+	char text_content[80*25*4]="";
 
 	gchar line[1024];
 	size_t lenght = 0;
-
 
 	guint n;
 	GList *l=NULL;
@@ -121,9 +128,8 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	if(f) {
 		while(fgets (line, 1024,  f)){
 		// char * fgets(char * restrict str, int size, FILE * restrict stream);
-
 			// if  contains	#	skip line
-			if ( strstr(line, "#") == NULL  && strstr(line, "GtkWindow") ==NULL ) {
+			if ( strstr(line, "###") == NULL  && strstr(line, "#") == NULL  && strstr(line, "GtkWindow") ==NULL ) {
 				sscanf(line,"%s %s %s\n", widget_type, widget_name,widget_content);
 				subline = line + 2 +strlen(widget_type)+strlen(widget_name);
 				lenght=strlen(subline);
@@ -138,6 +144,22 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 				//tmp.w_content_to=widget_content;
 				tmp.w_content_to=subline;
 				g_list_foreach( l, iface_load_rc_recursive , &tmp);
+			}
+			/*special case */
+			if ( strstr(line, "###") != NULL) {
+				sscanf(line,"\n%s %s ###\n", widget_type, widget_name);
+				/*take all the text up to next ### */
+				while(fgets (line, 1024,  f)){
+					if ( strstr(line, "###") != NULL ) {
+					strcat(text_content,line);
+					}
+					else{
+					break;
+					}
+				}
+				tmp.w_name=widget_name;
+				//tmp.w_content_to=widget_content;
+				tmp.w_content_to=text_content;
 			}
 		}
 		fclose(f);
@@ -155,7 +177,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.3 2005-07-14 07:28:45 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.4 2005-07-14 12:21:35 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -173,7 +195,9 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 	GList *l;
 	gchar * edits;
 	FILE *f = user_data;
-	
+	GtkTextBuffer* gtb;
+	GtkTextIter start, stop;
+
 	if ( !is_marked_widget (data) ){
 			// The line is commented
 			fprintf(f, "# ");
@@ -182,26 +206,32 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 	if ( strcmp(GTK_OBJECT_TYPE_NAME(data),"GtkWindow")!=0 ) {
 		// fprintf(f, "\nname = %s", gtk_widget_get_name(data));
 		fprintf(f, "%s %s ", GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
-	
-		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ){
-			// Contents of radiobuttons and togglebuttons	  
-			if ( GTK_IS_TOGGLE_BUTTON(data) ) {  
-				if ( gtk_toggle_button_get_active(data) ) { 
+
+		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ||GTK_IS_TEXT_VIEW(data) ){
+			// Contents of radiobuttons and togglebuttons
+			if ( GTK_IS_TOGGLE_BUTTON(data) ) {
+				if ( gtk_toggle_button_get_active(data) ) {
 					fprintf (f, "TRUE\n");
 				} else {
 					fprintf(f, "FALSE\n");
-				}	
+				}
 				// fprintf(f, " - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
 				// fprintf(f, " - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
 				// fprintf(f, " - g_objecttype = %d", G_OBJECT_TYPE(data));
 			}
-		   
+
 			// Contents of entry and spinbutton
-			if ( GTK_IS_EDITABLE (data) ) {  
+			if ( GTK_IS_EDITABLE (data) ) {
 			    edits=gtk_editable_get_chars ( (GtkEditable *) data, 0, -1);
 				//edits=gtk_entry_get_text ( (GtkEntry *) data);
 				fprintf (f, "%s\n",  edits);
 				g_free(edits);
+			}
+			//contens of textview
+			if (GTK_IS_TEXT_VIEW(data)){
+			  gtb = gtk_text_view_get_buffer((GtkTextView *) data);
+			  gtk_text_buffer_get_bounds (gtb,&start,&stop);
+			  fprintf (f,"###\n%s\n###\n", gtk_text_buffer_get_text ( gtb, &start, &stop, FALSE));
 			}
 		} else {
 			// Other widgets
@@ -230,37 +260,37 @@ void iface_display_rc_recursive(gpointer data, gpointer user_data){
 	GList *l;
 	char tab[255];
 	char tabchar[10] = "";
-	//char tabchar[10] = "  |___"; 
+	//char tabchar[10] = "  |___";
 	char indent_tab[255];
 	int indent;
 	gchar * edits;
-	
+
 	indent=strlen(user_data);
 	strcpy(indent_tab,user_data);
-	
+
 	memset(indent_tab, ' ', indent);
 	//sprintf(tab, "%s%s", (char *) user_data, tabchar);
 	sprintf(tab, "%s%s", indent_tab, tabchar);
-	
-	if(  is_teseo_widget (data) ) {	
+
+	if(  is_teseo_widget (data) ) {
 		//printf("\n%sname = %s", tab, gtk_widget_get_name(data));
 		printf("%s%s::%s=", tab, GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
-		
+
 		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data)  ){
-			//contents of radiobuttons and togglebuttons	  
-			if ( GTK_IS_TOGGLE_BUTTON(data) ) {  
-				if ( gtk_toggle_button_get_active(data) ) { 
+			//contents of radiobuttons and togglebuttons
+			if ( GTK_IS_TOGGLE_BUTTON(data) ) {
+				if ( gtk_toggle_button_get_active(data) ) {
 					printf ("TRUE\n");
 				} else {
 					printf("FALSE\n");
-				}	
+				}
 				//printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
 				//printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
 				//printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
 			}
-		   
+
 			//contents of entry and spinbutton
-			if ( GTK_IS_EDITABLE (data) ) {  
+			if ( GTK_IS_EDITABLE (data) ) {
 				edits=gtk_editable_get_chars ( (GtkEditable *) data, 0, -1);
 				printf ("%s\n",  edits);
 				g_free(edits);
@@ -292,19 +322,19 @@ void print_iface(gpointer data, gpointer user_data) {
 	char tabchar[10] = "  |___";
 	char indent_tab[255];
 	int indent;
-	
+
 	indent=strlen(user_data);
 	strcpy(indent_tab,user_data);
-	
+
 	memset(indent_tab, ' ', indent);
 	//sprintf(tab, "%s%s", (char *) user_data, tabchar);
 	sprintf(tab, "%s%s", indent_tab, tabchar);
-	
+
 	printf("%sname = %s", tab, gtk_widget_get_name(data));
 	printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
 	printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
 	printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
- 
+
 	if(GTK_IS_CONTAINER (data)) {
 		// printf(" - type = %s",  g_type_name(gtk_container_child_type(data)));
 		l = gtk_container_get_children(data);
