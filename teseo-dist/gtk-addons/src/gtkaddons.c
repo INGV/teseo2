@@ -155,7 +155,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.2 2005-07-13 09:57:06 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.3 2005-07-14 07:28:45 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -164,6 +164,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 		printf("\nError opening file \"%s\".\n", file_rc);
 		ret=0;
 	}
+	return ret;
 }
 
 void iface_save_rc_recursive(gpointer data, gpointer user_data) {
