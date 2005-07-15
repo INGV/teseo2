@@ -38,14 +38,14 @@ create_win_neuronteseo (void)
   GtkWidget *open1;
   GtkWidget *save1;
   GtkWidget *save_as1;
-  GtkWidget *options1;
-  GtkWidget *image160;
+  GtkWidget *properties1;
+  GtkWidget *image230;
   GtkWidget *separator2;
   GtkWidget *preferences_2;
-  GtkWidget *image161;
+  GtkWidget *image231;
   GtkWidget *separator4;
   GtkWidget *import1;
-  GtkWidget *image162;
+  GtkWidget *image232;
   GtkWidget *import1_menu;
   GtkWidget *svg1;
   GtkWidget *dxf2;
@@ -57,7 +57,7 @@ create_win_neuronteseo (void)
   GtkWidget *separator6;
   GtkWidget *bezier1;
   GtkWidget *export1;
-  GtkWidget *image163;
+  GtkWidget *image233;
   GtkWidget *export1_menu;
   GtkWidget *svg2;
   GtkWidget *dxf1;
@@ -87,13 +87,13 @@ create_win_neuronteseo (void)
   GtkWidget *neural_network1;
   GtkWidget *neural_network1_menu;
   GtkWidget *info_window_1;
-  GtkWidget *image164;
+  GtkWidget *image234;
   GtkWidget *menuitem7;
   GtkWidget *menuitem7_menu;
   GtkWidget *help1;
-  GtkWidget *image165;
+  GtkWidget *image235;
   GtkWidget *about1;
-  GtkWidget *image166;
+  GtkWidget *image236;
   GtkWidget *handlebox3;
   GtkWidget *toolbar2;
   GtkIconSize tmp_toolbar_icon_size;
@@ -269,15 +269,18 @@ create_win_neuronteseo (void)
   gtk_widget_show (save_as1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), save_as1);
 
-  options1 = gtk_image_menu_item_new_with_mnemonic ("_Options");
-  gtk_widget_set_name (options1, "options1");
-  gtk_widget_show (options1);
-  gtk_container_add (GTK_CONTAINER (menuitem4_menu), options1);
+  properties1 = gtk_image_menu_item_new_with_mnemonic ("P_roperties");
+  gtk_widget_set_name (properties1, "properties1");
+  gtk_widget_show (properties1);
+  gtk_container_add (GTK_CONTAINER (menuitem4_menu), properties1);
+  gtk_widget_add_accelerator (properties1, "activate", accel_group,
+                              GDK_R, GDK_CONTROL_MASK,
+                              GTK_ACCEL_VISIBLE);
 
-  image160 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image160, "image160");
-  gtk_widget_show (image160);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image160);
+  image230 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image230, "image230");
+  gtk_widget_show (image230);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image230);
 
   separator2 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator2, "separator2");
@@ -293,10 +296,10 @@ create_win_neuronteseo (void)
                               GDK_P, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image161 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image161, "image161");
-  gtk_widget_show (image161);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image161);
+  image231 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image231, "image231");
+  gtk_widget_show (image231);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image231);
 
   separator4 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator4, "separator4");
@@ -309,10 +312,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (import1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), import1);
 
-  image162 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image162, "image162");
-  gtk_widget_show (image162);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image162);
+  image232 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image232, "image232");
+  gtk_widget_show (image232);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image232);
 
   import1_menu = gtk_menu_new ();
   gtk_widget_set_name (import1_menu, "import1_menu");
@@ -370,10 +373,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (export1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), export1);
 
-  image163 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image163, "image163");
-  gtk_widget_show (image163);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image163);
+  image233 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image233, "image233");
+  gtk_widget_show (image233);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image233);
 
   export1_menu = gtk_menu_new ();
   gtk_widget_set_name (export1_menu, "export1_menu");
@@ -520,10 +523,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (info_window_1);
   gtk_container_add (GTK_CONTAINER (neural_network1_menu), info_window_1);
 
-  image164 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image164, "image164");
-  gtk_widget_show (image164);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (info_window_1), image164);
+  image234 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image234, "image234");
+  gtk_widget_show (image234);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (info_window_1), image234);
 
   menuitem7 = gtk_menu_item_new_with_mnemonic ("_Help");
   gtk_widget_set_name (menuitem7, "menuitem7");
@@ -539,20 +542,20 @@ create_win_neuronteseo (void)
   gtk_widget_show (help1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), help1);
 
-  image165 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image165, "image165");
-  gtk_widget_show (image165);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image165);
+  image235 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image235, "image235");
+  gtk_widget_show (image235);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image235);
 
   about1 = gtk_image_menu_item_new_with_mnemonic ("_About ...");
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), about1);
 
-  image166 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image166, "image166");
-  gtk_widget_show (image166);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image166);
+  image236 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image236, "image236");
+  gtk_widget_show (image236);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image236);
 
   handlebox3 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox3, "handlebox3");
@@ -1265,8 +1268,8 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) save_as1, "activate",
                     G_CALLBACK (on_save_as1_activate),
                     NULL);
-  g_signal_connect ((gpointer) options1, "activate",
-                    G_CALLBACK (on_options1_activate),
+  g_signal_connect ((gpointer) properties1, "activate",
+                    G_CALLBACK (on_properties1_activate),
                     NULL);
   g_signal_connect ((gpointer) preferences_2, "activate",
                     G_CALLBACK (on_preferences_w_activate),
@@ -1372,14 +1375,14 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, open1, "open1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, save1, "save1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, save_as1, "save_as1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, options1, "options1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image160, "image160");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, properties1, "properties1");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image230, "image230");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator2, "separator2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, preferences_2, "preferences_2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image161, "image161");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image231, "image231");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator4, "separator4");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image162, "image162");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image232, "image232");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1_menu, "import1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, svg1, "svg1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf2, "dxf2");
@@ -1391,7 +1394,7 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator6, "separator6");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, bezier1, "bezier1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image163, "image163");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image233, "image233");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1_menu, "export1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, svg2, "svg2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf1, "dxf1");
@@ -1421,13 +1424,13 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, neural_network1, "neural_network1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, neural_network1_menu, "neural_network1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, info_window_1, "info_window_1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image164, "image164");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image234, "image234");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7, "menuitem7");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7_menu, "menuitem7_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image165, "image165");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image235, "image235");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image166, "image166");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image236, "image236");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox3, "handlebox3");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar2, "toolbar2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, radiotoolbutton5, "radiotoolbutton5");
