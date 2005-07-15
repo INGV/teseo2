@@ -82,6 +82,15 @@ on_options1_activate                   (GtkMenuItem     *menuitem,
  gtk_widget_hide (sessiondlg);
 }
 
+void
+on_properties1_activate                   (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+ gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+ /*TODO gestire il result*/
+ gtk_widget_hide (sessiondlg);
+}
+
 
 void
 on_open1_activate                      (GtkMenuItem     *menuitem,
