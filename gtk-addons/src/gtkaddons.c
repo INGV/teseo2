@@ -22,6 +22,7 @@
 #include "gtkaddons.h"
 
 
+
 static char token [80]="";
 
 int init_store_widget(const char * mytoken){
@@ -62,7 +63,8 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	struct mydata *tmp=user_data;
 	GtkTextBuffer* gtb;
 	GtkTextIter start, stop;
-	//printf("Cerco %s nel container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
+	double s_value;
+	//printf("looking for %s in container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
 
 	if ( strcmp( (*tmp).w_name,  gtk_widget_get_name(data)) ==0){
 
@@ -70,7 +72,7 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 		if (GTK_IS_TOGGLE_BUTTON(data) ){
 			// Contents of radiobuttons and togglebuttons
 			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {
-				printf("Trovato %s viene posto a %s\n",(*tmp).w_name, (*tmp).w_content_to);
+				printf("found %s set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
 				if ( strcmp( (*tmp).w_content_to, "TRUE" ) ==0) {
 					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==FALSE )
 						gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data),TRUE);
@@ -84,12 +86,15 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 			gtk_entry_set_text (GTK_ENTRY (data) ,(*tmp).w_content_to);
 			//gtk_editable_insert_text (GtkEditable *editable, const gchar *new_text, gint new_text_length, gint *position);
 		}
-
+		if (GTK_IS_SPIN_BUTTON (data)  ){
+			s_value=strtod ((*tmp).w_content_to,NULL);
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON(data), s_value);
+		}
                 if (GTK_IS_TEXT_VIEW(data)){
+			//printf("found %s  content buffer set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
 			gtb = gtk_text_view_get_buffer((GtkTextView *) data);
 			gtk_text_buffer_set_text (gtb,  (*tmp).w_content_to, -1);
 		}
-
 	}
 	else{
 		if(GTK_IS_CONTAINER (data)) {
@@ -129,7 +134,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 		while(fgets (line, 1024,  f)){
 		// char * fgets(char * restrict str, int size, FILE * restrict stream);
 			// if  contains	#	skip line
-			if ( strstr(line, "###") == NULL  && strstr(line, "#") == NULL  && strstr(line, "GtkWindow") ==NULL ) {
+			if ( strstr(line, "GtkTextView") == NULL  && strstr(line, "#") == NULL  && strstr(line, "GtkWindow") ==NULL ) {
 				sscanf(line,"%s %s %s\n", widget_type, widget_name,widget_content);
 				subline = line + 2 +strlen(widget_type)+strlen(widget_name);
 				lenght=strlen(subline);
@@ -145,21 +150,24 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 				tmp.w_content_to=subline;
 				g_list_foreach( l, iface_load_rc_recursive , &tmp);
 			}
-			/*special case */
-			if ( strstr(line, "###") != NULL) {
-				sscanf(line,"\n%s %s ###\n", widget_type, widget_name);
-				/*take all the text up to next ### */
+			/*special case more lines for the widget content*/
+			if ( strstr(line, "GtkTextView") != NULL) {
+				sscanf(line,"\n%s %s\n", widget_type, widget_name);
+
+				/*take all the text up to next TEXTEND*/
 				while(fgets (line, 1024,  f)){
-					if ( strstr(line, "###") != NULL ) {
+					if ( strstr(line, "TEXTEND") == NULL ) {
 					strcat(text_content,line);
 					}
 					else{
 					break;
 					}
 				}
+				//printf("*** %s %s \nTEXT %s\n***\n",widget_type, widget_name, text_content);
 				tmp.w_name=widget_name;
 				//tmp.w_content_to=widget_content;
 				tmp.w_content_to=text_content;
+				g_list_foreach( l, iface_load_rc_recursive , &tmp);
 			}
 		}
 		fclose(f);
@@ -177,7 +185,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.4 2005-07-14 12:21:35 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.5 2005-07-15 08:07:52 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -227,11 +235,12 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 				fprintf (f, "%s\n",  edits);
 				g_free(edits);
 			}
+
 			//contens of textview
 			if (GTK_IS_TEXT_VIEW(data)){
 			  gtb = gtk_text_view_get_buffer((GtkTextView *) data);
 			  gtk_text_buffer_get_bounds (gtb,&start,&stop);
-			  fprintf (f,"###\n%s\n###\n", gtk_text_buffer_get_text ( gtb, &start, &stop, FALSE));
+			  fprintf (f,"\n%s\nTEXTEND\n", gtk_text_buffer_get_text ( gtb, &start, &stop, FALSE));
 			}
 		} else {
 			// Other widgets
