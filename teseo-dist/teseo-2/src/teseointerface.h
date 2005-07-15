@@ -7,3 +7,4 @@ GtkWidget* create_filechooserimport (void);
 GtkWidget* create_preferences_dlg (void);
 GtkWidget* create_about_dlg (void);
 GtkWidget* create_session_dlg (void);
+GtkWidget* create_teseo_session_filechooser (void);
