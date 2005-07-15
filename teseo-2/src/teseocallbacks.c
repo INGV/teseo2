@@ -45,35 +45,31 @@ GtkWidget * preferencesdlg;
 GtkWidget * aboutdlg;
 GtkWidget * teseofilechooser;
 GtkWidget * sessiondlg;
+GtkWidget * teseosessionfilechooser;
 
-GimpDrawable       *private_drawable ; //porcata
-gint32  teseo_image ; //porcata
+GimpDrawable * private_drawable ;
+gint32  teseo_image ;
+
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
- char notesfile[FILENAMELEN];
 
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
- //dialog-vbox7notebook4
+
   switch (result)
     {
       case GTK_RESPONSE_OK:
-          //g_message("OK pressed: save new session");
-	  //create_session_name(gimp_image_get_filename(teseo_image));
-	  //g_message(gimp_image_get_filename(teseo_image));
-	  new_session(gimp_image_get_filename(teseo_image), NULL, NULL);
+	  new_session(gimp_image_get_filename(teseo_image), NULL);
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-          g_message("Delete event, same as Cancel pressed");
          break;
       default:
          break;
     }
   gtk_widget_hide (sessiondlg);
-
 }
 
 
@@ -82,6 +78,7 @@ on_options1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+ /*TODO gestire il result*/
  gtk_widget_hide (sessiondlg);
 }
 
@@ -96,33 +93,39 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   char ret=0;
 
   path=get_environment_path( SESSIONPATH );
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open session file");
-  gtk_file_chooser_set_current_folder(teseofilechooser, path );
+  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
+  gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
   free(path);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+  gint result = gtk_dialog_run (GTK_DIALOG (teseosessionfilechooser));
 
   switch (result)
     {
       case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseosessionfilechooser)) );
          ret=load_session(filename);
-	 g_message("Loaded ? %d", ret);
          break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
+	 ret=2;
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
+	 ret=2;
          break;
       default:
          break;
     }
-  gtk_widget_hide (teseofilechooser);
 
-  result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+    gtk_widget_hide (teseosessionfilechooser);
 
-  gtk_widget_hide (sessiondlg);
+    if (ret==1) {
+        result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+       /*Gestire result ok-cancel*/
+        gtk_widget_hide (sessiondlg);
+    }
+    if (ret==0) {
+           g_message("Unable to open session");
+    }
 
 }
 
@@ -131,7 +134,7 @@ void
 on_save1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+ if (!save_session(current_session)) g_message("Unable to save current Session");
 }
 
 
@@ -139,6 +142,7 @@ void
 on_save_as1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+
 
 }
 
@@ -169,14 +173,13 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
-	 import_svg_vectors( teseo_image, filename );
+         import_svg_vectors( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
+         //g_message("Cancel pressed: don't do anything");
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
+         //g_message("Delete event, same as Cancel pressed");
          break;
       default:
          break;
@@ -207,8 +210,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display DXF path  %s on image %d", filename, teseo_image);
-	 import_dxf( teseo_image, filename );
+         import_dxf( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything");
@@ -331,7 +333,6 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	// call_on_btnBezier_clicked(private_image, pivals);
 	call_on_btnBezier_clicked(teseo_image, 1, 1);
 }
 
@@ -424,11 +425,9 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
   switch (result)
     {
       case GTK_RESPONSE_OK:
-         // g_message("OK pressed: save new preferences");
-         break;
+          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         // g_message("Delete event, same as Cancel pressed");
-         break;
+          break;
       default:
          break;
     }
@@ -442,9 +441,6 @@ void
 on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
- //iface_save_rc(const char * file_rc,  GtkWidget * parent_widget);
- //iface_load_rc(const char * file_rc,  GtkWidget * parent_widget );
 
 
  gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
@@ -464,7 +460,6 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
          break;
     }
   gtk_widget_hide (preferencesdlg);
-  //gtk_widget_show(preferencesdlg);
 
 }
 
@@ -484,8 +479,6 @@ on_win_preferences_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
-  //gtk_widget_hide(preferencesdlg);
-  //return TRUE;
 }
 
 
@@ -495,7 +488,6 @@ on_preferences_dlg_response            (GtkDialog       *dialog,
                                         gpointer         user_data)
 {
   gtk_widget_hide(preferencesdlg);
-  //in response_id c'è ok o cancel
   return response_id;
 }
 
@@ -552,7 +544,6 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         //g_message("OK pressed: open and display bezier  %s on image %d", filename, teseo_image);
 	 import_bzr( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:

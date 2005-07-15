@@ -36,13 +36,14 @@
 #include "teseointerface.h"
 #include "teseocallbacks.h"
 #include "teseosupport.h"
+#include "teseo_session.h"
 
 #include "plugin-intl.h"
 
 
 /*  Constants  */
 
-#define SCALE_WIDTH        180
+//#define SCALE_WIDTH        180
 #define SPIN_BUTTON_WIDTH   75
 #define RANDOM_SEED_WIDTH  100
 
@@ -69,9 +70,9 @@ dialog (gint32              image_ID,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
 {
-//   GtkWidget *dlg;
-
+  GtkFileFilter *filter =NULL;
   gboolean   run = FALSE;
+  char pattern[6]="*";
 
 /*GimpUnit   unit;
   gdouble    xres, yres;*/
@@ -97,7 +98,15 @@ dialog (gint32              image_ID,
   teseofilechooser = create_filechooserimport();
   sessiondlg = create_session_dlg();
 
-  //gtk_widget_show (teseodlg);
+  //setting filter for session files
+  teseosessionfilechooser = create_teseo_session_filechooser ();
+  filter = gtk_file_filter_new ();
+  strcat(pattern,SESSION_EXT);
+  gtk_file_filter_add_pattern (filter, pattern);
+  gtk_file_filter_set_name    (filter, "Session");
+  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
+
+
   gtk_widget_show (teseowin);
 
   gtk_main ();

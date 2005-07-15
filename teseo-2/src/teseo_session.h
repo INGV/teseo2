@@ -62,7 +62,8 @@ Notes: User notes
 #define SESSION_EXT  ".tsf"
 #define SES_DLG_EXT  ".tsd"
 #define PREF_DLG_EXT ".tpd"
-#define NOTES_EXT    ".txt"
+
+//#define NOTES_EXT    ".txt"
 struct TeseoDate{
 	long year;
 	int month;
@@ -121,6 +122,8 @@ struct Session{
 	struct Notes       notes;
 };
 
+extern char current_session[FILENAMELEN];
+
 
 /*!
 init_session return 1 if correctly initialise current session structure
@@ -160,14 +163,13 @@ save_session return 1 if session saving on file filename succeed
 	\param char * filename
 	\param struct Session * s
 */
-char new_session(char * filename, char * preferences_dlg_filename, char* notes);
+char new_session(char * filename, char * preferences_dlg_filename);
 
 /*!
 save_session return 1 if session saving on file filename succeed
 	\param char * filename
-	\param struct Session * s
 */
-char save_session(char * filename, struct Session * s);
+char save_session(char * filename);
 
 /*!
 load_session return 1 if session loading from file filename succeed
@@ -190,4 +192,5 @@ save_preferences return 1 if current preferences loading from file filename succ
 */
 char load_preferences(char * filename, struct Session *s);
 
+char load_widget(const char * filename, GtkWidget * dlg);
 #endif
