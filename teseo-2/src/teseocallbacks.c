@@ -50,6 +50,7 @@ GtkWidget * teseosessionfilechooser;
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
 
+char TODO_str[] = "Sorry, this function is not implemented yet!";
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -72,15 +73,6 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
   gtk_widget_hide (sessiondlg);
 }
 
-
-void
-on_options1_activate                   (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
- gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
- /*TODO gestire il result*/
- gtk_widget_hide (sessiondlg);
-}
 
 void
 on_properties1_activate                   (GtkMenuItem     *menuitem,
@@ -133,7 +125,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
         gtk_widget_hide (sessiondlg);
     }
     if (ret==0) {
-           g_message("Unable to open session");
+           g_message("Unable to open session.");
     }
 
 }
@@ -143,7 +135,7 @@ void
 on_save1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- if (!save_session(current_session)) g_message("Unable to save current Session");
+ if (!save_session(current_session)) g_message("Unable to save current Session.");
 }
 
 
@@ -151,8 +143,7 @@ void
 on_save_as1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
-
+	g_message(TODO_str);
 }
 
 
@@ -160,7 +151,7 @@ void
 on_preferences_2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -185,10 +176,10 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
          import_svg_vectors( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
-         //g_message("Cancel pressed: don't do anything");
+         //g_message("Cancel pressed: don't do anything.");
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         //g_message("Delete event, same as Cancel pressed");
+         //g_message("Delete event, same as Cancel pressed.");
          break;
       default:
          break;
@@ -222,10 +213,10 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
          import_dxf( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
+         g_message("Cancel pressed: don't do anything.");
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
+         g_message("Delete event, same as Cancel pressed.");
          break;
       default:
          break;
@@ -238,7 +229,7 @@ void
 on_trace2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -246,7 +237,7 @@ void
 on_sac2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -254,7 +245,7 @@ void
 on_sac_xy2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -262,7 +253,7 @@ void
 on_sisma2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -270,7 +261,7 @@ void
 on_timemark2_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -278,7 +269,7 @@ void
 on_path1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -286,7 +277,7 @@ void
 on_dxf1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -294,7 +285,7 @@ void
 on_track1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -302,7 +293,7 @@ void
 on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -310,7 +301,7 @@ void
 on_sac_xy1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -318,7 +309,7 @@ void
 on_sisma1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -326,7 +317,7 @@ void
 on_timemark1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -334,7 +325,7 @@ void
 on_quit1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -350,7 +341,7 @@ void
 on_align_all1_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -358,7 +349,7 @@ void
 on_link_all1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -366,7 +357,7 @@ void
 on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -374,7 +365,7 @@ void
 on_fitting_polyline1_activate          (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -382,7 +373,7 @@ void
 on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -390,7 +381,7 @@ void
 on_recover_last2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -398,7 +389,7 @@ void
 on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -406,7 +397,7 @@ void
 on_adjustment1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -414,7 +405,7 @@ void
 on_info_window_1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -422,7 +413,7 @@ void
 on_help1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -457,13 +448,13 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
   switch (result)
     {
       case GTK_RESPONSE_OK:
-         g_message("OK pressed: save new preferences");
+         g_message("OK pressed: save new preferences.");
          break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog");
+         g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog.");
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
+         g_message("Delete event, same as Cancel pressed.");
          break;
       default:
          break;
@@ -488,6 +479,7 @@ on_win_preferences_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
+
 }
 
 
@@ -515,7 +507,7 @@ void
 on_ascii1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -523,7 +515,7 @@ void
 on_svg2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -531,7 +523,7 @@ void
 on_ascii2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message(TODO_str);
 }
 
 
@@ -556,10 +548,10 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
 	 import_bzr( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything");
+         g_message("Cancel pressed: don't do anything.");
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed");
+         g_message("Delete event, same as Cancel pressed.");
          break;
       default:
          break;
@@ -571,7 +563,7 @@ void
 on_teseo_alg_back_toolbutton_clicked   (GtkButton   *button,
                                         gpointer         user_data)
 {
-    g_message("Premuto back");
+    g_message("%s\nPress Back button.", TODO_str);
 }
 
 
@@ -579,7 +571,7 @@ void
 on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
-    g_message("Premuto go");
+    g_message("%s\nPress Go button.", TODO_str);
 }
 
 
