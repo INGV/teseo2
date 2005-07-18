@@ -70,9 +70,18 @@ dialog (gint32              image_ID,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
 {
-  //GtkFileFilter *filter =NULL;
+
   gboolean   run = FALSE;
-  //char pattern[6]="*";
+
+  char * name_noext=NULL;
+  char * name=NULL;
+  char * token;
+
+  GtkFileFilter *filter =NULL;
+  const char delimiters[] = ".";
+  char pattern[FILENAMELEN]="";
+
+
 
 /*GimpUnit   unit;
   gdouble    xres, yres;*/
@@ -98,17 +107,26 @@ dialog (gint32              image_ID,
   teseofilechooser = create_filechooserimport();
   sessiondlg = create_session_dlg();
 
-  //setting filter for session files
   teseosessionfilechooser = create_teseo_session_filechooser ();
-  //filter = gtk_file_filter_new ();
-  //strcat(pattern,SESSION_EXT);
-  //gtk_file_filter_add_pattern (filter, pattern);
-  //gtk_file_filter_set_name    (filter, "Session");
-  //gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
+  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
+
+  //setting filter for session files
+  //filter based on basename of the image file name
+  name=g_path_get_basename (gimp_image_get_filename(teseo_image)); //to be freed
+  token = strpbrk(name, delimiters);
+  name_noext = g_strndup(name , strlen(name) - strlen(token) ); //without extensions
+  strcpy(pattern,name_noext);
+  strcat(pattern,"*");
+  strcat(pattern,SESSION_EXT);
+  filter = gtk_file_filter_new ();
+  gtk_file_filter_add_pattern (filter, pattern);
+  gtk_file_filter_set_name    (filter, "Session");
+  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
+  if (name != NULL) g_free(name);
+  if (name_noext != NULL) g_free(name_noext);
 
 
   gtk_widget_show (teseowin);
-
   gtk_main ();
 
 
@@ -138,3 +156,7 @@ dialog_image_constraint_func (gint32    image_id,
 {
   return (gimp_image_base_type (image_id) == GIMP_RGB);
 }
+
+
+
+
