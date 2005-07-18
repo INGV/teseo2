@@ -234,3 +234,7 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
 void
 on_properties1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_properties1_activate                (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);

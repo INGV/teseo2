@@ -2139,12 +2139,19 @@ create_session_dlg (void)
   GtkWidget *vbox67;
   GtkWidget *frame66;
   GtkWidget *alignment18;
-  GtkWidget *imagefile_label;
+  GtkWidget *teseo_imagefile_entry;
   GtkWidget *label183;
   GtkWidget *frame67;
   GtkWidget *alignment19;
-  GtkWidget *imageresolution_label;
+  GtkWidget *teseo_imageresolution_entry;
   GtkWidget *label184;
+  GtkWidget *SpeedFrame;
+  GtkWidget *alignment22;
+  GtkWidget *hbox43;
+  GtkWidget *label211;
+  GtkObject *teseo_paper_speed_spinbutton_adj;
+  GtkWidget *teseo_paper_speed_spinbutton;
+  GtkWidget *label210;
   GtkWidget *imageinfo;
   GtkWidget *vbox68;
   GtkWidget *hbox33;
@@ -2387,7 +2394,7 @@ create_session_dlg (void)
   gtk_widget_show (recordinfo);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 0), recordinfo);
 
-  vbox67 = gtk_vbox_new (FALSE, 0);
+  vbox67 = gtk_vbox_new (TRUE, 5);
   gtk_widget_set_name (vbox67, "vbox67");
   gtk_widget_show (vbox67);
   gtk_container_add (GTK_CONTAINER (notebook4), vbox67);
@@ -2398,18 +2405,20 @@ create_session_dlg (void)
   gtk_widget_set_name (frame66, "frame66");
   gtk_widget_show (frame66);
   gtk_box_pack_start (GTK_BOX (vbox67), frame66, FALSE, FALSE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame66), GTK_SHADOW_NONE);
+  gtk_container_set_border_width (GTK_CONTAINER (frame66), 3);
 
   alignment18 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment18, "alignment18");
   gtk_widget_show (alignment18);
   gtk_container_add (GTK_CONTAINER (frame66), alignment18);
+  gtk_container_set_border_width (GTK_CONTAINER (alignment18), 3);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment18), 0, 0, 12, 0);
 
-  imagefile_label = gtk_label_new (".");
-  gtk_widget_set_name (imagefile_label, "imagefile_label");
-  gtk_widget_show (imagefile_label);
-  gtk_container_add (GTK_CONTAINER (alignment18), imagefile_label);
+  teseo_imagefile_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_imagefile_entry, "teseo_imagefile_entry");
+  gtk_widget_show (teseo_imagefile_entry);
+  gtk_container_add (GTK_CONTAINER (alignment18), teseo_imagefile_entry);
+  gtk_editable_set_editable (GTK_EDITABLE (teseo_imagefile_entry), FALSE);
 
   label183 = gtk_label_new ("Image file");
   gtk_widget_set_name (label183, "label183");
@@ -2421,24 +2430,61 @@ create_session_dlg (void)
   gtk_widget_set_name (frame67, "frame67");
   gtk_widget_show (frame67);
   gtk_box_pack_start (GTK_BOX (vbox67), frame67, FALSE, FALSE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame67), GTK_SHADOW_NONE);
+  gtk_container_set_border_width (GTK_CONTAINER (frame67), 3);
 
   alignment19 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment19, "alignment19");
   gtk_widget_show (alignment19);
   gtk_container_add (GTK_CONTAINER (frame67), alignment19);
+  gtk_container_set_border_width (GTK_CONTAINER (alignment19), 3);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment19), 0, 0, 12, 0);
 
-  imageresolution_label = gtk_label_new (".");
-  gtk_widget_set_name (imageresolution_label, "imageresolution_label");
-  gtk_widget_show (imageresolution_label);
-  gtk_container_add (GTK_CONTAINER (alignment19), imageresolution_label);
+  teseo_imageresolution_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_imageresolution_entry, "teseo_imageresolution_entry");
+  gtk_widget_show (teseo_imageresolution_entry);
+  gtk_container_add (GTK_CONTAINER (alignment19), teseo_imageresolution_entry);
+  gtk_editable_set_editable (GTK_EDITABLE (teseo_imageresolution_entry), FALSE);
 
   label184 = gtk_label_new ("Resolution");
   gtk_widget_set_name (label184, "label184");
   gtk_widget_show (label184);
   gtk_frame_set_label_widget (GTK_FRAME (frame67), label184);
   gtk_label_set_use_markup (GTK_LABEL (label184), TRUE);
+
+  SpeedFrame = gtk_frame_new (NULL);
+  gtk_widget_set_name (SpeedFrame, "SpeedFrame");
+  gtk_widget_show (SpeedFrame);
+  gtk_box_pack_start (GTK_BOX (vbox67), SpeedFrame, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (SpeedFrame), 3);
+
+  alignment22 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment22, "alignment22");
+  gtk_widget_show (alignment22);
+  gtk_container_add (GTK_CONTAINER (SpeedFrame), alignment22);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment22), 0, 0, 12, 0);
+
+  hbox43 = gtk_hbox_new (TRUE, 10);
+  gtk_widget_set_name (hbox43, "hbox43");
+  gtk_widget_show (hbox43);
+  gtk_container_add (GTK_CONTAINER (alignment22), hbox43);
+
+  label211 = gtk_label_new ("mm/sec");
+  gtk_widget_set_name (label211, "label211");
+  gtk_widget_show (label211);
+  gtk_box_pack_start (GTK_BOX (hbox43), label211, FALSE, FALSE, 0);
+
+  teseo_paper_speed_spinbutton_adj = gtk_adjustment_new (1, 0.00999999977648, 10, 0.00999999977648, 10, 10);
+  teseo_paper_speed_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_paper_speed_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
+  gtk_widget_show (teseo_paper_speed_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox43), teseo_paper_speed_spinbutton, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_paper_speed_spinbutton), TRUE);
+
+  label210 = gtk_label_new ("Paper Speed");
+  gtk_widget_set_name (label210, "label210");
+  gtk_widget_show (label210);
+  gtk_frame_set_label_widget (GTK_FRAME (SpeedFrame), label210);
+  gtk_label_set_use_markup (GTK_LABEL (label210), TRUE);
 
   imageinfo = gtk_label_new ("Image");
   gtk_widget_set_name (imageinfo, "imageinfo");
@@ -2720,12 +2766,18 @@ create_session_dlg (void)
   GLADE_HOOKUP_OBJECT (session_dlg, vbox67, "vbox67");
   GLADE_HOOKUP_OBJECT (session_dlg, frame66, "frame66");
   GLADE_HOOKUP_OBJECT (session_dlg, alignment18, "alignment18");
-  GLADE_HOOKUP_OBJECT (session_dlg, imagefile_label, "imagefile_label");
+  GLADE_HOOKUP_OBJECT (session_dlg, teseo_imagefile_entry, "teseo_imagefile_entry");
   GLADE_HOOKUP_OBJECT (session_dlg, label183, "label183");
   GLADE_HOOKUP_OBJECT (session_dlg, frame67, "frame67");
   GLADE_HOOKUP_OBJECT (session_dlg, alignment19, "alignment19");
-  GLADE_HOOKUP_OBJECT (session_dlg, imageresolution_label, "imageresolution_label");
+  GLADE_HOOKUP_OBJECT (session_dlg, teseo_imageresolution_entry, "teseo_imageresolution_entry");
   GLADE_HOOKUP_OBJECT (session_dlg, label184, "label184");
+  GLADE_HOOKUP_OBJECT (session_dlg, SpeedFrame, "SpeedFrame");
+  GLADE_HOOKUP_OBJECT (session_dlg, alignment22, "alignment22");
+  GLADE_HOOKUP_OBJECT (session_dlg, hbox43, "hbox43");
+  GLADE_HOOKUP_OBJECT (session_dlg, label211, "label211");
+  GLADE_HOOKUP_OBJECT (session_dlg, teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
+  GLADE_HOOKUP_OBJECT (session_dlg, label210, "label210");
   GLADE_HOOKUP_OBJECT (session_dlg, imageinfo, "imageinfo");
   GLADE_HOOKUP_OBJECT (session_dlg, vbox68, "vbox68");
   GLADE_HOOKUP_OBJECT (session_dlg, hbox33, "hbox33");
@@ -2789,6 +2841,7 @@ create_teseo_session_filechooser (void)
                 NULL);
   gtk_window_set_position (GTK_WINDOW (teseo_session_filechooser), GTK_WIN_POS_MOUSE);
   gtk_window_set_modal (GTK_WINDOW (teseo_session_filechooser), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (teseo_session_filechooser), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (teseo_session_filechooser), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   dialog_vbox8 = GTK_DIALOG (teseo_session_filechooser)->vbox;
@@ -2821,5 +2874,55 @@ create_teseo_session_filechooser (void)
 
   gtk_widget_grab_default (button26);
   return teseo_session_filechooser;
+}
+
+GtkWidget*
+create_window1 (void)
+{
+  GtkWidget *window1;
+  GtkWidget *vbox72;
+  GtkWidget *hbox44;
+  GtkWidget *teseo_imagefile_label;
+  GtkWidget *hbox45;
+  GtkWidget *teseo_imageresolution_label;
+
+  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_name (window1, "window1");
+  gtk_window_set_title (GTK_WINDOW (window1), "window1");
+
+  vbox72 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox72, "vbox72");
+  gtk_widget_show (vbox72);
+  gtk_container_add (GTK_CONTAINER (window1), vbox72);
+
+  hbox44 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox44, "hbox44");
+  gtk_widget_show (hbox44);
+  gtk_box_pack_start (GTK_BOX (vbox72), hbox44, FALSE, FALSE, 0);
+
+  teseo_imagefile_label = gtk_label_new (".");
+  gtk_widget_set_name (teseo_imagefile_label, "teseo_imagefile_label");
+  gtk_widget_show (teseo_imagefile_label);
+  gtk_box_pack_start (GTK_BOX (hbox44), teseo_imagefile_label, FALSE, FALSE, 0);
+
+  hbox45 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox45, "hbox45");
+  gtk_widget_show (hbox45);
+  gtk_box_pack_start (GTK_BOX (vbox72), hbox45, TRUE, TRUE, 0);
+
+  teseo_imageresolution_label = gtk_label_new (".");
+  gtk_widget_set_name (teseo_imageresolution_label, "teseo_imageresolution_label");
+  gtk_widget_show (teseo_imageresolution_label);
+  gtk_box_pack_start (GTK_BOX (hbox45), teseo_imageresolution_label, FALSE, FALSE, 0);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
+  GLADE_HOOKUP_OBJECT (window1, vbox72, "vbox72");
+  GLADE_HOOKUP_OBJECT (window1, hbox44, "hbox44");
+  GLADE_HOOKUP_OBJECT (window1, teseo_imagefile_label, "teseo_imagefile_label");
+  GLADE_HOOKUP_OBJECT (window1, hbox45, "hbox45");
+  GLADE_HOOKUP_OBJECT (window1, teseo_imageresolution_label, "teseo_imageresolution_label");
+
+  return window1;
 }
 
