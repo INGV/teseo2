@@ -70,9 +70,9 @@ dialog (gint32              image_ID,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
 {
-  GtkFileFilter *filter =NULL;
+  //GtkFileFilter *filter =NULL;
   gboolean   run = FALSE;
-  char pattern[6]="*";
+  //char pattern[6]="*";
 
 /*GimpUnit   unit;
   gdouble    xres, yres;*/
@@ -100,11 +100,11 @@ dialog (gint32              image_ID,
 
   //setting filter for session files
   teseosessionfilechooser = create_teseo_session_filechooser ();
-  filter = gtk_file_filter_new ();
-  strcat(pattern,SESSION_EXT);
-  gtk_file_filter_add_pattern (filter, pattern);
-  gtk_file_filter_set_name    (filter, "Session");
-  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
+  //filter = gtk_file_filter_new ();
+  //strcat(pattern,SESSION_EXT);
+  //gtk_file_filter_add_pattern (filter, pattern);
+  //gtk_file_filter_set_name    (filter, "Session");
+  //gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
 
 
   gtk_widget_show (teseowin);

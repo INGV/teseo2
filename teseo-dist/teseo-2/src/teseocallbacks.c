@@ -57,13 +57,29 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+ GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imagefile_entry");
+ GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imageresolution_entry");
+
+
+ char * image_file = gimp_image_get_filename(teseo_image);
+ gdouble xresolution,yresolution;
+ char str_res[80];
+
+ gtk_entry_set_text (teseo_imagefile_entry, image_file);
+
+ gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+
+ sprintf(str_res,"%d",(gint) xresolution);
+ strcat(str_res," dpi");
+ gtk_entry_set_text (teseo_imageresolution_entry, str_res);
+
 
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
 
   switch (result)
     {
       case GTK_RESPONSE_OK:
-	  new_session(gimp_image_get_filename(teseo_image), NULL);
+	  new_session(image_file, NULL);
          break;
       case GTK_RESPONSE_DELETE_EVENT:
          break;
@@ -92,11 +108,32 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   char filename[FILENAMELEN];
   char * path=NULL;
   char ret=0;
+  char * name_noext=NULL;
+  char * name=NULL;
+  char * token;
+
+  GtkFileFilter *filter =NULL;
+  const char delimiters[] = ".";
+  char pattern[FILENAMELEN]="";
 
   path=get_environment_path( SESSIONPATH );
   gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
   gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
   free(path);
+
+  //filter based on basename of the image file name
+  name=g_path_get_basename (gimp_image_get_filename(teseo_image));
+  token = strpbrk(name, delimiters);
+  name_noext = g_strndup(name , strlen(name) - strlen(token) ); //without extensions
+  strcpy(pattern,name_noext);
+  strcat(pattern,"*");
+  strcat(pattern,SESSION_EXT);
+
+  filter = gtk_file_filter_new ();
+  gtk_file_filter_add_pattern (filter, pattern);
+  gtk_file_filter_set_name    (filter, "Session");
+  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
+
 
   gint result = gtk_dialog_run (GTK_DIALOG (teseosessionfilechooser));
 
@@ -573,6 +610,5 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
 {
     g_message("%s\nPress Go button.", TODO_str);
 }
-
 
 

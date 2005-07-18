@@ -104,6 +104,7 @@ char load_session(char * filename){
     char content[FILENAMELEN]="";
 
     if ( filexist(filename) ){
+
       f = fopen(filename,"r");
       if ( f != NULL ){
 
@@ -112,6 +113,8 @@ char load_session(char * filename){
 	   if ( strstr(line, "#") == NULL ) {
             sscanf(line,"%s = %s\n", var,content);
 	    if (strcmp("SessionFile",var) == 0)  {
+	      /*TODO consistency check*/
+
 	      strcpy(session_filename,content);
 	    }
 	    else{
