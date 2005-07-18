@@ -8,4 +8,3 @@ GtkWidget* create_preferences_dlg (void);
 GtkWidget* create_about_dlg (void);
 GtkWidget* create_session_dlg (void);
 GtkWidget* create_teseo_session_filechooser (void);
-GtkWidget* create_window1 (void);

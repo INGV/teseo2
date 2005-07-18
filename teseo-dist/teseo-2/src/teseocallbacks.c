@@ -108,32 +108,11 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   char filename[FILENAMELEN];
   char * path=NULL;
   char ret=0;
-  char * name_noext=NULL;
-  char * name=NULL;
-  char * token;
-
-  GtkFileFilter *filter =NULL;
-  const char delimiters[] = ".";
-  char pattern[FILENAMELEN]="";
 
   path=get_environment_path( SESSIONPATH );
-  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
+
   gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
   free(path);
-
-  //filter based on basename of the image file name
-  name=g_path_get_basename (gimp_image_get_filename(teseo_image));
-  token = strpbrk(name, delimiters);
-  name_noext = g_strndup(name , strlen(name) - strlen(token) ); //without extensions
-  strcpy(pattern,name_noext);
-  strcat(pattern,"*");
-  strcat(pattern,SESSION_EXT);
-
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_add_pattern (filter, pattern);
-  gtk_file_filter_set_name    (filter, "Session");
-  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
-
 
   gint result = gtk_dialog_run (GTK_DIALOG (teseosessionfilechooser));
 

@@ -225,11 +225,11 @@ char* create_name(char * dirname, char* order, char* ext){
 
     if ( filename != NULL) {
 
-      p = get_environment_path( SESSIONPATH ); /* path to session files to be freed*/
+      p = get_environment_path( SESSIONPATH ); // path to session files to be freed
       strcpy(filename,p);
       strcat(filename,"/");
 
-      name = g_path_get_basename (dirname); /*basename without path, to be freed*/
+      name = g_path_get_basename (dirname); //basename without path, to be freed
 
       token = strpbrk(name, delimiters);
 
