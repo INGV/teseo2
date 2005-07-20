@@ -33,8 +33,13 @@ teseo_2_SOURCES = \
 	teseo_resample.c	\
 	teseo_resample.h	\
 	teseo_session.c	\
-	teseo_session.h
-
+	teseo_session.h \
+	teseo_prototype.c \
+	teseo_prototype.h \
+	teseo_wmean.h \
+	teseo_wmean.c \
+	teseo_main.c \
+	teseo_main.h
 
 AM_CPPFLAGS = \
 	-DLOCALEDIR=\""$(LOCALEDIR)"\"		\

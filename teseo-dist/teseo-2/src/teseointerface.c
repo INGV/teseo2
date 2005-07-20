@@ -97,9 +97,9 @@ create_win_neuronteseo (void)
   GtkWidget *handlebox3;
   GtkWidget *toolbar2;
   GtkIconSize tmp_toolbar_icon_size;
-  GSList *radiotoolbutton5_group = NULL;
+  GSList *alg_wmean_radiotoolbutton_group = NULL;
   GtkWidget *tmp_image;
-  GtkWidget *radiotoolbutton5;
+  GtkWidget *alg_wmean_radiotoolbutton;
   GtkWidget *teseo_alg2_radiotoolbutton;
   GtkWidget *separatortoolitem4;
   GtkWidget *teseo_alg_undo_toolbutton;
@@ -570,18 +570,18 @@ create_win_neuronteseo (void)
   gtk_toolbar_set_show_arrow (GTK_TOOLBAR (toolbar2), FALSE);
   tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar2));
 
-  radiotoolbutton5 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
-  gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiotoolbutton5), "");
+  alg_wmean_radiotoolbutton = (GtkWidget*) gtk_radio_tool_button_new (NULL);
+  gtk_tool_button_set_label (GTK_TOOL_BUTTON (alg_wmean_radiotoolbutton), "");
   tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
-  gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiotoolbutton5), tmp_image);
-  gtk_widget_set_name (radiotoolbutton5, "radiotoolbutton5");
-  gtk_widget_show (radiotoolbutton5);
-  gtk_container_add (GTK_CONTAINER (toolbar2), radiotoolbutton5);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (radiotoolbutton5), tooltips, "Algorithm 1", NULL);
-  gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (radiotoolbutton5), radiotoolbutton5_group);
-  radiotoolbutton5_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (radiotoolbutton5));
-  gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (radiotoolbutton5), TRUE);
+  gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (alg_wmean_radiotoolbutton), tmp_image);
+  gtk_widget_set_name (alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
+  gtk_widget_show (alg_wmean_radiotoolbutton);
+  gtk_container_add (GTK_CONTAINER (toolbar2), alg_wmean_radiotoolbutton);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (alg_wmean_radiotoolbutton), tooltips, "Algorithm 1", NULL);
+  gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (alg_wmean_radiotoolbutton), alg_wmean_radiotoolbutton_group);
+  alg_wmean_radiotoolbutton_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (alg_wmean_radiotoolbutton));
+  gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (alg_wmean_radiotoolbutton), TRUE);
 
   teseo_alg2_radiotoolbutton = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (teseo_alg2_radiotoolbutton), "");
@@ -592,8 +592,8 @@ create_win_neuronteseo (void)
   gtk_widget_show (teseo_alg2_radiotoolbutton);
   gtk_container_add (GTK_CONTAINER (toolbar2), teseo_alg2_radiotoolbutton);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (teseo_alg2_radiotoolbutton), tooltips, "Algorithm 2", NULL);
-  gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton), radiotoolbutton5_group);
-  radiotoolbutton5_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton));
+  gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton), alg_wmean_radiotoolbutton_group);
+  alg_wmean_radiotoolbutton_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton));
 
   separatortoolitem4 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem4, "separatortoolitem4");
@@ -1358,6 +1358,9 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) about1, "activate",
                     G_CALLBACK (on_about1_activate),
                     NULL);
+  g_signal_connect ((gpointer) alg_wmean_radiotoolbutton, "clicked",
+                    G_CALLBACK (on_alg_wmean_radiotoolbutton_clicked),
+                    NULL);
   g_signal_connect ((gpointer) teseo_alg_back_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_back_toolbutton_clicked),
                     NULL);
@@ -1433,7 +1436,7 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, image236, "image236");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox3, "handlebox3");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar2, "toolbar2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiotoolbutton5, "radiotoolbutton5");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg2_radiotoolbutton, "teseo_alg2_radiotoolbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separatortoolitem4, "separatortoolitem4");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg_undo_toolbutton, "teseo_alg_undo_toolbutton");

@@ -238,3 +238,7 @@ on_properties1_activate                   (GtkMenuItem     *menuitem,
 void
 on_properties1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
+                                        gpointer         user_data);

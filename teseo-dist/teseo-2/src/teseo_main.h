@@ -24,41 +24,31 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
-#ifndef TESEO_PATH
-#define TESEO_PATH 1
+#ifndef teseo_main
+#define teseo_main 1
+#include "teseo_prototype.h"
+#include "teseo_wmean.h"
 
-#define GIMP_ENABLE_COMPAT_CRUFT 1
-#include <libgimp/gimp.h>
-#include <libgimp/gimpcompat.h>
-#include <gtk/gtk.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "teseo_types.h"
+/*!
+ *
+ */
+void teseo_main_init(
+		     int  (* alg)         ( const void * is, void * os ),
+		     void (* init_alg)    ( void * constants ),
+		     void  * sth,
+		     int  (* getinput)    ( void * is,  const void * previous_os, gint32 drawable_ID ),
+		     int  (* getouput)    ( void * os ),
+		     int  (* terminate)   ( void * os , void * is, gint32 drawable_ID ),
+		     int  (* accumulate)  ( double * strokes, long * num_strokes, void * os ),
+		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
+		     int  (* new_is)      ( void ** is ),
+		     int  (* release)     ( void * is, void * os )		     );
 
-#define PATHNAMELEN 160
 
-//31/05 #include "teseo_bezier.h"
-
-/*Utilità*/
-void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** pstrokes_ruotato, gdouble angolo);
-
-//31/05 perchè usa una f in bezier
-//void concatena_path_path_array(gint32 g_image, glong path_n, gdouble *path);
-
-/*Funzioni di I/O*/
-gdouble * path_array_to_strokes( gdouble * path_array, glong n_details, glong * n_strokes);
-gdouble * open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_path);
-gdouble * open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path);
-
-void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, char * nome_path);
-
-/*Funzioni di manipolazione*/
-void unisci_path( gint32 g_image );
-void allinea_path( gint32 g_image );
-void muovi_tracciato(gint32 g_image,gint x, gint y , gdouble rotate);
-void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes);
-
+/*!
+ *
+ */
+void teseo_main_loop();
 
 #endif
+
