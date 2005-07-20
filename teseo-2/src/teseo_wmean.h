@@ -24,41 +24,70 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
-#ifndef TESEO_PATH
-#define TESEO_PATH 1
+#ifndef teseo_wmean
+#define teseo_wmean 1
+#include "teseo_prototype.h"
+#include <glib.h>
 
-#define GIMP_ENABLE_COMPAT_CRUFT 1
-#include <libgimp/gimp.h>
-#include <libgimp/gimpcompat.h>
-#include <gtk/gtk.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "teseo_types.h"
+struct wmeanParam{
+	int colour;
+	int step;
+	int width;
+	int height;
+};
 
-#define PATHNAMELEN 160
+typedef struct wmeanParam wmeanParams;
 
-//31/05 #include "teseo_bezier.h"
+/*!
+ * wmean: wmean algorithm executions
+ */
+int wmean( const wm_is * is, wm_os * os );
 
-/*Utilità*/
-void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** pstrokes_ruotato, gdouble angolo);
 
-//31/05 perchè usa una f in bezier
-//void concatena_path_path_array(gint32 g_image, glong path_n, gdouble *path);
+/*!
+ * init_wmean initialise some const for algorithm execution
+ */
+void init_wmean( wmeanParams* s);
 
-/*Funzioni di I/O*/
-gdouble * path_array_to_strokes( gdouble * path_array, glong n_details, glong * n_strokes);
-gdouble * open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_path);
-gdouble * open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path);
+/*!
+ * wmean_getinput return is extracted from previous os and drawable
+ */
 
-void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, char * nome_path);
+int wmean_getinput(
+			wm_is * is,
+			const wm_os * previous_os,
+			gint32 drawable_ID
+		  );
 
-/*Funzioni di manipolazione*/
-void unisci_path( gint32 g_image );
-void allinea_path( gint32 g_image );
-void muovi_tracciato(gint32 g_image,gint x, gint y , gdouble rotate);
-void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes);
+/*!
+ * wmean_getouput
+ */
+int wmean_getouput(wm_os * os );
 
+/*!
+ * wmean_terminate
+ */
+int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID);
+
+/*!
+ * wmean_accumulate concatenate the os results in strokes
+ */
+int wmean_accumulate(gdouble ** strokes, gulong * num_strokes, wm_os * os);
+
+/*!
+ * wmean_starting_os create a starting os structure
+ */
+int wmean_starting_os(wm_os ** os, gint32 drawable_ID);
+
+/*!
+ * wmean_new_is create a new is structure with defaults
+ */
+int wmean_new_is( wm_is ** is);
+
+/*!
+ * wmean_release destructor
+ */
+int wmean_release(wm_is ** is, wm_os ** os);
 
 #endif
+

@@ -38,7 +38,8 @@
 
 #include "teseo_resample.h"
 #include "teseo_session.h"
-
+#include "teseo_main.h"
+#include "teseo_wmean.h"
 
 GtkWidget * teseowin;
 GtkWidget * preferencesdlg;
@@ -587,7 +588,51 @@ void
 on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
-    g_message("%s\nPress Go button.", TODO_str);
+   //g_message("%s\nPress Go button.", TODO_str);
+   gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
+   g_message("Drawable %d", drawable_ID);
+   teseo_main_loop(5, drawable_ID );
 }
 
 
+
+void
+on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
+                                        gpointer         user_data)
+{
+ wmeanParams s;
+ s.colour=0;
+ s.step=1;
+ s.width=10;
+ s.height=20;
+
+ teseo_main_init(
+			(*wmean),
+			(*init_wmean),
+			&s,
+			(*wmean_getinput),
+			(*wmean_getouput),
+			(*wmean_terminate),
+			(*wmean_accumulate),
+			(*wmean_starting_os),
+			(*wmean_new_is),
+			(*wmean_release)
+		);
+
+  g_message("Initiating done");
+}
+
+
+/*
+			(*wmean)(NULL,NULL),
+			(*init_wmean)(NULL),
+			&s,
+			(*wmean_getinput)(NULL,NULL,0),
+			(*wmean_getouput)(NULL),
+			(*wmean_terminate)(NULL,NULL,0),
+			(*wmean_accumulate)(NULL,NULL,NULL),
+			(*wmean_starting_os)(NULL,0),
+			(*wmean_new_is)(NULL),
+			(*wmean_release)(NULL,NULL)
+
+*/

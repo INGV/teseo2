@@ -24,9 +24,8 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
- 
-#include "teseo_path.h"
 
+#include "teseo_path.h"
 
 
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
@@ -76,7 +75,7 @@ void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** ps
   	strokes_ruotato[i*2] += offx;
   	strokes_ruotato[i*2 +1] += offy;
   }
-  	
+
 	*pstrokes_ruotato = strokes_ruotato;
 
   if(strokes_ruotato[num_strokes*2] != (gdouble) CANARY)
@@ -479,7 +478,7 @@ void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
 //Modifica al 11/01/2002 Prevede che dall'esterno lo strokes passat sia consecutivo al path chiamante
 //Non si controlla all'interno che il path e lo strokes non siano sovrapposti
 /* Ricavo il vecchio path, vi concateno lo strokes*/
-void concatena_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
+void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
   gdouble * old_path;
   gdouble * path_strokes=NULL;
@@ -515,7 +514,7 @@ void concatena_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
      //    		  g_message("\nTolgo un punto, num_points= %d\n",num_points);
      //    	}
 
-    	
+
     // printf("num_points_details=num_points * 3 * 3 -3=%d",num_points_details);
     path_strokes = (gdouble *) malloc(sizeof(gdouble) * (num_points_details + 1));
 
@@ -643,7 +642,7 @@ void concatena_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 // 
 //      //g_message("lontano: path vecchio %ld vettore %ld path nuovo%ld tot_details %ld",vect_dim_get, array_details, vect_dim, tot_details);
 //      path_strokes = (gdouble *) malloc(sizeof(gdouble) * (vect_dim + 1));
-// 
+//
 //      if(!path_strokes) {
 //       g_message("Not enough free memory for path_strokes!");
 //      }

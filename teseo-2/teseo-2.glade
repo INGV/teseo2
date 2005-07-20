@@ -580,7 +580,7 @@
 	      <property name="show_arrow">False</property>
 
 	      <child>
-		<widget class="GtkRadioToolButton" id="radiotoolbutton5">
+		<widget class="GtkRadioToolButton" id="alg_wmean_radiotoolbutton">
 		  <property name="visible">True</property>
 		  <property name="tooltip" translatable="yes">Algorithm 1</property>
 		  <property name="label" translatable="yes"></property>
@@ -590,6 +590,7 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <property name="active">True</property>
+		  <signal name="clicked" handler="on_alg_wmean_radiotoolbutton_clicked" last_modification_time="Wed, 20 Jul 2005 10:49:26 GMT"/>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
@@ -608,7 +609,7 @@
 		  <property name="visible_vertical">True</property>
 		  <property name="is_important">False</property>
 		  <property name="active">False</property>
-		  <property name="group">radiotoolbutton5</property>
+		  <property name="group">alg_wmean_radiotoolbutton</property>
 		</widget>
 		<packing>
 		  <property name="expand">False</property>
