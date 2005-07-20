@@ -80,6 +80,7 @@ dialog (gint32              image_ID,
   GtkFileFilter *filter =NULL;
   const char delimiters[] = ".";
   char pattern[FILENAMELEN]="";
+  char noname_str[] = "/tmp/NONAME.xcf";
 
 
 
@@ -112,7 +113,13 @@ dialog (gint32              image_ID,
 
   //setting filter for session files
   //filter based on basename of the image file name
-  name=g_path_get_basename (gimp_image_get_filename(teseo_image)); //to be freed
+  printf("\nteseo_image: %s\n", gimp_image_get_filename(teseo_image));
+  if(gimp_image_get_filename(teseo_image)) {
+  	name=g_path_get_basename (gimp_image_get_filename(teseo_image)); //to be freed
+  } else {
+  	name=(char *) malloc (sizeof(noname_str) + 1);
+  	strcpy(name, noname_str);
+  }
   token = strpbrk(name, delimiters);
   name_noext = g_strndup(name , strlen(name) - strlen(token) ); //without extensions
   strcpy(pattern,name_noext);
