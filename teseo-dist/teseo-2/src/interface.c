@@ -113,7 +113,6 @@ dialog (gint32              image_ID,
 
   //setting filter for session files
   //filter based on basename of the image file name
-  printf("\nteseo_image: %s\n", gimp_image_get_filename(teseo_image));
   if(gimp_image_get_filename(teseo_image)) {
   	name=g_path_get_basename (gimp_image_get_filename(teseo_image)); //to be freed
   } else {
