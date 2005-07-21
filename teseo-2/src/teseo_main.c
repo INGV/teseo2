@@ -34,7 +34,7 @@ static void ( * INIT_ALG    )  ( void * constants );
 static int  ( * GETINPUT    )  ( void * is,  const void * previous_os, gint32 drawable_ID );
 static int  ( * GETOUTPUT   )  ( void * os );
 static int  ( * TERMINATE   )  ( void * os, void * is, gint32 drawable_ID );
-static int  ( * ACCUMULATE  )  ( double * strokes, long * num_strokes, void * os );
+static int  ( * ACCUMULATE  )  ( double ** strokes, long * num_strokes, void * os );
 static int  ( * STARTING_OS )  ( void * os, gint32 drawable_ID );
 static int  ( * RELEASE     )  ( void * is, void *os);
 static int  ( * NEW_IS      )  ( void * is);
@@ -46,7 +46,7 @@ void teseo_main_init(
 		     int  (* getinput)    ( void * is,  const void * previous_os, gint32 drawable_ID ),
 		     int  (* getouput)    ( void * os ),
 		     int  (* terminate)   ( void * os , void * is, gint32 drawable_ID ),
-		     int  (* accumulate)  ( double * strokes, long * num_strokes, void * os ),
+		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
 		     int  (* new_is)      ( void ** is ),
 		     int  (* release)     ( void * is, void * os )
@@ -69,8 +69,8 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
   int i;
   void * os=NULL;
   void * is=NULL;
-  gdouble ** strokes=NULL;
-  long num_strokes=0;
+  gdouble * strokes=NULL;
+  gulong num_strokes=0;
   wm_os * myos;
 
   //initialize os as an ipothetique last running
@@ -81,27 +81,28 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
   //g_message("teseo_main_loop %d %d",(*myos).x, (*myos).y);
 
   NEW_IS(&is);
-  g_message("2");
+  //g_message("2");
 
   for (i=0; i<iter; i++){
    //get is from drawable and os
-   g_message("3");
+   //g_message("3");
    if ( ! GETINPUT(is, os, drawable_ID) ) break;
    //get os running the algorithm
-   g_message("4");
+   //g_message("4");
    if ( ! ALGORITHM( is, os ) ) break;
-   g_message("5");
+   //g_message("5");
    //accumulate results point on strokes extracted from os
    ACCUMULATE(&strokes, &num_strokes, os);
    //testing an escape condition on output os
-   g_message("6");
+   //g_message("6");
    //if ( TERMINATE(os, is, drawable_ID ) ) break;
-   g_message("7");
+   //g_message("7");
   }
 
   //TODO generalise?
-  cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, &strokes);
+  cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
   //RELEASE(&is,&os);
+  //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "test");
 
 }
 

@@ -182,7 +182,7 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   bufsize=bpp*width*height;
 
   bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-  g_message("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
+  //g_message("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
 
   if ( (drawable != NULL) && ( bufin != NULL) ) {
     //g_message("wmean_getinput points %d %d",(*previous_os).x ,(*previous_os).y);
@@ -194,7 +194,7 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
     gimp_pixel_rgn_init(&pr, drawable, x, y, width, height, FALSE, FALSE);
     gimp_pixel_rgn_get_rect (&pr, bufin, x, y, width, height);
 
-    g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
+    //g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
 
     (*is).bufin=bufin;
     ((*is).LastCentre).x=(*previous_os).x;
@@ -216,24 +216,51 @@ int wmean_getouput(wm_os * os ){
 int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
   int ret=0;
   //TODO control bounds of drawable and stop before
-  (*os).x;
+  //(*os).x;
   return ret;
 }
 
 int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
   int ret=0;
   gdouble * ptr = NULL;
-  ptr = (gdouble *) g_try_realloc( *strokes, ( sizeof(gdouble)) * ( (*num_strokes)*2 + 2 ) );
+  gulong dim;
+  //g_message("strokes %p ptr %p",strokes, ptr);
 
+  dim =(*num_strokes)*2 + 2 ;
+
+  if ( (*strokes) == NULL) {
+    //g_message("First time, isn't it?" );
+
+    ptr = (gdouble *) malloc(  sizeof(gdouble) * dim  );
+    if (ptr==NULL) g_message("Te credo");
+    //(*strokes)=ptr;
+  }
+  else {
+  ptr = (gdouble *) realloc( (*strokes), ( sizeof(gdouble)) * dim );
+  }
+  //g_message("*strokes %p ptr %p, dim %lu",(*strokes), ptr,dim);
   if ( ptr != NULL) {
-    ptr [(*num_strokes)*2]   = (*os).x;
-    ptr [(*num_strokes)*2+1] = (*os).y;
+    /*g_message("Prima\nos.x = %d os.y = %d\nAdded %f, %f, num_strokes= %lu now",
+       (*os).x,
+       (*os).y,
+       *(ptr+(*num_strokes)*2) ,
+       *(ptr+(*num_strokes)*2+1),
+       (*num_strokes));*/
+    *(ptr+dim-2) = (double) ((*os).x);
+    *(ptr+dim-1) = (double) ((*os).y);
+    //debug printf("x %f , y %f ... Added %f %f\n", (double) ((*os).x),(double) ((*os).y), *(ptr+dim-2), *(ptr+dim-1));
     //num_strokes is vector dimension/2
     (*num_strokes)+=1;
     ret=1;
-    g_message("Added %d, %d, num_strokes= %d now", (*os).x,(*os).y, (*num_strokes));
+    //g_message("Dopo\nos.x = %d os.y = %d\nAdded %f, %d, num_strokes= %lu now",
+    //(*os).x,
+    //(*os).y,
+    //*(ptr+(*num_strokes)*2),
+    //*(ptr+(*num_strokes)*2+1),
+    // (*num_strokes));
   }
-
+  (*strokes)=ptr;
+  //g_message("*strokes %p ptr %p, dim %lu, num_strokes %lu" ,(*strokes), ptr, dim, (*num_strokes) );
 return ret;
 }
 
@@ -248,7 +275,7 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
   r_os = (wm_os *) g_malloc(sizeof(wm_os));
 
   if (r_os!=NULL) {
-    g_message("wmean_starting_os");
+    //g_message("wmean_starting_os");
     image=gimp_drawable_get_image( drawable_ID );
     //get the pathname
     strcpy(pathname, gimp_path_get_current ( image ) );
@@ -260,7 +287,7 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
       g_free(strokes);
       ret=1;
       *os=r_os;
-      g_message("wmean_starting_os starting values %d %d", (*r_os).x,(*r_os).y);
+      //g_message("wmean_starting_os starting values %d %d", (*r_os).x,(*r_os).y);
     }
   }
   else g_message("wmean_starting_os NULL pointers");
