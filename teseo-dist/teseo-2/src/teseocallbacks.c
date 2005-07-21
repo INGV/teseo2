@@ -590,8 +590,8 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
 {
    //g_message("%s\nPress Go button.", TODO_str);
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
-   g_message("Drawable %d", drawable_ID);
-   teseo_main_loop(5, drawable_ID );
+   //g_message("Drawable %d", drawable_ID);
+   teseo_main_loop(50, drawable_ID );
 }
 
 
