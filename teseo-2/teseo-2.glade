@@ -1030,16 +1030,16 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton18">
+				<widget class="GtkSpinButton" id="teseo_forward_step_spinbutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
 				  <property name="digits">0</property>
-				  <property name="numeric">False</property>
+				  <property name="numeric">True</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">50 0 100 1 10 10</property>
+				  <property name="adjustment">50 1 10000 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="left_attach">1</property>
@@ -1052,16 +1052,16 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton19">
+				<widget class="GtkSpinButton" id="teseo_back_step_spinbutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
 				  <property name="digits">0</property>
-				  <property name="numeric">False</property>
+				  <property name="numeric">True</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">5 0 100 1 10 10</property>
+				  <property name="adjustment">5 1 10000 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="left_attach">1</property>
@@ -1774,16 +1774,16 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton15">
+				<widget class="GtkSpinButton" id="teseo_wm_height_spinbutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
 				  <property name="digits">0</property>
-				  <property name="numeric">False</property>
+				  <property name="numeric">True</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">50 0 100 1 10 10</property>
+				  <property name="adjustment">50 1 1000 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -1809,14 +1809,14 @@
 			      <property name="spacing">0</property>
 
 			      <child>
-				<widget class="GtkRadioButton" id="radiobutton11">
+				<widget class="GtkRadioButton" id="teseo_wm_colour_black_radiobutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Black trace</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
-				  <property name="active">False</property>
+				  <property name="active">True</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
 				</widget>
@@ -1828,7 +1828,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkRadioButton" id="radiobutton12">
+				<widget class="GtkRadioButton" id="teseo_wm_colour_white_radiobutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">White trace</property>
@@ -1838,7 +1838,7 @@
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
-				  <property name="group">radiobutton11</property>
+				  <property name="group">teseo_wm_colour_black_radiobutton</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -1884,16 +1884,16 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton16">
+				<widget class="GtkSpinButton" id="teseo_wm_width_spinbutton">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
 				  <property name="digits">0</property>
-				  <property name="numeric">False</property>
+				  <property name="numeric">True</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">5 0 100 1 10 10</property>
+				  <property name="adjustment">5 1 1000 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>

@@ -31,7 +31,7 @@
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
 void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** pstrokes_ruotato, gdouble angolo) {
 	// FILE *fstrokes;
-	
+
   gdouble *strokes_ruotato;
   gint xl, yl, wl, hl;
   gdouble offx, offy;
@@ -66,7 +66,7 @@ void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** ps
   for(i=0; i < num_strokes ; i++) {
   	strokes_ruotato[i*2]    = (cosangolo * strokes[i*2]) - (sinangolo * strokes[i*2+1]);
   	strokes_ruotato[i*2 +1] = (sinangolo * strokes[i*2]) + (cosangolo * strokes[i*2+1]);
-  }	
+  }
 
 	for(i=0; i < num_strokes ; i++) {
   	strokes[i*2] += offx;
@@ -274,7 +274,7 @@ gdouble * open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_pa
 
      	for (i=0; i<num_strokes; i++)    {
      		pstrokes_ret[2*i]   = points_pairs[i*9];
-     		pstrokes_ret[2*i+1] = points_pairs[i*9+1];    	
+     		pstrokes_ret[2*i+1] = points_pairs[i*9+1];
      	}
       if( pstrokes_ret[lstrokes] != (gdouble) CANARY ) {
       	g_message("Canary in pstrokes_ret is dead!");
@@ -540,7 +540,7 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 //    printf("\nCopio lo strokes\n"); //parto dall'inizio; è il chiamante a garantire che strokes non ripeta i punti del vecchio path
     for (i=0; i<num_strokes; i++) {
 //    	for(j=0; j<3 && k<(num_points_details-1); j++) {
-    	for(j=0; j<3 ; j++) {    	
+    	for(j=0; j<3 ; j++) {
     		path_strokes[k*3]=strokes[i*2];
     		path_strokes[k*3+1]=strokes[i*2+1];
     		// ris = ( (j % 3) == 1 )? 1.0 : 2.0 ;
@@ -548,7 +548,7 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
     			ris = 1.0;
     		else
     			ris = 2.0;
-    		path_strokes[k*3+2] = ris;  	  	
+    		path_strokes[k*3+2] = ris;
     		k++;
     	}
     }
@@ -570,6 +570,8 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
     	g_message("Canary in path_strokes is dead!");
   }
 
+  gimp_path_set_current (g_image, path_name);
+  //gimp_displays_flush ();
   if (path_strokes)
   	free(path_strokes);
 
@@ -577,7 +579,7 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
 
 // void concatena_path_path_array(gint32 g_image, glong path_n, gdouble *path){
-// 
+//
 //   gdouble * old_path;
 //   gdouble * path_strokes=NULL;
 //   gint32 path_type, vect_dim_get,path_closed;
@@ -586,30 +588,30 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 //   glong num_points;
 //   glong num_points_details=0, tot_details=0, i=0, j=0, k=0, kk=0, num_vet_punti, vect_dim,path_details, array_details;
 //   gdouble ris=0;
-// 
+//
 //   /*Ricavo il vecchio path*/
 //   strcpy(path_name,gimp_path_get_current(g_image));
 //   path_type = gimp_path_get_points( g_image, path_name, &path_closed, &vect_dim_get,  &old_path );
 //
 //   if ( !path_closed && vect_dim_get != 1 && path_type == 1)
 //   {
-// 
+//
 //     array_details = path_n;
 //     path_details = vect_dim_get/3;
-// 
+//
 //     ( distanza(old_path[vect_dim_get-6], old_path[vect_dim_get-5], path[0], path[1]) < 5) ? vicino=1: vicino=0;
 //
 //     if(vicino)
 //     {
 //     /*Per punti sufficientemente vicini butto il control dell'ultimo punto e butto il primo anchor del path successivo*/
 //      tot_details = path_details + array_details - 2;
-// 
+//
 //      //la dimensione del vettore da allocare
 //      vect_dim= tot_details * 3;
-// 
+//
 //      //g_message("vicino: path vecchio %ld vettore %ld path nuovo%ld tot_details %ld",vect_dim_get, array_details, vect_dim, tot_details);
 //      path_strokes = (gdouble *) malloc(sizeof(gdouble) * (vect_dim + 1));
-// 
+//
 //      if(!path_strokes) {
 //       g_message("Not enough free memory for path_strokes!");
 //      }
@@ -624,7 +626,7 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 //       }
 // 
 //       k=i;   //k conta gli elementi del vettore
-// 
+//
 //       /*Copio lo strokes saltando il primo anchor*/
 //       for (i=0; i<(array_details-1)*3; i++) {
 //        path_strokes[k+i]=path[i+1*(3)];
