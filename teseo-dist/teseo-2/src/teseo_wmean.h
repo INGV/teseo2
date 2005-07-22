@@ -52,8 +52,13 @@ void init_wmean( wmeanParams* s);
 /*!
  * wmean_getinput return is extracted from previous os and drawable
  */
-
 int wmean_getinput(
+			wm_is * is,
+			const wm_os * previous_os,
+			gint32 drawable_ID
+		  );
+
+int wmean_filterinput(
 			wm_is * is,
 			const wm_os * previous_os,
 			gint32 drawable_ID

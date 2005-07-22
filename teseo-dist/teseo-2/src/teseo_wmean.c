@@ -170,29 +170,40 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   int x, y;
   int bpp = 0;
   glong bufsize;
+  int i;
+  guchar first=0;
+
 
   guchar *bufin=NULL;
   GimpDrawable *drawable=NULL;
   GimpPixelRgn pr;
-
-  //g_message("wmean_getinput");
 
   drawable=gimp_drawable_get(drawable_ID);
   bpp = drawable->bpp;
   bufsize=bpp*width*height;
 
   bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-  //g_message("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
+  g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
 
   if ( (drawable != NULL) && ( bufin != NULL) ) {
-    //g_message("wmean_getinput points %d %d",(*previous_os).x ,(*previous_os).y);
+
     //top left corner
     x = (*previous_os).x-width/2;
     y = (*previous_os).y-height/2;
-    //g_message("wmean_getinput corner %d %d ", x,y);
+
     //get bufin
     gimp_pixel_rgn_init(&pr, drawable, x, y, width, height, FALSE, FALSE);
     gimp_pixel_rgn_get_rect (&pr, bufin, x, y, width, height);
+
+    //to manage more layers, gimp add alpha channel in background layer
+    if ( bpp==2 ) {
+      //shifting out alpha bytes
+      for (i=1; i<(bufsize/2); i++){
+	bufin[i] = bufin[i*2];
+	g_printf("\nbufin %u",bufin[i]);
+
+      }
+    }
 
     //g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
 
@@ -214,9 +225,25 @@ int wmean_getouput(wm_os * os ){
 }
 
 int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
-  int ret=0;
-  //TODO control bounds of drawable and stop before
-  //(*os).x;
+  int ret=1;
+  //control bounds of drawable and stop before
+  GimpDrawable *drawable=NULL;
+  gulong xmin, xmax, ymin, ymax;
+
+  drawable = gimp_drawable_get(drawable_ID);
+
+  if (drawable) {
+
+    xmin = ((this_params).width )/2;
+    ymin = ((this_params).height)/2;
+
+    xmax = drawable->width  - xmin;
+    ymax = drawable->height - ymin;
+
+    if ( (((*os).x) > xmin ) && (((*os).x) < xmax ) && ( ((*os).y) > ymin ) && (((*os).y) < ymax ) )
+      ret = 0;
+  }
+
   return ret;
 }
 
@@ -240,27 +267,15 @@ int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
   }
   //g_message("*strokes %p ptr %p, dim %lu",(*strokes), ptr,dim);
   if ( ptr != NULL) {
-    /*g_message("Prima\nos.x = %d os.y = %d\nAdded %f, %f, num_strokes= %lu now",
-       (*os).x,
-       (*os).y,
-       *(ptr+(*num_strokes)*2) ,
-       *(ptr+(*num_strokes)*2+1),
-       (*num_strokes));*/
     *(ptr+dim-2) = (double) ((*os).x);
     *(ptr+dim-1) = (double) ((*os).y);
     //debug printf("x %f , y %f ... Added %f %f\n", (double) ((*os).x),(double) ((*os).y), *(ptr+dim-2), *(ptr+dim-1));
     //num_strokes is vector dimension/2
     (*num_strokes)+=1;
     ret=1;
-    //g_message("Dopo\nos.x = %d os.y = %d\nAdded %f, %d, num_strokes= %lu now",
-    //(*os).x,
-    //(*os).y,
-    //*(ptr+(*num_strokes)*2),
-    //*(ptr+(*num_strokes)*2+1),
-    // (*num_strokes));
   }
   (*strokes)=ptr;
-  //g_message("*strokes %p ptr %p, dim %lu, num_strokes %lu" ,(*strokes), ptr, dim, (*num_strokes) );
+
 return ret;
 }
 
@@ -287,7 +302,6 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
       g_free(strokes);
       ret=1;
       *os=r_os;
-      //g_message("wmean_starting_os starting values %d %d", (*r_os).x,(*r_os).y);
     }
   }
   else g_message("wmean_starting_os NULL pointers");
@@ -310,276 +324,67 @@ int wmean_new_is( wm_is ** is){
 
 int wmean_release(wm_is ** is, wm_os ** os){
   int ret=0;
-  if ( *is!=NULL ) g_free(is);
-  if ( *os!=NULL ) g_free(os);
+  //TODO free bufin memory, is, os
   return ret;
 }
 
 
 
-/*
-void neuronSismos_eseguimanuale(gint32 g_image, GDrawable *drawable, glong LastXOld, glong LastYOld, glong LastXPrec, glong LastYPrec, glong LastXCentro, glong LastYCentro, glong *pnum_strokes, gdouble **pstrokes, gint n_passi)
-{
-  Tpunto LastSucc;
 
-  Tpunto OldPrec    = {LastXOld, LastYOld} ;
-  Tpunto LastPrec   = {LastXPrec, LastYPrec} ;
-  Tpunto LastCentro = {LastXCentro, LastYCentro} ;
-
-  GPixelRgn srcPR;
-  guchar *dest;
-  unsigned long len_dest;
-  gint width, height, bpp;
-  gint x1, y1, x2, y2;
-  int indi;
-  // valori di ritorno
-  glong num_strokes, cur_stroke, mod_progress;
-  gdouble *strokes;
-
-  // variabili di appoggio nell'utilizzo della rete
-  float *bufin, *bufout;
-	gboolean escidalciclo = 0;
-
-  glong X_limit;
-  float appx, appy;
-  int xr, yr;
-  float valpasso;
-
-  gint net_width, net_height;
-  char s_tmp_app[255];
-
-  // variabile di appoggio per directory di lavoro
-  char dir_gimp[80];
-  gulong lbufin, lbufout, lstrokes, ldest;
-
-  if ( n_passi==0 ) n_passi=INT_MAX;
-
-  // memorizzo vecchia directory di lavoro di GIMP
-  getcwd(dir_gimp,80);
-
-  sprintf(s_tmp_app, "%s/tmp", getenv_teseo(TESEO_DATA));
-  chdir(s_tmp_app);
-
-  //  Get the input area. This is the bounding box of the selection in
-  //  the image (or the entire image if there is no selection). Only
-  //  operating on the input area is simply an optimization. It doesn't
-  //  need to be done for correct operation. (It simply makes it go
-  //  faster, since fewer pixels need to be operated on).
-   //TODO be sure to get only a small rectangle
-  gimp_drawable_mask_bounds(drawable->id, &x1, &y1, &x2, &y2);
-
-  X_limit = x2;//il più a destra
-
-  num_strokes = n_passi;//pu0 essere presso pari al numero di passi da fare NOOOO????
-  lstrokes = num_strokes * 2;
-  strokes = (gdouble *) malloc(sizeof(gdouble) * (lstrokes + 1));
-  strokes[lstrokes] = (gdouble) CANARY;
-
-  if(!strokes) {
-    g_message("Not enough free memory for strokes!");
-    exit(1);
-  }
-
-  mod_progress = n_passi / 50;
-  if(mod_progress < 1) mod_progress = 1;
+int wmean_filter_input( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
+  int ret=0;
+  int width   = this_params.width;
+  int height  = this_params.height;
+  int x, y;
+  int bpp = 0;
+  glong bufsize;
+  int i;
+  guchar first=0;
 
 
-  //  Get the size of the input image. (This will/must be the same
-   *  as the size of the output image.
-  width = drawable->width;
-  height = drawable->height;
+  guchar *bufin=NULL;
+  GimpDrawable *drawable=NULL;
+  GimpPixelRgn pr;
+
+  drawable=gimp_drawable_get(drawable_ID);
   bpp = drawable->bpp;
+  bufsize=bpp*width*height;
 
-	if(glob.ins_tipo==COLORE_1)
-		{
-			net_width 	= ins_manual.colonne;
-		  net_height 	= ins_manual.righe;
-		}
-	else if(glob.ins_tipo==COLORE_2)
-			{
-				net_width 	= ins_snap.colonne;
-			  net_height 	= ins_snap.righe;
-				//printf("net_width %d; net_height: %d\n", net_width, net_height);
-			}
-	else if(glob.ins_tipo==COLORE_3)
-			{
-				net_width 	= ins_snap.colonne;
-			  net_height 	= ins_snap.righe;
-				//printf("net_width %d; net_height: %d\n", net_width, net_height);
-			}
+  bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
+  g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
 
+  if ( (drawable != NULL) && ( bufin != NULL) ) {
 
-  // alloco buffer del drawable
-  len_dest = (net_width * net_height) * bpp;
+    //top left corner
+    x = (*previous_os).x-width/2;
+    y = (*previous_os).y-height/2;
 
-  ldest = len_dest;
-  dest = (guchar *) malloc(ldest + 1);
-  dest[ldest] = (guchar) CANARY;
+    //get bufin
+    gimp_pixel_rgn_init(&pr, drawable, x, y, width, height, FALSE, FALSE);
+    gimp_pixel_rgn_get_rect (&pr, bufin, x, y, width, height);
 
-  if(!dest)
-  	{
-    	g_message("Not enough free memory for dest!");
-    	exit(1);
-  	}
+    
 
-  // alloco buffer della rete
-  lbufin = (net_width * net_height);
-  bufin = (float *) malloc(sizeof(float) * (lbufin + 1));
-  bufin[lbufin] = (float) CANARY;
+    //to manage more layers, gimp add alpha channel in background layer
+    if ( bpp==2 ) {
+      //shifting out alpha bytes
+      for (i=1; i<(bufsize/2); i++){
+	bufin[i] = bufin[i*2];
+	g_printf("\nbufin %u",bufin[i]);
 
-  if(!bufin)
-  	{
-    	g_message("Not enough free memory for bufin!");
-    	exit(1);
-  	}
-  lbufout =  2;
-  bufout = (float *) malloc(sizeof(float) * (lbufout + 1));
-  bufout[lbufout] = (float) CANARY;
-  if(!bufout)
-  	{
-   	 	g_message("Not enough free memory for bufout!");
-    	exit(1);
-  	}
-
-  // inizializzo pixel region
-  gimp_pixel_rgn_init(&srcPR, drawable, 0, 0, width, height, FALSE, FALSE);
-
-  // inizializzo la finestra con la barra progressiva
-  gimp_progress_init("Neuron Teseo - Studio i punti . . .");
-  gimp_progress_update(0.0);
-
-  // utilizzando l'inseguimento per colore per il calcolo i punti seguenti
-  cur_stroke = 0;
-  while( LastCentro.x >0 && LastCentro.x > x1 - net_width
-	 && LastCentro.x < X_limit
-	 && LastCentro.y < y2 && LastCentro.y > y1
-	 && cur_stroke < num_strokes
-   && cur_stroke <= n_passi
-	 && !escidalciclo ) {
-
-    // calcolo coordinate del punto in alto a sinistra della rete
-    // rispetto al centro
-    xr = LastCentro.x - (net_width/2);
-    yr = LastCentro.y - (net_height/2);
-
-    // verifico che la rete sia compresa nell'immagine, questa verifica va tolta e va imposta alla selezione
-    if(xr >=0 && xr <= width &&
-       yr >=0 && yr <= height &&
-       (xr+net_width) >= 0 && (xr+net_width)  < width &&
-       (yr+net_height) >= 0 && (yr+net_height) < height) {
-
-      neuron_gimp_pixel_rgn_get_rect(&srcPR,dest,xr,yr,net_width,net_height,width,height,len_dest);
-
-      // Scrivo l'input in bufin
-      for(int kx = 0; kx < net_width; kx++)
-      	for(int ky = 0; ky < net_height; ky++)
-					bufin[(ky * net_width) + kx] = (float) (dest[(ky * net_width) + kx]);
-
-
-      // Eseguo l'inseguimento per colore
-		if(glob.ins_tipo==COLORE_1)
-			{
-	      inseguimento_colore(bufin, bufout, LastPrec.x, LastPrec.y, LastCentro.x,LastCentro.y,net_width,net_height);
-			}
-			else if(glob.ins_tipo==COLORE_2)
-				{
-	  	    inseguimento_colore_2(bufin, bufout, LastPrec.x, LastPrec.y, LastCentro.x,LastCentro.y,net_width,net_height);
-				}
-			else if(glob.ins_tipo==COLORE_3)
-				{
-	  	    inseguimento_colore_3(bufin, bufout, LastPrec.x, LastPrec.y, LastCentro.x,LastCentro.y,net_width,net_height);
-				}
-
-//      inseguimento_colore(bufin, bufout, LastPrec.x, LastPrec.y, LastCentro.x,LastCentro.y,net_width,net_height);
-
-      if(bufout[0]==0.0 && bufout[1]==0.0)
-      	{
-      	 printf("Lost trace.\n");
-      	}
-
-      appx = bufout[0];
-      appy = bufout[1];
-
-  	   LastSucc.x = (LastCentro.x + (int) appx);
-	     LastSucc.y = (LastCentro.y + (int) appy);
-
-    } else {
-      // altrimenti ritorno lo stesso punto
-      //       LastSucc.x = LastCentro.x;
-      //       LastSucc.y = LastCentro.y;
-      //       num_strokes = cur_stroke;
+      }
     }
 
-    // se non mi muovo con la rete mi fermo
-    if (LastCentro.x==LastPrec.x && LastCentro.y==LastPrec.y &&
-			LastCentro.x==LastSucc.x && LastCentro.y==LastSucc.y)
-      escidalciclo = 1;
+    //g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
 
-    // Se cado in un cappio molto piccolo mi fermo
-    if (LastSucc.x==LastPrec.x && LastSucc.y==LastPrec.y)
-      escidalciclo=1;
+    (*is).bufin=bufin;
+    ((*is).LastCentre).x=(*previous_os).x;
+    ((*is).LastCentre).y=(*previous_os).y;
 
-    // aggiungo le coordinate del nuovo punto trovato
-    strokes[(cur_stroke*2)] = (gdouble) LastSucc.x;
-    strokes[(cur_stroke*2)+1] = (gdouble) LastSucc.y;
-    cur_stroke++;
+    ret=1;
 
-    // inizializzo le variabile per la nuova iterazione
-    OldPrec.x =  LastPrec.x;
-    OldPrec.y =  LastPrec.y;
-    LastPrec.x = LastCentro.x;
-    LastPrec.y = LastCentro.y;
-    LastCentro.x = LastSucc.x;
-    LastCentro.y = LastSucc.y;
-
-    // incremento la barra progressiva
-    if (((LastPrec.x - x1) % mod_progress) == 0) {
-      gimp_progress_update((double) (LastPrec.x - x1) / (double) (x2 - x1));
-    }
   }
-
-  gimp_progress_update(1.0);
-
-  num_strokes = cur_stroke - 1; // è andato avanti di uno nel ciclo
-
-  // scrivo su file, a solo scopo di debug, gli strokes trovati ????????
-
-  sprintf(s_tmp_app, "%s/tmp/laststrokes.txt", getenv_teseo(TESEO_DATA));
-  strokes_txt(s_tmp_app, strokes, num_strokes);
-
-
-  if(strokes[lstrokes] != (gdouble) CANARY)
-  	g_message("Canary in strokes is dead!");
-  if(dest[ldest] != (guchar) CANARY)
-  	g_message("Canary in dest EseguiRete is dead!");
-  if(bufin[lbufin] != CANARY)
-  	g_message("Canary in bufin is dead!");
-  if(bufout[lbufout] != CANARY)
-  	g_message("Canary in bufout is dead!");
-
-  realloc( strokes, ( sizeof(gdouble) * (num_strokes * 2 + 1)) );
-
-  // assegno i valori ai parametri di ritorno
-  *pstrokes = strokes;
-  *pnum_strokes = num_strokes;
-
-  // libero la memoria di tutte le variabili allocate
-
-  if(dest)
-    free(dest);
-  dest = NULL;
-
-  if(bufin)
-    free(bufin);
-  bufin = NULL;
-
-  if(bufout)
-    free(bufout);
-  bufout = NULL;
-
-  // ripristino la vecchia directory di lavoro
-  chdir(dir_gimp);
+  else
+    g_message("NULL pointers");
+  return ret;
 }
-
-
-*/

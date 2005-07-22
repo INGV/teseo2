@@ -42,7 +42,7 @@ void teseo_main_init(
 		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
 		     int  (* new_is)      ( void ** is ),
-		     int  (* release)     ( void * is, void * os )		     );
+		     int  (* release)     ( void ** is, void ** os )		     );
 
 
 /*!

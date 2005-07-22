@@ -132,10 +132,10 @@ create_win_neuronteseo (void)
   GtkWidget *frame18;
   GtkWidget *table4;
   GtkWidget *label74;
-  GtkObject *spinbutton18_adj;
-  GtkWidget *spinbutton18;
-  GtkObject *spinbutton19_adj;
-  GtkWidget *spinbutton19;
+  GtkObject *teseo_forward_step_spinbutton_adj;
+  GtkWidget *teseo_forward_step_spinbutton;
+  GtkObject *teseo_back_step_spinbutton_adj;
+  GtkWidget *teseo_back_step_spinbutton;
   GtkWidget *label73;
   GtkWidget *label72;
   GtkWidget *frame22;
@@ -180,16 +180,16 @@ create_win_neuronteseo (void)
   GtkWidget *label65;
   GtkWidget *vbox18;
   GtkWidget *label64;
-  GtkObject *spinbutton15_adj;
-  GtkWidget *spinbutton15;
+  GtkObject *teseo_wm_height_spinbutton_adj;
+  GtkWidget *teseo_wm_height_spinbutton;
   GtkWidget *vbox20;
-  GtkWidget *radiobutton11;
-  GSList *radiobutton11_group = NULL;
-  GtkWidget *radiobutton12;
+  GtkWidget *teseo_wm_colour_black_radiobutton;
+  GSList *teseo_wm_colour_black_radiobutton_group = NULL;
+  GtkWidget *teseo_wm_colour_white_radiobutton;
   GtkWidget *vbox19;
   GtkWidget *label63;
-  GtkObject *spinbutton16_adj;
-  GtkWidget *spinbutton16;
+  GtkObject *teseo_wm_width_spinbutton_adj;
+  GtkWidget *teseo_wm_width_spinbutton;
   GtkWidget *label57;
   GtkWidget *label49;
   GtkWidget *frame15;
@@ -808,21 +808,23 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label74), 0, 0.5);
 
-  spinbutton18_adj = gtk_adjustment_new (50, 0, 100, 1, 10, 10);
-  spinbutton18 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton18_adj), 1, 0);
-  gtk_widget_set_name (spinbutton18, "spinbutton18");
-  gtk_widget_show (spinbutton18);
-  gtk_table_attach (GTK_TABLE (table4), spinbutton18, 1, 2, 0, 1,
+  teseo_forward_step_spinbutton_adj = gtk_adjustment_new (50, 1, 10000, 1, 10, 10);
+  teseo_forward_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_forward_step_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_forward_step_spinbutton, "teseo_forward_step_spinbutton");
+  gtk_widget_show (teseo_forward_step_spinbutton);
+  gtk_table_attach (GTK_TABLE (table4), teseo_forward_step_spinbutton, 1, 2, 0, 1,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), TRUE);
 
-  spinbutton19_adj = gtk_adjustment_new (5, 0, 100, 1, 10, 10);
-  spinbutton19 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton19_adj), 1, 0);
-  gtk_widget_set_name (spinbutton19, "spinbutton19");
-  gtk_widget_show (spinbutton19);
-  gtk_table_attach (GTK_TABLE (table4), spinbutton19, 1, 2, 1, 2,
+  teseo_back_step_spinbutton_adj = gtk_adjustment_new (5, 1, 10000, 1, 10, 10);
+  teseo_back_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_back_step_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
+  gtk_widget_show (teseo_back_step_spinbutton);
+  gtk_table_attach (GTK_TABLE (table4), teseo_back_step_spinbutton, 1, 2, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), TRUE);
 
   label73 = gtk_label_new ("Forward");
   gtk_widget_set_name (label73, "label73");
@@ -1064,11 +1066,12 @@ create_win_neuronteseo (void)
   gtk_widget_show (label64);
   gtk_box_pack_start (GTK_BOX (vbox18), label64, FALSE, FALSE, 0);
 
-  spinbutton15_adj = gtk_adjustment_new (50, 0, 100, 1, 10, 10);
-  spinbutton15 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton15_adj), 1, 0);
-  gtk_widget_set_name (spinbutton15, "spinbutton15");
-  gtk_widget_show (spinbutton15);
-  gtk_box_pack_start (GTK_BOX (vbox18), spinbutton15, FALSE, FALSE, 0);
+  teseo_wm_height_spinbutton_adj = gtk_adjustment_new (50, 1, 1000, 1, 10, 10);
+  teseo_wm_height_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_height_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
+  gtk_widget_show (teseo_wm_height_spinbutton);
+  gtk_box_pack_start (GTK_BOX (vbox18), teseo_wm_height_spinbutton, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), TRUE);
 
   vbox20 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox20, "vbox20");
@@ -1077,19 +1080,20 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
-  radiobutton11 = gtk_radio_button_new_with_mnemonic (NULL, "Black trace");
-  gtk_widget_set_name (radiobutton11, "radiobutton11");
-  gtk_widget_show (radiobutton11);
-  gtk_box_pack_start (GTK_BOX (vbox20), radiobutton11, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton11), radiobutton11_group);
-  radiobutton11_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton11));
+  teseo_wm_colour_black_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Black trace");
+  gtk_widget_set_name (teseo_wm_colour_black_radiobutton, "teseo_wm_colour_black_radiobutton");
+  gtk_widget_show (teseo_wm_colour_black_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox20), teseo_wm_colour_black_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_wm_colour_black_radiobutton), teseo_wm_colour_black_radiobutton_group);
+  teseo_wm_colour_black_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_wm_colour_black_radiobutton));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (teseo_wm_colour_black_radiobutton), TRUE);
 
-  radiobutton12 = gtk_radio_button_new_with_mnemonic (NULL, "White trace");
-  gtk_widget_set_name (radiobutton12, "radiobutton12");
-  gtk_widget_show (radiobutton12);
-  gtk_box_pack_start (GTK_BOX (vbox20), radiobutton12, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton12), radiobutton11_group);
-  radiobutton11_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton12));
+  teseo_wm_colour_white_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "White trace");
+  gtk_widget_set_name (teseo_wm_colour_white_radiobutton, "teseo_wm_colour_white_radiobutton");
+  gtk_widget_show (teseo_wm_colour_white_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox20), teseo_wm_colour_white_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_wm_colour_white_radiobutton), teseo_wm_colour_black_radiobutton_group);
+  teseo_wm_colour_black_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_wm_colour_white_radiobutton));
 
   vbox19 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox19, "vbox19");
@@ -1103,11 +1107,12 @@ create_win_neuronteseo (void)
   gtk_widget_show (label63);
   gtk_box_pack_start (GTK_BOX (vbox19), label63, FALSE, FALSE, 0);
 
-  spinbutton16_adj = gtk_adjustment_new (5, 0, 100, 1, 10, 10);
-  spinbutton16 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton16_adj), 1, 0);
-  gtk_widget_set_name (spinbutton16, "spinbutton16");
-  gtk_widget_show (spinbutton16);
-  gtk_box_pack_start (GTK_BOX (vbox19), spinbutton16, FALSE, FALSE, 0);
+  teseo_wm_width_spinbutton_adj = gtk_adjustment_new (5, 1, 1000, 1, 10, 10);
+  teseo_wm_width_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_width_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_wm_width_spinbutton, "teseo_wm_width_spinbutton");
+  gtk_widget_show (teseo_wm_width_spinbutton);
+  gtk_box_pack_start (GTK_BOX (vbox19), teseo_wm_width_spinbutton, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), TRUE);
 
   label57 = gtk_label_new ("Colour weighted mean");
   gtk_widget_set_name (label57, "label57");
@@ -1468,8 +1473,8 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, frame18, "frame18");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, table4, "table4");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label74, "label74");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton18, "spinbutton18");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton19, "spinbutton19");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_forward_step_spinbutton, "teseo_forward_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label73, "label73");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label72, "label72");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, frame22, "frame22");
@@ -1509,13 +1514,13 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label65, "label65");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox18, "vbox18");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label64, "label64");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton15, "spinbutton15");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox20, "vbox20");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton11, "radiobutton11");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton12, "radiobutton12");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_colour_black_radiobutton, "teseo_wm_colour_black_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_colour_white_radiobutton, "teseo_wm_colour_white_radiobutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox19, "vbox19");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label63, "label63");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton16, "spinbutton16");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_width_spinbutton, "teseo_wm_width_spinbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label57, "label57");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label49, "label49");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, frame15, "frame15");
