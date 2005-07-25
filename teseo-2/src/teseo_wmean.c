@@ -30,7 +30,7 @@
 
 static wmeanParams this_params = { 0, 1 , 10, 10};
 
-void init_wmean( wmeanParams* s){
+void wmean_init( wmeanParams* s){
   this_params.colour = (*s).colour;
   this_params.step   = (*s).step;
   this_params.width  = (*s).width;
@@ -98,7 +98,6 @@ int wmean( const wm_is * is, wm_os * os ){
 	if(abs(Yrel) > MAX_STEP_Y) {
 		YY = (Yabs - ((*is).LastCentre.y - (height/2)));
 		if(YY < 0) {
-			//g_message("YY < 0");
 			ret=0;
 		}
 		sum_num = 0.0;
@@ -136,7 +135,6 @@ int wmean( const wm_is * is, wm_os * os ){
 		Xrel = (Xabs - (*is).LastCentre.x);
 
 	} else {
-		//SP Xrel = 1;
 		Xrel = step_x;
 	}
 
@@ -149,33 +147,32 @@ int wmean( const wm_is * is, wm_os * os ){
 
 int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   int ret=0;
+
   int width   = this_params.width;
   int height  = this_params.height;
+
   int x, y;
   int bpp = 0;
-  glong bufsize;
+
   int i;
-  guchar first=0;
 
-
-  guchar *bufin=NULL;
+  glong bufsize;
+  guchar *bufin=(*is).bufin;
   GimpDrawable *drawable=NULL;
+
   GimpPixelRgn pr;
 
   drawable=gimp_drawable_get(drawable_ID);
   bpp = drawable->bpp;
   bufsize=bpp*width*height;
 
-  bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-  //g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
-
-  if ( (drawable != NULL) && ( bufin != NULL) ) {
+  if ( (drawable != NULL) && (bufin != NULL) ) {
 
     //top left corner
     x = (*previous_os).x-width/2;
     y = (*previous_os).y-height/2;
 
-    //get bufin
+    //get bufin from the pixel region content
     gimp_pixel_rgn_init(&pr, drawable, x, y, width, height, FALSE, FALSE);
     gimp_pixel_rgn_get_rect (&pr, bufin, x, y, width, height);
 
@@ -184,27 +181,19 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
       //shifting out alpha bytes
       for (i=1; i<(bufsize/2); i++){
 	bufin[i] = bufin[i*2];
-	//g_printf("\nbufin %u",bufin[i]);
-
       }
     }
 
-    (*is).bufin=bufin;
     ((*is).LastCentre).x=(*previous_os).x;
     ((*is).LastCentre).y=(*previous_os).y;
 
     ret=1;
-
   }
   else
     g_message("NULL pointers");
   return ret;
 }
 
-int wmean_getouput(wm_os * os ){
-  int ret=1;
-  return ret;
-}
 
 int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
   int ret=1;
@@ -237,10 +226,10 @@ int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
   dim =(*num_strokes)*2 + 2 ;
 
   if ( (*strokes) == NULL) {
-    ptr = (gdouble *) malloc(  sizeof(gdouble) * dim  );
+    ptr = (gdouble *) g_malloc(  sizeof(gdouble) * dim  );
   }
   else {
-    ptr = (gdouble *) realloc( (*strokes), ( sizeof(gdouble)) * dim );
+    ptr = (gdouble *) g_realloc( (*strokes), ( sizeof(gdouble)) * dim );
   }
 
   if ( ptr != NULL) {
@@ -293,23 +282,42 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
 }
 
 
-int wmean_new_is( wm_is ** is){
+int wmean_new_is( wm_is ** is, gint32 drawable_ID){
   int ret=0;
   wm_is * r_is=NULL;
-  r_is = (wm_is *) g_malloc(sizeof(wm_is));
-  if (r_is != NULL) {
-    *is=r_is;
-    ret=1;
+
+  int width   = this_params.width;
+  int height  = this_params.height;
+
+  int bpp = 0;
+
+  glong bufsize;
+  guchar *bufin=NULL;
+  GimpDrawable *drawable=NULL;
+
+  drawable=gimp_drawable_get(drawable_ID);
+  bpp = drawable->bpp;
+  bufsize=bpp*width*height;
+
+  bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
+  r_is  = (wm_is *) g_malloc(sizeof(wm_is));
+
+  if ( (drawable != NULL) && ( bufin != NULL) && (r_is != NULL)) {
+      (*r_is).bufin=bufin;
+      *is=r_is;
+      ret=1;
   }
+  else
+      g_message("NULL pointers");
   return ret;
 }
 
 
-int wmean_release(wm_is ** is, wm_os ** os){
-  int ret=0;
-  //TODO free bufin memory, is, os
-  return ret;
+void wmean_release(wm_is ** is, wm_os ** os){
+  //free bufin memory, is, os
+  free((*(*is)).bufin);
+  g_free(*is);
+  g_free(*os);
 }
-
 
 

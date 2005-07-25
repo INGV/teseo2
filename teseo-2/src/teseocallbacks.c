@@ -629,10 +629,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 
  teseo_main_init(
 			(*wmean),
-			(*init_wmean),
+			(*wmean_init),
 			&s,
 			(*wmean_getinput),
-			(*wmean_getouput),
 			(*wmean_terminate),
 			(*wmean_accumulate),
 			(*wmean_starting_os),
