@@ -57,9 +57,6 @@ int wmean( const wm_is * is, wm_os * os ){
   int width   = this_params.width;
   int height  = this_params.height;
 
-  //(*os).x=0.0;
-  //(*os).y=0.0;
-
   // inizialmente mi sposto verso destra sulle x
   // se poi la Yrel ? maggiore di un certo valore MAX_STEP_Y allora faccio la media anche per le x
   x_s = x_c + 1;
@@ -137,30 +134,17 @@ int wmean( const wm_is * is, wm_os * os ){
 		Xabs = ((*is).LastCentre.x - (width/2) + (tmean - 1));
 
 		Xrel = (Xabs - (*is).LastCentre.x);
-		// printf("\nXrel: %d, Yrel: %d\n", Xrel, Yrel);
+
 	} else {
 		//SP Xrel = 1;
 		Xrel = step_x;
 	}
-	//(*os).x= (double) Xrel;
-	//(*os).y= (double) Yrel;
 
 	(*os).x += (double) Xrel;
 	(*os).y += (double) Yrel;
 
     return ret;
 }
-
-
-/*
-struct WM_I{
- float * bufin;
- point LastCentre;
- int width;
- int height;
-};
-
-*/
 
 
 int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
@@ -183,7 +167,7 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   bufsize=bpp*width*height;
 
   bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-  g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
+  //g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
 
   if ( (drawable != NULL) && ( bufin != NULL) ) {
 
@@ -200,12 +184,10 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
       //shifting out alpha bytes
       for (i=1; i<(bufsize/2); i++){
 	bufin[i] = bufin[i*2];
-	g_printf("\nbufin %u",bufin[i]);
+	//g_printf("\nbufin %u",bufin[i]);
 
       }
     }
-
-    //g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
 
     (*is).bufin=bufin;
     ((*is).LastCentre).x=(*previous_os).x;
@@ -251,25 +233,19 @@ int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
   int ret=0;
   gdouble * ptr = NULL;
   gulong dim;
-  //g_message("strokes %p ptr %p",strokes, ptr);
 
   dim =(*num_strokes)*2 + 2 ;
 
   if ( (*strokes) == NULL) {
-    //g_message("First time, isn't it?" );
-
     ptr = (gdouble *) malloc(  sizeof(gdouble) * dim  );
-    if (ptr==NULL) g_message("Te credo");
-    //(*strokes)=ptr;
   }
   else {
-  ptr = (gdouble *) realloc( (*strokes), ( sizeof(gdouble)) * dim );
+    ptr = (gdouble *) realloc( (*strokes), ( sizeof(gdouble)) * dim );
   }
-  //g_message("*strokes %p ptr %p, dim %lu",(*strokes), ptr,dim);
+
   if ( ptr != NULL) {
     *(ptr+dim-2) = (double) ((*os).x);
     *(ptr+dim-1) = (double) ((*os).y);
-    //debug printf("x %f , y %f ... Added %f %f\n", (double) ((*os).x),(double) ((*os).y), *(ptr+dim-2), *(ptr+dim-1));
     //num_strokes is vector dimension/2
     (*num_strokes)+=1;
     ret=1;
@@ -285,27 +261,34 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
   gdouble * strokes=NULL;
   glong n_strokes;
   gint32 image;
+  gint num_paths=0;
   wm_os * r_os=NULL;
 
   r_os = (wm_os *) g_malloc(sizeof(wm_os));
 
   if (r_os!=NULL) {
-    //g_message("wmean_starting_os");
     image=gimp_drawable_get_image( drawable_ID );
-    //get the pathname
-    strcpy(pathname, gimp_path_get_current ( image ) );
-    //get the strokes
-    strokes = open_path_to_strokes(image, &n_strokes,  pathname);
-    if (strokes!=NULL) {
-      (*r_os).x=strokes[(n_strokes-1)*2];
-      (*r_os).y=strokes[(n_strokes-1)*2+1];
-      g_free(strokes);
-      ret=1;
-      *os=r_os;
+    gimp_path_list  (image, &num_paths);
+
+    if (num_paths!=0){
+      //get the pathname
+      strcpy(pathname, gimp_path_get_current ( image ) );
+      //get the strokes
+      strokes = open_path_to_strokes(image, &n_strokes,  pathname);
+      if (strokes!=NULL) {
+        (*r_os).x=strokes[(n_strokes-1)*2];
+        (*r_os).y=strokes[(n_strokes-1)*2+1];
+        g_free(strokes);
+        ret=1;
+        *os=r_os;
+      }
+    }
+    else{
+      *os=NULL;
+      g_message("Please create a starting path");
     }
   }
   else g_message("wmean_starting_os NULL pointers");
-
   return ret;
 }
 
@@ -330,61 +313,3 @@ int wmean_release(wm_is ** is, wm_os ** os){
 
 
 
-
-int wmean_filter_input( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
-  int ret=0;
-  int width   = this_params.width;
-  int height  = this_params.height;
-  int x, y;
-  int bpp = 0;
-  glong bufsize;
-  int i;
-  guchar first=0;
-
-
-  guchar *bufin=NULL;
-  GimpDrawable *drawable=NULL;
-  GimpPixelRgn pr;
-
-  drawable=gimp_drawable_get(drawable_ID);
-  bpp = drawable->bpp;
-  bufsize=bpp*width*height;
-
-  bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-  g_printf("wmean_getinput bpp %d bufsize %d", (int) bpp, (int) bufsize);
-
-  if ( (drawable != NULL) && ( bufin != NULL) ) {
-
-    //top left corner
-    x = (*previous_os).x-width/2;
-    y = (*previous_os).y-height/2;
-
-    //get bufin
-    gimp_pixel_rgn_init(&pr, drawable, x, y, width, height, FALSE, FALSE);
-    gimp_pixel_rgn_get_rect (&pr, bufin, x, y, width, height);
-
-    
-
-    //to manage more layers, gimp add alpha channel in background layer
-    if ( bpp==2 ) {
-      //shifting out alpha bytes
-      for (i=1; i<(bufsize/2); i++){
-	bufin[i] = bufin[i*2];
-	g_printf("\nbufin %u",bufin[i]);
-
-      }
-    }
-
-    //g_message("wmean_getinput corner  %d %d : first point value %d ", x, y , bufin[0]);
-
-    (*is).bufin=bufin;
-    ((*is).LastCentre).x=(*previous_os).x;
-    ((*is).LastCentre).y=(*previous_os).y;
-
-    ret=1;
-
-  }
-  else
-    g_message("NULL pointers");
-  return ret;
-}

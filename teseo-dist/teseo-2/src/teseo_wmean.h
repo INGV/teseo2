@@ -58,12 +58,6 @@ int wmean_getinput(
 			gint32 drawable_ID
 		  );
 
-int wmean_filterinput(
-			wm_is * is,
-			const wm_os * previous_os,
-			gint32 drawable_ID
-		  );
-
 /*!
  * wmean_getouput
  */

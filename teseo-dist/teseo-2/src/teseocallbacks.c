@@ -138,7 +138,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
     if (ret==1) {
         result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
-       /*Gestire result ok-cancel*/
+       /*TODO Gestire result ok-cancel*/
         gtk_widget_hide (sessiondlg);
     }
     if (ret==0) {
@@ -193,10 +193,10 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
          import_svg_vectors( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
-         //g_message("Cancel pressed: don't do anything.");
+
          break;
       case GTK_RESPONSE_DELETE_EVENT:
-         //g_message("Delete event, same as Cancel pressed.");
+
          break;
       default:
          break;
@@ -219,9 +219,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
   gtk_file_chooser_set_current_folder(teseofilechooser, path );
   free(path);
 
-
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
-
 
   switch (result)
     {
@@ -589,11 +587,10 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
    int iter;
-   //g_message("%s\nPress Go button.", TODO_str);
    GtkSpinButton * tfss = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_forward_step_spinbutton");
    iter=gtk_spin_button_get_value_as_int (tfss) ;
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
-   //g_message("Drawable %d", drawable_ID);
+
    teseo_main_loop(iter, drawable_ID );
 }
 
@@ -603,6 +600,10 @@ void
 on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
+
+  GtkWidget *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
+  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");;
+
   wmeanParams s;
 
   s.colour=1;
@@ -610,24 +611,19 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   s.width  = 5;
   s.height = 50;
 
-  //teseo_wm_colour_black_radiobutton;
   GtkSpinButton * twhs = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_height_spinbutton");
   GtkSpinButton * twws = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_width_spinbutton");
-  //GtkSpinButton * tfss = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_forward_step_spinbutton");
   GtkRadioButton * twcbr = (GtkRadioButton *) lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_colour_black_radiobutton");
 
-  //gboolean    gtk_toggle_button_get_active    ( GtkToggleButton * toggle_button);
+
 
   if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(twcbr))  == TRUE ){
     s.colour=0;
-    g_message("black");
-  }
+    }
   else {
     s.colour=255;
-    g_message("white");
-  }
+    }
 
-  //s.step   = gtk_spin_button_get_value_as_int (tfss) ;
   s.width  = gtk_spin_button_get_value_as_int (twws);
   s.height = gtk_spin_button_get_value_as_int (twhs);
 
@@ -644,7 +640,11 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 			(*wmean_release)
 		);
 
-  g_message("Initiating done");
+  gtk_widget_set_sensitive (teseo_alg_go_toolbutton, TRUE);
+  GTK_WIDGET_SET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
+  gtk_widget_set_sensitive (teseo_alg_back_toolbutton, TRUE);
+  GTK_WIDGET_SET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
+
 }
 
 
