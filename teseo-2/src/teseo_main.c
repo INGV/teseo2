@@ -74,32 +74,28 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
   wm_os * myos;
 
   //initialize os as an ipothetique last running
-  STARTING_OS(&os,drawable_ID);
-  //if ( os != NULL ) g_message("OK");
-  //else g_message("TOO BAD");
 
-  NEW_IS(&is);
-
-  if ( ! TERMINATE(os, is, drawable_ID ) ) {
-    for (i=0; i<iter; i++){
-     //get is from drawable and os
-     if ( ! GETINPUT(is, os, drawable_ID) ) break;
-     //get os running the algorithm
-     if ( ! ALGORITHM( is, os ) ) break;
-     //g_message("5");
-     ACCUMULATE(&strokes, &num_strokes, os);
-     //testing an escape condition on output os
-     if ( TERMINATE(os, is, drawable_ID ) ) break;
+  if (STARTING_OS(&os,drawable_ID)) {
+    NEW_IS(&is);
+    if ( ! TERMINATE(os, is, drawable_ID ) ) {
+      for (i=0; i<iter; i++){
+       //get is from drawable and os
+       if ( ! GETINPUT(is, os, drawable_ID) ) break;
+       //get os running the algorithm
+       if ( ! ALGORITHM( is, os ) ) break;
+       ACCUMULATE(&strokes, &num_strokes, os);
+       //testing an escape condition on output os
+       if ( TERMINATE(os, is, drawable_ID ) ) break;
+      }
     }
+    //TODO generalise?
+    cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
+    //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "test");
+    free(strokes);
+    //TODO use RELEASE
+    g_free(is);
+    g_free(os);
   }
-  //TODO generalise?
-  cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
-  //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "test");
-  free(strokes);
-  //TODO use RELEASE
-  g_free(is);
-  g_free(os);
-
 }
 
 

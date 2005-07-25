@@ -52,7 +52,7 @@ char init_session(){
 
 char align_session(GtkWidget * sessiondlg, struct Session * s){
     char ret=0;
-    /**/
+    
     //this_session.recordinfo
     //this_session.imageinfo
     //this_session.tracesinfo
@@ -237,11 +237,11 @@ char* create_name(char * dirname, char* order, char* ext){
       //g_message("token %s", token);
       name_noext = g_strndup(name , strlen(name) - strlen(token) );
 
-      //token = strtok_r(name, delimiters, &ptrptr );        /* token = filename without extension */
+      //token = strtok_r(name, delimiters, &ptrptr );        // token = filename without extension
       //g_message("Name = %s",  token);
       strcat(filename,name_noext);
       strcat(filename,order);
-      strcat(filename,ext);          /* adding extension */
+      strcat(filename,ext);          // adding extension
 
       g_warning("Name = %s",  filename);
       if (name != NULL) g_free(name);

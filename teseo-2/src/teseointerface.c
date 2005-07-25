@@ -581,7 +581,6 @@ create_win_neuronteseo (void)
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (alg_wmean_radiotoolbutton), tooltips, "Algorithm 1", NULL);
   gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (alg_wmean_radiotoolbutton), alg_wmean_radiotoolbutton_group);
   alg_wmean_radiotoolbutton_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (alg_wmean_radiotoolbutton));
-  gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (alg_wmean_radiotoolbutton), TRUE);
 
   teseo_alg2_radiotoolbutton = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (teseo_alg2_radiotoolbutton), "");
@@ -630,6 +629,7 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (teseo_alg_back_toolbutton, "teseo_alg_back_toolbutton");
   gtk_widget_show (teseo_alg_back_toolbutton);
   gtk_container_add (GTK_CONTAINER (toolitem3), teseo_alg_back_toolbutton);
+  gtk_widget_set_sensitive (teseo_alg_back_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_back_toolbutton, "Back", NULL);
   gtk_widget_add_accelerator (teseo_alg_back_toolbutton, "clicked", accel_group,
@@ -650,6 +650,7 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (teseo_alg_go_toolbutton, "teseo_alg_go_toolbutton");
   gtk_widget_show (teseo_alg_go_toolbutton);
   gtk_container_add (GTK_CONTAINER (toolitem4), teseo_alg_go_toolbutton);
+  gtk_widget_set_sensitive (teseo_alg_go_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_go_toolbutton, "Go", NULL);
   gtk_widget_add_accelerator (teseo_alg_go_toolbutton, "clicked", accel_group,
@@ -1549,6 +1550,7 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, statusbar1, "statusbar1");
   GLADE_HOOKUP_OBJECT_NO_REF (win_neuronteseo, tooltips, "tooltips");
 
+  gtk_widget_grab_default (alg_wmean_radiotoolbutton);
   gtk_window_add_accel_group (GTK_WINDOW (win_neuronteseo), accel_group);
 
   return win_neuronteseo;
