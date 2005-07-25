@@ -242,3 +242,29 @@ on_properties1_activate                (GtkMenuItem     *menuitem,
 void
 on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data);
+
+void
+on_teseo_wm_height_spinbutton_changed  (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_teseo_wm_colour_black_radiobutton_toggled
+                                        (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_teseo_wm_height_spinbutton_changed  (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_teseo_wm_colour_black_radiobutton_toggled
+                                        (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);

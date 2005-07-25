@@ -591,6 +591,9 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
    iter=gtk_spin_button_get_value_as_int (tfss) ;
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
 
+   //TODO gestire le varaiazioni dei parametri, adesso se vario devo clickare qui teseo_alg_go_toolbutton
+   //forse va introdotta una variabile legata a quale algoritmo è selezionato
+
    teseo_main_loop(iter, drawable_ID );
 }
 
@@ -602,7 +605,7 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 {
 
   GtkWidget *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
-  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");;
+  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
 
   wmeanParams s;
 
@@ -647,16 +650,37 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 }
 
 
-/*
-			(*wmean)(NULL,NULL),
-			(*init_wmean)(NULL),
-			&s,
-			(*wmean_getinput)(NULL,NULL,0),
-			(*wmean_getouput)(NULL),
-			(*wmean_terminate)(NULL,NULL,0),
-			(*wmean_accumulate)(NULL,NULL,NULL),
-			(*wmean_starting_os)(NULL,0),
-			(*wmean_new_is)(NULL),
-			(*wmean_release)(NULL,NULL)
+static inline void disable_buttons(){
+  GtkWidget *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
+  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
+  gtk_widget_set_sensitive (teseo_alg_go_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
+  gtk_widget_set_sensitive (teseo_alg_back_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
 
-*/
+}
+
+void
+on_teseo_wm_height_spinbutton_changed  (GtkEditable     *editable,
+                                        gpointer         user_data)
+{
+ disable_buttons();
+}
+
+
+void
+on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
+                                        gpointer         user_data)
+{
+ disable_buttons();
+}
+
+
+void
+on_teseo_wm_colour_black_radiobutton_toggled
+                                        (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+ disable_buttons();
+}
+
