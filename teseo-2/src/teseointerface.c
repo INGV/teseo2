@@ -138,12 +138,6 @@ create_win_neuronteseo (void)
   GtkWidget *teseo_back_step_spinbutton;
   GtkWidget *label73;
   GtkWidget *label72;
-  GtkWidget *frame22;
-  GtkWidget *label88;
-  GtkWidget *label86;
-  GtkWidget *frame23;
-  GtkWidget *label89;
-  GtkWidget *label87;
   GtkWidget *label55;
   GtkWidget *label48;
   GtkWidget *frame19;
@@ -840,34 +834,6 @@ create_win_neuronteseo (void)
   gtk_widget_show (label72);
   gtk_frame_set_label_widget (GTK_FRAME (frame18), label72);
 
-  frame22 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame22, "frame22");
-  gtk_box_pack_start (GTK_BOX (vbox23), frame22, TRUE, TRUE, 0);
-
-  label88 = gtk_label_new ("label88");
-  gtk_widget_set_name (label88, "label88");
-  gtk_widget_show (label88);
-  gtk_container_add (GTK_CONTAINER (frame22), label88);
-
-  label86 = gtk_label_new ("label86");
-  gtk_widget_set_name (label86, "label86");
-  gtk_widget_show (label86);
-  gtk_frame_set_label_widget (GTK_FRAME (frame22), label86);
-
-  frame23 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame23, "frame23");
-  gtk_box_pack_start (GTK_BOX (vbox23), frame23, TRUE, TRUE, 0);
-
-  label89 = gtk_label_new ("label89");
-  gtk_widget_set_name (label89, "label89");
-  gtk_widget_show (label89);
-  gtk_container_add (GTK_CONTAINER (frame23), label89);
-
-  label87 = gtk_label_new ("label87");
-  gtk_widget_set_name (label87, "label87");
-  gtk_widget_show (label87);
-  gtk_frame_set_label_widget (GTK_FRAME (frame23), label87);
-
   label55 = gtk_label_new ("General");
   gtk_widget_set_name (label55, "label55");
   gtk_widget_show (label55);
@@ -885,7 +851,6 @@ create_win_neuronteseo (void)
 
   vbox24 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox24, "vbox24");
-  gtk_widget_show (vbox24);
   gtk_container_add (GTK_CONTAINER (frame19), vbox24);
   gtk_container_set_border_width (GTK_CONTAINER (vbox24), 4);
 
@@ -1373,6 +1338,15 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) teseo_alg_go_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_go_toolbutton_clicked),
                     NULL);
+  g_signal_connect ((gpointer) teseo_wm_height_spinbutton, "changed",
+                    G_CALLBACK (on_teseo_wm_height_spinbutton_changed),
+                    NULL);
+  g_signal_connect ((gpointer) teseo_wm_colour_black_radiobutton, "toggled",
+                    G_CALLBACK (on_teseo_wm_colour_black_radiobutton_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) teseo_wm_width_spinbutton, "changed",
+                    G_CALLBACK (on_teseo_wm_width_spinbutton_changed),
+                    NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (win_neuronteseo, win_neuronteseo, "win_neuronteseo");
@@ -1478,12 +1452,6 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label73, "label73");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label72, "label72");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame22, "frame22");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label88, "label88");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label86, "label86");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame23, "frame23");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label89, "label89");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label87, "label87");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label55, "label55");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, label48, "label48");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, frame19, "frame19");
