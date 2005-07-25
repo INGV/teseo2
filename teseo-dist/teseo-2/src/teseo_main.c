@@ -28,28 +28,52 @@
 #include <libgimp/gimp.h>
 #include "teseo_main.h"
 
-
+/*!
+ * ALGORITHM function pointer to real algorithm function
+ */
 static int  ( * ALGORITHM   )  ( const void *  is,  void * os );
+/*!
+ * INIT_ALG function pointer to real init_alg function to be call before ALGORITHM,
+ \param constants pointer to initialise the algorithm
+ */
 static void ( * INIT_ALG    )  ( void * constants );
+/*!
+ * GETINPUT function pointer to real getinput function
+ *
+ */
 static int  ( * GETINPUT    )  ( void * is,  const void * previous_os, gint32 drawable_ID );
-static int  ( * GETOUTPUT   )  ( void * os );
+/*!
+ * TERMINATE function pointer to real terminate function
+ */
 static int  ( * TERMINATE   )  ( void * os, void * is, gint32 drawable_ID );
+/*!
+ * ACCUMULATE function pointer to real accumulate function
+ */
 static int  ( * ACCUMULATE  )  ( double ** strokes, long * num_strokes, void * os );
+/*!
+ * STARTING_OS function pointer to real starting_os function
+ */
 static int  ( * STARTING_OS )  ( void * os, gint32 drawable_ID );
-static int  ( * RELEASE     )  ( void * is, void *os);
-static int  ( * NEW_IS      )  ( void * is);
+
+/*!
+ * RELEASE function pointer to real release function
+ */
+static void ( * RELEASE     )  ( void * is, void *os);
+/*!
+ * NEW_IS function pointer to real new_is function
+ */
+static int  ( * NEW_IS      )  ( void * is, gint32 drawable_ID);
 
 void teseo_main_init(
 		     int  (* alg)         ( const void * is, void * os ),
 		     void (* init_alg)    ( void * constants ),
 		     void  * sth,
 		     int  (* getinput)    ( void * is,  const void * previous_os, gint32 drawable_ID ),
-		     int  (* getouput)    ( void * os ),
 		     int  (* terminate)   ( void * os , void * is, gint32 drawable_ID ),
 		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
-		     int  (* new_is)      ( void ** is ),
-		     int  (* release)     ( void ** is, void ** os )
+		     int  (* new_is)      ( void ** is, gint32 drawable_ID ),
+		     void  (* release)     ( void ** is, void ** os )
 		     )
 {
   ALGORITHM = alg;
@@ -57,11 +81,11 @@ void teseo_main_init(
   INIT_ALG(sth);
 
   GETINPUT    = getinput;
-  GETOUTPUT   = getouput;
   TERMINATE   = terminate;
   ACCUMULATE  = accumulate;
   STARTING_OS = starting_os;
   NEW_IS      = new_is;
+  RELEASE     = release;
 }
 
 void teseo_main_loop(int iter, gint32 drawable_ID ){
@@ -76,7 +100,7 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
   //initialize os as an ipothetique last running
 
   if (STARTING_OS(&os,drawable_ID)) {
-    NEW_IS(&is);
+    NEW_IS(&is,drawable_ID);
     if ( ! TERMINATE(os, is, drawable_ID ) ) {
       for (i=0; i<iter; i++){
        //get is from drawable and os
@@ -92,12 +116,9 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
     cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
     //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "test");
     free(strokes);
-    //TODO use RELEASE
-    g_free(is);
-    g_free(os);
+
+    RELEASE(&is,&os);
   }
 }
-
-
 
 

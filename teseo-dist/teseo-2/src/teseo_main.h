@@ -30,23 +30,22 @@
 #include "teseo_wmean.h"
 
 /*!
- *
+ * teseo_main_init to initialise the functions to call in teseo_main_loop
  */
 void teseo_main_init(
 		     int  (* alg)         ( const void * is, void * os ),
 		     void (* init_alg)    ( void * constants ),
 		     void  * sth,
 		     int  (* getinput)    ( void * is,  const void * previous_os, gint32 drawable_ID ),
-		     int  (* getouput)    ( void * os ),
 		     int  (* terminate)   ( void * os , void * is, gint32 drawable_ID ),
 		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
-		     int  (* new_is)      ( void ** is ),
-		     int  (* release)     ( void ** is, void ** os )		     );
+		     int  (* new_is)      ( void ** is, gint32 drawable_ID ),
+		     void  (* release)    ( void ** is, void ** os )		     );
 
 
 /*!
- *
+ * teseo_main_loop is the main loop of our algorithm
  */
 void teseo_main_loop();
 

@@ -45,9 +45,9 @@ int wmean( const wm_is * is, wm_os * os );
 
 
 /*!
- * init_wmean initialise some const for algorithm execution
+ * wmean_init initialise some const for algorithm execution
  */
-void init_wmean( wmeanParams* s);
+void wmean_init( wmeanParams* s);
 
 /*!
  * wmean_getinput return is extracted from previous os and drawable
@@ -57,14 +57,8 @@ int wmean_getinput(
 			const wm_os * previous_os,
 			gint32 drawable_ID
 		  );
-
 /*!
- * wmean_getouput
- */
-int wmean_getouput(wm_os * os );
-
-/*!
- * wmean_terminate
+ * wmean_terminate test terminate condition
  */
 int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID);
 
@@ -81,12 +75,12 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID);
 /*!
  * wmean_new_is create a new is structure with defaults
  */
-int wmean_new_is( wm_is ** is);
+int wmean_new_is( wm_is ** is, gint32 drawable_ID);
 
 /*!
- * wmean_release destructor
+ * wmean_release structures destructor
  */
-int wmean_release(wm_is ** is, wm_os ** os);
+void wmean_release(wm_is ** is, wm_os ** os);
 
 #endif
 
