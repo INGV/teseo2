@@ -591,9 +591,6 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
    iter=gtk_spin_button_get_value_as_int (tfss) ;
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
 
-   //TODO gestire le varaiazioni dei parametri, adesso se vario devo clickare qui teseo_alg_go_toolbutton
-   //forse va introdotta una variabile legata a quale algoritmo è selezionato
-
    teseo_main_loop(iter, drawable_ID );
 }
 
@@ -617,8 +614,6 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   GtkSpinButton * twhs = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_height_spinbutton");
   GtkSpinButton * twws = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_width_spinbutton");
   GtkRadioButton * twcbr = (GtkRadioButton *) lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_colour_black_radiobutton");
-
-
 
   if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(twcbr))  == TRUE ){
     s.colour=0;
@@ -650,29 +645,23 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 }
 
 
+/*
+ Changes in the algorithms params disable go and back buttons, so the user reinitialise after changes
+*/
+
 static inline void disable_buttons(){
-  GtkWidget *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
-  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
+  GtkWidget *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(teseowin), "ghost_radiotoolbutton");
+  
+  //toggle the alghoritms buttons as side effect
+  gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
+  //set go and back buttons insensitive
   gtk_widget_set_sensitive (teseo_alg_go_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_widget_set_sensitive (teseo_alg_back_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
 
-}
-
-void
-on_teseo_wm_height_spinbutton_changed  (GtkEditable     *editable,
-                                        gpointer         user_data)
-{
- disable_buttons();
-}
-
-
-void
-on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
-                                        gpointer         user_data)
-{
- disable_buttons();
 }
 
 
@@ -682,5 +671,27 @@ on_teseo_wm_colour_black_radiobutton_toggled
                                         gpointer         user_data)
 {
  disable_buttons();
+}
+
+
+
+gint
+on_teseo_wm_height_spinbutton_input    (GtkSpinButton   *spinbutton,
+                                        gdouble *new_value,
+                                        gpointer         user_data)
+{
+  //input signal once for every press on arrows
+  disable_buttons();
+  return TRUE;
+}
+
+
+gint
+on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
+                                        gdouble *new_value,
+                                        gpointer         user_data)
+{
+  disable_buttons();
+  return TRUE;
 }
 

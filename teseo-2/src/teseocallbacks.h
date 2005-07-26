@@ -255,16 +255,16 @@ on_teseo_wm_colour_black_radiobutton_toggled
 void
 on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
                                         gpointer         user_data);
+gint
+on_teseo_wm_height_spinbutton_input    (GtkSpinButton   *spinbutton,
+                                        gdouble *new_value,
+                                        gpointer         user_data);
 
 void
 on_teseo_wm_height_spinbutton_changed  (GtkEditable     *editable,
                                         gpointer         user_data);
 
-void
-on_teseo_wm_width_spinbutton_changed   (GtkEditable     *editable,
-                                        gpointer         user_data);
-
-void
-on_teseo_wm_colour_black_radiobutton_toggled
-                                        (GtkToggleButton *togglebutton,
+gint
+on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
+                                        gdouble *new_value,
                                         gpointer         user_data);
