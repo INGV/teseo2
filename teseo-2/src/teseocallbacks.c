@@ -595,7 +595,6 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
 }
 
 
-
 void
 on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
@@ -661,7 +660,6 @@ static inline void disable_buttons(){
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_widget_set_sensitive (teseo_alg_back_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
-
 }
 
 
@@ -672,7 +670,6 @@ on_teseo_wm_colour_black_radiobutton_toggled
 {
  disable_buttons();
 }
-
 
 
 gint

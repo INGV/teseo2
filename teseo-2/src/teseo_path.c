@@ -219,9 +219,15 @@ void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, c
     }
     num_vet_punti = k;
 
+    g_printf("strokes_path: num= %d\n",num_vet_punti);
+    for(i=0;i<num_vet_punti; i++){
+      g_printf("x=%f  y=%f: type %f\n", vet_punti[i*3], vet_punti[i*3+1], vet_punti[i*3+2]);
+    }
+
+
     /*Stampo tutto*/
-    printf("Path: %s", nome_path);
-    printf("\nNum vet_punti: %d\n", k);
+    //printf("Path: %s", nome_path);
+
     if( num_vet_punti >  2) { //???
      gimp_path_set_points( g_image, nome_path, 1, num_vet_punti*3, vet_punti ); //gimp bug ??: vuole la dimensione del vettore
      //scrivo sull'immagine, se ho già creato un layer va a finire lì
@@ -379,7 +385,7 @@ void allinea_path(gint32 g_image)
 void unisci_path(gint32 g_image)
 {
 	gchar **p;
-	gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;	
+	gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
 
 	gdouble * path_strokes = NULL;
 	gdouble * old_path;
@@ -495,24 +501,13 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
   strcpy(path_name,gimp_path_get_current(g_image));
   path_type = gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
 	//g_message("Nome del path %s", path_name);
-  //printf("\nnumero di point_details: %d  path_type %d, path_closed %d ",num_path_point_details, path_type, path_closed);
+  g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
 
   if ( !path_closed && num_path_point_details != 1 && path_type == 1) {
      //va tolto l'ultimo punto (-9) : correggere vanno presi tutti i punti
 
      num_points = ( num_path_point_details + 3 ) / 9 + num_strokes; //diviso 3 ???
      num_points_details = num_points * 9 - 3; //chiuso....
-     // printf("num_path_point_details  = %d , num_new_strokes = %d , num_points_details = %d , num_strokes = %d", num_path_point_details, num_points, num_points_details, num_strokes);
-
-
-     /*Se multiplo di tre gimp chiuderebbe il path*/
-     /*Attenzione pare ridondante*/
-     //     if ( (num_points%3) == 0)	{
-     //    		  num_points-=1;
-     //    		  num_strokes-=1;
-     //    		  num_points_details-=9;
-     //    		  g_message("\nTolgo un punto, num_points= %d\n",num_points);
-     //    	}
 
 
     // printf("num_points_details=num_points * 3 * 3 -3=%d",num_points_details);
@@ -527,165 +522,49 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
     /* Copio in path_strokes, il path e lo strokes*/
 
-    // printf("\nCopio la prima parte del vettore\n");
     //qui dentro copio tutto , da fuori gli passo sempre lo strokes corretto
     for( i=0; i < num_path_point_details; i++){
-     path_strokes[i]=old_path[i];
+     path_strokes[i] = round(old_path[i]); //round
     }
     k=i/3;    //poi riparto a scrivere nel vettore da k*3
     // printf("\nk= %d; i= %d\n", k,i);
 
 
-    /*Copio lo strokes*/
-//    printf("\nCopio lo strokes\n"); //parto dall'inizio; è il chiamante a garantire che strokes non ripeta i punti del vecchio path
+    //Copio lo strokes
+    //parto dall'inizio; è il chiamante a garantire che strokes non ripeta i punti del vecchio path
     for (i=0; i<num_strokes; i++) {
-//    	for(j=0; j<3 && k<(num_points_details-1); j++) {
     	for(j=0; j<3 ; j++) {
     		path_strokes[k*3]=strokes[i*2];
     		path_strokes[k*3+1]=strokes[i*2+1];
-    		// ris = ( (j % 3) == 1 )? 1.0 : 2.0 ;
-    		if (j % 3 == 1)
-    			ris = 1.0;
-    		else
-    			ris = 2.0;
-    		path_strokes[k*3+2] = ris;
+		path_strokes[k*3+2] =  ( (j % 3) == 1) ? 1.0 : 2.0;
     		k++;
     	}
     }
-//    printf("\nCopio lo strokes ...fine\n");
+
     num_vet_punti = k;
+
+    g_printf("cat: num= %d\n",num_vet_punti );
+    for(i=0;i<num_vet_punti; i++){
+      g_printf("x=%f  y=%f: type %f\n", path_strokes[i*3], path_strokes[i*3+1],path_strokes[i*3+2]);
+    }
+
     if ( num_vet_punti*3 != num_points_details)
 		g_message("num_vet_punti*3 - 3 = %d num_points_details = %d",num_vet_punti*3, num_points_details);
-		//g_message("num_points_details= %d , num_vet_punti*3= %d",num_points_details, num_vet_punti*3);
-    if( num_vet_punti >  2) { //???
-
-     gimp_path_delete(g_image,path_name);
-		 //gimp_path_set_points( g_image, path_name, 1, (num_vet_punti)*3, path_strokes ); //gimp bug ??: vuole la dimensione del vettore
+    if( num_vet_punti >  2) { //??
+     //gimp_path_delete(g_image,path_name); //gimp bug ? if you delete before then is not visible
      gimp_path_set_points( g_image, path_name, 1, num_points_details , path_strokes ); //gimp bug ??: vuole la dimensione del vettore
-    }
+     //beware i'm deleting old path with path_name
+     gimp_path_delete(g_image,path_name);
 
     }
 
-    if(path_strokes[num_points_details] != (gdouble) CANARY)
+   }
+
+   if(path_strokes[num_points_details] != (gdouble) CANARY)
     	g_message("Canary in path_strokes is dead!");
   }
 
-  gimp_path_set_current (g_image, path_name);
-  //gimp_displays_flush ();
   if (path_strokes)
   	free(path_strokes);
 
 }
-
-
-// void concatena_path_path_array(gint32 g_image, glong path_n, gdouble *path){
-//
-//   gdouble * old_path;
-//   gdouble * path_strokes=NULL;
-//   gint32 path_type, vect_dim_get,path_closed;
-//   char path_name [80] ;
-//   char vicino=0;
-//   glong num_points;
-//   glong num_points_details=0, tot_details=0, i=0, j=0, k=0, kk=0, num_vet_punti, vect_dim,path_details, array_details;
-//   gdouble ris=0;
-//
-//   /*Ricavo il vecchio path*/
-//   strcpy(path_name,gimp_path_get_current(g_image));
-//   path_type = gimp_path_get_points( g_image, path_name, &path_closed, &vect_dim_get,  &old_path );
-//
-//   if ( !path_closed && vect_dim_get != 1 && path_type == 1)
-//   {
-//
-//     array_details = path_n;
-//     path_details = vect_dim_get/3;
-//
-//     ( distanza(old_path[vect_dim_get-6], old_path[vect_dim_get-5], path[0], path[1]) < 5) ? vicino=1: vicino=0;
-//
-//     if(vicino)
-//     {
-//     /*Per punti sufficientemente vicini butto il control dell'ultimo punto e butto il primo anchor del path successivo*/
-//      tot_details = path_details + array_details - 2;
-//
-//      //la dimensione del vettore da allocare
-//      vect_dim= tot_details * 3;
-//
-//      //g_message("vicino: path vecchio %ld vettore %ld path nuovo%ld tot_details %ld",vect_dim_get, array_details, vect_dim, tot_details);
-//      path_strokes = (gdouble *) malloc(sizeof(gdouble) * (vect_dim + 1));
-//
-//      if(!path_strokes) {
-//       g_message("Not enough free memory for path_strokes!");
-//      }
-//      else {
-//       // printf("Allocato path_strokes: %d elementi\n", num_points_details);
-//       path_strokes[vect_dim] = (gdouble) CANARY;
-// 
-//       /* Copio in path_strokes il path tranne l'ultimo control*/
-//       k=0;
-//       for( i=0; i < (path_details - 1)*3 ; i++){
-//        path_strokes[i]=old_path[i];
-//       }
-// 
-//       k=i;   //k conta gli elementi del vettore
-//
-//       /*Copio lo strokes saltando il primo anchor*/
-//       for (i=0; i<(array_details-1)*3; i++) {
-//        path_strokes[k+i]=path[i+1*(3)];
-//       }
-//      }
-//     }
-// 
-//     else
-//     {
-//      /*Per punti sufficientemente distanti aggiungo il control del path successivo*/
-//      tot_details = path_details + array_details + 1 ;
-// 
-//      //la dimensione del vettore da allocare
-//      vect_dim= tot_details * 3;
-// 
-//      //g_message("lontano: path vecchio %ld vettore %ld path nuovo%ld tot_details %ld",vect_dim_get, array_details, vect_dim, tot_details);
-//      path_strokes = (gdouble *) malloc(sizeof(gdouble) * (vect_dim + 1));
-//
-//      if(!path_strokes) {
-//       g_message("Not enough free memory for path_strokes!");
-//      }
-//      else {
-//       // printf("Allocato path_strokes: %d elementi\n", num_points_details);
-//       path_strokes[vect_dim] = (gdouble) CANARY;
-// 
-//       /* Copio in path_strokes il path */
-//       k=0;
-//       for( i=0; i < (path_details)*3 ; i++){
-//        path_strokes[i]=old_path[i];
-//       }
-// 
-//       k=i;   //k conta gli elementi del vettore
-// 
-//       /*Aggiungo un control*/
-//        path_strokes[k]=path[0];
-//        path_strokes[k+1]=path[1];
-//        path_strokes[k+2]=2;/*Tipo control*/
-//        k+=3;
-// 
-//       /*Copio lo strokes*/
-//       for (i=0; i<(array_details)*3; i++) {
-//        path_strokes[k+i]=path[i];
-//       }
-//      }
-//     }
-// 
-//     if( vect_dim >  2) { //???
-// 
-//      gimp_path_delete(g_image,path_name);
-//      //gimp_path_set_points( g_image, path_name, 1, (num_vet_punti)*3, path_strokes ); //gimp bug ??: vuole la dimensione del vettore
-//      gimp_path_set_points( g_image, path_name, 1, vect_dim , path_strokes ); //gimp bug ??: vuole la dimensione del vettore
-//     }
-// 
-// 
-//     if(path_strokes[vect_dim] != (gdouble) CANARY)
-//     	g_message("Canary in path_strokes is dead!");
-//   }
-// 
-//   if (path_strokes)
-//   	free(path_strokes);
-// 
-// }
