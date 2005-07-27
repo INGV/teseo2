@@ -3111,10 +3111,10 @@ and again . . .</property>
 	  <child>
 	    <widget class="GtkLabel" id="label_teseo">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Teseo 2.0beta
+	      <property name="label" translatable="yes">&lt;big&gt;&lt;span color=&quot;brown&quot;&gt;&lt;b&gt;Teseo 2.0beta&lt;/b&gt;&lt;/span&gt;&lt;/big&gt;
 &quot;Vectoriser of historical seismograms&quot;</property>
 	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
+	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_CENTER</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
@@ -3149,9 +3149,10 @@ and again . . .</property>
 	  <child>
 	    <widget class="GtkLabel" id="label_authors">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">S. Pintore and M. Quintiliani</property>
+	      <property name="label" translatable="yes">&lt;i&gt;S. Pintore and M. Quintiliani&lt;/i&gt;
+teseo@ingv.it</property>
 	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
+	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_CENTER</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
@@ -3170,9 +3171,9 @@ and again . . .</property>
 	  <child>
 	    <widget class="GtkLabel" id="label_institution">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Istituto Nazionale di Geofisica e Vulcanologia</property>
+	      <property name="label" translatable="yes">&lt;small&gt;Istituto Nazionale di Geofisica e Vulcanologia&lt;/small&gt;</property>
 	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
+	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_CENTER</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
