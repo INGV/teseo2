@@ -1928,10 +1928,11 @@ create_about_dlg (void)
   gtk_box_pack_start (GTK_BOX (dialog_vbox6), vbox63, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (vbox63), 8);
 
-  label_teseo = gtk_label_new ("Teseo 2.0beta\n\"Vectoriser of historical seismograms\"");
+  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo 2.0beta</b></span></big>\n\"Vectoriser of historical seismograms\"");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
   gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label_teseo), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_teseo), GTK_JUSTIFY_CENTER);
 
   image141 = create_pixmap (about_dlg, "brain_mri_small.xpm");
@@ -1939,16 +1940,18 @@ create_about_dlg (void)
   gtk_widget_show (image141);
   gtk_box_pack_start (GTK_BOX (vbox63), image141, TRUE, TRUE, 0);
 
-  label_authors = gtk_label_new ("S. Pintore and M. Quintiliani");
+  label_authors = gtk_label_new ("<i>S. Pintore and M. Quintiliani</i>\nteseo@ingv.it");
   gtk_widget_set_name (label_authors, "label_authors");
   gtk_widget_show (label_authors);
   gtk_box_pack_start (GTK_BOX (vbox63), label_authors, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label_authors), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_authors), GTK_JUSTIFY_CENTER);
 
-  label_institution = gtk_label_new ("Istituto Nazionale di Geofisica e Vulcanologia");
+  label_institution = gtk_label_new ("<small>Istituto Nazionale di Geofisica e Vulcanologia</small>");
   gtk_widget_set_name (label_institution, "label_institution");
   gtk_widget_show (label_institution);
   gtk_box_pack_start (GTK_BOX (vbox63), label_institution, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
 
   dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
