@@ -748,6 +748,8 @@ create_win_neuronteseo (void)
   gtk_widget_show (notebook2);
   gtk_box_pack_start (GTK_BOX (vbox1), notebook2, TRUE, TRUE, 0);
   gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook2), FALSE);
+  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook2), GTK_POS_BOTTOM);
+  gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook2));
 
   vbox23 = gtk_vbox_new (TRUE, 0);
   gtk_widget_set_name (vbox23, "vbox23");
@@ -761,6 +763,7 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (frame18, "frame18");
   gtk_widget_show (frame18);
   gtk_box_pack_start (GTK_BOX (vbox23), frame18, TRUE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame18), GTK_SHADOW_NONE);
 
   table4 = gtk_table_new (2, 2, TRUE);
   gtk_widget_set_name (table4, "table4");
@@ -804,15 +807,17 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label73), 0, 0.5);
 
-  label72 = gtk_label_new ("Execution Steps");
+  label72 = gtk_label_new ("<b>Execution Steps</b>");
   gtk_widget_set_name (label72, "label72");
   gtk_widget_show (label72);
   gtk_frame_set_label_widget (GTK_FRAME (frame18), label72);
+  gtk_label_set_use_markup (GTK_LABEL (label72), TRUE);
 
   frame71 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame71, "frame71");
   gtk_widget_show (frame71);
   gtk_box_pack_start (GTK_BOX (vbox23), frame71, FALSE, FALSE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame71), GTK_SHADOW_NONE);
 
   hbox45 = gtk_hbox_new (FALSE, 0);
   gtk_widget_set_name (hbox45, "hbox45");
@@ -857,15 +862,17 @@ create_win_neuronteseo (void)
   gtk_widget_show (spinbutton17);
   gtk_box_pack_start (GTK_BOX (hbox12), spinbutton17, FALSE, FALSE, 0);
 
-  label215 = gtk_label_new ("Trace Properties");
+  label215 = gtk_label_new ("<b>Trace Properties</b>");
   gtk_widget_set_name (label215, "label215");
   gtk_widget_show (label215);
   gtk_frame_set_label_widget (GTK_FRAME (frame71), label215);
+  gtk_label_set_use_markup (GTK_LABEL (label215), TRUE);
 
-  label48 = gtk_label_new ("General");
+  label48 = gtk_label_new ("<small><b>General</b></small>");
   gtk_widget_set_name (label48, "label48");
   gtk_widget_show (label48);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 0), label48);
+  gtk_label_set_use_markup (GTK_LABEL (label48), TRUE);
 
   vbox17 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox17, "vbox17");
@@ -943,10 +950,11 @@ create_win_neuronteseo (void)
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), GTK_UPDATE_IF_VALID);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), TRUE);
 
-  label49 = gtk_label_new ("Colour weighted mean");
+  label49 = gtk_label_new ("<small><b>Colour weighted mean</b></small>");
   gtk_widget_set_name (label49, "label49");
   gtk_widget_show (label49);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 1), label49);
+  gtk_label_set_use_markup (GTK_LABEL (label49), TRUE);
 
   vbox21 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox21, "vbox21");
@@ -1928,11 +1936,10 @@ create_about_dlg (void)
   gtk_box_pack_start (GTK_BOX (dialog_vbox6), vbox63, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (vbox63), 8);
 
-  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo 2.0beta</b></span></big>\n\"Vectoriser of historical seismograms\"");
+  label_teseo = gtk_label_new ("Teseo 2.0beta\n\"Vectoriser of historical seismograms\"");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
   gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (label_teseo), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_teseo), GTK_JUSTIFY_CENTER);
 
   image141 = create_pixmap (about_dlg, "brain_mri_small.xpm");
@@ -1940,18 +1947,16 @@ create_about_dlg (void)
   gtk_widget_show (image141);
   gtk_box_pack_start (GTK_BOX (vbox63), image141, TRUE, TRUE, 0);
 
-  label_authors = gtk_label_new ("<i>S. Pintore and M. Quintiliani</i>\nteseo@ingv.it");
+  label_authors = gtk_label_new ("S. Pintore and M. Quintiliani");
   gtk_widget_set_name (label_authors, "label_authors");
   gtk_widget_show (label_authors);
   gtk_box_pack_start (GTK_BOX (vbox63), label_authors, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (label_authors), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_authors), GTK_JUSTIFY_CENTER);
 
-  label_institution = gtk_label_new ("<small>Istituto Nazionale di Geofisica e Vulcanologia</small>");
+  label_institution = gtk_label_new ("Istituto Nazionale di Geofisica e Vulcanologia");
   gtk_widget_set_name (label_institution, "label_institution");
   gtk_widget_show (label_institution);
   gtk_box_pack_start (GTK_BOX (vbox63), label_institution, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
 
   dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
