@@ -219,10 +219,10 @@ void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, c
     }
     num_vet_punti = k;
 
-    g_printf("strokes_path: num= %d\n",num_vet_punti);
-    for(i=0;i<num_vet_punti; i++){
-      g_printf("x=%f  y=%f: type %f\n", vet_punti[i*3], vet_punti[i*3+1], vet_punti[i*3+2]);
-    }
+    //g_printf("strokes_path: num= %d\n",num_vet_punti);
+    //for(i=0;i<num_vet_punti; i++){
+    //  g_printf("x=%f  y=%f: type %f\n", vet_punti[i*3], vet_punti[i*3+1], vet_punti[i*3+2]);
+    //}
 
 
     /*Stampo tutto*/
@@ -501,7 +501,7 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
   strcpy(path_name,gimp_path_get_current(g_image));
   path_type = gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
 	//g_message("Nome del path %s", path_name);
-  g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
+  //g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
 
   if ( !path_closed && num_path_point_details != 1 && path_type == 1) {
      //va tolto l'ultimo punto (-9) : correggere vanno presi tutti i punti
@@ -543,10 +543,10 @@ void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
     num_vet_punti = k;
 
-    g_printf("cat: num= %d\n",num_vet_punti );
-    for(i=0;i<num_vet_punti; i++){
-      g_printf("x=%f  y=%f: type %f\n", path_strokes[i*3], path_strokes[i*3+1],path_strokes[i*3+2]);
-    }
+    //g_printf("cat: num= %d\n",num_vet_punti );
+    //for(i=0;i<num_vet_punti; i++){
+      //g_printf("x=%f  y=%f: type %f\n", path_strokes[i*3], path_strokes[i*3+1],path_strokes[i*3+2]);
+    //}
 
     if ( num_vet_punti*3 != num_points_details)
 		g_message("num_vet_punti*3 - 3 = %d num_points_details = %d",num_vet_punti*3, num_points_details);
