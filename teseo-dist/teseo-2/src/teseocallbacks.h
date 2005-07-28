@@ -40,11 +40,11 @@ extern   GimpDrawable *private_drawable ;
 extern   GtkWidget * sessiondlg;
 extern   gint32  teseo_image ;
 
-void
+int
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
-void
+int
 on_open1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -271,4 +271,8 @@ on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
 
 void
 on_session_dlg_show                    (GtkWidget       *widget,
+                                        gpointer         user_data);
+
+void
+on_win_neuronteseo_show                (GtkWidget       *widget,
                                         gpointer         user_data);
