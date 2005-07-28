@@ -26,7 +26,7 @@
  */
 #ifndef teseo_main
 #define teseo_main 1
-#include "teseo_prototype.h"
+//#include "teseo_prototype.h"
 #include "teseo_wmean.h"
 
 /*!

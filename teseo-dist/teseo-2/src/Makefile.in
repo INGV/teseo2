@@ -188,8 +188,6 @@ teseo_2_SOURCES = \
 	teseo_resample.h	\
 	teseo_session.c	\
 	teseo_session.h \
-	teseo_prototype.h \
-	teseo_prototype.c \
 	teseo_wmean.h \
 	teseo_wmean.c \
 	teseo_main.h \
@@ -229,7 +227,6 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_resample.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
-	teseo_prototype.$(OBJEXT) \
 	teseo_wmean.$(OBJEXT) \
 	teseo_main.$(OBJEXT)
 
