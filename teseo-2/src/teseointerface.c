@@ -1682,6 +1682,7 @@ create_session_dlg (void)
   gtk_widget_show (frame50);
   gtk_box_pack_start (GTK_BOX (vbox66), frame50, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame50), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame50), GTK_SHADOW_NONE);
 
   alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment2, "alignment2");
@@ -1728,7 +1729,7 @@ create_session_dlg (void)
   gtk_widget_show (teseo_year_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox28), teseo_year_spinbutton, FALSE, FALSE, 0);
 
-  label165 = gtk_label_new ("Date");
+  label165 = gtk_label_new ("<small><b>Date</b></small>");
   gtk_widget_set_name (label165, "label165");
   gtk_widget_show (label165);
   gtk_frame_set_label_widget (GTK_FRAME (frame50), label165);
@@ -1739,6 +1740,7 @@ create_session_dlg (void)
   gtk_widget_show (frame60);
   gtk_box_pack_start (GTK_BOX (vbox66), frame60, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame60), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame60), GTK_SHADOW_NONE);
 
   vbox71 = gtk_vbox_new (TRUE, 10);
   gtk_widget_set_name (vbox71, "vbox71");
@@ -1835,7 +1837,7 @@ create_session_dlg (void)
   gtk_box_pack_start (GTK_BOX (hbox39), teseo_quo_spinbutton, FALSE, TRUE, 2);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_quo_spinbutton), TRUE);
 
-  label178 = gtk_label_new ("Station data");
+  label178 = gtk_label_new ("<b><small>Station data</small></b>");
   gtk_widget_set_name (label178, "label178");
   gtk_widget_show (label178);
   gtk_frame_set_label_widget (GTK_FRAME (frame60), label178);
@@ -1846,6 +1848,7 @@ create_session_dlg (void)
   gtk_widget_show (frame66);
   gtk_box_pack_start (GTK_BOX (vbox66), frame66, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame66), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame66), GTK_SHADOW_NONE);
 
   alignment18 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment18, "alignment18");
@@ -1861,7 +1864,7 @@ create_session_dlg (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_imagefile_entry, GTK_CAN_FOCUS);
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imagefile_entry), FALSE);
 
-  label183 = gtk_label_new ("Image file");
+  label183 = gtk_label_new ("<small><b>Image file</b></small>");
   gtk_widget_set_name (label183, "label183");
   gtk_widget_show (label183);
   gtk_frame_set_label_widget (GTK_FRAME (frame66), label183);
@@ -1872,6 +1875,7 @@ create_session_dlg (void)
   gtk_widget_show (frame67);
   gtk_box_pack_start (GTK_BOX (vbox66), frame67, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame67), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame67), GTK_SHADOW_NONE);
 
   alignment19 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment19, "alignment19");
@@ -1887,7 +1891,7 @@ create_session_dlg (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_imageresolution_entry, GTK_CAN_FOCUS);
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imageresolution_entry), FALSE);
 
-  label184 = gtk_label_new ("Resolution");
+  label184 = gtk_label_new ("<b><small>Resolution</small></b>");
   gtk_widget_set_name (label184, "label184");
   gtk_widget_show (label184);
   gtk_frame_set_label_widget (GTK_FRAME (frame67), label184);
@@ -1898,6 +1902,7 @@ create_session_dlg (void)
   gtk_widget_show (SpeedFrame);
   gtk_box_pack_start (GTK_BOX (vbox66), SpeedFrame, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (SpeedFrame), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (SpeedFrame), GTK_SHADOW_NONE);
 
   alignment22 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment22, "alignment22");
@@ -1905,7 +1910,7 @@ create_session_dlg (void)
   gtk_container_add (GTK_CONTAINER (SpeedFrame), alignment22);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment22), 0, 0, 12, 0);
 
-  hbox43 = gtk_hbox_new (TRUE, 10);
+  hbox43 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox43, "hbox43");
   gtk_widget_show (hbox43);
   gtk_container_add (GTK_CONTAINER (alignment22), hbox43);
@@ -1922,7 +1927,7 @@ create_session_dlg (void)
   gtk_box_pack_start (GTK_BOX (hbox43), teseo_paper_speed_spinbutton, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_paper_speed_spinbutton), TRUE);
 
-  label210 = gtk_label_new ("Paper Speed");
+  label210 = gtk_label_new ("<small><b>Paper Speed</b></small>");
   gtk_widget_set_name (label210, "label210");
   gtk_widget_show (label210);
   gtk_frame_set_label_widget (GTK_FRAME (SpeedFrame), label210);
@@ -1987,6 +1992,7 @@ create_session_dlg (void)
   gtk_widget_show (frame68);
   gtk_box_pack_start (GTK_BOX (vbox68), frame68, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame68), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame68), GTK_SHADOW_NONE);
 
   alignment20 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment20, "alignment20");
@@ -2035,7 +2041,7 @@ create_session_dlg (void)
   gtk_widget_show (teseo_event_second_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox41), teseo_event_second_spinbutton, FALSE, FALSE, 0);
 
-  label202 = gtk_label_new ("Event first sample time");
+  label202 = gtk_label_new ("<b><small>Event first sample time</small></b>");
   gtk_widget_set_name (label202, "label202");
   gtk_widget_show (label202);
   gtk_frame_set_label_widget (GTK_FRAME (frame68), label202);
@@ -2046,6 +2052,7 @@ create_session_dlg (void)
   gtk_widget_show (frame69);
   gtk_box_pack_start (GTK_BOX (vbox68), frame69, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame69), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame69), GTK_SHADOW_NONE);
 
   alignment21 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment21, "alignment21");
@@ -2092,7 +2099,7 @@ create_session_dlg (void)
   gtk_widget_show (teseo_tm_second_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox42), teseo_tm_second_spinbutton, FALSE, FALSE, 0);
 
-  label206 = gtk_label_new ("Time markers first time");
+  label206 = gtk_label_new ("<small><b>Time markers first time</b></small>");
   gtk_widget_set_name (label206, "label206");
   gtk_widget_show (label206);
   gtk_frame_set_label_widget (GTK_FRAME (frame69), label206);
@@ -2322,21 +2329,6 @@ create_teseo_session_filechooser (void)
 
   gtk_widget_grab_default (button26);
   return teseo_session_filechooser;
-}
-
-GtkWidget*
-create_window1 (void)
-{
-  GtkWidget *window1;
-
-  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (window1, "window1");
-  gtk_window_set_title (GTK_WINDOW (window1), "window1");
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
-
-  return window1;
 }
 
 GtkWidget*
