@@ -26,8 +26,27 @@
  */
 #ifndef teseo_wmean
 #define teseo_wmean 1
-#include "teseo_prototype.h"
+//#include "teseo_prototype.h"
 #include <glib.h>
+
+
+struct SPoint{
+	int x;
+	int y;
+};
+
+typedef struct SPoint point;
+
+
+struct WM_I{
+ guchar * bufin;
+ point LastCentre;
+};
+
+
+typedef struct SPoint wm_os;
+typedef struct WM_I   wm_is;
+
 
 struct wmeanParam{
 	int colour;

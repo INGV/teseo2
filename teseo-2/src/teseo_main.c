@@ -27,6 +27,7 @@
 
 #include <libgimp/gimp.h>
 #include "teseo_main.h"
+#include "teseo_path.h"
 
 /*!
  * ALGORITHM function pointer to real algorithm function
