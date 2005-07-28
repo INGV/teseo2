@@ -26,7 +26,6 @@
  */
 #ifndef teseo_wmean
 #define teseo_wmean 1
-//#include "teseo_prototype.h"
 #include <glib.h>
 
 

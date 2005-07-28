@@ -788,7 +788,7 @@ create_win_neuronteseo (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), TRUE);
 
-  teseo_back_step_spinbutton_adj = gtk_adjustment_new (5, 1, 10000, 1, 10, 10);
+  teseo_back_step_spinbutton_adj = gtk_adjustment_new (10, 1, 10000, 1, 10, 10);
   teseo_back_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_back_step_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
   gtk_widget_show (teseo_back_step_spinbutton);
@@ -912,7 +912,7 @@ create_win_neuronteseo (void)
   gtk_misc_set_alignment (GTK_MISC (label63), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label63), 10, 0);
 
-  teseo_wm_height_spinbutton_adj = gtk_adjustment_new (50, 3, 1000, 1, 10, 10);
+  teseo_wm_height_spinbutton_adj = gtk_adjustment_new (30, 3, 1000, 1, 10, 10);
   teseo_wm_height_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_height_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
   gtk_widget_show (teseo_wm_height_spinbutton);
@@ -936,7 +936,7 @@ create_win_neuronteseo (void)
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), GTK_UPDATE_IF_VALID);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), TRUE);
 
-  label65 = gtk_label_new ("<b>Rectangle dimension</b>");
+  label65 = gtk_label_new ("<b>Rectangle dimensions</b>");
   gtk_widget_set_name (label65, "label65");
   gtk_widget_show (label65);
   gtk_frame_set_label_widget (GTK_FRAME (frame16), label65);

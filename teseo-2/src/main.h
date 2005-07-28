@@ -28,7 +28,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-
+/*
 typedef struct
 {
   gint      dummy1;
@@ -37,6 +37,7 @@ typedef struct
   guint     seed;
   gboolean  random_seed;
 } PlugInVals;
+*/
 
 typedef struct
 {
@@ -56,7 +57,7 @@ typedef struct
 
 /*  Default values  */
 
-extern const PlugInVals         default_vals;
+//extern const PlugInVals         default_vals;
 extern const PlugInImageVals    default_image_vals;
 extern const PlugInDrawableVals default_drawable_vals;
 extern const PlugInUIVals       default_ui_vals;
