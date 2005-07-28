@@ -37,16 +37,14 @@ create_win_neuronteseo (void)
   GtkWidget *menuitem4_menu;
   GtkWidget *new1;
   GtkWidget *open1;
-  GtkWidget *save1;
-  GtkWidget *save_as1;
   GtkWidget *properties1;
-  GtkWidget *image241;
+  GtkWidget *image269;
   GtkWidget *separator2;
   GtkWidget *preferences_2;
-  GtkWidget *image242;
+  GtkWidget *image270;
   GtkWidget *separator4;
   GtkWidget *import1;
-  GtkWidget *image243;
+  GtkWidget *image271;
   GtkWidget *import1_menu;
   GtkWidget *svg1;
   GtkWidget *dxf2;
@@ -58,7 +56,7 @@ create_win_neuronteseo (void)
   GtkWidget *separator6;
   GtkWidget *bezier1;
   GtkWidget *export1;
-  GtkWidget *image244;
+  GtkWidget *image272;
   GtkWidget *export1_menu;
   GtkWidget *svg2;
   GtkWidget *dxf1;
@@ -88,9 +86,9 @@ create_win_neuronteseo (void)
   GtkWidget *menuitem7;
   GtkWidget *menuitem7_menu;
   GtkWidget *help1;
-  GtkWidget *image245;
+  GtkWidget *image273;
   GtkWidget *about1;
-  GtkWidget *image246;
+  GtkWidget *image274;
   GtkWidget *handlebox3;
   GtkWidget *toolbar2;
   GtkIconSize tmp_toolbar_icon_size;
@@ -239,16 +237,6 @@ create_win_neuronteseo (void)
   gtk_widget_show (open1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), open1);
 
-  save1 = gtk_image_menu_item_new_from_stock ("gtk-save", accel_group);
-  gtk_widget_set_name (save1, "save1");
-  gtk_widget_show (save1);
-  gtk_container_add (GTK_CONTAINER (menuitem4_menu), save1);
-
-  save_as1 = gtk_image_menu_item_new_from_stock ("gtk-save-as", accel_group);
-  gtk_widget_set_name (save_as1, "save_as1");
-  gtk_widget_show (save_as1);
-  gtk_container_add (GTK_CONTAINER (menuitem4_menu), save_as1);
-
   properties1 = gtk_image_menu_item_new_with_mnemonic ("P_roperties");
   gtk_widget_set_name (properties1, "properties1");
   gtk_widget_show (properties1);
@@ -257,10 +245,10 @@ create_win_neuronteseo (void)
                               GDK_R, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image241 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image241, "image241");
-  gtk_widget_show (image241);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image241);
+  image269 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image269, "image269");
+  gtk_widget_show (image269);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image269);
 
   separator2 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator2, "separator2");
@@ -276,10 +264,10 @@ create_win_neuronteseo (void)
                               GDK_P, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image242 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image242, "image242");
-  gtk_widget_show (image242);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image242);
+  image270 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image270, "image270");
+  gtk_widget_show (image270);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (preferences_2), image270);
 
   separator4 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator4, "separator4");
@@ -292,10 +280,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (import1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), import1);
 
-  image243 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image243, "image243");
-  gtk_widget_show (image243);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image243);
+  image271 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image271, "image271");
+  gtk_widget_show (image271);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image271);
 
   import1_menu = gtk_menu_new ();
   gtk_widget_set_name (import1_menu, "import1_menu");
@@ -353,10 +341,10 @@ create_win_neuronteseo (void)
   gtk_widget_show (export1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), export1);
 
-  image244 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image244, "image244");
-  gtk_widget_show (image244);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image244);
+  image272 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image272, "image272");
+  gtk_widget_show (image272);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image272);
 
   export1_menu = gtk_menu_new ();
   gtk_widget_set_name (export1_menu, "export1_menu");
@@ -503,20 +491,20 @@ create_win_neuronteseo (void)
   gtk_widget_show (help1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), help1);
 
-  image245 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image245, "image245");
-  gtk_widget_show (image245);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image245);
+  image273 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image273, "image273");
+  gtk_widget_show (image273);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image273);
 
   about1 = gtk_image_menu_item_new_with_mnemonic ("_About ...");
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), about1);
 
-  image246 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image246, "image246");
-  gtk_widget_show (image246);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image246);
+  image274 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image274, "image274");
+  gtk_widget_show (image274);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image274);
 
   handlebox3 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox3, "handlebox3");
@@ -1161,12 +1149,6 @@ create_win_neuronteseo (void)
   g_signal_connect ((gpointer) open1, "activate",
                     G_CALLBACK (on_open1_activate),
                     NULL);
-  g_signal_connect ((gpointer) save1, "activate",
-                    G_CALLBACK (on_save1_activate),
-                    NULL);
-  g_signal_connect ((gpointer) save_as1, "activate",
-                    G_CALLBACK (on_save_as1_activate),
-                    NULL);
   g_signal_connect ((gpointer) properties1, "activate",
                     G_CALLBACK (on_properties1_activate),
                     NULL);
@@ -1282,16 +1264,14 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem4_menu, "menuitem4_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, new1, "new1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, open1, "open1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, save1, "save1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, save_as1, "save_as1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, properties1, "properties1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image241, "image241");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image269, "image269");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator2, "separator2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, preferences_2, "preferences_2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image242, "image242");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image270, "image270");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator4, "separator4");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image243, "image243");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image271, "image271");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, import1_menu, "import1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, svg1, "svg1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf2, "dxf2");
@@ -1303,7 +1283,7 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, separator6, "separator6");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, bezier1, "bezier1");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image244, "image244");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image272, "image272");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, export1_menu, "export1_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, svg2, "svg2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf1, "dxf1");
@@ -1333,9 +1313,9 @@ create_win_neuronteseo (void)
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7, "menuitem7");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7_menu, "menuitem7_menu");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image245, "image245");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image273, "image273");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image246, "image246");
+  GLADE_HOOKUP_OBJECT (win_neuronteseo, image274, "image274");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox3, "handlebox3");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar2, "toolbar2");
   GLADE_HOOKUP_OBJECT (win_neuronteseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
@@ -1478,443 +1458,6 @@ create_filechooserimport (void)
 }
 
 GtkWidget*
-create_preferences_dlg (void)
-{
-  GtkWidget *preferences_dlg;
-  GtkWidget *dialog_vbox5;
-  GtkWidget *notebook3;
-  GtkWidget *vbox55;
-  GtkWidget *frame44;
-  GtkWidget *vbox56;
-  GtkWidget *label147;
-  GtkWidget *frame45;
-  GtkWidget *vbox57;
-  GtkWidget *teseo_show_advices_checkbutton;
-  GtkWidget *label148;
-  GtkWidget *label150;
-  GtkWidget *vbox59;
-  GtkWidget *frame47;
-  GtkWidget *vbox60;
-  GtkWidget *teseo_direct_bez_checkbutton;
-  GtkWidget *label151;
-  GtkWidget *frame48;
-  GtkWidget *vbox61;
-  GtkWidget *hbox23;
-  GtkWidget *label152;
-  GtkObject *teseo_step_spinbutton_adj;
-  GtkWidget *teseo_step_spinbutton;
-  GtkWidget *teseo_abscissa_asc_checkbutton;
-  GtkWidget *hbox24;
-  GtkWidget *teseo_autosave_checkbutton;
-  GtkObject *teseo_auto_spinbutton_adj;
-  GtkWidget *teseo_auto_spinbutton;
-  GtkWidget *label153;
-  GtkWidget *frame49;
-  GtkWidget *hbox25;
-  GtkWidget *teseo_fitting_checkbutton;
-  GtkWidget *vbox62;
-  GtkWidget *teseo_poly_radiobutton;
-  GSList *teseo_poly_radiobutton_group = NULL;
-  GtkWidget *teseo_ms_radiobutton;
-  GtkWidget *hbox26;
-  GtkWidget *label154;
-  GtkObject *teseo_order_spinbutton_adj;
-  GtkWidget *teseo_order_spinbutton;
-  GtkWidget *table10;
-  GtkWidget *label155;
-  GtkWidget *label156;
-  GtkWidget *label157;
-  GtkWidget *label158;
-  GtkWidget *teseo_svdfit_entry;
-  GtkWidget *teseo_lfit_entry;
-  GtkWidget *label159;
-  GtkWidget *frame46;
-  GtkWidget *vbox58;
-  GtkWidget *teseo_reloc_checkbutton;
-  GtkWidget *teseo_auto_res_checkbutton;
-  GtkWidget *label149;
-  GtkWidget *label160;
-  GtkWidget *dialog_action_area6;
-  GtkWidget *applybutton1;
-  GtkWidget *cancelbutton3;
-  GtkWidget *okbutton3;
-
-  preferences_dlg = gtk_dialog_new ();
-  gtk_widget_set_name (preferences_dlg, "preferences_dlg");
-  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences...");
-  gtk_window_set_type_hint (GTK_WINDOW (preferences_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox5 = GTK_DIALOG (preferences_dlg)->vbox;
-  gtk_widget_set_name (dialog_vbox5, "dialog_vbox5");
-  gtk_widget_show (dialog_vbox5);
-
-  notebook3 = gtk_notebook_new ();
-  gtk_widget_set_name (notebook3, "notebook3");
-  gtk_widget_show (notebook3);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox5), notebook3, TRUE, TRUE, 0);
-  gtk_widget_set_size_request (notebook3, 508, 356);
-  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook3), TRUE);
-
-  vbox55 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox55, "vbox55");
-  gtk_container_add (GTK_CONTAINER (notebook3), vbox55);
-  gtk_widget_set_sensitive (vbox55, FALSE);
-
-  frame44 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame44, "frame44");
-  gtk_widget_show (frame44);
-  gtk_box_pack_start (GTK_BOX (vbox55), frame44, TRUE, TRUE, 0);
-
-  vbox56 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox56, "vbox56");
-  gtk_widget_show (vbox56);
-  gtk_container_add (GTK_CONTAINER (frame44), vbox56);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox56), 4);
-
-  label147 = gtk_label_new ("Environment");
-  gtk_widget_set_name (label147, "label147");
-  gtk_widget_show (label147);
-  gtk_frame_set_label_widget (GTK_FRAME (frame44), label147);
-
-  frame45 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame45, "frame45");
-  gtk_widget_show (frame45);
-  gtk_box_pack_start (GTK_BOX (vbox55), frame45, TRUE, TRUE, 0);
-
-  vbox57 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox57, "vbox57");
-  gtk_widget_show (vbox57);
-  gtk_container_add (GTK_CONTAINER (frame45), vbox57);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox57), 4);
-
-  teseo_show_advices_checkbutton = gtk_check_button_new_with_mnemonic ("Show advices");
-  gtk_widget_set_name (teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
-  gtk_widget_show (teseo_show_advices_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox57), teseo_show_advices_checkbutton, FALSE, FALSE, 0);
-
-  label148 = gtk_label_new ("Miscellaneous");
-  gtk_widget_set_name (label148, "label148");
-  gtk_widget_show (label148);
-  gtk_frame_set_label_widget (GTK_FRAME (frame45), label148);
-
-  label150 = gtk_label_new ("General");
-  gtk_widget_set_name (label150, "label150");
-  gtk_widget_show (label150);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 0), label150);
-
-  vbox59 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox59, "vbox59");
-  gtk_widget_show (vbox59);
-  gtk_container_add (GTK_CONTAINER (notebook3), vbox59);
-
-  frame47 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame47, "frame47");
-  gtk_widget_show (frame47);
-  gtk_box_pack_start (GTK_BOX (vbox59), frame47, FALSE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame47), GTK_SHADOW_NONE);
-
-  vbox60 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox60, "vbox60");
-  gtk_widget_show (vbox60);
-  gtk_container_add (GTK_CONTAINER (frame47), vbox60);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox60), 4);
-
-  teseo_direct_bez_checkbutton = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
-  gtk_widget_set_name (teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
-  gtk_widget_show (teseo_direct_bez_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox60), teseo_direct_bez_checkbutton, FALSE, FALSE, 0);
-
-  label151 = gtk_label_new ("<b>Miscellaneous</b>");
-  gtk_widget_set_name (label151, "label151");
-  gtk_widget_show (label151);
-  gtk_frame_set_label_widget (GTK_FRAME (frame47), label151);
-  gtk_label_set_use_markup (GTK_LABEL (label151), TRUE);
-
-  frame48 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame48, "frame48");
-  gtk_widget_show (frame48);
-  gtk_box_pack_start (GTK_BOX (vbox59), frame48, FALSE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame48), GTK_SHADOW_NONE);
-
-  vbox61 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox61, "vbox61");
-  gtk_widget_show (vbox61);
-  gtk_container_add (GTK_CONTAINER (frame48), vbox61);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox61), 4);
-
-  hbox23 = gtk_hbox_new (FALSE, 6);
-  gtk_widget_set_name (hbox23, "hbox23");
-  gtk_widget_show (hbox23);
-  gtk_box_pack_start (GTK_BOX (vbox61), hbox23, TRUE, TRUE, 0);
-
-  label152 = gtk_label_new ("Resampling step (pix)");
-  gtk_widget_set_name (label152, "label152");
-  gtk_widget_show (label152);
-  gtk_box_pack_start (GTK_BOX (hbox23), label152, FALSE, FALSE, 0);
-
-  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
-  gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
-  gtk_widget_show (teseo_step_spinbutton);
-  gtk_box_pack_start (GTK_BOX (hbox23), teseo_step_spinbutton, FALSE, FALSE, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_step_spinbutton), TRUE);
-
-  teseo_abscissa_asc_checkbutton = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
-  gtk_widget_set_name (teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
-  gtk_widget_show (teseo_abscissa_asc_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox61), teseo_abscissa_asc_checkbutton, FALSE, FALSE, 0);
-
-  hbox24 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_set_name (hbox24, "hbox24");
-  gtk_widget_show (hbox24);
-  gtk_box_pack_start (GTK_BOX (vbox61), hbox24, TRUE, TRUE, 0);
-
-  teseo_autosave_checkbutton = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
-  gtk_widget_set_name (teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
-  gtk_widget_show (teseo_autosave_checkbutton);
-  gtk_box_pack_start (GTK_BOX (hbox24), teseo_autosave_checkbutton, FALSE, FALSE, 0);
-
-  teseo_auto_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  teseo_auto_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_auto_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_auto_spinbutton, "teseo_auto_spinbutton");
-  gtk_widget_show (teseo_auto_spinbutton);
-  gtk_box_pack_start (GTK_BOX (hbox24), teseo_auto_spinbutton, FALSE, TRUE, 0);
-
-  label153 = gtk_label_new ("<b>Resampling</b>");
-  gtk_widget_set_name (label153, "label153");
-  gtk_widget_show (label153);
-  gtk_frame_set_label_widget (GTK_FRAME (frame48), label153);
-  gtk_label_set_use_markup (GTK_LABEL (label153), TRUE);
-
-  frame49 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame49, "frame49");
-  gtk_widget_show (frame49);
-  gtk_box_pack_start (GTK_BOX (vbox59), frame49, FALSE, TRUE, 0);
-  gtk_widget_set_sensitive (frame49, FALSE);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame49), GTK_SHADOW_NONE);
-
-  hbox25 = gtk_hbox_new (FALSE, 6);
-  gtk_widget_set_name (hbox25, "hbox25");
-  gtk_widget_show (hbox25);
-  gtk_container_add (GTK_CONTAINER (frame49), hbox25);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox25), 4);
-
-  teseo_fitting_checkbutton = gtk_check_button_new_with_mnemonic ("Fitting");
-  gtk_widget_set_name (teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
-  gtk_widget_show (teseo_fitting_checkbutton);
-  gtk_box_pack_start (GTK_BOX (hbox25), teseo_fitting_checkbutton, FALSE, FALSE, 0);
-
-  vbox62 = gtk_vbox_new (TRUE, 0);
-  gtk_widget_set_name (vbox62, "vbox62");
-  gtk_widget_show (vbox62);
-  gtk_box_pack_start (GTK_BOX (hbox25), vbox62, FALSE, TRUE, 0);
-
-  teseo_poly_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
-  gtk_widget_set_name (teseo_poly_radiobutton, "teseo_poly_radiobutton");
-  gtk_widget_show (teseo_poly_radiobutton);
-  gtk_box_pack_start (GTK_BOX (vbox62), teseo_poly_radiobutton, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton), teseo_poly_radiobutton_group);
-  teseo_poly_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton));
-
-  teseo_ms_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
-  gtk_widget_set_name (teseo_ms_radiobutton, "teseo_ms_radiobutton");
-  gtk_widget_show (teseo_ms_radiobutton);
-  gtk_box_pack_start (GTK_BOX (vbox62), teseo_ms_radiobutton, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton), teseo_poly_radiobutton_group);
-  teseo_poly_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton));
-
-  hbox26 = gtk_hbox_new (FALSE, 5);
-  gtk_widget_set_name (hbox26, "hbox26");
-  gtk_widget_show (hbox26);
-  gtk_box_pack_start (GTK_BOX (hbox25), hbox26, TRUE, TRUE, 0);
-
-  label154 = gtk_label_new ("Order");
-  gtk_widget_set_name (label154, "label154");
-  gtk_widget_show (label154);
-  gtk_box_pack_start (GTK_BOX (hbox26), label154, FALSE, FALSE, 0);
-
-  teseo_order_spinbutton_adj = gtk_adjustment_new (2, 0, 100, 1, 10, 10);
-  teseo_order_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_order_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_order_spinbutton, "teseo_order_spinbutton");
-  gtk_widget_show (teseo_order_spinbutton);
-  gtk_box_pack_start (GTK_BOX (hbox26), teseo_order_spinbutton, FALSE, FALSE, 0);
-
-  table10 = gtk_table_new (2, 3, FALSE);
-  gtk_widget_set_name (table10, "table10");
-  gtk_widget_show (table10);
-  gtk_box_pack_start (GTK_BOX (hbox25), table10, TRUE, TRUE, 0);
-  gtk_table_set_col_spacings (GTK_TABLE (table10), 4);
-
-  label155 = gtk_label_new ("SVDFIT");
-  gtk_widget_set_name (label155, "label155");
-  gtk_widget_show (label155);
-  gtk_table_attach (GTK_TABLE (table10), label155, 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label155), 0, 0.5);
-
-  label156 = gtk_label_new ("LFIT");
-  gtk_widget_set_name (label156, "label156");
-  gtk_widget_show (label156);
-  gtk_table_attach (GTK_TABLE (table10), label156, 0, 1, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label156), 0, 0.5);
-
-  label157 = gtk_label_new ("points");
-  gtk_widget_set_name (label157, "label157");
-  gtk_widget_show (label157);
-  gtk_table_attach (GTK_TABLE (table10), label157, 2, 3, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label157), 0, 0.5);
-
-  label158 = gtk_label_new ("points");
-  gtk_widget_set_name (label158, "label158");
-  gtk_widget_show (label158);
-  gtk_table_attach (GTK_TABLE (table10), label158, 2, 3, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label158), 0, 0.5);
-
-  teseo_svdfit_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_svdfit_entry, "teseo_svdfit_entry");
-  gtk_widget_show (teseo_svdfit_entry);
-  gtk_table_attach (GTK_TABLE (table10), teseo_svdfit_entry, 1, 2, 0, 1,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (teseo_svdfit_entry, 60, -1);
-
-  teseo_lfit_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_lfit_entry, "teseo_lfit_entry");
-  gtk_widget_show (teseo_lfit_entry);
-  gtk_table_attach (GTK_TABLE (table10), teseo_lfit_entry, 1, 2, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (teseo_lfit_entry, 60, -1);
-
-  label159 = gtk_label_new ("<b>Fitting</b>");
-  gtk_widget_set_name (label159, "label159");
-  gtk_widget_show (label159);
-  gtk_frame_set_label_widget (GTK_FRAME (frame49), label159);
-  gtk_label_set_use_markup (GTK_LABEL (label159), TRUE);
-
-  frame46 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame46, "frame46");
-  gtk_widget_show (frame46);
-  gtk_box_pack_start (GTK_BOX (vbox59), frame46, FALSE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame46), GTK_SHADOW_NONE);
-
-  vbox58 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox58, "vbox58");
-  gtk_widget_show (vbox58);
-  gtk_container_add (GTK_CONTAINER (frame46), vbox58);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox58), 4);
-
-  teseo_reloc_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
-  gtk_widget_set_name (teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
-  gtk_widget_show (teseo_reloc_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox58), teseo_reloc_checkbutton, FALSE, FALSE, 0);
-
-  teseo_auto_res_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
-  gtk_widget_set_name (teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
-  gtk_widget_show (teseo_auto_res_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox58), teseo_auto_res_checkbutton, FALSE, FALSE, 0);
-
-  label149 = gtk_label_new ("<b>Export</b>");
-  gtk_widget_set_name (label149, "label149");
-  gtk_widget_show (label149);
-  gtk_frame_set_label_widget (GTK_FRAME (frame46), label149);
-  gtk_label_set_use_markup (GTK_LABEL (label149), TRUE);
-
-  label160 = gtk_label_new ("Adjustment");
-  gtk_widget_set_name (label160, "label160");
-  gtk_widget_show (label160);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 1), label160);
-
-  dialog_action_area6 = GTK_DIALOG (preferences_dlg)->action_area;
-  gtk_widget_set_name (dialog_action_area6, "dialog_action_area6");
-  gtk_widget_show (dialog_action_area6);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area6), GTK_BUTTONBOX_END);
-
-  applybutton1 = gtk_button_new_from_stock ("gtk-apply");
-  gtk_widget_set_name (applybutton1, "applybutton1");
-  gtk_widget_show (applybutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), applybutton1, GTK_RESPONSE_APPLY);
-  GTK_WIDGET_SET_FLAGS (applybutton1, GTK_CAN_DEFAULT);
-
-  cancelbutton3 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_set_name (cancelbutton3, "cancelbutton3");
-  gtk_widget_show (cancelbutton3);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton3, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (cancelbutton3, GTK_CAN_DEFAULT);
-
-  okbutton3 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_set_name (okbutton3, "okbutton3");
-  gtk_widget_show (okbutton3);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton3, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (okbutton3, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, preferences_dlg, "preferences_dlg");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox5, "dialog_vbox5");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, notebook3, "notebook3");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox55, "vbox55");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame44, "frame44");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox56, "vbox56");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label147, "label147");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame45, "frame45");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox57, "vbox57");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label148, "label148");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label150, "label150");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox59, "vbox59");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame47, "frame47");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox60, "vbox60");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label151, "label151");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame48, "frame48");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox61, "vbox61");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox23, "hbox23");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label152, "label152");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_step_spinbutton, "teseo_step_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox24, "hbox24");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_spinbutton, "teseo_auto_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label153, "label153");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame49, "frame49");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox25, "hbox25");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox62, "vbox62");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_poly_radiobutton, "teseo_poly_radiobutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_ms_radiobutton, "teseo_ms_radiobutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox26, "hbox26");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label154, "label154");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_order_spinbutton, "teseo_order_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, table10, "table10");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label155, "label155");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label156, "label156");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label157, "label157");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label158, "label158");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_svdfit_entry, "teseo_svdfit_entry");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_lfit_entry, "teseo_lfit_entry");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame46, "frame46");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox58, "vbox58");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label149, "label149");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area6, "dialog_action_area6");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, applybutton1, "applybutton1");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton3, "cancelbutton3");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton3, "okbutton3");
-
-  return preferences_dlg;
-}
-
-GtkWidget*
 create_about_dlg (void)
 {
   GtkWidget *about_dlg;
@@ -1924,6 +1467,7 @@ create_about_dlg (void)
   GtkWidget *image141;
   GtkWidget *label_authors;
   GtkWidget *label_institution;
+  GtkWidget *label216;
   GtkWidget *dialog_action_area7;
   GtkWidget *okbutton4;
 
@@ -1970,6 +1514,12 @@ create_about_dlg (void)
   gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
 
+  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismograms <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O</b></span></big>riginal <big><span color=\"brown\"><b>O</b></span></big>ne");
+  gtk_widget_set_name (label216, "label216");
+  gtk_widget_show (label216);
+  gtk_box_pack_start (GTK_BOX (vbox63), label216, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label216), TRUE);
+
   dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
   gtk_widget_set_name (dialog_action_area7, "dialog_action_area7");
   gtk_widget_show (dialog_action_area7);
@@ -1989,6 +1539,7 @@ create_about_dlg (void)
   GLADE_HOOKUP_OBJECT (about_dlg, image141, "image141");
   GLADE_HOOKUP_OBJECT (about_dlg, label_authors, "label_authors");
   GLADE_HOOKUP_OBJECT (about_dlg, label_institution, "label_institution");
+  GLADE_HOOKUP_OBJECT (about_dlg, label216, "label216");
   GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_action_area7, "dialog_action_area7");
   GLADE_HOOKUP_OBJECT (about_dlg, okbutton4, "okbutton4");
 
@@ -2035,8 +1586,6 @@ create_session_dlg (void)
   GtkObject *teseo_quo_spinbutton_adj;
   GtkWidget *teseo_quo_spinbutton;
   GtkWidget *label178;
-  GtkWidget *recordinfo;
-  GtkWidget *vbox67;
   GtkWidget *frame66;
   GtkWidget *alignment18;
   GtkWidget *teseo_imagefile_entry;
@@ -2052,7 +1601,7 @@ create_session_dlg (void)
   GtkObject *teseo_paper_speed_spinbutton_adj;
   GtkWidget *teseo_paper_speed_spinbutton;
   GtkWidget *label210;
-  GtkWidget *imageinfo;
+  GtkWidget *recordinfo;
   GtkWidget *vbox68;
   GtkWidget *hbox33;
   GtkWidget *teseo_event_checkbutton;
@@ -2289,22 +1838,10 @@ create_session_dlg (void)
   gtk_frame_set_label_widget (GTK_FRAME (frame60), label178);
   gtk_label_set_use_markup (GTK_LABEL (label178), TRUE);
 
-  recordinfo = gtk_label_new ("Record");
-  gtk_widget_set_name (recordinfo, "recordinfo");
-  gtk_widget_show (recordinfo);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 0), recordinfo);
-
-  vbox67 = gtk_vbox_new (TRUE, 5);
-  gtk_widget_set_name (vbox67, "vbox67");
-  gtk_widget_show (vbox67);
-  gtk_container_add (GTK_CONTAINER (notebook4), vbox67);
-  gtk_notebook_set_tab_label_packing (GTK_NOTEBOOK (notebook4), vbox67,
-                                      FALSE, FALSE, GTK_PACK_START);
-
   frame66 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame66, "frame66");
   gtk_widget_show (frame66);
-  gtk_box_pack_start (GTK_BOX (vbox67), frame66, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox66), frame66, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame66), 3);
 
   alignment18 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2330,7 +1867,7 @@ create_session_dlg (void)
   frame67 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame67, "frame67");
   gtk_widget_show (frame67);
-  gtk_box_pack_start (GTK_BOX (vbox67), frame67, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox66), frame67, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame67), 3);
 
   alignment19 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2356,7 +1893,7 @@ create_session_dlg (void)
   SpeedFrame = gtk_frame_new (NULL);
   gtk_widget_set_name (SpeedFrame, "SpeedFrame");
   gtk_widget_show (SpeedFrame);
-  gtk_box_pack_start (GTK_BOX (vbox67), SpeedFrame, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox66), SpeedFrame, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (SpeedFrame), 3);
 
   alignment22 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -2388,10 +1925,11 @@ create_session_dlg (void)
   gtk_frame_set_label_widget (GTK_FRAME (SpeedFrame), label210);
   gtk_label_set_use_markup (GTK_LABEL (label210), TRUE);
 
-  imageinfo = gtk_label_new ("Image");
-  gtk_widget_set_name (imageinfo, "imageinfo");
-  gtk_widget_show (imageinfo);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 1), imageinfo);
+  recordinfo = gtk_label_new ("<b>Record</b>");
+  gtk_widget_set_name (recordinfo, "recordinfo");
+  gtk_widget_show (recordinfo);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 0), recordinfo);
+  gtk_label_set_use_markup (GTK_LABEL (recordinfo), TRUE);
 
   vbox68 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox68, "vbox68");
@@ -2557,10 +2095,11 @@ create_session_dlg (void)
   gtk_frame_set_label_widget (GTK_FRAME (frame69), label206);
   gtk_label_set_use_markup (GTK_LABEL (label206), TRUE);
 
-  tracesinfo = gtk_label_new ("Traces");
+  tracesinfo = gtk_label_new ("<b>Traces</b>");
   gtk_widget_set_name (tracesinfo, "tracesinfo");
   gtk_widget_show (tracesinfo);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 2), tracesinfo);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 1), tracesinfo);
+  gtk_label_set_use_markup (GTK_LABEL (tracesinfo), TRUE);
 
   vbox70 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox70, "vbox70");
@@ -2593,10 +2132,11 @@ create_session_dlg (void)
   gtk_box_pack_start (GTK_BOX (hbox38), button24, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (button24), 3);
 
-  preferences = gtk_label_new ("Options");
+  preferences = gtk_label_new ("<b>Options</b>");
   gtk_widget_set_name (preferences, "preferences");
   gtk_widget_show (preferences);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 3), preferences);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 2), preferences);
+  gtk_label_set_use_markup (GTK_LABEL (preferences), TRUE);
 
   scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_set_name (scrolledwindow3, "scrolledwindow3");
@@ -2610,10 +2150,11 @@ create_session_dlg (void)
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), teseo_textview);
   gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (teseo_textview)), "Insert comments ...", -1);
 
-  Notes = gtk_label_new ("Notes");
+  Notes = gtk_label_new ("<b>Notes</b>");
   gtk_widget_set_name (Notes, "Notes");
   gtk_widget_show (Notes);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 4), Notes);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 3), Notes);
+  gtk_label_set_use_markup (GTK_LABEL (Notes), TRUE);
 
   dialog_action_area8 = GTK_DIALOG (session_dlg)->action_area;
   gtk_widget_set_name (dialog_action_area8, "dialog_action_area8");
@@ -2631,6 +2172,10 @@ create_session_dlg (void)
   gtk_widget_show (okbutton5);
   gtk_dialog_add_action_widget (GTK_DIALOG (session_dlg), okbutton5, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (okbutton5, GTK_CAN_DEFAULT);
+
+  g_signal_connect ((gpointer) session_dlg, "show",
+                    G_CALLBACK (on_session_dlg_show),
+                    NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (session_dlg, session_dlg, "session_dlg");
@@ -2664,8 +2209,6 @@ create_session_dlg (void)
   GLADE_HOOKUP_OBJECT (session_dlg, label195, "label195");
   GLADE_HOOKUP_OBJECT (session_dlg, teseo_quo_spinbutton, "teseo_quo_spinbutton");
   GLADE_HOOKUP_OBJECT (session_dlg, label178, "label178");
-  GLADE_HOOKUP_OBJECT (session_dlg, recordinfo, "recordinfo");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox67, "vbox67");
   GLADE_HOOKUP_OBJECT (session_dlg, frame66, "frame66");
   GLADE_HOOKUP_OBJECT (session_dlg, alignment18, "alignment18");
   GLADE_HOOKUP_OBJECT (session_dlg, teseo_imagefile_entry, "teseo_imagefile_entry");
@@ -2680,7 +2223,7 @@ create_session_dlg (void)
   GLADE_HOOKUP_OBJECT (session_dlg, label211, "label211");
   GLADE_HOOKUP_OBJECT (session_dlg, teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
   GLADE_HOOKUP_OBJECT (session_dlg, label210, "label210");
-  GLADE_HOOKUP_OBJECT (session_dlg, imageinfo, "imageinfo");
+  GLADE_HOOKUP_OBJECT (session_dlg, recordinfo, "recordinfo");
   GLADE_HOOKUP_OBJECT (session_dlg, vbox68, "vbox68");
   GLADE_HOOKUP_OBJECT (session_dlg, hbox33, "hbox33");
   GLADE_HOOKUP_OBJECT (session_dlg, teseo_event_checkbutton, "teseo_event_checkbutton");
@@ -2776,5 +2319,452 @@ create_teseo_session_filechooser (void)
 
   gtk_widget_grab_default (button26);
   return teseo_session_filechooser;
+}
+
+GtkWidget*
+create_window1 (void)
+{
+  GtkWidget *window1;
+
+  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_name (window1, "window1");
+  gtk_window_set_title (GTK_WINDOW (window1), "window1");
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
+
+  return window1;
+}
+
+GtkWidget*
+create_preferences_dlg (void)
+{
+  GtkWidget *preferences_dlg;
+  GtkWidget *dialog_vbox9;
+  GtkWidget *notebook3;
+  GtkWidget *vbox55;
+  GtkWidget *frame44;
+  GtkWidget *vbox56;
+  GtkWidget *label147;
+  GtkWidget *frame45;
+  GtkWidget *vbox57;
+  GtkWidget *teseo_show_advices_checkbutton;
+  GtkWidget *label148;
+  GtkWidget *label150;
+  GtkWidget *vbox59;
+  GtkWidget *frame47;
+  GtkWidget *vbox60;
+  GtkWidget *teseo_direct_bez_checkbutton;
+  GtkWidget *label151;
+  GtkWidget *frame48;
+  GtkWidget *vbox61;
+  GtkWidget *hbox23;
+  GtkWidget *label152;
+  GtkObject *teseo_step_spinbutton_adj;
+  GtkWidget *teseo_step_spinbutton;
+  GtkWidget *teseo_abscissa_asc_checkbutton;
+  GtkWidget *hbox24;
+  GtkWidget *teseo_autosave_checkbutton;
+  GtkObject *teseo_auto_spinbutton_adj;
+  GtkWidget *teseo_auto_spinbutton;
+  GtkWidget *label153;
+  GtkWidget *frame49;
+  GtkWidget *hbox25;
+  GtkWidget *teseo_fitting_checkbutton;
+  GtkWidget *vbox62;
+  GtkWidget *teseo_poly_radiobutton;
+  GSList *teseo_poly_radiobutton_group = NULL;
+  GtkWidget *teseo_ms_radiobutton;
+  GtkWidget *hbox26;
+  GtkWidget *label154;
+  GtkObject *teseo_order_spinbutton_adj;
+  GtkWidget *teseo_order_spinbutton;
+  GtkWidget *table10;
+  GtkWidget *label155;
+  GtkWidget *label156;
+  GtkWidget *label157;
+  GtkWidget *label158;
+  GtkWidget *teseo_svdfit_entry;
+  GtkWidget *teseo_lfit_entry;
+  GtkWidget *label159;
+  GtkWidget *frame46;
+  GtkWidget *vbox58;
+  GtkWidget *teseo_reloc_checkbutton;
+  GtkWidget *teseo_auto_res_checkbutton;
+  GtkWidget *label149;
+  GtkWidget *label160;
+  GtkWidget *dialog_action_area10;
+  GtkWidget *cancelbutton5;
+  GtkWidget *okbutton6;
+
+  preferences_dlg = gtk_dialog_new ();
+  gtk_widget_set_name (preferences_dlg, "preferences_dlg");
+  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences");
+  gtk_window_set_resizable (GTK_WINDOW (preferences_dlg), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (preferences_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox9 = GTK_DIALOG (preferences_dlg)->vbox;
+  gtk_widget_set_name (dialog_vbox9, "dialog_vbox9");
+  gtk_widget_show (dialog_vbox9);
+
+  notebook3 = gtk_notebook_new ();
+  gtk_widget_set_name (notebook3, "notebook3");
+  gtk_widget_show (notebook3);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox9), notebook3, TRUE, TRUE, 0);
+  gtk_widget_set_size_request (notebook3, 508, 356);
+  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook3), TRUE);
+
+  vbox55 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox55, "vbox55");
+  gtk_container_add (GTK_CONTAINER (notebook3), vbox55);
+  gtk_widget_set_sensitive (vbox55, FALSE);
+
+  frame44 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame44, "frame44");
+  gtk_widget_show (frame44);
+  gtk_box_pack_start (GTK_BOX (vbox55), frame44, TRUE, TRUE, 0);
+
+  vbox56 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox56, "vbox56");
+  gtk_widget_show (vbox56);
+  gtk_container_add (GTK_CONTAINER (frame44), vbox56);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox56), 4);
+
+  label147 = gtk_label_new ("Environment");
+  gtk_widget_set_name (label147, "label147");
+  gtk_widget_show (label147);
+  gtk_frame_set_label_widget (GTK_FRAME (frame44), label147);
+
+  frame45 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame45, "frame45");
+  gtk_widget_show (frame45);
+  gtk_box_pack_start (GTK_BOX (vbox55), frame45, TRUE, TRUE, 0);
+
+  vbox57 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox57, "vbox57");
+  gtk_widget_show (vbox57);
+  gtk_container_add (GTK_CONTAINER (frame45), vbox57);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox57), 4);
+
+  teseo_show_advices_checkbutton = gtk_check_button_new_with_mnemonic ("Show advices");
+  gtk_widget_set_name (teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
+  gtk_widget_show (teseo_show_advices_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox57), teseo_show_advices_checkbutton, FALSE, FALSE, 0);
+
+  label148 = gtk_label_new ("Miscellaneous");
+  gtk_widget_set_name (label148, "label148");
+  gtk_widget_show (label148);
+  gtk_frame_set_label_widget (GTK_FRAME (frame45), label148);
+
+  label150 = gtk_label_new ("<b>General</b>");
+  gtk_widget_set_name (label150, "label150");
+  gtk_widget_show (label150);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 0), label150);
+  gtk_label_set_use_markup (GTK_LABEL (label150), TRUE);
+
+  vbox59 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox59, "vbox59");
+  gtk_widget_show (vbox59);
+  gtk_container_add (GTK_CONTAINER (notebook3), vbox59);
+
+  frame47 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame47, "frame47");
+  gtk_widget_show (frame47);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame47, FALSE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame47), GTK_SHADOW_NONE);
+
+  vbox60 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox60, "vbox60");
+  gtk_widget_show (vbox60);
+  gtk_container_add (GTK_CONTAINER (frame47), vbox60);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox60), 4);
+
+  teseo_direct_bez_checkbutton = gtk_check_button_new_with_mnemonic ("Return directly Bezier Path");
+  gtk_widget_set_name (teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
+  gtk_widget_show (teseo_direct_bez_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox60), teseo_direct_bez_checkbutton, FALSE, FALSE, 0);
+
+  label151 = gtk_label_new ("<b>Miscellaneous</b>");
+  gtk_widget_set_name (label151, "label151");
+  gtk_widget_show (label151);
+  gtk_frame_set_label_widget (GTK_FRAME (frame47), label151);
+  gtk_label_set_use_markup (GTK_LABEL (label151), TRUE);
+
+  frame48 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame48, "frame48");
+  gtk_widget_show (frame48);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame48, FALSE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame48), GTK_SHADOW_NONE);
+
+  vbox61 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox61, "vbox61");
+  gtk_widget_show (vbox61);
+  gtk_container_add (GTK_CONTAINER (frame48), vbox61);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox61), 4);
+
+  hbox23 = gtk_hbox_new (FALSE, 6);
+  gtk_widget_set_name (hbox23, "hbox23");
+  gtk_widget_show (hbox23);
+  gtk_box_pack_start (GTK_BOX (vbox61), hbox23, TRUE, TRUE, 0);
+
+  label152 = gtk_label_new ("Resampling step (pix)");
+  gtk_widget_set_name (label152, "label152");
+  gtk_widget_show (label152);
+  gtk_box_pack_start (GTK_BOX (hbox23), label152, FALSE, FALSE, 0);
+
+  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
+  gtk_widget_show (teseo_step_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox23), teseo_step_spinbutton, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_step_spinbutton), TRUE);
+
+  teseo_abscissa_asc_checkbutton = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
+  gtk_widget_set_name (teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
+  gtk_widget_show (teseo_abscissa_asc_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox61), teseo_abscissa_asc_checkbutton, FALSE, FALSE, 0);
+
+  hbox24 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox24, "hbox24");
+  gtk_widget_show (hbox24);
+  gtk_box_pack_start (GTK_BOX (vbox61), hbox24, TRUE, TRUE, 0);
+
+  teseo_autosave_checkbutton = gtk_check_button_new_with_mnemonic ("Autosave temporary path every minutes");
+  gtk_widget_set_name (teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
+  gtk_widget_show (teseo_autosave_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox24), teseo_autosave_checkbutton, FALSE, FALSE, 0);
+
+  teseo_auto_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_auto_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_auto_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_auto_spinbutton, "teseo_auto_spinbutton");
+  gtk_widget_show (teseo_auto_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox24), teseo_auto_spinbutton, FALSE, TRUE, 0);
+
+  label153 = gtk_label_new ("<b>Resampling</b>");
+  gtk_widget_set_name (label153, "label153");
+  gtk_widget_show (label153);
+  gtk_frame_set_label_widget (GTK_FRAME (frame48), label153);
+  gtk_label_set_use_markup (GTK_LABEL (label153), TRUE);
+
+  frame49 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame49, "frame49");
+  gtk_widget_show (frame49);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame49, FALSE, TRUE, 0);
+  gtk_widget_set_sensitive (frame49, FALSE);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame49), GTK_SHADOW_NONE);
+
+  hbox25 = gtk_hbox_new (FALSE, 6);
+  gtk_widget_set_name (hbox25, "hbox25");
+  gtk_widget_show (hbox25);
+  gtk_container_add (GTK_CONTAINER (frame49), hbox25);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox25), 4);
+
+  teseo_fitting_checkbutton = gtk_check_button_new_with_mnemonic ("Fitting");
+  gtk_widget_set_name (teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
+  gtk_widget_show (teseo_fitting_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox25), teseo_fitting_checkbutton, FALSE, FALSE, 0);
+
+  vbox62 = gtk_vbox_new (TRUE, 0);
+  gtk_widget_set_name (vbox62, "vbox62");
+  gtk_widget_show (vbox62);
+  gtk_box_pack_start (GTK_BOX (hbox25), vbox62, FALSE, TRUE, 0);
+
+  teseo_poly_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Polynomial");
+  gtk_widget_set_name (teseo_poly_radiobutton, "teseo_poly_radiobutton");
+  gtk_widget_show (teseo_poly_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox62), teseo_poly_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton), teseo_poly_radiobutton_group);
+  teseo_poly_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_poly_radiobutton));
+
+  teseo_ms_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Minimum Square");
+  gtk_widget_set_name (teseo_ms_radiobutton, "teseo_ms_radiobutton");
+  gtk_widget_show (teseo_ms_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox62), teseo_ms_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton), teseo_poly_radiobutton_group);
+  teseo_poly_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_ms_radiobutton));
+
+  hbox26 = gtk_hbox_new (FALSE, 5);
+  gtk_widget_set_name (hbox26, "hbox26");
+  gtk_widget_show (hbox26);
+  gtk_box_pack_start (GTK_BOX (hbox25), hbox26, TRUE, TRUE, 0);
+
+  label154 = gtk_label_new ("Order");
+  gtk_widget_set_name (label154, "label154");
+  gtk_widget_show (label154);
+  gtk_box_pack_start (GTK_BOX (hbox26), label154, FALSE, FALSE, 0);
+
+  teseo_order_spinbutton_adj = gtk_adjustment_new (2, 0, 100, 1, 10, 10);
+  teseo_order_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_order_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_order_spinbutton, "teseo_order_spinbutton");
+  gtk_widget_show (teseo_order_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox26), teseo_order_spinbutton, FALSE, FALSE, 0);
+
+  table10 = gtk_table_new (2, 3, FALSE);
+  gtk_widget_set_name (table10, "table10");
+  gtk_widget_show (table10);
+  gtk_box_pack_start (GTK_BOX (hbox25), table10, TRUE, TRUE, 0);
+  gtk_table_set_col_spacings (GTK_TABLE (table10), 4);
+
+  label155 = gtk_label_new ("SVDFIT");
+  gtk_widget_set_name (label155, "label155");
+  gtk_widget_show (label155);
+  gtk_table_attach (GTK_TABLE (table10), label155, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label155), 0, 0.5);
+
+  label156 = gtk_label_new ("LFIT");
+  gtk_widget_set_name (label156, "label156");
+  gtk_widget_show (label156);
+  gtk_table_attach (GTK_TABLE (table10), label156, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label156), 0, 0.5);
+
+  label157 = gtk_label_new ("points");
+  gtk_widget_set_name (label157, "label157");
+  gtk_widget_show (label157);
+  gtk_table_attach (GTK_TABLE (table10), label157, 2, 3, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label157), 0, 0.5);
+
+  label158 = gtk_label_new ("points");
+  gtk_widget_set_name (label158, "label158");
+  gtk_widget_show (label158);
+  gtk_table_attach (GTK_TABLE (table10), label158, 2, 3, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label158), 0, 0.5);
+
+  teseo_svdfit_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_svdfit_entry, "teseo_svdfit_entry");
+  gtk_widget_show (teseo_svdfit_entry);
+  gtk_table_attach (GTK_TABLE (table10), teseo_svdfit_entry, 1, 2, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_widget_set_size_request (teseo_svdfit_entry, 60, -1);
+
+  teseo_lfit_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_lfit_entry, "teseo_lfit_entry");
+  gtk_widget_show (teseo_lfit_entry);
+  gtk_table_attach (GTK_TABLE (table10), teseo_lfit_entry, 1, 2, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_widget_set_size_request (teseo_lfit_entry, 60, -1);
+
+  label159 = gtk_label_new ("<b>Fitting</b>");
+  gtk_widget_set_name (label159, "label159");
+  gtk_widget_show (label159);
+  gtk_frame_set_label_widget (GTK_FRAME (frame49), label159);
+  gtk_label_set_use_markup (GTK_LABEL (label159), TRUE);
+
+  frame46 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame46, "frame46");
+  gtk_widget_show (frame46);
+  gtk_box_pack_start (GTK_BOX (vbox59), frame46, FALSE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame46), GTK_SHADOW_NONE);
+
+  vbox58 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox58, "vbox58");
+  gtk_widget_show (vbox58);
+  gtk_container_add (GTK_CONTAINER (frame46), vbox58);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox58), 4);
+
+  teseo_reloc_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path and timemark relocated in origin");
+  gtk_widget_set_name (teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
+  gtk_widget_show (teseo_reloc_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox58), teseo_reloc_checkbutton, FALSE, FALSE, 0);
+
+  teseo_auto_res_checkbutton = gtk_check_button_new_with_mnemonic ("Export DXF path with automatic resampling");
+  gtk_widget_set_name (teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
+  gtk_widget_show (teseo_auto_res_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox58), teseo_auto_res_checkbutton, FALSE, FALSE, 0);
+
+  label149 = gtk_label_new ("<b>Export</b>");
+  gtk_widget_set_name (label149, "label149");
+  gtk_widget_show (label149);
+  gtk_frame_set_label_widget (GTK_FRAME (frame46), label149);
+  gtk_label_set_use_markup (GTK_LABEL (label149), TRUE);
+
+  label160 = gtk_label_new ("<b>Adjustment</b>");
+  gtk_widget_set_name (label160, "label160");
+  gtk_widget_show (label160);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 1), label160);
+  gtk_label_set_use_markup (GTK_LABEL (label160), TRUE);
+
+  dialog_action_area10 = GTK_DIALOG (preferences_dlg)->action_area;
+  gtk_widget_set_name (dialog_action_area10, "dialog_action_area10");
+  gtk_widget_show (dialog_action_area10);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area10), GTK_BUTTONBOX_END);
+
+  cancelbutton5 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (cancelbutton5, "cancelbutton5");
+  gtk_widget_show (cancelbutton5);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton5, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton5, GTK_CAN_DEFAULT);
+
+  okbutton6 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton6, "okbutton6");
+  gtk_widget_show (okbutton6);
+  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton6, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton6, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, preferences_dlg, "preferences_dlg");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox9, "dialog_vbox9");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, notebook3, "notebook3");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox55, "vbox55");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame44, "frame44");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox56, "vbox56");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label147, "label147");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame45, "frame45");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox57, "vbox57");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label148, "label148");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label150, "label150");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox59, "vbox59");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame47, "frame47");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox60, "vbox60");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label151, "label151");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame48, "frame48");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox61, "vbox61");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox23, "hbox23");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label152, "label152");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_step_spinbutton, "teseo_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox24, "hbox24");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_spinbutton, "teseo_auto_spinbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label153, "label153");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame49, "frame49");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox25, "hbox25");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox62, "vbox62");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_poly_radiobutton, "teseo_poly_radiobutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_ms_radiobutton, "teseo_ms_radiobutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox26, "hbox26");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label154, "label154");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_order_spinbutton, "teseo_order_spinbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, table10, "table10");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label155, "label155");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label156, "label156");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label157, "label157");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label158, "label158");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_svdfit_entry, "teseo_svdfit_entry");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_lfit_entry, "teseo_lfit_entry");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, frame46, "frame46");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox58, "vbox58");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label149, "label149");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
+  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area10, "dialog_action_area10");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton5, "cancelbutton5");
+  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton6, "okbutton6");
+
+  return preferences_dlg;
 }
 

@@ -191,10 +191,6 @@ char new_session(char * filename, char * preferences_dlg_filename){
           if ( !iface_save_rc(preferences_dlg_filename, preferencesdlg) ) g_error("Unable to save preferences dialog file") ;
 	}
 
-        if (session_filename) free(session_filename);
-        if (session_dlg_filename) free(session_dlg_filename);
-        if (preferences_dlg_filename && (external_preferences==FALSE)) free(preferences_dlg_filename);
-
       }
       else {
          g_warning("TODO: find another name, to not overwriting session");
@@ -207,6 +203,10 @@ char new_session(char * filename, char * preferences_dlg_filename){
      strcpy(current_session_dlg,session_dlg_filename);
      strcpy(current_preferences_dlg,preferences_dlg_filename);
     }
+
+    if (session_filename) free(session_filename);
+    if (session_dlg_filename) free(session_dlg_filename);
+    if (preferences_dlg_filename && (external_preferences==FALSE)) free(preferences_dlg_filename);
 
     return ret;
 }
