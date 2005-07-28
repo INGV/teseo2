@@ -65,7 +65,7 @@ static PlugInUIVals *ui_state = NULL;
 gboolean
 dialog (gint32              image_ID,
 	GimpDrawable       *drawable,
-	PlugInVals         *vals,
+	//PlugInVals         *vals,
 	PlugInImageVals    *image_vals,
 	PlugInDrawableVals *drawable_vals,
 	PlugInUIVals       *ui_vals)
