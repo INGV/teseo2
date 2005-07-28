@@ -749,9 +749,9 @@ on_win_neuronteseo_show                (GtkWidget       *widget,
   GtkMenuItem     *menu_new1 = (GtkMenuItem *)    lookup_widget(GTK_WIDGET(teseowin), "new1");
   if (on_open1_activate (menu_open1, NULL) != 1)
   {
-    g_message("Open canceled");
+    //g_message("Open canceled");
     if (on_new1_activate (menu_new1, NULL)==0) {
-      g_message("New canceled");
+      //g_message("New canceled");
       on_win_neuronteseo_show(teseowin,NULL);
     }
   }
