@@ -268,3 +268,7 @@ gint
 on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
                                         gdouble *new_value,
                                         gpointer         user_data);
+
+void
+on_session_dlg_show                    (GtkWidget       *widget,
+                                        gpointer         user_data);

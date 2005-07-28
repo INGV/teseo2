@@ -52,6 +52,7 @@ GimpDrawable * private_drawable ;
 gint32  teseo_image ;
 
 char TODO_str[] = "Sorry, this function is not implemented yet!";
+char new_session_name[] = "New session ...";
 
 void
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -74,6 +75,7 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
  strcat(str_res," dpi");
  gtk_entry_set_text (teseo_imageresolution_entry, str_res);
 
+ gtk_window_set_title (GTK_WINDOW (sessiondlg), new_session_name); 
 
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
 
@@ -88,6 +90,7 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
          break;
     }
   gtk_widget_hide (sessiondlg);
+  gtk_window_set_title (GTK_WINDOW (sessiondlg), ""); 
 }
 
 
@@ -96,7 +99,19 @@ on_properties1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
- /*TODO gestire il result*/
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+          if (!save_session(current_session))
+             g_message("Unable to save current Session.");
+         break;
+      case GTK_RESPONSE_CANCEL:
+      case GTK_RESPONSE_DELETE_EVENT:
+         load_session(current_session);
+         break;
+      default:
+         break;
+    }
  gtk_widget_hide (sessiondlg);
 }
 
@@ -106,9 +121,12 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+  char old_current_session[FILENAMELEN];
   char filename[FILENAMELEN];
   char * path=NULL;
   char ret=0;
+
+  strcpy(old_current_session, current_session);
 
   path=get_environment_path( SESSIONPATH );
 
@@ -120,7 +138,6 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   switch (result)
     {
       case GTK_RESPONSE_OK:
-
 	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseosessionfilechooser)) );
          ret=load_session(filename);
          break;
@@ -138,6 +155,19 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
     if (ret==1) {
         result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+        switch (result)
+          {
+            case GTK_RESPONSE_OK:
+               break;
+            case GTK_RESPONSE_CANCEL:
+            case GTK_RESPONSE_DELETE_EVENT:
+  	       gtk_window_set_title (GTK_WINDOW (sessiondlg), ""); 
+               ret=load_session(old_current_session);
+               break;
+            default:
+               break;
+          }
+
        /*TODO Gestire result ok-cancel*/
         gtk_widget_hide (sessiondlg);
     }
@@ -152,7 +182,6 @@ void
 on_save1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- if (!save_session(current_session)) g_message("Unable to save current Session.");
 }
 
 
@@ -690,5 +719,19 @@ on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
 {
   disable_buttons();
   return TRUE;
+}
+
+
+void
+on_session_dlg_show                    (GtkWidget       *widget,
+                                        gpointer         user_data)
+{
+ static session_name[FILENAMELEN];
+ gchar *g_session_name = g_path_get_basename(current_session);
+ strcpy(session_name, g_session_name);
+ g_free(g_session_name);
+ if(strcmp(gtk_window_get_title (GTK_WINDOW (sessiondlg)), new_session_name) != 0) {
+  gtk_window_set_title (GTK_WINDOW (sessiondlg), session_name); 
+ }
 }
 
