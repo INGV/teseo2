@@ -54,11 +54,12 @@ gint32  teseo_image ;
 char TODO_str[] = "Sorry, this function is not implemented yet!";
 char new_session_name[] = "New session ...";
 
-void
+int
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+ int ret=0;
  GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imagefile_entry");
  GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imageresolution_entry");
 
@@ -75,13 +76,14 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
  strcat(str_res," dpi");
  gtk_entry_set_text (teseo_imageresolution_entry, str_res);
 
- gtk_window_set_title (GTK_WINDOW (sessiondlg), new_session_name); 
+ gtk_window_set_title (GTK_WINDOW (sessiondlg), new_session_name);
 
  gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
 
   switch (result)
     {
       case GTK_RESPONSE_OK:
+          ret=1;
 	  new_session(image_file, NULL);
          break;
       case GTK_RESPONSE_DELETE_EVENT:
@@ -90,7 +92,8 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
          break;
     }
   gtk_widget_hide (sessiondlg);
-  gtk_window_set_title (GTK_WINDOW (sessiondlg), ""); 
+  gtk_window_set_title (GTK_WINDOW (sessiondlg), "");
+  return ret;
 }
 
 
@@ -115,8 +118,8 @@ on_properties1_activate                   (GtkMenuItem     *menuitem,
  gtk_widget_hide (sessiondlg);
 }
 
-
-void
+//return 1 on success, 2 on user refuse, 0 on error
+int
 on_open1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
@@ -124,7 +127,9 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   char old_current_session[FILENAMELEN];
   char filename[FILENAMELEN];
   char * path=NULL;
-  char ret=0;
+
+  int ret=0;
+  int ls=0;
 
   strcpy(old_current_session, current_session);
 
@@ -158,23 +163,23 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
         switch (result)
           {
             case GTK_RESPONSE_OK:
+	       //ret=1;
                break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
-  	       gtk_window_set_title (GTK_WINDOW (sessiondlg), ""); 
-               ret=load_session(old_current_session);
+  	       gtk_window_set_title (GTK_WINDOW (sessiondlg), "");
+               ls=load_session(old_current_session);
+	       ret=2;
                break;
             default:
                break;
           }
-
-       /*TODO Gestire result ok-cancel*/
         gtk_widget_hide (sessiondlg);
     }
     if (ret==0) {
            g_message("Unable to open session.");
     }
-
+    return ret;
 }
 
 
@@ -681,7 +686,7 @@ static inline void disable_buttons(){
   GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
   GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
   GtkWidget *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(teseowin), "ghost_radiotoolbutton");
-  
+
   //toggle the alghoritms buttons as side effect
   gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
   //set go and back buttons insensitive
@@ -731,7 +736,23 @@ on_session_dlg_show                    (GtkWidget       *widget,
  strcpy(session_name, g_session_name);
  g_free(g_session_name);
  if(strcmp(gtk_window_get_title (GTK_WINDOW (sessiondlg)), new_session_name) != 0) {
-  gtk_window_set_title (GTK_WINDOW (sessiondlg), session_name); 
+  gtk_window_set_title (GTK_WINDOW (sessiondlg), session_name);
  }
 }
 
+
+void
+on_win_neuronteseo_show                (GtkWidget       *widget,
+                                        gpointer         user_data)
+{
+  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   lookup_widget(GTK_WIDGET(teseowin), "open1");
+  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    lookup_widget(GTK_WIDGET(teseowin), "new1");
+  if (on_open1_activate (menu_open1, NULL) != 1)
+  {
+    g_message("Open canceled");
+    if (on_new1_activate (menu_new1, NULL)==0) {
+      g_message("New canceled");
+      on_win_neuronteseo_show(teseowin,NULL);
+    }
+  }
+}
