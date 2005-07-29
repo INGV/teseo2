@@ -203,7 +203,7 @@ create_win_neuronteseo (void)
   gtk_window_set_title (GTK_WINDOW (win_neuronteseo), "Teseo 2.0");
   gtk_window_set_position (GTK_WINDOW (win_neuronteseo), GTK_WIN_POS_MOUSE);
 
-  vbox1 = gtk_vbox_new (FALSE, 3);
+  vbox1 = gtk_vbox_new (FALSE, 2);
   gtk_widget_set_name (vbox1, "vbox1");
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (win_neuronteseo), vbox1);
@@ -732,6 +732,7 @@ create_win_neuronteseo (void)
   gtk_widget_set_name (notebook2, "notebook2");
   gtk_widget_show (notebook2);
   gtk_box_pack_start (GTK_BOX (vbox1), notebook2, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook2), 2);
   gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook2), FALSE);
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook2), GTK_POS_BOTTOM);
   gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook2));
@@ -1491,7 +1492,7 @@ create_about_dlg (void)
   gtk_widget_set_size_request (vbox63, 327, -1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox63), 13);
 
-  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo 2.0</b></span> &#169;</big>\n\"Vectoriser of historical seismograms\"\n<small>Open source software</small>");
+  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sub>2</sub></b></span></big>\n\"Vectoriser of historical seismograms\"\n<small>Open source software &#169;</small>");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
   gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
@@ -1517,7 +1518,7 @@ create_about_dlg (void)
   gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
 
-  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismograms <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O</b></span></big>riginal <big><span color=\"brown\"><b>O</b></span></big>ne");
+  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismograms <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O<sub><small>2</small></sub></b></span></big> riginal \nn\ne\n\n<big><span color=\"brown\"><b>O</b></span></big> riginal \nn\ne\n");
   gtk_widget_set_name (label216, "label216");
   gtk_widget_show (label216);
   gtk_box_pack_start (GTK_BOX (vbox63), label216, FALSE, FALSE, 0);
@@ -1863,6 +1864,7 @@ create_session_dlg (void)
   gtk_container_add (GTK_CONTAINER (alignment18), teseo_imagefile_entry);
   GTK_WIDGET_UNSET_FLAGS (teseo_imagefile_entry, GTK_CAN_FOCUS);
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imagefile_entry), FALSE);
+  gtk_entry_set_has_frame (GTK_ENTRY (teseo_imagefile_entry), FALSE);
 
   label183 = gtk_label_new ("<small><b>Image file</b></small>");
   gtk_widget_set_name (label183, "label183");
@@ -1890,6 +1892,7 @@ create_session_dlg (void)
   gtk_container_add (GTK_CONTAINER (alignment19), teseo_imageresolution_entry);
   GTK_WIDGET_UNSET_FLAGS (teseo_imageresolution_entry, GTK_CAN_FOCUS);
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imageresolution_entry), FALSE);
+  gtk_entry_set_has_frame (GTK_ENTRY (teseo_imageresolution_entry), FALSE);
 
   label184 = gtk_label_new ("<b><small>Resolution</small></b>");
   gtk_widget_set_name (label184, "label184");
