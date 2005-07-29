@@ -1738,7 +1738,7 @@ create_session_dlg (void)
   gtk_widget_show (teseo_year_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox28), teseo_year_spinbutton, FALSE, FALSE, 0);
 
-  label165 = gtk_label_new ("<small><b>Date</b></small>");
+  label165 = gtk_label_new ("<b>Date</b>");
   gtk_widget_set_name (label165, "label165");
   gtk_widget_show (label165);
   gtk_frame_set_label_widget (GTK_FRAME (frame50), label165);
@@ -1846,7 +1846,7 @@ create_session_dlg (void)
   gtk_box_pack_start (GTK_BOX (hbox39), teseo_quo_spinbutton, FALSE, TRUE, 2);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_quo_spinbutton), TRUE);
 
-  label178 = gtk_label_new ("<b><small>Station data</small></b>");
+  label178 = gtk_label_new ("<b>Station data</b>");
   gtk_widget_set_name (label178, "label178");
   gtk_widget_show (label178);
   gtk_frame_set_label_widget (GTK_FRAME (frame60), label178);
@@ -1874,7 +1874,7 @@ create_session_dlg (void)
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imagefile_entry), FALSE);
   gtk_entry_set_has_frame (GTK_ENTRY (teseo_imagefile_entry), FALSE);
 
-  label183 = gtk_label_new ("<small><b>Image file</b></small>");
+  label183 = gtk_label_new ("<b>Image file</b>");
   gtk_widget_set_name (label183, "label183");
   gtk_widget_show (label183);
   gtk_frame_set_label_widget (GTK_FRAME (frame66), label183);
@@ -1902,7 +1902,7 @@ create_session_dlg (void)
   gtk_editable_set_editable (GTK_EDITABLE (teseo_imageresolution_entry), FALSE);
   gtk_entry_set_has_frame (GTK_ENTRY (teseo_imageresolution_entry), FALSE);
 
-  label184 = gtk_label_new ("<b><small>Resolution</small></b>");
+  label184 = gtk_label_new ("<b>Resolution</b>");
   gtk_widget_set_name (label184, "label184");
   gtk_widget_show (label184);
   gtk_frame_set_label_widget (GTK_FRAME (frame67), label184);
@@ -1938,7 +1938,7 @@ create_session_dlg (void)
   gtk_box_pack_start (GTK_BOX (hbox43), teseo_paper_speed_spinbutton, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_paper_speed_spinbutton), TRUE);
 
-  label210 = gtk_label_new ("<small><b>Paper Speed</b></small>");
+  label210 = gtk_label_new ("<b>Paper Speed</b>");
   gtk_widget_set_name (label210, "label210");
   gtk_widget_show (label210);
   gtk_frame_set_label_widget (GTK_FRAME (SpeedFrame), label210);
