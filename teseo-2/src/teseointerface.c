@@ -1468,10 +1468,11 @@ create_about_dlg (void)
   GtkWidget *dialog_vbox6;
   GtkWidget *vbox63;
   GtkWidget *label_teseo;
-  GtkWidget *image141;
+  GtkWidget *hbox46;
+  GtkWidget *image275;
+  GtkWidget *label216;
   GtkWidget *label_authors;
   GtkWidget *label_institution;
-  GtkWidget *label216;
   GtkWidget *dialog_action_area7;
   GtkWidget *okbutton4;
 
@@ -1485,24 +1486,36 @@ create_about_dlg (void)
   gtk_widget_set_name (dialog_vbox6, "dialog_vbox6");
   gtk_widget_show (dialog_vbox6);
 
-  vbox63 = gtk_vbox_new (FALSE, 10);
+  vbox63 = gtk_vbox_new (FALSE, 12);
   gtk_widget_set_name (vbox63, "vbox63");
   gtk_widget_show (vbox63);
   gtk_box_pack_start (GTK_BOX (dialog_vbox6), vbox63, TRUE, TRUE, 0);
   gtk_widget_set_size_request (vbox63, 327, -1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox63), 13);
 
-  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sub>2</sub></b></span></big>\n\"Vectoriser of historical seismograms\"\n<small>Open source software &#169;</small>");
+  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sub><sub>2</sub></sub></b></span></big>\n\"Vectoriser of historical seismograms\"\n<small>Open source software &#169;</small>");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
   gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
   gtk_label_set_use_markup (GTK_LABEL (label_teseo), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_teseo), GTK_JUSTIFY_CENTER);
 
-  image141 = create_pixmap (about_dlg, "brain_mri_small.xpm");
-  gtk_widget_set_name (image141, "image141");
-  gtk_widget_show (image141);
-  gtk_box_pack_start (GTK_BOX (vbox63), image141, TRUE, TRUE, 0);
+  hbox46 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox46, "hbox46");
+  gtk_widget_show (hbox46);
+  gtk_box_pack_start (GTK_BOX (vbox63), hbox46, TRUE, TRUE, 0);
+
+  image275 = create_pixmap (about_dlg, "teseolabmin_small.jpg");
+  gtk_widget_set_name (image275, "image275");
+  gtk_widget_show (image275);
+  gtk_box_pack_start (GTK_BOX (hbox46), image275, TRUE, TRUE, 0);
+
+  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismogram <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O</b></span></big>riginal <big><span color=\"brown\"><b>O</b></span></big>ne");
+  gtk_widget_set_name (label216, "label216");
+  gtk_widget_show (label216);
+  gtk_box_pack_end (GTK_BOX (hbox46), label216, TRUE, TRUE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label216), TRUE);
+  gtk_misc_set_alignment (GTK_MISC (label216), 0, 0.5);
 
   label_authors = gtk_label_new ("<i>S. Pintore  &amp; M. Quintiliani</i>\nteseo@ingv.it");
   gtk_widget_set_name (label_authors, "label_authors");
@@ -1511,18 +1524,12 @@ create_about_dlg (void)
   gtk_label_set_use_markup (GTK_LABEL (label_authors), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_authors), GTK_JUSTIFY_CENTER);
 
-  label_institution = gtk_label_new ("<small>\n<i>Istituto Nazionale di Geofisica e Vulcanologia</i>\nVia di vigna Murata, 605 - 00143 - Roma</small>");
+  label_institution = gtk_label_new ("<small><i>Istituto Nazionale di Geofisica e Vulcanologia</i>\nVia di vigna Murata, 605 - 00143 - Roma</small>");
   gtk_widget_set_name (label_institution, "label_institution");
   gtk_widget_show (label_institution);
   gtk_box_pack_start (GTK_BOX (vbox63), label_institution, FALSE, FALSE, 0);
   gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
-
-  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismograms <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O<sub><small>2</small></sub></b></span></big> riginal \nn\ne\n\n<big><span color=\"brown\"><b>O</b></span></big> riginal \nn\ne\n");
-  gtk_widget_set_name (label216, "label216");
-  gtk_widget_show (label216);
-  gtk_box_pack_start (GTK_BOX (vbox63), label216, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (label216), TRUE);
 
   dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
   gtk_widget_set_name (dialog_action_area7, "dialog_action_area7");
@@ -1540,10 +1547,11 @@ create_about_dlg (void)
   GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_vbox6, "dialog_vbox6");
   GLADE_HOOKUP_OBJECT (about_dlg, vbox63, "vbox63");
   GLADE_HOOKUP_OBJECT (about_dlg, label_teseo, "label_teseo");
-  GLADE_HOOKUP_OBJECT (about_dlg, image141, "image141");
+  GLADE_HOOKUP_OBJECT (about_dlg, hbox46, "hbox46");
+  GLADE_HOOKUP_OBJECT (about_dlg, image275, "image275");
+  GLADE_HOOKUP_OBJECT (about_dlg, label216, "label216");
   GLADE_HOOKUP_OBJECT (about_dlg, label_authors, "label_authors");
   GLADE_HOOKUP_OBJECT (about_dlg, label_institution, "label_institution");
-  GLADE_HOOKUP_OBJECT (about_dlg, label216, "label216");
   GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_action_area7, "dialog_action_area7");
   GLADE_HOOKUP_OBJECT (about_dlg, okbutton4, "okbutton4");
 
