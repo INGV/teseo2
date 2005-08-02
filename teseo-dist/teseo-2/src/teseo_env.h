@@ -25,8 +25,8 @@
  * authorization from the Authors.
  */
 
-#ifndef NEURONENV
-#define NEURONENV 1
+#ifndef TESEO_ENVH
+#define TESEO_ENVH 1
 
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -52,8 +52,8 @@ char *getenv_teseo(const char *name_var) ;
 /*!
 Environment default subpaths
 */
-enum PATHNAMES          { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH };
-//in the source : const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences" };
+/* When you modify PATHNAMES, modify SUBPATHS in the teseo_env.c */
+typedef enum { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH, LOCKPATH } PATHNAMES;
 extern const char *SUBPATHS[];
 
 
