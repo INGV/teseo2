@@ -38,6 +38,12 @@ const char TESEO_BIN[] = "TESEO_BIN";
 const char TESEO_DATA[] = "TESEO_DATA";
 
 
+/* When you modify SUBPATHS, modify PATHNANEMS in the teseo_env.h */
+const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences", "lock" };
+/* Set MAX_PATHNAME to the high value of enum PATHNAMES */
+const PATHNAMES MAX_PATHNAME = LOCKPATH;
+
+
 char *valore_parse(const char *nomefile, const char *nomevariabile) {
   static char ret_valore[255];
   char riga[LEN_RIGA];
@@ -97,8 +103,6 @@ char *getenv_teseo(const char *name_var) {
 }
 /*OLDIES END*/
 
-
-const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences" };
 
 
 char * get_teseo_environment_path( ){
@@ -163,6 +167,7 @@ char create_teseo_environment_path(char * filename){
     return ret;
 }
 
+
 char create_environment( ){
 
  char * mainpath;
@@ -177,7 +182,7 @@ char create_environment( ){
  }
  else {
      //creating subdirs
-     for (i=0; i<=PREFPATH; i++){
+     for (i=0; i<=MAX_PATHNAME; i++){
 	 strcpy(path, mainpath);
 	 //TODO windowsisation
          strcat(path,"/");
