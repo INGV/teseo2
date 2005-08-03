@@ -72,25 +72,26 @@ dialog (gint32              image_ID,
 {
 
   gboolean   run = FALSE;
-
   char * name_noext=NULL;
+  char * name_ext=NULL;
+  char * name_ext_xcf=NULL;
   char * name=NULL;
   char * token;
-
   GtkFileFilter *filter =NULL;
   const char delimiters[] = ".";
   char pattern[FILENAMELEN]="";
-  char noname_str[] = "/tmp/NONAME.xcf";
+  gboolean is_xcf = FALSE;
 
-
-
-/*GimpUnit   unit;
-  gdouble    xres, yres;*/
+  /*
+  GimpUnit   unit;
+  gdouble    xres, yres;
+  */
 
   ui_state = ui_vals;
 
   gimp_ui_init (PLUGIN_NAME, TRUE);
-/*
+
+  /*
   dlg = gimp_dialog_new (_("teseo-2 Plug-In"), PLUGIN_NAME,
                          NULL, 0,
 			 gimp_standard_help_func, "teseo-2",
@@ -98,43 +99,72 @@ dialog (gint32              image_ID,
 			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			 GTK_STOCK_OK,     GTK_RESPONSE_OK,
 
-			 NULL);*/
+			 NULL);
+  */
 
   teseo_image=image_ID;
 
-  teseowin = create_win_neuronteseo();
-  preferencesdlg = create_preferences_dlg ();
-  aboutdlg = create_about_dlg ();
-  teseofilechooser = create_filechooserimport();
-  sessiondlg = create_session_dlg();
-
-  teseosessionfilechooser = create_teseo_session_filechooser ();
-  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
-
-  //setting filter for session files
-  //filter based on basename of the image file name
+  // Setting filter for session files
+  // Filter based on basename of the image file name
   if(gimp_image_get_filename(teseo_image)) {
-  	name=g_path_get_basename (gimp_image_get_filename(teseo_image)); //to be freed
+
+	// name need free
+  	name=g_path_get_basename (gimp_image_get_filename(teseo_image)); 
+	token = strpbrk(name, delimiters);
+
+	// Without extensions, name_noext need free
+	name_noext = g_strndup(name , strlen(name) - strlen(token) );
+
+	// Pointer to extensions, name_ext not need free 
+	name_ext = g_strrstr(name, ".xcf");
+	if(name_ext) {
+		name_ext_xcf = g_strdup(name_ext);
+	} else {
+		name_ext_xcf = g_strdup("NOXCF");
+	}
+
+	// Compute "pattern" variable
+	strcpy(pattern,name_noext);
+	strcat(pattern,"*");
+	strcat(pattern,SESSION_EXT);
+
+	// Check file extension
+	if( strcmp(name_ext_xcf, ".xcf") == 0 ||
+	    strcmp(name_ext_xcf, ".xcf.bz2") == 0 ||
+	    strcmp(name_ext_xcf, ".xcf.gz") == 0 
+			) {
+		is_xcf = TRUE;
+	}
+
+	if (name != NULL) g_free(name);
+	if (name_noext != NULL) g_free(name_noext);
+	if (name_ext_xcf != NULL) g_free(name_ext);
+
   } else {
-  	name=(char *) malloc (sizeof(noname_str) + 1);
-  	strcpy(name, noname_str);
+	// is_xcf = FALSE;
   }
-  token = strpbrk(name, delimiters);
-  name_noext = g_strndup(name , strlen(name) - strlen(token) ); //without extensions
-  strcpy(pattern,name_noext);
-  strcat(pattern,"*");
-  strcat(pattern,SESSION_EXT);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_add_pattern (filter, pattern);
-  gtk_file_filter_set_name    (filter, "Session");
-  gtk_file_chooser_add_filter (teseosessionfilechooser,filter);
-  if (name != NULL) g_free(name);
-  if (name_noext != NULL) g_free(name_noext);
 
+  if(is_xcf) {
+	  teseowin = create_win_neuronteseo();
+	  preferencesdlg = create_preferences_dlg ();
+	  aboutdlg = create_about_dlg ();
+	  teseofilechooser = create_filechooserimport();
+	  sessiondlg = create_session_dlg();
 
-  gtk_widget_show (teseowin);
-  gtk_main ();
+	  teseosessionfilechooser = create_teseo_session_filechooser ();
+	  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
 
+	  filter = gtk_file_filter_new ();
+	  gtk_file_filter_add_pattern (filter, pattern);
+	  gtk_file_filter_set_name    (filter, "Session");
+	  gtk_file_chooser_add_filter (teseosessionfilechooser, filter);
+
+	  gtk_widget_show (teseowin);
+	  gtk_main ();
+  } else {
+	  g_message("Please, save file in .xcf (.xcf.bz2, xcf.gz) format before to run Teseo-2 !");
+  	  gtk_main_quit();
+  }
 
   /*TODO*/
   //gtk_widget_show (dlg);
