@@ -2,7 +2,6 @@ This is your plugin's TODO list.
 
 
 Mon Aug  1 16:19:08 CEST 2005 - mtheo
-- Check image type on plug-in start
 - Check duplicated plug-in instances on plug-in start (lock mtheod)
 - Improve get_teseo_environment_path()
 
