@@ -109,8 +109,8 @@ char * get_teseo_environment_path( ){
 
     static char ENVIRONMENT_PATH[FILENAMELEN];
 
-    char * home;
-    char version[3];
+    gchar * home;
+    gchar version[3];
 
     //TODO manage windows HOMEPATH and slashes
     //home=getenv("HOME");

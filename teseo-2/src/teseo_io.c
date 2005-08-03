@@ -277,7 +277,7 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
  gchar linename [200] = "";
  int i=0;
 
- if( fp = fopen(NomeFileBzr, "r" ))
+ if( (fp = fopen(NomeFileBzr, "r" )) )
  {
   
 	fgets(linename, 200, fp);
@@ -631,7 +631,7 @@ void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 
  int i=0;
 
- if( fp = fopen(NomeFileTimeMarker, "r" ))
+ if( (fp = fopen(NomeFileTimeMarker, "r" )) )
  {
 	/*Header*/
 	fscanf(fp,"%d\nSECTION\n%d\nENTITIES\n%d\n", &a, &b, &c);
