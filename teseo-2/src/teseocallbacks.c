@@ -44,9 +44,9 @@
 GtkWidget * teseowin;
 GtkWidget * preferencesdlg;
 GtkWidget * aboutdlg;
-GtkWidget * teseofilechooser;
 GtkWidget * sessiondlg;
-GtkWidget * teseosessionfilechooser;
+GtkFileChooser * teseofilechooser;
+GtkFileChooser * teseosessionfilechooser;
 
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
@@ -156,7 +156,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
          break;
     }
 
-    gtk_widget_hide (teseosessionfilechooser);
+    gtk_widget_hide ((GtkWidget *) teseosessionfilechooser);
 
     if (ret==1) {
         result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
@@ -235,7 +235,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
       default:
          break;
     }
-  gtk_widget_hide (teseofilechooser);
+  gtk_widget_hide ((GtkWidget *) teseofilechooser);
 
 }
 
@@ -270,7 +270,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
       default:
          break;
     }
-  gtk_widget_hide (teseofilechooser);
+  gtk_widget_hide ((GtkWidget *) teseofilechooser);
 }
 
 
@@ -605,7 +605,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
       default:
          break;
     }
-  gtk_widget_hide (teseofilechooser);
+  gtk_widget_hide ((GtkWidget *) teseofilechooser);
 }
 
 void
@@ -634,8 +634,8 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
 
-  GtkWidget *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
-  GtkWidget *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
 
   wmeanParams s;
 
@@ -670,9 +670,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 			(*wmean_release)
 		);
 
-  gtk_widget_set_sensitive (teseo_alg_go_toolbutton, TRUE);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_go_toolbutton, TRUE);
   GTK_WIDGET_SET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
-  gtk_widget_set_sensitive (teseo_alg_back_toolbutton, TRUE);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_back_toolbutton, TRUE);
   GTK_WIDGET_SET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
 
 }
@@ -685,14 +685,14 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 static inline void disable_buttons(){
   GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
   GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
-  GtkWidget *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(teseowin), "ghost_radiotoolbutton");
+  GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(teseowin), "ghost_radiotoolbutton");
 
   //toggle the alghoritms buttons as side effect
   gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
   //set go and back buttons insensitive
-  gtk_widget_set_sensitive (teseo_alg_go_toolbutton, FALSE);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_go_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
-  gtk_widget_set_sensitive (teseo_alg_back_toolbutton, FALSE);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_back_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
 }
 
@@ -731,7 +731,7 @@ void
 on_session_dlg_show                    (GtkWidget       *widget,
                                         gpointer         user_data)
 {
- static session_name[FILENAMELEN];
+ static char session_name[FILENAMELEN];
  gchar *g_session_name = g_path_get_basename(current_session);
  strcpy(session_name, g_session_name);
  g_free(g_session_name);
