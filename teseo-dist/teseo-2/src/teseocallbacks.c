@@ -538,7 +538,7 @@ on_preferences_dlg_response            (GtkDialog       *dialog,
                                         gpointer         user_data)
 {
   gtk_widget_hide(preferencesdlg);
-  return response_id;
+  // return response_id;
 }
 
 
@@ -547,7 +547,7 @@ on_preferences_dlg_close               (GtkDialog       *dialog,
                                         gpointer         user_data)
 {
   gtk_widget_hide(preferencesdlg);
-  return FALSE;
+  // return FALSE;
 }
 
 
