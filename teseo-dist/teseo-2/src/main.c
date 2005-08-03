@@ -37,6 +37,7 @@
 #include "render.h"
 #include "teseosupport.h"
 #include "teseo_session.h"
+#include "teseo_env.h"
 #include "gtkaddons.h"
 
 
