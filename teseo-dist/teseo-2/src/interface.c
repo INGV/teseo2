@@ -131,7 +131,9 @@ dialog (gint32              image_ID,
 	// Check file extension
 	if( strcmp(name_ext_xcf, ".xcf") == 0 ||
 	    strcmp(name_ext_xcf, ".xcf.bz2") == 0 ||
-	    strcmp(name_ext_xcf, ".xcf.gz") == 0 
+	    strcmp(name_ext_xcf, ".xcf.gz") == 0 ||
+	    strcmp(name_ext_xcf, ".xcfbz2") == 0 ||
+	    strcmp(name_ext_xcf, ".xcfgz") == 0
 			) {
 		is_xcf = TRUE;
 	}
@@ -148,10 +150,10 @@ dialog (gint32              image_ID,
 	  teseowin = create_win_neuronteseo();
 	  preferencesdlg = create_preferences_dlg ();
 	  aboutdlg = create_about_dlg ();
-	  teseofilechooser = create_filechooserimport();
 	  sessiondlg = create_session_dlg();
 
-	  teseosessionfilechooser = create_teseo_session_filechooser ();
+	  teseofilechooser = (GtkFileChooser *) create_filechooserimport();
+	  teseosessionfilechooser = (GtkFileChooser *) create_teseo_session_filechooser ();
 	  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
 
 	  filter = gtk_file_filter_new ();
