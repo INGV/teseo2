@@ -34,10 +34,11 @@
 extern   GtkWidget *teseowin;
 extern   GtkWidget *preferencesdlg;
 extern   GtkWidget *aboutdlg;
-extern   GtkWidget *teseofilechooser;
-extern   GtkWidget * teseosessionfilechooser;
-extern   GimpDrawable *private_drawable ;
 extern   GtkWidget * sessiondlg;
+extern   GtkFileChooser * teseofilechooser;
+extern   GtkFileChooser * teseosessionfilechooser;
+
+extern   GimpDrawable *private_drawable ;
 extern   gint32  teseo_image ;
 
 int
