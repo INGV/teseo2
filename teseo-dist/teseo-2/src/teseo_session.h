@@ -193,4 +193,6 @@ save_preferences return 1 if current preferences loading from file filename succ
 char load_preferences(char * filename, struct Session *s);
 
 char load_widget(const char * filename, GtkWidget * dlg);
+
+
 #endif
