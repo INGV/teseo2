@@ -219,7 +219,7 @@ char* create_name(char * dirname, char* order, char* ext){
     char * p=NULL;
     char * token;
     const char delimiters[] = ".";
-    char ptrptr[FILENAMELEN];
+    // char ptrptr[FILENAMELEN];
 
     filename = (char * ) malloc(sizeof(char)*FILENAMELEN);
 
@@ -266,3 +266,4 @@ char load_preferences(char * filename, struct Session *s){
     char ret=1;
     return ret;
 }
+
