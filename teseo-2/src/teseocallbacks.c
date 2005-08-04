@@ -518,8 +518,9 @@ on_win_neuronteseo_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
-  gtk_main_quit();
-  return TRUE;
+    t_unlock();
+    gtk_main_quit();
+    return TRUE;
 }
 
 
