@@ -43,6 +43,11 @@ const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tm
 /* Set MAX_PATHNAME to the high value of enum PATHNAMES */
 const PATHNAMES MAX_PATHNAME = LOCKPATH;
 
+#ifdef WINSLASH
+const gchar SLASH[] = "\\";
+#else
+const gchar SLASH[] = "/";
+#endif
 
 char *valore_parse(const char *nomefile, const char *nomevariabile) {
   static char ret_valore[255];
@@ -83,14 +88,14 @@ char *getenv_teseo(const char *name_var) {
   char *cmdconfig = "/usr/local/neuronteseo/bin/neuronteseo-config.sh";
 
   char nomefile[255];
-  sprintf(nomefile, "%s/.teseorc", getenv("HOME"));
+  sprintf(nomefile, "%s%s.teseorc", SLASH, getenv("HOME"));
   s = valore_parse(nomefile, name_var);
   // g_message("newfunc %s = %s", name_var, s);
 
   // s = getenv(name_var);
   if(!s) {
     if(strcmp(name_var , TESEO_BIN)==0) {
-      sprintf(s_app, "%s/teseo", getenv("HOME"));
+      sprintf(s_app, "%s%steseo", SLASH, getenv("HOME"));
     } else {
       sprintf(s_app, "%s", getenv("HOME"));
     }
@@ -117,10 +122,11 @@ char * get_teseo_environment_path( ){
     home=g_get_home_dir();/*portability ... in glib*/
 
     strcpy(ENVIRONMENT_PATH,home);
-    strcat(ENVIRONMENT_PATH,"/.gimp-");
+    strcat(ENVIRONMENT_PATH,SLASH);
+    strcat(ENVIRONMENT_PATH,".gimp-");
     sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
     strcat(ENVIRONMENT_PATH,version);
-    strcat(ENVIRONMENT_PATH,"/");
+    strcat(ENVIRONMENT_PATH,SLASH);
     strcat(ENVIRONMENT_PATH,PROCEDURE_NAME);
 
     return ENVIRONMENT_PATH;
@@ -136,8 +142,7 @@ char * get_environment_path( int pathname ){
 
     if (path!=NULL) {
         strcpy(path,get_teseo_environment_path());
-	//TODO windows it!!!
-        strcat(path,"/");
+        strcat(path,SLASH);
         strcat(path,SUBPATHS[pathname]);
     }
     else {
@@ -185,7 +190,7 @@ char create_environment( ){
      for (i=0; i<=MAX_PATHNAME; i++){
 	 strcpy(path, mainpath);
 	 //TODO windowsisation
-         strcat(path,"/");
+         strcat(path,SLASH);
 	 strcat(path,SUBPATHS[i]);
          error = !(create_teseo_environment_path(path));
      }
@@ -198,3 +203,4 @@ char create_environment( ){
 
  return !error;
 }
+

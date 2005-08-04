@@ -49,12 +49,15 @@ char *getenv_teseo(const char *name_var) ;
 /*END OLDIES*/
 
 
+
 /*!
 Environment default subpaths
 */
 /* When you modify PATHNAMES, modify SUBPATHS in the teseo_env.c */
 typedef enum { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH, LOCKPATH } PATHNAMES;
 extern const char *SUBPATHS[];
+
+extern const gchar SLASH[];
 
 
 /*!
@@ -75,6 +78,7 @@ create_teseo_environment_path returns 1 if teseo environment path creation succe
 	\param char * filename
 */
 char create_teseo_environment_path( char* filename );
+
 
 /*!
 create_environment returns 1 if environment paths creation succeed,
