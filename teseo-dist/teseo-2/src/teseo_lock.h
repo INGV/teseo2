@@ -30,8 +30,10 @@
 #define TESEOLOCK 1
 
 #include <libgimp/gimp.h>
+#include "teseo_io.h"
 
 #define LOCK_EXT     ".lock"
+extern gchar filename_lock[FILENAMELEN];
 
 /*!
 t_lock and t_unlock allow to load only one plug-in instance for each image
