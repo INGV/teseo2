@@ -33,6 +33,7 @@
 #include "main.h"
 #include "interface.h"
 
+#include "teseo_lock.h"
 #include "teseointerface.h"
 #include "teseocallbacks.h"
 #include "teseosupport.h"
@@ -72,14 +73,15 @@ dialog (gint32              image_ID,
 {
 
   gboolean   run = FALSE;
-  char * name_noext=NULL;
-  char * name_ext=NULL;
-  char * name_ext_xcf=NULL;
-  char * name=NULL;
-  char * token;
+  gchar * name_noext=NULL;
+  gchar * name_ext=NULL;
+  gchar * name_ext_xcf=NULL;
+  gchar * name=NULL;
+  gchar * token;
   GtkFileFilter *filter =NULL;
-  const char delimiters[] = ".";
-  char pattern[FILENAMELEN]="";
+  const gchar delimiters[] = ".";
+  gchar pattern_prefix[FILENAMELEN]="";
+  gchar pattern_session[FILENAMELEN]="";
   gboolean is_xcf = FALSE;
 
   /*
@@ -123,10 +125,13 @@ dialog (gint32              image_ID,
 		name_ext_xcf = g_strdup("NOXCF");
 	}
 
-	// Compute "pattern" variable
-	strcpy(pattern,name_noext);
-	strcat(pattern,"*");
-	strcat(pattern,SESSION_EXT);
+	// Set "pattern_prefix" variable
+	strcpy(pattern_prefix, name_noext);
+
+	// Set "pattern_session" variable
+	strcpy(pattern_session, pattern_prefix);
+	strcat(pattern_session, "???");
+	strcat(pattern_session, SESSION_EXT);
 
 	// Check file extension
 	if( strcmp(name_ext_xcf, ".xcf") == 0 ||
@@ -138,31 +143,39 @@ dialog (gint32              image_ID,
 		is_xcf = TRUE;
 	}
 
-	if (name != NULL) g_free(name);
-	if (name_noext != NULL) g_free(name_noext);
-	if (name_ext_xcf != NULL) g_free(name_ext);
+	if (name != NULL)
+	    g_free(name);
+	if (name_noext != NULL)
+	    g_free(name_noext);
+	if (name_ext_xcf != NULL)
+	    g_free(name_ext_xcf);
 
   } else {
 	// is_xcf = FALSE;
   }
 
   if(is_xcf) {
-	  teseowin = create_win_neuronteseo();
-	  preferencesdlg = create_preferences_dlg ();
-	  aboutdlg = create_about_dlg ();
-	  sessiondlg = create_session_dlg();
+      if(t_lock(pattern_prefix)) {
+	      teseowin = create_win_neuronteseo();
+	      preferencesdlg = create_preferences_dlg ();
+	      aboutdlg = create_about_dlg ();
+	      sessiondlg = create_session_dlg();
 
-	  teseofilechooser = (GtkFileChooser *) create_filechooserimport();
-	  teseosessionfilechooser = (GtkFileChooser *) create_teseo_session_filechooser ();
-	  gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
+	      teseofilechooser = (GtkFileChooser *) create_filechooserimport();
+	      teseosessionfilechooser = (GtkFileChooser *) create_teseo_session_filechooser ();
+	      gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
 
-	  filter = gtk_file_filter_new ();
-	  gtk_file_filter_add_pattern (filter, pattern);
-	  gtk_file_filter_set_name    (filter, "Session");
-	  gtk_file_chooser_add_filter (teseosessionfilechooser, filter);
+	      filter = gtk_file_filter_new ();
+	      gtk_file_filter_add_pattern (filter, pattern_session);
+	      gtk_file_filter_set_name    (filter, "Session");
+	      gtk_file_chooser_add_filter (teseosessionfilechooser, filter);
 
-	  gtk_widget_show (teseowin);
-	  gtk_main ();
+	      gtk_widget_show (teseowin);
+	      gtk_main ();
+      } else {
+	      g_message("Teseo-2 seems to be just running on file %s.\nRemember: it is possible to load only one instance for each file !", pattern_session);
+	      gtk_main_quit();
+      }
   } else {
 	  g_message("Please, save file in .xcf (.xcf.bz2, xcf.gz) format before to run Teseo-2 !");
   	  gtk_main_quit();
