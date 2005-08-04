@@ -34,6 +34,8 @@ teseo_2_SOURCES = \
 	teseo_resample.h	\
 	teseo_session.c	\
 	teseo_session.h \
+	teseo_lock.c	\
+	teseo_lock.h \
 	teseo_wmean.h \
 	teseo_wmean.c \
 	teseo_main.c \
