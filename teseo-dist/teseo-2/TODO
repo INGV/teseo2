@@ -6,5 +6,6 @@ Mon Aug  1 16:19:08 CEST 2005 - mtheo
 
 Thu Aug  4 17:16:58 CEST 2005
 - Display pattern_session on window neuron_teseo
-- Path menu portig from teseo 1 to 2
+- Path menu porting from teseo 1 to 2
+- Manage lock mechanism when the program crash and does not remove the file lock
 
