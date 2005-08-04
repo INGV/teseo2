@@ -2,6 +2,9 @@ This is your plugin's TODO list.
 
 
 Mon Aug  1 16:19:08 CEST 2005 - mtheo
-- Check duplicated plug-in instances on plug-in start (lock mtheod)
 - Improve get_teseo_environment_path()
+
+Thu Aug  4 17:16:58 CEST 2005
+- Display pattern_session on window neuron_teseo
+- Path menu portig from teseo 1 to 2
 
