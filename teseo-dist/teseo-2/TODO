@@ -5,7 +5,10 @@ Mon Aug  1 16:19:08 CEST 2005 - mtheo
 - Improve get_teseo_environment_path()
 
 Thu Aug  4 17:16:58 CEST 2005
-- Display pattern_session on window neuron_teseo
+- Display filename on window win_teseo ()
+- Catch parameter from session, for example to run algorithm or operation on path
 - Path menu porting from teseo 1 to 2
-- Manage lock mechanism when the program crash and does not remove the file lock
+- Manage lock mechanism:
+	* when the program crash and does not remove the file lock
+	* when quit gimp and the plug-in has not been closed before
 
