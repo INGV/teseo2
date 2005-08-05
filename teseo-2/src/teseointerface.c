@@ -200,7 +200,7 @@ create_win_teseo (void)
 
   win_teseo = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_name (win_teseo, "win_teseo");
-  gtk_window_set_title (GTK_WINDOW (win_teseo), "Teseo 2.0");
+  gtk_window_set_title (GTK_WINDOW (win_teseo), "Teseo 2.x.x");
   gtk_window_set_position (GTK_WINDOW (win_teseo), GTK_WIN_POS_MOUSE);
   gtk_window_set_resizable (GTK_WINDOW (win_teseo), FALSE);
 
@@ -1468,7 +1468,9 @@ create_dlg_about (void)
   GtkWidget *dlg_about;
   GtkWidget *dialog_vbox6;
   GtkWidget *vbox63;
+  GtkWidget *vbox78;
   GtkWidget *label_teseo;
+  GtkWidget *label_ver;
   GtkWidget *hbox46;
   GtkWidget *image275;
   GtkWidget *label216;
@@ -1495,12 +1497,24 @@ create_dlg_about (void)
   gtk_widget_set_size_request (vbox63, 327, -1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox63), 13);
 
+  vbox78 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox78, "vbox78");
+  gtk_widget_show (vbox78);
+  gtk_box_pack_start (GTK_BOX (vbox63), vbox78, FALSE, FALSE, 0);
+
   label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sub><sub>2</sub></sub></b></span></big>\n\"Vectoriser of historical seismograms\"\n<small>Open source software &#169;</small>");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
-  gtk_box_pack_start (GTK_BOX (vbox63), label_teseo, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox78), label_teseo, FALSE, FALSE, 0);
   gtk_label_set_use_markup (GTK_LABEL (label_teseo), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_teseo), GTK_JUSTIFY_CENTER);
+
+  label_ver = gtk_label_new ("<small>Version 2.x.x</small>");
+  gtk_widget_set_name (label_ver, "label_ver");
+  gtk_widget_show (label_ver);
+  gtk_box_pack_start (GTK_BOX (vbox78), label_ver, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label_ver), TRUE);
+  gtk_label_set_justify (GTK_LABEL (label_ver), GTK_JUSTIFY_CENTER);
 
   hbox46 = gtk_hbox_new (FALSE, 0);
   gtk_widget_set_name (hbox46, "hbox46");
@@ -1548,7 +1562,9 @@ create_dlg_about (void)
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_about, dlg_about, "dlg_about");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_about, dialog_vbox6, "dialog_vbox6");
   GLADE_HOOKUP_OBJECT (dlg_about, vbox63, "vbox63");
+  GLADE_HOOKUP_OBJECT (dlg_about, vbox78, "vbox78");
   GLADE_HOOKUP_OBJECT (dlg_about, label_teseo, "label_teseo");
+  GLADE_HOOKUP_OBJECT (dlg_about, label_ver, "label_ver");
   GLADE_HOOKUP_OBJECT (dlg_about, hbox46, "hbox46");
   GLADE_HOOKUP_OBJECT (dlg_about, image275, "image275");
   GLADE_HOOKUP_OBJECT (dlg_about, label216, "label216");
