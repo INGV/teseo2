@@ -155,7 +155,7 @@ dialog (gint32              image_ID,
   }
 
   if(is_xcf) {
-      if(t_lock(pattern_prefix)) {
+      if(teseo_lock(pattern_prefix)) {
 	      teseowin = create_win_teseo();
 	      preferencesdlg = create_dlg_preferences ();
 	      aboutdlg = create_dlg_about ();

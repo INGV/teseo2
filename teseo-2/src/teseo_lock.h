@@ -36,16 +36,16 @@
 extern gchar filename_lock[FILENAMELEN];
 
 /*!
-t_lock and t_unlock allow to load only one plug-in instance for each image
+teseo_lock and teseo_unlock allow to load only one plug-in instance for each image
 	return TRUE when the lock has success, else FALSE
 	\param gchar * pattern_prefix, pattern of filename lock
 */
-gboolean t_lock(gchar *pattern_prefix);
+gboolean teseo_lock(gchar *pattern_prefix);
 
 /*!
-t_unlock and t_lock allow to load only one plug-in instance for each image
+teseo_unlock and teseo_lock allow to load only one plug-in instance for each image
 */
-void t_unlock();
+void teseo_unlock();
 
 
 #endif
