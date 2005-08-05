@@ -182,7 +182,7 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 gboolean
-on_win_neuronteseo_delete_event        (GtkWidget       *widget,
+on_win_teseo_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
 
@@ -196,12 +196,12 @@ on_win_preferences_delete_event        (GtkWidget       *widget,
                                         gpointer         user_data);
 
 void
-on_preferences_dlg_response            (GtkDialog       *dialog,
+on_dlg_preferences_response            (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data);
 
 void
-on_preferences_dlg_close               (GtkDialog       *dialog,
+on_dlg_preferences_close               (GtkDialog       *dialog,
                                         gpointer         user_data);
 
 void
@@ -271,9 +271,9 @@ on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
                                         gpointer         user_data);
 
 void
-on_session_dlg_show                    (GtkWidget       *widget,
+on_dlg_session_show                    (GtkWidget       *widget,
                                         gpointer         user_data);
 
 void
-on_win_neuronteseo_show                (GtkWidget       *widget,
+on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data);

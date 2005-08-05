@@ -163,7 +163,7 @@ save_session return 1 if session saving on file filename succeed
 	\param char * filename
 	\param struct Session * s
 */
-char new_session(char * filename, char * preferences_dlg_filename);
+char new_session(char * filename, char * dlg_preferences_filename);
 
 /*!
 save_session return 1 if session saving on file filename succeed
