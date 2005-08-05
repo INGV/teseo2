@@ -132,7 +132,7 @@ char load_session(char * filename){
       }
     }
     else {
-      g_message("Wow");
+      g_message("You should open an existing session or create new one.");
     }
     //Registering current session
     if(ret==1){
