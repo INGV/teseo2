@@ -32,10 +32,16 @@
 
 #define LEN_RIGA 1024
 
-
 /*OLDIES TODO eliminate !!!!*/
 const char TESEO_BIN[] = "TESEO_BIN";
 const char TESEO_DATA[] = "TESEO_DATA";
+
+
+const gchar * teseo_caption() {
+    gchar * caption[200];
+    sprintf(caption, "Teseo %d.%d.%d", T_MAJOR_VER, T_MINOR_VER, T_DEVEL_VER);
+    return caption;
+}
 
 
 /* When you modify SUBPATHS, modify PATHNANEMS in the teseo_env.h */

@@ -37,12 +37,20 @@
 #define PROCEDURE_NAME   "teseo-2"
 #endif
 
-
+#define T_MAJOR_VER 2
+#define T_MINOR_VER 0
+#define T_DEVEL_VER 1
+#define TESEO_CAPTION teseo_caption()
 
 
 /*OLDIES*/
 extern const char TESEO_BIN[];
 extern const char TESEO_DATA[];
+
+/*!
+  teseo_caption returns a string with name and current version
+  */
+const gchar * teseo_caption();
 
 char *valore_parse(const char *nomefile, const char *nomevariabile);
 char *getenv_teseo(const char *name_var) ;
