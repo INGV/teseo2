@@ -27,9 +27,9 @@
   g_object_set_data (G_OBJECT (component), name, widget)
 
 GtkWidget*
-create_win_neuronteseo (void)
+create_win_teseo (void)
 {
-  GtkWidget *win_neuronteseo;
+  GtkWidget *win_teseo;
   GtkWidget *vbox1;
   GtkWidget *vbox72;
   GtkWidget *menubar1;
@@ -198,16 +198,16 @@ create_win_neuronteseo (void)
 
   accel_group = gtk_accel_group_new ();
 
-  win_neuronteseo = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (win_neuronteseo, "win_neuronteseo");
-  gtk_window_set_title (GTK_WINDOW (win_neuronteseo), "Teseo 2.0");
-  gtk_window_set_position (GTK_WINDOW (win_neuronteseo), GTK_WIN_POS_MOUSE);
-  gtk_window_set_resizable (GTK_WINDOW (win_neuronteseo), FALSE);
+  win_teseo = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_name (win_teseo, "win_teseo");
+  gtk_window_set_title (GTK_WINDOW (win_teseo), "Teseo 2.0");
+  gtk_window_set_position (GTK_WINDOW (win_teseo), GTK_WIN_POS_MOUSE);
+  gtk_window_set_resizable (GTK_WINDOW (win_teseo), FALSE);
 
   vbox1 = gtk_vbox_new (FALSE, 2);
   gtk_widget_set_name (vbox1, "vbox1");
   gtk_widget_show (vbox1);
-  gtk_container_add (GTK_CONTAINER (win_neuronteseo), vbox1);
+  gtk_container_add (GTK_CONTAINER (win_teseo), vbox1);
 
   vbox72 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox72, "vbox72");
@@ -667,7 +667,7 @@ create_win_neuronteseo (void)
 
   radiobutton9 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiobutton9), "radiobutton9");
-  tmp_image = create_pixmap (win_neuronteseo, "brain_mri_small.xpm");
+  tmp_image = create_pixmap (win_teseo, "brain_mri_small.xpm");
   gtk_widget_show (tmp_image);
   gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiobutton9), tmp_image);
   gtk_widget_set_name (radiobutton9, "radiobutton9");
@@ -679,7 +679,7 @@ create_win_neuronteseo (void)
 
   radiobutton8 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiobutton8), "NN 1");
-  tmp_image = create_pixmap (win_neuronteseo, "brain_mri_small.xpm");
+  tmp_image = create_pixmap (win_teseo, "brain_mri_small.xpm");
   gtk_widget_show (tmp_image);
   gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiobutton8), tmp_image);
   gtk_widget_set_name (radiobutton8, "radiobutton8");
@@ -690,7 +690,7 @@ create_win_neuronteseo (void)
 
   radiobutton17 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiobutton17), "NN 2");
-  tmp_image = create_pixmap (win_neuronteseo, "brain_mri_small.xpm");
+  tmp_image = create_pixmap (win_teseo, "brain_mri_small.xpm");
   gtk_widget_show (tmp_image);
   gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiobutton17), tmp_image);
   gtk_widget_set_name (radiobutton17, "radiobutton17");
@@ -701,7 +701,7 @@ create_win_neuronteseo (void)
 
   radiobutton18 = (GtkWidget*) gtk_radio_tool_button_new (NULL);
   gtk_tool_button_set_label (GTK_TOOL_BUTTON (radiobutton18), "NN 3");
-  tmp_image = create_pixmap (win_neuronteseo, "brain_mri_small.xpm");
+  tmp_image = create_pixmap (win_teseo, "brain_mri_small.xpm");
   gtk_widget_show (tmp_image);
   gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (radiobutton18), tmp_image);
   gtk_widget_set_name (radiobutton18, "radiobutton18");
@@ -1142,11 +1142,11 @@ create_win_neuronteseo (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 3), label75);
   gtk_label_set_use_markup (GTK_LABEL (label75), TRUE);
 
-  g_signal_connect ((gpointer) win_neuronteseo, "delete_event",
-                    G_CALLBACK (on_win_neuronteseo_delete_event),
+  g_signal_connect ((gpointer) win_teseo, "delete_event",
+                    G_CALLBACK (on_win_teseo_delete_event),
                     NULL);
-  g_signal_connect ((gpointer) win_neuronteseo, "show",
-                    G_CALLBACK (on_win_neuronteseo_show),
+  g_signal_connect ((gpointer) win_teseo, "show",
+                    G_CALLBACK (on_win_teseo_show),
                     NULL);
   g_signal_connect ((gpointer) new1, "activate",
                     G_CALLBACK (on_new1_activate),
@@ -1206,7 +1206,7 @@ create_win_neuronteseo (void)
                     G_CALLBACK (on_timemark1_activate),
                     NULL);
   g_signal_connect ((gpointer) quit1, "activate",
-                    G_CALLBACK (on_win_neuronteseo_delete_event),
+                    G_CALLBACK (on_win_teseo_delete_event),
                     NULL);
   g_signal_connect ((gpointer) resample1, "activate",
                     G_CALLBACK (on_resample1_activate),
@@ -1261,180 +1261,180 @@ create_win_neuronteseo (void)
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (win_neuronteseo, win_neuronteseo, "win_neuronteseo");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox1, "vbox1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox72, "vbox72");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, menubar1, "menubar1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem4, "menuitem4");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem4_menu, "menuitem4_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, new1, "new1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, open1, "open1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, properties1, "properties1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image269, "image269");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator2, "separator2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, preferences_2, "preferences_2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image270, "image270");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator4, "separator4");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image271, "image271");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, import1_menu, "import1_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, svg1, "svg1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf2, "dxf2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, trace2, "trace2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, ascii1, "ascii1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sac2, "sac2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sisma2, "sisma2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark2, "timemark2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator6, "separator6");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, bezier1, "bezier1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image272, "image272");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, export1_menu, "export1_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, svg2, "svg2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, dxf1, "dxf1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, trace1, "trace1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, ascii2, "ascii2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sac1, "sac1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, sisma1, "sisma1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark1, "timemark1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator5, "separator5");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, examples2, "examples2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separatormenuitem1, "separatormenuitem1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, quit1, "quit1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, path3, "path3");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, path3_menu, "path3_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, resample1, "resample1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, align_all1, "align_all1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, link_all1, "link_all1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, move_and_rotation1, "move_and_rotation1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, fitting_polyline1, "fitting_polyline1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, fitting_bezier1, "fitting_bezier1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, recover_last2, "recover_last2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separator3, "separator3");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark3, "timemark3");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, timemark3_menu, "timemark3_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, evaluate_middle_tms1, "evaluate_middle_tms1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, adjustment1, "adjustment1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7, "menuitem7");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, menuitem7_menu, "menuitem7_menu");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image273, "image273");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image274, "image274");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox3, "handlebox3");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar2, "toolbar2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg2_radiotoolbutton, "teseo_alg2_radiotoolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, ghost_radiotoolbutton, "ghost_radiotoolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separatortoolitem4, "separatortoolitem4");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg_undo_toolbutton, "teseo_alg_undo_toolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg_redo_toolbutton, "teseo_alg_redo_toolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separatortoolitem5, "separatortoolitem5");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, toolitem4, "toolitem4");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg_back_toolbutton, "teseo_alg_back_toolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image143, "image143");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, toolitem5, "toolitem5");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_alg_go_toolbutton, "teseo_alg_go_toolbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image142, "image142");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, handlebox2, "handlebox2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, alignment1, "alignment1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, toolbar1, "toolbar1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, button10, "button10");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separatortoolitem1, "separatortoolitem1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton10, "radiobutton10");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton9, "radiobutton9");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton8, "radiobutton8");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton17, "radiobutton17");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, radiobutton18, "radiobutton18");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, separatortoolitem2, "separatortoolitem2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, button7, "button7");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, button8, "button8");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, notebook2, "notebook2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox23, "vbox23");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame18, "frame18");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, table4, "table4");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label74, "label74");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_forward_step_spinbutton, "teseo_forward_step_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label73, "label73");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label72, "label72");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame71, "frame71");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, hbox45, "hbox45");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox20, "vbox20");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_colour_black_radiobutton, "teseo_wm_colour_black_radiobutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_colour_white_radiobutton, "teseo_wm_colour_white_radiobutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, hbox12, "hbox12");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label70, "label70");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton17, "spinbutton17");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label215, "label215");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label48, "label48");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox17, "vbox17");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame16, "frame16");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, table13, "table13");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label64, "label64");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label63, "label63");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, teseo_wm_width_spinbutton, "teseo_wm_width_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label65, "label65");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label49, "label49");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox21, "vbox21");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame21, "frame21");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox28, "vbox28");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, hbox13, "hbox13");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label90, "label90");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, button11, "button11");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, image109, "image109");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, scrolledwindow2, "scrolledwindow2");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, textview1, "textview1");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label84, "label84");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame17, "frame17");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, hbox11, "hbox11");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, checkbutton13, "checkbutton13");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label71, "label71");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label54, "label54");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox24, "vbox24");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, table5, "table5");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, frame20, "frame20");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label76, "label76");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label77, "label77");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox25, "vbox25");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label78, "label78");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton20, "spinbutton20");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, vbox27, "vbox27");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label79, "label79");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton21, "spinbutton21");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, table6, "table6");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label81, "label81");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton22, "spinbutton22");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label83, "label83");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, spinbutton26, "spinbutton26");
-  GLADE_HOOKUP_OBJECT (win_neuronteseo, label75, "label75");
-  GLADE_HOOKUP_OBJECT_NO_REF (win_neuronteseo, tooltips, "tooltips");
+  GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, win_teseo, "win_teseo");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox1, "vbox1");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox72, "vbox72");
+  GLADE_HOOKUP_OBJECT (win_teseo, menubar1, "menubar1");
+  GLADE_HOOKUP_OBJECT (win_teseo, menuitem4, "menuitem4");
+  GLADE_HOOKUP_OBJECT (win_teseo, menuitem4_menu, "menuitem4_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, new1, "new1");
+  GLADE_HOOKUP_OBJECT (win_teseo, open1, "open1");
+  GLADE_HOOKUP_OBJECT (win_teseo, properties1, "properties1");
+  GLADE_HOOKUP_OBJECT (win_teseo, image269, "image269");
+  GLADE_HOOKUP_OBJECT (win_teseo, separator2, "separator2");
+  GLADE_HOOKUP_OBJECT (win_teseo, preferences_2, "preferences_2");
+  GLADE_HOOKUP_OBJECT (win_teseo, image270, "image270");
+  GLADE_HOOKUP_OBJECT (win_teseo, separator4, "separator4");
+  GLADE_HOOKUP_OBJECT (win_teseo, import1, "import1");
+  GLADE_HOOKUP_OBJECT (win_teseo, image271, "image271");
+  GLADE_HOOKUP_OBJECT (win_teseo, import1_menu, "import1_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, svg1, "svg1");
+  GLADE_HOOKUP_OBJECT (win_teseo, dxf2, "dxf2");
+  GLADE_HOOKUP_OBJECT (win_teseo, trace2, "trace2");
+  GLADE_HOOKUP_OBJECT (win_teseo, ascii1, "ascii1");
+  GLADE_HOOKUP_OBJECT (win_teseo, sac2, "sac2");
+  GLADE_HOOKUP_OBJECT (win_teseo, sisma2, "sisma2");
+  GLADE_HOOKUP_OBJECT (win_teseo, timemark2, "timemark2");
+  GLADE_HOOKUP_OBJECT (win_teseo, separator6, "separator6");
+  GLADE_HOOKUP_OBJECT (win_teseo, bezier1, "bezier1");
+  GLADE_HOOKUP_OBJECT (win_teseo, export1, "export1");
+  GLADE_HOOKUP_OBJECT (win_teseo, image272, "image272");
+  GLADE_HOOKUP_OBJECT (win_teseo, export1_menu, "export1_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, svg2, "svg2");
+  GLADE_HOOKUP_OBJECT (win_teseo, dxf1, "dxf1");
+  GLADE_HOOKUP_OBJECT (win_teseo, trace1, "trace1");
+  GLADE_HOOKUP_OBJECT (win_teseo, ascii2, "ascii2");
+  GLADE_HOOKUP_OBJECT (win_teseo, sac1, "sac1");
+  GLADE_HOOKUP_OBJECT (win_teseo, sisma1, "sisma1");
+  GLADE_HOOKUP_OBJECT (win_teseo, timemark1, "timemark1");
+  GLADE_HOOKUP_OBJECT (win_teseo, separator5, "separator5");
+  GLADE_HOOKUP_OBJECT (win_teseo, examples2, "examples2");
+  GLADE_HOOKUP_OBJECT (win_teseo, separatormenuitem1, "separatormenuitem1");
+  GLADE_HOOKUP_OBJECT (win_teseo, quit1, "quit1");
+  GLADE_HOOKUP_OBJECT (win_teseo, path3, "path3");
+  GLADE_HOOKUP_OBJECT (win_teseo, path3_menu, "path3_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, resample1, "resample1");
+  GLADE_HOOKUP_OBJECT (win_teseo, align_all1, "align_all1");
+  GLADE_HOOKUP_OBJECT (win_teseo, link_all1, "link_all1");
+  GLADE_HOOKUP_OBJECT (win_teseo, move_and_rotation1, "move_and_rotation1");
+  GLADE_HOOKUP_OBJECT (win_teseo, fitting_polyline1, "fitting_polyline1");
+  GLADE_HOOKUP_OBJECT (win_teseo, fitting_bezier1, "fitting_bezier1");
+  GLADE_HOOKUP_OBJECT (win_teseo, recover_last2, "recover_last2");
+  GLADE_HOOKUP_OBJECT (win_teseo, separator3, "separator3");
+  GLADE_HOOKUP_OBJECT (win_teseo, timemark3, "timemark3");
+  GLADE_HOOKUP_OBJECT (win_teseo, timemark3_menu, "timemark3_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, evaluate_middle_tms1, "evaluate_middle_tms1");
+  GLADE_HOOKUP_OBJECT (win_teseo, adjustment1, "adjustment1");
+  GLADE_HOOKUP_OBJECT (win_teseo, menuitem7, "menuitem7");
+  GLADE_HOOKUP_OBJECT (win_teseo, menuitem7_menu, "menuitem7_menu");
+  GLADE_HOOKUP_OBJECT (win_teseo, help1, "help1");
+  GLADE_HOOKUP_OBJECT (win_teseo, image273, "image273");
+  GLADE_HOOKUP_OBJECT (win_teseo, about1, "about1");
+  GLADE_HOOKUP_OBJECT (win_teseo, image274, "image274");
+  GLADE_HOOKUP_OBJECT (win_teseo, handlebox3, "handlebox3");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolbar2, "toolbar2");
+  GLADE_HOOKUP_OBJECT (win_teseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg2_radiotoolbutton, "teseo_alg2_radiotoolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, ghost_radiotoolbutton, "ghost_radiotoolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, separatortoolitem4, "separatortoolitem4");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_undo_toolbutton, "teseo_alg_undo_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_redo_toolbutton, "teseo_alg_redo_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, separatortoolitem5, "separatortoolitem5");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolitem4, "toolitem4");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_back_toolbutton, "teseo_alg_back_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, image143, "image143");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolitem5, "toolitem5");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_go_toolbutton, "teseo_alg_go_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, image142, "image142");
+  GLADE_HOOKUP_OBJECT (win_teseo, handlebox2, "handlebox2");
+  GLADE_HOOKUP_OBJECT (win_teseo, alignment1, "alignment1");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolbar1, "toolbar1");
+  GLADE_HOOKUP_OBJECT (win_teseo, button10, "button10");
+  GLADE_HOOKUP_OBJECT (win_teseo, separatortoolitem1, "separatortoolitem1");
+  GLADE_HOOKUP_OBJECT (win_teseo, radiobutton10, "radiobutton10");
+  GLADE_HOOKUP_OBJECT (win_teseo, radiobutton9, "radiobutton9");
+  GLADE_HOOKUP_OBJECT (win_teseo, radiobutton8, "radiobutton8");
+  GLADE_HOOKUP_OBJECT (win_teseo, radiobutton17, "radiobutton17");
+  GLADE_HOOKUP_OBJECT (win_teseo, radiobutton18, "radiobutton18");
+  GLADE_HOOKUP_OBJECT (win_teseo, separatortoolitem2, "separatortoolitem2");
+  GLADE_HOOKUP_OBJECT (win_teseo, button7, "button7");
+  GLADE_HOOKUP_OBJECT (win_teseo, button8, "button8");
+  GLADE_HOOKUP_OBJECT (win_teseo, notebook2, "notebook2");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox23, "vbox23");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame18, "frame18");
+  GLADE_HOOKUP_OBJECT (win_teseo, table4, "table4");
+  GLADE_HOOKUP_OBJECT (win_teseo, label74, "label74");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_forward_step_spinbutton, "teseo_forward_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_back_step_spinbutton, "teseo_back_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label73, "label73");
+  GLADE_HOOKUP_OBJECT (win_teseo, label72, "label72");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame71, "frame71");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox45, "hbox45");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox20, "vbox20");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_wm_colour_black_radiobutton, "teseo_wm_colour_black_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_wm_colour_white_radiobutton, "teseo_wm_colour_white_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox12, "hbox12");
+  GLADE_HOOKUP_OBJECT (win_teseo, label70, "label70");
+  GLADE_HOOKUP_OBJECT (win_teseo, spinbutton17, "spinbutton17");
+  GLADE_HOOKUP_OBJECT (win_teseo, label215, "label215");
+  GLADE_HOOKUP_OBJECT (win_teseo, label48, "label48");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox17, "vbox17");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame16, "frame16");
+  GLADE_HOOKUP_OBJECT (win_teseo, table13, "table13");
+  GLADE_HOOKUP_OBJECT (win_teseo, label64, "label64");
+  GLADE_HOOKUP_OBJECT (win_teseo, label63, "label63");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_wm_width_spinbutton, "teseo_wm_width_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label65, "label65");
+  GLADE_HOOKUP_OBJECT (win_teseo, label49, "label49");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox21, "vbox21");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame21, "frame21");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox28, "vbox28");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox13, "hbox13");
+  GLADE_HOOKUP_OBJECT (win_teseo, label90, "label90");
+  GLADE_HOOKUP_OBJECT (win_teseo, button11, "button11");
+  GLADE_HOOKUP_OBJECT (win_teseo, image109, "image109");
+  GLADE_HOOKUP_OBJECT (win_teseo, scrolledwindow2, "scrolledwindow2");
+  GLADE_HOOKUP_OBJECT (win_teseo, textview1, "textview1");
+  GLADE_HOOKUP_OBJECT (win_teseo, label84, "label84");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame17, "frame17");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox11, "hbox11");
+  GLADE_HOOKUP_OBJECT (win_teseo, checkbutton13, "checkbutton13");
+  GLADE_HOOKUP_OBJECT (win_teseo, label71, "label71");
+  GLADE_HOOKUP_OBJECT (win_teseo, label54, "label54");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox24, "vbox24");
+  GLADE_HOOKUP_OBJECT (win_teseo, table5, "table5");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame20, "frame20");
+  GLADE_HOOKUP_OBJECT (win_teseo, label76, "label76");
+  GLADE_HOOKUP_OBJECT (win_teseo, label77, "label77");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox25, "vbox25");
+  GLADE_HOOKUP_OBJECT (win_teseo, label78, "label78");
+  GLADE_HOOKUP_OBJECT (win_teseo, spinbutton20, "spinbutton20");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox27, "vbox27");
+  GLADE_HOOKUP_OBJECT (win_teseo, label79, "label79");
+  GLADE_HOOKUP_OBJECT (win_teseo, spinbutton21, "spinbutton21");
+  GLADE_HOOKUP_OBJECT (win_teseo, table6, "table6");
+  GLADE_HOOKUP_OBJECT (win_teseo, label81, "label81");
+  GLADE_HOOKUP_OBJECT (win_teseo, spinbutton22, "spinbutton22");
+  GLADE_HOOKUP_OBJECT (win_teseo, label83, "label83");
+  GLADE_HOOKUP_OBJECT (win_teseo, spinbutton26, "spinbutton26");
+  GLADE_HOOKUP_OBJECT (win_teseo, label75, "label75");
+  GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");
 
   gtk_widget_grab_default (alg_wmean_radiotoolbutton);
-  gtk_window_add_accel_group (GTK_WINDOW (win_neuronteseo), accel_group);
+  gtk_window_add_accel_group (GTK_WINDOW (win_teseo), accel_group);
 
-  return win_neuronteseo;
+  return win_teseo;
 }
 
 GtkWidget*
-create_filechooserimport (void)
+create_filechooser_import (void)
 {
-  GtkWidget *filechooserimport;
+  GtkWidget *filechooser_import;
   GtkWidget *dialog_vbox4;
   GtkWidget *dialog_action_area4;
   GtkWidget *button16;
   GtkWidget *button17;
 
-  filechooserimport = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
-  gtk_widget_set_name (filechooserimport, "filechooserimport");
-  gtk_window_set_type_hint (GTK_WINDOW (filechooserimport), GDK_WINDOW_TYPE_HINT_DIALOG);
+  filechooser_import = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  gtk_widget_set_name (filechooser_import, "filechooser_import");
+  gtk_window_set_type_hint (GTK_WINDOW (filechooser_import), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox4 = GTK_DIALOG (filechooserimport)->vbox;
+  dialog_vbox4 = GTK_DIALOG (filechooser_import)->vbox;
   gtk_widget_set_name (dialog_vbox4, "dialog_vbox4");
   gtk_widget_show (dialog_vbox4);
 
-  dialog_action_area4 = GTK_DIALOG (filechooserimport)->action_area;
+  dialog_action_area4 = GTK_DIALOG (filechooser_import)->action_area;
   gtk_widget_set_name (dialog_action_area4, "dialog_action_area4");
   gtk_widget_show (dialog_action_area4);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4), GTK_BUTTONBOX_END);
@@ -1442,30 +1442,30 @@ create_filechooserimport (void)
   button16 = gtk_button_new_from_stock ("gtk-cancel");
   gtk_widget_set_name (button16, "button16");
   gtk_widget_show (button16);
-  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button16, GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_import), button16, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (button16, GTK_CAN_DEFAULT);
 
   button17 = gtk_button_new_from_stock ("gtk-open");
   gtk_widget_set_name (button17, "button17");
   gtk_widget_show (button17);
-  gtk_dialog_add_action_widget (GTK_DIALOG (filechooserimport), button17, GTK_RESPONSE_OK);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_import), button17, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (button17, GTK_CAN_DEFAULT);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, filechooserimport, "filechooserimport");
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_vbox4, "dialog_vbox4");
-  GLADE_HOOKUP_OBJECT_NO_REF (filechooserimport, dialog_action_area4, "dialog_action_area4");
-  GLADE_HOOKUP_OBJECT (filechooserimport, button16, "button16");
-  GLADE_HOOKUP_OBJECT (filechooserimport, button17, "button17");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_import, filechooser_import, "filechooser_import");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_import, dialog_vbox4, "dialog_vbox4");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_import, dialog_action_area4, "dialog_action_area4");
+  GLADE_HOOKUP_OBJECT (filechooser_import, button16, "button16");
+  GLADE_HOOKUP_OBJECT (filechooser_import, button17, "button17");
 
   gtk_widget_grab_default (button17);
-  return filechooserimport;
+  return filechooser_import;
 }
 
 GtkWidget*
-create_about_dlg (void)
+create_dlg_about (void)
 {
-  GtkWidget *about_dlg;
+  GtkWidget *dlg_about;
   GtkWidget *dialog_vbox6;
   GtkWidget *vbox63;
   GtkWidget *label_teseo;
@@ -1477,14 +1477,14 @@ create_about_dlg (void)
   GtkWidget *dialog_action_area7;
   GtkWidget *okbutton4;
 
-  about_dlg = gtk_dialog_new ();
-  gtk_widget_set_name (about_dlg, "about_dlg");
-  gtk_window_set_title (GTK_WINDOW (about_dlg), "About");
-  gtk_window_set_modal (GTK_WINDOW (about_dlg), TRUE);
-  gtk_window_set_resizable (GTK_WINDOW (about_dlg), FALSE);
-  gtk_window_set_type_hint (GTK_WINDOW (about_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
+  dlg_about = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_about, "dlg_about");
+  gtk_window_set_title (GTK_WINDOW (dlg_about), "About");
+  gtk_window_set_modal (GTK_WINDOW (dlg_about), TRUE);
+  gtk_window_set_resizable (GTK_WINDOW (dlg_about), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_about), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox6 = GTK_DIALOG (about_dlg)->vbox;
+  dialog_vbox6 = GTK_DIALOG (dlg_about)->vbox;
   gtk_widget_set_name (dialog_vbox6, "dialog_vbox6");
   gtk_widget_show (dialog_vbox6);
 
@@ -1507,7 +1507,7 @@ create_about_dlg (void)
   gtk_widget_show (hbox46);
   gtk_box_pack_start (GTK_BOX (vbox63), hbox46, TRUE, TRUE, 0);
 
-  image275 = create_pixmap (about_dlg, "teseolabmin_small.jpg");
+  image275 = create_pixmap (dlg_about, "teseolabmin_small.jpg");
   gtk_widget_set_name (image275, "image275");
   gtk_widget_show (image275);
   gtk_box_pack_start (GTK_BOX (hbox46), image275, TRUE, TRUE, 0);
@@ -1533,7 +1533,7 @@ create_about_dlg (void)
   gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
 
-  dialog_action_area7 = GTK_DIALOG (about_dlg)->action_area;
+  dialog_action_area7 = GTK_DIALOG (dlg_about)->action_area;
   gtk_widget_set_name (dialog_action_area7, "dialog_action_area7");
   gtk_widget_show (dialog_action_area7);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area7), GTK_BUTTONBOX_SPREAD);
@@ -1541,29 +1541,29 @@ create_about_dlg (void)
   okbutton4 = gtk_button_new_from_stock ("gtk-ok");
   gtk_widget_set_name (okbutton4, "okbutton4");
   gtk_widget_show (okbutton4);
-  gtk_dialog_add_action_widget (GTK_DIALOG (about_dlg), okbutton4, GTK_RESPONSE_OK);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_about), okbutton4, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (okbutton4, GTK_CAN_DEFAULT);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, about_dlg, "about_dlg");
-  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_vbox6, "dialog_vbox6");
-  GLADE_HOOKUP_OBJECT (about_dlg, vbox63, "vbox63");
-  GLADE_HOOKUP_OBJECT (about_dlg, label_teseo, "label_teseo");
-  GLADE_HOOKUP_OBJECT (about_dlg, hbox46, "hbox46");
-  GLADE_HOOKUP_OBJECT (about_dlg, image275, "image275");
-  GLADE_HOOKUP_OBJECT (about_dlg, label216, "label216");
-  GLADE_HOOKUP_OBJECT (about_dlg, label_authors, "label_authors");
-  GLADE_HOOKUP_OBJECT (about_dlg, label_institution, "label_institution");
-  GLADE_HOOKUP_OBJECT_NO_REF (about_dlg, dialog_action_area7, "dialog_action_area7");
-  GLADE_HOOKUP_OBJECT (about_dlg, okbutton4, "okbutton4");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_about, dlg_about, "dlg_about");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_about, dialog_vbox6, "dialog_vbox6");
+  GLADE_HOOKUP_OBJECT (dlg_about, vbox63, "vbox63");
+  GLADE_HOOKUP_OBJECT (dlg_about, label_teseo, "label_teseo");
+  GLADE_HOOKUP_OBJECT (dlg_about, hbox46, "hbox46");
+  GLADE_HOOKUP_OBJECT (dlg_about, image275, "image275");
+  GLADE_HOOKUP_OBJECT (dlg_about, label216, "label216");
+  GLADE_HOOKUP_OBJECT (dlg_about, label_authors, "label_authors");
+  GLADE_HOOKUP_OBJECT (dlg_about, label_institution, "label_institution");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_about, dialog_action_area7, "dialog_action_area7");
+  GLADE_HOOKUP_OBJECT (dlg_about, okbutton4, "okbutton4");
 
-  return about_dlg;
+  return dlg_about;
 }
 
 GtkWidget*
-create_session_dlg (void)
+create_dlg_session (void)
 {
-  GtkWidget *session_dlg;
+  GtkWidget *dlg_session;
   GtkWidget *dialog_vbox7;
   GtkWidget *notebook4;
   GtkWidget *vbox66;
@@ -1704,14 +1704,14 @@ create_session_dlg (void)
   GtkWidget *cancelbutton4;
   GtkWidget *okbutton5;
 
-  session_dlg = gtk_dialog_new ();
-  gtk_widget_set_name (session_dlg, "session_dlg");
-  gtk_window_set_title (GTK_WINDOW (session_dlg), "Session");
-  gtk_window_set_modal (GTK_WINDOW (session_dlg), TRUE);
-  gtk_window_set_resizable (GTK_WINDOW (session_dlg), FALSE);
-  gtk_window_set_type_hint (GTK_WINDOW (session_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
+  dlg_session = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_session, "dlg_session");
+  gtk_window_set_title (GTK_WINDOW (dlg_session), "Session");
+  gtk_window_set_modal (GTK_WINDOW (dlg_session), TRUE);
+  gtk_window_set_resizable (GTK_WINDOW (dlg_session), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_session), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox7 = GTK_DIALOG (session_dlg)->vbox;
+  dialog_vbox7 = GTK_DIALOG (dlg_session)->vbox;
   gtk_widget_set_name (dialog_vbox7, "dialog_vbox7");
   gtk_widget_show (dialog_vbox7);
 
@@ -2531,7 +2531,7 @@ create_session_dlg (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook4), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook4), 3), Notes);
   gtk_label_set_use_markup (GTK_LABEL (Notes), TRUE);
 
-  dialog_action_area8 = GTK_DIALOG (session_dlg)->action_area;
+  dialog_action_area8 = GTK_DIALOG (dlg_session)->action_area;
   gtk_widget_set_name (dialog_action_area8, "dialog_action_area8");
   gtk_widget_show (dialog_action_area8);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area8), GTK_BUTTONBOX_END);
@@ -2539,169 +2539,169 @@ create_session_dlg (void)
   cancelbutton4 = gtk_button_new_from_stock ("gtk-cancel");
   gtk_widget_set_name (cancelbutton4, "cancelbutton4");
   gtk_widget_show (cancelbutton4);
-  gtk_dialog_add_action_widget (GTK_DIALOG (session_dlg), cancelbutton4, GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_session), cancelbutton4, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (cancelbutton4, GTK_CAN_DEFAULT);
 
   okbutton5 = gtk_button_new_from_stock ("gtk-ok");
   gtk_widget_set_name (okbutton5, "okbutton5");
   gtk_widget_show (okbutton5);
-  gtk_dialog_add_action_widget (GTK_DIALOG (session_dlg), okbutton5, GTK_RESPONSE_OK);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_session), okbutton5, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (okbutton5, GTK_CAN_DEFAULT);
 
-  g_signal_connect ((gpointer) session_dlg, "show",
-                    G_CALLBACK (on_session_dlg_show),
+  g_signal_connect ((gpointer) dlg_session, "show",
+                    G_CALLBACK (on_dlg_session_show),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (session_dlg, session_dlg, "session_dlg");
-  GLADE_HOOKUP_OBJECT_NO_REF (session_dlg, dialog_vbox7, "dialog_vbox7");
-  GLADE_HOOKUP_OBJECT (session_dlg, notebook4, "notebook4");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox66, "vbox66");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame60, "frame60");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment24, "alignment24");
-  GLADE_HOOKUP_OBJECT (session_dlg, table18, "table18");
-  GLADE_HOOKUP_OBJECT (session_dlg, stacode, "stacode");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_station_code_entry, "teseo_station_code_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, chcode, "chcode");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_ch_code_entry, "teseo_ch_code_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, label170, "label170");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_comp_code_entry, "teseo_comp_code_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, label193, "label193");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_lat_spinbutton, "teseo_lat_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_lon_spinbutton, "teseo_lon_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, label194, "label194");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_quo_spinbutton, "teseo_quo_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, label195, "label195");
-  GLADE_HOOKUP_OBJECT (session_dlg, label178, "label178");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame50, "frame50");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment2, "alignment2");
-  GLADE_HOOKUP_OBJECT (session_dlg, table19, "table19");
-  GLADE_HOOKUP_OBJECT (session_dlg, label250, "label250");
-  GLADE_HOOKUP_OBJECT (session_dlg, label251, "label251");
-  GLADE_HOOKUP_OBJECT (session_dlg, label252, "label252");
-  GLADE_HOOKUP_OBJECT (session_dlg, label253, "label253");
-  GLADE_HOOKUP_OBJECT (session_dlg, label254, "label254");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_year_spinbutton, "teseo_year_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_month_spinbutton, "teseo_month_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_day_spinbutton, "teseo_day_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, label165, "label165");
-  GLADE_HOOKUP_OBJECT (session_dlg, SpeedFrame, "SpeedFrame");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment22, "alignment22");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox43, "hbox43");
-  GLADE_HOOKUP_OBJECT (session_dlg, label211, "label211");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, label210, "label210");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame66, "frame66");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment18, "alignment18");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_imagefile_entry, "teseo_imagefile_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, label183, "label183");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame67, "frame67");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment19, "alignment19");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_imageresolution_entry, "teseo_imageresolution_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, label184, "label184");
-  GLADE_HOOKUP_OBJECT (session_dlg, recordinfo, "recordinfo");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox68, "vbox68");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame68, "frame68");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment20, "alignment20");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox47, "hbox47");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox73, "vbox73");
-  GLADE_HOOKUP_OBJECT (session_dlg, table14, "table14");
-  GLADE_HOOKUP_OBJECT (session_dlg, label222, "label222");
-  GLADE_HOOKUP_OBJECT (session_dlg, label223, "label223");
-  GLADE_HOOKUP_OBJECT (session_dlg, label224, "label224");
-  GLADE_HOOKUP_OBJECT (session_dlg, label217, "label217");
-  GLADE_HOOKUP_OBJECT (session_dlg, label218, "label218");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton27, "spinbutton27");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton28, "spinbutton28");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton29, "spinbutton29");
-  GLADE_HOOKUP_OBJECT (session_dlg, table15, "table15");
-  GLADE_HOOKUP_OBJECT (session_dlg, label228, "label228");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton36, "spinbutton36");
-  GLADE_HOOKUP_OBJECT (session_dlg, label237, "label237");
-  GLADE_HOOKUP_OBJECT (session_dlg, label232, "label232");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton37, "spinbutton37");
-  GLADE_HOOKUP_OBJECT (session_dlg, label238, "label238");
-  GLADE_HOOKUP_OBJECT (session_dlg, label233, "label233");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton38, "spinbutton38");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox74, "vbox74");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_event_checkbutton, "teseo_event_checkbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox33, "hbox33");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_event_tosave_file_entry, "teseo_event_tosave_file_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, button21, "button21");
-  GLADE_HOOKUP_OBJECT (session_dlg, label202, "label202");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame72, "frame72");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment23, "alignment23");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox48, "hbox48");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox75, "vbox75");
-  GLADE_HOOKUP_OBJECT (session_dlg, table16, "table16");
-  GLADE_HOOKUP_OBJECT (session_dlg, label239, "label239");
-  GLADE_HOOKUP_OBJECT (session_dlg, label240, "label240");
-  GLADE_HOOKUP_OBJECT (session_dlg, label241, "label241");
-  GLADE_HOOKUP_OBJECT (session_dlg, label242, "label242");
-  GLADE_HOOKUP_OBJECT (session_dlg, label243, "label243");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton39, "spinbutton39");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton40, "spinbutton40");
-  GLADE_HOOKUP_OBJECT (session_dlg, spinbutton41, "spinbutton41");
-  GLADE_HOOKUP_OBJECT (session_dlg, table17, "table17");
-  GLADE_HOOKUP_OBJECT (session_dlg, label244, "label244");
-  GLADE_HOOKUP_OBJECT (session_dlg, label245, "label245");
-  GLADE_HOOKUP_OBJECT (session_dlg, label246, "label246");
-  GLADE_HOOKUP_OBJECT (session_dlg, label247, "label247");
-  GLADE_HOOKUP_OBJECT (session_dlg, label248, "label248");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_tm_hour_spinbutton, "teseo_tm_hour_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_tm_minute_spinbutton, "teseo_tm_minute_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_tm_second_spinbutton, "teseo_tm_second_spinbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox76, "vbox76");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_tm_checkbutton, "teseo_tm_checkbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox49, "hbox49");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_tm_tosave_file_entry, "teseo_tm_tosave_file_entry");
-  GLADE_HOOKUP_OBJECT (session_dlg, button23, "button23");
-  GLADE_HOOKUP_OBJECT (session_dlg, label249, "label249");
-  GLADE_HOOKUP_OBJECT (session_dlg, tracesinfo, "tracesinfo");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox70, "vbox70");
-  GLADE_HOOKUP_OBJECT (session_dlg, frame73, "frame73");
-  GLADE_HOOKUP_OBJECT (session_dlg, alignment25, "alignment25");
-  GLADE_HOOKUP_OBJECT (session_dlg, vbox77, "vbox77");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_savepref_checkbutton, "teseo_savepref_checkbutton");
-  GLADE_HOOKUP_OBJECT (session_dlg, hbox38, "hbox38");
-  GLADE_HOOKUP_OBJECT (session_dlg, label189, "label189");
-  GLADE_HOOKUP_OBJECT (session_dlg, button24, "button24");
-  GLADE_HOOKUP_OBJECT (session_dlg, label261, "label261");
-  GLADE_HOOKUP_OBJECT (session_dlg, preferences, "preferences");
-  GLADE_HOOKUP_OBJECT (session_dlg, scrolledwindow3, "scrolledwindow3");
-  GLADE_HOOKUP_OBJECT (session_dlg, teseo_textview, "teseo_textview");
-  GLADE_HOOKUP_OBJECT (session_dlg, Notes, "Notes");
-  GLADE_HOOKUP_OBJECT_NO_REF (session_dlg, dialog_action_area8, "dialog_action_area8");
-  GLADE_HOOKUP_OBJECT (session_dlg, cancelbutton4, "cancelbutton4");
-  GLADE_HOOKUP_OBJECT (session_dlg, okbutton5, "okbutton5");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dlg_session, "dlg_session");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dialog_vbox7, "dialog_vbox7");
+  GLADE_HOOKUP_OBJECT (dlg_session, notebook4, "notebook4");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox66, "vbox66");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame60, "frame60");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment24, "alignment24");
+  GLADE_HOOKUP_OBJECT (dlg_session, table18, "table18");
+  GLADE_HOOKUP_OBJECT (dlg_session, stacode, "stacode");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_station_code_entry, "teseo_station_code_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, chcode, "chcode");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_ch_code_entry, "teseo_ch_code_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, label170, "label170");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_comp_code_entry, "teseo_comp_code_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, label193, "label193");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_lat_spinbutton, "teseo_lat_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_lon_spinbutton, "teseo_lon_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label194, "label194");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_quo_spinbutton, "teseo_quo_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label195, "label195");
+  GLADE_HOOKUP_OBJECT (dlg_session, label178, "label178");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame50, "frame50");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment2, "alignment2");
+  GLADE_HOOKUP_OBJECT (dlg_session, table19, "table19");
+  GLADE_HOOKUP_OBJECT (dlg_session, label250, "label250");
+  GLADE_HOOKUP_OBJECT (dlg_session, label251, "label251");
+  GLADE_HOOKUP_OBJECT (dlg_session, label252, "label252");
+  GLADE_HOOKUP_OBJECT (dlg_session, label253, "label253");
+  GLADE_HOOKUP_OBJECT (dlg_session, label254, "label254");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_year_spinbutton, "teseo_year_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_month_spinbutton, "teseo_month_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_day_spinbutton, "teseo_day_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label165, "label165");
+  GLADE_HOOKUP_OBJECT (dlg_session, SpeedFrame, "SpeedFrame");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment22, "alignment22");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox43, "hbox43");
+  GLADE_HOOKUP_OBJECT (dlg_session, label211, "label211");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label210, "label210");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame66, "frame66");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment18, "alignment18");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_imagefile_entry, "teseo_imagefile_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, label183, "label183");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame67, "frame67");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment19, "alignment19");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_imageresolution_entry, "teseo_imageresolution_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, label184, "label184");
+  GLADE_HOOKUP_OBJECT (dlg_session, recordinfo, "recordinfo");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox68, "vbox68");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame68, "frame68");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment20, "alignment20");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox47, "hbox47");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox73, "vbox73");
+  GLADE_HOOKUP_OBJECT (dlg_session, table14, "table14");
+  GLADE_HOOKUP_OBJECT (dlg_session, label222, "label222");
+  GLADE_HOOKUP_OBJECT (dlg_session, label223, "label223");
+  GLADE_HOOKUP_OBJECT (dlg_session, label224, "label224");
+  GLADE_HOOKUP_OBJECT (dlg_session, label217, "label217");
+  GLADE_HOOKUP_OBJECT (dlg_session, label218, "label218");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton27, "spinbutton27");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton28, "spinbutton28");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton29, "spinbutton29");
+  GLADE_HOOKUP_OBJECT (dlg_session, table15, "table15");
+  GLADE_HOOKUP_OBJECT (dlg_session, label228, "label228");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton36, "spinbutton36");
+  GLADE_HOOKUP_OBJECT (dlg_session, label237, "label237");
+  GLADE_HOOKUP_OBJECT (dlg_session, label232, "label232");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton37, "spinbutton37");
+  GLADE_HOOKUP_OBJECT (dlg_session, label238, "label238");
+  GLADE_HOOKUP_OBJECT (dlg_session, label233, "label233");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton38, "spinbutton38");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox74, "vbox74");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_checkbutton, "teseo_event_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox33, "hbox33");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_tosave_file_entry, "teseo_event_tosave_file_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, button21, "button21");
+  GLADE_HOOKUP_OBJECT (dlg_session, label202, "label202");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame72, "frame72");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment23, "alignment23");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox48, "hbox48");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox75, "vbox75");
+  GLADE_HOOKUP_OBJECT (dlg_session, table16, "table16");
+  GLADE_HOOKUP_OBJECT (dlg_session, label239, "label239");
+  GLADE_HOOKUP_OBJECT (dlg_session, label240, "label240");
+  GLADE_HOOKUP_OBJECT (dlg_session, label241, "label241");
+  GLADE_HOOKUP_OBJECT (dlg_session, label242, "label242");
+  GLADE_HOOKUP_OBJECT (dlg_session, label243, "label243");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton39, "spinbutton39");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton40, "spinbutton40");
+  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton41, "spinbutton41");
+  GLADE_HOOKUP_OBJECT (dlg_session, table17, "table17");
+  GLADE_HOOKUP_OBJECT (dlg_session, label244, "label244");
+  GLADE_HOOKUP_OBJECT (dlg_session, label245, "label245");
+  GLADE_HOOKUP_OBJECT (dlg_session, label246, "label246");
+  GLADE_HOOKUP_OBJECT (dlg_session, label247, "label247");
+  GLADE_HOOKUP_OBJECT (dlg_session, label248, "label248");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_hour_spinbutton, "teseo_tm_hour_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_minute_spinbutton, "teseo_tm_minute_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_second_spinbutton, "teseo_tm_second_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox76, "vbox76");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_checkbutton, "teseo_tm_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox49, "hbox49");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_tosave_file_entry, "teseo_tm_tosave_file_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, button23, "button23");
+  GLADE_HOOKUP_OBJECT (dlg_session, label249, "label249");
+  GLADE_HOOKUP_OBJECT (dlg_session, tracesinfo, "tracesinfo");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox70, "vbox70");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame73, "frame73");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment25, "alignment25");
+  GLADE_HOOKUP_OBJECT (dlg_session, vbox77, "vbox77");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_savepref_checkbutton, "teseo_savepref_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox38, "hbox38");
+  GLADE_HOOKUP_OBJECT (dlg_session, label189, "label189");
+  GLADE_HOOKUP_OBJECT (dlg_session, button24, "button24");
+  GLADE_HOOKUP_OBJECT (dlg_session, label261, "label261");
+  GLADE_HOOKUP_OBJECT (dlg_session, preferences, "preferences");
+  GLADE_HOOKUP_OBJECT (dlg_session, scrolledwindow3, "scrolledwindow3");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_textview, "teseo_textview");
+  GLADE_HOOKUP_OBJECT (dlg_session, Notes, "Notes");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dialog_action_area8, "dialog_action_area8");
+  GLADE_HOOKUP_OBJECT (dlg_session, cancelbutton4, "cancelbutton4");
+  GLADE_HOOKUP_OBJECT (dlg_session, okbutton5, "okbutton5");
 
-  return session_dlg;
+  return dlg_session;
 }
 
 GtkWidget*
-create_teseo_session_filechooser (void)
+create_filechooser_session (void)
 {
-  GtkWidget *teseo_session_filechooser;
+  GtkWidget *filechooser_session;
   GtkWidget *dialog_vbox8;
   GtkWidget *dialog_action_area9;
   GtkWidget *button25;
   GtkWidget *button26;
 
-  teseo_session_filechooser = gtk_file_chooser_dialog_new ("Session", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
-  gtk_widget_set_name (teseo_session_filechooser, "teseo_session_filechooser");
-  g_object_set (teseo_session_filechooser,
+  filechooser_session = gtk_file_chooser_dialog_new ("Session", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  gtk_widget_set_name (filechooser_session, "filechooser_session");
+  g_object_set (filechooser_session,
                 "show-hidden", TRUE,
                 NULL);
-  gtk_window_set_position (GTK_WINDOW (teseo_session_filechooser), GTK_WIN_POS_MOUSE);
-  gtk_window_set_modal (GTK_WINDOW (teseo_session_filechooser), TRUE);
-  gtk_window_set_skip_pager_hint (GTK_WINDOW (teseo_session_filechooser), TRUE);
-  gtk_window_set_type_hint (GTK_WINDOW (teseo_session_filechooser), GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_window_set_position (GTK_WINDOW (filechooser_session), GTK_WIN_POS_MOUSE);
+  gtk_window_set_modal (GTK_WINDOW (filechooser_session), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (filechooser_session), TRUE);
+  gtk_window_set_type_hint (GTK_WINDOW (filechooser_session), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox8 = GTK_DIALOG (teseo_session_filechooser)->vbox;
+  dialog_vbox8 = GTK_DIALOG (filechooser_session)->vbox;
   gtk_widget_set_name (dialog_vbox8, "dialog_vbox8");
   gtk_widget_show (dialog_vbox8);
 
-  dialog_action_area9 = GTK_DIALOG (teseo_session_filechooser)->action_area;
+  dialog_action_area9 = GTK_DIALOG (filechooser_session)->action_area;
   gtk_widget_set_name (dialog_action_area9, "dialog_action_area9");
   gtk_widget_show (dialog_action_area9);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area9), GTK_BUTTONBOX_END);
@@ -2709,30 +2709,30 @@ create_teseo_session_filechooser (void)
   button25 = gtk_button_new_from_stock ("gtk-cancel");
   gtk_widget_set_name (button25, "button25");
   gtk_widget_show (button25);
-  gtk_dialog_add_action_widget (GTK_DIALOG (teseo_session_filechooser), button25, GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_session), button25, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (button25, GTK_CAN_DEFAULT);
 
   button26 = gtk_button_new_from_stock ("gtk-open");
   gtk_widget_set_name (button26, "button26");
   gtk_widget_show (button26);
-  gtk_dialog_add_action_widget (GTK_DIALOG (teseo_session_filechooser), button26, GTK_RESPONSE_OK);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_session), button26, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (button26, GTK_CAN_DEFAULT);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (teseo_session_filechooser, teseo_session_filechooser, "teseo_session_filechooser");
-  GLADE_HOOKUP_OBJECT_NO_REF (teseo_session_filechooser, dialog_vbox8, "dialog_vbox8");
-  GLADE_HOOKUP_OBJECT_NO_REF (teseo_session_filechooser, dialog_action_area9, "dialog_action_area9");
-  GLADE_HOOKUP_OBJECT (teseo_session_filechooser, button25, "button25");
-  GLADE_HOOKUP_OBJECT (teseo_session_filechooser, button26, "button26");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_session, filechooser_session, "filechooser_session");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_session, dialog_vbox8, "dialog_vbox8");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_session, dialog_action_area9, "dialog_action_area9");
+  GLADE_HOOKUP_OBJECT (filechooser_session, button25, "button25");
+  GLADE_HOOKUP_OBJECT (filechooser_session, button26, "button26");
 
   gtk_widget_grab_default (button26);
-  return teseo_session_filechooser;
+  return filechooser_session;
 }
 
 GtkWidget*
-create_preferences_dlg (void)
+create_dlg_preferences (void)
 {
-  GtkWidget *preferences_dlg;
+  GtkWidget *dlg_preferences;
   GtkWidget *dialog_vbox9;
   GtkWidget *notebook3;
   GtkWidget *vbox55;
@@ -2790,14 +2790,14 @@ create_preferences_dlg (void)
   GtkWidget *cancelbutton5;
   GtkWidget *okbutton6;
 
-  preferences_dlg = gtk_dialog_new ();
-  gtk_widget_set_name (preferences_dlg, "preferences_dlg");
-  gtk_window_set_title (GTK_WINDOW (preferences_dlg), "Preferences");
-  gtk_window_set_modal (GTK_WINDOW (preferences_dlg), TRUE);
-  gtk_window_set_resizable (GTK_WINDOW (preferences_dlg), FALSE);
-  gtk_window_set_type_hint (GTK_WINDOW (preferences_dlg), GDK_WINDOW_TYPE_HINT_DIALOG);
+  dlg_preferences = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_preferences, "dlg_preferences");
+  gtk_window_set_title (GTK_WINDOW (dlg_preferences), "Preferences");
+  gtk_window_set_modal (GTK_WINDOW (dlg_preferences), TRUE);
+  gtk_window_set_resizable (GTK_WINDOW (dlg_preferences), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_preferences), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  dialog_vbox9 = GTK_DIALOG (preferences_dlg)->vbox;
+  dialog_vbox9 = GTK_DIALOG (dlg_preferences)->vbox;
   gtk_widget_set_name (dialog_vbox9, "dialog_vbox9");
   gtk_widget_show (dialog_vbox9);
 
@@ -3087,7 +3087,7 @@ create_preferences_dlg (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 1), label160);
   gtk_label_set_use_markup (GTK_LABEL (label160), TRUE);
 
-  dialog_action_area10 = GTK_DIALOG (preferences_dlg)->action_area;
+  dialog_action_area10 = GTK_DIALOG (dlg_preferences)->action_area;
   gtk_widget_set_name (dialog_action_area10, "dialog_action_area10");
   gtk_widget_show (dialog_action_area10);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area10), GTK_BUTTONBOX_END);
@@ -3095,84 +3095,70 @@ create_preferences_dlg (void)
   cancelbutton5 = gtk_button_new_from_stock ("gtk-cancel");
   gtk_widget_set_name (cancelbutton5, "cancelbutton5");
   gtk_widget_show (cancelbutton5);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), cancelbutton5, GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_preferences), cancelbutton5, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (cancelbutton5, GTK_CAN_DEFAULT);
 
   okbutton6 = gtk_button_new_from_stock ("gtk-ok");
   gtk_widget_set_name (okbutton6, "okbutton6");
   gtk_widget_show (okbutton6);
-  gtk_dialog_add_action_widget (GTK_DIALOG (preferences_dlg), okbutton6, GTK_RESPONSE_OK);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_preferences), okbutton6, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (okbutton6, GTK_CAN_DEFAULT);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, preferences_dlg, "preferences_dlg");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_vbox9, "dialog_vbox9");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, notebook3, "notebook3");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox55, "vbox55");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame44, "frame44");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox56, "vbox56");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label147, "label147");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame45, "frame45");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox57, "vbox57");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label148, "label148");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label150, "label150");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox59, "vbox59");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame47, "frame47");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox60, "vbox60");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label151, "label151");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame48, "frame48");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox61, "vbox61");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox23, "hbox23");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label152, "label152");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_step_spinbutton, "teseo_step_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox24, "hbox24");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_spinbutton, "teseo_auto_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label153, "label153");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame49, "frame49");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox25, "hbox25");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox62, "vbox62");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_poly_radiobutton, "teseo_poly_radiobutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_ms_radiobutton, "teseo_ms_radiobutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, hbox26, "hbox26");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label154, "label154");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_order_spinbutton, "teseo_order_spinbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, table10, "table10");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label155, "label155");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label156, "label156");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label157, "label157");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label158, "label158");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_svdfit_entry, "teseo_svdfit_entry");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_lfit_entry, "teseo_lfit_entry");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label159, "label159");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, frame46, "frame46");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, vbox58, "vbox58");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label149, "label149");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, label160, "label160");
-  GLADE_HOOKUP_OBJECT_NO_REF (preferences_dlg, dialog_action_area10, "dialog_action_area10");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, cancelbutton5, "cancelbutton5");
-  GLADE_HOOKUP_OBJECT (preferences_dlg, okbutton6, "okbutton6");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dlg_preferences, "dlg_preferences");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dialog_vbox9, "dialog_vbox9");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, notebook3, "notebook3");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox55, "vbox55");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame44, "frame44");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox56, "vbox56");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label147, "label147");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame45, "frame45");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox57, "vbox57");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label148, "label148");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label150, "label150");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox59, "vbox59");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame47, "frame47");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox60, "vbox60");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_direct_bez_checkbutton, "teseo_direct_bez_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label151, "label151");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame48, "frame48");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox61, "vbox61");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, hbox23, "hbox23");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label152, "label152");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_step_spinbutton, "teseo_step_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, hbox24, "hbox24");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_autosave_checkbutton, "teseo_autosave_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_auto_spinbutton, "teseo_auto_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label153, "label153");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame49, "frame49");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, hbox25, "hbox25");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_fitting_checkbutton, "teseo_fitting_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox62, "vbox62");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_poly_radiobutton, "teseo_poly_radiobutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_ms_radiobutton, "teseo_ms_radiobutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, hbox26, "hbox26");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label154, "label154");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_order_spinbutton, "teseo_order_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, table10, "table10");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label155, "label155");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label156, "label156");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label157, "label157");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label158, "label158");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_svdfit_entry, "teseo_svdfit_entry");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_lfit_entry, "teseo_lfit_entry");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label159, "label159");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, frame46, "frame46");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox58, "vbox58");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_reloc_checkbutton, "teseo_reloc_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_auto_res_checkbutton, "teseo_auto_res_checkbutton");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label149, "label149");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, label160, "label160");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dialog_action_area10, "dialog_action_area10");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, cancelbutton5, "cancelbutton5");
+  GLADE_HOOKUP_OBJECT (dlg_preferences, okbutton6, "okbutton6");
 
-  return preferences_dlg;
-}
-
-GtkWidget*
-create_menu1 (void)
-{
-  GtkWidget *menu1;
-
-  menu1 = gtk_menu_new ();
-  gtk_widget_set_name (menu1, "menu1");
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (menu1, menu1, "menu1");
-
-  return menu1;
+  return dlg_preferences;
 }
 

@@ -38,8 +38,8 @@
 struct Session this_session;
 
 char current_session[FILENAMELEN];
-char current_session_dlg[FILENAMELEN];
-char current_preferences_dlg[FILENAMELEN];
+char current_dlg_session[FILENAMELEN];
+char current_dlg_preferences[FILENAMELEN];
 
 
 extern   GtkWidget *preferencesdlg;
@@ -83,8 +83,8 @@ char save_widget(const char * filename, GtkWidget * dlg){
 char save_session(char * filename){
     char ret=0;
 
-    ret=      save_widget(current_session_dlg, sessiondlg);
-    ret=ret * save_widget(current_preferences_dlg, preferencesdlg);
+    ret=      save_widget(current_dlg_session, sessiondlg);
+    ret=ret * save_widget(current_dlg_preferences, preferencesdlg);
 
     return ret;
 }
@@ -95,8 +95,8 @@ char load_session(char * filename){
     char rets=0;
 
     char session_filename[FILENAMELEN]="aaa";
-    char session_dlg_filename[FILENAMELEN]="bbb";
-    char preferences_dlg_filename[FILENAMELEN]="ccc";
+    char dlg_session_filename[FILENAMELEN]="bbb";
+    char dlg_preferences_filename[FILENAMELEN]="ccc";
 
     FILE * f=NULL;
     gchar line[1024];
@@ -120,14 +120,14 @@ char load_session(char * filename){
 	    else{
 	      //g_message("not found");
 	    }
-	    if ( strcmp("SessionDialogFile",var) == 0 )  strcpy(session_dlg_filename,content);
-	    if ( strcmp("PreferencesDialogFile",var) == 0)  strcpy(preferences_dlg_filename,content);
+	    if ( strcmp("SessionDialogFile",var) == 0 )  strcpy(dlg_session_filename,content);
+	    if ( strcmp("PreferencesDialogFile",var) == 0)  strcpy(dlg_preferences_filename,content);
 	  }
 	 }
-	 rets = load_widget(session_dlg_filename,sessiondlg);
-	 if (rets==0) g_message("Corrupted %s",session_dlg_filename);
-	 retp = load_widget(preferences_dlg_filename,preferencesdlg);
-	 if (retp==0) g_message("Corrupted %s",preferences_dlg_filename);
+	 rets = load_widget(dlg_session_filename,sessiondlg);
+	 if (rets==0) g_message("Corrupted %s",dlg_session_filename);
+	 retp = load_widget(dlg_preferences_filename,preferencesdlg);
+	 if (retp==0) g_message("Corrupted %s",dlg_preferences_filename);
 	 ret=rets*retp;
       }
     }
@@ -137,26 +137,26 @@ char load_session(char * filename){
     //Registering current session
     if(ret==1){
      strcpy(current_session,session_filename);
-     strcpy(current_session_dlg,session_dlg_filename);
-     strcpy(current_preferences_dlg,preferences_dlg_filename);
+     strcpy(current_dlg_session,dlg_session_filename);
+     strcpy(current_dlg_preferences,dlg_preferences_filename);
     }
 
     return ret;
 }
 
 
-char new_session(char * filename, char * preferences_dlg_filename){
+char new_session(char * filename, char * dlg_preferences_filename){
     char ret=0;
 
     char * session_filename=NULL;
-    char * session_dlg_filename=NULL;
+    char * dlg_session_filename=NULL;
 
     FILE * f=NULL;
     char order[] = "100";
     int  num_order=99;
     char external_preferences=FALSE;
 
-    if (preferences_dlg_filename != NULL ){
+    if (dlg_preferences_filename != NULL ){
       external_preferences=TRUE;
     }
 
@@ -165,19 +165,19 @@ char new_session(char * filename, char * preferences_dlg_filename){
       sprintf (order,"%d",num_order);
 
       session_filename         = create_name(filename,order,SESSION_EXT);
-      session_dlg_filename     = create_name(filename,order,SES_DLG_EXT);
+      dlg_session_filename     = create_name(filename,order,SES_DLG_EXT);
 
       if (external_preferences==FALSE)
-          preferences_dlg_filename = create_name(filename,order,PREF_DLG_EXT);
+          dlg_preferences_filename = create_name(filename,order,PREF_DLG_EXT);
 
       if ( ! filexist(session_filename)){
         f = fopen(session_filename,"w");
-        if ( (f != NULL) && (session_filename != NULL) && (session_dlg_filename != NULL) && ( preferences_dlg_filename != NULL) ) {
+        if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( dlg_preferences_filename != NULL) ) {
           ret=1;
           fprintf(f,"#Created by ...\n");
           fprintf(f,"SessionFile = %s\n",session_filename);
-          fprintf(f,"SessionDialogFile = %s\n",session_dlg_filename);
-          fprintf(f,"PreferencesDialogFile = %s\n",preferences_dlg_filename);
+          fprintf(f,"SessionDialogFile = %s\n",dlg_session_filename);
+          fprintf(f,"PreferencesDialogFile = %s\n",dlg_preferences_filename);
           fclose(f);
         }
         else {
@@ -185,10 +185,10 @@ char new_session(char * filename, char * preferences_dlg_filename){
         }
 
         //Creating the dialogs real files
-        if ( !iface_save_rc(session_dlg_filename,sessiondlg) )  g_error("Unable to save session dialog file") ;
+        if ( !iface_save_rc(dlg_session_filename,sessiondlg) )  g_error("Unable to save session dialog file") ;
 	//Only if it doesn't exist before (checked out before calling this function)
 	if (external_preferences==FALSE) {
-          if ( !iface_save_rc(preferences_dlg_filename, preferencesdlg) ) g_error("Unable to save preferences dialog file") ;
+          if ( !iface_save_rc(dlg_preferences_filename, preferencesdlg) ) g_error("Unable to save preferences dialog file") ;
 	}
 
       }
@@ -200,13 +200,13 @@ char new_session(char * filename, char * preferences_dlg_filename){
     //Registering current session
     if(ret==1){
      strcpy(current_session,session_filename);
-     strcpy(current_session_dlg,session_dlg_filename);
-     strcpy(current_preferences_dlg,preferences_dlg_filename);
+     strcpy(current_dlg_session,dlg_session_filename);
+     strcpy(current_dlg_preferences,dlg_preferences_filename);
     }
 
     if (session_filename) free(session_filename);
-    if (session_dlg_filename) free(session_dlg_filename);
-    if (preferences_dlg_filename && (external_preferences==FALSE)) free(preferences_dlg_filename);
+    if (dlg_session_filename) free(dlg_session_filename);
+    if (dlg_preferences_filename && (external_preferences==FALSE)) free(dlg_preferences_filename);
 
     return ret;
 }

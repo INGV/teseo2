@@ -156,13 +156,13 @@ dialog (gint32              image_ID,
 
   if(is_xcf) {
       if(t_lock(pattern_prefix)) {
-	      teseowin = create_win_neuronteseo();
-	      preferencesdlg = create_preferences_dlg ();
-	      aboutdlg = create_about_dlg ();
-	      sessiondlg = create_session_dlg();
+	      teseowin = create_win_teseo();
+	      preferencesdlg = create_dlg_preferences ();
+	      aboutdlg = create_dlg_about ();
+	      sessiondlg = create_dlg_session();
 
-	      teseofilechooser = (GtkFileChooser *) create_filechooserimport();
-	      teseosessionfilechooser = (GtkFileChooser *) create_teseo_session_filechooser ();
+	      teseofilechooser = (GtkFileChooser *) create_filechooser_import();
+	      teseosessionfilechooser = (GtkFileChooser *) create_filechooser_session ();
 	      gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
 
 	      filter = gtk_file_filter_new ();

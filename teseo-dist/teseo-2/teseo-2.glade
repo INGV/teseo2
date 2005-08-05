@@ -3,7 +3,7 @@
 
 <glade-interface>
 
-<widget class="GtkWindow" id="win_neuronteseo">
+<widget class="GtkWindow" id="win_teseo">
   <property name="visible">True</property>
   <property name="title" translatable="yes">Teseo 2.0</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -16,8 +16,8 @@
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <signal name="delete_event" handler="on_win_neuronteseo_delete_event" last_modification_time="Mon, 23 May 2005 14:02:24 GMT"/>
-  <signal name="show" handler="on_win_neuronteseo_show" last_modification_time="Thu, 28 Jul 2005 12:06:42 GMT"/>
+  <signal name="delete_event" handler="on_win_teseo_delete_event" last_modification_time="Mon, 23 May 2005 14:02:24 GMT"/>
+  <signal name="show" handler="on_win_teseo_show" last_modification_time="Thu, 28 Jul 2005 12:06:42 GMT"/>
 
   <child>
     <widget class="GtkVBox" id="vbox1">
@@ -336,7 +336,7 @@
 			  <property name="visible">True</property>
 			  <property name="label">gtk-quit</property>
 			  <property name="use_stock">True</property>
-			  <signal name="activate" handler="on_win_neuronteseo_delete_event" last_modification_time="Wed, 13 Jul 2005 07:52:31 GMT"/>
+			  <signal name="activate" handler="on_win_teseo_delete_event" last_modification_time="Wed, 13 Jul 2005 07:52:31 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -2038,7 +2038,7 @@ and again . . .</property>
   </child>
 </widget>
 
-<widget class="GtkFileChooserDialog" id="filechooserimport">
+<widget class="GtkFileChooserDialog" id="filechooser_import">
   <property name="visible">True</property>
   <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
   <property name="local_only">True</property>
@@ -2104,7 +2104,7 @@ and again . . .</property>
   </child>
 </widget>
 
-<widget class="GtkDialog" id="about_dlg">
+<widget class="GtkDialog" id="dlg_about">
   <property name="visible">True</property>
   <property name="title" translatable="yes">About</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -2291,7 +2291,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   </child>
 </widget>
 
-<widget class="GtkDialog" id="session_dlg">
+<widget class="GtkDialog" id="dlg_session">
   <property name="visible">True</property>
   <property name="title" translatable="yes">Session</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -2305,7 +2305,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">True</property>
-  <signal name="show" handler="on_session_dlg_show" last_modification_time="Thu, 28 Jul 2005 10:26:11 GMT"/>
+  <signal name="show" handler="on_dlg_session_show" last_modification_time="Thu, 28 Jul 2005 10:26:11 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox7">
@@ -4552,7 +4552,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   </child>
 </widget>
 
-<widget class="GtkFileChooserDialog" id="teseo_session_filechooser">
+<widget class="GtkFileChooserDialog" id="filechooser_session">
   <property name="visible">True</property>
   <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
   <property name="local_only">True</property>
@@ -4619,7 +4619,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   </child>
 </widget>
 
-<widget class="GtkDialog" id="preferences_dlg">
+<widget class="GtkDialog" id="dlg_preferences">
   <property name="visible">True</property>
   <property name="title" translatable="yes">Preferences</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -5511,9 +5511,6 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
       </child>
     </widget>
   </child>
-</widget>
-
-<widget class="GtkMenu" id="menu1">
 </widget>
 
 </glade-interface>

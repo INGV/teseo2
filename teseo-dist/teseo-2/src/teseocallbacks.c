@@ -514,7 +514,7 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
 
 
 gboolean
-on_win_neuronteseo_delete_event        (GtkWidget       *widget,
+on_win_teseo_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
@@ -534,7 +534,7 @@ on_win_preferences_delete_event        (GtkWidget       *widget,
 
 
 void
-on_preferences_dlg_response            (GtkDialog       *dialog,
+on_dlg_preferences_response            (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data)
 {
@@ -544,7 +544,7 @@ on_preferences_dlg_response            (GtkDialog       *dialog,
 
 
 void
-on_preferences_dlg_close               (GtkDialog       *dialog,
+on_dlg_preferences_close               (GtkDialog       *dialog,
                                         gpointer         user_data)
 {
   gtk_widget_hide(preferencesdlg);
@@ -729,7 +729,7 @@ on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
 
 
 void
-on_session_dlg_show                    (GtkWidget       *widget,
+on_dlg_session_show                    (GtkWidget       *widget,
                                         gpointer         user_data)
 {
  static char session_name[FILENAMELEN];
@@ -743,7 +743,7 @@ on_session_dlg_show                    (GtkWidget       *widget,
 
 
 void
-on_win_neuronteseo_show                (GtkWidget       *widget,
+on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data)
 {
   GtkMenuItem     *menu_open1 = (GtkMenuItem *)   lookup_widget(GTK_WIDGET(teseowin), "open1");
@@ -753,7 +753,7 @@ on_win_neuronteseo_show                (GtkWidget       *widget,
     //g_message("Open canceled");
     if (on_new1_activate (menu_new1, NULL)==0) {
       //g_message("New canceled");
-      on_win_neuronteseo_show(teseowin,NULL);
+      on_win_teseo_show(teseowin,NULL);
     }
   }
 }
