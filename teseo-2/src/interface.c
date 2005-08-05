@@ -34,6 +34,7 @@
 #include "interface.h"
 
 #include "teseo_lock.h"
+#include "teseo_env.h"
 #include "teseointerface.h"
 #include "teseocallbacks.h"
 #include "teseosupport.h"
@@ -157,6 +158,7 @@ dialog (gint32              image_ID,
   if(is_xcf) {
       if(teseo_lock(pattern_prefix)) {
 	      teseowin = create_win_teseo();
+	      gtk_window_set_title (GTK_WINDOW (teseowin), TESEO_CAPTION);
 	      preferencesdlg = create_dlg_preferences ();
 	      aboutdlg = create_dlg_about ();
 	      sessiondlg = create_dlg_session();
