@@ -38,7 +38,7 @@
 gchar filename_lock[FILENAMELEN] = NOFILELOCK;
 FILE *FILE_lock = NULL;
 
-gboolean t_lock(gchar *pattern_prefix) {
+gboolean teseo_lock(gchar *pattern_prefix) {
     gboolean ret = FALSE; 
     gboolean is_unlocked  = TRUE; 
     
@@ -48,7 +48,7 @@ gboolean t_lock(gchar *pattern_prefix) {
     strcat(filename_lock, LOCK_EXT);
 
     // Debug only
-    // g_message("t_lock() %s", filename_lock);
+    // g_message("teseo_lock() %s", filename_lock);
 
     if( g_file_test(filename_lock, G_FILE_TEST_EXISTS) ) {
 	// TODO Check stat
@@ -68,19 +68,19 @@ gboolean t_lock(gchar *pattern_prefix) {
 }
 
 
-void t_unlock() {
+void teseo_unlock() {
     // Debug only
-    // g_message("t_unlock() %s", filename_lock);
+    // g_message("teseo_unlock() %s", filename_lock);
 
     if( strcmp(filename_lock, NOFILELOCK) == 0) {
-	g_message("Teseo-CRITICAL: you should not call t_unlock() ! filename_lock has not been initialized.");
+	g_message("Teseo-CRITICAL: you should not call teseo_unlock() ! filename_lock has not been initialized.");
     } else {
 	if(FILE_lock) {
 	    fclose(FILE_lock);
 	    FILE_lock = NULL;
 	    remove(filename_lock);
 	} else {
-	    g_message("Teseo-CRITICAL: you should not call t_unlock() ! FILE_lock has not been initialized.");
+	    g_message("Teseo-CRITICAL: you should not call teseo_unlock() ! FILE_lock has not been initialized.");
 	}
     }
 }
