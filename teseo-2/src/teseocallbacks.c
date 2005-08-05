@@ -382,6 +382,7 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+	// void call_on_btnBezier_clicked(gint32 g_image, int sw_campionamento_progressivo, gint passo_bezier)
 	call_on_btnBezier_clicked(teseo_image, 1, 1);
 }
 
@@ -491,24 +492,26 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+    gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
 
- gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
-
-  switch (result)
+    switch (result)
     {
-      case GTK_RESPONSE_OK:
-         g_message("OK pressed: save new preferences.");
-         break;
-      case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog.");
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed.");
-         break;
-      default:
-         break;
+	case GTK_RESPONSE_OK:
+	    g_message("OK pressed: save new preferences.");
+	    g_message(TODO_str);
+	    break;
+	case GTK_RESPONSE_CANCEL:
+	    g_message("Cancel pressed: don't save anything, restore the old preferences in the preferences dialog.");
+	    g_message(TODO_str);
+	    break;
+	case GTK_RESPONSE_DELETE_EVENT:
+	    g_message("Delete event, same as Cancel pressed.");
+	    g_message(TODO_str);
+	    break;
+	default:
+	    break;
     }
-  gtk_widget_hide (preferencesdlg);
+    gtk_widget_hide (preferencesdlg);
 
 }
 
@@ -518,7 +521,7 @@ on_win_teseo_delete_event        (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data)
 {
-    t_unlock();
+    teseo_unlock();
     gtk_main_quit();
     return TRUE;
 }
