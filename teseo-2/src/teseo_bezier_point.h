@@ -25,8 +25,8 @@
  * authorization from the Authors.
  */
 
-#ifndef TESEO_BEZIER_POINTH
-#define TESEO_BEZIER_POINTH 1
+#ifndef __TESEO_BEZIER_POINT_H__
+#define __TESEO_BEZIER_POINT_H__ 1
 
 struct teseo_bezier_point {
     // grado del Bezier
