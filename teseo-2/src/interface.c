@@ -175,7 +175,7 @@ dialog (gint32              image_ID,
 	      gtk_widget_show (teseowin);
 	      gtk_main ();
       } else {
-	      g_message("Teseo-2 seems to be just running on file %s.\nRemember: it is possible to load only one instance for each file !", pattern_session);
+	      g_message("Teseo-2 seems to be just running on file %s.\nRemember: it is possible to load only one instance for each file !", pattern_prefix);
 	      gtk_main_quit();
       }
   } else {
