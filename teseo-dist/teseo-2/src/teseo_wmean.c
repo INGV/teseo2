@@ -30,7 +30,7 @@
 
 static wmeanParams this_params = { 0, 1 , 10, 10};
 
-void wmean_init( wmeanParams* s){
+void teseo_wmean_init( wmeanParams* s){
   this_params.colour = (*s).colour;
   this_params.step   = (*s).step;
   this_params.width  = (*s).width;
@@ -38,7 +38,7 @@ void wmean_init( wmeanParams* s){
 }
 
 
-int wmean( const wm_is * is, wm_os * os ){
+int teseo_wmean( const wm_is * is, wm_os * os ){
   int ret =1;
 
   int x_c=(int)(this_params.width/2);
@@ -145,7 +145,7 @@ int wmean( const wm_is * is, wm_os * os ){
 }
 
 
-int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
+int teseo_wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   int ret=0;
 
   int width   = this_params.width;
@@ -195,7 +195,7 @@ int wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
 }
 
 
-int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
+int teseo_wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
   int ret=1;
   //control bounds of drawable and stop before
   GimpDrawable *drawable=NULL;
@@ -218,7 +218,7 @@ int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
   return ret;
 }
 
-int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
+int teseo_wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
   int ret=0;
   gdouble * ptr = NULL;
   gulong dim;
@@ -244,7 +244,7 @@ int wmean_accumulate( gdouble ** strokes, gulong * num_strokes, wm_os * os){
 return ret;
 }
 
-int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
+int teseo_wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
   int ret=0;
   gchar pathname[PATHNAMELEN];
   gdouble * strokes=NULL;
@@ -263,7 +263,7 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
       //get the pathname
       strcpy(pathname, gimp_path_get_current ( image ) );
       //get the strokes
-      strokes = open_path_to_strokes(image, &n_strokes,  pathname);
+      strokes = teseo_open_path_to_strokes(image, &n_strokes,  pathname);
       if (strokes!=NULL) {
         (*r_os).x=strokes[(n_strokes-1)*2];
         (*r_os).y=strokes[(n_strokes-1)*2+1];
@@ -277,12 +277,12 @@ int wmean_starting_os(wm_os ** os, gint32 drawable_ID ){
       g_message("Please create a starting path");
     }
   }
-  else g_message("wmean_starting_os NULL pointers");
+  else g_message("teseo_wmean_starting_os NULL pointers");
   return ret;
 }
 
 
-int wmean_new_is( wm_is ** is, gint32 drawable_ID){
+int teseo_wmean_new_is( wm_is ** is, gint32 drawable_ID){
   int ret=0;
   wm_is * r_is=NULL;
 
@@ -313,7 +313,7 @@ int wmean_new_is( wm_is ** is, gint32 drawable_ID){
 }
 
 
-void wmean_release(wm_is ** is, wm_os ** os){
+void teseo_wmean_release(wm_is ** is, wm_os ** os){
   //free bufin memory, is, os
   g_free((*(*is)).bufin);
   g_free(*is);

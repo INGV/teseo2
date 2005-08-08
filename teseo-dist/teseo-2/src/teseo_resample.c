@@ -26,6 +26,8 @@
  */
 
 #include "teseo_resample.h"
+#include "teseo_path.h"
+#include "teseo_env.h"
 #include "teseo_bezier_point.h"
 
 #include <stdio.h>
@@ -35,13 +37,8 @@
 // #include "values.h"
 
 
-// si dovrebbe includere neuronutils ma basta dichiare extern TESEO_DATA e getenv_teseo (per ora)
-// #include "neuronutils.h"
-extern const char TESEO_DATA[];
-extern char *getenv_teseo(const char *name_var);
 
-
-void sottocampiona_strokes(double *strokes, glong *pn_strokes, int passo) {
+void teseo_subsampling_strokes(double *strokes, glong *pn_strokes, int passo) {
 	glong n_strokes = *pn_strokes;
 	glong i;
 	// printf("\nBEFORE n_strokes = %d\n", n_strokes);
@@ -56,7 +53,7 @@ void sottocampiona_strokes(double *strokes, glong *pn_strokes, int passo) {
 }
 
 
-void campionamento_progressivo_strokes(double *strokes, glong *pn_strokes) {
+void teseo_progressive_resampling_strokes(double *strokes, glong *pn_strokes) {
 	glong n_strokes = *pn_strokes;
 	glong i, j;
 	// printf("\nBEFORE campionascendentex_strokes n_strokes = %d\n", n_strokes);
@@ -81,8 +78,7 @@ void campionamento_progressivo_strokes(double *strokes, glong *pn_strokes) {
 
 
 
-// void call_on_btnBezier_clicked(gint32 g_image, NeuronSismosVals pivals)
-void call_on_btnBezier_clicked(gint32 g_image, int sw_campionamento_progressivo, gint passo_bezier)
+void teseo_resampling_bezier(gint32 g_image, int sw_campionamento_progressivo, gint passo_bezier)
 {
 
 FILE *ftmp;
@@ -109,8 +105,12 @@ char filetmp[255];
 // char filebezier[] = "/tmp/last.bezier.txt";
 char filebezier[255];
 
-	sprintf(filetmp, "%s/tmp/last.bezier.strokes.txt", getenv_teseo(TESEO_DATA));
-	sprintf(filebezier, "%s/tmp/last.bezier.txt", getenv_teseo(TESEO_DATA));
+	//mtheo sprintf(filetmp, "%s/tmp/last.bezier.strokes.txt", getenv_teseo(TESEO_DATA));
+	// TODO
+	sprintf(filetmp, "%s/last.bezier.strokes.txt", teseo_get_environment_path(TMPPATH) );
+	//mtheo sprintf(filebezier, "%s/tmp/last.bezier.txt", getenv_teseo(TESEO_DATA));
+	// TODO
+	sprintf(filebezier, "%s/last.bezier.txt", teseo_get_environment_path(TMPPATH) );
 
 	//richiedo il path corrente
 	gint num_paths=0;
@@ -218,20 +218,20 @@ char filebezier[255];
   	
   	// if(pivals.sw_campionamento_progressivo == CAMPIONAMENTO_PROG_SI) {
   	if(sw_campionamento_progressivo != 0) {
-			campionamento_progressivo_strokes(strokes, &n_strokes);
+			teseo_progressive_resampling_strokes(strokes, &n_strokes);
 	}		
   	  	
   	// if(pivals.passo_bezier > 1) {
   	if(passo_bezier > 1) {
-  		// sottocampiona_strokes(strokes, &n_strokes, pivals.passo_bezier);
-  		sottocampiona_strokes(strokes, &n_strokes, passo_bezier);
+  		// teseo_subsampling_strokes(strokes, &n_strokes, pivals.passo_bezier);
+  		teseo_subsampling_strokes(strokes, &n_strokes, passo_bezier);
   	}
 
 	// scrivo il path calcolato
 	if(n_strokes > 0  && strokes) {
 		// sprintf(newpathname, "%s - Resampling %d pixel", pathname, pivals.passo_bezier);
 		sprintf(newpathname, "%s - Resampling %d pixel", pathname, passo_bezier);
-  		strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
+  		teseo_strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
   	} else {
   		// g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");
   	}

@@ -26,8 +26,8 @@
  */
 
 
-#ifndef TESEOLOCK
-#define TESEOLOCK 1
+#ifndef __TESEO_LOCK_H__
+#define __TESEO_LOCK_H__ 1
 
 #include <libgimp/gimp.h>
 #include "teseo_io.h"

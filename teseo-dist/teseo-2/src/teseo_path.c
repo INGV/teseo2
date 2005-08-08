@@ -29,14 +29,14 @@
 
 
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
-void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** pstrokes_ruotato, gdouble angolo) {
+void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes_ruotato, gdouble angolo) {
 	// FILE *fstrokes;
 
   gdouble *strokes_ruotato;
   gint xl, yl, wl, hl;
   gdouble offx, offy;
   glong i;
-  //g_message(" neuronSismos_ruotastrokes..inizio");
+  //g_message(" teseo_path_rotation..inizio");
 
   strokes_ruotato = (gdouble *) malloc(sizeof(gdouble) * (num_strokes + 1) * 2);
   strokes_ruotato[num_strokes*2] = (gdouble) CANARY;
@@ -80,20 +80,20 @@ void neuronSismos_ruotastrokes(glong num_strokes, gdouble* strokes, gdouble** ps
 
   if(strokes_ruotato[num_strokes*2] != (gdouble) CANARY)
   	g_message("Canary in strokes_ruotato is dead!");
- 	//g_message(" neuronSismos_ruotastrokes..fine");
+ 	//g_message(" teseo_path_rotation..fine");
 }
 
 
 /*Funzioni di I/O*/
 
 //traduce un path_array in vettore nel quale non è indicato il tipo ma sono registrati anche i control
-gdouble * path_array_to_strokes( gdouble * path_array, glong n_details, glong * n_strokes){
+gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, glong * n_strokes){
  glong lstrokes, numstrokes;
  gdouble * strokes=NULL;
  register int i=0;
 
 
- //g_message("path_array_to_strokes ..inizio");
+ //g_message("teseo_path_array_to_strokes ..inizio");
  numstrokes =  ( n_details * 2 )/ 3;
  lstrokes = numstrokes * 2;
 
@@ -114,12 +114,12 @@ gdouble * path_array_to_strokes( gdouble * path_array, glong n_details, glong * 
  else {
   *n_strokes=numstrokes;
  }
- //g_message("path_array_to_strokes ..FINE");
+ //g_message("teseo_path_array_to_strokes ..FINE");
  return strokes;
 }
 
 
-gdouble * open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path){
+gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path){
   glong i=0, num_strokes, lstrokes;
   gdouble * points_pairs=NULL;
   gdouble * pstrokes_ret=NULL;
@@ -179,7 +179,7 @@ gdouble * open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path
 /**/
 
 /* Dato uno strokes scrive il path*/
-void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, char * nome_path){
+void teseo_strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, char * nome_path){
 
   gdouble * vet_punti=NULL;
   glong lpunti=0, i=0, j=0, k=0, kk=0, num_vet_punti;
@@ -250,7 +250,7 @@ void strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, c
 
 
 /* Dato un path ricava lo strokes corrispondente*/
-gdouble * open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_path){
+gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_path){
   glong i=0, num_strokes, lstrokes;
   gdouble * points_pairs=NULL;
   gdouble * pstrokes_ret=NULL;
@@ -303,7 +303,8 @@ gdouble * open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * nome_pa
 
 /*Funzioni di manipolazione path*/
 
-void allinea_path(gint32 g_image)
+// TODO update function, don't delete old paths!!!
+void teseo_align_all_path(gint32 g_image)
 {
 	gchar **p;
 	gint num_paths, num_points, num_points_tot = 0, path_closed;
@@ -382,7 +383,9 @@ void allinea_path(gint32 g_image)
   	}
 }
 
-void unisci_path(gint32 g_image)
+
+// TODO update function, don't delete old paths!!!
+void teseo_link_all_path(gint32 g_image)
 {
 	gchar **p;
 	gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
@@ -418,7 +421,7 @@ void unisci_path(gint32 g_image)
   	free(path_strokes);
 }
 
-void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
+void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
  gdouble * strokes=NULL;
  gdouble *strokes_ruotato=NULL;
  gdouble * path_array=NULL;
@@ -436,7 +439,7 @@ void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
    //prendo il nome del path corrente
    strcpy(pathname, gimp_path_get_current(g_image));
    //traduco il path in array dello stessso formato di gimp
-   path_array = open_path_to_array(g_image, &n_details,  pathname);
+   path_array = teseo_open_path_to_array(g_image, &n_details,  pathname);
 
    if ( x!=0 || y!=0 )
    	{
@@ -453,9 +456,9 @@ void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
    if ( rotate != 0.0 )
     {
      //se devo ruotare prendo gli strokes e li modifico, poi copio le modifiche nel path_array
-     strokes = path_array_to_strokes( path_array, n_details, &n_strokes);
+     strokes = teseo_path_array_to_strokes( path_array, n_details, &n_strokes);
 
-     neuronSismos_ruotastrokes( n_strokes, strokes, &strokes_ruotato, -angolo_rad);
+     teseo_path_rotation( n_strokes, strokes, &strokes_ruotato, -angolo_rad);
 
      //in strokes_ruotato ho scritto le modifiche da apportare al path_array
      //g_message("modifico il path_array");
@@ -484,7 +487,7 @@ void muovi_tracciato(gint32 g_image, gint x, gint y, gdouble rotate) {
 //Modifica al 11/01/2002 Prevede che dall'esterno lo strokes passat sia consecutivo al path chiamante
 //Non si controlla all'interno che il path e lo strokes non siano sovrapposti
 /* Ricavo il vecchio path, vi concateno lo strokes*/
-void cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
+void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
   gdouble * old_path;
   gdouble * path_strokes=NULL;

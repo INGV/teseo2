@@ -194,7 +194,7 @@ run (const gchar      *name,
   /*Initialize gtkaddons support */
   init_store_widget("teseo");
   /*Initialize teseo environment */
-  create_environment();
+  teseo_create_environment();
 
 
   if (strcmp (name, PROCEDURE_NAME) == 0)
