@@ -40,9 +40,9 @@ const char TESEO_DATA_deprecated[] = "TESEO_DATA";
 const gchar * teseo_caption(gboolean ver_devel) {
     static gchar * caption[200];
     if(ver_devel) {
-	sprintf(caption, "Teseo %d.%d.%d", T_MAJOR_VER, T_MINOR_VER, T_DEVEL_VER);
+	g_sprintf(caption, "Teseo %d.%d.%d", T_MAJOR_VER, T_MINOR_VER, T_DEVEL_VER);
     } else {
-	sprintf(caption, "Teseo %d.%d", T_MAJOR_VER, T_MINOR_VER);
+	g_sprintf(caption, "Teseo %d.%d", T_MAJOR_VER, T_MINOR_VER);
     }
     return caption;
 }
@@ -52,12 +52,6 @@ const gchar * teseo_caption(gboolean ver_devel) {
 const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences", "lock", "tmp" };
 /* Set MAX_PATHNAME to the high value of enum PATHNAMES */
 const PATHNAMES MAX_PATHNAME = TMPPATH;
-
-#ifdef WINSLASH
-const gchar SLASH[] = "\\";
-#else
-const gchar SLASH[] = "/";
-#endif
 
 char *valore_parse_deprecated(const char *nomefile, const char *nomevariabile) {
   static char ret_valore[255];
@@ -98,14 +92,14 @@ char *getenv_teseo_deprecated(const char *name_var) {
   char *cmdconfig = "/usr/local/neuronteseo/bin/neuronteseo-config.sh";
 
   char nomefile[255];
-  sprintf(nomefile, "%s%s.teseorc", SLASH, getenv("HOME"));
+  sprintf(nomefile, "%s%s.teseorc", G_DIR_SEPARATOR_S, getenv("HOME"));
   s = valore_parse_deprecated(nomefile, name_var);
   // g_message("newfunc %s = %s", name_var, s);
 
   // s = getenv(name_var);
   if(!s) {
     if(strcmp(name_var , TESEO_BIN_deprecated)==0) {
-      sprintf(s_app, "%s%steseo", SLASH, getenv("HOME"));
+      sprintf(s_app, "%s%steseo", G_DIR_SEPARATOR_S, getenv("HOME"));
     } else {
       sprintf(s_app, "%s", getenv("HOME"));
     }
@@ -124,19 +118,19 @@ char * teseo_get_teseo_environment_path( ){
 
     static char ENVIRONMENT_PATH[FILENAMELEN];
 
-    gchar * home;
+    gchar *home;
     gchar version[3];
 
     //TODO manage windows HOMEPATH and slashes
     //home=getenv("HOME");
-    home=g_get_home_dir();/*portability ... in glib*/
+    home = g_get_home_dir();/*portability ... in glib*/
 
     strcpy(ENVIRONMENT_PATH,home);
-    strcat(ENVIRONMENT_PATH,SLASH);
+    strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
     strcat(ENVIRONMENT_PATH,".gimp-");
     sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
     strcat(ENVIRONMENT_PATH,version);
-    strcat(ENVIRONMENT_PATH,SLASH);
+    strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
     strcat(ENVIRONMENT_PATH,PROCEDURE_NAME);
 
     return ENVIRONMENT_PATH;
@@ -148,11 +142,11 @@ char * teseo_get_environment_path( int pathname ){
 
     char * path=NULL;
 
-    path = (char * ) malloc(sizeof(char)*FILENAMELEN);
+    path = (char * ) g_malloc(sizeof(char)*FILENAMELEN);
 
     if (path!=NULL) {
         strcpy(path,teseo_get_teseo_environment_path());
-        strcat(path,SLASH);
+        strcat(path,G_DIR_SEPARATOR_S);
         strcat(path,SUBPATHS[pathname]);
     }
     else {
@@ -200,7 +194,7 @@ char teseo_create_environment( ){
      for (i=0; i<=MAX_PATHNAME; i++){
 	 strcpy(path, mainpath);
 	 //TODO windowsisation
-         strcat(path,SLASH);
+         strcat(path,G_DIR_SEPARATOR_S);
 	 strcat(path,SUBPATHS[i]);
          error = !(teseo_create_environment_path(path));
      }

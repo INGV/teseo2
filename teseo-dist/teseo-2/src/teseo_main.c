@@ -116,7 +116,7 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
     //TODO generalise?
     teseo_cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
     //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "Path");
-    free(strokes);
+    g_free(strokes);
 
     RELEASE(&is,&os);
   }

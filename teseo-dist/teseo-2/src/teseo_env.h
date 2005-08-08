@@ -87,7 +87,6 @@ Environment default subpaths
 typedef enum { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH, LOCKPATH, TMPPATH } PATHNAMES;
 extern const char *SUBPATHS[];
 
-extern const gchar SLASH[];
 
 
 /*!

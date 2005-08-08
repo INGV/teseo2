@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <dirent.h>
 
+#define DXF_EXT ".dxf"
 
 #define FILENAMELEN 200
 

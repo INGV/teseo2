@@ -30,17 +30,15 @@
 #define __TESEO_LOCK_H__ 1
 
 #include <libgimp/gimp.h>
-#include "teseo_io.h"
 
 #define LOCK_EXT     ".lock"
-extern gchar filename_lock[FILENAMELEN];
 
 /*!
 teseo_lock and teseo_unlock allow to load only one plug-in instance for each image
 	return TRUE when the lock has success, else FALSE
-	\param gchar * pattern_prefix, pattern of filename lock
+	\param gchar * afilename_lock, pattern of filename lock
 */
-gboolean teseo_lock(gchar *pattern_prefix);
+gboolean teseo_lock(gchar *afilename_lock);
 
 /*!
 teseo_unlock and teseo_lock allow to load only one plug-in instance for each image

@@ -137,7 +137,7 @@ char filebezier[255];
 		gimp_progress_update(0.0);
 		
 		n_strokes = 0;
-		strokes = (double *) malloc(sizeof(double) * ((max_n_strokes+2) * 2) );
+		strokes = (double *) g_malloc(sizeof(double) * ((max_n_strokes+2) * 2) );
     if(!strokes) {
       g_message("Not enough free memory for strokes in on_btnBezier_clicked!");
       exit(1);
@@ -177,7 +177,7 @@ char filebezier[255];
            	// devo aggiungere bezier_strokes a strokes
            	if((n_strokes + bezier_n_strokes) >= max_n_strokes) {
            		max_n_strokes += 2048;
-           		strokes = (double *) realloc((void *) strokes, (sizeof(double) * ((max_n_strokes+2) * 2)));
+           		strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((max_n_strokes+2) * 2)));
               if(!strokes) {
                 g_message("Not enough free memory for strokes in on_btnBezier_clicked!");
                 exit(1);
@@ -201,7 +201,7 @@ char filebezier[255];
            		}
            	}           	
            	if(bezier_strokes)
-           		free(bezier_strokes);
+           		g_free(bezier_strokes);
            	gimp_progress_update((gdouble) (num_elementi_bezier) / (gdouble) (n*3));
 			}
 			
@@ -237,7 +237,7 @@ char filebezier[255];
   	}
   	
   	if(strokes)
-  		free(strokes);
+  		g_free(strokes);
   	else {
   		// g_message("Strano! strokes doveva essere diverso da NULL! sig ?!?");
 	}

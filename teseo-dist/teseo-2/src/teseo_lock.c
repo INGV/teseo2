@@ -34,30 +34,27 @@
 #include "teseo_env.h"
 #include "gtkaddons.h"
 
-#define NOFILELOCK "NOFILELOCK"
-gchar filename_lock[FILENAMELEN] = NOFILELOCK;
+#define NOLOCKFILE "NOLOCKFILE"
+gchar teseo_filename_lock[FILENAMELEN] = NOLOCKFILE;
 FILE *FILE_lock = NULL;
 
 gboolean teseo_lock(gchar *pattern_prefix) {
     gboolean ret = FALSE; 
     gboolean is_unlocked  = TRUE; 
     
-    strcpy(filename_lock, teseo_get_environment_path(LOCKPATH));
-    strcat(filename_lock, SLASH);
-    strcat(filename_lock, pattern_prefix);
-    strcat(filename_lock, LOCK_EXT);
+    strcpy(teseo_filename_lock, teseo_get_environment_path(LOCKPATH));
+    strcat(teseo_filename_lock, G_DIR_SEPARATOR_S);
+    strcat(teseo_filename_lock, pattern_prefix);
+    strcat(teseo_filename_lock, LOCK_EXT);
 
-    // Debug only
-    // g_message("teseo_lock() %s", filename_lock);
-
-    if( g_file_test(filename_lock, G_FILE_TEST_EXISTS) ) {
+    if( g_file_test(teseo_filename_lock, G_FILE_TEST_EXISTS) ) {
 	// TODO Check stat
 	is_unlocked = FALSE;
     }
 
     if(is_unlocked) {
 	// Create file lock
-	FILE_lock = fopen(filename_lock, "w");
+	FILE_lock = fopen(teseo_filename_lock, "w");
 	if(FILE_lock) {
 	    ret = TRUE;
 	}
@@ -70,15 +67,15 @@ gboolean teseo_lock(gchar *pattern_prefix) {
 
 void teseo_unlock() {
     // Debug only
-    // g_message("teseo_unlock() %s", filename_lock);
+    // g_message("teseo_unlock() %s", teseo_filename_lock);
 
-    if( strcmp(filename_lock, NOFILELOCK) == 0) {
-	g_message("Teseo-CRITICAL: you should not call teseo_unlock() ! filename_lock has not been initialized.");
+    if( strcmp(teseo_filename_lock, NOLOCKFILE) == 0 ) {
+	g_message("Teseo-CRITICAL: you should not call teseo_unlock() ! teseo_filename_lock has not been initialized.");
     } else {
 	if(FILE_lock) {
 	    fclose(FILE_lock);
 	    FILE_lock = NULL;
-	    remove(filename_lock);
+	    remove(teseo_filename_lock);
 	} else {
 	    g_message("Teseo-CRITICAL: you should not call teseo_unlock() ! FILE_lock has not been initialized.");
 	}
