@@ -196,7 +196,7 @@ void
 on_save_as1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -204,7 +204,7 @@ void
 on_preferences_2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -212,32 +212,33 @@ void
 on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  char filename[FILENAMELEN];
-  char * path=NULL;
+    // Import SVG
+    char filename[FILENAMELEN];
+    char * path=NULL;
 
-  path=teseo_get_environment_path( SVGPATH );
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import Bezier Paths from SVG file");
-  gtk_file_chooser_set_current_folder(teseofilechooser, path );
-  free(path);
+    path=teseo_get_environment_path( SVGPATH );
+    gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import bezier path from SVG file");
+    gtk_file_chooser_set_current_folder(teseofilechooser, path );
+    free(path);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+    gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
-  switch (result)
+    switch (result)
     {
       case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         teseo_import_svg_vectors( teseo_image, filename );
-         break;
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+	 teseo_import_svg_vectors( teseo_image, filename );
+	 break;
       case GTK_RESPONSE_CANCEL:
 
-         break;
+	 break;
       case GTK_RESPONSE_DELETE_EVENT:
 
-         break;
+	 break;
       default:
-         break;
+	 break;
     }
-  gtk_widget_hide ((GtkWidget *) teseofilechooser);
+    gtk_widget_hide ((GtkWidget *) teseofilechooser);
 
 }
 
@@ -280,7 +281,7 @@ void
 on_trace2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -288,7 +289,7 @@ void
 on_sac2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -296,7 +297,7 @@ void
 on_sac_xy2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -304,7 +305,7 @@ void
 on_sisma2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -312,7 +313,7 @@ void
 on_timemark2_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -320,7 +321,7 @@ void
 on_path1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -328,7 +329,8 @@ void
 on_dxf1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export DXF
+    g_message(TODO_str);
 }
 
 
@@ -336,7 +338,8 @@ void
 on_track1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export Trace
+    g_message(TODO_str);
 }
 
 
@@ -344,7 +347,8 @@ void
 on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export SAC
+    g_message(TODO_str);
 }
 
 
@@ -352,7 +356,7 @@ void
 on_sac_xy1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -360,7 +364,8 @@ void
 on_sisma1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export SISMA
+    g_message(TODO_str);
 }
 
 
@@ -368,7 +373,8 @@ void
 on_timemark1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export Timemark
+    g_message(TODO_str);
 }
 
 
@@ -376,7 +382,7 @@ void
 on_quit1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -393,7 +399,7 @@ void
 on_align_all1_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	teseo_align_all_path(teseo_image);
+    teseo_align_all_path(teseo_image);
 }
 
 
@@ -401,7 +407,7 @@ void
 on_link_all1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	teseo_link_all_path(teseo_image);
+    teseo_link_all_path(teseo_image);
 }
 
 
@@ -409,7 +415,7 @@ void
 on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -417,7 +423,7 @@ void
 on_fitting_polyline1_activate          (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -467,7 +473,7 @@ void
 on_recover_last2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -475,7 +481,7 @@ void
 on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -483,7 +489,7 @@ void
 on_adjustment1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -491,7 +497,7 @@ void
 on_info_window_1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -499,7 +505,7 @@ void
 on_help1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -596,7 +602,7 @@ void
 on_ascii1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    g_message(TODO_str);
 }
 
 
@@ -604,7 +610,8 @@ void
 on_svg2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export SVG
+    g_message(TODO_str);
 }
 
 
@@ -612,7 +619,8 @@ void
 on_ascii2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    // TODO Export ASCII
+    g_message(TODO_str);
 }
 
 
@@ -620,32 +628,33 @@ void
 on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  char filename[FILENAMELEN];
-  char * path=NULL;
+    // Import Bezier path (Teseo 1 format)
+    char filename[FILENAMELEN];
+    char * path=NULL;
 
-  path=teseo_get_environment_path( BEZIERPATH );
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
-  gtk_file_chooser_set_current_folder(teseofilechooser, path );
-  free(path);
+    path=teseo_get_environment_path( BEZIERPATH );
+    gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
+    gtk_file_chooser_set_current_folder(teseofilechooser, path );
+    free(path);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+    gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
-  switch (result)
+    switch (result)
     {
       case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
 	 teseo_import_bzr( teseo_image, filename );
-         break;
+	 break;
       case GTK_RESPONSE_CANCEL:
-         g_message("Cancel pressed: don't do anything.");
-         break;
+	 g_message("Cancel pressed: don't do anything.");
+	 break;
       case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Delete event, same as Cancel pressed.");
-         break;
+	 g_message("Delete event, same as Cancel pressed.");
+	 break;
       default:
-         break;
+	 break;
     }
-  gtk_widget_hide ((GtkWidget *) teseofilechooser);
+    gtk_widget_hide ((GtkWidget *) teseofilechooser);
 }
 
 void
@@ -812,11 +821,16 @@ on_dlg_session_show_teseo_eventpathname
                                         (GtkWidget       *widget,
                                         gpointer         user_data)
 {
+    GtkComboBoxEntry * combo_box = (GtkComboBoxEntry *) widget;
     gchar **path_list;
-    glong n_path;
-    path_list = gimp_path_list(teseo_image, &n_path);
+    glong n_path, i;
 
     // TODO insert path in teseo_eventpathname combobox and select right one....
+    path_list = gimp_path_list(teseo_image, &n_path);
+    for(i=0; i < n_path; i++) {
+	gtk_combo_box_append_text(combo_box, path_list[i]);
+    }
+    
 
 }
 
