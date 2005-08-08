@@ -277,3 +277,12 @@ on_dlg_session_show                    (GtkWidget       *widget,
 void
 on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data);
+
+void
+on_dlg_about_show_label_ver            (GtkWidget       *widget,
+                                        gpointer         user_data);
+
+void
+on_dlg_session_show_teseo_eventpathname
+                                        (GtkWidget       *widget,
+                                        gpointer         user_data);
