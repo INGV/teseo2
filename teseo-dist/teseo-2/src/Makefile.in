@@ -186,6 +186,8 @@ teseo_2_SOURCES = \
 	teseo_bezier_point.h	\
 	teseo_resample.c	\
 	teseo_resample.h	\
+	teseo_bezier_fit.c	\
+	teseo_bezier_fit.h	\
 	teseo_session.c	\
 	teseo_session.h \
 	teseo_lock.c	\
@@ -193,7 +195,11 @@ teseo_2_SOURCES = \
 	teseo_wmean.h \
 	teseo_wmean.c \
 	teseo_main.h \
-	teseo_main.c
+	teseo_main.c \
+	nrutil.h \
+	nrutil.c \
+	nr.h \
+	brent.c f1dim.c linmin.c mnbrak.c powell.c 
 
 
 
@@ -227,11 +233,14 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_env.$(OBJEXT) teseosupport.$(OBJEXT)  \
 	teseointerface.$(OBJEXT) \
 	teseo_resample.$(OBJEXT) \
+	teseo_bezier_fit.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
 	teseo_lock.$(OBJEXT) \
 	teseo_wmean.$(OBJEXT) \
-	teseo_main.$(OBJEXT)
+	teseo_main.$(OBJEXT) \
+	nrutil.$(OBJEXT) \
+	brent.$(OBJEXT) f1dim.$(OBJEXT) linmin.$(OBJEXT) mnbrak.$(OBJEXT) powell.$(OBJEXT) 
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)
