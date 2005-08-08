@@ -53,8 +53,8 @@ Notes: User notes
 
 */
 
-#ifndef TESEOSESSION
-#define TESEOSESSION 1
+#ifndef __TESEO_SESSION_H__
+#define __TESEO_SESSION_H__ 1
 
 #include "teseo_io.h"
 #include "main.h"

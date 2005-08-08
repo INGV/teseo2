@@ -24,10 +24,11 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
-#ifndef teseo_wmean
-#define teseo_wmean 1
-#include <glib.h>
 
+#ifndef __TESEO_WMEAN_H__
+#define __TESEO_WMEAN_H__ 1
+
+#include <glib.h>
 
 struct SPoint{
 	int x;
@@ -59,46 +60,46 @@ typedef struct wmeanParam wmeanParams;
 /*!
  * wmean: wmean algorithm executions
  */
-int wmean( const wm_is * is, wm_os * os );
+int teseo_wmean( const wm_is * is, wm_os * os );
 
 
 /*!
- * wmean_init initialise some const for algorithm execution
+ * teseo_wmean_init initialise some const for algorithm execution
  */
-void wmean_init( wmeanParams* s);
+void teseo_wmean_init( wmeanParams* s);
 
 /*!
- * wmean_getinput return is extracted from previous os and drawable
+ * teseo_wmean_getinput return is extracted from previous os and drawable
  */
-int wmean_getinput(
+int teseo_wmean_getinput(
 			wm_is * is,
 			const wm_os * previous_os,
 			gint32 drawable_ID
 		  );
 /*!
- * wmean_terminate test terminate condition
+ * teseo_wmean_terminate test terminate condition
  */
-int wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID);
+int teseo_wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID);
 
 /*!
- * wmean_accumulate concatenate the os results in strokes
+ * teseo_wmean_accumulate concatenate the os results in strokes
  */
-int wmean_accumulate(gdouble ** strokes, gulong * num_strokes, wm_os * os);
+int teseo_wmean_accumulate(gdouble ** strokes, gulong * num_strokes, wm_os * os);
 
 /*!
- * wmean_starting_os create a starting os structure
+ * teseo_wmean_starting_os create a starting os structure
  */
-int wmean_starting_os(wm_os ** os, gint32 drawable_ID);
+int teseo_wmean_starting_os(wm_os ** os, gint32 drawable_ID);
 
 /*!
- * wmean_new_is create a new is structure with defaults
+ * teseo_wmean_new_is create a new is structure with defaults
  */
-int wmean_new_is( wm_is ** is, gint32 drawable_ID);
+int teseo_wmean_new_is( wm_is ** is, gint32 drawable_ID);
 
 /*!
- * wmean_release structures destructor
+ * teseo_wmean_release structures destructor
  */
-void wmean_release(wm_is ** is, wm_os ** os);
+void teseo_wmean_release(wm_is ** is, wm_os ** os);
 
 #endif
 

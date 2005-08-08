@@ -24,8 +24,10 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
-#ifndef teseo_main
-#define teseo_main 1
+
+#ifndef __TESEO_MAIN_H__
+#define __TESEO_MAIN_H__ 1
+
 //#include "teseo_prototype.h"
 #include "teseo_wmean.h"
 

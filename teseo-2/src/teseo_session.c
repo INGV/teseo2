@@ -103,7 +103,7 @@ char load_session(char * filename){
     char var[80]="";
     char content[FILENAMELEN]="";
 
-    if ( filexist(filename) ){
+    if ( teseo_filexist(filename) ){
 
       f = fopen(filename,"r");
       if ( f != NULL ){
@@ -170,7 +170,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
       if (external_preferences==FALSE)
           dlg_preferences_filename = create_name(filename,order,PREF_DLG_EXT);
 
-      if ( ! filexist(session_filename)){
+      if ( ! teseo_filexist(session_filename)){
         f = fopen(session_filename,"w");
         if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( dlg_preferences_filename != NULL) ) {
           ret=1;
@@ -225,7 +225,7 @@ char* create_name(char * dirname, char* order, char* ext){
 
     if ( filename != NULL) {
 
-      p = get_environment_path( SESSIONPATH ); // path to session files to be freed
+      p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be freed
       strcpy(filename,p);
       strcat(filename,"/");
 

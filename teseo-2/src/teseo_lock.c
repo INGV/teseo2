@@ -42,7 +42,7 @@ gboolean teseo_lock(gchar *pattern_prefix) {
     gboolean ret = FALSE; 
     gboolean is_unlocked  = TRUE; 
     
-    strcpy(filename_lock, get_environment_path(LOCKPATH));
+    strcpy(filename_lock, teseo_get_environment_path(LOCKPATH));
     strcat(filename_lock, SLASH);
     strcat(filename_lock, pattern_prefix);
     strcat(filename_lock, LOCK_EXT);

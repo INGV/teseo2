@@ -31,12 +31,13 @@
 
 #include "teseo_io.h"
 #include "teseo_path.h"
+#include "teseo_env.h"
 #include <locale.h>
 
 
 
 //31/05#include "neuronutils.h"
-//TODO spostare o modificare save_sisma_cm save_dxf_cm save_marcatempi_cm
+//TODO spostare o modificare teseo_save_sisma_cm teseo_save_dxf_cm teseo_save_marcatempi_cm
 
 /*To use for external commands*/
 int my_system(char * command, char * const argv[200], char * const env[]  ){
@@ -63,7 +64,7 @@ int my_system(char * command, char * const argv[200], char * const env[]  ){
 }
 
 
-gint filexist( char *nome_file)
+gint teseo_filexist( char *nome_file)
 {
   FILE *test = fopen( nome_file, "rb" );
   int app=0;
@@ -78,11 +79,11 @@ gint filexist( char *nome_file)
 }
 
 
-gint test_dir( char *nome_dir)
+gint teseo_test_dir( char *nome_dir)
 {
   gint ret=0;
   DIR * directory=NULL;
-  if ( filexist( nome_dir )) {
+  if ( teseo_filexist( nome_dir )) {
    directory=opendir(nome_dir);
    if ( directory ){
     ret=1;
@@ -93,7 +94,7 @@ gint test_dir( char *nome_dir)
 }
 
 /*Put on the image g_image the bezier path loaded from NomeFileDxf*/
-void import_dxf ( gint32 g_image, char * NomeFileDxf  )
+void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  )
 {
 
 FILE *fp = NULL;
@@ -238,7 +239,7 @@ fp = fopen( NomeFileDxf,"r" );
  			  	g_message("File \"%s\" corrupted.", NomeFileDxf);
  			}
 
-strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
+teseo_strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
 
 if(v_punti)
 	free(v_punti);
@@ -266,7 +267,7 @@ void Carica_Traccia ( gint32 g_image, char * NomeFileTraccia  )
 */
 
 /*Put on the image g_image the bezier path loaded from NomeFileBzr*/
-void import_bzr ( gint32 g_image, char * NomeFileBzr  )
+void teseo_import_bzr ( gint32 g_image, char * NomeFileBzr  )
 {
  //g_message("%s",NomeFileBzr);
  FILE *fp = NULL;
@@ -330,7 +331,7 @@ void import_bzr ( gint32 g_image, char * NomeFileBzr  )
 /*Output functions*/
 
 /*Write an open path in old gimp bezier format*/
-gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
+gint teseo_open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
   glong i=0, num_righe, len;
   gdouble * points_pairs=NULL;
   gdouble * pstrokes_ret=NULL;
@@ -386,7 +387,7 @@ return 1;
  * Remember to resample before call.
 */
 
-void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
+void teseo_save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  //recupero il path in uno strokes, poi salva in dxf
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -397,8 +398,8 @@ void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  if (num_paths>0){
    //get path name 
    strcpy(pathname, gimp_path_get_current(g_image));
-   strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   strokes_dxf(g_image,filename, strokes, n_strokes, 1, scalatura); //tracciato
+   strokes = teseo_open_path_to_strokes(g_image, &n_strokes, pathname);
+   teseo_strokes_dxf(g_image,filename, strokes, n_strokes, 1, scalatura); //tracciato
  }
  if (strokes)
   free(strokes);
@@ -406,7 +407,7 @@ void save_path_dxf(gint32 g_image, char* filename, gint scalatura){
 
 /* Save the current timemarker path on the image g_image in filename in dxf format
  * scalatura = 1 -> shift first point of the trace in 0,0.0,0 */
-void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
+void	teseo_save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
@@ -416,15 +417,15 @@ void	save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
  if (num_paths>0){
    //get the name of the current path
    strcpy(pathname, gimp_path_get_current(g_image));
-   strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   strokes_dxf(g_image, filename, strokes, n_strokes, 0, scalatura ); //0 to save timemarker without resampling
+   strokes = teseo_open_path_to_strokes(g_image, &n_strokes, pathname);
+   teseo_strokes_dxf(g_image, filename, strokes, n_strokes, 0, scalatura ); //0 to save timemarker without resampling
  }
  if (strokes)
   free(strokes);
 }
 
 /*Save the current path on the image g_image in filename in sisma format*/
-void save_path_sisma(gint32 g_image, char* filename){
+void teseo_save_path_sisma(gint32 g_image, char* filename){
  
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -435,9 +436,9 @@ void save_path_sisma(gint32 g_image, char* filename){
  if (num_paths>0){
     //get the name of the current path
    strcpy(pathname, gimp_path_get_current(g_image));
-   strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
-   //31/05   strokes_sisma(g_image, filename, strokes, n_strokes);
-   strokes_sisma(g_image, filename, strokes, n_strokes, 0);
+   strokes = teseo_open_path_to_strokes(g_image, &n_strokes, pathname);
+   //31/05   teseo_strokes_sisma(g_image, filename, strokes, n_strokes);
+   teseo_strokes_sisma(g_image, filename, strokes, n_strokes, 0);
  }
  if (strokes)
   free(strokes);
@@ -448,7 +449,7 @@ void save_path_sisma(gint32 g_image, char* filename){
  * tracciato = 1 -> trace 
  */
 
-void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura){
+void teseo_strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura){
 
   FILE*  fstrokes;
   gdouble xres;
@@ -465,11 +466,11 @@ void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong
      {
 
       if ( tracciato ){
-      	save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+      	teseo_save_dxf_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
       else
       { //timemarker
-     	save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
+     	teseo_save_marcatempi_cm(fstrokes, num_stroke, strokes, xres, image_height, scalatura);
       }
      }
      else
@@ -486,7 +487,7 @@ void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong
  * xy = 1 -> x,y coordinates
 */
 
-void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy){
+void teseo_strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy){
   FILE*  fstrokes;
   gdouble xres;
   gdouble yres;
@@ -500,13 +501,13 @@ void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , g
   if(!fstrokes)
     g_message("File \"%s\" not found.",file_sisma);
   else {
-    save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
+    teseo_save_sisma_cm(fstrokes,num_stroke, strokes, xres, image_height, xy );
     fclose(fstrokes);
   }
 }
 
 /*
-void save_path_traccia(gint32 g_image, char* filename){
+void teseo_save_path_traccia(gint32 g_image, char* filename){
  gdouble * strokes;
  glong n_strokes;
  gint num_paths;
@@ -521,7 +522,7 @@ void save_path_traccia(gint32 g_image, char* filename){
     //prendo il nome del path corrente
     strcpy(pathname, gimp_path_get_current(g_image));
     //traduco il path in strokes
-    strokes = open_path_to_strokes(g_image, & n_strokes,  pathname);
+    strokes = teseo_open_path_to_strokes(g_image, & n_strokes,  pathname);
     //traduco lo strokes in oggetto punti
     punti = new	neuron_punti(strokes, n_strokes);
 
@@ -537,7 +538,7 @@ void save_path_traccia(gint32 g_image, char* filename){
  * Remember: to use on a resampled path 
  */
   
-void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
+void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
  
  gdouble * strokes=NULL;
  glong n_strokes;
@@ -557,7 +558,7 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
 
 //31/05  sprintf(filename_tmp, "%s/tmp/sisma.tmp", getenv_teseo(TESEO_DATA));
  //TODO definire l'ambiente o prendere getenv_teseo e neuron_parse da teseo1
- sprintf(filename_tmp, "%s/tmp/sisma.tmp", "/" );
+ sprintf(filename_tmp, "%s/sisma.tmp", teseo_get_environment_path(TMPPATH) );
  gint num_paths=0;
  gdouble xres, yres, passo;
  gint image_height;
@@ -569,10 +570,10 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
  if (num_paths>0){
    //get current path name
    strcpy(pathname, gimp_path_get_current(g_image));
-   strokes = open_path_to_strokes(g_image, &n_strokes, pathname);
+   strokes = teseo_open_path_to_strokes(g_image, &n_strokes, pathname);
 
    //temporary saving in a sisma file
-   strokes_sisma(g_image, filename_tmp, strokes, n_strokes, xy);
+   teseo_strokes_sisma(g_image, filename_tmp, strokes, n_strokes, xy);
    //convert sisma file in sac
    sprintf(strcmd, "%s/bin/sisma_to_sac.exe" , dir_teseo_bin );
 
@@ -608,7 +609,7 @@ void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy
 
 
 /* Import a timemark file*/
-void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
+void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 {
  
  FILE *fp = NULL;
@@ -664,7 +665,7 @@ void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
            //g_message("X=%lf Y=%lf", strokes[i*2], strokes[i*2+1] );
    	  }
 
-       strokes_to_open_path( g_image, (glong) counter, strokes, "Imported Path");
+       teseo_strokes_to_open_path( g_image, (glong) counter, strokes, "Imported Path");
 
   	  }
     else {
@@ -691,7 +692,7 @@ void import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 
 /*NEW entries*/
 
-void save_dxf(FILE * fp, gint num_punti, gdouble *vet_punti){
+void teseo_save_dxf(FILE * fp, gint num_punti, gdouble *vet_punti){
 
 int i=0;
 
@@ -739,7 +740,7 @@ EOF\n"
 
 //dpi risoluzione in DPI, height altezza immagine in pixel
 /* initialized_old
-void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
+void teseo_save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
 */
 
 
@@ -748,7 +749,7 @@ void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gin
  * dpi resolution, height the height of the image in pixel
  */
 
-void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
+void teseo_save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
 double x_zero=0.0;
 double y_zero=0.0;
 //double x,y;
@@ -802,9 +803,9 @@ EOF\n"
 }
 
 /* initialized_old
-void save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
+void teseo_save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start=1){
 */
-void save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
+void teseo_save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start){
 
 long counter = 32;
 double h_seg=10.0;
@@ -876,14 +877,14 @@ EOF\n"
 //Salvataggio in formato sisma
 //dpi risoluzione in DPI, height altezza immagine in pixel
 /* initialized_old
-void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy=0){
+void teseo_save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy=0){
 */
 
 /* Save the vector in sisma format, dpi resolution, height of the image in pixel, 
     xy to have x,y couples 
 */
 
-void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
+void teseo_save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
 
 gdouble media=0;
 int i=0;
@@ -903,7 +904,7 @@ for (i=0; i<num_punti; i++) {
 
 /*Salvataggio in formato sac*/
 
-//extern void  wsac1 ( char * kname , float * strokes_sac , int * max , float * inizio , float * passo_delta , int * nerr , int *kname_num ) ;
+//extern void  wsac1 ( char * kname , float * teseo_strokes_sac , int * max , float * inizio , float * passo_delta , int * nerr , int *kname_num ) ;
 
 
 //extern void wsac1( char * kname, float yarray[] , long int *nlen, float *beg,  float  *del, long int *nerr, long int kname_s);
@@ -921,7 +922,7 @@ void wsac1(kname, yarray, nlen, beg, del, nerr, kname_s)
 
 //Salvataggio in formato sac
 //dpi risoluzione in DPI, height altezza immagine in pixel
-/*void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
+/*void teseo_save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
   long int max = 100 , j , nerr=0 ;
   float yfunc[ max ] , x , beg = 0. , del = 0.02 ;
   for ( j = 0 , x = beg ; j < max ; j++ , x += del )
@@ -933,10 +934,10 @@ void wsac1(kname, yarray, nlen, beg, del, nerr, kname_s)
 */
 
 /*TODO test !!!*/
-void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
+void teseo_save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height){
 
  float media=0;
- float * strokes_sac;
+ float * teseo_strokes_sac;
  float CANARY=-123.456789e6;
  long int max = (long int ) num_punti;
  long int j , nerr=0, lstrokes, lun_name;
@@ -949,46 +950,46 @@ void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble d
  }
 
  lstrokes=num_punti;
- strokes_sac = (float *) malloc(sizeof(float) * ( lstrokes + 1 ));
- if(!strokes_sac) {
-     g_error("Non riesco ad allocare strokes_sac!");
+ teseo_strokes_sac = (float *) malloc(sizeof(float) * ( lstrokes + 1 ));
+ if(!teseo_strokes_sac) {
+     g_error("Non riesco ad allocare teseo_strokes_sac!");
     exit(1);
  }
  else {
- strokes_sac[lstrokes] = CANARY;
+ teseo_strokes_sac[lstrokes] = CANARY;
  }
 
  for (i=0; i<num_punti; i++) {
-      strokes_sac[i] = (float) (height - vet_punti[i*2+1] - 1) ; //cambio riferimento
-      media +=  strokes_sac[i]  ;
+      teseo_strokes_sac[i] = (float) (height - vet_punti[i*2+1] - 1) ; //cambio riferimento
+      media +=  teseo_strokes_sac[i]  ;
  }
 
  media=media / (float) num_punti;
 
  for (i=0; i<num_punti; i++) {
- 	strokes_sac[i] = ( (strokes_sac[i] - media) * 2.54 / dpi );
+ 	teseo_strokes_sac[i] = ( (teseo_strokes_sac[i] - media) * 2.54 / dpi );
  }
 
  for (i=0;i<num_punti; i++ ){
-  g_message("strokes_sac[%d] : %f", i, strokes_sac[i]);
+  g_message("teseo_strokes_sac[%d] : %f", i, teseo_strokes_sac[i]);
  }
 
  //da rimettere quando se ne trova la sintassi
  lun_name=strlen ( file_sac ) ;
 
- //31/05 g_message("media = %f, file_sac = %s, strokes_sac = %f,  max = %d ,  inizio = %f,  passo_delta = %f,  nerr = %d,  lun_name = %d", media, file_sac , strokes_sac[0] ,  max ,  inizio ,  passo_delta ,  nerr,  lun_name  );
- //wsac1( file_sac , strokes_sac ,  &max ,  &inizio ,  &passo_delta ,  &nerr,  lun_name );
- //31/05 g_message("file_sac = %s, strokes_sac = %f,  max = %d ,  inizio = %f,  passo_delta = %f,  nerr = %d,  lun_name = %d", file_sac , strokes_sac[0] ,  max ,  inizio ,   passo_delta , nerr,  lun_name  );
+ //31/05 g_message("media = %f, file_sac = %s, teseo_strokes_sac = %f,  max = %d ,  inizio = %f,  passo_delta = %f,  nerr = %d,  lun_name = %d", media, file_sac , teseo_strokes_sac[0] ,  max ,  inizio ,  passo_delta ,  nerr,  lun_name  );
+ //wsac1( file_sac , teseo_strokes_sac ,  &max ,  &inizio ,  &passo_delta ,  &nerr,  lun_name );
+ //31/05 g_message("file_sac = %s, teseo_strokes_sac = %f,  max = %d ,  inizio = %f,  passo_delta = %f,  nerr = %d,  lun_name = %d", file_sac , teseo_strokes_sac[0] ,  max ,  inizio ,   passo_delta , nerr,  lun_name  );
 
  //newhdr();
- if (strokes_sac[lstrokes] != CANARY ){
-  //31/05 g_error("Hai ucciso il canarino in strokes_sac");
+ if (teseo_strokes_sac[lstrokes] != CANARY ){
+  //31/05 g_error("Hai ucciso il canarino in teseo_strokes_sac");
  }
 
 }
 
 /*TODO test !!!*/
-void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_stroke){
+void teseo_strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_stroke){
   FILE*  fstrokes;
   gdouble xres;
   gdouble yres;
@@ -999,13 +1000,13 @@ void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_s
   if(!fstrokes)
     g_message("Unable to open%s",file_sac);
   else {
-    save_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
+    teseo_save_sac_cm( file_sac, num_stroke, strokes, xres, image_height );
     fclose(fstrokes);
   }
 }
 
 /*SVG section*/
-gboolean import_svg_vectors ( gint32 g_image, char * SVGfile  )
+gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGfile  )
 {
 	gboolean ok ;
 	gboolean merge=FALSE;
@@ -1020,6 +1021,6 @@ gboolean import_svg_vectors ( gint32 g_image, char * SVGfile  )
     return ok;
 }
 
-gboolean export_svg_vectors ( gint32 g_image, char * SVGfile  )
+gboolean teseo_export_svg_vectors ( gint32 g_image, char * SVGfile  )
 { 
 }

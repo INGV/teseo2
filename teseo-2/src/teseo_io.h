@@ -25,8 +25,8 @@
  * authorization from the Authors.
  */
  
-#ifndef TESEO_IO
-#define TESEO_IO 1
+#ifndef __TESEO_IO_H__
+#define __TESEO_IO_H__ 1
 
 #define GIMP_ENABLE_COMPAT_CRUFT 1
 #include <libgimp/gimp.h>
@@ -40,45 +40,141 @@
 
 #define FILENAMELEN 200
 
-/*Funzioni di utilità sui file*/
-	gint test_dir( char *nome_dir);
-	gint filexist( char *nome_file);
+/* ****************************
+   Funzioni di utilità sui file
+ ****************************** */
+    /*!
+      TODO
+      */
+    gint teseo_test_dir( char *nome_dir);
 
-/*Funzioni di input */
-	void import_dxf ( gint32 g_image, char * NomeFileDxf  );
-//31/05	void Carica_Traccia ( gint32 g_image, char * NomeFileTraccia  );
-	void import_bzr ( gint32 g_image, char * NomeFileBzr  );
- 	void import_timemark ( gint32 g_image, char * NomeFileTimeMarker );
-/*Funzioni di output */
-	gint open_path_to_save(gint32 g_image,  char * nome_path, char * filename);
-	gint save_path(gpointer user_data );
-
-	void save_path_dxf(gint32 g_image, char* filename, gint scalatura);
-	void save_path_timemarker(gint32 g_image, char* filename, gint scalatura);
-
-	void save_path_sisma(gint32 g_image, char* filename);
-//31/05	void save_path_traccia(gint32 g_image, char* filename);
-// 31/05 sintax C void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy=0 );
-	void save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy );
-/*Funzioni di output che agiscono direttamente sugli strokes*/
-// 31/05 sintax C void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato=1, gint scalatura=0); //Default tracciato non scalato
-// 31/05 sintax C void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy=0);
-	void strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura); //Default tracciato non scalato
-	void strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy);
+    /*!
+      TODO
+      */
+    gint teseo_filexist( char *nome_file);
 
 
-/*NEW entries*/
-	void strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_stroke);
-	void save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height);
-	void save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy);
-	void save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start);
-	void save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start);
-	void save_dxf(FILE * fp, gint num_punti, gdouble *vet_punti);
+/* *****************
+   Funzioni di input
+ ******************* */
+
+    /*!
+      TODO
+      */
+    void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  );
+
+    //31/05	void Carica_Traccia ( gint32 g_image, char * NomeFileTraccia  );
+
+    /*!
+      TODO
+      */
+    void teseo_import_bzr ( gint32 g_image, char * NomeFileBzr  );
+
+    /*!
+      TODO
+      */
+    void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker );
 
 
+/* ******************
+   Funzioni di output
+ ******************** */
 
-    gboolean export_svg_vectors ( gint32 g_image, char * SVGfile  );
-    gboolean import_svg_vectors ( gint32 g_image, char * SVGFile  );
+    /*!
+      TODO
+      */
+    gint teseo_open_path_to_save(gint32 g_image,  char * nome_path, char * filename);
+
+    /*!
+      TODO
+      */
+    gint teseo_save_path(gpointer user_data );
+
+
+    /*!
+      TODO
+      */
+    void teseo_save_path_dxf(gint32 g_image, char* filename, gint scalatura);
+
+    /*!
+      TODO
+      */
+    void teseo_save_path_timemarker(gint32 g_image, char* filename, gint scalatura);
+
+    /*!
+      TODO
+      */
+    void teseo_save_path_sisma(gint32 g_image, char* filename);
+
+    // 31/05 void save_path_traccia(gint32 g_image, char* filename);
+    // 31/05 sintax C void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy=0 );
+
+    /*!
+      TODO
+      */
+    void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy );
+
+/* **********************************************************
+   Funzioni di output che agiscono direttamente sugli strokes
+ ************************************************************ */
+    
+    // 31/05 sintax C void teseo_strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato=1, gint scalatura=0); //Default tracciato non scalato
+    // 31/05 sintax C void teseo_strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy=0);
+
+    /*!
+      TODO
+      */
+    void teseo_strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura); //Default tracciato non scalato
+
+    /*!
+      TODO
+      */
+    void teseo_strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy);
+
+
+/* ***********
+   NEW entries
+ ************* */
+
+    /*!
+      TODO
+      */
+    void teseo_strokes_sac(gint32 g_image, char * file_sac, gdouble* strokes , glong num_stroke);
+
+    /*!
+      TODO
+      */
+    void teseo_save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height);
+
+    /*!
+      TODO
+      */
+    void teseo_save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy);
+
+    /*!
+      TODO
+      */
+    void teseo_save_marcatempi_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start);
+
+    /*!
+      TODO
+      */
+    void teseo_save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar zero_start);
+
+    /*!
+      TODO
+      */
+    void teseo_save_dxf(FILE * fp, gint num_punti, gdouble *vet_punti);
+
+    /*!
+      TODO
+      */
+    gboolean teseo_export_svg_vectors ( gint32 g_image, char * SVGfile  );
+
+    /*!
+      TODO
+      */
+    gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGFile  );
 
 
 #endif
