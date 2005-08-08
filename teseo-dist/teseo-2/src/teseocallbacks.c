@@ -36,6 +36,8 @@
 #include "teseointerface.h"
 #include "teseosupport.h"
 
+#include "teseo_bezier_fit.h"
+#include "teseo_lock.h"
 #include "teseo_resample.h"
 #include "teseo_session.h"
 #include "teseo_main.h"
@@ -133,7 +135,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
   strcpy(old_current_session, current_session);
 
-  path=get_environment_path( SESSIONPATH );
+  path=teseo_get_environment_path( SESSIONPATH );
 
   gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
   free(path);
@@ -213,7 +215,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
   char filename[FILENAMELEN];
   char * path=NULL;
 
-  path=get_environment_path( SVGPATH );
+  path=teseo_get_environment_path( SVGPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import Bezier Paths from SVG file");
   gtk_file_chooser_set_current_folder(teseofilechooser, path );
   free(path);
@@ -224,7 +226,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         import_svg_vectors( teseo_image, filename );
+         teseo_import_svg_vectors( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
 
@@ -248,7 +250,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
   char filename[FILENAMELEN];
   char * path=NULL;
 
-  path=get_environment_path( DXFPATH );
+  path=teseo_get_environment_path( DXFPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
   gtk_file_chooser_set_current_folder(teseofilechooser, path );
   free(path);
@@ -259,7 +261,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-         import_dxf( teseo_image, filename );
+         teseo_import_dxf( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything.");
@@ -382,8 +384,8 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	// void call_on_btnBezier_clicked(gint32 g_image, int sw_campionamento_progressivo, gint passo_bezier)
-	call_on_btnBezier_clicked(teseo_image, 1, 1);
+    // TODO catch parameter for resampling_bezier
+    teseo_resampling_bezier(teseo_image, 1, 1);
 }
 
 
@@ -391,7 +393,7 @@ void
 on_align_all1_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+	teseo_align_all_path(teseo_image);
 }
 
 
@@ -399,7 +401,7 @@ void
 on_link_all1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+	teseo_link_all_path(teseo_image);
 }
 
 
@@ -423,7 +425,41 @@ void
 on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	g_message(TODO_str);
+    glong num_strokes;
+    gdouble *strokes = NULL;
+    glong num_path;
+    gdouble *path_inter = NULL;
+    char pathname [255] ;
+    char newpathname [255] ;
+
+    gint num_paths=0;
+
+    gimp_path_list (teseo_image, &num_paths);
+
+    // if at least one path exists
+    if (num_paths>0) {
+	
+	// catch the name ot the current path
+	strcpy(pathname, gimp_path_get_current(teseo_image));
+	
+	// convert path in strokes
+	strokes = teseo_open_path_to_strokes(teseo_image, &num_strokes,  pathname);
+
+	// fitting strokes with bezier curves
+	teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
+
+	sprintf(newpathname, "%s - Fit Bezier", pathname);
+
+	// create new path 
+	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
+
+	if(path_inter) {
+		free(path_inter);
+	}
+	if(strokes) {
+		free(strokes);
+	}
+    }
 }
 
 
@@ -471,17 +507,17 @@ void
 on_about1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- gint result = gtk_dialog_run (GTK_DIALOG (aboutdlg));
-  switch (result)
+    gint result = gtk_dialog_run (GTK_DIALOG (aboutdlg));
+    switch (result)
     {
-      case GTK_RESPONSE_OK:
-          break;
-      case GTK_RESPONSE_DELETE_EVENT:
-          break;
-      default:
-         break;
+	case GTK_RESPONSE_OK:
+	    break;
+	case GTK_RESPONSE_DELETE_EVENT:
+	    break;
+	default:
+	    break;
     }
-  gtk_widget_hide (aboutdlg);
+    gtk_widget_hide (aboutdlg);
 }
 
 
@@ -587,7 +623,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
   char filename[FILENAMELEN];
   char * path=NULL;
 
-  path=get_environment_path( BEZIERPATH );
+  path=teseo_get_environment_path( BEZIERPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
   gtk_file_chooser_set_current_folder(teseofilechooser, path );
   free(path);
@@ -598,7 +634,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
-	 import_bzr( teseo_image, filename );
+	 teseo_import_bzr( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything.");
@@ -663,15 +699,15 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   s.height = gtk_spin_button_get_value_as_int (twhs);
 
  teseo_main_init(
-			(*wmean),
-			(*wmean_init),
+			(*teseo_wmean),
+			(*teseo_wmean_init),
 			&s,
-			(*wmean_getinput),
-			(*wmean_terminate),
-			(*wmean_accumulate),
-			(*wmean_starting_os),
-			(*wmean_new_is),
-			(*wmean_release)
+			(*teseo_wmean_getinput),
+			(*teseo_wmean_terminate),
+			(*teseo_wmean_accumulate),
+			(*teseo_wmean_starting_os),
+			(*teseo_wmean_new_is),
+			(*teseo_wmean_release)
 		);
 
   gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_go_toolbutton, TRUE);
@@ -760,3 +796,27 @@ on_win_teseo_show                (GtkWidget       *widget,
     }
   }
 }
+
+void
+on_dlg_about_show_label_ver            (GtkWidget       *widget,
+                                        gpointer         user_data)
+{
+    gchar teseo_caption_markup[200];
+    sprintf(teseo_caption_markup, "<small>Open source software &#169; %s\n%s</small>", TESEO_YEAR, TESEO_CAPTION_DEV);
+    gtk_label_set_label((GtkLabel *) widget, teseo_caption_markup);
+}
+
+
+void
+on_dlg_session_show_teseo_eventpathname
+                                        (GtkWidget       *widget,
+                                        gpointer         user_data)
+{
+    gchar **path_list;
+    glong n_path;
+    path_list = gimp_path_list(teseo_image, &n_path);
+
+    // TODO insert path in teseo_eventpathname combobox and select right one....
+
+}
+
