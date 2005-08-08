@@ -30,12 +30,15 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 
 #include "teseocallbacks.h"
 #include "teseointerface.h"
 #include "teseosupport.h"
 
+#include "teseo_io.h"
 #include "teseo_bezier_fit.h"
 #include "teseo_lock.h"
 #include "teseo_resample.h"
@@ -138,7 +141,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   path=teseo_get_environment_path( SESSIONPATH );
 
   gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
-  free(path);
+  g_free(path);
 
   gint result = gtk_dialog_run (GTK_DIALOG (teseosessionfilechooser));
 
@@ -219,7 +222,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
     path=teseo_get_environment_path( SVGPATH );
     gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import bezier path from SVG file");
     gtk_file_chooser_set_current_folder(teseofilechooser, path );
-    free(path);
+    g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
@@ -254,7 +257,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
   path=teseo_get_environment_path( DXFPATH );
   gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
   gtk_file_chooser_set_current_folder(teseofilechooser, path );
-  free(path);
+  g_free(path);
 
   gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
@@ -330,7 +333,27 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export DXF
-    g_message(TODO_str);
+    gchar *dxf_path = NULL;
+    gchar *image_filename = NULL;
+    gchar dxf_path_filename[FILENAMELEN];
+    gchar *pathname = NULL;
+    gint scale = 100;
+
+    dxf_path = teseo_get_environment_path( DXFPATH );
+    image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
+    pathname = gimp_path_get_current(teseo_image);
+    // TODO check bad character in pathname ...
+    g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
+
+    // TODO check if dxf_path_filename exists
+
+    teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
+
+    g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
+    
+    g_free(dxf_path);
+    g_free(image_filename);
+
 }
 
 
@@ -339,6 +362,7 @@ on_track1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export Trace
+    // teseo_save_path_traccia(teseo_image, trace_filename);
     g_message(TODO_str);
 }
 
@@ -460,10 +484,10 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
 
 	if(path_inter) {
-		free(path_inter);
+		g_free(path_inter);
 	}
 	if(strokes) {
-		free(strokes);
+		g_free(strokes);
 	}
     }
 }
@@ -635,7 +659,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     path=teseo_get_environment_path( BEZIERPATH );
     gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
     gtk_file_chooser_set_current_folder(teseofilechooser, path );
-    free(path);
+    g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
 
