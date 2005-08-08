@@ -25,8 +25,8 @@
  * authorization from the Authors.
  */
 
-#ifndef TESEO_ENVH
-#define TESEO_ENVH 1
+#ifndef __TESEO_ENV_H__
+#define __TESEO_ENV_H__ 1
 
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -40,59 +40,81 @@
 #define T_MAJOR_VER 2
 #define T_MINOR_VER 0
 #define T_DEVEL_VER 2
-#define TESEO_CAPTION teseo_caption()
+#define TESEO_CAPTION_DEV teseo_caption(TRUE)
+#define TESEO_CAPTION     teseo_caption(FALSE)
+#define TESEO_YEAR "2005"
 
 
-/*OLDIES*/
-extern const char TESEO_BIN[];
-extern const char TESEO_DATA[];
+/* ***********
+   OLDIES
+ ************* */
+
+/*!
+  Deprecated !
+  */
+extern const char TESEO_BIN_deprecated[];
+
+/*!
+  Deprecated !
+  */
+extern const char TESEO_DATA_deprecated[];
+
+/*!
+  Deprecated !
+  */
+char *valore_parse_deprecated(const char *nomefile, const char *nomevariabile);
+
+/*!
+  Deprecated !
+  */
+char *getenv_teseo_deprecated(const char *name_var) ;
+
+/* ***********
+   END OLDIES
+ ************* */
+
 
 /*!
   teseo_caption returns a string with name and current version
   */
-const gchar * teseo_caption();
-
-char *valore_parse(const char *nomefile, const char *nomevariabile);
-char *getenv_teseo(const char *name_var) ;
-/*END OLDIES*/
-
+const gchar * teseo_caption(gboolean ver_devel);
 
 
 /*!
 Environment default subpaths
 */
 /* When you modify PATHNAMES, modify SUBPATHS in the teseo_env.c */
-typedef enum { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH, LOCKPATH } PATHNAMES;
+typedef enum { SVGPATH, SESSIONPATH, BEZIERPATH, DXFPATH, SACPATH, ASCIIPATH, TMARKPATH, PREFPATH, LOCKPATH, TMPPATH } PATHNAMES;
 extern const char *SUBPATHS[];
 
 extern const gchar SLASH[];
 
 
 /*!
-get_teseo_environment_path returns a static string containing the teseo environment path, $HOME/.gimp-majorversio.minorversion/PROCEDURE_NAME
+teseo_get_teseo_environment_path returns a static string containing the teseo environment path, $HOME/.gimp-majorversio.minorversion/PROCEDURE_NAME
 */
-char * get_teseo_environment_path( );
+char * teseo_get_teseo_environment_path( );
 
 /*!
-get_environment_path returns a newly allocated string containing the absolute path of the corresponding path resource.
+teseo_get_environment_path returns a newly allocated string containing the absolute path of the corresponding path resource.
 Free it after use!
 	\param char * pathname, in PATHNAMES
 */
-char * get_environment_path( int pathname );
+char * teseo_get_environment_path( int pathname );
 
 
 /*!
-create_teseo_environment_path returns 1 if teseo environment path creation succeed
+teseo_create_environment_path returns 1 if teseo environment path creation succeed
 	\param char * filename
 */
-char create_teseo_environment_path( char* filename );
+char teseo_create_environment_path( char* filename );
 
 
 /*!
 create_environment returns 1 if environment paths creation succeed,
-	\param char * name, the directory name to create under get_teseo_environment_path resulting path
+	\param char * name, the directory name to create under teseo_get_teseo_environment_path resulting path
 */
-char create_environment();
+char teseo_create_environment();
 
 
 #endif

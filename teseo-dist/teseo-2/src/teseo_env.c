@@ -33,21 +33,25 @@
 #define LEN_RIGA 1024
 
 /*OLDIES TODO eliminate !!!!*/
-const char TESEO_BIN[] = "TESEO_BIN";
-const char TESEO_DATA[] = "TESEO_DATA";
+const char TESEO_BIN_deprecated[] = "TESEO_BIN";
+const char TESEO_DATA_deprecated[] = "TESEO_DATA";
 
 
-const gchar * teseo_caption() {
-    gchar * caption[200];
-    sprintf(caption, "Teseo %d.%d.%d", T_MAJOR_VER, T_MINOR_VER, T_DEVEL_VER);
+const gchar * teseo_caption(gboolean ver_devel) {
+    static gchar * caption[200];
+    if(ver_devel) {
+	sprintf(caption, "Teseo %d.%d.%d", T_MAJOR_VER, T_MINOR_VER, T_DEVEL_VER);
+    } else {
+	sprintf(caption, "Teseo %d.%d", T_MAJOR_VER, T_MINOR_VER);
+    }
     return caption;
 }
 
 
 /* When you modify SUBPATHS, modify PATHNANEMS in the teseo_env.h */
-const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences", "lock" };
+const char *SUBPATHS[]= { "svg", "session", "bezier", "dxf", "sac", "ascii", "tmark", "preferences", "lock", "tmp" };
 /* Set MAX_PATHNAME to the high value of enum PATHNAMES */
-const PATHNAMES MAX_PATHNAME = LOCKPATH;
+const PATHNAMES MAX_PATHNAME = TMPPATH;
 
 #ifdef WINSLASH
 const gchar SLASH[] = "\\";
@@ -55,7 +59,7 @@ const gchar SLASH[] = "\\";
 const gchar SLASH[] = "/";
 #endif
 
-char *valore_parse(const char *nomefile, const char *nomevariabile) {
+char *valore_parse_deprecated(const char *nomefile, const char *nomevariabile) {
   static char ret_valore[255];
   char riga[LEN_RIGA];
   char *token;
@@ -88,19 +92,19 @@ char *valore_parse(const char *nomefile, const char *nomevariabile) {
 }
 
 
-char *getenv_teseo(const char *name_var) {
+char *getenv_teseo_deprecated(const char *name_var) {
   char s_app[200];
   char *s;
   char *cmdconfig = "/usr/local/neuronteseo/bin/neuronteseo-config.sh";
 
   char nomefile[255];
   sprintf(nomefile, "%s%s.teseorc", SLASH, getenv("HOME"));
-  s = valore_parse(nomefile, name_var);
+  s = valore_parse_deprecated(nomefile, name_var);
   // g_message("newfunc %s = %s", name_var, s);
 
   // s = getenv(name_var);
   if(!s) {
-    if(strcmp(name_var , TESEO_BIN)==0) {
+    if(strcmp(name_var , TESEO_BIN_deprecated)==0) {
       sprintf(s_app, "%s%steseo", SLASH, getenv("HOME"));
     } else {
       sprintf(s_app, "%s", getenv("HOME"));
@@ -116,7 +120,7 @@ char *getenv_teseo(const char *name_var) {
 
 
 
-char * get_teseo_environment_path( ){
+char * teseo_get_teseo_environment_path( ){
 
     static char ENVIRONMENT_PATH[FILENAMELEN];
 
@@ -140,14 +144,14 @@ char * get_teseo_environment_path( ){
 }
 
 
-char * get_environment_path( int pathname ){
+char * teseo_get_environment_path( int pathname ){
 
     char * path=NULL;
 
     path = (char * ) malloc(sizeof(char)*FILENAMELEN);
 
     if (path!=NULL) {
-        strcpy(path,get_teseo_environment_path());
+        strcpy(path,teseo_get_teseo_environment_path());
         strcat(path,SLASH);
         strcat(path,SUBPATHS[pathname]);
     }
@@ -160,10 +164,10 @@ char * get_environment_path( int pathname ){
 }
 
 
-char create_teseo_environment_path(char * filename){
+char teseo_create_environment_path(char * filename){
     char ret=0;
 
-    if ( test_dir( filename ) == 0 ) {
+    if ( teseo_test_dir( filename ) == 0 ) {
       if ( mkdir(filename,S_IRWXU |  S_IRWXG | S_IRWXO ) == -1 ) {
           g_message("Unable to create teseo environment path: %s", filename);
       }
@@ -179,16 +183,16 @@ char create_teseo_environment_path(char * filename){
 }
 
 
-char create_environment( ){
+char teseo_create_environment( ){
 
  char * mainpath;
  char error=0;
  int i;
  char path[FILENAMELEN]="";
 
- mainpath=get_teseo_environment_path();
+ mainpath=teseo_get_teseo_environment_path();
 
- if (create_teseo_environment_path(mainpath) == 0 ) {
+ if (teseo_create_environment_path(mainpath) == 0 ) {
      error=1;
  }
  else {
@@ -198,7 +202,7 @@ char create_environment( ){
 	 //TODO windowsisation
          strcat(path,SLASH);
 	 strcat(path,SUBPATHS[i]);
-         error = !(create_teseo_environment_path(path));
+         error = !(teseo_create_environment_path(path));
      }
  }
 
