@@ -1,11 +1,9 @@
 This is your plugin's TODO list.
 
 
-Mon Aug  1 16:19:08 CEST 2005 - mtheo
-- Improve get_teseo_environment_path()
-
 Thu Aug  4 17:16:58 CEST 2005
-- Set label_ver in about_dlg
+- Fix old TESEO_DATA with new ...
+	* Improve get_teseo_environment_path() * check for a file teseorc?
 - Display filename on window win_teseo ()
 - Catch parameter from session, for example to run algorithm or operation on path
 - Path menu porting from teseo 1 to 2
@@ -13,3 +11,7 @@ Thu Aug  4 17:16:58 CEST 2005
 	* when the program crash and does not remove the file lock
 	* when quit gimp and the plug-in has not been closed before
 
+
+Sun Aug  7 19:49:52 CEST 2005
+- Omologate by glib functions
+- Event pathname and time mark pathname in Properties-->Traces
