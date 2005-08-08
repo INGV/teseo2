@@ -33,6 +33,7 @@
 #include "main.h"
 #include "interface.h"
 
+#include "teseo_io.h"
 #include "teseo_lock.h"
 #include "teseo_env.h"
 #include "teseointerface.h"
