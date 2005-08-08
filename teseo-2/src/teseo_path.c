@@ -38,7 +38,7 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
   glong i;
   //g_message(" teseo_path_rotation..inizio");
 
-  strokes_ruotato = (gdouble *) malloc(sizeof(gdouble) * (num_strokes + 1) * 2);
+  strokes_ruotato = (gdouble *) g_malloc(sizeof(gdouble) * (num_strokes + 1) * 2);
   strokes_ruotato[num_strokes*2] = (gdouble) CANARY;
 
   if(!strokes_ruotato) {
@@ -97,7 +97,7 @@ gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, gl
  numstrokes =  ( n_details * 2 )/ 3;
  lstrokes = numstrokes * 2;
 
- strokes = ( gdouble * ) malloc ( sizeof(gdouble) * (lstrokes+1) );
+ strokes = ( gdouble * ) g_malloc ( sizeof(gdouble) * (lstrokes+1) );
  strokes[lstrokes] = (gdouble) CANARY;
 
  for(i=0; i < numstrokes; i++){
@@ -107,7 +107,7 @@ gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, gl
 
  if(strokes[lstrokes] != (gdouble) CANARY){
    g_message("Canary in path_array_to strokes is dead!");
- 	 free(strokes);
+ 	 g_free(strokes);
  	 strokes=NULL;
  	 *n_strokes=0;
  }
@@ -137,7 +137,7 @@ gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nom
      lstrokes = num_path_point_details ;
      //oppure togli questa riga e decommenta tutto il resto
      strokes_ret=points_pairs;
-//     pstrokes_ret = (gdouble *) malloc( sizeof(gdouble) * ( lstrokes + 1 ) );
+//     pstrokes_ret = (gdouble *) g_malloc( sizeof(gdouble) * ( lstrokes + 1 ) );
 //     pstrokes_ret[lstrokes] = (gdouble) CANARY;
 //
 //     if( !pstrokes_ret ) {
@@ -156,7 +156,7 @@ gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nom
 //      if( pstrokes_ret[lstrokes] != (gdouble) CANARY ) {
 //      	g_message("Hai ucciso il canarino in pstrokes_ret!");
 //        if (pstrokes_ret)
-//        	free(pstrokes_ret);
+//        	g_free(pstrokes_ret);
 //        lstrokes=0;
 //  	  }
 //  	  else
@@ -196,7 +196,7 @@ void teseo_strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *stro
   /*
   g_message("num_strokes vale %d",num_strokes);
   */
-  vet_punti = (gdouble *) malloc( ( sizeof(gdouble) ) * (lpunti + 1));
+  vet_punti = (gdouble *) g_malloc( ( sizeof(gdouble) ) * (lpunti + 1));
   if ( vet_punti != NULL && num_strokes > 2 ){
 
     vet_punti[lpunti] = (gdouble) CANARY;
@@ -242,7 +242,7 @@ void teseo_strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *stro
       g_message("Not enough free memory for vet_punti: %ld values", lpunti);
   }
   if (vet_punti)
-  	free(vet_punti);
+  	g_free(vet_punti);
 
 // gimp_displays_flush();
 
@@ -266,7 +266,7 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
      num_strokes=(num_path_point_details+3)/9;
 
      lstrokes = num_strokes * 2;
-     pstrokes_ret = (gdouble *) malloc( sizeof(gdouble) * (lstrokes + 1) );
+     pstrokes_ret = (gdouble *) g_malloc( sizeof(gdouble) * (lstrokes + 1) );
      pstrokes_ret[lstrokes] = (gdouble) CANARY;
 
      if(!pstrokes_ret) {
@@ -285,7 +285,7 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
       if( pstrokes_ret[lstrokes] != (gdouble) CANARY ) {
       	g_message("Canary in pstrokes_ret is dead!");
         if (pstrokes_ret)
-        	free(pstrokes_ret);
+        	g_free(pstrokes_ret);
   	  }
      }
   }
@@ -342,7 +342,7 @@ void teseo_align_all_path(gint32 g_image)
 
   		num_points_tot = num_point[0]	+	num_point[1];
 
-			path_strokes = (gdouble *) malloc(sizeof(gdouble) * (n_points_tot_eff+1) );
+			path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (n_points_tot_eff+1) );
 
       if(!path_strokes)
 				g_message(" Not enough free memory for strokes.");
@@ -375,7 +375,7 @@ void teseo_align_all_path(gint32 g_image)
 		gimp_path_set_points( g_image, "UNIONE", 1, n_point_eff[0]+n_point_eff[1]-6, path_strokes );
 
 		if (path_strokes)
-  			free(path_strokes);
+  			g_free(path_strokes);
 
   		gimp_displays_flush();
 
@@ -403,7 +403,7 @@ void teseo_link_all_path(gint32 g_image)
 	  num_points_tot += (num_points+3-9)/3;
     }
 
-  path_strokes = (gdouble *) malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
+  path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
 
   for ( i=num_paths-1; i>=0; i--)
 	 	{
@@ -418,7 +418,7 @@ void teseo_link_all_path(gint32 g_image)
 	gimp_path_set_points( g_image, "UNIONE", 1, (num_points_tot-1)*3, path_strokes );
 
   if (path_strokes)
-  	free(path_strokes);
+  	g_free(path_strokes);
 }
 
 void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
@@ -469,9 +469,9 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
      }
 
      if(strokes)
-      free(strokes);//non serve più
+      g_free(strokes);//non serve più
      if(strokes_ruotato)
-      free(strokes_ruotato);//non serve più
+      g_free(strokes_ruotato);//non serve più
 
     }
 
@@ -481,7 +481,7 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
 
  }
   if(path_array)
-   free(path_array);
+   g_free(path_array);
 }
 
 //Modifica al 11/01/2002 Prevede che dall'esterno lo strokes passat sia consecutivo al path chiamante
@@ -514,7 +514,7 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 
 
     // printf("num_points_details=num_points * 3 * 3 -3=%d",num_points_details);
-    path_strokes = (gdouble *) malloc(sizeof(gdouble) * (num_points_details + 1));
+    path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (num_points_details + 1));
 
     if(!path_strokes) {
       g_message("Not enough free memory for path_strokes!");
@@ -568,6 +568,6 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
   }
 
   if (path_strokes)
-  	free(path_strokes);
+  	g_free(path_strokes);
 
 }

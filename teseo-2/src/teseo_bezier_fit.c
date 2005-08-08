@@ -214,7 +214,7 @@ void teseo_maxima_minima_strokes(gdouble *strokes, glong num_strokes, gint **pid
   int i_scoll=0, in_piano;
   glong  i;
 
-  idirezione = (gint *) malloc(sizeof(gint) * (num_strokes + 1));
+  idirezione = (gint *) g_malloc(sizeof(gint) * (num_strokes + 1));
   idirezione[num_strokes] = (gint) CANARY;
   if(!idirezione) {
     g_message("Not enough free memory for direzione!");
@@ -280,7 +280,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	teseo_maxima_minima_strokes(deriv, num_strokes, &idirezione, &n_dir);
 	
 	if(deriv) {
-		free(deriv);
+		g_free(deriv);
 	}
 	*/
 	
@@ -318,13 +318,13 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
   }
 
   if(N_MIS_MAX > 0) {
-    x_mis = (float *) malloc(sizeof(float) * (N_MIS_MAX));
+    x_mis = (float *) g_malloc(sizeof(float) * (N_MIS_MAX));
     if(!x_mis) {
       g_message("Not enough free memory for x_mis!");
       exit(1);
     }
 
-    y_mis = (float *) malloc(sizeof(float) * (N_MIS_MAX));
+    y_mis = (float *) g_malloc(sizeof(float) * (N_MIS_MAX));
     if(!y_mis) {
       g_message("Not enough free memory for y_mis!");
       exit(1);
@@ -336,7 +336,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 
   max_num_path_inter = n_dir * 3;
   lpath = (max_num_path_inter) * 3;
-  path_inter = (gdouble *) malloc(sizeof(gdouble) * (lpath + 1));
+  path_inter = (gdouble *) g_malloc(sizeof(gdouble) * (lpath + 1));
   path_inter[lpath] = (gdouble) CANARY;
   if(!path_inter) {
     g_message("Not enough free memory for path_inter!");
@@ -428,22 +428,22 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
   if(idirezione[num_strokes] != (gint) CANARY)
 		g_message("Canary in idirezione is dead!");
 	if(idirezione)
-		free(idirezione);
+		g_free(idirezione);
 
   if(path_inter[lpath] != (gdouble) CANARY)
   	g_message("Canary in strokes_inter is dead!");
 	
-  realloc( path_inter, ( sizeof(gdouble) * ((cur_path_inter + 1) * 3)) );
+  g_realloc( path_inter, ( sizeof(gdouble) * ((cur_path_inter + 1) * 3)) );
 
   if(x_mis) {
-  	free(x_mis);
+  	g_free(x_mis);
   }
   if(y_mis) {
-  	free(y_mis);
+  	g_free(y_mis);
   }
   	
   if(xi)
-   free(xi);
+   g_free(xi);
 
 	*ppath_inter = path_inter;
 	*pnum_path_inter = cur_path_inter;

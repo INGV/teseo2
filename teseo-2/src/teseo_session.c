@@ -204,9 +204,9 @@ char new_session(char * filename, char * dlg_preferences_filename){
      strcpy(current_dlg_preferences,dlg_preferences_filename);
     }
 
-    if (session_filename) free(session_filename);
-    if (dlg_session_filename) free(dlg_session_filename);
-    if (dlg_preferences_filename && (external_preferences==FALSE)) free(dlg_preferences_filename);
+    if (session_filename) g_free(session_filename);
+    if (dlg_session_filename) g_free(dlg_session_filename);
+    if (dlg_preferences_filename && (external_preferences==FALSE)) g_free(dlg_preferences_filename);
 
     return ret;
 }
@@ -221,15 +221,15 @@ char* create_name(char * dirname, char* order, char* ext){
     const char delimiters[] = ".";
     // char ptrptr[FILENAMELEN];
 
-    filename = (char * ) malloc(sizeof(char)*FILENAMELEN);
+    filename = (char * ) g_malloc(sizeof(char)*FILENAMELEN);
 
     if ( filename != NULL) {
 
-      p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be freed
+      p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
       strcpy(filename,p);
       strcat(filename,"/");
 
-      name = g_path_get_basename (dirname); //basename without path, to be freed
+      name = g_path_get_basename (dirname); //basename without path, to be g_freed
 
       token = strpbrk(name, delimiters);
 
@@ -246,7 +246,7 @@ char* create_name(char * dirname, char* order, char* ext){
       g_warning("Name = %s",  filename);
       if (name != NULL) g_free(name);
       if (name_noext != NULL) g_free(name_noext);
-      if (p != NULL) free(p);
+      if (p != NULL) g_free(p);
     }
 
     return filename;

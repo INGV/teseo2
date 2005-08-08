@@ -34,8 +34,8 @@
 void teseo_bezier_point_init(struct teseo_bezier_point *tbp, int agrado, double *aPx, double *aPy) {
   tbp->grado = agrado;
   tbp->n_punti = agrado+1;
-  tbp->Px = (double *) malloc(tbp->n_punti * sizeof(double));
-  tbp->Py = (double *) malloc(tbp->n_punti * sizeof(double));
+  tbp->Px = (double *) g_malloc(tbp->n_punti * sizeof(double));
+  tbp->Py = (double *) g_malloc(tbp->n_punti * sizeof(double));
   if(aPx  &&  aPy)
     teseo_bezier_point_setPoints(tbp, aPx, aPy);
   else
@@ -45,9 +45,9 @@ void teseo_bezier_point_init(struct teseo_bezier_point *tbp, int agrado, double 
 // Bezier::~Bezier() {
 void teseo_bezier_point_free(struct teseo_bezier_point *tbp) {
   if(tbp->Px)
-    free(tbp->Px);
+    g_free(tbp->Px);
   if(tbp->Py)
-    free(tbp->Py);
+    g_free(tbp->Py);
 }
 
 // void Bezier::setPoints(double *aPx, double *aPy) {
@@ -85,7 +85,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
   double t;
   int imax, imin;
 
-  strokes = (double *) malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
+  strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
   if(!strokes) {
   	*astrokes = NULL;
   	printf("Non riesco ad allocare strokes in Bezier::getStrokes!");
@@ -103,8 +103,8 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
   }
   n_punti_strokes++;
 
-  Pxi = (double *) malloc(tbp->n_punti * sizeof(double));
-  Pyi = (double *) malloc(tbp->n_punti * sizeof(double));
+  Pxi = (double *) g_malloc(tbp->n_punti * sizeof(double));
+  Pyi = (double *) g_malloc(tbp->n_punti * sizeof(double));
 
   imin = 0;
   imax = 0;
@@ -138,7 +138,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
     }
     if(n_punti_strokes >= n_punti_strokes_max) {
       n_punti_strokes_max += STROKES_MAX;
-      strokes = (double *) realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes_max+2) * 2 )));
+      strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes_max+2) * 2 )));
         if(!strokes) {
           *astrokes = NULL;
           printf("Non riesco ad Reallocare strokes in Bezier::getStrokes!");
@@ -187,11 +187,11 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
   // n_punti_strokes++;
 
   if(Pxi)
-    free(Pxi);
+    g_free(Pxi);
   if(Pyi)
-    free(Pyi);
+    g_free(Pyi);
 
-  strokes = (double *) realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes+2) * 2)));
+  strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes+2) * 2)));
   if(!(strokes)) {
     *astrokes = NULL;
     printf("Non riesco ad Reallocare *astrokes in Bezier::getStrokes!");

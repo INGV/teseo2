@@ -314,7 +314,7 @@ int teseo_wmean_new_is( wm_is ** is, gint32 drawable_ID){
 
 
 void teseo_wmean_release(wm_is ** is, wm_os ** os){
-  //free bufin memory, is, os
+  //g_free bufin memory, is, os
   g_free((*(*is)).bufin);
   g_free(*is);
   g_free(*os);
