@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="win_teseo">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Teseo 2.x.x</property>
+  <property name="title" translatable="yes">Teseo 2.x</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_MOUSE</property>
   <property name="modal">False</property>
@@ -71,7 +71,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image269">
+			    <widget class="GtkImage" id="image281">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-properties</property>
 			      <property name="icon_size">1</property>
@@ -99,7 +99,7 @@
 			  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image270">
+			    <widget class="GtkImage" id="image282">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-preferences</property>
 			      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image271">
+			    <widget class="GtkImage" id="image283">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-back</property>
 			      <property name="icon_size">1</property>
@@ -229,7 +229,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image272">
+			    <widget class="GtkImage" id="image284">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-forward</property>
 			      <property name="icon_size">1</property>
@@ -363,6 +363,24 @@
 		      </child>
 
 		      <child>
+			<widget class="GtkMenuItem" id="fitting_bezier1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Fitting _Bezier</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_fitting_bezier1_activate" last_modification_time="Wed, 19 Nov 2003 17:20:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="fitting_polyline1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Fitting _Polyline</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_fitting_polyline1_activate" last_modification_time="Wed, 19 Nov 2003 17:20:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkMenuItem" id="align_all1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">_Align All</property>
@@ -386,24 +404,6 @@
 			  <property name="label" translatable="yes">_Move and Rotation</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_move_and_rotation1_activate" last_modification_time="Wed, 19 Nov 2003 17:25:50 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkMenuItem" id="fitting_polyline1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Fitting _Polyline</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_fitting_polyline1_activate" last_modification_time="Wed, 19 Nov 2003 17:20:33 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkMenuItem" id="fitting_bezier1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Fitting _Bezier</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_fitting_bezier1_activate" last_modification_time="Wed, 19 Nov 2003 17:20:33 GMT"/>
 			</widget>
 		      </child>
 
@@ -474,7 +474,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image273">
+			    <widget class="GtkImage" id="image285">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -495,7 +495,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image274">
+			    <widget class="GtkImage" id="image286">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>
@@ -2118,6 +2118,7 @@ and again . . .</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">True</property>
+  <signal name="show" handler="on_dlg_about_show_label_ver" object="label_ver" last_modification_time="Sat, 06 Aug 2005 05:58:55 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox6">
@@ -2169,8 +2170,7 @@ and again . . .</property>
 		<widget class="GtkLabel" id="label_teseo">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">&lt;big&gt;&lt;span color=&quot;brown&quot;&gt;&lt;b&gt;Teseo&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;&lt;/b&gt;&lt;/span&gt;&lt;/big&gt;
-&quot;Vectoriser of historical seismograms&quot;
-&lt;small&gt;Open source software &amp;#169;&lt;/small&gt;</property>
+&quot;Vectoriser of historical seismograms&quot;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -2191,7 +2191,8 @@ and again . . .</property>
 	      <child>
 		<widget class="GtkLabel" id="label_ver">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;small&gt;Version 2.x.x&lt;/small&gt;</property>
+		  <property name="label" translatable="yes">&lt;small&gt;Open source software &amp;#169; 2005
+Teseo 2.x.x&lt;/small&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -2340,6 +2341,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">True</property>
   <signal name="show" handler="on_dlg_session_show" last_modification_time="Thu, 28 Jul 2005 10:26:11 GMT"/>
+  <signal name="show" handler="on_dlg_session_show_teseo_eventpathname" object="teseo_eventpathname" last_modification_time="Sun, 07 Aug 2005 20:35:40 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox7">
@@ -2369,6 +2371,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	    <widget class="GtkButton" id="okbutton5">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
+	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="label">gtk-ok</property>
 	      <property name="use_stock">True</property>
@@ -3739,6 +3742,17 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				      <property name="fill">False</property>
 				    </packing>
 				  </child>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
+			      </child>
+
+			      <child>
+				<widget class="GtkComboBoxEntry" id="teseo_eventpathname">
+				  <property name="visible">True</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
