@@ -158,22 +158,23 @@ dialog (gint32              image_ID,
 
   if(is_xcf) {
       if(teseo_lock(pattern_prefix)) {
-	      teseowin = create_win_teseo();
-	      gtk_window_set_title (GTK_WINDOW (teseowin), TESEO_CAPTION);
-	      preferencesdlg = create_dlg_preferences ();
-	      aboutdlg = create_dlg_about ();
-	      sessiondlg = create_dlg_session();
+	      win_teseo = create_win_teseo();
+	      gtk_window_set_title (GTK_WINDOW (win_teseo), TESEO_CAPTION);
+	      dlg_preferences = create_dlg_preferences ();
+	      dlg_about = create_dlg_about ();
+	      dlg_session = create_dlg_session();
+	      dlg_move_rotation = create_dlg_move_rotation();
 
-	      teseofilechooser = (GtkFileChooser *) create_filechooser_import();
-	      teseosessionfilechooser = (GtkFileChooser *) create_filechooser_session ();
-	      gtk_window_set_title (GTK_WINDOW (teseosessionfilechooser), "Open session file");
+	      filechooser_import = (GtkFileChooser *) create_filechooser_import();
+	      filechooser_session = (GtkFileChooser *) create_filechooser_session ();
+	      gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
 
 	      filter = gtk_file_filter_new ();
 	      gtk_file_filter_add_pattern (filter, pattern_session);
 	      gtk_file_filter_set_name    (filter, "Session");
-	      gtk_file_chooser_add_filter (teseosessionfilechooser, filter);
+	      gtk_file_chooser_add_filter (filechooser_session, filter);
 
-	      gtk_widget_show (teseowin);
+	      gtk_widget_show (win_teseo);
 	      gtk_main ();
       } else {
 	      g_message("Teseo-2 seems to be just running on file %s.\nRemember: it is possible to load only one instance for each file !", pattern_prefix);

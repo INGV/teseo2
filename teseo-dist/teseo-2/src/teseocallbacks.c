@@ -47,12 +47,13 @@
 #include "teseo_main.h"
 #include "teseo_wmean.h"
 
-GtkWidget * teseowin;
-GtkWidget * preferencesdlg;
-GtkWidget * aboutdlg;
-GtkWidget * sessiondlg;
-GtkFileChooser * teseofilechooser;
-GtkFileChooser * teseosessionfilechooser;
+GtkWidget * win_teseo;
+GtkWidget * dlg_preferences;
+GtkWidget * dlg_about;
+GtkWidget * dlg_session;
+GtkWidget * dlg_move_rotation;
+GtkFileChooser * filechooser_import;
+GtkFileChooser * filechooser_session;
 
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
@@ -66,8 +67,8 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
 {
 
  int ret=0;
- GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imagefile_entry");
- GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   lookup_widget(GTK_WIDGET(sessiondlg), "teseo_imageresolution_entry");
+ GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   lookup_widget(GTK_WIDGET(dlg_session), "teseo_imagefile_entry");
+ GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   lookup_widget(GTK_WIDGET(dlg_session), "teseo_imageresolution_entry");
 
 
  char * image_file = gimp_image_get_filename(teseo_image);
@@ -82,9 +83,9 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
  strcat(str_res," dpi");
  gtk_entry_set_text (teseo_imageresolution_entry, str_res);
 
- gtk_window_set_title (GTK_WINDOW (sessiondlg), new_session_name);
+ gtk_window_set_title (GTK_WINDOW (dlg_session), new_session_name);
 
- gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+ gint result = gtk_dialog_run (GTK_DIALOG (dlg_session));
 
   switch (result)
     {
@@ -97,8 +98,8 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
       default:
          break;
     }
-  gtk_widget_hide (sessiondlg);
-  gtk_window_set_title (GTK_WINDOW (sessiondlg), "");
+  gtk_widget_hide (dlg_session);
+  gtk_window_set_title (GTK_WINDOW (dlg_session), "");
   return ret;
 }
 
@@ -107,7 +108,7 @@ void
 on_properties1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- gint result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+ gint result = gtk_dialog_run (GTK_DIALOG (dlg_session));
   switch (result)
     {
       case GTK_RESPONSE_OK:
@@ -121,7 +122,7 @@ on_properties1_activate                   (GtkMenuItem     *menuitem,
       default:
          break;
     }
- gtk_widget_hide (sessiondlg);
+ gtk_widget_hide (dlg_session);
 }
 
 //return 1 on success, 2 on user refuse, 0 on error
@@ -141,15 +142,15 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
   path=teseo_get_environment_path( SESSIONPATH );
 
-  gtk_file_chooser_set_current_folder(teseosessionfilechooser, path );
+  gtk_file_chooser_set_current_folder(filechooser_session, path );
   g_free(path);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (teseosessionfilechooser));
+  gint result = gtk_dialog_run (GTK_DIALOG (filechooser_session));
 
   switch (result)
     {
       case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseosessionfilechooser)) );
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_session)) );
          ret=load_session(filename);
          break;
       case GTK_RESPONSE_CANCEL:
@@ -162,10 +163,10 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
          break;
     }
 
-    gtk_widget_hide ((GtkWidget *) teseosessionfilechooser);
+    gtk_widget_hide ((GtkWidget *) filechooser_session);
 
     if (ret==1) {
-        result = gtk_dialog_run (GTK_DIALOG (sessiondlg));
+        result = gtk_dialog_run (GTK_DIALOG (dlg_session));
         switch (result)
           {
             case GTK_RESPONSE_OK:
@@ -173,14 +174,14 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
                break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
-  	       gtk_window_set_title (GTK_WINDOW (sessiondlg), "");
+  	       gtk_window_set_title (GTK_WINDOW (dlg_session), "");
                ls=load_session(old_current_session);
 	       ret=2;
                break;
             default:
                break;
           }
-        gtk_widget_hide (sessiondlg);
+        gtk_widget_hide (dlg_session);
     }
     if (ret==0) {
            g_message("Unable to open session.");
@@ -221,16 +222,16 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
     char * path=NULL;
 
     path=teseo_get_environment_path( SVGPATH );
-    gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Import bezier path from SVG file");
-    gtk_file_chooser_set_current_folder(teseofilechooser, path );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Import bezier path from SVG file");
+    gtk_file_chooser_set_current_folder(filechooser_import, path );
     g_free(path);
 
-    gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
 
     switch (result)
     {
       case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
 	 teseo_import_svg_vectors( teseo_image, filename );
 	 break;
       case GTK_RESPONSE_CANCEL:
@@ -242,7 +243,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
       default:
 	 break;
     }
-    gtk_widget_hide ((GtkWidget *) teseofilechooser);
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
 
 }
 
@@ -256,16 +257,16 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
   char * path=NULL;
 
   path=teseo_get_environment_path( DXFPATH );
-  gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open DXF file");
-  gtk_file_chooser_set_current_folder(teseofilechooser, path );
+  gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open DXF file");
+  gtk_file_chooser_set_current_folder(filechooser_import, path );
   g_free(path);
 
-  gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+  gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
 
   switch (result)
     {
       case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
          teseo_import_dxf( teseo_image, filename );
          break;
       case GTK_RESPONSE_CANCEL:
@@ -277,7 +278,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
       default:
          break;
     }
-  gtk_widget_hide ((GtkWidget *) teseofilechooser);
+  gtk_widget_hide ((GtkWidget *) filechooser_import);
 }
 
 
@@ -369,7 +370,7 @@ on_track1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export Trace
-    // teseo_save_path_traccia(teseo_image, trace_filename);
+    // teseo_save_path_traccia(teseo_image, filename_trace);
     g_message(TODO_str);
 }
 
@@ -396,6 +397,7 @@ on_sisma1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export SISMA
+    // TODO teseo_save_path_sisma(teseo_image, filename_sisma);
     g_message(TODO_str);
 }
 
@@ -405,6 +407,7 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export Timemark
+    // TODO teseo_save_path_timemarker(teseo_image, dxf_filename, 0);
     g_message(TODO_str);
 }
 
@@ -446,7 +449,40 @@ void
 on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    g_message(TODO_str);
+    // TODO catch x, y, rotate value
+    gint x=0, y=0;
+    gdouble rotation = 0.0;
+    gint x_cur, y_cur;
+    
+    gint result;
+
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+
+    gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
+
+    if(num_path_point_details < 1) {
+	g_message("Path is empty !");
+    }
+    
+    x_cur = (gint) points_pairs[0];
+    y_cur = (gint) points_pairs[1];
+
+    result = gtk_dialog_run (GTK_DIALOG (dlg_move_rotation));
+    switch (result)
+    {
+	case GTK_RESPONSE_OK:
+	    g_message(TODO_str);
+	    teseo_path_move(teseo_image, x, y, rotation);
+	    break;
+	case GTK_RESPONSE_CANCEL:
+	    break;
+	case GTK_RESPONSE_DELETE_EVENT:
+	    break;
+	default:
+	    break;
+    }
+    gtk_widget_hide (dlg_move_rotation);
 }
 
 
@@ -544,7 +580,7 @@ void
 on_about1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    gint result = gtk_dialog_run (GTK_DIALOG (aboutdlg));
+    gint result = gtk_dialog_run (GTK_DIALOG (dlg_about));
     switch (result)
     {
 	case GTK_RESPONSE_OK:
@@ -554,7 +590,7 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
 	default:
 	    break;
     }
-    gtk_widget_hide (aboutdlg);
+    gtk_widget_hide (dlg_about);
 }
 
 
@@ -565,7 +601,7 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
-    gint result = gtk_dialog_run (GTK_DIALOG (preferencesdlg));
+    gint result = gtk_dialog_run (GTK_DIALOG (dlg_preferences));
 
     switch (result)
     {
@@ -584,7 +620,7 @@ on_preferences_w_activate              (GtkMenuItem     *menuitem,
 	default:
 	    break;
     }
-    gtk_widget_hide (preferencesdlg);
+    gtk_widget_hide (dlg_preferences);
 
 }
 
@@ -614,7 +650,7 @@ on_dlg_preferences_response            (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data)
 {
-  gtk_widget_hide(preferencesdlg);
+  gtk_widget_hide(dlg_preferences);
   // return response_id;
 }
 
@@ -623,7 +659,7 @@ void
 on_dlg_preferences_close               (GtkDialog       *dialog,
                                         gpointer         user_data)
 {
-  gtk_widget_hide(preferencesdlg);
+  gtk_widget_hide(dlg_preferences);
   // return FALSE;
 }
 
@@ -642,7 +678,7 @@ on_svg2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export SVG
-    g_message(TODO_str);
+    g_message("%s\nYou can use GIMP Paths tool to make this operation.",TODO_str);
 }
 
 
@@ -664,16 +700,16 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     char * path=NULL;
 
     path=teseo_get_environment_path( BEZIERPATH );
-    gtk_window_set_title (GTK_WINDOW (teseofilechooser), "Open Bezier Path");
-    gtk_file_chooser_set_current_folder(teseofilechooser, path );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open Bezier Path");
+    gtk_file_chooser_set_current_folder(filechooser_import, path );
     g_free(path);
 
-    gint result = gtk_dialog_run (GTK_DIALOG (teseofilechooser));
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
 
     switch (result)
     {
       case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (teseofilechooser)) );
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
 	 teseo_import_bzr( teseo_image, filename );
 	 break;
       case GTK_RESPONSE_CANCEL:
@@ -685,7 +721,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
       default:
 	 break;
     }
-    gtk_widget_hide ((GtkWidget *) teseofilechooser);
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
 }
 
 void
@@ -701,7 +737,7 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
    int iter;
-   GtkSpinButton * tfss = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_forward_step_spinbutton");
+   GtkSpinButton * tfss = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton");
    iter=gtk_spin_button_get_value_as_int (tfss) ;
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
 
@@ -714,8 +750,8 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
 
-  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
-  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton");
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton");
 
   wmeanParams s;
 
@@ -724,9 +760,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   s.width  = 5;
   s.height = 50;
 
-  GtkSpinButton * twhs = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_height_spinbutton");
-  GtkSpinButton * twws = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_width_spinbutton");
-  GtkRadioButton * twcbr = (GtkRadioButton *) lookup_widget(GTK_WIDGET(teseowin), "teseo_wm_colour_black_radiobutton");
+  GtkSpinButton * twhs = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_height_spinbutton");
+  GtkSpinButton * twws = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_width_spinbutton");
+  GtkRadioButton * twcbr = (GtkRadioButton *) lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_colour_black_radiobutton");
 
   if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(twcbr))  == TRUE ){
     s.colour=0;
@@ -763,9 +799,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 */
 
 static inline void disable_buttons(){
-  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_go_toolbutton");
-  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(teseowin), "teseo_alg_back_toolbutton");
-  GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(teseowin), "ghost_radiotoolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton");
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton");
+  GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(win_teseo), "ghost_radiotoolbutton");
 
   //toggle the alghoritms buttons as side effect
   gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
@@ -815,8 +851,8 @@ on_dlg_session_show                    (GtkWidget       *widget,
  gchar *g_session_name = g_path_get_basename(current_session);
  strcpy(session_name, g_session_name);
  g_free(g_session_name);
- if(strcmp(gtk_window_get_title (GTK_WINDOW (sessiondlg)), new_session_name) != 0) {
-  gtk_window_set_title (GTK_WINDOW (sessiondlg), session_name);
+ if(strcmp(gtk_window_get_title (GTK_WINDOW (dlg_session)), new_session_name) != 0) {
+  gtk_window_set_title (GTK_WINDOW (dlg_session), session_name);
  }
 }
 
@@ -825,14 +861,14 @@ void
 on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data)
 {
-  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   lookup_widget(GTK_WIDGET(teseowin), "open1");
-  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    lookup_widget(GTK_WIDGET(teseowin), "new1");
+  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   lookup_widget(GTK_WIDGET(win_teseo), "open1");
+  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    lookup_widget(GTK_WIDGET(win_teseo), "new1");
   if (on_open1_activate (menu_open1, NULL) != 1)
   {
     //g_message("Open canceled");
     if (on_new1_activate (menu_new1, NULL)==0) {
       //g_message("New canceled");
-      on_win_teseo_show(teseowin,NULL);
+      on_win_teseo_show(win_teseo,NULL);
     }
   }
 }
@@ -854,7 +890,7 @@ on_dlg_session_show_teseo_eventpathname
 {
     GtkComboBoxEntry * combo_box = (GtkComboBoxEntry *) widget;
     gchar **path_list;
-    glong n_path, i;
+    gint n_path, i;
 
     // TODO insert path in teseo_eventpathname combobox and select right one....
     path_list = gimp_path_list(teseo_image, &n_path);
