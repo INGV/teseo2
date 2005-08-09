@@ -53,6 +53,21 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
 //31/05 perchè usa una f in bezier
 //void concatena_path_path_array(gint32 g_image, glong path_n, gdouble *path);
 
+/*!
+  Semantic type for a path. When the two control points have the same coordinate the related anchor point,
+  the path is PATH_SEMANTIC_POLYLINE, else is a PATH_SEMANTIC_BEZIER.
+  */
+typedef enum { PATH_SEMANTIC_POLYLINE, PATH_SEMANTIC_BEZIER } path_semantic_type;
+
+/*!
+  teseo_path_semantic_type returns if a path is a POLYLINE or a piecewise BEZIER curve.
+  \param gint32 g_image ID of the GIMP image
+  \param gchar *path_name The name of the path
+
+  */
+path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name);
+
+
 /* *********************************
    Funzioni di I/O
    ********************************* */

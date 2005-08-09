@@ -15,3 +15,7 @@ Thu Aug  4 17:16:58 CEST 2005
 Sun Aug  7 19:49:52 CEST 2005
 - Omologate by glib functions
 - Event pathname and time mark pathname in Properties-->Traces
+
+
+Tue Aug  9 14:13:53 CEST 2005
+- Specify when we are working with polyline and when with bezier curve
