@@ -339,7 +339,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     gchar dxf_path_filename[FILENAMELEN];
     gchar *pathname = NULL;
     // TODO catch scale value
-    gint scale = 100;
+    gint scale = 0;
 
     dxf_path = teseo_get_environment_path( DXFPATH );
     image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
@@ -355,7 +355,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 	teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
 	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
     } else {
-	g_message("Resample path before exporting in DXF format !");
+	g_message("Path \"%s\" need resampling before exporting in DXF format !", pathname);
     }
     
     g_free(dxf_path);
