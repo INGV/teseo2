@@ -443,6 +443,7 @@ create_win_teseo (void)
   gtk_widget_set_name (fitting_polyline1, "fitting_polyline1");
   gtk_widget_show (fitting_polyline1);
   gtk_container_add (GTK_CONTAINER (path3_menu), fitting_polyline1);
+  gtk_widget_set_sensitive (fitting_polyline1, FALSE);
 
   align_all1 = gtk_menu_item_new_with_mnemonic ("_Align All");
   gtk_widget_set_name (align_all1, "align_all1");
@@ -463,6 +464,7 @@ create_win_teseo (void)
   gtk_widget_set_name (recover_last2, "recover_last2");
   gtk_widget_show (recover_last2);
   gtk_container_add (GTK_CONTAINER (path3_menu), recover_last2);
+  gtk_widget_set_sensitive (recover_last2, FALSE);
 
   separator3 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separator3, "separator3");
@@ -3201,5 +3203,124 @@ create_dlg_preferences (void)
   GLADE_HOOKUP_OBJECT (dlg_preferences, okbutton6, "okbutton6");
 
   return dlg_preferences;
+}
+
+GtkWidget*
+create_dlg_move_rotation (void)
+{
+  GtkWidget *dlg_move_rotation;
+  GtkWidget *dialog_vbox10;
+  GtkWidget *table20;
+  GtkObject *teseo_path_move_x_adj;
+  GtkWidget *teseo_path_move_x;
+  GtkObject *teseo_path_move_y_adj;
+  GtkWidget *teseo_path_move_y;
+  GtkObject *teseo_path_rotation_angle_adj;
+  GtkWidget *teseo_path_rotation_angle;
+  GtkWidget *label263;
+  GtkWidget *label264;
+  GtkWidget *label265;
+  GtkWidget *dialog_action_area11;
+  GtkWidget *cancelbutton6;
+  GtkWidget *okbutton7;
+
+  dlg_move_rotation = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_move_rotation, "dlg_move_rotation");
+  gtk_window_set_title (GTK_WINDOW (dlg_move_rotation), "Move, Rotation");
+  gtk_window_set_modal (GTK_WINDOW (dlg_move_rotation), TRUE);
+  gtk_window_set_resizable (GTK_WINDOW (dlg_move_rotation), FALSE);
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_move_rotation), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox10 = GTK_DIALOG (dlg_move_rotation)->vbox;
+  gtk_widget_set_name (dialog_vbox10, "dialog_vbox10");
+  gtk_widget_show (dialog_vbox10);
+
+  table20 = gtk_table_new (3, 2, FALSE);
+  gtk_widget_set_name (table20, "table20");
+  gtk_widget_show (table20);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox10), table20, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (table20), 8);
+  gtk_table_set_row_spacings (GTK_TABLE (table20), 6);
+
+  teseo_path_move_x_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_path_move_x = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_path_move_x_adj), 1, 0);
+  gtk_widget_set_name (teseo_path_move_x, "teseo_path_move_x");
+  gtk_widget_show (teseo_path_move_x);
+  gtk_table_attach (GTK_TABLE (table20), teseo_path_move_x, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  teseo_path_move_y_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_path_move_y = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_path_move_y_adj), 1, 0);
+  gtk_widget_set_name (teseo_path_move_y, "teseo_path_move_y");
+  gtk_widget_show (teseo_path_move_y);
+  gtk_table_attach (GTK_TABLE (table20), teseo_path_move_y, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  teseo_path_rotation_angle_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  teseo_path_rotation_angle = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_path_rotation_angle_adj), 1, 0);
+  gtk_widget_set_name (teseo_path_rotation_angle, "teseo_path_rotation_angle");
+  gtk_widget_show (teseo_path_rotation_angle);
+  gtk_table_attach (GTK_TABLE (table20), teseo_path_rotation_angle, 1, 2, 2, 3,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label263 = gtk_label_new ("Y");
+  gtk_widget_set_name (label263, "label263");
+  gtk_widget_show (label263);
+  gtk_table_attach (GTK_TABLE (table20), label263, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label263), 0, 0.5);
+
+  label264 = gtk_label_new ("Y");
+  gtk_widget_set_name (label264, "label264");
+  gtk_widget_show (label264);
+  gtk_table_attach (GTK_TABLE (table20), label264, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label264), 0, 0.5);
+
+  label265 = gtk_label_new ("Angle");
+  gtk_widget_set_name (label265, "label265");
+  gtk_widget_show (label265);
+  gtk_table_attach (GTK_TABLE (table20), label265, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label265), 0, 0.5);
+
+  dialog_action_area11 = GTK_DIALOG (dlg_move_rotation)->action_area;
+  gtk_widget_set_name (dialog_action_area11, "dialog_action_area11");
+  gtk_widget_show (dialog_action_area11);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area11), GTK_BUTTONBOX_END);
+
+  cancelbutton6 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (cancelbutton6, "cancelbutton6");
+  gtk_widget_show (cancelbutton6);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_move_rotation), cancelbutton6, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton6, GTK_CAN_DEFAULT);
+
+  okbutton7 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton7, "okbutton7");
+  gtk_widget_show (okbutton7);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_move_rotation), okbutton7, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton7, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_move_rotation, dlg_move_rotation, "dlg_move_rotation");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_move_rotation, dialog_vbox10, "dialog_vbox10");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, table20, "table20");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, teseo_path_move_x, "teseo_path_move_x");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, teseo_path_move_y, "teseo_path_move_y");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, teseo_path_rotation_angle, "teseo_path_rotation_angle");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, label263, "label263");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, label264, "label264");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, label265, "label265");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_move_rotation, dialog_action_area11, "dialog_action_area11");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, cancelbutton6, "cancelbutton6");
+  GLADE_HOOKUP_OBJECT (dlg_move_rotation, okbutton7, "okbutton7");
+
+  return dlg_move_rotation;
 }
 
