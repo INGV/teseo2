@@ -42,11 +42,11 @@ float y0_bez = 235.0;
 float x3_bez = 233.0;
 float y3_bez = 229.0;
 
-float teseo_distance(float x1, float y1, float x2, float y2) {
+inline float teseo_distance(float x1, float y1, float x2, float y2) {
  return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
 }
 
-float teseo_func_sum_distance_bezier(float param_bez[])
+inline float teseo_func_sum_distance_bezier(float param_bez[])
 {
     // prima di richiamare questa funzione bisogna inizializzare
     // x0_bez, y0_bez, x3_bez, y3_bez,
@@ -112,7 +112,7 @@ float teseo_func_sum_distance_bezier(float param_bez[])
 
     toll_su_t =  1.0 / (20.0 * teseo_distance(x0, y0, x3, y3));
     if(toll_su_t < 1.0e-4) {
-	printf("\ntoll_su_t = %f < 1.0e-4, set up to 1.0e-4\n", toll_su_t);
+	g_message("\ntoll_su_t = %f < 1.0e-4, set up to 1.0e-4\n", toll_su_t);
 	toll_su_t = 1.0e-4;
     }
     // printf("%f\n", toll_su_t);
@@ -194,7 +194,7 @@ float teseo_func_sum_distance_bezier(float param_bez[])
 	}
       } while(!finito);
       if(n_iter_do > max_n_iter_do) {
-	printf("\nMax iteration exceed (%d). toll_su_t = %f # dist_min = %f\n", max_n_iter_do, toll_su_t, dist_min);
+	g_message("\nMax iterations exceeded (%d). toll_su_t = %f # dist_min = %f\n", max_n_iter_do, toll_su_t, dist_min);
       }
 
     }
@@ -313,7 +313,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
   		N_MIS_MAX = app;  		
   	else if(app < 0) {
   		// questo caso non deve mai verificarsi !!!
-  		printf("\nError: app < 0 !!\n");
+  		g_message("\nError: app < 0 !!\n");
   	}
   }
 
@@ -413,7 +413,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	 	cur_path_inter++;
 	 	
 	 	if(cur_path_inter - 3 > max_num_path_inter) {
-	 		printf("\ncur_path_inter = %d, max_num_path_inter = %d\n", cur_path_inter, max_num_path_inter);
+	 		g_message("\ncur_path_inter = %d, max_num_path_inter = %d\n", cur_path_inter, max_num_path_inter);
 	 	}
   	
   }
@@ -423,7 +423,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	path_inter[cur_path_inter * 3 +2] = 2.0;
  	cur_path_inter++;
  	
- 	printf("\ncur_path_inter = %d, num_strokes = %d\n", cur_path_inter, num_strokes);
+ 	g_message("\ncur_path_inter = %d, num_strokes = %d\n", cur_path_inter, num_strokes);
  	
   if(idirezione[num_strokes] != (gint) CANARY)
 		g_message("Canary in idirezione is dead!");
