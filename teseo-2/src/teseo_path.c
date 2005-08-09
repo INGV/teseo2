@@ -33,7 +33,7 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
 	// FILE *fstrokes;
 
   gdouble *strokes_ruotato;
-  gint xl, yl, wl, hl;
+  // gint xl, yl, wl, hl;
   gdouble offx, offy;
   glong i;
   //g_message(" teseo_path_rotation..inizio");
@@ -83,6 +83,64 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
  	//g_message(" teseo_path_rotation..fine");
 }
 
+#define THREE_CMP(a, b, c)  ((a==b)? ((b==c)? TRUE : FALSE) : FALSE )
+
+path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
+    path_semantic_type ret = PATH_SEMANTIC_POLYLINE;
+    gint i, j;
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+
+    gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
+
+    // Check if path is empty
+    if(num_path_point_details == 0) {
+	g_message("Path is empty!");
+	ret = PATH_SEMANTIC_BEZIER;
+    }
+
+    // Compare first two points
+    i=0;
+    j=0;
+    while(j<2) {
+	if( points_pairs[i+j] != points_pairs[i+j+3] ) {
+	    ret = PATH_SEMANTIC_BEZIER;
+	}
+	j++;
+    }
+    j = 2;
+    if( points_pairs[i+j] != 1.0 ||
+	points_pairs[i+j+3] != 2.0 ) {
+	g_message("teseo_path_semantic_type(): error in function at line %d.", __LINE__);
+    }
+
+    // Compare the rest of the path
+    i=6;
+    while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
+
+	// Compare coordinate
+	j=0;
+	while(j<2) {
+	    if( THREE_CMP(points_pairs[i+j], points_pairs[i+j+3], points_pairs[i+j+6]) == FALSE ) {
+		ret = PATH_SEMANTIC_BEZIER;
+	    }
+	    j++;
+	}
+
+	// Check point type
+	j = 2;
+	if( points_pairs[i+j] != 2.0 ||
+	    points_pairs[i+j+3] != 1.0 ||
+	    points_pairs[i+j+6] != 2.0 ) {
+	    g_message("teseo_path_semantic_type(): error in function at line %d.", __LINE__);
+	}
+
+	// Next 3 points
+	i+=9;
+    }
+
+    return ret;
+}
 
 /*Funzioni di I/O*/
 
