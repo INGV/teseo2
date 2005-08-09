@@ -31,12 +31,13 @@
 #include "teseo_path.h"
 #include "teseo_env.h"
 
-extern   GtkWidget *teseowin;
-extern   GtkWidget *preferencesdlg;
-extern   GtkWidget *aboutdlg;
-extern   GtkWidget * sessiondlg;
-extern   GtkFileChooser * teseofilechooser;
-extern   GtkFileChooser * teseosessionfilechooser;
+extern   GtkWidget *win_teseo;
+extern   GtkWidget *dlg_preferences;
+extern   GtkWidget *dlg_about;
+extern   GtkWidget * dlg_session;
+extern   GtkWidget * dlg_move_rotation;
+extern   GtkFileChooser * filechooser_import;
+extern   GtkFileChooser * filechooser_session;
 
 extern   GimpDrawable *private_drawable ;
 extern   gint32  teseo_image ;
