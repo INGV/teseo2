@@ -94,237 +94,215 @@ gint teseo_test_dir( char *nome_dir)
 }
 
 /*Put on the image g_image the bezier path loaded from NomeFileDxf*/
-void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  )
-{
+void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
+    FILE *fp = NULL;
+    gchar str[20];
+    gchar n_punti_str[10];
+    gint n_punti;
+    gint n_punti_tot=0;
+    gint apro_path=0;
 
-FILE *fp = NULL;
-gchar str[20];
-gchar n_punti_str[10];
-gint n_punti;
-gint n_punti_tot=0;
-gint apro_path=0;
+    gint strl=0;
+    gint counter=0;
 
-gint strl=0;
-gint counter=0;
+    gint i=0, a=0;
 
-gint i=0, a=0;
+    gdouble xres;
+    gdouble yres;
+    gdouble dpi;
+    gint image_height;
+    gchar x_c[10],y_c[10];
+    gchar *end = NULL;
 
-gdouble xres;
-gdouble yres;
-gdouble dpi;
-gint image_height;
-gchar x_c[10],y_c[10];
-gchar *end = NULL;
+    gdouble x,y;
+    gdouble *v_punti = NULL;
 
-gdouble x,y;
-gdouble *v_punti = NULL;
+    float my_x;
+    float my_y;
 
-float my_x;
-float my_y;
+    gdouble vertex[200];
+    gint n_vertex=1;
 
-gdouble vertex[200];
-gint n_vertex=1;
+    vertex[0]=0.0;   //for negative coordinate in DXF
+    vertex[1]=0.0;
 
-
-vertex[0]=0.0;   //for negative coordinate in DXF
-vertex[1]=0.0;
-
-
-gint test_vertex=0;
-char nome_path [] = "Imported Path" ;
-char jpolyline[2];
+    gint test_vertex=0;
+    char nome_path [] = "Imported Path" ;
+    char jpolyline[2];
 
 
-setlocale(LC_NUMERIC, "C");
+    setlocale(LC_NUMERIC, "C");
 
-gimp_image_get_resolution (g_image, &xres, &yres);
-//g_message("Risoluzione x=%f y=%f", xres, yres);
+    gimp_image_get_resolution (g_image, &xres, &yres);
+    //g_message("Risoluzione x=%f y=%f", xres, yres);
 
-image_height = gimp_image_height(g_image);
-//g_message("altezza y=%d", image_height);
+    image_height = gimp_image_height(g_image);
+    //g_message("altezza y=%d", image_height);
 
-dpi = yres;
+    dpi = yres;
 
-fp = fopen( NomeFileDxf,"r" );
-	if(!fp)
- 		g_message("File \"%s\" not found.", NomeFileDxf);
- 		else
- 			{
- 			 	while(!feof(fp))
-				{
- 			 		fscanf(fp,"%s\n",str);
- 			 		if(!strncmp(str,"AcDbPolyline",12) && fscanf(fp,"%s\n",jpolyline) && !strncmp(jpolyline,"90",2))
- 			 			{
-					 		fscanf(fp,"%s\n70\n",n_punti_str);
- 			 				n_punti_tot = atoi(n_punti_str);
- 			 			}
-					  else
-							if( !strncmp( str, "AcDb2dVertex", 12 )  )
-      			  	{
-                 n_punti_tot++;
-                }
-       	}
-				fclose(fp);
-			}
+    fp = fopen( NomeFileDxf,"r" );
+    if(!fp) {
+	g_message("File \"%s\" not found.", NomeFileDxf);
+    } else {
+	while(!feof(fp)) {
+	    fscanf(fp,"%s\n",str);
+	    if(!strncmp(str,"AcDbPolyline",12) && fscanf(fp,"%s\n",jpolyline) && !strncmp(jpolyline,"90",2)) {
+		fscanf(fp,"%s\n70\n",n_punti_str);
+		n_punti_tot = atoi(n_punti_str);
+	    } else if( !strncmp( str, "AcDb2dVertex", 12 )  ) {
+		n_punti_tot++;
+	    }
+	}
+	fclose(fp);
+    }
 
-v_punti = (gdouble *) g_malloc( ( sizeof(gdouble) ) * 2 *( n_punti_tot ));
+    v_punti = (gdouble *) g_malloc( ( sizeof(gdouble) ) * 2 *( n_punti_tot ));
 
+    fp = fopen( NomeFileDxf,"r" );
+    if(!fp) {
+	g_message("File \"%s\" not found.", NomeFileDxf);
+    } else {
+	while(!feof(fp)) {
+	    fscanf(fp,"%s\n",str);
+	    if(( !strncmp(str,"AcDbPolyline",12)) && (fscanf(fp,"%s\n",jpolyline)) && (!strncmp(jpolyline,"90",2)) ) {
+		a=1;
 
-fp = fopen( NomeFileDxf,"r" );
-	if(!fp)
- 		g_message("File \"%s\" not found.", NomeFileDxf);
- 		else
- 			{
- 			 while(!feof(fp))
-				{
- 			 		fscanf(fp,"%s\n",str);
- 			 		if(( !strncmp(str,"AcDbPolyline",12)) && (fscanf(fp,"%s\n",jpolyline)) && (!strncmp(jpolyline,"90",2)) )
- 			 			{
-					 		a=1;
+		fscanf(fp,"%s\n70\n",n_punti_str);
+		n_punti = atoi(n_punti_str);
 
-					 		fscanf(fp,"%s\n70\n",n_punti_str);
- 			 				n_punti = atoi(n_punti_str);
+		fscanf(fp,"0\n");
 
-   					          	fscanf(fp,"0\n");
+		for(i=counter; i < n_punti ;i++, counter++ ) {
+		    fscanf(fp,"10\n");
+		    fscanf(fp,"%f\n", &my_x );
 
-							for(i=counter; i < n_punti ;i++, counter++ )
-             							{
+		    fscanf(fp,"20\n" );
+		    fscanf(fp,"%f\n",&my_y );
+		    //printf("X=%f Y=%f \n",my_x, my_y );
 
-             								fscanf(fp,"10\n");
-             								fscanf(fp,"%f\n", &my_x );
+		    x=my_x;
+		    y=my_y;
 
-             								fscanf(fp,"20\n" );
-            								fscanf(fp,"%f\n",&my_y );
-									//printf("X=%f Y=%f \n",my_x, my_y );
+		    v_punti[counter*2] = ( x/2.54*dpi );
+		    v_punti[(counter*2+1)] = ( image_height - ( y*dpi/2.54 + 1 ) );
+		}
+	    } else if( !strncmp( str, "AcDb2dVertex", 12 )  ) {
+		a=1;
+		test_vertex=1;
+		{
 
-									x=my_x;
-									y=my_y;
+		fscanf(fp,"10\n");
+		fscanf(fp,"%f\n", &my_x );
+		fscanf(fp,"20\n" );
+		fscanf(fp,"%f\n",&my_y );
 
-						             		v_punti[counter*2] = ( x/2.54*dpi );
-                        						v_punti[(counter*2+1)] = ( image_height - ( y*dpi/2.54 + 1 ) );
-             							}
- 					}//IF
-     	 			  	else
-					if( !strncmp( str, "AcDb2dVertex", 12 )  )
-      			  			{
-	     						a=1;
-	     						test_vertex=1;
-                				{
+		//					printf("X=%f Y=%f \n",my_x, my_y );
+		x=my_x;
+		y=my_y;
 
+		v_punti[counter*2] = ( x/2.54*dpi );
+		v_punti[counter*2+1] = ( image_height - ( y*dpi/2.54 + 1 ) );
 
-						fscanf(fp,"10\n");
-						fscanf(fp,"%f\n", &my_x );
-						fscanf(fp,"20\n" );
-						fscanf(fp,"%f\n",&my_y );
+		if(v_punti[counter*2]<0)
+		v_punti[counter*2]=v_punti[(counter-1)*2];
 
-						//					printf("X=%f Y=%f \n",my_x, my_y );
+		counter++;
 
-						x=my_x;
-						y=my_y;
+		}
+	    } //ELSE
+	}//WHILE
 
+	if(!a)
+	    g_message("File \"%s\" corrupted.", NomeFileDxf);
+    }
 
-						v_punti[counter*2] = ( x/2.54*dpi );
-						v_punti[counter*2+1] = ( image_height - ( y*dpi/2.54 + 1 ) );
+    teseo_strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
 
-                	  			if(v_punti[counter*2]<0)
-                	  			v_punti[counter*2]=v_punti[(counter-1)*2];
-
-                	  			counter++;
-
-                				}
-        			  	} //ELSE
- 			  }//WHILE
-
- 			  if(!a)
- 			  	g_message("File \"%s\" corrupted.", NomeFileDxf);
- 			}
-
-teseo_strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
-
-if(v_punti)
+    if(v_punti)
 	g_free(v_punti);
 
-gimp_displays_flush();
+    gimp_displays_flush();
 
-fclose(fp);
+    fclose(fp);
 }
 
 /*31/05
 void Carica_Traccia ( gint32 g_image, char * NomeFileTraccia  )
 {
- double * strokes=NULL;
- unsigned long n_strokes;
- neuron_punti * punti_traccia;
+double * strokes=NULL;
+unsigned long n_strokes;
+neuron_punti * punti_traccia;
 
- punti_traccia=new neuron_punti(NomeFileTraccia);
- strokes = punti_traccia->strokes(&n_strokes);
- strokes_to_open_path( g_image, n_strokes, strokes, NomeFileTraccia);
+punti_traccia=new neuron_punti(NomeFileTraccia);
+strokes = punti_traccia->strokes(&n_strokes);
+strokes_to_open_path( g_image, n_strokes, strokes, NomeFileTraccia);
 
- if (strokes !=NULL ) delete strokes;
+if (strokes !=NULL ) delete strokes;
 
- //gimp_displays_flush();
+//gimp_displays_flush();
 }
 */
 
 /*Put on the image g_image the bezier path loaded from NomeFileBzr*/
 void teseo_import_bzr ( gint32 g_image, char * NomeFileBzr  )
 {
- //g_message("%s",NomeFileBzr);
- FILE *fp = NULL;
- glong num_path, num_points, closed, draw, state, tipo,X,Y;
- gdouble *path = NULL;
- gchar pathname [200] = "";
- gchar * app;
- gchar linename [200] = "";
- int i=0;
+//g_message("%s",NomeFileBzr);
+FILE *fp = NULL;
+glong num_path, num_points, closed, draw, state, tipo,X,Y;
+gdouble *path = NULL;
+gchar pathname [200] = "";
+gchar * app;
+gchar linename [200] = "";
+int i=0;
 
- if( (fp = fopen(NomeFileBzr, "r" )) )
- {
-  
-	fgets(linename, 200, fp);
-	//Salto Name:
-	app=linename+6;
-	strcpy(pathname,app);
+if( (fp = fopen(NomeFileBzr, "r" )) )
+{
 
-	//Test to exclude path with same name
+fgets(linename, 200, fp);
+//Salto Name:
+app=linename+6;
+strcpy(pathname,app);
 
-	fscanf(fp,"#POINTS: %d\n" , &num_points);
-	fscanf(fp,"CLOSED: %d\n" , &closed);
-	fscanf(fp,"DRAW: %d\n", &draw);
-	fscanf(fp,"STATE:%d\n", &state);
-	//g_message("nome=%s num_points=%d closed=%d draw=%d state=%d", pathname, num_points, closed, draw, state);
+//Test to exclude path with same name
 
-	if ( closed==0 && draw==0 && state==2 )
-	{
-	  //g_message("Path corretto");
-  	 path = (gdouble *) g_malloc( num_points * 3 * sizeof(gdouble) );
- 	 if (path != NULL) {
-  	  for ( i=0; i<num_points; i++)    {
-           fscanf(fp,"TYPE: %ld X: %ld Y: %ld\n", &tipo, &X, &Y);
-           path[i*3] = ( double ) X;
-           path[i*3+1] = ( double ) Y;
-           path[i*3+2] = ( double ) tipo;
-  	  }
-        gimp_path_set_points(g_image, pathname, 1, num_points * 3, path);
-	  }
-	 else {
-	 	g_message("Not enough free memory for path.");
-	 }
-	}
- 	else {
- 		g_message("Wrong path.");
- 	}
+fscanf(fp,"#POINTS: %d\n" , &num_points);
+fscanf(fp,"CLOSED: %d\n" , &closed);
+fscanf(fp,"DRAW: %d\n", &draw);
+fscanf(fp,"STATE:%d\n", &state);
+//g_message("nome=%s num_points=%d closed=%d draw=%d state=%d", pathname, num_points, closed, draw, state);
 
- 	if(path) {
-  	g_free(path);
-  }
+if ( closed==0 && draw==0 && state==2 )
+{
+//g_message("Path corretto");
+path = (gdouble *) g_malloc( num_points * 3 * sizeof(gdouble) );
+if (path != NULL) {
+for ( i=0; i<num_points; i++)    {
+fscanf(fp,"TYPE: %ld X: %ld Y: %ld\n", &tipo, &X, &Y);
+path[i*3] = ( double ) X;
+path[i*3+1] = ( double ) Y;
+path[i*3+2] = ( double ) tipo;
+}
+gimp_path_set_points(g_image, pathname, 1, num_points * 3, path);
+}
+else {
+g_message("Not enough free memory for path.");
+}
+}
+else {
+g_message("Wrong path.");
+}
 
-  fclose(fp);
- }
- else
- {
-  g_message("File \"%s\" not found.", NomeFileBzr);
- }
+if(path) {
+g_free(path);
+}
+
+fclose(fp);
+}
+else
+{
+g_message("File \"%s\" not found.", NomeFileBzr);
+}
 }
 
 
@@ -332,34 +310,34 @@ void teseo_import_bzr ( gint32 g_image, char * NomeFileBzr  )
 
 /*Write an open path in old gimp bezier format*/
 gint teseo_open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
-  glong i=0, num_righe, len;
-  gdouble * points_pairs=NULL;
-  gdouble * pstrokes_ret=NULL;
-  FILE * fp=NULL;
-  gint path_type, path_closed, num_path_point_details;
-  char s_tmp_app[255];
-  char * canc=NULL;
-  strcpy(s_tmp_app,nome_path);
+glong i=0, num_righe, len;
+gdouble * points_pairs=NULL;
+gdouble * pstrokes_ret=NULL;
+FILE * fp=NULL;
+gint path_type, path_closed, num_path_point_details;
+char s_tmp_app[255];
+char * canc=NULL;
+strcpy(s_tmp_app,nome_path);
 
-  //get the path
-	gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
-  //only open path are good
-  if (!path_closed){
-     //+3 perchè per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )
-     num_righe=num_path_point_details/3;
+//get the path
+gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
+//only open path are good
+if (!path_closed){
+//+3 perchè per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )
+num_righe=num_path_point_details/3;
 
 //     sprintf(s_tmp_app, "%s/tmp/path_saved.bak", getenv_teseo(TESEO_DATA));
 //     sprintf(s_tmp_app, "%s", nome_file);
 
-     // fp=fopen("/tmp/path_saved.bak","wt");
+// fp=fopen("/tmp/path_saved.bak","wt");
 
-     /*Elimino # dal nome*/
+/*Elimino # dal nome*/
 
-     canc = strpbrk(s_tmp_app, "#\n"); //punta al cancelletto o al \n finale
-     if ( canc!=NULL ){
-    	len =  strlen(s_tmp_app) - strlen (canc) ; //lunghezza della sottostringa fino al # o al \n
-      //g_message("len= %d",len);
-     	s_tmp_app[len]='\0';
+canc = strpbrk(s_tmp_app, "#\n"); //punta al cancelletto o al \n finale
+if ( canc!=NULL ){
+len =  strlen(s_tmp_app) - strlen (canc) ; //lunghezza della sottostringa fino al # o al \n
+//g_message("len= %d",len);
+s_tmp_app[len]='\0';
      	len =  strlen(s_tmp_app);
      	//g_message("len= %d",len);
      }
