@@ -38,6 +38,7 @@
 #include "teseointerface.h"
 #include "teseosupport.h"
 
+#include "teseo_path.h"
 #include "teseo_io.h"
 #include "teseo_bezier_fit.h"
 #include "teseo_lock.h"
@@ -337,19 +338,25 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     gchar *image_filename = NULL;
     gchar dxf_path_filename[FILENAMELEN];
     gchar *pathname = NULL;
+    // TODO catch scale value
     gint scale = 100;
 
     dxf_path = teseo_get_environment_path( DXFPATH );
     image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
     pathname = gimp_path_get_current(teseo_image);
+
     // TODO check bad character in pathname ...
     g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
 
     // TODO check if dxf_path_filename exists
 
-    teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
-
-    g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
+    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+	// TODO check options in session windows before saving
+	teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
+	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
+    } else {
+	g_message("Resample path before exporting in DXF format !");
+    }
     
     g_free(dxf_path);
     g_free(image_filename);
