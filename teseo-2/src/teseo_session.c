@@ -32,6 +32,7 @@
 
 #include "teseo_env.h"
 #include "teseo_session.h"
+#include "teseocallbacks.h"
 #include "gtkaddons.h"
 
 //static char SESSION_PATH[FILENAMELEN];
@@ -42,15 +43,13 @@ char current_dlg_session[FILENAMELEN];
 char current_dlg_preferences[FILENAMELEN];
 
 
-extern   GtkWidget *preferencesdlg;
-extern   GtkWidget *sessiondlg;
 
 char init_session(){
-    return align_session( sessiondlg, &this_session);
+    return align_session( dlg_session, &this_session);
 }
 
 
-char align_session(GtkWidget * sessiondlg, struct Session * s){
+char align_session(GtkWidget * dlg_session, struct Session * s){
     char ret=0;
     
     //this_session.recordinfo
@@ -83,8 +82,8 @@ char save_widget(const char * filename, GtkWidget * dlg){
 char save_session(char * filename){
     char ret=0;
 
-    ret=      save_widget(current_dlg_session, sessiondlg);
-    ret=ret * save_widget(current_dlg_preferences, preferencesdlg);
+    ret=      save_widget(current_dlg_session, dlg_session);
+    ret=ret * save_widget(current_dlg_preferences, dlg_preferences);
 
     return ret;
 }
@@ -124,9 +123,9 @@ char load_session(char * filename){
 	    if ( strcmp("PreferencesDialogFile",var) == 0)  strcpy(dlg_preferences_filename,content);
 	  }
 	 }
-	 rets = load_widget(dlg_session_filename,sessiondlg);
+	 rets = load_widget(dlg_session_filename,dlg_session);
 	 if (rets==0) g_message("Corrupted %s",dlg_session_filename);
-	 retp = load_widget(dlg_preferences_filename,preferencesdlg);
+	 retp = load_widget(dlg_preferences_filename,dlg_preferences);
 	 if (retp==0) g_message("Corrupted %s",dlg_preferences_filename);
 	 ret=rets*retp;
       }
@@ -185,10 +184,10 @@ char new_session(char * filename, char * dlg_preferences_filename){
         }
 
         //Creating the dialogs real files
-        if ( !iface_save_rc(dlg_session_filename,sessiondlg) )  g_error("Unable to save session dialog file") ;
+        if ( !iface_save_rc(dlg_session_filename,dlg_session) )  g_error("Unable to save session dialog file") ;
 	//Only if it doesn't exist before (checked out before calling this function)
 	if (external_preferences==FALSE) {
-          if ( !iface_save_rc(dlg_preferences_filename, preferencesdlg) ) g_error("Unable to save preferences dialog file") ;
+          if ( !iface_save_rc(dlg_preferences_filename, dlg_preferences) ) g_error("Unable to save preferences dialog file") ;
 	}
 
       }
