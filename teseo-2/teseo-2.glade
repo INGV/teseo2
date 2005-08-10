@@ -160,6 +160,7 @@
 			      <child>
 				<widget class="GtkMenuItem" id="trace2">
 				  <property name="visible">True</property>
+				  <property name="sensitive">False</property>
 				  <property name="label" translatable="yes">_Trace</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_trace2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
@@ -273,6 +274,7 @@
 				      <child>
 					<widget class="GtkMenuItem" id="trace1">
 					  <property name="visible">True</property>
+					  <property name="sensitive">False</property>
 					  <property name="label" translatable="yes">_Trace</property>
 					  <property name="use_underline">True</property>
 					  <signal name="activate" handler="on_track1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
