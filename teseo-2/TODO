@@ -19,3 +19,13 @@ Sun Aug  7 19:49:52 CEST 2005
 
 Tue Aug  9 14:13:53 CEST 2005
 - Specify when we are working with polyline and when with bezier curve
+
+
+Wed Aug 10 17:27:46 CEST 2005
+- Porting on Windows
+- Define source pack distribution (teseo-2.x.x.tar.gz)
+- Define binary pack distribution (Linux, Mac, Windows)
+    * installation software o.s. dependent
+    	Linux-Unix: shell script ?
+	MAC OS X:  shell script ?
+	Windows:   .exe?	
