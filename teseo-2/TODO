@@ -29,3 +29,5 @@ Wed Aug 10 17:27:46 CEST 2005
     	Linux-Unix: shell script ?
 	MAC OS X:  shell script ?
 	Windows:   .exe?	
+- Change the path order when link or align them?
+	* Now the order is from the bottom to the top in Paths tool
