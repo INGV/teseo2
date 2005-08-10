@@ -1,23 +1,24 @@
-2005-07-15 10:07  ilpint
+2005-07-15 10:07  ilpint <pintore@ingv.it>
 
-	* src/gtkaddons.c: Gestiti spinbutton e textview
+	* src/gtkaddons.c (1.5): Gestiti spinbutton e textview
 
-2005-07-14 14:21  ilpint
+2005-07-14 14:21  ilpint <pintore@ingv.it>
 
-	* src/gtkaddons.c: Inserito textview: todo debug
+	* src/gtkaddons.c (1.4): Inserito textview: todo debug
 
-2005-07-14 09:28  ilpint
+2005-07-14 09:28  ilpint <pintore@ingv.it>
 
-	* src/gtkaddons.c: Bug in iface_save_rc: now returns values!
+	* src/gtkaddons.c (1.3): Bug in iface_save_rc: now returns values!
 
-2005-07-13 11:57  ilpint
+2005-07-13 11:57  ilpint <pintore@ingv.it>
 
-	* src/: gtkaddons.c, gtkaddons.h: iface_save_rc e iface_load_rc
-	  ritornano 1 se vanno a buon fine
+	* src/: gtkaddons.c (1.2), gtkaddons.h (1.2): iface_save_rc e
+	  iface_load_rc ritornano 1 se vanno a buon fine
 
-2005-07-06 15:06  ilpint
+2005-07-06 15:06  ilpint <pintore@ingv.it>
 
-	* src/: gtkaddons.c, gtkaddons.h, main.c, mglade_rc.c, mglade_rc.h:
-	  Creata libreria gtk-addons per trattare le interfacce gtk.
-	  Dovrebbe funzionare anche autogen.sh.
+	* src/: gtkaddons.c (1.1), gtkaddons.h (1.1), main.c (1.1),
+	  mglade_rc.c (1.1), mglade_rc.h (1.1): Creata libreria gtk-addons
+	  per trattare le interfacce gtk.  Dovrebbe funzionare anche
+	  autogen.sh.
 
