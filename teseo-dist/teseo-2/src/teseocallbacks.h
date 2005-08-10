@@ -287,3 +287,11 @@ void
 on_dlg_session_show_teseo_eventpathname
                                         (GtkWidget       *widget,
                                         gpointer         user_data);
+
+void
+on_align_locked_paths1_activate        (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_link_locked_paths1_activate         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);

@@ -104,7 +104,17 @@ void teseo_link_all_path( gint32 g_image );
 /*!
   TODO
   */
+void teseo_link_all_path_locked( gint32 g_image, gboolean delete_path);
+
+/*!
+  TODO
+  */
 void teseo_align_all_path( gint32 g_image );
+
+/*!
+  TODO
+  */
+void teseo_align_all_path_locked(gint32 g_image, gboolean delete_path);
 
 /*!
   TODO
