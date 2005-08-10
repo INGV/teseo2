@@ -1,347 +1,552 @@
-2004-12-29  Sven Neumann  <sven@gimp.org>
+2005-08-09 21:47  mtheo
 
-	* Made 2.2.0 release.
+	* src/teseocallbacks.c: Renamed windows and dialogs name Inserted
+	  "Move, Rotation path" dialog
 
-2004-12-05  Sven Neumann  <sven@gimp.org>
+2005-08-09 21:44  mtheo
 
-	* src/main.c: use gimp_plugin_menu_register() to register the
-	procedure in the menus.
+	* src/teseo_session.c: Renamed windows and dialogs name
 
-	* src/interface.c: removed GimpPixmap examples. Use combo-boxes
-	instead of option-menus. Changed spacings for HIG compliance.
+2005-08-09 21:43  mtheo
 
-	* Makefile.am
-	* pixmaps/zoom_in.xpm
-	* pixmaps/zoom_out.xpm: removed now unused pixmaps.
+	* src/: interface.c, teseocallbacks.h: Renamed windows and dialogs
+	  name Inserted "Move, Rotation path" dialog
 
-2004-12-05  Sven Neumann  <sven@gimp.org>
+2005-08-09 21:42  mtheo
 
-	* configure.in: bumped version to 2.2.0. Depend on GIMP >= 2.2.0.
-	Disabled APIs deprecated for GTK+ 2.6 and GIMP 2.2.
+	* src/: teseointerface.c, teseointerface.h: Added "Move, Rotation
+	  path" dialog
 
-	* src/interface.c: undef GIMP_DISABLE_DEPRECATED for now.
+2005-08-09 17:36  mtheo
 
-2004-11-25  Sven Neumann  <sven@gimp.org>
+	* src/teseo_io.c: Improved indentation of teseo_import_dxf()
 
-	* autogen.sh: handle automake-1.9, synced with gimp's autogen.sh.
+2005-08-09 17:35  mtheo
 
-2004-04-04  Sven Neumann  <sven@gimp.org>
+	* src/teseocallbacks.c: Minor revision
 
-	* configure.in: bumped version to 2.0.0.
+2005-08-09 17:34  mtheo
 
-	* README: minor update.
+	* src/teseointerface.c: Modified substructure of Export menu
 
-	* help/en/Makefile.am
-	* help/en/teseo-2.html: removed this file
+2005-08-09 17:06  mtheo
 
-	* help/en/index.html: and moved the content here. One help page
-	should be enough to explain the concept.
+	* src/teseocallbacks.c: Inserted function teseo_path_semantic_type,
+	  return if a path is a POLYLINE or a piecewise BEZIER curve
 
-2004-03-18  Michael Natterer  <mitch@gimp.org>
+2005-08-09 17:02  mtheo
 
-	* configure.in: fixed definition of DATADIR.
+	* src/teseo_bezier_fit.c: Converted inline functions and redirect
+	  message with g_message
 
-	Moved help files from "C" to "en":
+2005-08-09 17:00  mtheo
 
-	* help/gimp-help.xml
-	* help/C/.cvsignore
-	* help/C/Makefile.am
-	* help/C/teseo-2.html
-	* help/C/index.html: removed.
+	* src/: teseo_path.c, teseo_path.h: Inserted function
+	  "teseo_path_semantic_type", return if a path is a POLYLINE or a
+	  piecewise BEZIER curve
 
-	* help/en/.cvsignore
-	* help/en/Makefile.am
-	* help/en/gimp-help.xml
-	* help/en/teseo-2.html
-	* help/en/index.html: added.
+2005-08-08 16:02  mtheo
 
-	* help/Makefile.am: changed accordingly.
+	* src/teseocallbacks.c: - Added DXF export - Omologated memory
+	  allocation with glib
 
-2004-02-02  Sven Neumann  <sven@gimp.org>
+2005-08-08 15:58  mtheo
 
-	* Made 1.3.3 release.
+	* src/: teseo_bezier_fit.c, teseo_bezier_point.c, teseo_session.c,
+	  teseo_wmean.c, teseo_path.c, teseo_main.c, teseo_resample.c,
+	  teseo_lock.c, teseo_lock.h, teseo_env.c, teseo_env.h, teseo_io.c,
+	  teseo_io.h: Omologated memory allocation with glib
 
-2004-02-02  Sven Neumann  <sven@gimp.org>
+2005-08-08 15:57  mtheo
 
-	* autogen.sh: also check for automake-1.8.
+	* src/interface.c: Minor adjustment
 
-2004-02-01  Michael Natterer  <mitch@gimp.org>
+2005-08-08 12:21  mtheo
 
-	* src/interface.[ch]
-	* src/render.[ch]: #include and trailing whitespace cleanup.
+	* src/teseocallbacks.c: Minor revision
 
-	* src/main.c: added example which shows how to pass both "seed"
-	and "randomize" and how to store and retreive them from the
-	plug-in's arguments and from the last_vals struct correctly.
+2005-08-08 08:03  mtheo
 
-2004-01-28  Sven Neumann  <sven@gimp.org>
+	* src/teseo_env.h: New developer version
 
-	* configure.in: use AC_CONFIG_FILES.
+2005-08-08 07:56  mtheo
 
-2004-01-27  Manish Singh  <yosh@gimp.org>
+	* src/: teseocallbacks.c, teseocallbacks.h: - Renamed teseo
+	  functions - Added bezier fitting - Added "link all path" - Added
+	  "align all path" - Added developer version display in about
+	  dialog - Added callback for "teseo_eventpathname"
 
-	* src/Makefile.am
-	* configure.in: redid the versioning magic, some cleanup.
+2005-08-08 07:53  mtheo
 
-2004-01-27  Sven Neumann  <sven@gimp.org>
+	* src/interface.c: Changed pattern printed in message
 
-	* autogen.sh
-	* configure.in: simplified by using PKG_CHECK_MODULES instead of
-	AM_PATH_GIMP_2_0.
+2005-08-08 07:51  mtheo
 
-2004-01-27  Sven Neumann  <sven@gimp.org>
+	* src/teseointerface.c: Minor interface adjustments
 
-	* configure.in: removed use of $DATADIRNAME in favor of $datadir.
-	Use pkg-config instead of gimptool-1.3.
+2005-08-08 07:49  mtheo
 
-	* src/Makefile.am: use GIMP_LIBDIR.
+	* src/: teseo_session.c, teseo_session.h, teseo_path.c,
+	  teseo_path.h, teseo_wmean.c, teseo_wmean.h: Renamed teseo
+	  functions
 
-2004-01-20  Sven Neumann  <sven@gimp.org>
+2005-08-08 07:46  mtheo
 
-	* configure.in: check for gimp >= 1.3.24; bumped version to 1.3.3.
+	* src/: teseo_env.c, teseo_env.h: Renamed teseo funcitons
 
-	* src/interface.c
-	* src/main.{ch]: adapt to changed API of gimp_random_seed_new().
+2005-08-08 07:45  mtheo
 
-2003-12-04  Sven Neumann  <sven@gimp.org>
+	* src/: main.c, teseo_lock.c, teseo_lock.h, teseo_io.c, teseo_io.h,
+	  teseo_main.c, teseo_main.h, teseo_resample.c, teseo_resample.h:
+	  Renamed teseo functions
 
-	* configure.in: only use FOO_DISABLE_DEPRECATED in CPPFLAGS when
-	compiling against gtk+ <= 2.3.0. Fixes bug #128550.
+2005-08-08 07:43  mtheo
 
-2003-11-29  Sven Neumann  <sven@gimp.org>
+	* src/teseo_bezier_point.h: Omologate header define
 
-	* Made 1.3.2 release.
+2005-08-08 07:42  mtheo
 
-2003-11-29  Sven Neumann  <sven@gimp.org>
+	* src/: brent.c, f1dim.c, linmin.c, mnbrak.c, nr.h, nrutil.c,
+	  nrutil.h, powell.c: Added Numerical Recipes functions to allow
+	  bezier fitting
 
-	* src/render.c (render): added a g_message() so something happens
-	when clicking the OK button.
+2005-08-08 07:40  mtheo
 
-	* HACKING: updated.
+	* src/: teseo_bezier_fit.c, teseo_bezier_fit.h: Added functions to
+	  allow bezier fitting
 
-2003-11-29  Sven Neumann  <sven@gimp.org>
+2005-08-05 12:47  mtheo
 
-	* debian/Makefile.am
-	* help/C/Makefile.am
-	* help/images/Makefile.am: minor cleanups.
+	* src/teseo_env.h: Incremented developer version
 
-	* help/Makefile.am
-	* help/gimp-help.xml: added a mapping file for the GIMP help system.
+2005-08-05 12:43  mtheo
 
-	* src/interface.c: register help for the dialog.
+	* src/: teseo_env.c, teseo_env.h: Inserted mechanism to manage name
+	  and version
 
-2003-11-29  Sven Neumann  <sven@gimp.org>
+2005-08-05 12:42  mtheo
 
-	* autogen.sh: updates based on the autogen.sh script in GIMP.
+	* src/interface.c: Inserted in the caption the name and the version
 
-2003-11-11  Sven Neumann  <sven@gimp.org>
+2005-08-05 12:42  mtheo
 
-	* src/interface.c (dialog): use gimp_dialog_run().
+	* src/teseointerface.c: Inserted in caption the name and the
+	  version
 
-2003-11-06  Sven Neumann  <sven@gimp.org>
+2005-08-05 12:07  mtheo
 
-	* configure.in: depend on GIMP >= 1.3.23. Bumped version to 1.3.2.
-	
-	* src/interface.c: updated for new GimpDialog API.
+	* src/teseointerface.c: Moved "Path" tab from "Preferences" window
+	  to "Session" window
 
-	* src/main.c: updated for new GimpHelp API.
+2005-08-05 12:06  mtheo
 
-2003-07-25  Sven Neumann  <sven@gimp.org>
+	* src/teseocallbacks.c: Renamed t_unlock() in teseo_unlock and
+	  t_lock() in teseo_unlock() Added some comment
 
-	* Made 1.3.1 release.
+2005-08-05 12:05  mtheo
 
-2003-07-25  Sven Neumann  <sven@gimp.org>
+	* src/: interface.c, teseo_lock.c, teseo_lock.h: Renamed t_unlock()
+	  in teseo_unlock and t_lock() in teseo_unlock()
 
-	* Makefile.am (DISTCLEANFILES): added intltool-extract and friends.
+2005-08-05 12:03  mtheo
 
-2003-07-22  Sven Neumann  <sven@gimp.org>
+	* src/teseo_session.c: Modified message for management session.
 
-	* configure.in: use AM_PATH_GIMP_2_0(), changed the gettext domain
-	to gimp20-plugin-template.
+2005-08-05 08:36  mtheo
 
-2003-07-06  Sven Neumann  <sven@gimp.org>
+	* src/: interface.c, teseo_session.c, teseo_session.h,
+	  teseocallbacks.c, teseocallbacks.h, teseointerface.c,
+	  teseointerface.h: Set homogenic widget name.
 
-	* configure.in: depend on GIMP >= 1.3.17.
+2005-08-04 16:33  mtheo
 
-	* src/main.c: added const qualifiers as expected by
-	libgimp >= 1.3.17.
+	* src/interface.c: Added check for duplicated plug-in instances on
+	  plug-in star.
 
-2003-03-25  Sven Neumann  <sven@gimp.org>
+2005-08-04 16:31  mtheo
 
-	* configure.in: depend on GIMP >= 1.3.14.
-	
-	* src/plugin-intl.h: only define the gettext macros here.
-	
-	* src/main.c: bind to the plug-in textdomain, GIMP takes care of
-	the rest.
+	* src/teseocallbacks.c: Inserted call to a t_unlock on widget
+	  delete event.
 
-2003-03-10  Manish Singh  <yosh@gimp.org>
+2005-08-04 16:30  mtheo
 
-	* src/main.c: #include <string.h> for strcmp
+	* src/: teseo_session.c, teseo_session.h: Minor revision
 
-	* Makefile.am (EXTRA_DIST): include HACKING
+2005-08-04 16:29  mtheo
 
-2003-03-09  Sven Neumann  <sven@gimp.org>
+	* src/teseo_lock.h: Revision code
 
-	* COPYING
-	* src/*.[ch]: relicensed to a less restrictive X11-style license.
-	Thanks to Adam D. Moss <adam@gimp.org> for providing the patch for
-	this change.
+2005-08-04 16:29  mtheo
 
-	* configure.in: bumped version to 1.3.1.
+	* src/: teseo_env.c, teseo_env.h: Inserted slash '/' and backslash
+	  '\' management.  P.S. It's a homemade solution and it works fine.
 
-2003-03-05  Sven Neumann  <sven@gimp.org>
+2005-08-04 16:23  mtheo
 
-	* Made 1.3.0 release.
+	* src/: teseo_lock.c, teseo_lock.h: Added teseo_lock file. One
+	  plug-in instance for each image.
 
-2003-03-05  Sven Neumann  <sven@gimp.org>
+2005-08-03 16:58  mtheo
 
-	* Makefile.am (EXTRA_DIST): include autogen.sh and the
-	intltool*.in files.
+	* src/: teseocallbacks.c, teseocallbacks.h: Added gtk code
+	  optimizations
 
-	* src/Makefile.am: please automake-1.7.
+2005-08-03 16:54  mtheo
 
-2003-03-05  Sven Neumann  <sven@gimp.org>
+	* src/interface.c: Added file format .xcfbz2 and .xcfgz Minor
+	  optimization GtkFileChooser
 
-	* acconfig.h: removed this file.
+2005-08-03 16:52  mtheo
 
-	* README
-	* configure.in
-	* src/interface.c
-	* src/main.c
-	* src/main.h: various changes to make it compile with GIMP >= 1.3.11.
+	* src/: main.c, teseo_io.c, teseo_env.c: Minor optimization code
 
-2002-06-03  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
+2005-08-03 16:11  mtheo
 
-	* README: Added notice about po/README.translators.
+	* src/interface.c: Check image file format on plug-in start (.xcf,
+	  .xcf.bz2, .xcf.gz)
 
-2002-05-14  Sven Neumann  <sven@gimp.org>
+2005-08-03 16:08  mtheo
 
-	* configure.in: check for bind_textdomain_codeset.
+	* src/teseocallbacks.c: Deleted return command from void functions
 
-2002-04-16  Sven Neumann  <sven@gimp.org>
+2005-08-02 13:26  mtheo
 
-	* autogen.sh: call glib-gettextize and intltoolize.
+	* src/: teseo_env.c, teseo_env.h: Added "lock" directory
 
-	* configure.in: require at least gimp-1.3.5. Use AC_PROG_INTLTOOL
-	and AM_GLIB_GNU_GETTEXT for i18n.
-	
-	* src/interface.c (dialog_ok_callback): made it compile again.
+2005-08-01 15:34  mtheo
 
-2002-01-15  Sven Neumann  <sven@gimp.org>
+	* src/: teseointerface.c, teseointerface.h: GUI improvements
 
-	* HACKING
-	* Makefile.am
-	* acconfig.h
-	* autogen.sh
-	* configure.in
-	* src/Makefile.am
-	* src/interface.c
-	* src/main.c
-	* src/plugin-intl.h: use gimp-1.3.
+2005-07-29 14:17  mtheo
 
-2001-12-26  Pablo Saratxaga  <pablo@mandrakesoft.com>
+	* src/teseointerface.c: GUI display improvements
 
-	* configure.in: Added "az" to ALL_LINGUAS.
+2005-07-29 10:13  mtheo
 
-2001-12-21  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
+	* src/teseointerface.c: About dialog improvements
 
-	* configure.in: Added "sk" to ALL_LINGUAS.
+2005-07-29 09:23  mtheo
 
-2001-11-09  Christian Rose  <menthos@menthos.com>
+	* src/teseointerface.c: CUI improvements
 
-	* configure.in: Added "sv" to ALL_LINGUAS.
+2005-07-28 14:47  ilpint
 
-2001-10-20  Christophe Merlet  <redfox@eikonex.org>
+	* src/: teseocallbacks.c, teseointerface.c, teseointerface.h: Minor
+	  GUI lifting
 
-	* configure.in: Added "fr" to $ALL_LINGUAS.
+2005-07-28 14:18  mtheo
 
-2001-08-31  Abel Cheung  <maddog@linux.org.hk>
+	* src/: teseointerface.c, teseointerface.h: Restored improvements
+	  teseo-2.glade revision 1.28
 
-	* configure.in (ALL_LINGUAS): zh_TW.Big5 -> zh_TW
+2005-07-28 14:09  ilpint
 
-2001-07-12  Abel Cheung  <maddog@linux.org.hk>
+	* src/: teseocallbacks.c, teseocallbacks.h, teseointerface.c,
+	  teseointerface.h: Frustrate the seismologist to have a session
 
-	* configure.in: added zh_TW.Big5 (traditional Chinese) to ALL_LINGUAS
+2005-07-28 12:49  mtheo
 
-2001-07-12  Michael Natterer  <mitch@gimp.org>
+	* src/: teseo_session.c, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h: Session management GUI
+	  Improvements
 
-	* made 1.2.0 release.
+2005-07-28 11:03  ilpint
 
-2001-07-12  Michael Natterer  <mitch@gimp.org>
+	* src/: interface.c, interface.h, main.c, main.h, render.c,
+	  render.h, teseo_wmean.h, teseointerface.c: Modify a little
 
-	* README: updated.
+2005-07-28 10:45  ilpint
 
-	* src/main.h
-	* src/interface.c: added image & drawable menu examples.
+	* src/: teseo_main.c, teseo_main.h, teseo_wmean.h: Kicked off
+	  useless class teseo_prototype
 
-2001-07-12  Michael Natterer  <mitch@gimp.org>
+2005-07-28 09:02  ilpint
 
-	* autogen.sh: allow newer auto* version strings.
+	* src/teseointerface.c: Preferences again in a dialog
 
-	* configure.in: bumped version number to 1.2.0, require gimp 1.2.1.
+2005-07-27 15:33  mtheo
 
-	* src/Makefile.am
-	* src/interface.h
-	* src/main.h
-	* src/render.h: minor cleanups.
+	* src/teseointerface.c: Ripristinati cambiamenti persi del dialog
+	  About e migliorati Spostati frames dalla finestra Preferences nel
+	  notebook principale Omogeneizzati font del notebook
 
-2000-08-28  Michael Natterer  <mitch@gimp.org>
+2005-07-27 14:18  ilpint
 
-	* configure.in
-	* src/interface.c
-	* src/main.c: removed COMPAT_CRUFT
+	* src/teseointerface.c: Gui cleaning again
 
-2000-08-25  Kevin Turner  <acapnotic@users.sourceforge.net>
+2005-07-27 13:56  mtheo
 
-	* src/Makefile.am (LDADD): Remove GTK_LIBS, as these are included in 
-	GIMP_LIBS.
+	* src/teseointerface.c: Modificata finestra About inserendo
+	  l'utilizzo dei Markup
 
-2000-06-24  Sven Neumann  <sven@gimp.org>
+2005-07-27 11:31  ilpint
 
-	* autogen.sh: applied patch from Sesse <sgunderson@bigfoot.com>
-	that fixes the check for recent versions of auto[conf|make].
-	
-	* configure.in: we require gimp-1.1.24 and gtk+-1.2.8
+	* src/: teseo_path.c, teseo_wmean.c, teseointerface.c: Gui
+	  improvements
 
-2000-06-14  Michael Natterer  <mitch@gimp.org>
+2005-07-26 14:57  ilpint
 
-	* configure.in
-	* debian/*: new directory.
+	* src/: teseo_main.c, teseo_path.c, teseocallbacks.c: Modified
+	  cat_path_strokes to have path stay visible.
 
-	A patch from Kevin Turner <acapnotic@users.sourceforge.net> which
-	adds a debian packet description.
+2005-07-26 09:54  ilpint
 
-2000-06-14  Michael Natterer  <mitch@gimp.org>
+	* src/: teseocallbacks.c, teseocallbacks.h, teseointerface.c:
+	  Inserito pulsante ghost per disabilitare pulsanti algoritmi.
+	  Gestito variazione parametri algoritmo wmean, con obbligo di
+	  reinizializzazione.
 
-	* src/Makefile.am: disable all Gimp compatibility defines.
+2005-07-25 14:59  ilpint
 
-	* src/interface.[ch]
-	* src/main.[ch]
-	* src/plugin-intl.h
-	* src/render.[ch]: some (not yet finished) code to show how to
-	store stuff per drawable and per image through parasites.
-	Minor fixes.
+	* src/: teseocallbacks.c, teseocallbacks.h, teseointerface.c:
+	  Costretto l'utente a selezionare di nuovo l'algoritmo se ne
+	  modifica i parametri.
 
-2000-05-24  Michael Natterer  <mitch@gimp.org>
+2005-07-25 14:38  ilpint
 
-	* src/main.c: register for all image types.
+	* src/: teseo_main.c, teseo_main.h, teseo_wmean.c, teseo_wmean.h,
+	  teseocallbacks.c: Corretta la wmean_new_is, scritta e usata la
+	  wmean_release.  Cambiato nome: init_wmean->wmean_init, aggiunti
+	  commenti.
 
-2000-05-24  Michael Natterer  <mitch@gimp.org>
+2005-07-25 11:58  ilpint
 
-	* HACKING: s/gfm/teseo-2/
+	* src/: teseo_main.c, teseo_session.c, teseo_wmean.c,
+	  teseo_wmean.h, teseocallbacks.c, teseointerface.c: Aggiunta
+	  abilitazione pulsanti go-back in seguito a scelta dell'algoritmo.
 
-2000-05-24  Michael Natterer  <mitch@gimp.org>
+2005-07-22 15:24  ilpint
 
-	* src/interface.c: one more comment.
+	* src/: teseo_main.c, teseo_main.h, teseo_path.c, teseo_wmean.c,
+	  teseo_wmean.h, teseocallbacks.c, teseointerface.c: Gestiti
+	  parametri algoritmo nell'interfaccia.  Gestito inseguimento su
+	  layers multipli (canale alpha).  TODO: inizializzare comunque
+	  l'algoritmo anche se non viene premuto il pulsante di scelta.
 
-	* src/main.[ch]: renamed variables, #define'd some string constants.
+2005-07-21 15:53  ilpint
 
-2000-05-24  Michael Natterer  <mitch@gimp.org>
+	* src/: teseo_main.c, teseo_main.h, teseo_wmean.c,
+	  teseocallbacks.c: Corretta wmean_accumulate.. Insegue!
 
-	* src/interface.[ch]
-	* src/render.[ch]: added some comments.
+2005-07-20 17:21  mtheo
 
-2000-05-24  Michael Natterer  <mitch@gimp.org>
+	* src/interface.c: Eliminata printf per il valore del parametro
+	  della funzione g_path_get_basename
 
-	* initial revision.
+2005-07-20 17:10  mtheo
+
+	* src/interface.c: Inserito controllo del valore NULL per la
+	  funzione g_path_get_basename
+
+2005-07-20 15:30  ilpint
+
+	* src/: teseo_main.c, teseo_main.h, teseo_path.c, teseo_path.h,
+	  teseo_wmean.c, teseo_wmean.h, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c: Aggiunta struttura per esecuzione di algoritmo
+	  generico teseo_main Vedi teseo_wmean per esempio di algoritmo
+	  TODO: eliminare teseo_prototype, debugging.. probabile errore
+	  nella chiamata cat _path_strokes
+
+2005-07-18 14:46  ilpint
+
+	* src/: interface.c, teseo_session.c, teseocallbacks.c,
+	  teseointerface.c, teseointerface.h: Riportata in interface.c la
+	  gestione del pattern per teseosessionfilechooser
+
+2005-07-18 11:04  ilpint
+
+	* src/: interface.c, teseo_session.c, teseocallbacks.c,
+	  teseocallbacks.h, teseointerface.c, teseointerface.h: Cambiato
+	  posiszione e significato del filtro su file chooser di sessione
+
+2005-07-16 14:57  mtheo
+
+	* src/: teseocallbacks.c, teseocallbacks.h: Message boxes have been
+	  inserted in "TODO" functions
+
+2005-07-15 15:53  mtheo
+
+	* src/: teseocallbacks.c, teseocallbacks.h, teseointerface.c: In
+	  Session menu has been converted Options in Properties
+
+2005-07-15 14:09  ilpint
+
+	* src/: interface.c, teseo_session.c, teseo_session.h,
+	  teseocallbacks.c, teseocallbacks.h, teseointerface.c,
+	  teseointerface.h: Continua modifiche alla gestione della
+	  sessione, new-open-save Legge e salva le interfacce di preferenze
+	  e sessione.
+
+2005-07-14 14:25  ilpint
+
+	* src/: main.c, teseo_env.c, teseo_session.c, teseo_session.h,
+	  teseocallbacks.c, teseocallbacks.h: Gestione salvataggio sessione
+	  e preferenze: da rivedere
+
+2005-07-12 15:31  ilpint
+
+	* src/: teseointerface.c, teseointerface.h: Modifica
+	  all'interfaccia: per inserire i tempi del vettorializzato e dei
+	  time marker
+
+2005-07-12 14:54  ilpint
+
+	* src/: interface.c, teseo_session.c, teseo_session.h,
+	  teseocallbacks.c, teseocallbacks.h, teseointerface.c,
+	  teseointerface.h: Aggiunta finestra per creazione e
+	  visualizzazione dati di sessione
+
+2005-07-12 10:25  ilpint
+
+	* src/: main.c, teseo_env.c, teseo_env.h, teseo_session.c,
+	  teseo_session.h, teseocallbacks.c, teseocallbacks.h: Gestita la
+	  creazione dell'ambiente per teseo-2, testato in alcuni callbacks
+
+2005-07-11 15:18  ilpint
+
+	* src/: main.c, teseo_session.c, teseo_session.h, teseocallbacks.c,
+	  teseointerface.c: Per salvare le preferenze e le sessioni in
+	  $HOME/gimp-2.2/teseo-2.  Modificati i nomi nella finestra
+	  preferenze dei widget da salvare.
+
+2005-07-11 12:11  ilpint
+
+	* src/: teseo_session.c, teseo_session.h: Aggiunto commento alla
+	  doxygen, modificato parametri funzioni.
+
+2005-07-11 11:33  ilpint
+
+	* src/: teseo_session.c, teseo_session.h: Iniziato lavoro su
+	  sessione.
+
+2005-07-06 15:08  ilpint
+
+	* src/main.c: Modifiche per cercare durante la configurazione la
+	  libreria gtk-addons.	Inserita la chiamata alla inizializzazione
+	  della libreria in main.c per verificare la funzionalita'.
+
+2005-06-17 12:19  mtheo
+
+	* src/: interface.c, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h: Inserito About Dialog
+
+2005-06-17 11:39  ilpint
+
+	* src/: interface.c, main.c, main.h, render.h,
+	  teseo_bezier_point.c, teseo_bezier_point.h, teseo_env.c,
+	  teseo_env.h, teseo_io.c, teseo_io.h, teseo_path.c, teseo_path.h,
+	  teseo_resample.c, teseo_resample.h, teseo_types.h,
+	  teseocallbacks.c, teseocallbacks.h: Ammesse solo immagini in
+	  grayscale. Aggiunto copyright nei file in cui mancava
+
+2005-06-14 11:28  ilpint
+
+	* src/: teseo_io.c, teseo_io.h, teseocallbacks.c: Aggiunto import
+	  dei file SVG
+
+2005-06-06 11:18  ilpint
+
+	* src/teseo_io.c: Pulizia sui commenti e i nomi in italiano.
+
+2005-06-06 08:01  mtheo
+
+	* src/teseointerface.c: Sostituito "...color..." con "...colour..."
+
+2005-06-01 15:33  ilpint
+
+	* src/: teseo_io.c, teseocallbacks.c: Correggo
+
+2005-06-01 15:16  ilpint
+
+	* src/: teseo_io.c, teseo_io.h: Tradotti nomi funzioni
+
+2005-06-01 13:56  ilpint
+
+	* src/teseointerface.c: Modificato solo in Glade per vedere menu ad
+	  estrazione dalla finestra.
+
+2005-06-01 13:34  mtheo
+
+	* src/: teseocallbacks.c, teseocallbacks.h, teseointerface.c,
+	  teseointerface.h: Ridefiniti i menu di Import ed Export dei file
+
+2005-06-01 10:10  ilpint
+
+	* src/teseocallbacks.c: private_image -> teseo_image
+
+2005-06-01 10:02  ilpint
+
+	* src/: interface.c, teseo_io.c, teseo_io.h, teseo_path.c,
+	  teseocallbacks.c, teseocallbacks.h: Inserito import dxf, con
+	  setlocale "C"
+
+2005-05-31 17:20  mtheo
+
+	* src/teseocallbacks.c: Aggiunto funzionalita' di ricampionamento
+	  di un path Per ora i parametri passati sono fissi, e cioe'
+	  campionamento progressivo lungo le ascisse uguale a VERO
+	  passo bezier uguale a 1
+
+2005-05-31 17:18  mtheo
+
+	* src/: teseo_bezier_point.c, teseo_bezier_point.h,
+	  teseo_resample.c, teseo_resample.h: File utili al ricampionamento
+	  di un path
+
+2005-05-31 14:09  ilpint
+
+	* src/teseo_path.h: Aggiunti dopo modifica sintassi
+
+2005-05-31 14:08  ilpint
+
+	* src/: teseo_env.c, teseo_env.h, teseo_io.c, teseo_io.h,
+	  teseo_path.c, teseo_types.h: Aggiunti e modificati prendendoli da
+	  teseo-1
+
+2005-05-31 13:14  ilpint
+
+	* src/: interface.c, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h: Aggiunto il filechooser,
+	  inseriti nuovi file per io e path ed env
+
+2005-05-27 11:10  ilpint
+
+	* src/: interface.c, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h: Finestra preferenze resa
+	  dialog e gestione minima pulsanti
+
+2005-05-24 09:09  ilpint
+
+	* src/: interface.c, interface.h, teseocallbacks.c,
+	  teseocallbacks.h, teseointerface.c, teseointerface.h: Definita
+	  finestre principale e preferenze
+
+2005-05-19 14:12  ilpint
+
+	* src/: interface.c, interface.h, main.c, main.h, render.c,
+	  render.h, teseointerface.c: Modificati i Makefile.am e i
+	  Makefile.in per avere le pixmaps. Aggiunta la chiamata in main.c
+	  per gestire la posizione delle pixmaps.
+
+2005-05-19 10:04  ilpint
+
+	* src/: interface.c, interface.h, main.c, main.h, plugin-intl.h,
+	  render.c, render.h, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h, teseosupport.c,
+	  teseosupport.h: Gimp plug-in Teseo-2 per GIMP-2    - Testato
+	  configure, make, make install 	- Interfaccia grafica
+	  costruita con glade-2
+
+		  TODO
+		  - pixmaps non attivi
+		  - po files da sistemare
+		  - interface.c da verificare
+		  - riempire i callbacks
+
+2005-05-19 10:04  ilpint
+
+	* src/: interface.c, interface.h, main.c, main.h, plugin-intl.h,
+	  render.c, render.h, teseocallbacks.c, teseocallbacks.h,
+	  teseointerface.c, teseointerface.h, teseosupport.c,
+	  teseosupport.h: Initial revision
+
