@@ -473,10 +473,11 @@ void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
 	    if(gimp_path_get_locked(g_image, p[i])) {
 		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
 
-		// TODO Compute off_x and off_y
+		// Compute first_x and first_y
 		first_x = old_path[0];
 		first_y = old_path[1];
 
+		// Compute last_x and last_y
 		if(k>6) {
 		    // Case: insert next points
 		    last_x = path_strokes[k-6];
@@ -490,10 +491,10 @@ void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
 		    last_y = old_path[1];
 		}
 
+		// Compute off_x and off_y
 		off_x = -first_x + last_x;
 		off_y = -first_y + last_y;
 		
-		// for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
 		// Jump first 6 points
 		for ( j=6; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
 		    if( ((j-6) % 3) == 0 ) {
@@ -517,7 +518,7 @@ void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
 	    }
 	}
 
-	gimp_path_set_points( g_image, "Linked path", 1, (num_points_tot-1)*3, path_strokes );
+	gimp_path_set_points( g_image, "Aligned path", 1, (num_points_tot-1)*3, path_strokes );
 
 	if (path_strokes)
 	    g_free(path_strokes);

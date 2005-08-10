@@ -436,12 +436,27 @@ on_align_all1_activate                 (GtkMenuItem     *menuitem,
     teseo_align_all_path(teseo_image);
 }
 
+void
+on_align_locked_paths1_activate        (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    teseo_align_all_path_locked(teseo_image, FALSE);
+}
+
 
 void
 on_link_all1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     teseo_link_all_path(teseo_image);
+}
+
+
+void
+on_link_locked_paths1_activate         (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    teseo_link_all_path_locked(teseo_image, FALSE);
 }
 
 
@@ -900,4 +915,5 @@ on_dlg_session_show_teseo_eventpathname
     
 
 }
+
 
