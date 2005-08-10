@@ -71,7 +71,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image291">
+			    <widget class="GtkImage" id="image306">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-properties</property>
 			      <property name="icon_size">1</property>
@@ -99,7 +99,7 @@
 			  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image292">
+			    <widget class="GtkImage" id="image307">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-preferences</property>
 			      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image293">
+			    <widget class="GtkImage" id="image308">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-back</property>
 			      <property name="icon_size">1</property>
@@ -230,7 +230,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image294">
+			    <widget class="GtkImage" id="image309">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-forward</property>
 			      <property name="icon_size">1</property>
@@ -406,11 +406,29 @@
 		      </child>
 
 		      <child>
+			<widget class="GtkMenuItem" id="align_locked_paths1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Ali_gn locked paths</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_align_locked_paths1_activate" last_modification_time="Wed, 10 Aug 2005 17:44:02 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkMenuItem" id="link_all1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">_Link All</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_link_all1_activate" last_modification_time="Wed, 19 Nov 2003 17:29:55 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="link_locked_paths1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Lin_k locked paths</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_link_locked_paths1_activate" last_modification_time="Wed, 10 Aug 2005 17:44:02 GMT"/>
 			</widget>
 		      </child>
 
@@ -491,7 +509,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image295">
+			    <widget class="GtkImage" id="image310">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -512,7 +530,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image296">
+			    <widget class="GtkImage" id="image311">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>

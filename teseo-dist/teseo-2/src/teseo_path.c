@@ -361,7 +361,6 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
 
 /*Funzioni di manipolazione path*/
 
-// TODO update function, don't delete old paths!!!
 void teseo_align_all_path(gint32 g_image)
 {
 	gchar **p;
@@ -441,8 +440,91 @@ void teseo_align_all_path(gint32 g_image)
   	}
 }
 
-
 // TODO update function, don't delete old paths!!!
+void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
+{
+    gchar **p;
+    gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
+    gint first_x, first_y, last_x, last_y, off_x, off_y;
+
+    gdouble * path_strokes = NULL;
+    gdouble * old_path;
+    int i=0;
+    int j=0;
+
+    p = gimp_path_list (g_image, & num_paths);
+
+    // Compute num_points_tot
+    for ( i=0; i<=num_paths-1; i++) {
+	if(gimp_path_get_locked(g_image, p[i])) {
+	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	    num_points_tot += (num_points+3-9)/3;
+	}
+    }
+
+    if(num_points_tot == 0) {
+	g_message("No one path is locked !\nYou can align all locked paths.");
+    } else {
+	// Alloc the right size for path_strokes
+	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
+
+	// Feed path_strokes
+	for ( i=num_paths-1; i>=0; i--) {
+	    if(gimp_path_get_locked(g_image, p[i])) {
+		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+
+		// TODO Compute off_x and off_y
+		first_x = old_path[0];
+		first_y = old_path[1];
+
+		if(k>6) {
+		    // Case: insert next points
+		    last_x = path_strokes[k-6];
+		    last_y = path_strokes[k-5];
+		} else {
+		    // Case: insert first point
+		    for(j=0; j<6; j++, k++) {
+			path_strokes[k] = old_path[j];
+		    }
+		    last_x = old_path[0];
+		    last_y = old_path[1];
+		}
+
+		off_x = -first_x + last_x;
+		off_y = -first_y + last_y;
+		
+		// for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
+		// Jump first 6 points
+		for ( j=6; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
+		    if( ((j-6) % 3) == 0 ) {
+			path_strokes[k] = old_path[j] + off_x;
+		    } else if( ((j-6) % 3) == 1 ) {
+			path_strokes[k] = old_path[j] + off_y;
+		    } else {
+			path_strokes[k] = old_path[j];
+		    }
+
+		}
+	    }
+	}
+
+	// If specified delete locked paths
+	if(delete_path) {
+	    for ( i=0; i<=num_paths-1; i++) {
+		if(gimp_path_get_locked(g_image, p[i])) {
+		    gimp_path_delete( g_image, p[i]);
+		}
+	    }
+	}
+
+	gimp_path_set_points( g_image, "Linked path", 1, (num_points_tot-1)*3, path_strokes );
+
+	if (path_strokes)
+	    g_free(path_strokes);
+    }
+}
+
+
 void teseo_link_all_path(gint32 g_image)
 {
 	gchar **p;
@@ -478,6 +560,61 @@ void teseo_link_all_path(gint32 g_image)
   if (path_strokes)
   	g_free(path_strokes);
 }
+
+
+// TODO update function, don't delete old paths!!!
+void teseo_link_all_path_locked(gint32 g_image, gboolean delete_path)
+{
+    gchar **p;
+    gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
+
+    gdouble * path_strokes = NULL;
+    gdouble * old_path;
+    int i=0;
+    int j=0;
+
+    p = gimp_path_list (g_image, & num_paths);
+
+    // Compute num_points_tot
+    for ( i=0; i<=num_paths-1; i++) {
+	if(gimp_path_get_locked(g_image, p[i])) {
+	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	    num_points_tot += (num_points+3-9)/3;
+	}
+    }
+
+    if(num_points_tot == 0) {
+	g_message("No one path is locked !\nYou can link all locked paths.");
+    } else {
+	// Alloc the right size for path_strokes
+	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
+
+	// Feed path_strokes
+	for ( i=num_paths-1; i>=0; i--) {
+	    if(gimp_path_get_locked(g_image, p[i])) {
+		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+		for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
+		    path_strokes[k] = old_path[j];
+		}
+	    }
+	}
+
+	// If specified delete locked paths
+	if(delete_path) {
+	    for ( i=0; i<=num_paths-1; i++) {
+		if(gimp_path_get_locked(g_image, p[i])) {
+		    gimp_path_delete( g_image, p[i]);
+		}
+	    }
+	}
+
+	gimp_path_set_points( g_image, "Linked path", 1, (num_points_tot-1)*3, path_strokes );
+
+	if (path_strokes)
+	    g_free(path_strokes);
+    }
+}
+
 
 void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
  gdouble * strokes=NULL;
