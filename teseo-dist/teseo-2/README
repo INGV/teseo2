@@ -1,21 +1,13 @@
-GIMP Plug-In Template
+GIMP Plug-In Teseo-2
 =====================
 
-Copyright (C) 2000-2003  Michael Natterer <mitch@gimp.org>
+Copyright (C) 2000-2005
+Stefano Pintore & Matteo Quintiliani
+Istituto Nazionale di Geofisica e Vulcanologia
+teseo@ingv.it
 
-
-This package is an empty plug-in for GIMP 2.0. It features all the
-nice things a good GIMP plug-in should have:
-
-- The source is separated in main/interface/render files (core/ui separation).
-- It's prepared for I18N.
-- It installs it's own help files.
-- Full autoconf/automake support.
-- A dialog with examples of all libgimp widgets.
-
-Basically everything a Plug-In author should ever need except
-her own image manupulation routines.
-
+This package is a plug-in for GIMP 2.0. capable of vectorize seismic trace from 
+historical seismogram acquired in raster format.
 
 To build and install it, just ...
 
@@ -26,12 +18,6 @@ To build and install it, just ...
  ... and it's there.
 
 
-To transform this template into your_plugin, grep the sources for
-"teseo-2" and "teseo_2", then
-
- s/teseo-2/your-plugin/
- s/teseo_2/your_plugin/
-
 And don't forget to remove (or update if really necessary) comments
 for translators in po/README.translators.
 
@@ -41,6 +27,3 @@ non-GPL plugins.  If you wish to use a different license for your plugin
 (e.g. GPL) then you may change the license block in the 'COPYING' file
 and the source to your favourite license.
 
-
-Happy GIMPing,
---Mitch
