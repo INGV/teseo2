@@ -306,6 +306,7 @@ create_win_teseo (void)
   gtk_widget_set_name (trace2, "trace2");
   gtk_widget_show (trace2);
   gtk_container_add (GTK_CONTAINER (import1_menu), trace2);
+  gtk_widget_set_sensitive (trace2, FALSE);
 
   ascii1 = gtk_menu_item_new_with_mnemonic ("_ASCII");
   gtk_widget_set_name (ascii1, "ascii1");
@@ -376,6 +377,7 @@ create_win_teseo (void)
   gtk_widget_set_name (trace1, "trace1");
   gtk_widget_show (trace1);
   gtk_container_add (GTK_CONTAINER (polyline1_menu), trace1);
+  gtk_widget_set_sensitive (trace1, FALSE);
 
   ascii2 = gtk_menu_item_new_with_mnemonic ("_ASCII");
   gtk_widget_set_name (ascii2, "ascii2");
