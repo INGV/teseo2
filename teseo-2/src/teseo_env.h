@@ -37,9 +37,10 @@
 #define PROCEDURE_NAME   "teseo-2"
 #endif
 
-#define T_MAJOR_VER 2
-#define T_MINOR_VER 0
-#define T_DEVEL_VER 3
+#define TESEO_MAJOR_VER 2
+#define TESEO_MINOR_VER 0
+#define TESEO_DEVEL_VER 4
+
 #define TESEO_CAPTION_DEV teseo_caption(TRUE)
 #define TESEO_CAPTION     teseo_caption(FALSE)
 #define TESEO_YEAR "2005"
