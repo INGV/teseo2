@@ -71,7 +71,7 @@
 			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image306">
+			    <widget class="GtkImage" id="image341">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-properties</property>
 			      <property name="icon_size">1</property>
@@ -99,7 +99,7 @@
 			  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image307">
+			    <widget class="GtkImage" id="image342">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-preferences</property>
 			      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image308">
+			    <widget class="GtkImage" id="image343">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-back</property>
 			      <property name="icon_size">1</property>
@@ -230,7 +230,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image309">
+			    <widget class="GtkImage" id="image344">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-forward</property>
 			      <property name="icon_size">1</property>
@@ -397,6 +397,15 @@
 		      </child>
 
 		      <child>
+			<widget class="GtkMenuItem" id="split_unlocked_paths1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">_Split unlocked paths</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_split_unlocked_paths1_activate" last_modification_time="Sat, 13 Aug 2005 10:10:10 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkMenuItem" id="align_all1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">_Align All</property>
@@ -406,11 +415,11 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="align_locked_paths1">
+			<widget class="GtkMenuItem" id="align_unlocked_paths1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Ali_gn locked paths</property>
+			  <property name="label" translatable="yes">Ali_gn unlocked paths</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_align_locked_paths1_activate" last_modification_time="Wed, 10 Aug 2005 17:44:02 GMT"/>
+			  <signal name="activate" handler="on_align_unlocked_paths1_activate" last_modification_time="Sat, 13 Aug 2005 10:04:57 GMT"/>
 			</widget>
 		      </child>
 
@@ -424,11 +433,11 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="link_locked_paths1">
+			<widget class="GtkMenuItem" id="link_unlocked_paths1">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Lin_k locked paths</property>
+			  <property name="label" translatable="yes">Lin_k unlocked paths</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_link_locked_paths1_activate" last_modification_time="Wed, 10 Aug 2005 17:44:02 GMT"/>
+			  <signal name="activate" handler="on_link_unlocked_paths1_activate" last_modification_time="Sat, 13 Aug 2005 10:05:33 GMT"/>
 			</widget>
 		      </child>
 
@@ -487,6 +496,15 @@
 			  </child>
 			</widget>
 		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="print_for_debug1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Print for debug</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_print_for_debug1_activate" last_modification_time="Sat, 13 Aug 2005 20:57:55 GMT"/>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -509,7 +527,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image310">
+			    <widget class="GtkImage" id="image345">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -530,7 +548,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image311">
+			    <widget class="GtkImage" id="image346">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>
@@ -1003,104 +1021,137 @@
 		  <property name="shadow_type">GTK_SHADOW_NONE</property>
 
 		  <child>
-		    <widget class="GtkTable" id="table4">
-		      <property name="border_width">4</property>
+		    <widget class="GtkHBox" id="hbox50">
 		      <property name="visible">True</property>
-		      <property name="n_rows">2</property>
-		      <property name="n_columns">2</property>
 		      <property name="homogeneous">False</property>
-		      <property name="row_spacing">4</property>
-		      <property name="column_spacing">4</property>
+		      <property name="spacing">20</property>
 
 		      <child>
-			<widget class="GtkLabel" id="label74">
+			<widget class="GtkTable" id="table4">
+			  <property name="border_width">4</property>
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Back</property>
-			  <property name="use_underline">False</property>
-			  <property name="use_markup">False</property>
-			  <property name="justify">GTK_JUSTIFY_LEFT</property>
-			  <property name="wrap">False</property>
-			  <property name="selectable">False</property>
-			  <property name="xalign">0</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">10</property>
-			  <property name="ypad">0</property>
+			  <property name="n_rows">2</property>
+			  <property name="n_columns">2</property>
+			  <property name="homogeneous">False</property>
+			  <property name="row_spacing">4</property>
+			  <property name="column_spacing">4</property>
+
+			  <child>
+			    <widget class="GtkLabel" id="label74">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Back</property>
+			      <property name="use_underline">False</property>
+			      <property name="use_markup">False</property>
+			      <property name="justify">GTK_JUSTIFY_LEFT</property>
+			      <property name="wrap">False</property>
+			      <property name="selectable">False</property>
+			      <property name="xalign">0</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">10</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">0</property>
+			      <property name="right_attach">1</property>
+			      <property name="top_attach">1</property>
+			      <property name="bottom_attach">2</property>
+			      <property name="x_options">fill</property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkSpinButton" id="teseo_forward_step_spinbutton">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="climb_rate">1</property>
+			      <property name="digits">0</property>
+			      <property name="numeric">True</property>
+			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			      <property name="snap_to_ticks">False</property>
+			      <property name="wrap">False</property>
+			      <property name="adjustment">50 1 10000 1 10 10</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">1</property>
+			      <property name="right_attach">2</property>
+			      <property name="top_attach">0</property>
+			      <property name="bottom_attach">1</property>
+			      <property name="x_options"></property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkSpinButton" id="teseo_back_step_spinbutton">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="climb_rate">1</property>
+			      <property name="digits">0</property>
+			      <property name="numeric">True</property>
+			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			      <property name="snap_to_ticks">False</property>
+			      <property name="wrap">False</property>
+			      <property name="adjustment">10 1 10000 1 10 10</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">1</property>
+			      <property name="right_attach">2</property>
+			      <property name="top_attach">1</property>
+			      <property name="bottom_attach">2</property>
+			      <property name="x_options"></property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkLabel" id="label73">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Forward</property>
+			      <property name="use_underline">False</property>
+			      <property name="use_markup">False</property>
+			      <property name="justify">GTK_JUSTIFY_LEFT</property>
+			      <property name="wrap">False</property>
+			      <property name="selectable">False</property>
+			      <property name="xalign">0</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">10</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">0</property>
+			      <property name="right_attach">1</property>
+			      <property name="top_attach">0</property>
+			      <property name="bottom_attach">1</property>
+			      <property name="x_options">fill</property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
 			</widget>
 			<packing>
-			  <property name="left_attach">0</property>
-			  <property name="right_attach">1</property>
-			  <property name="top_attach">1</property>
-			  <property name="bottom_attach">2</property>
-			  <property name="x_options">fill</property>
-			  <property name="y_options"></property>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
 			</packing>
 		      </child>
 
 		      <child>
-			<widget class="GtkSpinButton" id="teseo_forward_step_spinbutton">
+			<widget class="GtkCheckButton" id="teseo_checkbtn_first_guide_stop">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="climb_rate">1</property>
-			  <property name="digits">0</property>
-			  <property name="numeric">True</property>
-			  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-			  <property name="snap_to_ticks">False</property>
-			  <property name="wrap">False</property>
-			  <property name="adjustment">50 1 10000 1 10 10</property>
+			  <property name="label" translatable="yes">Stop to the
+first guide</property>
+			  <property name="use_underline">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <property name="active">False</property>
+			  <property name="inconsistent">False</property>
+			  <property name="draw_indicator">True</property>
 			</widget>
 			<packing>
-			  <property name="left_attach">1</property>
-			  <property name="right_attach">2</property>
-			  <property name="top_attach">0</property>
-			  <property name="bottom_attach">1</property>
-			  <property name="x_options"></property>
-			  <property name="y_options"></property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkSpinButton" id="teseo_back_step_spinbutton">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="climb_rate">1</property>
-			  <property name="digits">0</property>
-			  <property name="numeric">True</property>
-			  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-			  <property name="snap_to_ticks">False</property>
-			  <property name="wrap">False</property>
-			  <property name="adjustment">10 1 10000 1 10 10</property>
-			</widget>
-			<packing>
-			  <property name="left_attach">1</property>
-			  <property name="right_attach">2</property>
-			  <property name="top_attach">1</property>
-			  <property name="bottom_attach">2</property>
-			  <property name="x_options"></property>
-			  <property name="y_options"></property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkLabel" id="label73">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Forward</property>
-			  <property name="use_underline">False</property>
-			  <property name="use_markup">False</property>
-			  <property name="justify">GTK_JUSTIFY_LEFT</property>
-			  <property name="wrap">False</property>
-			  <property name="selectable">False</property>
-			  <property name="xalign">0</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">10</property>
-			  <property name="ypad">0</property>
-			</widget>
-			<packing>
-			  <property name="left_attach">0</property>
-			  <property name="right_attach">1</property>
-			  <property name="top_attach">0</property>
-			  <property name="bottom_attach">1</property>
-			  <property name="x_options">fill</property>
-			  <property name="y_options"></property>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -1144,7 +1195,7 @@
 		      <property name="border_width">4</property>
 		      <property name="visible">True</property>
 		      <property name="homogeneous">False</property>
-		      <property name="spacing">0</property>
+		      <property name="spacing">14</property>
 
 		      <child>
 			<widget class="GtkVBox" id="vbox20">
@@ -1193,8 +1244,8 @@
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
-			  <property name="expand">True</property>
-			  <property name="fill">True</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
 			</packing>
 		      </child>
 
