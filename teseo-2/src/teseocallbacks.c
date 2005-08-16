@@ -46,6 +46,7 @@
 #include "teseo_session.h"
 #include "teseo_main.h"
 #include "teseo_wmean.h"
+#include "teseo_gimp_extends.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -61,15 +62,26 @@ gint32  teseo_image ;
 char TODO_str[] = "Sorry, this function is not implemented yet!";
 char new_session_name[] = "New session ...";
 
+// Private function to wrap teseo_lookup_widget
+GtkWidget*
+teseo_lookup_widget(GtkWidget *widget, const gchar *widget_name, gint default_value) {
+    gchar msg[1024];
+    GtkWidget * ret = lookup_widget(widget, widget_name);
+    if(!ret) {
+	sprintf(msg, "Widget \"%s\" not found in \"%s\". Set to %d (default).", gtk_widget_get_name(widget), widget_name, default_value);
+    }
+    return ret;
+}
+
+
 int
 on_new1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
  int ret=0;
- GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   lookup_widget(GTK_WIDGET(dlg_session), "teseo_imagefile_entry");
- GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   lookup_widget(GTK_WIDGET(dlg_session), "teseo_imageresolution_entry");
-
+ GtkEntry * teseo_imagefile_entry      =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_imagefile_entry", 0);
+ GtkEntry * teseo_imageresolution_entry=  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_imageresolution_entry", 0);
 
  char * image_file = gimp_image_get_filename(teseo_image);
  gdouble xresolution,yresolution;
@@ -252,7 +264,7 @@ void
 on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+  // Import DXF
   char filename[FILENAMELEN];
   char * path=NULL;
 
@@ -419,13 +431,27 @@ on_quit1_activate                      (GtkMenuItem     *menuitem,
     g_message(TODO_str);
 }
 
-
 void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // TODO catch parameter for resampling_bezier
-    teseo_resampling_bezier(teseo_image, 1, 1);
+    // default is 1
+    gint step_bezier = 1;
+    // default is TRUE
+    gboolean abscissa_asc = TRUE;
+    
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_bezier);
+    GtkCheckButton * teseo_abscissa_asc_checkbutton = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_abscissa_asc_checkbutton", abscissa_asc);
+    
+    if(teseo_step_spinbutton) {
+	step_bezier = gtk_spin_button_get_value_as_int (teseo_step_spinbutton) ;
+    }
+
+    if(teseo_abscissa_asc_checkbutton) {
+	abscissa_asc = gtk_toggle_button_get_active((GtkToggleButton *) teseo_abscissa_asc_checkbutton);
+    }    
+
+    teseo_resampling_bezier(teseo_image, abscissa_asc, step_bezier);
 }
 
 
@@ -437,10 +463,10 @@ on_align_all1_activate                 (GtkMenuItem     *menuitem,
 }
 
 void
-on_align_locked_paths1_activate        (GtkMenuItem     *menuitem,
+on_align_unlocked_paths1_activate        (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    teseo_align_all_path_locked(teseo_image, FALSE);
+    teseo_align_all_path_unlocked(teseo_image, FALSE);
 }
 
 
@@ -453,10 +479,10 @@ on_link_all1_activate                  (GtkMenuItem     *menuitem,
 
 
 void
-on_link_locked_paths1_activate         (GtkMenuItem     *menuitem,
+on_link_unlocked_paths1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    teseo_link_all_path_locked(teseo_image, FALSE);
+    teseo_link_all_path_unlocked(teseo_image, FALSE);
 }
 
 
@@ -752,7 +778,7 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
    int iter;
-   GtkSpinButton * tfss = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton");
+   GtkSpinButton * tfss = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
    iter=gtk_spin_button_get_value_as_int (tfss) ;
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
 
@@ -765,8 +791,8 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
 
-  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton");
-  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton", 0);
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton", 0);
 
   wmeanParams s;
 
@@ -775,9 +801,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   s.width  = 5;
   s.height = 50;
 
-  GtkSpinButton * twhs = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_height_spinbutton");
-  GtkSpinButton * twws = (GtkSpinButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_width_spinbutton");
-  GtkRadioButton * twcbr = (GtkRadioButton *) lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_colour_black_radiobutton");
+  GtkSpinButton * twhs = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_height_spinbutton", 0);
+  GtkSpinButton * twws = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_width_spinbutton", 0);
+  GtkRadioButton * twcbr = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_colour_black_radiobutton", 0);
 
   if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(twcbr))  == TRUE ){
     s.colour=0;
@@ -814,9 +840,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 */
 
 static inline void disable_buttons(){
-  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton");
-  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton");
-  GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) lookup_widget(GTK_WIDGET(win_teseo), "ghost_radiotoolbutton");
+  GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton", 0);
+  GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton", 0);
+  GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "ghost_radiotoolbutton", 0);
 
   //toggle the alghoritms buttons as side effect
   gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
@@ -876,8 +902,8 @@ void
 on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data)
 {
-  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   lookup_widget(GTK_WIDGET(win_teseo), "open1");
-  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    lookup_widget(GTK_WIDGET(win_teseo), "new1");
+  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "open1", 0);
+  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "new1", 0);
   if (on_open1_activate (menu_open1, NULL) != 1)
   {
     //g_message("Open canceled");
@@ -916,4 +942,62 @@ on_dlg_session_show_teseo_eventpathname
 
 }
 
+
+void
+on_split_unlocked_paths1_activate      (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    gchar **path_list;
+    gint n_path, i;
+    gint32 curr_guide;
+
+    // TODO void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint x) {
+    // gimp_image_find_next_guide
+    // gimp_image_get_guide_position
+    // gimp_image_get_guide_orientation GIMP_ORIENTATION_VERTICAL only
+    // gimp_image_delete_guide
+
+    path_list = gimp_path_list(teseo_image, &n_path);
+
+    // TODO vertical guide cycle
+    curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
+    if(curr_guide==0) {
+	g_message("There are no guides to split unlocked paths !");
+    }
+    while ( curr_guide != 0 ) {
+	for(i=0; i < n_path; i++) {
+	    // TODO if is an unlocked path then split 
+	    if(!gimp_path_get_locked(teseo_image, path_list[i]) ) {
+		teseo_path_split_at_x(teseo_image, path_list[i], gimp_image_get_guide_position(teseo_image, curr_guide));
+	    }
+	}
+	curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, curr_guide, GIMP_ORIENTATION_VERTICAL );
+    }
+    
+    // Delete all vertical guides
+    curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
+    while ( curr_guide != 0 ) {
+	gimp_image_delete_guide(teseo_image, curr_guide);
+	curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
+    }
+    
+}
+
+
+void
+on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+    gint i;
+
+    gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
+
+    for(i=0; i<num_path_point_details; i++) {
+	printf("\n%04d - %f", i, points_pairs[i]);
+    }
+    printf("\n\n");
+
+}
 
