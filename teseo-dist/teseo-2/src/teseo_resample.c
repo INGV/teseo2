@@ -78,7 +78,7 @@ void teseo_progressive_resampling_strokes(double *strokes, glong *pn_strokes) {
 
 
 
-void teseo_resampling_bezier(gint32 g_image, int sw_campionamento_progressivo, gint passo_bezier)
+void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressivo, gint passo_bezier)
 {
 
 FILE *ftmp;
@@ -217,7 +217,7 @@ char filebezier[255];
   	// g_message("Fine del calcolo di Bezier.");
   	
   	// if(pivals.sw_campionamento_progressivo == CAMPIONAMENTO_PROG_SI) {
-  	if(sw_campionamento_progressivo != 0) {
+  	if(sw_campionamento_progressivo) {
 			teseo_progressive_resampling_strokes(strokes, &n_strokes);
 	}		
   	  	

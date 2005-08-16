@@ -47,6 +47,6 @@ void teseo_progressive_resampling_strokes(double *strokes, glong *pn_strokes);
 /*!
   TODO
   */
-void teseo_resampling_bezier (gint32 g_image_gen,  int sw_campionamento_progressivo, gint passo_bezier);
+void teseo_resampling_bezier (gint32 g_image_gen,  gboolean sw_campionamento_progressivo, gint passo_bezier);
 
 #endif
