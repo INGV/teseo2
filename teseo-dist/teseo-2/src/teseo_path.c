@@ -441,7 +441,7 @@ void teseo_align_all_path(gint32 g_image)
 }
 
 // TODO update function, don't delete old paths!!!
-void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
+void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 {
     gchar **p;
     gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
@@ -456,21 +456,21 @@ void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
 
     // Compute num_points_tot
     for ( i=0; i<=num_paths-1; i++) {
-	if(gimp_path_get_locked(g_image, p[i])) {
+	if(!gimp_path_get_locked(g_image, p[i])) {
 	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
 	}
     }
 
     if(num_points_tot == 0) {
-	g_message("No one path is locked !\nYou can align all locked paths.");
+	g_message("There are no unlocked paths !\nYou can align all unlocked paths.");
     } else {
 	// Alloc the right size for path_strokes
 	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
 
 	// Feed path_strokes
 	for ( i=num_paths-1; i>=0; i--) {
-	    if(gimp_path_get_locked(g_image, p[i])) {
+	    if(!gimp_path_get_locked(g_image, p[i])) {
 		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
 
 		// Compute first_x and first_y
@@ -509,10 +509,10 @@ void teseo_align_all_path_locked( gint32 g_image, gboolean delete_path)
 	    }
 	}
 
-	// If specified delete locked paths
+	// If specified delete unlocked paths
 	if(delete_path) {
 	    for ( i=0; i<=num_paths-1; i++) {
-		if(gimp_path_get_locked(g_image, p[i])) {
+		if(!gimp_path_get_locked(g_image, p[i])) {
 		    gimp_path_delete( g_image, p[i]);
 		}
 	    }
@@ -564,7 +564,7 @@ void teseo_link_all_path(gint32 g_image)
 
 
 // TODO update function, don't delete old paths!!!
-void teseo_link_all_path_locked(gint32 g_image, gboolean delete_path)
+void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
 {
     gchar **p;
     gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
@@ -578,21 +578,21 @@ void teseo_link_all_path_locked(gint32 g_image, gboolean delete_path)
 
     // Compute num_points_tot
     for ( i=0; i<=num_paths-1; i++) {
-	if(gimp_path_get_locked(g_image, p[i])) {
+	if(!gimp_path_get_locked(g_image, p[i])) {
 	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
 	}
     }
 
     if(num_points_tot == 0) {
-	g_message("No one path is locked !\nYou can link all locked paths.");
+	g_message("There are no unlocked paths !\nYou can link all unlocked paths.");
     } else {
 	// Alloc the right size for path_strokes
 	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
 
 	// Feed path_strokes
 	for ( i=num_paths-1; i>=0; i--) {
-	    if(gimp_path_get_locked(g_image, p[i])) {
+	    if(!gimp_path_get_locked(g_image, p[i])) {
 		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
 		for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
 		    path_strokes[k] = old_path[j];
@@ -600,10 +600,10 @@ void teseo_link_all_path_locked(gint32 g_image, gboolean delete_path)
 	    }
 	}
 
-	// If specified delete locked paths
+	// If specified delete unlocked paths
 	if(delete_path) {
 	    for ( i=0; i<=num_paths-1; i++) {
-		if(gimp_path_get_locked(g_image, p[i])) {
+		if(!gimp_path_get_locked(g_image, p[i])) {
 		    gimp_path_delete( g_image, p[i]);
 		}
 	    }
@@ -765,5 +765,50 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 
   if (path_strokes)
   	g_free(path_strokes);
+
+}
+
+
+
+// TODO teseo_path_split_at_x
+void teseo_path_split_at_x(gint32 g_image, gchar *path_name, gint x) {
+    gdouble *points_pairs=NULL;
+    gdouble *points_pairs1=NULL, *points_pairs2=NULL;
+    gint path_closed, num_path_point_details;
+    gint num_path_point_details1, num_path_point_details2;
+    gint i;
+    gboolean need_split = FALSE;
+    gchar path_name_new1[PATHNAMELEN], path_name_new2[PATHNAMELEN];
+
+    gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
+
+    // Find first occurrence greater thar x, take it in index i
+    i=0;
+    // while( i<num_path_point_details ||  !need_split) {
+    while( !( i>=num_path_point_details || need_split) ) {
+
+	if(points_pairs[i] >= x) {
+	    need_split = TRUE;
+	} else {
+	    i+=9;
+	}
+    }
+
+    // Split array at i position
+    if(need_split) {
+	strcpy(path_name_new1, path_name);
+	strcat(path_name_new1, "-split1");
+
+	strcpy(path_name_new2, path_name);
+	strcat(path_name_new2, "-split2");
+ 
+	points_pairs1 = points_pairs;
+	num_path_point_details1 = i-1;
+	gimp_path_set_points(g_image, path_name_new1, 1, num_path_point_details1, points_pairs1);
+ 
+	points_pairs2 = points_pairs + i;
+	num_path_point_details2 = num_path_point_details - i;
+	gimp_path_set_points(g_image, path_name_new2, 1, num_path_point_details2, points_pairs2);
+    }
 
 }

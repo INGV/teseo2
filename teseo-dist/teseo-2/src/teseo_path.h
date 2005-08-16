@@ -104,7 +104,7 @@ void teseo_link_all_path( gint32 g_image );
 /*!
   TODO
   */
-void teseo_link_all_path_locked( gint32 g_image, gboolean delete_path);
+void teseo_link_all_path_unlocked( gint32 g_image, gboolean delete_path);
 
 /*!
   TODO
@@ -114,7 +114,7 @@ void teseo_align_all_path( gint32 g_image );
 /*!
   TODO
   */
-void teseo_align_all_path_locked(gint32 g_image, gboolean delete_path);
+void teseo_align_all_path_unlocked(gint32 g_image, gboolean delete_path);
 
 /*!
   TODO
@@ -125,6 +125,12 @@ void teseo_path_move(gint32 g_image,gint x, gint y , gdouble rotate);
   TODO
   */
 void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes);
+
+
+/*!
+  TODO
+  */
+void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint x);
 
 
 #endif
