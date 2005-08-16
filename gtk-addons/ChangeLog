@@ -1,21 +1,21 @@
-2005-07-15 10:07  ilpint <pintore@ingv.it>
+2005-07-15 10:07  Stefano Pintore  <pintore@ingv.it>
 
 	* src/gtkaddons.c (1.5): Gestiti spinbutton e textview
 
-2005-07-14 14:21  ilpint <pintore@ingv.it>
+2005-07-14 14:21  Stefano Pintore  <pintore@ingv.it>
 
 	* src/gtkaddons.c (1.4): Inserito textview: todo debug
 
-2005-07-14 09:28  ilpint <pintore@ingv.it>
+2005-07-14 09:28  Stefano Pintore  <pintore@ingv.it>
 
 	* src/gtkaddons.c (1.3): Bug in iface_save_rc: now returns values!
 
-2005-07-13 11:57  ilpint <pintore@ingv.it>
+2005-07-13 11:57  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: gtkaddons.c (1.2), gtkaddons.h (1.2): iface_save_rc e
 	  iface_load_rc ritornano 1 se vanno a buon fine
 
-2005-07-06 15:06  ilpint <pintore@ingv.it>
+2005-07-06 15:06  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: gtkaddons.c (1.1), gtkaddons.h (1.1), main.c (1.1),
 	  mglade_rc.c (1.1), mglade_rc.h (1.1): Creata libreria gtk-addons
