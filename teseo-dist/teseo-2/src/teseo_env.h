@@ -39,7 +39,7 @@
 
 #define TESEO_MAJOR_VER 2
 #define TESEO_MINOR_VER 0
-#define TESEO_DEVEL_VER 4
+#define TESEO_DEVEL_VER 5
 
 #define TESEO_CAPTION_DEV teseo_caption(TRUE)
 #define TESEO_CAPTION     teseo_caption(FALSE)
