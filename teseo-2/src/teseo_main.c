@@ -90,36 +90,41 @@ void teseo_main_init(
 }
 
 void teseo_main_loop(int iter, gint32 drawable_ID ){
-  //after a teseo_main_init() call you can use your ALGORITHM here
-  int i;
-  void * os=NULL;
-  void * is=NULL;
-  gdouble * strokes=NULL;
-  gulong num_strokes=0;
-  wm_os * myos;
+    //after a teseo_main_init() call you can use your ALGORITHM here
+    int i;
+    void * os=NULL;
+    void * is=NULL;
+    gdouble * strokes=NULL;
+    gulong num_strokes=0;
+    wm_os * myos;
 
-  //initialize os as an ipothetique last running
+    //initialize os as an ipothetique last running
 
-  if (STARTING_OS(&os,drawable_ID)) {
-    NEW_IS(&is,drawable_ID);
-    if ( ! TERMINATE(os, is, drawable_ID ) ) {
-      for (i=0; i<iter; i++){
-       //get is from drawable and os
-       if ( ! GETINPUT(is, os, drawable_ID) ) break;
-       //get os running the algorithm
-       if ( ! ALGORITHM( is, os ) ) break;
-       ACCUMULATE(&strokes, &num_strokes, os);
-       //testing an escape condition on output os
-       if ( TERMINATE(os, is, drawable_ID ) ) break;
-      }
+    if (STARTING_OS(&os,drawable_ID)) {
+	NEW_IS(&is,drawable_ID);
+	if ( ! TERMINATE(os, is, drawable_ID ) ) {
+	    gimp_progress_update(0.0);
+	    gimp_progress_init("Teseo execution steps . . .");
+	    for (i=0; i<iter; i++) {
+		gimp_progress_update((gdouble) i / (gdouble) iter);
+		//get is from drawable and os
+		if ( ! GETINPUT(is, os, drawable_ID) ) break;
+		//get os running the algorithm
+		if ( ! ALGORITHM( is, os ) ) break;
+		ACCUMULATE(&strokes, &num_strokes, os);
+		//testing an escape condition on output os
+		if ( TERMINATE(os, is, drawable_ID ) ) break;
+	    }
+	    gimp_progress_update(1.0);
+	    gimp_progress_init("Teseo execution steps terminated.");
+	}
+	//TODO generalise?
+	teseo_cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
+	//strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "Path");
+	g_free(strokes);
+
+	RELEASE(&is,&os);
     }
-    //TODO generalise?
-    teseo_cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
-    //strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "Path");
-    g_free(strokes);
-
-    RELEASE(&is,&os);
-  }
 }
 
 
