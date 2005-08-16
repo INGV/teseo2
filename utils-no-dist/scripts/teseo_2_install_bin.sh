@@ -40,10 +40,13 @@ DIRGIMP="$HOME/.gimp-$GIMPVER"
 DIRGIMPPLUGINS="$DIRGIMP/plug-ins"
 DIRNAME=$(dirname $0)
 TESEOBIN=$DIRNAME/teseo-2
+TESEOBINDESTINATION=$DIRGIMPPLUGINS/teseo-2
+
+echo ""
 
 if [ -d $DIRGIMP ]; then
     if [ -d $DIRGIMPPLUGINS ]; then
-	echo 'cp $TESEOBIN $DIRGIMPPLUGINS && echo "Teseo-2 has been installed. Gimp must be restarded !!!"'
+	cp $TESEOBIN $TESEOBINDESTINATION   &&   echo "Teseo-2 has been installed. Gimp must be restarded !!!"
     else
         echo "I can't find GIMP folder plug-ins '$DIRGIMPPLUGINS' !"
     fi
@@ -51,4 +54,6 @@ else
    echo "I can't find GIMP folder '$DIRGIMP' !"
    echo "This Teseo-2 distribution works with GIMP $GIMPVER"
 fi
+
+echo ""
 
