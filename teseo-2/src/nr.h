@@ -422,7 +422,8 @@ void rzextr(int iest, float xest, float yest[], float yz[], float dy[], int nv);
 void savgol(float c[], int np, int nl, int nr, int ld, int m);
 void score(float xf, float y[], float f[]);
 void scrsho(float (*fx)(float));
-float select(unsigned long k, unsigned long n, float arr[]);
+// conflict
+// float select(unsigned long k, unsigned long n, float arr[]);
 float selip(unsigned long k, unsigned long n, float arr[]);
 void shell(unsigned long n, float a[]);
 void shoot(int n, float v[], float f[]);
@@ -821,7 +822,8 @@ void rzextr();
 void savgol();
 void score();
 void scrsho();
-float select();
+// conflict
+// float select();
 float selip();
 void shell();
 void shoot();
