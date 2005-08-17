@@ -26,6 +26,7 @@
  */
 
 #include "teseo_path.h"
+#include "teseo_gimp_extends.h"
 
 
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
@@ -91,7 +92,7 @@ path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
 
-    gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
+    teseo_gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
 
     // Check if path is empty
     if(num_path_point_details == 0) {
@@ -186,7 +187,7 @@ gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nom
   gint path_type, path_closed, num_path_point_details;
 
   //ottengo il path
-	gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
+	teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
   //se il path è corretto ricavo lo strokes
   if (!path_closed){
      //copio il vettore
@@ -316,7 +317,7 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
   gint path_type, path_closed, num_path_point_details;
 
   //ottengo il path
-	gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
+	teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
   //se il path è corretto ricavo lo strokes
   if (!path_closed){
      //alloco il vettore di strokes
@@ -388,7 +389,7 @@ void teseo_align_all_path(gint32 g_image)
 
 			for ( i=0; i<2; i++)
   			{
-		  		gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path[i]);
+		  		teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path[i]);
 
 					n_points_tot_eff+=num_points;
 					n_point_eff[i]= num_points;
@@ -457,7 +458,7 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
     // Compute num_points_tot
     for ( i=0; i<=num_paths-1; i++) {
 	if(!gimp_path_get_locked(g_image, p[i])) {
-	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	    teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
 	}
     }
@@ -471,7 +472,7 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 	// Feed path_strokes
 	for ( i=num_paths-1; i>=0; i--) {
 	    if(!gimp_path_get_locked(g_image, p[i])) {
-		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+		teseo_gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
 
 		// Compute first_x and first_y
 		first_x = old_path[0];
@@ -540,7 +541,7 @@ void teseo_link_all_path(gint32 g_image)
 
   for ( i=0; i<=num_paths-1; i++)
   	{
-	  gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	  teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	  num_points_tot += (num_points+3-9)/3;
     }
 
@@ -548,7 +549,7 @@ void teseo_link_all_path(gint32 g_image)
 
   for ( i=num_paths-1; i>=0; i--)
 	 	{
-		  gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+		  teseo_gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
       for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++)
 	      path_strokes[k] = old_path[j];
     }
@@ -579,7 +580,7 @@ void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
     // Compute num_points_tot
     for ( i=0; i<=num_paths-1; i++) {
 	if(!gimp_path_get_locked(g_image, p[i])) {
-	    gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	    teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
 	}
     }
@@ -593,7 +594,7 @@ void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
 	// Feed path_strokes
 	for ( i=num_paths-1; i>=0; i--) {
 	    if(!gimp_path_get_locked(g_image, p[i])) {
-		gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+		teseo_gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
 		for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
 		    path_strokes[k] = old_path[j];
 		}
@@ -698,7 +699,7 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 
   //printf("\nPrima \n");
   strcpy(path_name,gimp_path_get_current(g_image));
-  path_type = gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
+  path_type = teseo_gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
 	//g_message("Nome del path %s", path_name);
   //g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
 
@@ -780,7 +781,7 @@ void teseo_path_split_at_x(gint32 g_image, gchar *path_name, gint x) {
     gboolean need_split = FALSE;
     gchar path_name_new1[PATHNAMELEN], path_name_new2[PATHNAMELEN];
 
-    gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
+    teseo_gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
 
     // Find first occurrence greater thar x, take it in index i
     i=0;

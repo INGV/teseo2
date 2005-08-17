@@ -49,3 +49,21 @@ gint32 teseo_gimp_image_find_next_guide_orientation(gint32 g_image, gint32 g_gui
     return curr_guide;
 }
 
+// Wrapper to intercept error/warning and display with g_message
+gint teseo_gimp_path_get_points (gint32           image_ID,
+			const gchar     *name,
+			gint            *path_closed,
+			gint            *num_path_point_details,
+			gdouble        **points_pairs) {
+    gint ret;
+    ret = gimp_path_get_points(image_ID, name, path_closed, num_path_point_details, points_pairs);
+    if(*path_closed != 0) {
+	g_message("TESEO-Warning: path \"%s\" is closed !", name);
+    }
+    if(*num_path_point_details < 1) {
+	g_message("TESEO-Warning: path \"%s\" is empty !", name);
+    }
+    return ret;
+}
+
+

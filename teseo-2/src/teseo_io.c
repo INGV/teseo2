@@ -32,6 +32,7 @@
 #include "teseo_io.h"
 #include "teseo_path.h"
 #include "teseo_env.h"
+#include "teseo_gimp_extends.h"
 #include <locale.h>
 
 
@@ -320,7 +321,7 @@ char * canc=NULL;
 strcpy(s_tmp_app,nome_path);
 
 //get the path
-gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
+teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
 //only open path are good
 if (!path_closed){
 //+3 perchè per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )

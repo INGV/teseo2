@@ -29,6 +29,7 @@
 #include "teseo_path.h"
 #include "teseo_env.h"
 #include "teseo_bezier_point.h"
+#include "teseo_gimp_extends.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -121,7 +122,7 @@ char filebezier[255];
 		//prendo il nome del path corrente
 		strcpy(pathname, gimp_path_get_current(g_image));
 		
-		gimp_path_get_points (g_image, pathname, &path_closed, &num_elementi_bezier, &punti_bezier);
+		teseo_gimp_path_get_points (g_image, pathname, &path_closed, &num_elementi_bezier, &punti_bezier);
 		fbezier = fopen(filebezier, "wt");
     if(!fbezier) {
       g_message("File \"%s\" not found!", filebezier);
