@@ -8,24 +8,16 @@ Istituto Nazionale di Geofisica e Vulcanologia
 Web page: http://sismos.ingv.it/
 e-mail:   teseo@ingv.it
 
-This package is a plug-in for GIMP 2.0. capable of vectorize seismic trace from 
+This package is a plug-in for GIMP 2 capable of vectorize seismic trace from 
 historical seismogram acquired in raster format.
 
-To build and install it, just ...
+SOURCE CODE DISTRIBUTION
+To build and install it:
+	- requires build and install gtkaddons library, it is distributed with Teseo-2
+	- refer to the file INSTALL
 
-	./configure
-	make
-	make install
-
- ... and it's there.
-
-
-And don't forget to remove (or update if really necessary) comments
-for translators in po/README.translators.
-
-The default license for the teseo-2 is an ultra-permissive
-XFree-style license to encourage the use of the template for GPL /or/
-non-GPL plugins.  If you wish to use a different license for your plugin
-(e.g. GPL) then you may change the license block in the 'COPYING' file
-and the source to your favourite license.
+STATIC BINARY DISTRIBUTION
+To install it:
+	- unpack file teseo-2.x.x-bin-static-OPERATINGSYSTEM.tar.gz
+	- run script install.sh from a shell
 
