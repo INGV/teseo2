@@ -500,7 +500,7 @@ on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
 
-    gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
+    teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
 
     if(num_path_point_details < 1) {
 	g_message("Path is empty !");
@@ -992,7 +992,7 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
     gint path_closed, num_path_point_details;
     gint i;
 
-    gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
+    teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
 
     for(i=0; i<num_path_point_details; i++) {
 	printf("\n%04d - %f", i, points_pairs[i]);

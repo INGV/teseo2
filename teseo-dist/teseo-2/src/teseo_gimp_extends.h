@@ -38,4 +38,13 @@
   */
 gint32 teseo_gimp_image_find_next_guide_orientation(gint32 g_image, gint32 g_guide, gint32 g_orientation);
 
+/*!
+ TODO Wrapper to intercept error/warning and display with g_message
+ */
+gint teseo_gimp_path_get_points (gint32           image_ID,
+			const gchar     *name,
+			gint            *path_closed,
+			gint            *num_path_point_details,
+			gdouble        **points_pairs);
+
 #endif
