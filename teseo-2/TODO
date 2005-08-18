@@ -41,4 +41,6 @@ Sat Aug 13 11:27:26 CEST 2005
 - Print path for debug (type 3, BEZIER_MOVE)
 - gimp_path_get_points() fails when path contains more piecewise...
 	 Gimp-Vectors-WARNING **: gimp_vectors_compat_get_points(): convert failed
+- gimp_path_get_points use g_new, check if g_free() is needed!!! We have never used it...
 - Write a function to "open" a closed path
+- Include pixmaps and help files in binary distribution
