@@ -140,6 +140,8 @@ path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
 	i+=9;
     }
 
+    g_free(points_pairs);
+
     return ret;
 }
 
@@ -231,8 +233,10 @@ gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nom
   }
 
   *n_strokes=lstrokes;
-  return strokes_ret;
 
+  g_free(points_pairs);
+
+  return strokes_ret;
 }
 
 /**/
@@ -354,8 +358,10 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
   }
 
   *n_strokes=num_strokes;
-  return pstrokes_ret;
 
+  g_free(points_pairs);
+  
+  return pstrokes_ret;
 }
 
 
@@ -364,81 +370,83 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
 
 void teseo_align_all_path(gint32 g_image)
 {
-	gchar **p;
-	gint num_paths, num_points, num_points_tot = 0, path_closed;
+    gchar **p;
+    gint num_paths, num_points, num_points_tot = 0, path_closed;
 
-	gdouble * path_strokes = NULL;
-	gdouble * old_path[2];
-	double a,b;
+    gdouble * path_strokes = NULL;
+    gdouble * old_path[2];
+    double a,b;
 
-	int	num_point[2];
-	int i=0;
-	int j=0;
-	int t=1;
-	int k=0;
-	int n_points_tot_eff=0;
-	int n_point_eff[2];
-
-
- 	p = gimp_path_list (g_image, &num_paths);
-
-  while( num_paths>1)
-	  {
-		 n_points_tot_eff=0;
-		 n_point_eff[2];
-
-			for ( i=0; i<2; i++)
-  			{
-		  		teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path[i]);
-
-					n_points_tot_eff+=num_points;
-					n_point_eff[i]= num_points;
-
-					num_point[i]= (num_points/3 -2)/3 +1;
-//g_message("path %d  >>>>>>>  punti %d",t,n_point_eff[t]);
-    		}
-
-  		num_points_tot = num_point[0]	+	num_point[1];
-
-			path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (n_points_tot_eff+1) );
-
-      if(!path_strokes)
-				g_message(" Not enough free memory for strokes.");
+    int	num_point[2];
+    int i=0;
+    int j=0;
+    int t=1;
+    int k=0;
+    int n_points_tot_eff=0;
+    int n_point_eff[2];
 
 
-		a=  (old_path[1][n_point_eff[1]-3] - old_path[0][0] );      //scostamento delle x
-		b=  -(old_path[1][n_point_eff[1]-2] - old_path[0][1] );		  //scostamento delle y
+    p = gimp_path_list (g_image, &num_paths);
+
+    while( num_paths>1)
+    {
+	n_points_tot_eff=0;
+	n_point_eff[2];
+
+	for ( i=0; i<2; i++)
+	{
+	    teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path[i]);
+
+	    n_points_tot_eff+=num_points;
+	    n_point_eff[i]= num_points;
+
+	    num_point[i]= (num_points/3 -2)/3 +1;
+	    //g_message("path %d  >>>>>>>  punti %d",t,n_point_eff[t]);
+	}
+
+	num_points_tot = num_point[0]	+	num_point[1];
+
+	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (n_points_tot_eff+1) );
+
+	if(!path_strokes)
+	    g_message(" Not enough free memory for strokes.");
 
 
- 	  	for (j=0; j<(n_point_eff[0]);j=j+3)
-	 	  	{
-	 	  		old_path[0][j]		+=a;
-	 	  		old_path[0][j+1]	-=b;
-//	 	  		old_path[0][j+2]	+=0;
-			  }
+	a=  (old_path[1][n_point_eff[1]-3] - old_path[0][0] );      //scostamento delle x
+	b=  -(old_path[1][n_point_eff[1]-2] - old_path[0][1] );		  //scostamento delle y
 
-   	  	for (t=1,k=0,j=0;	t>=0;	t--)
-   	  	{
-           		if(t==0)
-         			j=3*2;
-         			// numero di punti da saltare, per 3 ( x,y,tipo)...
-       		 	//serve per eliminare il primo punto del tracciato che coincide con l'ultimo di quello percedente
-  			for (j; j<n_point_eff[t] && k<n_points_tot_eff; j++, k++)
-		    	  	path_strokes[k] = old_path[t][j];
-	        }
 
-		for ( i=0; i<2; i++)
-				gimp_path_delete( g_image, p[i]);
+	for (j=0; j<(n_point_eff[0]);j=j+3)
+	{
+	    old_path[0][j]+=a;
+	    old_path[0][j+1]-=b;
+	    //	 	  		old_path[0][j+2]	+=0;
+	}
 
-		gimp_path_set_points( g_image, "UNIONE", 1, n_point_eff[0]+n_point_eff[1]-6, path_strokes );
+	for (t=1,k=0,j=0;	t>=0;	t--)
+	{
+	    if(t==0)
+		j=3*2;
+	    // numero di punti da saltare, per 3 ( x,y,tipo)...
+	    //serve per eliminare il primo punto del tracciato che coincide con l'ultimo di quello percedente
+	    for (j; j<n_point_eff[t] && k<n_points_tot_eff; j++, k++)
+		path_strokes[k] = old_path[t][j];
+	}
 
-		if (path_strokes)
-  			g_free(path_strokes);
+	for ( i=0; i<2; i++) {
+	    gimp_path_delete( g_image, p[i]);
+	    g_free(old_path[i]);
+	}
 
-  		gimp_displays_flush();
+	gimp_path_set_points( g_image, "UNIONE", 1, n_point_eff[0]+n_point_eff[1]-6, path_strokes );
 
-    		p = gimp_path_list (g_image, &num_paths);
-  	}
+	if (path_strokes)
+	    g_free(path_strokes);
+
+	gimp_displays_flush();
+
+	p = gimp_path_list (g_image, &num_paths);
+    }
 }
 
 // TODO update function, don't delete old paths!!!
@@ -460,6 +468,7 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 	if(!gimp_path_get_locked(g_image, p[i])) {
 	    teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
+	    g_free(old_path);
 	}
     }
 
@@ -486,27 +495,28 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 		} else {
 		    // Case: insert first point
 		    for(j=0; j<6; j++, k++) {
-			path_strokes[k] = old_path[j];
-		    }
-		    last_x = old_path[0];
-		    last_y = old_path[1];
+		    path_strokes[k] = old_path[j];
+		}
+		last_x = old_path[0];
+		last_y = old_path[1];
 		}
 
 		// Compute off_x and off_y
 		off_x = -first_x + last_x;
 		off_y = -first_y + last_y;
-		
+
 		// Jump first 6 points
 		for ( j=6; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
-		    if( ((j-6) % 3) == 0 ) {
-			path_strokes[k] = old_path[j] + off_x;
-		    } else if( ((j-6) % 3) == 1 ) {
-			path_strokes[k] = old_path[j] + off_y;
-		    } else {
-			path_strokes[k] = old_path[j];
-		    }
-
+			if( ((j-6) % 3) == 0 ) {
+			    path_strokes[k] = old_path[j] + off_x;
+			} else if( ((j-6) % 3) == 1 ) {
+			    path_strokes[k] = old_path[j] + off_y;
+			} else {
+			    path_strokes[k] = old_path[j];
+			}
 		}
+
+		g_free(old_path);
 	    }
 	}
 
@@ -529,38 +539,42 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 
 void teseo_link_all_path(gint32 g_image)
 {
-	gchar **p;
-	gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
+    gchar **p;
+    gint num_paths, num_points, num_points_tot = 0, path_closed, k=0;
 
-	gdouble * path_strokes = NULL;
-	gdouble * old_path;
-	int i=0;
-	int j=0;
+    gdouble * path_strokes = NULL;
+    gdouble * old_path;
+    int i=0;
+    int j=0;
 
-	p = gimp_path_list (g_image, & num_paths);
+    p = gimp_path_list (g_image, & num_paths);
 
-  for ( i=0; i<=num_paths-1; i++)
-  	{
-	  teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
-	  num_points_tot += (num_points+3-9)/3;
+    for ( i=0; i<=num_paths-1; i++)
+    {
+	teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
+	num_points_tot += (num_points+3-9)/3;
+	g_free(old_path);
     }
 
-  path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
+    path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * ( num_points_tot*3*3 + 1));
 
-  for ( i=num_paths-1; i>=0; i--)
-	 	{
-		  teseo_gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
-      for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++)
-	      path_strokes[k] = old_path[j];
+    for ( i=num_paths-1; i>=0; i--)
+    {
+	teseo_gimp_path_get_points ( g_image, p[i], &path_closed, &num_points, &old_path);
+	for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++)
+	{
+	    path_strokes[k] = old_path[j];
+	}
+	g_free(old_path);
     }
 
-  for ( i=0; i<=num_paths-1; i++)
+    for ( i=0; i<=num_paths-1; i++)
 	gimp_path_delete( g_image, p[i]);
 
-	gimp_path_set_points( g_image, "UNIONE", 1, (num_points_tot-1)*3, path_strokes );
+    gimp_path_set_points( g_image, "UNIONE", 1, (num_points_tot-1)*3, path_strokes );
 
-  if (path_strokes)
-  	g_free(path_strokes);
+    if (path_strokes)
+	g_free(path_strokes);
 }
 
 
@@ -582,6 +596,7 @@ void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
 	if(!gimp_path_get_locked(g_image, p[i])) {
 	    teseo_gimp_path_get_points (g_image, p[i], &path_closed, &num_points, &old_path);
 	    num_points_tot += (num_points+3-9)/3;
+	    g_free(old_path);
 	}
     }
 
@@ -598,6 +613,7 @@ void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
 		for ( j=0; j<num_points+3-9 && k<num_points_tot*3; j++, k++) {
 		    path_strokes[k] = old_path[j];
 		}
+		g_free(old_path);
 	    }
 	}
 
@@ -686,86 +702,87 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
 /* Ricavo il vecchio path, vi concateno lo strokes*/
 void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes){
 
-  gdouble * old_path;
-  gdouble * path_strokes=NULL;
+    gdouble * old_path;
+    gdouble * path_strokes=NULL;
 
-  gint32 path_type, path_closed, num_path_point_details;
-  char path_name [80] ;
+    gint32 path_type, path_closed, num_path_point_details;
+    char path_name [80] ;
 
-  glong num_points;
-  glong num_points_details=0, i=0, j=0, k=0, kk=0, num_vet_punti;
-  gdouble ris=0;
-  /*Ricavo il vecchio path*/
+    glong num_points;
+    glong num_points_details=0, i=0, j=0, k=0, kk=0, num_vet_punti;
+    gdouble ris=0;
+    /*Ricavo il vecchio path*/
 
-  //printf("\nPrima \n");
-  strcpy(path_name,gimp_path_get_current(g_image));
-  path_type = teseo_gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
-	//g_message("Nome del path %s", path_name);
-  //g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
+    //printf("\nPrima \n");
+    strcpy(path_name,gimp_path_get_current(g_image));
+    path_type = teseo_gimp_path_get_points( g_image, path_name, &path_closed, &num_path_point_details,  &old_path );
+    //g_message("Nome del path %s", path_name);
+    //g_printf("numero di point_details: %d  path_type %d, path_closed %d\n",num_path_point_details, path_type, path_closed);
 
-  if ( !path_closed && num_path_point_details != 1 && path_type == 1) {
-     //va tolto l'ultimo punto (-9) : correggere vanno presi tutti i punti
+    if ( !path_closed && num_path_point_details != 1 && path_type == 1) {
+	//va tolto l'ultimo punto (-9) : correggere vanno presi tutti i punti
 
-     num_points = ( num_path_point_details + 3 ) / 9 + num_strokes; //diviso 3 ???
-     num_points_details = num_points * 9 - 3; //chiuso....
-
-
-    // printf("num_points_details=num_points * 3 * 3 -3=%d",num_points_details);
-    path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (num_points_details + 1));
-
-    if(!path_strokes) {
-      g_message("Not enough free memory for path_strokes!");
-    }
-    else {
-     // printf("Allocato path_strokes: %d elementi\n", num_points_details);
-     path_strokes[num_points_details] = (gdouble) CANARY;
-
-    /* Copio in path_strokes, il path e lo strokes*/
-
-    //qui dentro copio tutto , da fuori gli passo sempre lo strokes corretto
-    for( i=0; i < num_path_point_details; i++){
-     path_strokes[i] = round(old_path[i]); //round
-    }
-    k=i/3;    //poi riparto a scrivere nel vettore da k*3
-    // printf("\nk= %d; i= %d\n", k,i);
+	num_points = ( num_path_point_details + 3 ) / 9 + num_strokes; //diviso 3 ???
+	num_points_details = num_points * 9 - 3; //chiuso....
 
 
-    //Copio lo strokes
-    //parto dall'inizio; è il chiamante a garantire che strokes non ripeta i punti del vecchio path
-    for (i=0; i<num_strokes; i++) {
-    	for(j=0; j<3 ; j++) {
-    		path_strokes[k*3]=strokes[i*2];
-    		path_strokes[k*3+1]=strokes[i*2+1];
+	// printf("num_points_details=num_points * 3 * 3 -3=%d",num_points_details);
+	path_strokes = (gdouble *) g_malloc(sizeof(gdouble) * (num_points_details + 1));
+
+	if(!path_strokes) {
+	    g_message("Not enough free memory for path_strokes!");
+	}
+	else {
+	    // printf("Allocato path_strokes: %d elementi\n", num_points_details);
+	    path_strokes[num_points_details] = (gdouble) CANARY;
+
+	    /* Copio in path_strokes, il path e lo strokes*/
+
+	    //qui dentro copio tutto , da fuori gli passo sempre lo strokes corretto
+	    for( i=0; i < num_path_point_details; i++){
+		path_strokes[i] = round(old_path[i]); //round
+	    }
+	    k=i/3;    //poi riparto a scrivere nel vettore da k*3
+	    // printf("\nk= %d; i= %d\n", k,i);
+
+
+	    //Copio lo strokes
+	    //parto dall'inizio; è il chiamante a garantire che strokes non ripeta i punti del vecchio path
+	    for (i=0; i<num_strokes; i++) {
+		for(j=0; j<3 ; j++) {
+		path_strokes[k*3]=strokes[i*2];
+		path_strokes[k*3+1]=strokes[i*2+1];
 		path_strokes[k*3+2] =  ( (j % 3) == 1) ? 1.0 : 2.0;
-    		k++;
-    	}
-    }
+		k++;
+		}
+	    }
 
-    num_vet_punti = k;
+	    num_vet_punti = k;
 
-    //g_printf("cat: num= %d\n",num_vet_punti );
-    //for(i=0;i<num_vet_punti; i++){
-      //g_printf("x=%f  y=%f: type %f\n", path_strokes[i*3], path_strokes[i*3+1],path_strokes[i*3+2]);
-    //}
+	    //g_printf("cat: num= %d\n",num_vet_punti );
+	    //for(i=0;i<num_vet_punti; i++){
+	    //g_printf("x=%f  y=%f: type %f\n", path_strokes[i*3], path_strokes[i*3+1],path_strokes[i*3+2]);
+	    //}
 
-    if ( num_vet_punti*3 != num_points_details)
+	    if ( num_vet_punti*3 != num_points_details)
 		g_message("num_vet_punti*3 - 3 = %d num_points_details = %d",num_vet_punti*3, num_points_details);
-    if( num_vet_punti >  2) { //??
-     //gimp_path_delete(g_image,path_name); //gimp bug ? if you delete before then is not visible
-     gimp_path_set_points( g_image, path_name, 1, num_points_details , path_strokes ); //gimp bug ??: vuole la dimensione del vettore
-     //beware i'm deleting old path with path_name
-     gimp_path_delete(g_image,path_name);
 
+	    if( num_vet_punti >  2) { //??
+		//gimp_path_delete(g_image,path_name); //gimp bug ? if you delete before then is not visible
+		gimp_path_set_points( g_image, path_name, 1, num_points_details , path_strokes ); //gimp bug ??: vuole la dimensione del vettore
+		//beware i'm deleting old path with path_name
+		gimp_path_delete(g_image,path_name);
+	    }
+	}
+
+	if(path_strokes[num_points_details] != (gdouble) CANARY)
+	    g_message("Canary in path_strokes is dead!");
     }
 
-   }
+    g_free(old_path);
 
-   if(path_strokes[num_points_details] != (gdouble) CANARY)
-    	g_message("Canary in path_strokes is dead!");
-  }
-
-  if (path_strokes)
-  	g_free(path_strokes);
+    if (path_strokes)
+	g_free(path_strokes);
 
 }
 
@@ -812,4 +829,5 @@ void teseo_path_split_at_x(gint32 g_image, gchar *path_name, gint x) {
 	gimp_path_set_points(g_image, path_name_new2, 1, num_path_point_details2, points_pairs2);
     }
 
+    g_free(points_pairs);
 }

@@ -523,6 +523,9 @@ on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
 	default:
 	    break;
     }
+
+    g_free(points_pairs);
+    
     gtk_widget_hide (dlg_move_rotation);
 }
 
@@ -998,6 +1001,8 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
 	printf("\n%04d - %f", i, points_pairs[i]);
     }
     printf("\n\n");
+
+    g_free(points_pairs);
 
 }
 
