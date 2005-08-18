@@ -24,6 +24,11 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 #include "teseo_resample.h"
 #include "teseo_path.h"
@@ -31,9 +36,6 @@
 #include "teseo_bezier_point.h"
 #include "teseo_gimp_extends.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "string.h"
 // #include "teseo_path.h"
 // #include "values.h"
 
@@ -82,7 +84,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
     FILE *ftmp;
     FILE *fbezier;
     char pathname [255] ;
-    char newpathname [255] ;
+    gchar newpathname [255] ;
     gint32 path_type, path_closed, num_elementi_bezier, n;  
     int bezier_n_strokes;
     double *bezier_strokes;
@@ -99,16 +101,16 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 
     int sw_cast_int = 1;
     // char filetmp[] = "/tmp/last.bezier.strokes.txt";
-    char filetmp[255];
+    gchar filetmp[255];
     // char filebezier[] = "/tmp/last.bezier.txt";
-    char filebezier[255];
+    gchar filebezier[255];
 
     //mtheo sprintf(filetmp, "%s/tmp/last.bezier.strokes.txt", getenv_teseo(TESEO_DATA));
     // TODO
-    sprintf(filetmp, "%s/last.bezier.strokes.txt", teseo_get_environment_path(TMPPATH) );
-    //mtheo sprintf(filebezier, "%s/tmp/last.bezier.txt", getenv_teseo(TESEO_DATA));
+    g_sprintf(filetmp, "%s/last.bezier.strokes.txt", teseo_get_environment_path(TMPPATH) );
+    //mtheo g_sprintf(filebezier, "%s/tmp/last.bezier.txt", getenv_teseo(TESEO_DATA));
     // TODO
-    sprintf(filebezier, "%s/last.bezier.txt", teseo_get_environment_path(TMPPATH) );
+    g_sprintf(filebezier, "%s/last.bezier.txt", teseo_get_environment_path(TMPPATH) );
 
     //richiedo il path corrente
     gint num_paths=0;
@@ -155,7 +157,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 	    // punti_bezier[n*3 +1] è la y
 	    // punti_bezier[n*3 +2] è il tipo 1 per ANCHOR 2 per CONTROL
 	    // la sequenza dovrebbe essere 1221
-	    printf("%d (%f, %f) n_strokes %ld\n", n, punti_bezier[(n  )*3], punti_bezier[((n  )*3) +1], n_strokes);
+	    // g_printf("%d (%f, %f) n_strokes %ld\n", n, punti_bezier[(n  )*3], punti_bezier[((n  )*3) +1], n_strokes);
 	    if(			((punti_bezier[ (n   *3) +2]) == 1.0)
 	    &&	((punti_bezier[((n+1)*3) +2]) == 2.0)
 	    &&	((punti_bezier[((n+2)*3) +2]) == 2.0)
@@ -180,11 +182,11 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 		    max_n_strokes += 2048;
 		    strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((max_n_strokes+2) * 2)));
 		    if(!strokes) {
-			g_message("Not enough free memory for strokes in on_btnBezier_clicked!");
+			g_message("teseo_resampling_bezier(): not enough free memory for strokes!");
 			exit(1);
 		    }
 		}
-		printf("bezier_n_strokes %d; \n", bezier_n_strokes);
+		// g_printf("bezier_n_strokes %d; \n", bezier_n_strokes);
 		for(i=0; i<bezier_n_strokes; i++) {
 		    strokes[n_strokes*2   ]   = bezier_strokes[i*2];
 		    strokes[(n_strokes*2) +1] = bezier_strokes[(i*2) +1];
@@ -196,7 +198,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 		    }
 		    if(n_strokes>=2) {
 			if(strokes[(n_strokes-1)*2] == strokes[(n_strokes-2)*2]) {
-			// printf("Resolution Bug Leo: Duplicazione coordinata in X = %d (Y = %d). Action: Scartata.\n", (int) bezier_strokes[i*2], (int) bezier_strokes[i*2 +1]);
+			// g_printf("Resolution Bug Leo: Duplicazione coordinata in X = %d (Y = %d). Action: Scartata.\n", (int) bezier_strokes[i*2], (int) bezier_strokes[i*2 +1]);
 			n_strokes--;
 			}
 		    }
@@ -228,8 +230,8 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 
 	// scrivo il path calcolato
 	if(n_strokes > 0  && strokes) {
-	    // sprintf(newpathname, "%s - Resampling %d pixel", pathname, pivals.passo_bezier);
-	    sprintf(newpathname, "%s - Resampling %d pixel", pathname, passo_bezier);
+	    // g_sprintf(newpathname, "%s - Resampling %d pixel", pathname, pivals.passo_bezier);
+	    g_sprintf(newpathname, "%s - Resampling %d pixel", pathname, passo_bezier);
 	    teseo_strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
 	} else {
 	    // g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");

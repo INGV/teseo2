@@ -28,6 +28,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <glib.h>
+#include <glib/gprintf.h>
+
 #include "teseo_bezier_point.h"
 
 // Bezier::Bezier(int agrado, double *aPx, double *aPy) {
@@ -88,7 +91,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
   strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
   if(!strokes) {
   	*astrokes = NULL;
-  	printf("Non riesco ad allocare strokes in Bezier::getStrokes!");
+  	g_message("teseo_bezier_point_getStrokes(): I can't allocate strokes !");
   	return 0;
   }
 
@@ -141,7 +144,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
       strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes_max+2) * 2 )));
         if(!strokes) {
           *astrokes = NULL;
-          printf("Non riesco ad Reallocare strokes in Bezier::getStrokes!");
+  	  g_message("teseo_bezier_point_getStrokes(): I can't reallocate strokes !");
           return 0;
         }
     }
@@ -194,7 +197,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
   strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes+2) * 2)));
   if(!(strokes)) {
     *astrokes = NULL;
-    printf("Non riesco ad Reallocare *astrokes in Bezier::getStrokes!");
+    g_message("teseo_bezier_point_getStrokes(): I can't reallocate *astrokes !");
     return 0;
   }
   *astrokes = strokes;

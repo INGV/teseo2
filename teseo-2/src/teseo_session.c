@@ -29,6 +29,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <string.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 #include "teseo_env.h"
 #include "teseo_session.h"
@@ -151,7 +153,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
     char * dlg_session_filename=NULL;
 
     FILE * f=NULL;
-    char order[] = "100";
+    gchar order[] = "100";
     int  num_order=99;
     char external_preferences=FALSE;
 
@@ -161,7 +163,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
 
     while (ret==0){
       num_order++;
-      sprintf (order,"%d",num_order);
+      g_sprintf (order,"%d",num_order);
 
       session_filename         = create_name(filename,order,SESSION_EXT);
       dlg_session_filename     = create_name(filename,order,SES_DLG_EXT);

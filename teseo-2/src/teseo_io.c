@@ -28,6 +28,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 #include "teseo_io.h"
 #include "teseo_path.h"
@@ -198,7 +200,7 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
 		fscanf(fp,"20\n" );
 		fscanf(fp,"%f\n",&my_y );
 
-		//					printf("X=%f Y=%f \n",my_x, my_y );
+		// printf("X=%f Y=%f \n",my_x, my_y );
 		x=my_x;
 		y=my_y;
 
@@ -524,7 +526,7 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
- char strcmd [200];
+ gchar strcmd [200];
 
  char *argv[6];
  char argv0[100];
@@ -535,11 +537,11 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
 
  char *env[]={"SACAUX=/",NULL};  //need SACAUX but don't use it 
 
- char filename_tmp [255];
+ gchar filename_tmp [255];
 
 //31/05  sprintf(filename_tmp, "%s/tmp/sisma.tmp", getenv_teseo(TESEO_DATA));
  //TODO definire l'ambiente o prendere getenv_teseo e neuron_parse da teseo1
- sprintf(filename_tmp, "%s/sisma.tmp", teseo_get_environment_path(TMPPATH) );
+ g_sprintf(filename_tmp, "%s/sisma.tmp", teseo_get_environment_path(TMPPATH) );
  gint num_paths=0;
  gdouble xres, yres, passo;
  gint image_height;
@@ -556,7 +558,7 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
    //temporary saving in a sisma file
    teseo_strokes_sisma(g_image, filename_tmp, strokes, n_strokes, xy);
    //convert sisma file in sac
-   sprintf(strcmd, "%s/bin/sisma_to_sac.exe" , dir_teseo_bin );
+   g_sprintf(strcmd, "%s/bin/sisma_to_sac.exe" , dir_teseo_bin );
 
    /*Prepara la lista di argomenti*/
 	 argv[0]=argv0;
