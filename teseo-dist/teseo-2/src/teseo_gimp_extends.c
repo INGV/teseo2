@@ -55,14 +55,25 @@ gint teseo_gimp_path_get_points (gint32           image_ID,
 			gint            *path_closed,
 			gint            *num_path_point_details,
 			gdouble        **points_pairs) {
+    const gchar message_gimp_vector_warning[] = " Gimp-Vectors-WARNING **: gimp_vectors_compat_get_points(): convert failed";
     gint ret;
     ret = gimp_path_get_points(image_ID, name, path_closed, num_path_point_details, points_pairs);
-    if(*path_closed != 0) {
-	g_message("TESEO-Warning: path \"%s\" is closed !", name);
+
+    if(ret) {
+	if(*path_closed != 0) {
+	    g_message("TESEO-Warning: path \"%s\" is closed !", name);
+	}
+	if(*num_path_point_details < 1) {
+	    g_message("TESEO-Warning: path \"%s\" is empty !", name);
+	}
+    } else {
+	    g_message("TESEO-Warning: gimp_path_get_points() has been returning NULL for path \"%s\" !", name);
     }
-    if(*num_path_point_details < 1) {
-	g_message("TESEO-Warning: path \"%s\" is empty !", name);
+
+    if( (!ret) && (*path_closed != 0) &&  (*num_path_point_details < 1) ) {
+	    g_message("TESEO-CRITICAL: Path contains more than one component !\nReading path \"%s\", gimp_path_get_points() maybe has printed: \"%s\"\nTake a look in gimp-2.2.6/app/vectors/gimpvectors-compat.c line 164 of 281\nTESEO OPERATION FAILED !!!", name, message_gimp_vector_warning);
     }
+
     return ret;
 }
 

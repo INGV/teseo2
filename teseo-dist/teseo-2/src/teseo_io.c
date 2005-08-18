@@ -355,6 +355,7 @@ s_tmp_app[len]='\0';
      }
 
   }
+g_free(points_pairs);
 return 1;
 }
 
