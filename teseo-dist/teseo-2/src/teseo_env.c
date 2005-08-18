@@ -29,6 +29,8 @@
 #include <string.h>
 #include "teseo_env.h"
 #include <libgimp/gimp.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 #define LEN_RIGA 1024
 
@@ -80,7 +82,7 @@ char *valore_parse_deprecated(const char *nomefile, const char *nomevariabile) {
     }
     fclose(f);
   } else {
-    printf("\nNon riesco ad aprire \"%s\" !\n", nomefile);
+    g_message("\nvalore_parse_deprecated(): I can't open file \"%s\" !\n", nomefile);
   }
   return (ret_valore[0] == 0)? NULL : ret_valore;
 }
@@ -92,16 +94,16 @@ char *getenv_teseo_deprecated(const char *name_var) {
   char *cmdconfig = "/usr/local/neuronteseo/bin/neuronteseo-config.sh";
 
   char nomefile[255];
-  sprintf(nomefile, "%s%s.teseorc", G_DIR_SEPARATOR_S, getenv("HOME"));
+  g_sprintf(nomefile, "%s%s.teseorc", G_DIR_SEPARATOR_S, getenv("HOME"));
   s = valore_parse_deprecated(nomefile, name_var);
   // g_message("newfunc %s = %s", name_var, s);
 
   // s = getenv(name_var);
   if(!s) {
     if(strcmp(name_var , TESEO_BIN_deprecated)==0) {
-      sprintf(s_app, "%s%steseo", G_DIR_SEPARATOR_S, getenv("HOME"));
+      g_sprintf(s_app, "%s%steseo", G_DIR_SEPARATOR_S, getenv("HOME"));
     } else {
-      sprintf(s_app, "%s", getenv("HOME"));
+      g_sprintf(s_app, "%s", getenv("HOME"));
     }
     s = s_app;
     g_message("E' necessario impostare la variabile d'ambiente \"%s\" !\n\n- Se hai installato il pacchetto RPM, chiudi GIMP ed esegui lo script \"%s\".\n- Se invece hai compilato i sorgenti, hai dimenticato di eseguire \"make install\"\n\nLa variabile per ora viene impostata a \"%s\"", name_var, cmdconfig, s);
@@ -128,7 +130,7 @@ char * teseo_get_teseo_environment_path( ){
     strcpy(ENVIRONMENT_PATH,home);
     strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
     strcat(ENVIRONMENT_PATH,".gimp-");
-    sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
+    g_sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
     strcat(ENVIRONMENT_PATH,version);
     strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
     strcat(ENVIRONMENT_PATH,PROCEDURE_NAME);

@@ -68,7 +68,8 @@ teseo_lookup_widget(GtkWidget *widget, const gchar *widget_name, gint default_va
     gchar msg[1024];
     GtkWidget * ret = lookup_widget(widget, widget_name);
     if(!ret) {
-	sprintf(msg, "Widget \"%s\" not found in \"%s\". Set to %d (default).", gtk_widget_get_name(widget), widget_name, default_value);
+	g_sprintf(msg, "Widget \"%s\" not found in \"%s\". Set to %d (default).", gtk_widget_get_name(widget), widget_name, default_value);
+	g_message(msg);
     }
     return ret;
 }
@@ -85,13 +86,13 @@ on_new1_activate                       (GtkMenuItem     *menuitem,
 
  char * image_file = gimp_image_get_filename(teseo_image);
  gdouble xresolution,yresolution;
- char str_res[80];
+ gchar str_res[80];
 
  gtk_entry_set_text (teseo_imagefile_entry, image_file);
 
  gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
 
- sprintf(str_res,"%d",(gint) xresolution);
+ g_sprintf(str_res,"%d",(gint) xresolution);
  strcat(str_res," dpi");
  gtk_entry_set_text (teseo_imageresolution_entry, str_res);
 
@@ -547,7 +548,7 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
     glong num_path;
     gdouble *path_inter = NULL;
     char pathname [255] ;
-    char newpathname [255] ;
+    gchar newpathname [255] ;
 
     gint num_paths=0;
 
@@ -565,7 +566,7 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 	// fitting strokes with bezier curves
 	teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
 
-	sprintf(newpathname, "%s - Fit Bezier", pathname);
+	g_sprintf(newpathname, "%s - Fit Bezier", pathname);
 
 	// create new path 
 	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
@@ -922,7 +923,7 @@ on_dlg_about_show_label_ver            (GtkWidget       *widget,
                                         gpointer         user_data)
 {
     gchar teseo_caption_markup[200];
-    sprintf(teseo_caption_markup, "<small>Open source software &#169; %s\n%s</small>", TESEO_YEAR, TESEO_CAPTION_DEV);
+    g_sprintf(teseo_caption_markup, "<small>Open source software &#169; %s\n%s</small>", TESEO_YEAR, TESEO_CAPTION_DEV);
     gtk_label_set_label((GtkLabel *) widget, teseo_caption_markup);
 }
 
@@ -998,9 +999,9 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
     teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
 
     for(i=0; i<num_path_point_details; i++) {
-	printf("\n%04d - %f", i, points_pairs[i]);
+	g_printf("\n%04d - %f", i, points_pairs[i]);
     }
-    printf("\n\n");
+    g_printf("\n\n");
 
     g_free(points_pairs);
 
