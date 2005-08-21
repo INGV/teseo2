@@ -20,7 +20,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "gtkaddons.h"
-
+#include <glib.h>
+#include <glib/gprintf.h>
 
 
 static char token [80]="";
@@ -36,7 +37,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 	int ret=0;
 	gchar name[80]; //corto?
 
-	sprintf(name, "%s",gtk_widget_get_name(widget));
+	g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -45,7 +46,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 int is_marked_widget(GtkWidget * widget) {
 	int ret=0;
 	gchar name[80]; //corto?
-	sprintf(name, "%s",gtk_widget_get_name(widget));
+	g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -64,7 +65,7 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	GtkTextBuffer* gtb;
 	GtkTextIter start, stop;
 	double s_value;
-	//printf("looking for %s in container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
+	//g_printf("looking for %s in container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
 
 	if ( strcmp( (*tmp).w_name,  gtk_widget_get_name(data)) ==0){
 
@@ -72,7 +73,7 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 		if (GTK_IS_TOGGLE_BUTTON(data) ){
 			// Contents of radiobuttons and togglebuttons
 			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {
-				printf("found %s set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
+				g_printf("found %s set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
 				if ( strcmp( (*tmp).w_content_to, "TRUE" ) ==0) {
 					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==FALSE )
 						gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data),TRUE);
@@ -91,7 +92,7 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON(data), s_value);
 		}
                 if (GTK_IS_TEXT_VIEW(data)){
-			//printf("found %s  content buffer set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
+			//g_printf("found %s  content buffer set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
 			gtb = gtk_text_view_get_buffer((GtkTextView *) data);
 			gtk_text_buffer_set_text (gtb,  (*tmp).w_content_to, -1);
 		}
@@ -139,7 +140,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 				subline = line + 2 +strlen(widget_type)+strlen(widget_name);
 				lenght=strlen(subline);
 				subline[lenght-1]='\0';
-				printf("%s %s %s\n", widget_type, widget_name,subline);
+				g_printf("%s %s %s\n", widget_type, widget_name,subline);
 				if(GTK_IS_CONTAINER (parent_widget) ){
      				// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
    					l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
@@ -163,7 +164,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 					break;
 					}
 				}
-				//printf("*** %s %s \nTEXT %s\n***\n",widget_type, widget_name, text_content);
+				//g_printf("*** %s %s \nTEXT %s\n***\n",widget_type, widget_name, text_content);
 				tmp.w_name=widget_name;
 				//tmp.w_content_to=widget_content;
 				tmp.w_content_to=text_content;
@@ -173,7 +174,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 		fclose(f);
 	}
 	 else {
-		printf("\nError opening file \"%s\".\n", file_rc);
+		g_printf("\nError opening file \"%s\".\n", file_rc);
 		ret=0;
 	}
 	return ret;
@@ -185,13 +186,13 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.5 2005-07-15 08:07:52 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.6 2005-08-21 11:39:18 mtheo Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
 		fclose(f);
 	} else {
-		printf("\nError opening file \"%s\".\n", file_rc);
+		g_printf("\nError opening file \"%s\".\n", file_rc);
 		ret=0;
 	}
 	return ret;
@@ -278,48 +279,48 @@ void iface_display_rc_recursive(gpointer data, gpointer user_data){
 	strcpy(indent_tab,user_data);
 
 	memset(indent_tab, ' ', indent);
-	//sprintf(tab, "%s%s", (char *) user_data, tabchar);
-	sprintf(tab, "%s%s", indent_tab, tabchar);
+	//g_sprintf(tab, "%s%s", (char *) user_data, tabchar);
+	g_sprintf(tab, "%s%s", indent_tab, tabchar);
 
 	if(  is_teseo_widget (data) ) {
-		//printf("\n%sname = %s", tab, gtk_widget_get_name(data));
-		printf("%s%s::%s=", tab, GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
+		//g_printf("\n%sname = %s", tab, gtk_widget_get_name(data));
+		g_printf("%s%s::%s=", tab, GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
 
 		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data)  ){
 			//contents of radiobuttons and togglebuttons
 			if ( GTK_IS_TOGGLE_BUTTON(data) ) {
 				if ( gtk_toggle_button_get_active(data) ) {
-					printf ("TRUE\n");
+					g_printf ("TRUE\n");
 				} else {
-					printf("FALSE\n");
+					g_printf("FALSE\n");
 				}
-				//printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
-				//printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
-				//printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
+				//g_printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
+				//g_printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
+				//g_printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
 			}
 
 			//contents of entry and spinbutton
 			if ( GTK_IS_EDITABLE (data) ) {
 				edits=gtk_editable_get_chars ( (GtkEditable *) data, 0, -1);
-				printf ("%s\n",  edits);
+				g_printf ("%s\n",  edits);
 				g_free(edits);
 			}
 		} else {
 			//other widgets
-			//printf("\n%s%s", tab, gtk_widget_get_name(data));
-			printf("\n");
+			//g_printf("\n%s%s", tab, gtk_widget_get_name(data));
+			g_printf("\n");
 		}
 	}
 	if(GTK_IS_CONTAINER (data)) {
-		// printf(" - type = %s",  g_type_name(gtk_container_child_type(data)));
+		// g_printf(" - type = %s",  g_type_name(gtk_container_child_type(data)));
 		l = gtk_container_get_children(data);
 		n = g_list_length(l);
-		//printf(" - nchildren = %d\n", n);
+		//g_printf(" - nchildren = %d\n", n);
 		if(l > 0) {
 			g_list_foreach(l, iface_save_rc_recursive , (gpointer) tab);
 		}
 	} else {
-		//printf("\n");
+		//g_printf("\n");
 	}
 }
 
@@ -327,7 +328,7 @@ void iface_display_rc_recursive(gpointer data, gpointer user_data){
 void print_iface(gpointer data, gpointer user_data) {
 	guint n;
 	GList *l;
-	char tab[255];
+	gchar tab[255];
 	char tabchar[10] = "  |___";
 	char indent_tab[255];
 	int indent;
@@ -336,23 +337,23 @@ void print_iface(gpointer data, gpointer user_data) {
 	strcpy(indent_tab,user_data);
 
 	memset(indent_tab, ' ', indent);
-	//sprintf(tab, "%s%s", (char *) user_data, tabchar);
-	sprintf(tab, "%s%s", indent_tab, tabchar);
+	//g_sprintf(tab, "%s%s", (char *) user_data, tabchar);
+	g_sprintf(tab, "%s%s", indent_tab, tabchar);
 
-	printf("%sname = %s", tab, gtk_widget_get_name(data));
-	printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
-	printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
-	printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
+	g_printf("%sname = %s", tab, gtk_widget_get_name(data));
+	g_printf(" - gtk_objectname = %s", GTK_OBJECT_TYPE_NAME(data));
+	g_printf(" - g_objectname = %s", G_OBJECT_TYPE_NAME(data));
+	g_printf(" - g_objecttype = %d", G_OBJECT_TYPE(data));
 
 	if(GTK_IS_CONTAINER (data)) {
-		// printf(" - type = %s",  g_type_name(gtk_container_child_type(data)));
+		// g_printf(" - type = %s",  g_type_name(gtk_container_child_type(data)));
 		l = gtk_container_get_children(data);
 		n = g_list_length(l);
-		printf(" - nchildren = %d\n", n);
+		g_printf(" - nchildren = %d\n", n);
 		if(l > 0) {
 			g_list_foreach(l, print_iface, (gpointer) tab);
 		}
 	} else {
-		printf("\n");
+		g_printf("\n");
 	}
 }
