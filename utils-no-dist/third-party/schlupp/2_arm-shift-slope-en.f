@@ -26,8 +26,7 @@ c 	=========================
 	read(*,*) fiche
  	write(*,*)'Name of output file'
 	read(*,*) sortie
- 	write(*,*) 'enter the two extremes points of the input file, 
-    * xinitial xfinal yi yf, along the base line:'
+ 	write(*,*) 'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
 	read(*,*) xinitial,xfinal,yi,yf
  	write(*,*) 'number of seconds between  xinitial and xfinal:'
 	read(*,*) sec  
@@ -56,7 +55,7 @@ c	of the Wiechert seismograph recorder
  
 	open(1,file=fiche,status='old')
 	read(1,*,end=1000) (x(i),y(i),i=1,15000)
-1000 npt1=i-1
+1000    npt1=i-1
 
 
         sortie2='slope'
