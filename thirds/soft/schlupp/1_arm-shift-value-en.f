@@ -29,10 +29,9 @@ c 	=========================
 	read(*,*) fiche
  	write(*,*)'Name of output file'
 	read(*,*) sortie
- 	write(*,*)'enter the two extremes points of the input file, 
-    * xinitial xfinal yi yf, along the base line:'
+ 	write(*,*)'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
 	read(*,*) xinitial,xfinal,yi,yf
- 	write(*,*)'number of seconds between  xinitial and xfinal:
+ 	write(*,*)'number of seconds between  xinitial and xfinal:'
 	read(*,*) sec  	
  
 c	Correction of the curvature of the signal due to the geometry  

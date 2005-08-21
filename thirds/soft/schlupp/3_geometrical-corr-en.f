@@ -29,15 +29,14 @@ c	character*20 final
 	read(*,*) fiche
  	write(*,*)'Name of output file'
 	read(*,*) sortie
- 	write(*,*) 'enter the two extremes points of the input file, 
-    * xinitial xfinal yi yf, along the base line:'
+ 	write(*,*) 'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
 	read(*,*) xinitial,xfinal,yi,yf
  	write(*,*) 'number of seconds between  xinitial and xfinal:'
 	read(*,*) sec  
 	
 	open(1,file=fiche,status='old')
 	open(2,file=sortie)
-	open(3,file=final)
+c	open(3,file=final)
 
 c	Change the origin of the file to the first point of the base line 
 c	(necessary if different from 0) 
