@@ -3,9 +3,10 @@ This is your plugin's TODO list.
 
 Thu Aug  4 17:16:58 CEST 2005
 - Fix old TESEO_DATA with new ...
-	* Improve get_teseo_environment_path() * does it check for a file teseorc?
-- Display filename on window win_teseo ()
-- Catch parameter from session, for example to run algorithm or operation on path
+	* Improve get_teseo_environment_path()
+        * does it check for a file teseorc?
+        * Does Gimp ever use $HOME/.gimp-x.x directory? I think so.
+- Display filename on window win_teseo () (?)
 - Path menu porting from teseo 1 to 2
 - Manage lock mechanism:
 	* when the program crash and does not remove the file lock
@@ -13,7 +14,6 @@ Thu Aug  4 17:16:58 CEST 2005
 
 
 Sun Aug  7 19:49:52 CEST 2005
-- Omologate by glib functions
 - Event pathname and time mark pathname in Properties-->Traces
 
 
@@ -26,6 +26,7 @@ Wed Aug 10 17:27:46 CEST 2005
 - Define source pack distribution (teseo-2.x.x.tar.gz)
 - Define binary pack distribution (Linux, Mac, Windows)
     * define a makefile to compile a static binary
+    * Include pixmaps and help files in binary distribution
     * installation software o.s. dependent
     	Linux-Unix: shell script ?
 	MAC OS X:  shell script ?
@@ -36,9 +37,8 @@ Wed Aug 10 17:27:46 CEST 2005
 
 Sat Aug 13 11:27:26 CEST 2005
 - It is possibile to center image on a point? (Submit to mailinglists, forums, discussions,...)
-- Add split path function (using guide?)
-- Alternative exit condition from execution steps based on coordinates limit
-- Teseo work from right to left. Do we want consider other direction?
+- Alternative exit condition from execution steps based on coordinates limit, using guide
+- Teseo works from right to left. Do we want consider other direction?
 - Print path for debug (type 3, BEZIER_MOVE)
 - gimp_path_get_points() fails when path contains more piecewise...
     Gimp-Vectors-WARNING **: gimp_vectors_compat_get_points(): convert failed
@@ -46,5 +46,19 @@ Sat Aug 13 11:27:26 CEST 2005
 - gimp_path_get_points use g_new, check if g_free() is needed!!! We never used it... Now I add it!
 - check where g_free is needed !!!
 - Write a function to "open" a closed path
-- Include pixmaps and help files in binary distribution
-- Omologate output message (i.e.  "Teseo2-Warning: function_name(): messsage")
+
+
+Sun Aug 21 10:46:44 CEST 2005
+- Omologate by glib functions
+    * Use GString, g_printf, g_sprintf,
+- Omologate output message
+        see developer.gimp.org/api/2.0/glib/glib-Message-Logging.html#g-warning
+    * (i.e.  "Teseo2-Warning: function_name(): messsage")
+    * Use english language
+    * use g_message for official errors and warnings
+    * use g_printf for essential debug messages
+    * g_print() should not be used from within libraries for debugging messages,
+        since it may be redirected by applications to special purpose message windows or even files.
+        Instead, libraries should use g_log(), or the convenience functions g_message(), g_warning() and g_error().
+
+
