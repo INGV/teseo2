@@ -933,6 +933,7 @@ void teseo_save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdo
  }
 
  lstrokes=num_punti;
+ // TODO why is not g_free called for teseo_strokes_sac?
  teseo_strokes_sac = (float *) g_malloc(sizeof(float) * ( lstrokes + 1 ));
  if(!teseo_strokes_sac) {
      g_error("Non riesco ad allocare teseo_strokes_sac!");

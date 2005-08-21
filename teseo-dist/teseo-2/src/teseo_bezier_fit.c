@@ -427,8 +427,9 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
  	
   if(idirezione[num_strokes] != (gint) CANARY)
 		g_message("Canary in idirezione is dead!");
-	if(idirezione)
-		g_free(idirezione);
+
+  if(idirezione)
+	g_free(idirezione);
 
   if(path_inter[lpath] != (gdouble) CANARY)
   	g_message("Canary in strokes_inter is dead!");
