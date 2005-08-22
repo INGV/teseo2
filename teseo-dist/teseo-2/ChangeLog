@@ -1,3 +1,11 @@
+2005-08-22 09:55  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseocallbacks.c (1.49): Inserted help callback
+
+2005-08-21 13:39  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_fit.c (1.4), teseo_io.c (1.15): Minor revision
+
 2005-08-18 16:03  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: teseo_bezier_point.c (1.4), teseo_env.c (1.12), teseo_io.c
