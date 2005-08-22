@@ -1,3 +1,8 @@
+2005-08-21 13:39  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: gtkaddons.c (1.6), mglade_rc.c (1.2): Some glib
+	  standartization	  printf, sprintf
+
 2005-07-15 10:07  Stefano Pintore  <pintore@ingv.it>
 
 	* src/gtkaddons.c (1.5): Gestiti spinbutton e textview
