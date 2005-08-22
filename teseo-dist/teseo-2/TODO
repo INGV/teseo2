@@ -38,7 +38,7 @@ Wed Aug 10 17:27:46 CEST 2005
 Sat Aug 13 11:27:26 CEST 2005
 - It is possibile to center image on a point? (Submit to mailinglists, forums, discussions,...)
 - Alternative exit condition from execution steps based on coordinates limit, using guide
-- Teseo works from right to left. Do we want consider other direction?
+- Teseo works from left to right. Do we want consider other directions? NO
 - Print path for debug (type 3, BEZIER_MOVE)
 - gimp_path_get_points() fails when path contains more piecewise...
     Gimp-Vectors-WARNING **: gimp_vectors_compat_get_points(): convert failed
@@ -62,4 +62,4 @@ Sun Aug 21 10:46:44 CEST 2005
         since it may be redirected by applications to special purpose message windows or even files.
         Instead, libraries should use g_log(), or the convenience functions g_message(), g_warning() and g_error().
 - Don't modify locked path !!!!!!!
-
+- Correct split function
