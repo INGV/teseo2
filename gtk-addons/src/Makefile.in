@@ -64,9 +64,9 @@ CC = @CC@
 DLLTOOL = @DLLTOOL@
 ECHO = @ECHO@
 EXEEXT = @EXEEXT@
-GIMP_CFLAGS = @GIMP_CFLAGS@
-GIMP_LIBDIR = @GIMP_LIBDIR@
-GIMP_LIBS = @GIMP_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBDIR = @GTK_LIBDIR@
+GTK_LIBS = @GTK_LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAINT = @MAINT@
@@ -89,7 +89,7 @@ RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
-INCLUDES =  	 -I../include 	@GIMP_CFLAGS@		
+INCLUDES =  	 -I../include 	@GTK_CFLAGS@		
 
 
 AM_CFLAGS =  	 -Wall 	 -g
@@ -104,15 +104,14 @@ libgtk_addonsincludedir = ${prefix}/include/gtk-addons
 libgtk_addonsinclude_DATA =      gtkaddons.h
 
 
-libgtk_addons_la_LDFLAGS = 
+libgtk_addons_la_LDFLAGS =
 
-#libgtk_addons_la_LIBADD =  	 -lgtk -lgimp -lgimpui 	 $(GIMP_LIBS)
-libgtk_addons_la_LIBADD =  	 $(GIMP_LIBS)
+libgtk_addons_la_LIBADD =  	 $(GTK_LIBS)
 
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
@@ -120,7 +119,7 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libgtk_addons_la_DEPENDENCIES = 
+libgtk_addons_la_DEPENDENCIES =
 libgtk_addons_la_OBJECTS =  gtkaddons.lo
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

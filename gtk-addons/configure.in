@@ -74,16 +74,15 @@ AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
 
 dnl manual configuration start
 
-GIMP_REQUIRED_VERSION=2.2.0
+GTK_REQUIRED_VERSION=2.2.0
 
-PKG_CHECK_MODULES(GIMP,
-  gimp-2.0 >= $GIMP_REQUIRED_VERSION gimpui-2.0 >= $GIMP_REQUIRED_VERSION)
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED_VERSION )
 
-AC_SUBST(GIMP_CFLAGS)
-AC_SUBST(GIMP_LIBS)
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
 
-GIMP_LIBDIR=`$PKG_CONFIG --variable=gimplibdir gimp-2.0`
-AC_SUBST(GIMP_LIBDIR)
+GTK_LIBDIR=`$PKG_CONFIG --variable=gtklibdir gtk+-2.0`
+AC_SUBST(GTK_LIBDIR)
 
 dnl i18n stuff
 
@@ -98,19 +97,6 @@ AC_MSG_RESULT($have_gtk_2_7)
 if test "x$have_gtk_2_7" != "xyes"; then
   CPPFLAGS="$CPPFLAGS -DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"
 fi
-
-AC_MSG_CHECKING([if GIMP is version 2.3.0 or newer])
-if $PKG_CONFIG --atleast-version=2.3.0 gimp-2.0; then
-  have_gimp_2_3=yes
-else
-  have_gimp_2_3=no
-fi
-AC_MSG_RESULT($have_gimp_2_3)
-
-if test "x$have_gimp_2_3" != "xyes"; then
-  CPPFLAGS="$CPPFLAGS -DGIMP_DISABLE_DEPRECATED"
-fi
-
 
 AC_CONFIG_FILES([
 gtk-addons.pc
