@@ -6,7 +6,7 @@
 
 INCLUDES =\
 	 -I../include\
-	@GIMP_CFLAGS@		
+	@GTK_CFLAGS@		
 
 AM_CFLAGS =\
 	 -Wall\
@@ -23,10 +23,8 @@ libgtk_addonsinclude_DATA = \
     gtkaddons.h
 
 
-libgtk_addons_la_LDFLAGS = 
+libgtk_addons_la_LDFLAGS =
 
 libgtk_addons_la_LIBADD = \
-	 $(GIMP_LIBS)
+	 $(GTK_LIBS)
 
-
-#	 -lgtk -lgimp -lgimpui \

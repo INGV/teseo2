@@ -7,6 +7,6 @@ includedir=@includedir@
 Name: Gtk-addons
 Description: Gui saving utilities 
 Version: @VERSION@
-Requires: gimp-2.0
+Requires: gtk+-2.0
 Libs: -L${libdir} -lgtk-addons
 Cflags: -I${includedir}/gtk-addons
