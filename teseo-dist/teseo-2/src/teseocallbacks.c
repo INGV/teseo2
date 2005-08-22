@@ -617,7 +617,7 @@ void
 on_help1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    g_message(TODO_str);
+    gimp_help(NULL, "plug-in-template");
 }
 
 
