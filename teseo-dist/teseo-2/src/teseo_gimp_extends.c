@@ -25,6 +25,7 @@
  * authorization from the Authors.
  */
 
+#include <stdlib.h>
 #include "teseo_gimp_extends.h"
 
 
@@ -47,6 +48,37 @@ gint32 teseo_gimp_image_find_next_guide_orientation(gint32 g_image, gint32 g_gui
     }
 
     return curr_guide;
+}
+
+int compar( const void *n1,  const void *n2 )
+{
+        return *((gint32 *) n1) - *((gint32 *) n2);
+}
+
+// Return a coordinates sorted list of guides with orientation in parameter. *guides need g_free
+gint32 teseo_gimp_image_find_guides_orientation(gint32 g_image, gint32 g_orientation, gint32 **a_guides) {
+    gint32 *guides = g_malloc(100 * sizeof(gint32)); // TODO max 100 guides (improve with g_realloc)
+    gint32 n_guides = 0;
+    gint32 curr_guide = 0;
+    gboolean continue_while = TRUE;
+
+    while(continue_while) {
+	curr_guide = teseo_gimp_image_find_next_guide_orientation(g_image, curr_guide, g_orientation);
+	if(curr_guide !=0 ) {
+	    if(gimp_image_get_guide_orientation(g_image, curr_guide) == g_orientation) {
+                guides[n_guides++] = gimp_image_get_guide_position(g_image, curr_guide);
+	    }
+	} else {
+	    continue_while = FALSE;
+	}
+    }
+
+    if(n_guides>0) {
+        qsort(guides, n_guides, sizeof(gint32), compar ); 
+    }
+
+    *a_guides = guides;
+    return n_guides;
 }
 
 // Wrapper to intercept error/warning and display with g_message
