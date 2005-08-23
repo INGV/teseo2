@@ -38,6 +38,15 @@
   */
 gint32 teseo_gimp_image_find_next_guide_orientation(gint32 g_image, gint32 g_guide, gint32 g_orientation);
 
+/*! 
+  Compute a sorted coordinates list of guides with orientation in parameter.
+  Return number and values.
+  \param g_image
+  \param g_orientation
+  \param guides is a vector containin coordinate and it need g_free.
+*/
+gint32 teseo_gimp_image_find_guides_orientation(gint32 g_image, gint32 g_orientation, gint32 **a_guides);
+
 /*!
  TODO Wrapper to intercept error/warning and display with g_message
  */
