@@ -91,7 +91,8 @@ extern const char *SUBPATHS[];
 
 
 /*!
-teseo_get_teseo_environment_path returns a static string containing the teseo environment path, $HOME/.gimp-majorversio.minorversion/PROCEDURE_NAME
+teseo_get_teseo_environment_path returns a newly allocated string containing the teseo environment path, $HOME/.gimp-majorversio.minorversion/PROCEDURE_NAME
+Free it after use!
 */
 char * teseo_get_teseo_environment_path( );
 

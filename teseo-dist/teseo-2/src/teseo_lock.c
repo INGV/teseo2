@@ -39,10 +39,15 @@ gchar teseo_filename_lock[FILENAMELEN] = NOLOCKFILE;
 FILE *FILE_lock = NULL;
 
 gboolean teseo_lock(gchar *pattern_prefix) {
-    gboolean ret = FALSE; 
-    gboolean is_unlocked  = TRUE; 
-    
-    strcpy(teseo_filename_lock, teseo_get_environment_path(LOCKPATH));
+    gboolean ret = FALSE;
+    gboolean is_unlocked  = TRUE;
+
+    gchar * tgep=NULL;
+
+    tgep=teseo_get_environment_path(LOCKPATH);
+    strcpy(teseo_filename_lock, tgep);
+    g_free(tgep);
+
     strcat(teseo_filename_lock, G_DIR_SEPARATOR_S);
     strcat(teseo_filename_lock, pattern_prefix);
     strcat(teseo_filename_lock, LOCK_EXT);
