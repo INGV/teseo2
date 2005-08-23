@@ -126,11 +126,14 @@ void teseo_path_move(gint32 g_image,gint x, gint y , gdouble rotate);
   */
 void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes);
 
+/*!
+  TODO
+  */
+void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint32 x);
 
 /*!
   TODO
   */
-void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint x);
-
+void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 n_guides);
 
 #endif
