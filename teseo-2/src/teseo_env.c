@@ -115,47 +115,33 @@ char *getenv_teseo_deprecated(const char *name_var) {
 /*OLDIES END*/
 
 
-
 char * teseo_get_teseo_environment_path( ){
 
-    static char ENVIRONMENT_PATH[FILENAMELEN];
+    gchar * bf;
+    gchar * pathbase;
 
-    gchar *home;
-    gchar version[3];
-
-    //TODO manage windows HOMEPATH and slashes
-    //home=getenv("HOME");
-    home = g_get_home_dir();/*portability ... in glib*/
-
-    strcpy(ENVIRONMENT_PATH,home);
-    strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
-    strcat(ENVIRONMENT_PATH,".gimp-");
-    g_sprintf(version, "%d.%d",gimp_major_version,gimp_minor_version);
-    strcat(ENVIRONMENT_PATH,version);
-    strcat(ENVIRONMENT_PATH,G_DIR_SEPARATOR_S);
-    strcat(ENVIRONMENT_PATH,PROCEDURE_NAME);
-
-    return ENVIRONMENT_PATH;
-
+    pathbase=gimp_directory();
+    bf=g_strdup_printf("%s%s%s",pathbase,G_DIR_SEPARATOR_S,PROCEDURE_NAME);
+    g_printf("\nDebug 2 %s \n",bf );
+    return bf;
 }
 
 
 char * teseo_get_environment_path( int pathname ){
 
-    char * path=NULL;
+    gchar * pathbase=NULL;
+    gchar * path;
 
-    path = (char * ) g_malloc(sizeof(char)*FILENAMELEN);
+    pathbase = teseo_get_teseo_environment_path();
 
-    if (path!=NULL) {
-        strcpy(path,teseo_get_teseo_environment_path());
-        strcat(path,G_DIR_SEPARATOR_S);
-        strcat(path,SUBPATHS[pathname]);
+    if ( pathbase!=NULL ) {
+        path=g_strdup_printf("%s%s%s",pathbase,G_DIR_SEPARATOR_S,SUBPATHS[pathname]);
+    	g_free(pathbase);
     }
     else {
         g_message("Memory unavailable");
 	gtk_main_quit();
     }
-
     return path;
 }
 
@@ -200,6 +186,7 @@ char teseo_create_environment( ){
 	 strcat(path,SUBPATHS[i]);
          error = !(teseo_create_environment_path(path));
      }
+     g_free(mainpath);
  }
 
  if (error){
@@ -209,4 +196,3 @@ char teseo_create_environment( ){
 
  return !error;
 }
-

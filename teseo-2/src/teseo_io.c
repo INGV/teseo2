@@ -26,8 +26,8 @@
  */
 
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+// windows compile patch #include <sys/types.h>
+// windows compile patch #include <sys/wait.h>
 #include <glib.h>
 #include <glib/gprintf.h>
 
@@ -44,7 +44,9 @@
 
 /*To use for external commands*/
 int my_system(char * command, char * const argv[200], char * const env[]  ){
+
  int status = 0;
+/* windows compile patch
  int pid;
  int ret;
  pid=fork();
@@ -63,6 +65,7 @@ int my_system(char * command, char * const argv[200], char * const env[]  ){
    }
 
  }
+ */
  return status;
 }
 
