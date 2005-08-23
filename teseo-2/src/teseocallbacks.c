@@ -951,40 +951,12 @@ void
 on_split_unlocked_paths1_activate      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    gchar **path_list;
-    gint n_path, i;
-    gint32 curr_guide;
-
-    // TODO void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint x) {
-    // gimp_image_find_next_guide
-    // gimp_image_get_guide_position
-    // gimp_image_get_guide_orientation GIMP_ORIENTATION_VERTICAL only
-    // gimp_image_delete_guide
-
-    path_list = gimp_path_list(teseo_image, &n_path);
-
-    // TODO vertical guide cycle
-    curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
-    if(curr_guide==0) {
-	g_message("There are no guides to split unlocked paths !");
+    gint32 *guides=NULL, n_guides;
+    n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+    if(n_guides > 0) {
+        teseo_path_split_at_xs_all_unlocked(teseo_image, guides, n_guides);
     }
-    while ( curr_guide != 0 ) {
-	for(i=0; i < n_path; i++) {
-	    // TODO if is an unlocked path then split 
-	    if(!gimp_path_get_locked(teseo_image, path_list[i]) ) {
-		teseo_path_split_at_x(teseo_image, path_list[i], gimp_image_get_guide_position(teseo_image, curr_guide));
-	    }
-	}
-	curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, curr_guide, GIMP_ORIENTATION_VERTICAL );
-    }
-    
-    // Delete all vertical guides
-    curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
-    while ( curr_guide != 0 ) {
-	gimp_image_delete_guide(teseo_image, curr_guide);
-	curr_guide = teseo_gimp_image_find_next_guide_orientation(teseo_image, 0, GIMP_ORIENTATION_VERTICAL );
-    }
-    
+    g_free(guides);
 }
 
 
