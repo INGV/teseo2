@@ -42,9 +42,9 @@ const char TESEO_DATA_deprecated[] = "TESEO_DATA";
 const gchar * teseo_caption(gboolean ver_devel) {
     static gchar * caption[200];
     if(ver_devel) {
-	g_sprintf(caption, "Teseo %d.%d.%d", TESEO_MAJOR_VER, TESEO_MINOR_VER, TESEO_DEVEL_VER);
+	g_sprintf(caption, "Teseo %d.%d.%d", PLUGIN_MAJOR_VERSION, PLUGIN_MINOR_VERSION, PLUGIN_MICRO_VERSION);
     } else {
-	g_sprintf(caption, "Teseo %d.%d", TESEO_MAJOR_VER, TESEO_MINOR_VER);
+	g_sprintf(caption, "Teseo %d.%d", PLUGIN_MAJOR_VERSION, PLUGIN_MINOR_VERSION);
     }
     return caption;
 }
