@@ -4444,7 +4444,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-ALL_LINGUAS="az de fr sk sv zh_TW"
+ALL_LINGUAS=""
 
 
 
