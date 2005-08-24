@@ -31,6 +31,18 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <glib.h>
+
+#ifdef G_OS_WIN32
+#include <direct.h> /* _mkdir() */
+#endif
+
+#ifdef G_OS_WIN32
+#  include <io.h>
+#  define mkdir(path, mode) _mkdir(path)
+#endif
+
+
 #include "teseo_io.h"
 
 #ifndef PROCEDURE_NAME
