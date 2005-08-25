@@ -1,3 +1,26 @@
+         subroutine 1_arm-shift-value-en_sub(fiche, sortie, xinitial,
+     +         xfinal,yi,yf,sec, Bg,r, Rg, a, b, ret)
+c
+c    Variables passed in the routine:
+c
+c 	fiche: 	Name of input file
+c 	sortie: Name of output file
+c 	xinitial,xfinal,yi,yf: 	the two extremes points of the input file ( xinitial xfinal yi yf) along the base line:
+c 	sec: 	number of seconds between  xinitial and xfinal
+c
+c	Correction of the curvature of the signal due to the geometry  
+c	of the Wiechert seismograph recorder
+ 
+c       Bg: 	The velocity of the paper in mm/min
+c	r:	Radius of the cylinder that carry the paper, in mm.
+c	Rg: 	Length of the writting arm from its rotation axe until the end of the needle in mm.
+c	a: 	Distance from the rotation axe of the writing arm until the axe of the cylinder that carry the paper 
+c               measured perpendicular to the cylinder axe in mm :'
+c	b:      Enter the shift between the needle position at rest and its 
+c               normal equilibrium position (arm perpendicular to the axe of the cylinder)
+c               value positive if the arm is inclined downward in mm.
+c    
+c 
 c	****************************************************
 c	*** Search of value b(shift of the writing arm in mm) ***
 c	*** 									 ***
@@ -23,37 +46,7 @@ c 	=========================
 	real x(15000),y(15000),xx(15000),yy(15000)
 	real xa(15000),ya(15000)
 	real xinitial,xfinal
-	real Bg,r,Rg,a,b,xtest
-
- 	write(*,*)'Name of input file'
-	read(*,*) fiche
- 	write(*,*)'Name of output file'
-	read(*,*) sortie
- 	write(*,*)'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
-	read(*,*) xinitial,xfinal,yi,yf
- 	write(*,*)'number of seconds between  xinitial and xfinal:'
-	read(*,*) sec  	
- 
-c	Correction of the curvature of the signal due to the geometry  
-c	of the Wiechert seismograph recorder
- 
-	write(*,*) 'Enter the velocity of the paper in mm/min :'
-	read(*,*)  Bg
-	write(*,*) 'Enter the radius of the cylinder that carry the paper, in mm:'
-	read(*,*)  r
-	write(*,*) 'Enter the length of the writting arm from its rotation axe 
-     *until the end of the needle in mm :'
-	read(*,*)  Rg	
-	write(*,*) 'Enter the distance from the rotation axe of the writing arm 
-     *until the axe of the cylinder that carry the paper 
-     *measured perpendicular to the cylinder axe in mm :'
-	read(*,*)  a
-	write(*,*) 'Enter the shift between the needle position at rest and its 
-     *normal equilibrium position (arm perpendicular to the axe of the cylinder)
-     * value positive if the arm is inclined downward  
-     *  in mm :'
-	read(*,*)  b
- 
+	real Bg,r,Rg,a,b,xtest 
 
 	sortie2='ret2-b'
 
@@ -137,10 +130,10 @@ c	which has a time younger that the previous point (wrong points)
 
 c	 write the value b and the number of wrong points
  
-            write(4,*) b,ret
+c            write(4,*) b,ret
  
 77    continue
- 
-	end
+      return 
+      end
 
 
