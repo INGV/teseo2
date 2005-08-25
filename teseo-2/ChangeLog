@@ -1,3 +1,39 @@
+2005-08-25 13:41  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.45): Modified message in about dialog
+
+2005-08-24 14:56  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_env.c (1.14), teseo_env.h (1.15): Used variables
+	  #define PLUGIN_MAJOR_VERSION #define PLUGIN_MINOR_VERSION #define
+	  PLUGIN_MICRO_VERSION
+
+2005-08-24 14:54  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_env.h (1.14): Portability modify
+
+2005-08-23 16:12  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_env.c (1.13), teseo_env.h (1.13), teseo_io.c (1.16),
+	  teseo_lock.c (1.5): Function to manipualte environment modified
+	  using gimp_directory().  Modified
+	  teseo_get_teseo_environment_path to be non-reentrant.
+
+2005-08-23 12:34  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseocallbacks.c (1.50): Modified and improved Split Path
+	  function in callback on_split_unlocked_paths1_activate()
+
+2005-08-23 12:32  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_path.c (1.16), teseo_path.h (1.8): Added
+	  teseo_path_split_at_xs_all_unlocked() function
+
+2005-08-23 12:32  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_gimp_extends.c (1.4), teseo_gimp_extends.h (1.3):
+	  Added teseo_gimp_image_find_guides_orientation() function
+
 2005-08-22 09:55  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/teseocallbacks.c (1.49): Inserted help callback
