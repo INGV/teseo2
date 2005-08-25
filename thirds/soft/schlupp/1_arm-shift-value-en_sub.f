@@ -1,4 +1,4 @@
-         subroutine 1_arm-shift-value-en_sub(fiche, sortie, xinitial,
+         subroutine arm_shift_value_en_sub(fiche, sortie, xinitial,
      +         xfinal,yi,yf,sec, Bg,r, Rg, a, b, ret)
 c
 c    Variables passed in the routine:

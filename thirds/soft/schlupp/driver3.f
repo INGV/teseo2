@@ -1,34 +1,38 @@
-      program driver1
+      program driver3
 c
-c this driver program calls the 1_arm-shift-value-en_sub routine written
+c this driver program calls the geometrical_corr_en_sub routine written
 c by Antoine Schlupp
 c
 
+c 	=========================
+c	VARIABLES
+c 	=========================
+
 	character*20 fiche
 	character*20 sortie
-c	character*20 sortie2
 
-c	integer i,cpt
+	integer i,k
 
 	real yi,yf
-	real sec,alp,ret
+	real sec,alp
 c	real x(15000),y(15000),xx(15000),yy(15000)
-c	real xa(15000),ya(15000)
+c	real xa(15000),ya(15000),n(200),alpha(15000)
 	real xinitial,xfinal
-	real Bg,r,Rg,a,b,xtest
+	real Bg,r,Rg,a,b
 
- 	write(*,*)'Name of input file'
+ 	write(*,*) 'Name of input file'
 	read(*,*) fiche
  	write(*,*)'Name of output file'
 	read(*,*) sortie
- 	write(*,*)'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
+ 	write(*,*) 'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
 	read(*,*) xinitial,xfinal,yi,yf
- 	write(*,*)'number of seconds between  xinitial and xfinal:'
-	read(*,*) sec  	
+ 	write(*,*) 'number of seconds between  xinitial and xfinal:'
+	read(*,*) sec  
  
 c	Correction of the curvature of the signal due to the geometry  
 c	of the Wiechert seismograph recorder
- 
+
+
 	write(*,*) 'Enter the velocity of the paper in mm/min :'
 	read(*,*)  Bg
 	write(*,*) 'Enter the radius of the cylinder that carry the paper, in mm:'
@@ -47,8 +51,8 @@ c	of the Wiechert seismograph recorder
 	read(*,*)  b
  
 c
-      call arm_shift_value_en_sub(fiche, sortie, xinitial,
-     +         xfinal,yi,yf,sec, Bg,r, Rg, a, b, ret)
+      call geometrical_corr_en_sub(fiche,sortie,xinitial,
+     +            xfinal,yi,yf,sec, Bg,r, Rg, a, b)
 c
       stop
       end
