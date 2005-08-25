@@ -1573,7 +1573,7 @@ create_dlg_about (void)
   gtk_widget_show (vbox78);
   gtk_box_pack_start (GTK_BOX (vbox63), vbox78, FALSE, FALSE, 0);
 
-  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sub><sub>2</sub></sub></b></span></big>\n\"Vectoriser of historical seismograms\"");
+  label_teseo = gtk_label_new ("<big><span color=\"brown\"><b>Teseo<sup><small>2</small></sup></b>\n</span></big>\"Vectoriser of historical seismograms\"");
   gtk_widget_set_name (label_teseo, "label_teseo");
   gtk_widget_show (label_teseo);
   gtk_box_pack_start (GTK_BOX (vbox78), label_teseo, FALSE, FALSE, 0);
