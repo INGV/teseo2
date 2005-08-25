@@ -1,9 +1,31 @@
+      subroutine arm_shift_slope_en_sub(fiche,sortie,xinitial,xfinal,
+     +           yi,yf,sec, Bg,r, Rg, a, b)
 c	****************************************************
 c	*** Calculation of the histogram of the slope at ***
 c	*** each point of the seismograme function of b value ***
 c	*** (arm shift) 						*** 
 c	*** input format = x, y                     *** 
 c	****************************************************
+c
+c    Variables passed in the routine:
+c
+c 	fiche: 	Name of input file
+c 	sortie: Name of output file
+c 	xinitial,xfinal,yi,yf: 	the two extremes points of the input file ( xinitial xfinal yi yf) along the base line:
+c 	sec: 	number of seconds between  xinitial and xfinal
+c
+c	Correction of the curvature of the signal due to the geometry  
+c	of the Wiechert seismograph recorder
+c       Bg: 	The velocity of the paper in mm/min
+c	r:	Radius of the cylinder that carry the paper, in mm.
+c	Rg: 	Length of the writing arm from its rotation axe until the end of the needle in mm.
+c	a: 	Distance from the rotation axe of the writing arm until the axe of the cylinder that carry the paper 
+c               measured perpendicular to the cylinder axe in mm :'
+c	b:      Maximum shift (positive value in mm) to be tested, 
+c               between the needle position at rest and its normal equilibrium position 
+c              (arm perpendicular to the axe of the cylinder) :'
+c    
+
 
 c 	=========================
 c	VARIABLES
@@ -22,35 +44,9 @@ c 	=========================
 	real xinitial,xfinal
 	real Bg,r,Rg,a,b
 
-	write(*,*) 'Name of input file'
-	read(*,*) fiche
- 	write(*,*)'Name of output file'
-	read(*,*) sortie
- 	write(*,*) 'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
-	read(*,*) xinitial,xfinal,yi,yf
- 	write(*,*) 'number of seconds between  xinitial and xfinal:'
-	read(*,*) sec  
  
 c	Correction of the curvature of the signal due to the geometry  
 c	of the Wiechert seismograph recorder
-
-
-
-	write(*,*) 'Enter the velocity of the paper in mm/min :'
-	read(*,*)  Bg
-	write(*,*) 'Enter the radius of the cylinder that carry the paper, in mm:'
-	read(*,*)  r
-	write(*,*) 'Enter the length of the writting arm from its rotation axe 
-     *until the end of the needle in mm :'
-	read(*,*)  Rg	
-	write(*,*) 'Enter the distance from the rotation axe of the writing arm 
-     *until the axe of the cylinder that carry the paper 
-     *measured perpendicular to the cylinder axe in mm :'
-	read(*,*)  a
-	write(*,*) 'Enter the maximum shift (positive value in mm) to be tested, 
-     * between the needle position at rest and its normal equilibrium position 
-     * (arm perpendicular to the axe of the cylinder) :'
-	read(*,*)  b
 
  
 	open(1,file=fiche,status='old')
