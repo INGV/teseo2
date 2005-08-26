@@ -732,7 +732,34 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export ASCII
-    g_message(TODO_str);
+
+    gchar *ascii_path = NULL;
+    gchar *image_filename = NULL;
+    GString *ascii_path_filename=NULL;
+    gchar *pathname = NULL;
+
+    ascii_path = teseo_get_environment_path( ASCIIPATH );
+    image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
+    pathname = gimp_path_get_current(teseo_image);
+
+    ascii_path_filename = g_string_new("Uname");
+    
+    // TODO check bad character in pathname ...
+    g_string_printf(ascii_path_filename, "%s%s%s_%s%s", ascii_path, G_DIR_SEPARATOR_S, image_filename, pathname, ASCII_EXT);
+
+    // TODO check if ascii_path_filename exists
+
+    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+	// TODO check options in session windows before saving
+	teseo_save_path_ascii(teseo_image, ascii_path_filename->str);
+	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, ascii_path_filename->str);
+    } else {
+	g_message("Path \"%s\" need resampling before exporting in ASCII format !", pathname);
+    }
+    
+    g_string_free(ascii_path_filename, TRUE);
+    g_free(ascii_path);
+    g_free(image_filename);
 }
 
 
@@ -964,9 +991,9 @@ void
 on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+    gint i;
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
-    gint i;
 
     teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
 
