@@ -62,3 +62,7 @@ Sun Aug 21 10:46:44 CEST 2005
         since it may be redirected by applications to special purpose message windows or even files.
         Instead, libraries should use g_log(), or the convenience functions g_message(), g_warning() and g_error().
 - Don't modify locked path !!!!!!!
+
+
+Fri Aug 26 11:15:21 CEST 2005
+- Write a function to "snap" every point of a polyline path. It could be executed iteratively.
