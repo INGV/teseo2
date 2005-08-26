@@ -1,3 +1,12 @@
+2005-08-26 11:06  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_io.c (1.17), teseo_io.h (1.8), teseocallbacks.c
+	  (1.51): Added teseo_save_path_ascii() function
+
+2005-08-26 08:54  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_wmean.c (1.9): Deleted no-useful instructions
+
 2005-08-25 13:41  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/teseointerface.c (1.45): Modified message in about dialog
