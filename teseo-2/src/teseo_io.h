@@ -38,6 +38,7 @@
 #include <dirent.h>
 
 #define DXF_EXT ".dxf"
+#define ASCII_EXT ".ascii"
 
 #define FILENAMELEN 200
 
@@ -114,6 +115,14 @@
       TODO
       */
     void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy );
+
+    /*!
+      teseo_save_path_ascii save the current path ASCII format. Path must be a polyline. Coordinates are in millimeters.
+        \param g_image current gimp image
+        \param filename file name
+      */
+    void teseo_save_path_ascii(gint32 g_image, char* filename);
+
 
 /* **********************************************************
    Funzioni di output che agiscono direttamente sugli strokes

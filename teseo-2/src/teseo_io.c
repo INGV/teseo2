@@ -593,6 +593,35 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
   g_free(strokes);
 }
 
+void teseo_save_path_ascii(gint32 g_image, char* filename) {
+    gint i;
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+    FILE *fascii=NULL;
+    gdouble xres, yres, xfactor, yfactor;
+
+
+    if(teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs)) {
+
+        gimp_image_get_resolution (g_image, &xres, &yres);
+        xfactor = 25.4 / xres;
+        yfactor = 25.4 / yres;
+
+        fascii=fopen(filename, "wt");
+        if(fascii) {
+            for(i=0; i<num_path_point_details; i+=3) {
+                if(points_pairs[i+2]==1.0) {
+                    g_fprintf(fascii, "%f %f\n", xfactor * points_pairs[i], yfactor * points_pairs[i+1]);
+                }
+            }
+            fclose(fascii);
+        } else {
+            g_message("teseo_save_path_ascii(): unable to write in \"%\" in ASCII format!");
+        }
+    }
+
+    g_free(points_pairs);
+}
 
 /* Import a timemark file*/
 void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
