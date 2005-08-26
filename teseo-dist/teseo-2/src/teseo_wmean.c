@@ -85,8 +85,6 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
 		sum_den += weight;
 	}
 
-	tmean = (int) ((sum_num / sum_den) + 0.5);
-
 	tmean = (int) (((sum_num / sum_den) * (double) height) + 0.5);
 
 	Yabs = ( (*is).LastCentre.y - (height/2) + (tmean - 1));
@@ -125,8 +123,6 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
 			sum_num += ( weight * (double) coord );
 			sum_den += weight;
 		}
-
-		tmean = (int) ((sum_num / sum_den) + 0.5);
 
 		tmean = (int) (((sum_num / sum_den) * (double) width) + 0.5);
 
