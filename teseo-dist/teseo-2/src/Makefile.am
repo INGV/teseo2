@@ -44,6 +44,8 @@ teseo_2_SOURCES = \
 	teseo_main.h \
 	teseo_gimp_extends.c \
 	teseo_gimp_extends.h \
+	teseo_snap.c	\
+	teseo_snap.h	\
 	nrutil.h \
 	nrutil.c \
 	nr.h \
