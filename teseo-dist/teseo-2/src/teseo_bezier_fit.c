@@ -351,7 +351,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 
   xi=matrix(1,NDIM,1,NDIM);
 
-	gimp_progress_init("Neuron Teseo - Fitting Bezier . . .");
+	gimp_progress_init("Teseo - Fitting Bezier . . .");
 	gimp_progress_update(0.0);
   for(i=1; i<n_dir; i++) {
 		gimp_progress_update((float) idirezione[i] / (float) num_strokes);
@@ -449,7 +449,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	*ppath_inter = path_inter;
 	*pnum_path_inter = cur_path_inter;
 	
-	gimp_progress_init("Neuron Teseo - Fitting Bezier finished.");
+	gimp_progress_init("Teseo - Fitting Bezier finished.");
 
   return (cur_path_inter); 	
 }
