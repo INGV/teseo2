@@ -911,7 +911,7 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
                 for(j_vi=1; j_vi<i_vi; j_vi++) {
                     g_printf("j_vi %d vi[j_vi] %d\n", j_vi,  vi[j_vi]);
 
-                    g_string_printf(path_name_new, "%s - split %d", unlocked_path_names[i_path]->str, j_vi);
+                    g_string_printf(path_name_new, "%s - Split %d/%d", unlocked_path_names[i_path]->str, j_vi, i_vi-1);
              
                     points_pairs_new = points_pairs + vi[j_vi-1];
                     g_printf("%f, %f, %f\n",points_pairs_new[0], points_pairs_new[1],  points_pairs_new[2]);
@@ -938,3 +938,6 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
     }
 
 }
+
+
+
