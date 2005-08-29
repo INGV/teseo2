@@ -148,7 +148,7 @@ query (void)
 			  G_N_ELEMENTS (args), 0,
 			  args, NULL);
 
-  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>");
+  gimp_plugin_menu_register (PROCEDURE_NAME, "<Image>/Teseo");
 }
 
 static void
