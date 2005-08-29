@@ -130,7 +130,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	GList *l=NULL;
 
 	struct mydata tmp;
-	f = fopen(file_rc, "r");
+	f = fopen(file_rc, "rt");
 	if(f) {
 		while(fgets (line, 1024,  f)){
 		// char * fgets(char * restrict str, int size, FILE * restrict stream);
@@ -186,7 +186,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.6 2005-08-21 11:39:18 mtheo Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.7 2005-08-29 11:46:58 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
