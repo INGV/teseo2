@@ -135,7 +135,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 	fclose(fbezier);
 
 
-	gimp_progress_init("Neuron Teseo - Resampling path . . .");
+	gimp_progress_init("Teseo - Resampling path . . .");
 	gimp_progress_update(0.0);
 
 	n_strokes = 0;
@@ -214,7 +214,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 	}
 	fclose(ftmp);
 
-	gimp_progress_init("Neuron Teseo - Resampling path finished.");
+	gimp_progress_init("Teseo - Resampling path finished.");
 	gimp_progress_update(0.0);
 
 	// g_message("Fine del calcolo di Bezier.");
