@@ -47,6 +47,7 @@
 #include "teseo_main.h"
 #include "teseo_wmean.h"
 #include "teseo_gimp_extends.h"
+#include "teseo_snap.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -933,16 +934,27 @@ void
 on_win_teseo_show                (GtkWidget       *widget,
                                         gpointer         user_data)
 {
-  GtkMenuItem     *menu_open1 = (GtkMenuItem *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "open1", 0);
-  GtkMenuItem     *menu_new1 = (GtkMenuItem *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "new1", 0);
-  if (on_open1_activate (menu_open1, NULL) != 1)
-  {
-    //g_message("Open canceled");
-    if (on_new1_activate (menu_new1, NULL)==0) {
-      //g_message("New canceled");
-      on_win_teseo_show(win_teseo,NULL);
+    GtkMenuItem     *menu_open1 = (GtkMenuItem *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "open1", 0);
+    GtkMenuItem     *menu_new1 = (GtkMenuItem *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "new1", 0);
+    gchar *name_image=NULL;
+    GString *string_name_image;
+    GtkLabel     *label_image = (GtkLabel *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "label_image", 0);
+    if (on_open1_activate (menu_open1, NULL) != 1)
+    {
+        //g_message("Open canceled");
+        if (on_new1_activate (menu_new1, NULL)==0) {
+            //g_message("New canceled");
+            on_win_teseo_show(win_teseo,NULL);
+        }
     }
-  }
+    
+    string_name_image = g_string_new("Uname");
+    name_image = g_path_get_basename (gimp_image_get_filename(teseo_image)); 
+    if(name_image) {
+        g_string_printf(string_name_image, "<small>%s</small>", name_image);
+        g_free(name_image);
+    }
+    gtk_label_set_label(label_image, string_name_image->str);
 }
 
 void
@@ -1003,6 +1015,34 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
     g_printf("\n\n");
 
     g_free(points_pairs);
+
+}
+
+
+void
+on_snap1_activate                      (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    // default is 1
+    gint thickness_trace = 1;
+    // default is 0 (Black)
+    gint trace_colour=0;
+    
+    GtkSpinButton * teseo_thickness_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_thickness_trace", thickness_trace);
+    GtkRadioButton * twcbr = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_colour_black_radiobutton", trace_colour);
+
+    if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(twcbr))  == TRUE ){
+        trace_colour=0;
+    }
+    else {
+        trace_colour=255;
+    }
+    
+    if(teseo_thickness_spinbutton) {
+	thickness_trace = gtk_spin_button_get_value_as_int (teseo_thickness_spinbutton) ;
+    }
+
+    teseo_snap_path(teseo_image, trace_colour, thickness_trace);
 
 }
 
