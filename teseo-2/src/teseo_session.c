@@ -46,28 +46,28 @@ char current_dlg_preferences[FILENAMELEN];
 
 
 
-char init_session(){
-    return align_session( dlg_session, &this_session);
-}
-
-
-char align_session(GtkWidget * dlg_session, struct Session * s){
-    char ret=0;
-    
-    //this_session.recordinfo
-    //this_session.imageinfo
-    //this_session.tracesinfo
-    //this_session.preferences
-    //this_session.notes
-
-    return ret;
-}
-
-
 char load_widget(const char * filename, GtkWidget * dlg){
     char ret=0;
 
-    ret = iface_load_rc( filename, dlg );
+    gchar * tep = NULL;
+    gchar * complete_filename=NULL;
+
+    //debug g_message("Loading file %s", filename);
+    tep = teseo_get_environment_path(SESSIONPATH);
+    //debug g_message( "Teseo session path %s", tep);
+
+    complete_filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
+
+    if ( filename != NULL) {
+      strcpy(complete_filename,tep);
+      strcat(complete_filename,G_DIR_SEPARATOR_S);
+      strcat(complete_filename,filename);
+      //debug g_message("Loading file %s", complete_filename);
+      ret = iface_load_rc( complete_filename, dlg );
+    }
+
+    g_free(tep);
+    g_free(complete_filename);
 
     return ret;
 }
@@ -75,8 +75,23 @@ char load_widget(const char * filename, GtkWidget * dlg){
 
 char save_widget(const char * filename, GtkWidget * dlg){
     char ret=0;
+    gchar * tep = NULL;
+    gchar * complete_filename=NULL;
 
-    ret = iface_save_rc( filename, dlg );
+    tep = teseo_get_environment_path(SESSIONPATH);
+    //debug g_message( "Teseo session path %s", tep);
+
+    complete_filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
+    if ( filename != NULL) {
+      strcpy(complete_filename,tep);
+      strcat(complete_filename,G_DIR_SEPARATOR_S);
+      strcat(complete_filename,filename);
+      //debug g_message("Saving file %s", complete_filename);
+      ret = iface_save_rc( complete_filename, dlg );
+    }
+
+    g_free(tep);
+    g_free(complete_filename);
 
     return ret;
 }
@@ -95,40 +110,62 @@ char load_session(char * filename){
     char retp=0;
     char rets=0;
 
-    char session_filename[FILENAMELEN]="aaa";
-    char dlg_session_filename[FILENAMELEN]="bbb";
-    char dlg_preferences_filename[FILENAMELEN]="ccc";
+    gchar session_filename[FILENAMELEN]="aaa";
+    gchar dlg_session_filename[FILENAMELEN]="bbb";
+    gchar dlg_preferences_filename[FILENAMELEN]="ccc";
 
     FILE * f=NULL;
     gchar line[1024];
+    gchar * app;
     char var[80]="";
-    char content[FILENAMELEN]="";
+    gchar * base_content=NULL;
 
+    //debug g_message("Attempting to load %s session",filename);
     if ( teseo_filexist(filename) ){
 
       f = fopen(filename,"r");
       if ( f != NULL ){
-
+         //debug g_message("File exist");
 	 while(fgets (line, 1024,  f)){
-
 	   if ( strstr(line, "#") == NULL ) {
-            sscanf(line,"%s = %s\n", var,content);
+            sscanf(line,"%s ", var);
 	    if (strcmp("SessionFile",var) == 0)  {
 	      /*TODO consistency check*/
+	      //strcpy(session_filename,content);
+	      app = (line + strlen("SessionFile") + 3);
+	      g_strdelimit  (app, "\n",0x00);
+              //base_content= g_path_get_basename(app);
+              base_content= app;
+              strcpy(session_filename,base_content);
+              //debug g_message("SessionFile %s",session_filename);
+	      strcpy(current_session,session_filename);
+              //if (base_content) g_free(base_content);
+            }
+	    if ( strcmp("SessionDialogFile",var) == 0 ) {
+              //strcpy(dlg_session_filename,content);
+	      app = (line + strlen("SessionDialogFile") + 3);
+	      g_strdelimit  (app, "\n",0x00);
+	      //base_content= g_path_get_basename(app);
+              base_content= app;
+              strcpy(dlg_session_filename,base_content);
+              //debug g_message("Session dialog file %s",dlg_session_filename);
+	      rets = load_widget(dlg_session_filename,dlg_session);
+	      if (rets==0) g_message("Corrupted %s",dlg_session_filename);
+              //if (base_content) g_free(base_content);
+            }
+	    if ( strcmp("PreferencesDialogFile",var) == 0) {
+              //strcpy(dlg_preferences_filename,content);
+	      app = (line + strlen("PreferencesDialogFile") + 3);
+	      g_strdelimit  (app, "\n",0x00);
+              base_content= app;
+              strcpy(dlg_preferences_filename,base_content);
+              //debug g_message("Preferences dialog file %s",dlg_preferences_filename);
+	      retp = load_widget(dlg_preferences_filename,dlg_preferences);
+	      if (retp==0) g_message("Corrupted %s",dlg_preferences_filename);
 
-	      strcpy(session_filename,content);
-	    }
-	    else{
-	      //g_message("not found");
-	    }
-	    if ( strcmp("SessionDialogFile",var) == 0 )  strcpy(dlg_session_filename,content);
-	    if ( strcmp("PreferencesDialogFile",var) == 0)  strcpy(dlg_preferences_filename,content);
+            }
 	  }
-	 }
-	 rets = load_widget(dlg_session_filename,dlg_session);
-	 if (rets==0) g_message("Corrupted %s",dlg_session_filename);
-	 retp = load_widget(dlg_preferences_filename,dlg_preferences);
-	 if (retp==0) g_message("Corrupted %s",dlg_preferences_filename);
+	 }//while
 	 ret=rets*retp;
       }
     }
@@ -140,6 +177,7 @@ char load_session(char * filename){
      strcpy(current_session,session_filename);
      strcpy(current_dlg_session,dlg_session_filename);
      strcpy(current_dlg_preferences,dlg_preferences_filename);
+     //g_message("Session %s %s %s", current_session,current_dlg_session,current_dlg_preferences);
     }
 
     return ret;
@@ -149,8 +187,11 @@ char load_session(char * filename){
 char new_session(char * filename, char * dlg_preferences_filename){
     char ret=0;
 
-    char * session_filename=NULL;
-    char * dlg_session_filename=NULL;
+    gchar * session_filename=NULL;
+    gchar * dlg_session_filename=NULL;
+    gchar * bsession_filename=NULL;
+    gchar * bdlg_session_filename=NULL;
+    gchar * bdlg_preferences_filename=NULL;
 
     FILE * f=NULL;
     gchar order[] = "100";
@@ -172,13 +213,17 @@ char new_session(char * filename, char * dlg_preferences_filename){
           dlg_preferences_filename = create_name(filename,order,PREF_DLG_EXT);
 
       if ( ! teseo_filexist(session_filename)){
-        f = fopen(session_filename,"w");
+        f = fopen(session_filename,"wt");
         if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( dlg_preferences_filename != NULL) ) {
           ret=1;
+
+          bsession_filename=g_path_get_basename(session_filename);
+          bdlg_session_filename=g_path_get_basename(dlg_session_filename);
+          bdlg_preferences_filename=g_path_get_basename(dlg_preferences_filename);
           fprintf(f,"#Created by ...\n");
-          fprintf(f,"SessionFile = %s\n",session_filename);
-          fprintf(f,"SessionDialogFile = %s\n",dlg_session_filename);
-          fprintf(f,"PreferencesDialogFile = %s\n",dlg_preferences_filename);
+          fprintf(f,"SessionFile = %s\n",bsession_filename);
+          fprintf(f,"SessionDialogFile = %s\n",bdlg_session_filename);
+          fprintf(f,"PreferencesDialogFile = %s\n",bdlg_preferences_filename);
           fclose(f);
         }
         else {
@@ -200,10 +245,15 @@ char new_session(char * filename, char * dlg_preferences_filename){
 
     //Registering current session
     if(ret==1){
-     strcpy(current_session,session_filename);
-     strcpy(current_dlg_session,dlg_session_filename);
-     strcpy(current_dlg_preferences,dlg_preferences_filename);
+     strcpy(current_session,bsession_filename);
+     strcpy(current_dlg_session,bdlg_session_filename);
+     strcpy(current_dlg_preferences,bdlg_preferences_filename);
     }
+
+    g_free(bsession_filename);
+    g_free(bdlg_session_filename);
+    g_free(bdlg_preferences_filename);
+
 
     if (session_filename) g_free(session_filename);
     if (dlg_session_filename) g_free(dlg_session_filename);
@@ -222,29 +272,28 @@ char* create_name(char * dirname, char* order, char* ext){
     const char delimiters[] = ".";
     // char ptrptr[FILENAMELEN];
 
-    filename = (char * ) g_malloc(sizeof(char)*FILENAMELEN);
-
+    filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
     if ( filename != NULL) {
 
       p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
       strcpy(filename,p);
-      strcat(filename,"/");
+      //debug g_message("Creating name %s %s %s/n %s/n %s", dirname, order, ext,p,filename);
+
+      strcat(filename,G_DIR_SEPARATOR_S);
+
+      //strcat( filename,"\\");
 
       name = g_path_get_basename (dirname); //basename without path, to be g_freed
 
       token = strpbrk(name, delimiters);
-
-
-      //g_message("token %s", token);
       name_noext = g_strndup(name , strlen(name) - strlen(token) );
 
       //token = strtok_r(name, delimiters, &ptrptr );        // token = filename without extension
-      //g_message("Name = %s",  token);
+      //debug g_message("Name %s Name_noext = %s" ,name, name_noext );
       strcat(filename,name_noext);
       strcat(filename,order);
       strcat(filename,ext);          // adding extension
 
-      g_warning("Name = %s",  filename);
       if (name != NULL) g_free(name);
       if (name_noext != NULL) g_free(name_noext);
       if (p != NULL) g_free(p);
@@ -253,18 +302,4 @@ char* create_name(char * dirname, char* order, char* ext){
     return filename;
 }
 
-char verify_session_name(char * filename, struct Session * s){
-    char ret=1;
-    return ret;
-}
-
-char save_preferences(char * filename, struct Session *s){
-    char ret=1;
-    return ret;
-}
-
-char load_preferences(char * filename, struct Session *s){
-    char ret=1;
-    return ret;
-}
 

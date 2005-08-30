@@ -70,34 +70,28 @@ int my_system(char * command, char * const argv[200], char * const env[]  ){
 }
 
 
-gint teseo_filexist( char *nome_file)
+
+gint teseo_filexist( char * filename)
 {
-  FILE *test = fopen( nome_file, "rb" );
-  int app=0;
-  if( test )
-  	{
-  		fclose(test);
-  		app = 1;
-  	}
-  	else
-  		app = 0;
-  return app;
+ gint ret=0;  
+   if (g_file_test(filename,G_FILE_TEST_EXISTS)){
+    ret=1;
+   }
+  return ret;
 }
 
 
-gint teseo_test_dir( char *nome_dir)
+gint teseo_test_dir( char *dirname)
 {
   gint ret=0;
-  DIR * directory=NULL;
-  if ( teseo_filexist( nome_dir )) {
-   directory=opendir(nome_dir);
-   if ( directory ){
+  if ( teseo_filexist( dirname )) {
+   if (g_file_test(dirname,G_FILE_TEST_IS_DIR )){
     ret=1;
-   	closedir(directory);
    }
   }
   return ret;
 }
+
 
 /*Put on the image g_image the bezier path loaded from NomeFileDxf*/
 void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
@@ -147,7 +141,7 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
 
     dpi = yres;
 
-    fp = fopen( NomeFileDxf,"r" );
+    fp = fopen( NomeFileDxf,"rt" );
     if(!fp) {
 	g_message("File \"%s\" not found.", NomeFileDxf);
     } else {
@@ -165,7 +159,7 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
 
     v_punti = (gdouble *) g_malloc( ( sizeof(gdouble) ) * 2 *( n_punti_tot ));
 
-    fp = fopen( NomeFileDxf,"r" );
+    fp = fopen( NomeFileDxf,"rt" );
     if(!fp) {
 	g_message("File \"%s\" not found.", NomeFileDxf);
     } else {
@@ -262,7 +256,7 @@ gchar * app;
 gchar linename [200] = "";
 int i=0;
 
-if( (fp = fopen(NomeFileBzr, "r" )) )
+if( (fp = fopen(NomeFileBzr, "rt" )) )
 {
 
 fgets(linename, 200, fp);
@@ -329,7 +323,7 @@ strcpy(s_tmp_app,nome_path);
 teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
 //only open path are good
 if (!path_closed){
-//+3 perchè per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )
+//+3 perché per il primo punto scrive sei details, per gli altri nove ( x, y, tipo )
 num_righe=num_path_point_details/3;
 
 //     sprintf(s_tmp_app, "%s/tmp/path_saved.bak", getenv_teseo(TESEO_DATA));
@@ -647,7 +641,7 @@ void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 
  int i=0;
 
- if( (fp = fopen(NomeFileTimeMarker, "r" )) )
+ if( (fp = fopen(NomeFileTimeMarker, "rt" )) )
  {
 	/*Header*/
 	fscanf(fp,"%d\nSECTION\n%d\nENTITIES\n%d\n", &a, &b, &c);
@@ -660,7 +654,7 @@ void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 	  }
 
   	fclose(fp);
-  	fp = fopen(NomeFileTimeMarker, "r");
+  	fp = fopen(NomeFileTimeMarker, "rt");
 	  counter = counter-counter0;
 
 	  fscanf(fp,"%d\nSECTION\n%d\nENTITIES\n%d\n", &a, &b, &c);
