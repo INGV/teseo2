@@ -157,7 +157,7 @@ char teseo_create_environment_path(char * filename){
           ret=1;
     }
     else {
-      //g_message("teseo environment path already exist");
+      //debug g_message("teseo environment path already exist");
       ret=1;
     }
 
@@ -192,6 +192,10 @@ char teseo_create_environment( ){
  if (error){
 	g_message("Unable to create teseo environment");
 	gtk_main_quit();
+ }
+ else
+ {
+	//debug g_message("Successfully created teseo environment");
  }
 
  return !error;
