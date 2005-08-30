@@ -16,13 +16,13 @@
 
 #include <gtk/gtk.h>
 #include <string.h>
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include "gtkaddons.h"
 #include <glib.h>
 #include <glib/gprintf.h>
 
+#include <errno.h>
 
 static char token [80]="";
 
@@ -114,7 +114,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	read the file, skip lines with # or ##, look for marked widgets,
 	if found in parent_widget set the widget value.
 	*/
-	FILE *f;
+	FILE *f=NULL;
 	char ret=1;
 
 	gchar * subline = NULL;
@@ -130,6 +130,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	GList *l=NULL;
 
 	struct mydata tmp;
+	printf("iface_load_rc::loading file %s\n", file_rc);
 	f = fopen(file_rc, "rt");
 	if(f) {
 		while(fgets (line, 1024,  f)){
@@ -174,25 +175,26 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 		fclose(f);
 	}
 	 else {
-		g_printf("\nError opening file \"%s\".\n", file_rc);
+	 	g_printf("\niface_load_rc::%s: %s\n", file_rc,strerror(errno));
 		ret=0;
 	}
 	return ret;
 }
 
 char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
-	FILE *f;
+	FILE *f=NULL;
 	char ret=1;
+	printf("iface_save_rc::saving file %s\n", file_rc);
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.7 2005-08-29 11:46:58 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.8 2005-08-30 09:57:18 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
 		fclose(f);
 	} else {
-		g_printf("\nError opening file \"%s\".\n", file_rc);
+	 	g_printf("\niface_save_rc::%s: %s\n", file_rc,strerror(errno));
 		ret=0;
 	}
 	return ret;
