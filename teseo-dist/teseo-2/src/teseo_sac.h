@@ -30,7 +30,6 @@
 
 #define GIMP_ENABLE_COMPAT_CRUFT 1
 #include <libgimp/gimp.h>
-#include <libgimp/gimpcompat.h>
 
 #define SAC_EXT ".sac"
     /*!

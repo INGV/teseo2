@@ -610,7 +610,7 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
             }
             fclose(fascii);
         } else {
-            g_message("teseo_save_path_ascii(): unable to write in \"%\" in ASCII format!");
+            g_message("teseo_save_path_ascii(): unable to write in \"%s\" in ASCII format!", filename);
         }
     }
 

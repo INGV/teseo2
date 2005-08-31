@@ -135,7 +135,6 @@ query (void)
 
   gimp_plugin_help_register ("http://sismos.ingv.it/teseo/help",
                              help_uri);
-  g_printf("\n%s\n", help_uri);
 
   gimp_install_procedure (PROCEDURE_NAME,
 			  "Blurb",
