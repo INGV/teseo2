@@ -133,8 +133,9 @@ query (void)
   help_uri = g_filename_to_uri (help_path, NULL, NULL);
   g_free (help_path);
 
-  gimp_plugin_help_register ("http://developer.gimp.org/plug-in-template/help",
+  gimp_plugin_help_register ("http://sismos.ingv.it/teseo/help",
                              help_uri);
+  g_printf("\n%s\n", help_uri);
 
   gimp_install_procedure (PROCEDURE_NAME,
 			  "Blurb",
