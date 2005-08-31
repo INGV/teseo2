@@ -200,6 +200,8 @@ teseo_2_SOURCES = \
 	teseo_gimp_extends.c \
 	teseo_snap.h \
 	teseo_snap.c \
+	teseo_sac.h \
+	teseo_sac.c \
 	nrutil.h \
 	nrutil.c \
 	nr.h \
@@ -238,6 +240,7 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseointerface.$(OBJEXT) \
 	teseo_resample.$(OBJEXT) \
 	teseo_snap.$(OBJEXT) \
+	teseo_sac.$(OBJEXT) \
 	teseo_bezier_fit.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
