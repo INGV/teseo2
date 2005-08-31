@@ -48,6 +48,7 @@
 #include "teseo_wmean.h"
 #include "teseo_gimp_extends.h"
 #include "teseo_snap.h"
+#include "teseo_sac.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -395,6 +396,33 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
 {
     // TODO Export SAC
     g_message(TODO_str);
+    gchar *sac_path = NULL;
+    gchar *image_filename = NULL;
+    gchar sac_path_filename[FILENAMELEN];
+    gchar *pathname = NULL;
+    float delta;
+    // TODO catch scale value
+
+    sac_path = teseo_get_environment_path( SACPATH );
+    image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
+    pathname = gimp_path_get_current(teseo_image);
+
+    // TODO check bad character in pathname ...
+    g_sprintf(sac_path_filename, "%s%s%s_%s%s", sac_path, G_DIR_SEPARATOR_S, image_filename, pathname, SAC_EXT);
+
+    // TODO check if sac_path_filename exists
+
+    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+	// TODO check options in session windows before saving
+        // TODO when resampling catch delta value for SAC
+	teseo_sac_path_export(teseo_image, sac_path_filename, delta);
+	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, sac_path_filename);
+    } else {
+	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
+    }
+    
+    g_free(sac_path);
+    g_free(image_filename);
 }
 
 
