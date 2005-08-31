@@ -618,7 +618,7 @@ void
 on_help1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    gimp_help(NULL, "plug-in-template");
+    gimp_help(NULL, "teseo");
 }
 
 
@@ -1015,6 +1015,9 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
     g_printf("\n\n");
 
     g_free(points_pairs);
+
+
+    g_printf("gimp_directory() %s\n, gimp_data_directory() %s\n, gimp_locale_directory() %s\n, gimp_plug_in_directory() %s\n, gimp_sysconf_directory() %s\n", gimp_directory(), gimp_data_directory(), gimp_locale_directory(), gimp_plug_in_directory(), gimp_sysconf_directory());
 
 }
 
