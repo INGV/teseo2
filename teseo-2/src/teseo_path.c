@@ -91,6 +91,11 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
 #define THREE_CMP(a, b, c)  ((a==b)? ((b==c)? TRUE : FALSE) : FALSE )
 
 path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
+    float delta_pix;
+    return teseo_path_semantic_type_even(g_image, path_name, &delta_pix);
+}
+
+path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_name, float *delta_pix) {
     path_semantic_type ret = PATH_SEMANTIC_POLYLINE;
     gint i, j;
     gdouble * points_pairs=NULL;
@@ -102,6 +107,16 @@ path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
     if(num_path_point_details == 0) {
 	g_message("Path is empty!");
 	ret = PATH_SEMANTIC_BEZIER;
+    }
+
+    // Compute first delta_pix
+    if(num_path_point_details >= 18 ) {
+        *delta_pix = points_pairs[9] - points_pairs[3];
+        if(*delta_pix < 0.0) {
+            *delta_pix = 0.0;
+        }
+    } else {
+        *delta_pix = 0.0;
     }
 
     // Compare first two points
@@ -122,6 +137,11 @@ path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
     // Compare the rest of the path
     i=6;
     while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
+
+        // Update delta_pix
+        if( (points_pairs[i+3] - points_pairs[i-3]) != *delta_pix ) {
+            *delta_pix = 0.0;
+        }
 
 	// Compare coordinate
 	j=0;
@@ -146,6 +166,10 @@ path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name) {
 
     g_free(points_pairs);
 
+    // if path is not a polyline then it can't be evenly or unevenly spaced
+    if(ret != PATH_SEMANTIC_POLYLINE) {
+        *delta_pix = 0.0;
+    }
     return ret;
 }
 

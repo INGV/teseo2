@@ -59,13 +59,21 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
   */
 typedef enum { PATH_SEMANTIC_POLYLINE, PATH_SEMANTIC_BEZIER } path_semantic_type;
 
+
 /*!
   teseo_path_semantic_type returns if a path is a POLYLINE or a piecewise BEZIER curve.
   \param gint32 g_image ID of the GIMP image
   \param gchar *path_name The name of the path
-
   */
 path_semantic_type teseo_path_semantic_type(gint32 g_image, gchar *path_name);
+
+/*!
+  teseo_path_semantic_type_even returns if a path is a POLYLINE or a piecewise BEZIER curve.
+  \param gint32 g_image ID of the GIMP image
+  \param gchar *path_name The name of the path
+  \param float *delta_pix if path is a polyline then if path is unevenly spaced, delta is 0.0, else delta is costant distance [pix] between adjacent ancor points
+  */
+path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_name, float *delta_pix);
 
 
 /* *********************************
