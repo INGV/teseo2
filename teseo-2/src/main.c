@@ -120,16 +120,12 @@ query (void)
     { GIMP_PDB_INT32,    "run_mode",   "Interactive, non-interactive"    },
     { GIMP_PDB_IMAGE,    "image",      "Input image"                     },
     { GIMP_PDB_DRAWABLE, "drawable",   "Input drawable"                  }//,
-//    { GIMP_PDB_INT32,    "dummy",      "dummy1"                          },
-//    { GIMP_PDB_INT32,    "dummy",      "dummy2"                          },
-//    { GIMP_PDB_INT32,    "dummy",      "dummy3"                          },
-//    { GIMP_PDB_INT32,    "seed",       "Seed value (used only if randomize is FALSE)" },
-//    { GIMP_PDB_INT32,    "randomize",  "Use a random seed (TRUE, FALSE)" }
   };
 
   gimp_plugin_domain_register (PLUGIN_NAME, LOCALEDIR);
 
-  help_path = g_build_filename (DATADIR, "help", NULL);
+  help_path = g_build_filename (gimp_data_directory (), PACKAGE, "help", NULL);
+  g_printf("Debug : run time help_path %s\n",help_path);
   help_uri = g_filename_to_uri (help_path, NULL, NULL);
   g_free (help_path);
 
@@ -177,9 +173,10 @@ run (const gchar      *name,
 #endif
   textdomain (GETTEXT_PACKAGE);
 
-
-  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
-  //add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
+  //pixmap directory runtime lookup
+  gchar *pixmap_path = g_build_filename (gimp_data_directory (), PACKAGE, "pixmaps", NULL);
+  g_printf("Debug : run time pixmap_path %s\n",pixmap_path);
+  add_pixmap_directory (pixmap_path);
 
   run_mode = param[0].data.d_int32;
   image_ID = param[1].data.d_int32;

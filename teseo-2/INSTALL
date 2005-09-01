@@ -64,6 +64,14 @@ The simplest way to compile this package is:
      all sorts of other programs in order to regenerate files that came
      with the distribution.
 
+   6. Remember to configure the same way of gimp-2.0 and to set datadir:
+
+     Example:
+     If gimp-2.0 was configured with prefix /disk5/opt, you should
+
+     ./configure --prefix=/disk5/opt --datadir=/disk5/opt/share/gimp/2.0
+
+
 Compilers and Options
 =====================
 
@@ -226,4 +234,3 @@ operates.
 
 `configure' also accepts some other, not widely useful, options.  Run
 `configure --help' for more details.
-
