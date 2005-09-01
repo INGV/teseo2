@@ -115,7 +115,7 @@ float blank4[SACTEMP4];
 	long nzmin;		/*  (minute) */
 	long nzsec;		/*  (second) */
 	long nzmsec;		/*  (millisecond) */
-	long internal4;		/* header version number */
+	long nvhdr;		/* header version number */
 	long internal5;
 	long internal6;
 	long npts;		/* number of points in trace */
