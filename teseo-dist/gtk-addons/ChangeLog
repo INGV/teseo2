@@ -1,3 +1,11 @@
+2005-08-30 11:57  Stefano Pintore  <pintore@ingv.it>
+
+	* src/gtkaddons.c (1.8): Windows patches.
+
+2005-08-29 13:46  Stefano Pintore  <pintore@ingv.it>
+
+	* src/gtkaddons.c (1.7): Only for windows
+
 2005-08-21 13:39  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: gtkaddons.c (1.6), mglade_rc.c (1.2): Some glib
