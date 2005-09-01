@@ -30,11 +30,28 @@
 
 #define GIMP_ENABLE_COMPAT_CRUFT 1
 #include <libgimp/gimp.h>
+#include "sac.h"
 
 #define SAC_EXT ".sac"
+
     /*!
       TODO
       */
-    void teseo_sac_path_export(gint32 g_image, char* filename, float delta);
+    void teseo_sac_init_header(struct SAChead *header);
+
+    /*!
+      TODO
+      */
+    gboolean teseo_sac_read(gchar *filename, struct SAChead *header, float *data);
+
+    /*!
+      TODO
+      */
+    gboolean teseo_sac_write(gchar *filename, struct SAChead *header, float *data);
+
+    /*!
+      TODO
+      */
+    gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity);
 
 #endif
