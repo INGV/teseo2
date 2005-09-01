@@ -8,6 +8,11 @@
 *	Values of `-12345' are used for any varriable which is UNKNOWN.
 
 */
+#ifndef __TESEO_SACHEADER_H__
+#define __TESEO_SACHEADER_H__ 1
+
+
+
 
 #define SACHEADERSIZE	632	/* # of bytes in SAC header */
 
@@ -176,3 +181,4 @@ struct SAChead2 {
 };
 
 /* eof sachead.h */
+#endif
