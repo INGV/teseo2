@@ -139,7 +139,7 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
     while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
 
         // Update delta_pix
-        if( (points_pairs[i+3] - points_pairs[i-3]) != *delta_pix ) {
+        if( (points_pairs[i+3] - points_pairs[i-6]) != *delta_pix ) {
             *delta_pix = 0.0;
         }
 
