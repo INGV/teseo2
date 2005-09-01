@@ -395,12 +395,11 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export SAC
-    g_message(TODO_str);
     gchar *sac_path = NULL;
     gchar *image_filename = NULL;
     gchar sac_path_filename[FILENAMELEN];
     gchar *pathname = NULL;
-    float delta;
+    float paper_velocity = 1.0;
     // TODO catch scale value
 
     sac_path = teseo_get_environment_path( SACPATH );
@@ -415,8 +414,11 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 	// TODO check options in session windows before saving
         // TODO when resampling catch delta value for SAC
-	teseo_sac_path_export(teseo_image, sac_path_filename, delta);
-	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, sac_path_filename);
+	if(teseo_sac_path_export(teseo_image, sac_path_filename, paper_velocity)) {
+            g_message("Path \n\"%s\"\n saved in SAC file \"%s\".", pathname, sac_path_filename);
+        } else {
+            g_message("Unable to save path \n\"%s\"\n in SAC file \"%s\".", pathname, sac_path_filename);
+        }
     } else {
 	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
     }
