@@ -42,7 +42,7 @@ struct Session this_session;
 
 char current_session[FILENAMELEN];
 char current_dlg_session[FILENAMELEN];
-char current_dlg_preferences[FILENAMELEN];
+char current_main_window[FILENAMELEN];
 
 
 
@@ -100,7 +100,7 @@ char save_session(char * filename){
     char ret=0;
 
     ret=      save_widget(current_dlg_session, dlg_session);
-    ret=ret * save_widget(current_dlg_preferences, dlg_preferences);
+    ret=ret * save_widget(current_main_window, win_teseo);
 
     return ret;
 }
@@ -112,7 +112,7 @@ char load_session(char * filename){
 
     gchar session_filename[FILENAMELEN]="aaa";
     gchar dlg_session_filename[FILENAMELEN]="bbb";
-    gchar dlg_preferences_filename[FILENAMELEN]="ccc";
+    gchar main_window_filename[FILENAMELEN]="ccc";
 
     FILE * f=NULL;
     gchar line[1024];
@@ -153,15 +153,15 @@ char load_session(char * filename){
 	      if (rets==0) g_message("Corrupted %s",dlg_session_filename);
               //if (base_content) g_free(base_content);
             }
-	    if ( strcmp("PreferencesDialogFile",var) == 0) {
-              //strcpy(dlg_preferences_filename,content);
-	      app = (line + strlen("PreferencesDialogFile") + 3);
+	    if ( strcmp("MainWindowFile",var) == 0) {
+              //strcpy(main_window_filename,content);
+	      app = (line + strlen("MainWindowFile") + 3);
 	      g_strdelimit  (app, "\n",0x00);
               base_content= app;
-              strcpy(dlg_preferences_filename,base_content);
-              //debug g_message("Preferences dialog file %s",dlg_preferences_filename);
-	      retp = load_widget(dlg_preferences_filename,dlg_preferences);
-	      if (retp==0) g_message("Corrupted %s",dlg_preferences_filename);
+              strcpy(main_window_filename,base_content);
+              //debug g_message("MainWindow file %s",main_window_filename);
+	      retp = load_widget(main_window_filename,win_teseo);
+	      if (retp==0) g_message("Corrupted %s",main_window_filename);
 
             }
 	  }
@@ -176,15 +176,15 @@ char load_session(char * filename){
     if(ret==1){
      strcpy(current_session,session_filename);
      strcpy(current_dlg_session,dlg_session_filename);
-     strcpy(current_dlg_preferences,dlg_preferences_filename);
-     //g_message("Session %s %s %s", current_session,current_dlg_session,current_dlg_preferences);
+     strcpy(current_main_window,main_window_filename);
+     //g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
     }
 
     return ret;
 }
 
 
-char new_session(char * filename, char * dlg_preferences_filename){
+char new_session(char * filename, char * main_window_filename){
     char ret=0;
 
     gchar * session_filename=NULL;
@@ -198,7 +198,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
     int  num_order=99;
     char external_preferences=FALSE;
 
-    if (dlg_preferences_filename != NULL ){
+    if (main_window_filename != NULL ){
       external_preferences=TRUE;
     }
 
@@ -210,20 +210,20 @@ char new_session(char * filename, char * dlg_preferences_filename){
       dlg_session_filename     = create_name(filename,order,SES_DLG_EXT);
 
       if (external_preferences==FALSE)
-          dlg_preferences_filename = create_name(filename,order,PREF_DLG_EXT);
+          main_window_filename = create_name(filename,order,MAIN_WIN_EXT);
 
       if ( ! teseo_filexist(session_filename)){
         f = fopen(session_filename,"wt");
-        if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( dlg_preferences_filename != NULL) ) {
+        if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( main_window_filename != NULL) ) {
           ret=1;
 
           bsession_filename=g_path_get_basename(session_filename);
           bdlg_session_filename=g_path_get_basename(dlg_session_filename);
-          bdlg_preferences_filename=g_path_get_basename(dlg_preferences_filename);
+          bdlg_preferences_filename=g_path_get_basename(main_window_filename);
           fprintf(f,"#Created by ...\n");
           fprintf(f,"SessionFile = %s\n",bsession_filename);
           fprintf(f,"SessionDialogFile = %s\n",bdlg_session_filename);
-          fprintf(f,"PreferencesDialogFile = %s\n",bdlg_preferences_filename);
+          fprintf(f,"MainWindowFile = %s\n",bdlg_preferences_filename);
           fclose(f);
         }
         else {
@@ -234,7 +234,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
         if ( !iface_save_rc(dlg_session_filename,dlg_session) )  g_error("Unable to save session dialog file") ;
 	//Only if it doesn't exist before (checked out before calling this function)
 	if (external_preferences==FALSE) {
-          if ( !iface_save_rc(dlg_preferences_filename, dlg_preferences) ) g_error("Unable to save preferences dialog file") ;
+          if ( !iface_save_rc(main_window_filename, win_teseo) ) g_error("Unable to save MainWindow file") ;
 	}
 
       }
@@ -247,7 +247,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
     if(ret==1){
      strcpy(current_session,bsession_filename);
      strcpy(current_dlg_session,bdlg_session_filename);
-     strcpy(current_dlg_preferences,bdlg_preferences_filename);
+     strcpy(current_main_window,bdlg_preferences_filename);
     }
 
     g_free(bsession_filename);
@@ -257,7 +257,7 @@ char new_session(char * filename, char * dlg_preferences_filename){
 
     if (session_filename) g_free(session_filename);
     if (dlg_session_filename) g_free(dlg_session_filename);
-    if (dlg_preferences_filename && (external_preferences==FALSE)) g_free(dlg_preferences_filename);
+    if (main_window_filename && (external_preferences==FALSE)) g_free(main_window_filename);
 
     return ret;
 }
