@@ -73,8 +73,6 @@ Fri Sep  2 08:30:36 CEST 2005
 - logo Wilber Seismologists mtheo
 - Control Open/Save Session ilpint
 - Save win_teseo paramaters in session file ilpint
-- Unvisible menu: Preferences, SISMA,     mtheo 
 - Import ASCII    mtheo
 - Import/Export Timemark    ilpint
 - Improve SAC export
-- Delete Trace menu references, program and manual    mtheo
