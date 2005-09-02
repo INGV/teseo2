@@ -66,3 +66,15 @@ Sun Aug 21 10:46:44 CEST 2005
 
 Fri Aug 26 11:15:21 CEST 2005
 - Write a function to "snap" every point of a polyline path. It could be executed iteratively.
+
+
+Fri Sep  2 08:30:36 CEST 2005
+- write teseo_force_unlock(), dialog box..... mtheo
+- logo Wilber Seismologists mtheo
+- Control Open/Save Session ilpint
+- Save win_teseo paramaters in session file ilpint
+- Unvisible menu: Preferences, SISMA,     mtheo 
+- Import ASCII    mtheo
+- Import/Export Timemark    ilpint
+- Improve SAC export
+- Delete Trace menu references, program and manual    mtheo
