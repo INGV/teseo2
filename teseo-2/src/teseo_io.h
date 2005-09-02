@@ -40,7 +40,7 @@
 #define DXF_EXT ".dxf"
 #define ASCII_EXT ".ascii"
 
-#define FILENAMELEN 200
+#define FILENAMELEN 500
 
 /* ****************************
    Funzioni di utilità sui file

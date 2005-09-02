@@ -597,7 +597,7 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 	// fitting strokes with bezier curves
 	teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
 
-	g_sprintf(newpathname, "%s - Fit Bezier", pathname);
+	g_sprintf(newpathname, "%s_FB", pathname);
 
 	// create new path 
 	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);

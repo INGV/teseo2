@@ -466,7 +466,7 @@ void teseo_align_all_path(gint32 g_image)
 	    g_free(old_path[i]);
 	}
 
-	gimp_path_set_points( g_image, "UNIONE", 1, n_point_eff[0]+n_point_eff[1]-6, path_strokes );
+	gimp_path_set_points( g_image, "ALIGNALL", 1, n_point_eff[0]+n_point_eff[1]-6, path_strokes );
 
 	if (path_strokes)
 	    g_free(path_strokes);
@@ -557,7 +557,7 @@ void teseo_align_all_path_unlocked( gint32 g_image, gboolean delete_path)
 	    }
 	}
 
-	gimp_path_set_points( g_image, "Aligned path", 1, (num_points_tot-1)*3, path_strokes );
+	gimp_path_set_points( g_image, "Aligned unlocked path", 1, (num_points_tot-1)*3, path_strokes );
 
 	if (path_strokes)
 	    g_free(path_strokes);
@@ -599,7 +599,7 @@ void teseo_link_all_path(gint32 g_image)
     for ( i=0; i<=num_paths-1; i++)
 	gimp_path_delete( g_image, p[i]);
 
-    gimp_path_set_points( g_image, "UNIONE", 1, (num_points_tot-1)*3, path_strokes );
+    gimp_path_set_points( g_image, "LINKALL", 1, (num_points_tot-1)*3, path_strokes );
 
     if (path_strokes)
 	g_free(path_strokes);
@@ -654,7 +654,7 @@ void teseo_link_all_path_unlocked(gint32 g_image, gboolean delete_path)
 	    }
 	}
 
-	gimp_path_set_points( g_image, "Linked path", 1, (num_points_tot-1)*3, path_strokes );
+	gimp_path_set_points( g_image, "Linked unlocked path", 1, (num_points_tot-1)*3, path_strokes );
 
 	if (path_strokes)
 	    g_free(path_strokes);
@@ -843,10 +843,10 @@ void teseo_path_split_at_x(gint32 g_image, gchar *path_name, gint32 x) {
     // Split array at i position
     if(need_split) {
 	strcpy(path_name_new1, path_name);
-	strcat(path_name_new1, "-split1");
+	strcat(path_name_new1, "_S1");
 
 	strcpy(path_name_new2, path_name);
-	strcat(path_name_new2, "-split2");
+	strcat(path_name_new2, "_S2");
  
 	points_pairs1 = points_pairs;
 	num_path_point_details1 = i-1;
@@ -935,7 +935,7 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
                 for(j_vi=1; j_vi<i_vi; j_vi++) {
                     g_printf("j_vi %d vi[j_vi] %d\n", j_vi,  vi[j_vi]);
 
-                    g_string_printf(path_name_new, "%s - Split %d/%d", unlocked_path_names[i_path]->str, j_vi, i_vi-1);
+                    g_string_printf(path_name_new, "%s_S%d-%d", unlocked_path_names[i_path]->str, j_vi, i_vi-1);
              
                     points_pairs_new = points_pairs + vi[j_vi-1];
                     g_printf("%f, %f, %f\n",points_pairs_new[0], points_pairs_new[1],  points_pairs_new[2]);
