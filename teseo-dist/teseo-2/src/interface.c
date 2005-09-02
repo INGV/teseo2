@@ -85,6 +85,9 @@ dialog (gint32              image_ID,
   gchar pattern_prefix[FILENAMELEN]="";
   gchar pattern_session[FILENAMELEN]="";
   gboolean is_xcf = FALSE;
+  GtkWidget *lock_dialog;
+  gboolean check_loop_lock = TRUE;
+  gint result_lock_dialog;
 
   /*
   GimpUnit   unit;
@@ -157,28 +160,49 @@ dialog (gint32              image_ID,
   }
 
   if(is_xcf) {
-      if(teseo_lock(pattern_prefix)) {
-	      win_teseo = create_win_teseo();
-	      gtk_window_set_title (GTK_WINDOW (win_teseo), TESEO_CAPTION);
-	      dlg_preferences = create_dlg_preferences ();
-	      dlg_about = create_dlg_about ();
-	      dlg_session = create_dlg_session();
-	      dlg_move_rotation = create_dlg_move_rotation();
+      while(check_loop_lock) {
+          check_loop_lock = FALSE;
 
-	      filechooser_import = (GtkFileChooser *) create_filechooser_import();
-	      filechooser_session = (GtkFileChooser *) create_filechooser_session ();
-	      gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
+          if(teseo_lock(pattern_prefix)) {
+              win_teseo = create_win_teseo();
+              gtk_window_set_title (GTK_WINDOW (win_teseo), TESEO_CAPTION);
+              dlg_preferences = create_dlg_preferences ();
+              dlg_about = create_dlg_about ();
+              dlg_session = create_dlg_session();
+              dlg_move_rotation = create_dlg_move_rotation();
 
-	      filter = gtk_file_filter_new ();
-	      gtk_file_filter_add_pattern (filter, pattern_session);
-	      gtk_file_filter_set_name    (filter, "Session");
-	      gtk_file_chooser_add_filter (filechooser_session, filter);
+              filechooser_import = (GtkFileChooser *) create_filechooser_import();
+              filechooser_session = (GtkFileChooser *) create_filechooser_session ();
+              gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
 
-	      gtk_widget_show (win_teseo);
-	      gtk_main ();
-      } else {
-	      g_message("Teseo-2 seems to be just running on file %s.\nRemember: it is possible to load only one instance for each file !", pattern_prefix);
-	      gtk_main_quit();
+              filter = gtk_file_filter_new ();
+              gtk_file_filter_add_pattern (filter, pattern_session);
+              gtk_file_filter_set_name    (filter, "Session");
+              gtk_file_chooser_add_filter (filechooser_session, filter);
+
+              gtk_widget_show (win_teseo);
+              gtk_main ();
+          } else {
+              lock_dialog = gtk_message_dialog_new_with_markup (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+                      "Teseo-2 seems to be just running on file <i>%s.xcf</i>,\nor maybe it crashed last time.\n\n<b>Remember</b>: <u>it is possible to load only one Teseo instance for each image file !</u>\n\nDo you want force unlock session for this image file?",
+                      pattern_prefix);
+              result_lock_dialog = gtk_dialog_run (GTK_DIALOG (lock_dialog));
+
+              switch (result_lock_dialog)
+              {
+                  case GTK_RESPONSE_YES:
+                      teseo_force_remove_lock(pattern_prefix);
+                      check_loop_lock = TRUE;
+                      break;
+                  case GTK_RESPONSE_NO:
+                      gtk_main_quit();
+                      break;
+                  default:
+                      break;
+              }
+              gtk_widget_hide (lock_dialog);
+              gtk_widget_destroy(lock_dialog);
+          }
       }
   } else {
 	  g_message("Please, save file in .xcf (.xcf.bz2, xcf.gz) format before to run Teseo-2 !");
@@ -190,12 +214,12 @@ dialog (gint32              image_ID,
 
   //run = (gimp_dialog_run (GIMP_DIALOG (dlg)) == GTK_RESPONSE_OK);
   /*EXP*/
-//     if (run)
-//     {
-//       /*  Save ui values  */
-// /*      ui_state->chain_active =
-//         gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));*/
-//     }
+  //     if (run)
+  //     {
+  //       /*  Save ui values  */
+  // /*      ui_state->chain_active =
+  //         gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));*/
+  //     }
   /*EXP*/
   //gtk_widget_destroy (dlg);
 

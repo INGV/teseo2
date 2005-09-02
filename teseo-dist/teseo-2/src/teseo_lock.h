@@ -45,5 +45,10 @@ teseo_unlock and teseo_lock allow to load only one plug-in instance for each ima
 */
 void teseo_unlock();
 
+/*!
+ * TODO
+*/
+void teseo_force_remove_lock(gchar *pattern_prefix);
+
 
 #endif
