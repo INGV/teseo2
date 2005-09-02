@@ -308,3 +308,7 @@ on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
 void
 on_snap1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_salva1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);

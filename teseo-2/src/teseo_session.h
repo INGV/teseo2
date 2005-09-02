@@ -61,7 +61,7 @@ Notes: User notes
 
 #define SESSION_EXT  ".tsf"
 #define SES_DLG_EXT  ".tsd"
-#define PREF_DLG_EXT ".tpd"
+#define MAIN_WIN_EXT ".tmw"
 
 //#define NOTES_EXT    ".txt"
 struct TeseoDate{
