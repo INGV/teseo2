@@ -38,96 +38,22 @@
 	      <child>
 		<widget class="GtkMenuItem" id="menuitem4">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">_Session</property>
+		  <property name="label" translatable="yes">_File</property>
 		  <property name="use_underline">True</property>
 
 		  <child>
 		    <widget class="GtkMenu" id="menuitem4_menu">
 
 		      <child>
-			<widget class="GtkImageMenuItem" id="new1">
+			<widget class="GtkImageMenuItem" id="session1">
 			  <property name="visible">True</property>
-			  <property name="label">gtk-new</property>
-			  <property name="use_stock">True</property>
-			  <signal name="activate" handler="on_new1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkImageMenuItem" id="open1">
-			  <property name="visible">True</property>
-			  <property name="label">gtk-open</property>
-			  <property name="use_stock">True</property>
-			  <signal name="activate" handler="on_open1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkImageMenuItem" id="properties1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">P_roperties</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_properties1_activate" last_modification_time="Fri, 15 Jul 2005 14:14:59 GMT"/>
-			  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-			  <child internal-child="image">
-			    <widget class="GtkImage" id="image356">
-			      <property name="visible">True</property>
-			      <property name="stock">gtk-properties</property>
-			      <property name="icon_size">1</property>
-			      <property name="xalign">0.5</property>
-			      <property name="yalign">0.5</property>
-			      <property name="xpad">0</property>
-			      <property name="ypad">0</property>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkSeparatorMenuItem" id="separator2">
-			  <property name="visible">True</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkImageMenuItem" id="preferences_2">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Preferences ...</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_preferences_w_activate" last_modification_time="Mon, 23 May 2005 13:58:29 GMT"/>
-			  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-
-			  <child internal-child="image">
-			    <widget class="GtkImage" id="image357">
-			      <property name="visible">True</property>
-			      <property name="stock">gtk-preferences</property>
-			      <property name="icon_size">1</property>
-			      <property name="xalign">0.5</property>
-			      <property name="yalign">0.5</property>
-			      <property name="xpad">0</property>
-			      <property name="ypad">0</property>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkSeparatorMenuItem" id="separator4">
-			  <property name="visible">True</property>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkImageMenuItem" id="import1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Import ...</property>
+			  <property name="label" translatable="yes">Session...</property>
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image358">
+			    <widget class="GtkImage" id="image484">
 			      <property name="visible">True</property>
-			      <property name="stock">gtk-go-back</property>
+			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
@@ -137,85 +63,45 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkMenu" id="import1_menu">
+			    <widget class="GtkMenu" id="session1_menu">
 
 			      <child>
-				<widget class="GtkMenuItem" id="svg1">
+				<widget class="GtkImageMenuItem" id="new1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">S_VG</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_svg1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+				  <property name="label">gtk-new</property>
+				  <property name="use_stock">True</property>
+				  <signal name="activate" handler="on_new1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkMenuItem" id="dxf2">
+				<widget class="GtkImageMenuItem" id="open1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_DXF</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_dxf2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
+				  <property name="label">gtk-open</property>
+				  <property name="use_stock">True</property>
+				  <signal name="activate" handler="on_open1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkMenuItem" id="trace2">
+				<widget class="GtkImageMenuItem" id="properties1">
 				  <property name="visible">True</property>
-				  <property name="sensitive">False</property>
-				  <property name="label" translatable="yes">_Trace</property>
+				  <property name="label" translatable="yes">P_roperties</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_trace2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
-				</widget>
-			      </child>
+				  <signal name="activate" handler="on_properties1_activate" last_modification_time="Fri, 15 Jul 2005 14:14:59 GMT"/>
+				  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
-			      <child>
-				<widget class="GtkMenuItem" id="ascii1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_ASCII</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_ascii1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="sac2">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_SAC</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_sac2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="sisma2">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">S_ISMA</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_sisma2_activate" last_modification_time="Wed, 19 Nov 2003 17:11:07 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="timemark2">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Timemark</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_timemark2_activate" last_modification_time="Wed, 19 Nov 2003 17:11:07 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkSeparatorMenuItem" id="separator6">
-				  <property name="visible">True</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="bezier1">
-				  <property name="visible">True</property>
-				  <property name="tooltip" translatable="yes">Import old Bezier path GIMP 1.2</property>
-				  <property name="label" translatable="yes">_Bezier (GIMP 1)</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_bezier1_activate" last_modification_time="Wed, 01 Jun 2005 10:24:51 GMT"/>
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image485">
+				      <property name="visible">True</property>
+				      <property name="stock">gtk-properties</property>
+				      <property name="icon_size">1</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
 				</widget>
 			      </child>
 			    </widget>
@@ -224,15 +110,15 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkImageMenuItem" id="export1">
+			<widget class="GtkImageMenuItem" id="path4">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Export ...</property>
+			  <property name="label" translatable="yes">Path...</property>
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image359">
+			    <widget class="GtkImage" id="image486">
 			      <property name="visible">True</property>
-			      <property name="stock">gtk-go-forward</property>
+			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
@@ -242,25 +128,120 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkMenu" id="export1_menu">
+			    <widget class="GtkMenu" id="path4_menu">
 
 			      <child>
-				<widget class="GtkMenuItem" id="svg2">
+				<widget class="GtkImageMenuItem" id="import1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">S_VG</property>
+				  <property name="label" translatable="yes">_Import ...</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_svg2_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
-				</widget>
-			      </child>
 
-			      <child>
-				<widget class="GtkMenuItem" id="polyline1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Polyline</property>
-				  <property name="use_underline">True</property>
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image487">
+				      <property name="visible">True</property>
+				      <property name="stock">gtk-go-back</property>
+				      <property name="icon_size">1</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
 
 				  <child>
-				    <widget class="GtkMenu" id="polyline1_menu">
+				    <widget class="GtkMenu" id="import1_menu">
+
+				      <child>
+					<widget class="GtkMenuItem" id="dxf2">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">_DXF</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_dxf2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="ascii1">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">_ASCII</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_ascii1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="sac2">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">_SAC</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_sac2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="timemark2">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">_Timemark</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_timemark2_activate" last_modification_time="Wed, 19 Nov 2003 17:11:07 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkSeparatorMenuItem" id="separator8">
+					  <property name="visible">True</property>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="svg1">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">S_VG</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_svg1_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkSeparatorMenuItem" id="separator6">
+					  <property name="visible">True</property>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="bezier1">
+					  <property name="visible">True</property>
+					  <property name="tooltip" translatable="yes">Import old Bezier path GIMP 1.2</property>
+					  <property name="label" translatable="yes">_Bezier (GIMP 1)</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_bezier1_activate" last_modification_time="Wed, 01 Jun 2005 10:24:51 GMT"/>
+					</widget>
+				      </child>
+				    </widget>
+				  </child>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkImageMenuItem" id="export1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Export ...</property>
+				  <property name="use_underline">True</property>
+
+				  <child internal-child="image">
+				    <widget class="GtkImage" id="image488">
+				      <property name="visible">True</property>
+				      <property name="stock">gtk-go-forward</property>
+				      <property name="icon_size">1</property>
+				      <property name="xalign">0.5</property>
+				      <property name="yalign">0.5</property>
+				      <property name="xpad">0</property>
+				      <property name="ypad">0</property>
+				    </widget>
+				  </child>
+
+				  <child>
+				    <widget class="GtkMenu" id="export1_menu">
 
 				      <child>
 					<widget class="GtkMenuItem" id="dxf1">
@@ -268,16 +249,6 @@
 					  <property name="label" translatable="yes">_DXF</property>
 					  <property name="use_underline">True</property>
 					  <signal name="activate" handler="on_dxf1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
-					</widget>
-				      </child>
-
-				      <child>
-					<widget class="GtkMenuItem" id="trace1">
-					  <property name="visible">True</property>
-					  <property name="sensitive">False</property>
-					  <property name="label" translatable="yes">_Trace</property>
-					  <property name="use_underline">True</property>
-					  <signal name="activate" handler="on_track1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
 					</widget>
 				      </child>
 
@@ -300,15 +271,6 @@
 				      </child>
 
 				      <child>
-					<widget class="GtkMenuItem" id="sisma1">
-					  <property name="visible">True</property>
-					  <property name="label" translatable="yes">S_ISMA</property>
-					  <property name="use_underline">True</property>
-					  <signal name="activate" handler="on_sisma1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
-					</widget>
-				      </child>
-
-				      <child>
 					<widget class="GtkMenuItem" id="timemark1">
 					  <property name="visible">True</property>
 					  <property name="label" translatable="yes">_Timemark</property>
@@ -316,23 +278,38 @@
 					  <signal name="activate" handler="on_timemark1_activate" last_modification_time="Wed, 19 Nov 2003 17:00:27 GMT"/>
 					</widget>
 				      </child>
+
+				      <child>
+					<widget class="GtkSeparatorMenuItem" id="separator7">
+					  <property name="visible">True</property>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="svg2">
+					  <property name="visible">True</property>
+					  <property name="label" translatable="yes">S_VG</property>
+					  <property name="use_underline">True</property>
+					  <signal name="activate" handler="on_svg2_activate" last_modification_time="Wed, 01 Jun 2005 10:11:45 GMT"/>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkSeparatorMenuItem" id="separator5">
+					  <property name="visible">True</property>
+					</widget>
+				      </child>
+
+				      <child>
+					<widget class="GtkMenuItem" id="examples2">
+					  <property name="visible">True</property>
+					  <property name="sensitive">False</property>
+					  <property name="label" translatable="yes">_Examples</property>
+					  <property name="use_underline">True</property>
+					</widget>
+				      </child>
 				    </widget>
 				  </child>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkSeparatorMenuItem" id="separator5">
-				  <property name="visible">True</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="examples2">
-				  <property name="visible">True</property>
-				  <property name="sensitive">False</property>
-				  <property name="label" translatable="yes">_Examples</property>
-				  <property name="use_underline">True</property>
 				</widget>
 			      </child>
 			    </widget>
@@ -387,12 +364,35 @@
 		      </child>
 
 		      <child>
+			<widget class="GtkMenuItem" id="snap1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">S_nap</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_snap1_activate" last_modification_time="Fri, 26 Aug 2005 13:33:05 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkMenuItem" id="fitting_polyline1">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
 			  <property name="label" translatable="yes">Fitting _Polyline</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_fitting_polyline1_activate" last_modification_time="Wed, 19 Nov 2003 17:20:33 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="move_and_rotation1">
+			  <property name="label" translatable="yes">_Move and Rotation</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_move_and_rotation1_activate" last_modification_time="Wed, 19 Nov 2003 17:25:50 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkSeparatorMenuItem" id="separator9">
+			  <property name="visible">True</property>
 			</widget>
 		      </child>
 
@@ -406,29 +406,11 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="align_all1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Align All</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_align_all1_activate" last_modification_time="Wed, 19 Nov 2003 17:25:00 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
 			<widget class="GtkMenuItem" id="align_unlocked_paths1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">Ali_gn unlocked paths</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_align_unlocked_paths1_activate" last_modification_time="Sat, 13 Aug 2005 10:04:57 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkMenuItem" id="link_all1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Link All</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_link_all1_activate" last_modification_time="Wed, 19 Nov 2003 17:29:55 GMT"/>
 			</widget>
 		      </child>
 
@@ -442,30 +424,18 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="snap1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">S_nap</property>
+			<widget class="GtkMenuItem" id="align_all1">
+			  <property name="label" translatable="yes">_Align All</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_snap1_activate" last_modification_time="Fri, 26 Aug 2005 13:33:05 GMT"/>
+			  <signal name="activate" handler="on_align_all1_activate" last_modification_time="Wed, 19 Nov 2003 17:25:00 GMT"/>
 			</widget>
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="move_and_rotation1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Move and Rotation</property>
+			<widget class="GtkMenuItem" id="link_all1">
+			  <property name="label" translatable="yes">_Link All</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_move_and_rotation1_activate" last_modification_time="Wed, 19 Nov 2003 17:25:50 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
-			<widget class="GtkMenuItem" id="recover_last2">
-			  <property name="visible">True</property>
-			  <property name="sensitive">False</property>
-			  <property name="label" translatable="yes">_Recover last</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_recover_last2_activate" last_modification_time="Wed, 19 Nov 2003 17:58:26 GMT"/>
+			  <signal name="activate" handler="on_link_all1_activate" last_modification_time="Wed, 19 Nov 2003 17:29:55 GMT"/>
 			</widget>
 		      </child>
 
@@ -507,6 +477,14 @@
 		      </child>
 
 		      <child>
+			<widget class="GtkMenuItem" id="recover_last2">
+			  <property name="label" translatable="yes">_Recover last</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_recover_last2_activate" last_modification_time="Wed, 19 Nov 2003 17:58:26 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
 			<widget class="GtkMenuItem" id="print_for_debug1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">Print for debug</property>
@@ -536,7 +514,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image360">
+			    <widget class="GtkImage" id="image489">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -557,7 +535,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image361">
+			    <widget class="GtkImage" id="image490">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>
