@@ -1,3 +1,46 @@
+2005-09-02 15:17  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_session.c (1.20), teseo_session.h (1.11),
+	  teseocallbacks.c (1.58), teseocallbacks.h (1.28),
+	  teseointerface.c (1.49): Saved main window widgets in session.
+
+2005-09-02 14:58  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: interface.c (1.25), teseo_lock.c (1.9), teseo_lock.h (1.8):
+	  Inserted function teseo_force_remove_lock() at plug-ing start up
+
+2005-09-02 14:36  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.57): Saving modification on just open
+	  session.
+
+2005-09-02 14:21  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_lock.c (1.8), teseo_lock.h (1.7): Reverted modify of
+	  revision 1.5
+
+2005-09-02 12:27  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_lock.c (1.7): Another Test for flock()
+
+2005-09-02 12:03  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_lock.c (1.6), teseo_lock.h (1.6): Test for flock()
+
+2005-09-02 11:15  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.48): Redefined and cleaned menu structure
+
+2005-09-02 08:23  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.56), teseo_io.h (1.9), teseo_path.c
+	  (1.20), teseo_resample.c (1.10), teseo_snap.c (1.2): Abbreviation
+	  for path names
+
+2005-09-02 07:43  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.47): Minor revision
+
 2005-09-01 15:33  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: teseo_sac.c (1.2), teseo_sac.h (1.3):
