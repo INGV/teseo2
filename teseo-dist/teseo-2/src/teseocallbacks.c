@@ -185,8 +185,9 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
         switch (result)
           {
             case GTK_RESPONSE_OK:
-	       //ret=1;
-               break;
+              if (!save_session(current_session))
+                g_message("Unable to save current Session.");
+              break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
   	       gtk_window_set_title (GTK_WINDOW (dlg_session), "");
@@ -395,11 +396,12 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export SAC
+    g_message(TODO_str);
     gchar *sac_path = NULL;
     gchar *image_filename = NULL;
     gchar sac_path_filename[FILENAMELEN];
     gchar *pathname = NULL;
-    float paper_velocity = 1.0;
+    float delta;
     // TODO catch scale value
 
     sac_path = teseo_get_environment_path( SACPATH );
@@ -414,11 +416,8 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 	// TODO check options in session windows before saving
         // TODO when resampling catch delta value for SAC
-	if(teseo_sac_path_export(teseo_image, sac_path_filename, paper_velocity)) {
-            g_message("Path \n\"%s\"\n saved in SAC file \"%s\".", pathname, sac_path_filename);
-        } else {
-            g_message("Unable to save path \n\"%s\"\n in SAC file \"%s\".", pathname, sac_path_filename);
-        }
+	teseo_sac_path_export(teseo_image, sac_path_filename, delta);
+	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, sac_path_filename);
     } else {
 	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
     }
@@ -597,7 +596,7 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 	// fitting strokes with bezier curves
 	teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
 
-	g_sprintf(newpathname, "%s_FB", pathname);
+	g_sprintf(newpathname, "%s - Fit Bezier", pathname);
 
 	// create new path 
 	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
