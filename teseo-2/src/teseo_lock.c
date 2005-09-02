@@ -29,6 +29,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include "teseo_lock.h"
 #include "teseo_env.h"
@@ -88,5 +90,11 @@ void teseo_unlock() {
 }
 
 
+void teseo_force_unlock() {
+    int fd = open(teseo_filename_lock, O_CREAT);
+    flock(fd,LOCK_EX); 
+    flock(fd,LOCK_UN);
+    close(fd);
+}
 
 
