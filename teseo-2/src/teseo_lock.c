@@ -26,11 +26,14 @@
  */
 
 #include <stdlib.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
 
 #include "teseo_lock.h"
 #include "teseo_env.h"
@@ -92,8 +95,31 @@ void teseo_unlock() {
 
 void teseo_force_unlock() {
     int fd = open(teseo_filename_lock, O_CREAT);
-    flock(fd,LOCK_EX); 
-    flock(fd,LOCK_UN);
+    struct flock lockp;
+    /*
+    lockp.l_type
+    lockp.l_whence
+    lockp.l_start
+    lockp.l_len
+    lockp.l_pid
+    */
+    fcntl (fd, F_GETLK, &lockp);
+    switch(errno) {
+        case EBADF:
+            g_printf("fcntl() EBADF: The fd argument is invalid.\n");
+            break;
+        case EINVAL:
+            g_printf("fcntl() EINVAL: Either the lockp argument doesn't specify valid lock information, or the file associated with filedes doesn't support locks.\n");
+            break;
+        default:
+            break;
+    } 
+
+    lockp.l_type = F_WRLCK;
+
+    fcntl (fd, F_SETLK, &lockp);
+    // flock(fd,LOCK_EX); 
+    // flock(fd,LOCK_UN);
     close(fd);
 }
 
