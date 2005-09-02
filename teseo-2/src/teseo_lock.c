@@ -88,5 +88,9 @@ void teseo_unlock() {
 }
 
 
+void teseo_force_remove_lock(gchar *pattern_prefix) {
+    teseo_lock(pattern_prefix);
+    remove(teseo_filename_lock);
+}
 
 
