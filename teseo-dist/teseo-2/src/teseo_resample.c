@@ -230,8 +230,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 
 	// scrivo il path calcolato
 	if(n_strokes > 0  && strokes) {
-	    // g_sprintf(newpathname, "%s - Resampling %d pixel", pathname, pivals.passo_bezier);
-	    g_sprintf(newpathname, "%s - Resampling %d pixel", pathname, passo_bezier);
+	    g_sprintf(newpathname, "%s_R%d", pathname, passo_bezier);
 	    teseo_strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
 	} else {
 	    // g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");

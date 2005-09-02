@@ -106,7 +106,9 @@ void teseo_snap_path(gint32 g_image, gint32 trace_colour, gint32 thickness_trace
     GString *snap_path_name=NULL;
 
 
-    if(teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs)) {
+    if(teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed,
+                &num_path_point_details, &points_pairs)) {
+
             snap_points_pairs = g_malloc (num_path_point_details * sizeof(gdouble));
 
             gimp_progress_init("Teseo - Snap path . . .");
@@ -116,7 +118,8 @@ void teseo_snap_path(gint32 g_image, gint32 trace_colour, gint32 thickness_trace
                 gimp_progress_update((gdouble) i / (gdouble) num_path_point_details);
 
                 if(points_pairs[i+2]==1.0) {
-                    teseo_snap_point(g_image, trace_colour, thickness_trace, points_pairs[i], points_pairs[i+1], &snap_points_pairs[i], &snap_points_pairs[i+1]);
+                    teseo_snap_point(g_image, trace_colour, thickness_trace,
+                            points_pairs[i], points_pairs[i+1], &snap_points_pairs[i], &snap_points_pairs[i+1]);
                 }
 
                 // if I would consider path as polyline
@@ -133,13 +136,13 @@ void teseo_snap_path(gint32 g_image, gint32 trace_colour, gint32 thickness_trace
             gimp_progress_update(1.0);
             
             snap_path_name = g_string_new("Uname");
-            g_string_printf(snap_path_name, "%s - Snap C%d T%02d", gimp_path_get_current(g_image), trace_colour, thickness_trace);
+            g_string_printf(snap_path_name, "%s_C%d-T%02d", gimp_path_get_current(g_image), trace_colour, thickness_trace);
             gimp_path_set_points(g_image, snap_path_name->str, path_closed, num_path_point_details, snap_points_pairs);
+            g_string_free(snap_path_name, TRUE);
 
+            g_free(snap_points_pairs);
     }
 
-    g_string_free(snap_path_name, TRUE);
     g_free(points_pairs);
-    g_free(snap_points_pairs);
 }
 
