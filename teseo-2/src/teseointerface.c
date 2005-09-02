@@ -777,7 +777,7 @@ create_win_teseo (void)
   gtk_widget_show (button8);
   gtk_container_add (GTK_CONTAINER (toolbar1), button8);
 
-  label_image = gtk_label_new ("Image file name...");
+  label_image = gtk_label_new ("<small>Image file name...</small>");
   gtk_widget_set_name (label_image, "label_image");
   gtk_widget_show (label_image);
   gtk_box_pack_start (GTK_BOX (vbox1), label_image, FALSE, FALSE, 0);
