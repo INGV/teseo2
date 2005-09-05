@@ -210,6 +210,7 @@ void
 on_save1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+ g_message(TODO_str);
 }
 
 
@@ -473,7 +474,7 @@ on_resample1_activate                  (GtkMenuItem     *menuitem,
     
     GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_bezier);
     GtkCheckButton * teseo_abscissa_asc_checkbutton = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_abscissa_asc_checkbutton", abscissa_asc);
-    
+
     if(teseo_step_spinbutton) {
 	step_bezier = gtk_spin_button_get_value_as_int (teseo_step_spinbutton) ;
     }
@@ -839,11 +840,34 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
    int iter;
-   GtkSpinButton * tfss = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
-   iter=gtk_spin_button_get_value_as_int (tfss) ;
+
+   gboolean check_guide;
+   gboolean use_guide=FALSE;
+
+   GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
+   GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+
+   check_guide = gtk_toggle_button_get_active(tcfgs);
+   iter = gtk_spin_button_get_value_as_int (tfss) ;
+
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
 
-   teseo_main_loop(iter, drawable_ID );
+   //if checked and exist one guide
+    gint32 *guides=NULL, n_guides;
+
+    if (check_guide){
+      n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+      if(n_guides >= 1) {
+	iter=guides[0];
+//	g_message("Stopping at guide in %d",iter);
+	use_guide=TRUE;
+      }
+      else {
+	  g_message("No guide found");
+      }
+      g_free(guides);
+    }
+    teseo_main_loop(iter, drawable_ID,use_guide);
 }
 
 
@@ -885,6 +909,7 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 			(*teseo_wmean_accumulate),
 			(*teseo_wmean_starting_os),
 			(*teseo_wmean_new_is),
+			(*teseo_wmean_get_x),
 			(*teseo_wmean_release)
 		);
 
@@ -1025,7 +1050,7 @@ on_dlg_session_show_teseo_eventpathname
     for(i=0; i < n_path; i++) {
 	gtk_combo_box_append_text(combo_box, path_list[i]);
     }
-    
+
 
 }
 
@@ -1074,7 +1099,7 @@ on_snap1_activate                      (GtkMenuItem     *menuitem,
     gint thickness_trace = 1;
     // default is 0 (Black)
     gint trace_colour=0;
-    
+
     GtkSpinButton * teseo_thickness_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_thickness_trace", thickness_trace);
     GtkRadioButton * twcbr = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_wm_colour_black_radiobutton", trace_colour);
 
@@ -1084,7 +1109,7 @@ on_snap1_activate                      (GtkMenuItem     *menuitem,
     else {
         trace_colour=255;
     }
-    
+
     if(teseo_thickness_spinbutton) {
 	thickness_trace = gtk_spin_button_get_value_as_int (teseo_thickness_spinbutton) ;
     }
@@ -1098,6 +1123,7 @@ void
 on_salva1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+  if (!save_session(current_session))
+     g_message("Unable to save current Session.");
 }
 

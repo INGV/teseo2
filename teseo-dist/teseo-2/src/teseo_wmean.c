@@ -190,6 +190,10 @@ int teseo_wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable
   return ret;
 }
 
+gulong teseo_wmean_get_x(wm_os * os){
+ return (*os).x;
+}
+
 
 int teseo_wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
   int ret=1;
