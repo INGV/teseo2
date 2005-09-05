@@ -31,8 +31,8 @@
 #include <glib.h>
 
 struct SPoint{
-	int x;
-	int y;
+	gulong x;
+	gulong y;
 };
 
 typedef struct SPoint point;
@@ -90,6 +90,12 @@ int teseo_wmean_accumulate(gdouble ** strokes, gulong * num_strokes, wm_os * os)
  * teseo_wmean_starting_os create a starting os structure
  */
 int teseo_wmean_starting_os(wm_os ** os, gint32 drawable_ID);
+
+
+/*!
+ * teseo_wmean_get_x get os currespondent abscissa 
+ */
+gulong teseo_wmean_get_x(wm_os * os);
 
 /*!
  * teseo_wmean_new_is create a new is structure with defaults

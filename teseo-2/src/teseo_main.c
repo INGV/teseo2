@@ -61,6 +61,10 @@ static int  ( * STARTING_OS )  ( void * os, gint32 drawable_ID );
  */
 static void ( * RELEASE     )  ( void * is, void *os);
 /*!
+ * GET_X function pointer to real get_x function
+ */
+static int  ( * GET_X   )  ( void * os );
+/*!
  * NEW_IS function pointer to real new_is function
  */
 static int  ( * NEW_IS      )  ( void * is, gint32 drawable_ID);
@@ -74,7 +78,8 @@ void teseo_main_init(
 		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
 		     int  (* new_is)      ( void ** is, gint32 drawable_ID ),
-		     void  (* release)     ( void ** is, void ** os )
+		     int  (* get_x)       ( void * os ),
+		     void (* release)     ( void ** is, void ** os )
 		     )
 {
   ALGORITHM = alg;
@@ -86,12 +91,13 @@ void teseo_main_init(
   ACCUMULATE  = accumulate;
   STARTING_OS = starting_os;
   NEW_IS      = new_is;
+  GET_X       = get_x;
   RELEASE     = release;
 }
 
-void teseo_main_loop(int iter, gint32 drawable_ID ){
+void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide ){
     //after a teseo_main_init() call you can use your ALGORITHM here
-    int i;
+    gulong i=0;
     void * os=NULL;
     void * is=NULL;
     gdouble * strokes=NULL;
@@ -105,8 +111,10 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
 	if ( ! TERMINATE(os, is, drawable_ID ) ) {
 	    gimp_progress_update(0.0);
 	    gimp_progress_init("Teseo execution steps . . .");
-	    for (i=0; i<iter; i++) {
-		gimp_progress_update((gdouble) i / (gdouble) iter);
+
+	    if (is_guide){
+              while ( (i=GET_X(os)) <= limit) {
+		gimp_progress_update((gdouble) i / (gdouble) limit);
 		//get is from drawable and os
 		if ( ! GETINPUT(is, os, drawable_ID) ) break;
 		//get os running the algorithm
@@ -114,7 +122,21 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
 		ACCUMULATE(&strokes, &num_strokes, os);
 		//testing an escape condition on output os
 		if ( TERMINATE(os, is, drawable_ID ) ) break;
+             }
 	    }
+	    else {
+	      for (i=0; i<limit; i++) {
+		  gimp_progress_update((gdouble) i / (gdouble) limit);
+		  //get is from drawable and os
+		  if ( ! GETINPUT(is, os, drawable_ID) ) break;
+		  //get os running the algorithm
+		  if ( ! ALGORITHM( is, os ) ) break;
+		  ACCUMULATE(&strokes, &num_strokes, os);
+		  //testing an escape condition on output os
+		  if ( TERMINATE(os, is, drawable_ID ) ) break;
+	      }
+	    }
+
 	    gimp_progress_update(1.0);
 	    gimp_progress_init("Teseo execution steps terminated.");
 	}
@@ -126,5 +148,4 @@ void teseo_main_loop(int iter, gint32 drawable_ID ){
 	RELEASE(&is,&os);
     }
 }
-
 

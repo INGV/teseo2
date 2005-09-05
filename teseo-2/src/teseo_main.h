@@ -43,13 +43,19 @@ void teseo_main_init(
 		     int  (* accumulate)  ( double ** strokes, long * num_strokes, void * os ),
 		     int  (* starting_os) ( void ** os, gint32 drawable_ID ),
 		     int  (* new_is)      ( void ** is, gint32 drawable_ID ),
-		     void  (* release)    ( void ** is, void ** os )		     );
+		     int  (* get_x)       ( void * os ),
+		     void (* release)    ( void ** is, void ** os )		     );
 
 
 /*!
  * teseo_main_loop is the main loop of our algorithm
  */
-void teseo_main_loop();
+//void teseo_main_loop(int iter, gint32 drawable_ID);
+void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide );
+/*!
+ * teseo_main_loop is the guide position oriented main loop variant of our algorithm
+ */
+void teseo_main_loop_guide(gulong x_guide, gint32 drawable_ID );
 
 #endif
 
