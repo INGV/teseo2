@@ -831,7 +831,18 @@ void
 on_teseo_alg_back_toolbutton_clicked   (GtkButton   *button,
                                         gpointer         user_data)
 {
-    g_message("%s\nPress Back button.", TODO_str);
+    int iter;
+    glong n_strokes;
+    gdouble *strokes;
+    GtkSpinButton  * tbss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_back_step_spinbutton", 0);
+    char * pathname = gimp_path_get_current(teseo_image);
+
+    iter = gtk_spin_button_get_value_as_int (tbss) ;
+    strokes = teseo_open_path_to_strokes(teseo_image,  &n_strokes,  pathname);
+    teseo_strokes_to_open_path(teseo_image, n_strokes-iter, strokes, pathname);
+
+    g_free(pathname);
+    g_free(strokes);
 }
 
 
