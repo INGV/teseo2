@@ -179,6 +179,14 @@ load_session return 1 if session loading from file filename succeed
 char load_session(char * filename);
 
 /*!
+test_session return 1 if there is a valid session for image filename.
+Valid name is s.imageinfo.XCFfilename-XXX.tsf
+	\param char * dirname
+	\param struct Session * s
+*/
+char test_session(char * filename);
+
+/*!
 save_preferences return 1 if current preferences saving on file filename succeed
 	\param char * filename
 	\param struct Session * s

@@ -302,4 +302,55 @@ char* create_name(char * dirname, char* order, char* ext){
     return filename;
 }
 
+gchar test_session(char * filename){
+    GDir  * dir = NULL;
+    gchar * entry = NULL;
 
+    gchar * basename=NULL;
+    gchar * basename_noext;
+    gchar * myentry = NULL;
+    gchar * token = NULL;
+
+    gchar * p=NULL;
+
+    const char delimiters[] = ".";
+    gchar ret=0;
+
+
+    g_printf("test_session::start filename %s\n",filename );
+    basename = g_path_get_basename (filename); //basename without path, to be g_freed
+    p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
+
+    //extract basename without extension
+    token = strpbrk(basename, delimiters);
+    basename_noext = g_strndup(basename , strlen(basename) - strlen(token) );
+
+    dir = g_dir_open ( p, 0, NULL);
+    g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
+
+    if ( dir!=NULL ) {
+      while ( ( entry=g_dir_read_name (dir) ) != NULL ){ //don't free entry
+	myentry=g_strdup(entry);
+	g_printf("test_session::myentry %s\n",myentry );
+	//First looking for basename
+	if (g_strrstr(myentry,basename_noext)!=NULL)
+	{
+	  //then looking for extension
+	  if(g_strrstr(myentry,SESSION_EXT)!=NULL){
+	     g_free(myentry);
+	     ret=1;
+             break;
+	  }
+	}
+        g_free(myentry);
+      }//while
+      g_dir_close(dir);
+    }
+
+    g_free(basename);
+    g_free(basename_noext);
+    g_free(token);
+    g_free(p);
+    g_printf("test_session::stop exiting %d", ret);
+    return ret;
+}

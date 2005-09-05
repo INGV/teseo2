@@ -374,7 +374,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     } else {
 	g_message("Path \"%s\" need resampling before exporting in DXF format !", pathname);
     }
-    
+
     g_free(dxf_path);
     g_free(image_filename);
 
@@ -968,22 +968,37 @@ on_win_teseo_show                (GtkWidget       *widget,
     gchar *name_image=NULL;
     GString *string_name_image;
     GtkLabel     *label_image = (GtkLabel *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "label_image", 0);
-    if (on_open1_activate (menu_open1, NULL) != 1)
-    {
-        //g_message("Open canceled");
-        if (on_new1_activate (menu_new1, NULL)==0) {
-            //g_message("New canceled");
-            on_win_teseo_show(win_teseo,NULL);
-        }
+
+    //Test if there are available sessions
+    gchar * image_filename = gimp_image_get_filename(teseo_image);
+
+    if (test_session(image_filename)){
+      if (on_open1_activate (menu_open1, NULL) != 1)
+      {
+          //g_message("Open canceled");
+          if (on_new1_activate (menu_new1, NULL)==0) {
+              //g_message("New canceled");
+              on_win_teseo_show(win_teseo,NULL);
+          }
+      }
     }
-    
+    else
+    {
+        if (on_new1_activate (menu_new1, NULL)==0) {
+          on_win_teseo_show(win_teseo,NULL);
+        }
+   }
+
     string_name_image = g_string_new("Uname");
-    name_image = g_path_get_basename (gimp_image_get_filename(teseo_image)); 
+    name_image = g_path_get_basename (image_filename);
+
     if(name_image) {
         g_string_printf(string_name_image, "<small>%s</small>", name_image);
         g_free(name_image);
     }
     gtk_label_set_label(label_image, string_name_image->str);
+
+    g_free(image_filename);
 }
 
 void
