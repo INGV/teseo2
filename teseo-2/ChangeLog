@@ -1,3 +1,30 @@
+2005-09-06 13:14  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.62), teseo_main.c (1.12): Now BACK
+	  delete paths like GO button.	Corrected stop to the guide
+	  abscissa.
+
+2005-09-05 15:33  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.61): Implemented back button.
+
+2005-09-05 13:56  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.60), teseo_main.c (1.11), teseo_main.h
+	  (1.7), teseo_wmean.c (1.10), teseo_wmean.h (1.8): Save session in
+	  menu file->session->save.  Implemented stop to the first guide.
+
+2005-09-05 11:14  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.59), teseo_session.c (1.21),
+	  teseo_session.h (1.12): New function to test if a session for the
+	  image exist.	Applied to change teseo starting behaviouri in
+	  callbacks.
+
+2005-09-02 15:32  Stefano Pintore  <pintore@ingv.it>
+
+	* src/nrutil.h (1.2): Removed CR-LF
+
 2005-09-02 15:17  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: teseo_session.c (1.20), teseo_session.h (1.11),
