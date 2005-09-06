@@ -839,7 +839,11 @@ on_teseo_alg_back_toolbutton_clicked   (GtkButton   *button,
 
     iter = gtk_spin_button_get_value_as_int (tbss) ;
     strokes = teseo_open_path_to_strokes(teseo_image,  &n_strokes,  pathname);
+
     teseo_strokes_to_open_path(teseo_image, n_strokes-iter, strokes, pathname);
+
+    //beware i'm deleting old path with pathname
+    gimp_path_delete(teseo_image,pathname);
 
     g_free(pathname);
     g_free(strokes);

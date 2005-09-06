@@ -113,7 +113,7 @@ void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide ){
 	    gimp_progress_init("Teseo execution steps . . .");
 
 	    if (is_guide){
-              while ( (i=GET_X(os)) <= limit) {
+              while ( (i=GET_X(os)) < limit) {
 		gimp_progress_update((gdouble) i / (gdouble) limit);
 		//get is from drawable and os
 		if ( ! GETINPUT(is, os, drawable_ID) ) break;
