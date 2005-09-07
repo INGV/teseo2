@@ -2,8 +2,10 @@
 
 # Teseo-2 binary installation script for UNIX system (Only Linux tested)
 # This distribution should contain:
+#	- setup.sh (shell script installation, this file)
 #	- teseo-2 (binary plug-in)
 #	- README
+#	- INSTALL
 #	- NEWS
 #	- AUTHORS
 #	- COPYING
