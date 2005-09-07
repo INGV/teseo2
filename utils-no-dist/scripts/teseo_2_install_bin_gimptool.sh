@@ -42,7 +42,7 @@ TOOL="gimptool-2.0"
 
 if  (hash $TOOL) ; then
   #echo "$TOOL found"
-  GIMPDATADIR=$($TOOL --gimpdatadir)/
+  GIMPDATADIR=$($TOOL --gimpdatadir)
   GIMPPLUGINDIR=$($TOOL --gimpplugindir)
 else
  echo "Teseo-2 installation abort .."
