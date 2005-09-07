@@ -7,6 +7,9 @@
 #	- NEWS
 #	- AUTHORS
 #	- COPYING
+#	- example.xcf
+#	- pixmaps directory
+#	- help directory
 
 # Teseo-2 GIMP Plug-in
 # Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
@@ -40,6 +43,25 @@ TESEOPIXMAPS="pixmaps"
 
 TOOL="gimptool-2.0"
 
+SYNTAX="Syntax: $0 [uninstall]"
+
+echo ""
+
+# Check parameters
+if [ ! -z $2 ]; then
+	echo $SYNTAX
+	echo ""
+	exit
+fi
+
+if [ ! -z $1 ] && [ "$1" != "uninstall" ]; then
+	echo $SYNTAX
+	echo ""
+	exit
+fi
+
+
+# Check gimptool-2.0 utility
 if  (hash $TOOL) ; then
   #echo "$TOOL found"
   GIMPDATADIR=$($TOOL --gimpdatadir)
@@ -50,11 +72,27 @@ else
  exit
 fi
 
+# Directories variables
 TESEOBINDESTINATION=$GIMPPLUGINDIR/plug-ins
 TESEODATADESTINATION=$GIMPDATADIR/teseo-2
 
-mkdir -p $TESEODATADESTINATION && exit
+# Install or Uninstall plug-in and associated files
+if [ -z $1 ]; then
 
-cp -fR $TESEOHELP $TESEODATADESTINATION/ && exit
-cp -fR $TESEOPIXMAPS $TESEODATADESTINATION/ && exit
-cp -fR $TESEOBIN $TESEOBINDESTINATION/ && exit
+	echo "Creating directory $TESEODATADESTINATION"
+	mkdir -p $TESEODATADESTINATION
+
+	echo "Copying files..."
+	cp -fR $TESEOHELP $TESEODATADESTINATION/ 
+	cp -fR $TESEOPIXMAPS $TESEODATADESTINATION/ 
+	cp -fR $TESEOBIN $TESEOBINDESTINATION/
+
+else
+
+	echo "Removing files..."
+	rm -fr $TESEODATADESTINATION
+	rm -f $TESEOBINDESTINATION/$TESEOBIN
+
+fi
+
+echo ""
