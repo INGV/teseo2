@@ -4,6 +4,60 @@ Foundation, Inc.
    This file is free documentation; the Free Software Foundation gives
 unlimited permission to copy, distribute and modify it.
 
+Teseo-2 INSTALL Contents
+        * WINDOWS BINARIES INSTALLATION
+        * MAC OS X BINARIES INSTALLATION
+        * LINUX BINARIES INSTALLATION
+        * SOURCE INSTALLATION
+
+
+***************************************************
+*** WINDOWS BINARIES INSTALLATION
+***************************************************
+
+Basic Installation
+==================
+
+These are basic installation instructions for Teseo-2 on WIN32 platforms.
+Teseo-2 is a gimp-2.2 plugin so you need gimp-2.2 to use it.
+
+
+Pre-requisite
+=============
+
+1 - Install gimp-2.2.8 : files and instructions at http://gimp-win.sourceforge.net
+
+2 - (Optional) Install gimp-help.
+
+
+Install teseo2
+==============
+
+Extract teseo2-setup.exe from the distibuted teseo-2.x.x-setup.zip, then run teseo-2.x.x-setup.exe.
+
+Restart Gimp if it was opened.
+
+
+
+
+***************************************************
+*** MAC OS X BINARIES INSTALLATION
+***************************************************
+	TODO
+
+
+
+***************************************************
+*** LINUX BINARIES INSTALLATION
+***************************************************
+	TODO
+
+
+
+***************************************************
+*** SOURCE INSTALLATION
+***************************************************
+
 Basic Installation
 ==================
 
