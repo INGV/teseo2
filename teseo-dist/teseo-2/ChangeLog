@@ -1,3 +1,7 @@
+2005-09-08 15:04  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.50): Minor revision
+
 2005-09-06 13:14  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: teseocallbacks.c (1.62), teseo_main.c (1.12): Now BACK
