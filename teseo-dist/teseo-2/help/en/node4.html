@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Vectorisation</TITLE>
+<META NAME="description" CONTENT="Vectorisation">
+<META NAME="keywords" CONTENT="teseo2_user_manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="teseo2_user_manual.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="teseo2_user_manual.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html82"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html76"
+  HREF="teseo2_user_manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html70"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html78"
+  HREF="node7.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html80"
+  HREF="node9.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/usr/lib/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html83"
+  HREF="node5.html">Trace import/export</A>
+<B> Up:</B> <A NAME="tex2html77"
+  HREF="teseo2_user_manual.html">Teseo 2.0 user manual</A>
+<B> Previous:</B> <A NAME="tex2html71"
+  HREF="node3.html">Starting with Teseo</A>
+ &nbsp; <B>  <A NAME="tex2html79"
+  HREF="node7.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html81"
+  HREF="node9.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00040000000000000000">
+Vectorisation</A>
+</H1>
+
+<P>
+Trace vectorisation with Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> relies on <B>GIMP</B><A NAME="259"></A> Paths Tool, see <B>GIMP</B><A NAME="261"></A> help for basic usage. Paths Tool permits to create piecewise cubic B&#233;zier curves and polygonals.
+
+<P>
+<BR>
+<BR>
+<B>WARNING</B>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> does not support closed paths use and paths that have two or more components.
+
+<P>
+<B>WARNING</B>: Seismogram must be oriented from left to right and top to bottom. Use gimp to flip or rotate the image if necessary ;-)
+<BR>
+<BR>
+
+<P>
+User can manually vectorise the traces using <B>GIMP</B><A NAME="264"></A> Paths Tool, creating several piecewise cubic B&#233;zier curves or polylines. Moreover, it is possible use the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> automatic path vectorisation tool.
+Up to now, this tool offers one algorithm based on a weighted mean of the colour trace [<A
+ HREF="node10.html#pintore">1</A>]. 
+
+<P>
+What effectively takes place is
+an iterative procedure, whereby at each single iteration step the
+next point is found by submitting to an algorithm a rectangular
+portion of the image centred at the current point and the
+information regarding the closest previous points.
+
+<P>
+In figure <A HREF="#fig:teseogeneral">5</A> are shown main parameters of the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> automatic path vectorisation tool:
+
+<P>
+
+<UL>
+<LI><I>Forward</I>: algorithm stop condition, maximum iteration number.
+</LI>
+<LI><I>Back</I>: number of points to delete from the current path.
+</LI>
+<LI><I>Stop to the first guide</I>: alternative stop condition, iteration stop when the abscissa is greater than first vertical guide position.
+</LI>
+<LI><I>Trace colour</I>: base trace colour (black or white).
+</LI>
+<LI><I>Trace thickness</I>: thickness average in pixels.
+</LI>
+</UL>
+
+<P>
+The colour weighted mean algorithm takes rectangle dimension in pixels from the tab shown in figure <A HREF="#fig:teseocwm">6</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseogeneral"></A><A NAME="116"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Teseo window - General tab</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot1.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseocwm"></A><A NAME="123"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Teseo window - Colour weighted mean tab</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
+ SRC="img8.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot2.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Besides <B>GIMP</B><A NAME="268"></A> path manipulation, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> adds some useful operations in seismogram vectorisation.
+In figure <A HREF="#fig:teseopath">7</A> is shown the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> Path menu. 
+
+<UL>
+<LI>Current path operations
+
+<UL>
+<LI>Resample: resample path with parameter defined in figure <A HREF="#xxx"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/lib/latex2html/icons/crossref.png"></A>.
+</LI>
+<LI>Fitting B&#233;zier: fit path with a piecewise cubic B&#233;zier curve.
+</LI>
+<LI>Snap: for each point compute a colour weighted mean in a thickness width square (figure <A HREF="#fig:teseogeneral">5</A>).
+</LI>
+</UL>
+</LI>
+<LI>Unlocked only paths operations
+
+<UL>
+<LI>Split unlocked paths: split paths at points defined by intersection beetwen path and <B>GIMP</B><A NAME="272"></A> vertical guides.
+</LI>
+<LI>Align unlocked paths: align paths overlapping the first point of the next path to the last of the previous one. If the event was recorded over the paper boundary, this operation is used before trace export.
+</LI>
+<LI>Link unlocked paths: link paths with a straight line from last point of the previous path to first point of the next one. Useful to join several path of the same event.
+</LI>
+</UL>
+</LI>
+<LI>Timemark
+
+<UL>
+<LI>Timemark - Adjustments
+</LI>
+<LI>Timemark - Evaluate missing
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopath"></A><A NAME="141"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Teseo window - Path menu</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot4.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<BR>
+<BR>
+<B>WARNING</B>: order in operations on multiple paths respects order of the <B>GIMP</B><A NAME="274"></A> Path Tool, that is from bottom to top.
+For example, executing a link on paths shown in figure <A HREF="#fig:gimppathtool">8</A> results a new path concatenating paths a, b and c, respectively.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:gimppathtool"></A><A NAME="151"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+<B>GIMP</B><A NAME="276"></A> Path Tool - Path order</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="350" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot12.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<BR>
+<BR>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html82"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html76"
+  HREF="teseo2_user_manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html70"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html78"
+  HREF="node7.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html80"
+  HREF="node9.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/usr/lib/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html83"
+  HREF="node5.html">Trace import/export</A>
+<B> Up:</B> <A NAME="tex2html77"
+  HREF="teseo2_user_manual.html">Teseo 2.0 user manual</A>
+<B> Previous:</B> <A NAME="tex2html71"
+  HREF="node3.html">Starting with Teseo</A>
+ &nbsp; <B>  <A NAME="tex2html79"
+  HREF="node7.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html81"
+  HREF="node9.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="mailto:teseo@ingv.it">teseo@ingv.it</a>
+</ADDRESS>
+</BODY>
+</HTML>

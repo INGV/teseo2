@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Trace import/export</TITLE>
+<META NAME="description" CONTENT="Trace import/export">
+<META NAME="keywords" CONTENT="teseo2_user_manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="teseo2_user_manual.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="teseo2_user_manual.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html96"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html90"
+  HREF="teseo2_user_manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html84"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html92"
+  HREF="node7.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html94"
+  HREF="node9.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/usr/lib/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html97"
+  HREF="node6.html">Before to go</A>
+<B> Up:</B> <A NAME="tex2html91"
+  HREF="teseo2_user_manual.html">Teseo 2.0 user manual</A>
+<B> Previous:</B> <A NAME="tex2html85"
+  HREF="node4.html">Vectorisation</A>
+ &nbsp; <B>  <A NAME="tex2html93"
+  HREF="node7.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html95"
+  HREF="node9.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00050000000000000000">
+Trace import/export</A>
+</H1>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> import and export several file formats as shown in figures <A HREF="#fig:teseopathimport">9</A> and <A HREF="#fig:teseopathexport">10</A>:
+
+<P>
+
+<UL>
+<LI><I>SVG</I><A NAME="279"></A>: Scalable Vector Graphics [].
+</LI>
+<LI><I>DXF</I><A NAME="281"></A>: Drawing Interchange File Format [<A
+ HREF="node10.html#adobe-dxf">2</A>].
+</LI>
+<LI><I>Trace</I><A NAME="283"></A>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> proprietary ascii format. It contains image reference and coordinate in pixels. Only polylines.
+</LI>
+<LI><I>ASCII</I><A NAME="286"></A>: plain text file that contains the coordinates <I>(x,y)</I> sequence in millimeters. Only polylines.
+</LI>
+<LI><I>SAC</I><A NAME="288"></A>: Seismic Analysis Code [<A
+ HREF="node10.html#goldstein">3</A>]. Evenly spaced binary SAC. Only polylines.
+</LI>
+<LI><I>SISMA</I><A NAME="290"></A>: plain text file ``Sismogrammi Storici'' software compliant.
+</LI>
+<LI><I>Timemark</I><A NAME="292"></A>: plain text file that contains coordinates <I>(x,y)</I> sequence identifying timemarks.
+</LI>
+<LI><I>B&#233;zier</I><A NAME="294"></A>: <B>GIMP</B><A NAME="296"></A> 1.0 B&#233;zier path format. For downward compatibility.
+</LI>
+<LI><I>Examples</I><A NAME="298"></A>: binary format that contains information for neural networks learning. Not available yet.
+</LI>
+</UL>
+
+<P>
+Up to now, <I>SVG</I><A NAME="300"></A> export is possible only by <B>GIMP</B><A NAME="302"></A> Path Tool, <I>DXF</I><A NAME="304"></A> import is possible only on Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> exported paths, <I>SAC</I><A NAME="307"></A> import is not implemented yet.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopathimport"></A><A NAME="181"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
+Teseo Path Import</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot9.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopathexport"></A><A NAME="188"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
+Teseo Path Export</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="317" HEIGHT="332" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.png"
+ ALT="\includegraphics[width=7cm]{images/snapshot10.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html96"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html90"
+  HREF="teseo2_user_manual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html84"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html92"
+  HREF="node7.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html94"
+  HREF="node9.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/usr/lib/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html97"
+  HREF="node6.html">Before to go</A>
+<B> Up:</B> <A NAME="tex2html91"
+  HREF="teseo2_user_manual.html">Teseo 2.0 user manual</A>
+<B> Previous:</B> <A NAME="tex2html85"
+  HREF="node4.html">Vectorisation</A>
+ &nbsp; <B>  <A NAME="tex2html93"
+  HREF="node7.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html95"
+  HREF="node9.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="mailto:teseo@ingv.it">teseo@ingv.it</a>
+</ADDRESS>
+</BODY>
+</HTML>
