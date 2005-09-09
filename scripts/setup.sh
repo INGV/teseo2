@@ -6,7 +6,6 @@
 #	- teseo-2 (binary plug-in)
 #	- README
 #	- INSTALL
-#	- NEWS
 #	- AUTHORS
 #	- COPYING
 #	- example.xcf
@@ -78,11 +77,13 @@ fi
 TESEOBINDESTINATION=$GIMPPLUGINDIR/plug-ins
 TESEODATADESTINATION=$GIMPDATADIR/teseo-2
 
+MSGERR="Maybe you have not required privileges !!!"
+
 # Install or Uninstall plug-in and associated files
 if [ -z $1 ]; then
 
 	echo "Creating directory $TESEODATADESTINATION"
-	mkdir -p $TESEODATADESTINATION
+	mkdir -p $TESEODATADESTINATION || echo $MSGERR; exit;
 
 	echo "Copying files..."
 	cp -fR $TESEOHELP $TESEODATADESTINATION/ 
