@@ -86,7 +86,6 @@ if [ -z $SETUPTYPE ]; then
 
 	echo $SYNTAX1
 	echo $SYNTAX2
-	echo "Error..."
 	echo ""
 	exit
 
