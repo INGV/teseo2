@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Teseo 2.0 user manual Revision: 1.5 - Date: 2005/09/09 06:18:35 </TITLE>
-<META NAME="description" CONTENT="Teseo 2.0 user manual Revision: 1.5 - Date: 2005/09/09 06:18:35 ">
+<TITLE>Teseo 2.0 user manual Revision: 1.5 - Beta </TITLE>
+<META NAME="description" CONTENT="Teseo 2.0 user manual Revision: 1.5 - Beta ">
 <META NAME="keywords" CONTENT="teseo2_user_manual">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -26,7 +26,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <H1 ALIGN="CENTER">
   <B>Teseo 2.0 user manual</B> 
-<BR>  <FONT SIZE="-2">Revision: 1.5  - Date: 2005/09/09 06:18:35 </FONT>
+<BR>  <FONT SIZE="-2">Revision: 1.5  - Beta </FONT>
 </H1><DIV>
 
 <P ALIGN="CENTER"><STRONG><B>Stefano Pintore, Matteo Quintiliani</B></STRONG></P>
@@ -63,7 +63,7 @@ Contents</A>
 <LI><A NAME="tex2html26"
   HREF="teseo2_user_manual.html#SECTION00060000000000000000">5 Trace import/export</A>
 <LI><A NAME="tex2html27"
-  HREF="teseo2_user_manual.html#SECTION00070000000000000000">6 Before to go</A>
+  HREF="teseo2_user_manual.html#SECTION00070000000000000000">6 Before leaving Teseo</A>
 <LI><A NAME="tex2html28"
   HREF="teseo2_user_manual.html#SECTION00080000000000000000">List of Figures</A>
 <LI><A NAME="tex2html29"
@@ -204,7 +204,7 @@ Session window - Path tab </CAPTION>
 </H1>
 
 <P>
-Trace vectorisation with Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> relies on <B>GIMP</B><A NAME="259"></A> Paths Tool, see <B>GIMP</B><A NAME="261"></A> help for basic usage. Paths Tool permits to create piecewise cubic B&#233;zier curves and polygonals.
+Trace vectorisation with Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> relies on <B>GIMP</B><A NAME="259"></A> Paths Tool, see the <B>GIMP</B><A NAME="261"></A> help for basic usage. Paths Tool permits to create piecewise cubic B&#233;zier curves and polygonals.
 
 <P>
 <BR>
@@ -234,15 +234,15 @@ In figure <A HREF="#fig:teseogeneral">5</A> are shown main parameters of the Tes
 <P>
 
 <UL>
-<LI><I>Forward</I>: algorithm stop condition, maximum iteration number.
+<LI><I>Forward</I><A NAME="268"></A>: algorithm stop condition, maximum iteration number.
 </LI>
-<LI><I>Back</I>: number of points to delete from the current path.
+<LI><I>Back</I><A NAME="270"></A>: number of points to delete from the current path.
 </LI>
-<LI><I>Stop to the first guide</I>: alternative stop condition, iteration stop when the abscissa is greater than first vertical guide position.
+<LI><I>Stop to the first guide</I><A NAME="272"></A>: alternative stop condition, iteration stop when the abscissa is greater than first vertical guide position.
 </LI>
-<LI><I>Trace colour</I>: base trace colour (black or white).
+<LI><I>Trace colour</I><A NAME="274"></A>: base trace colour (black or white).
 </LI>
-<LI><I>Trace thickness</I>: thickness average in pixels.
+<LI><I>Trace thickness</I><A NAME="276"></A>: thickness average in pixels.
 </LI>
 </UL>
 
@@ -282,7 +282,7 @@ Teseo window - Colour weighted mean tab</CAPTION>
 </DIV>
 
 <P>
-Besides <B>GIMP</B><A NAME="268"></A> path manipulation, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> adds some useful operations in seismogram vectorisation.
+Besides <B>GIMP</B><A NAME="278"></A> path manipulation, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> adds some useful operations in seismogram vectorisation.
 In figure <A HREF="#fig:teseopath">7</A> is shown the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> Path menu. 
 
 <UL>
@@ -301,7 +301,7 @@ In figure <A HREF="#fig:teseopath">7</A> is shown the Teseo<FONT SIZE="-1"><SUP>
 <LI>Unlocked only paths operations
 
 <UL>
-<LI>Split unlocked paths: split paths at points defined by intersection beetwen path and <B>GIMP</B><A NAME="272"></A> vertical guides.
+<LI>Split unlocked paths: split paths at points defined by intersection beetwen path and <B>GIMP</B><A NAME="282"></A> vertical guides.
 </LI>
 <LI>Align unlocked paths: align paths overlapping the first point of the next path to the last of the previous one. If the event was recorded over the paper boundary, this operation is used before trace export.
 </LI>
@@ -339,7 +339,7 @@ Teseo window - Path menu</CAPTION>
 <P>
 <BR>
 <BR>
-<B>WARNING</B>: order in operations on multiple paths respects order of the <B>GIMP</B><A NAME="274"></A> Path Tool, that is from bottom to top.
+<B>WARNING</B>: order in operations on multiple paths respects order of the <B>GIMP</B><A NAME="284"></A> Path Tool, that is from bottom to top.
 For example, executing a link on paths shown in figure <A HREF="#fig:gimppathtool">8</A> results a new path concatenating paths a, b and c, respectively.
 
 <P>
@@ -347,7 +347,7 @@ For example, executing a link on paths shown in figure <A HREF="#fig:gimppathtoo
 <DIV ALIGN="CENTER"><A NAME="fig:gimppathtool"></A><A NAME="151"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
-<B>GIMP</B><A NAME="276"></A> Path Tool - Path order</CAPTION>
+<B>GIMP</B><A NAME="286"></A> Path Tool - Path order</CAPTION>
 <TR><TD><DIV ALIGN="CENTER">
 <IMG
  WIDTH="317" HEIGHT="350" ALIGN="BOTTOM" BORDER="0"
@@ -373,30 +373,30 @@ Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> import and export several file formats 
 <P>
 
 <UL>
-<LI><I>SVG</I><A NAME="279"></A>: Scalable Vector Graphics [].
+<LI><I>SVG</I><A NAME="289"></A>: Scalable Vector Graphics [].
 </LI>
-<LI><I>DXF</I><A NAME="281"></A>: Drawing Interchange File Format [<A
+<LI><I>DXF</I><A NAME="291"></A>: Drawing Interchange File Format [<A
  HREF="teseo2_user_manual.html#adobe-dxf">2</A>].
 </LI>
-<LI><I>Trace</I><A NAME="283"></A>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> proprietary ascii format. It contains image reference and coordinate in pixels. Only polylines.
+<LI><I>Trace</I><A NAME="293"></A>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> proprietary ascii format. It contains image reference and coordinate in pixels. Only polylines.
 </LI>
-<LI><I>ASCII</I><A NAME="286"></A>: plain text file that contains the coordinates <I>(x,y)</I> sequence in millimeters. Only polylines.
+<LI><I>ASCII</I><A NAME="296"></A>: plain text file that contains the coordinates <I>(x,y)</I> sequence in millimeters. Only polylines.
 </LI>
-<LI><I>SAC</I><A NAME="288"></A>: Seismic Analysis Code [<A
+<LI><I>SAC</I><A NAME="298"></A>: Seismic Analysis Code [<A
  HREF="teseo2_user_manual.html#goldstein">3</A>]. Evenly spaced binary SAC. Only polylines.
 </LI>
-<LI><I>SISMA</I><A NAME="290"></A>: plain text file ``Sismogrammi Storici'' software compliant.
+<LI><I>SISMA</I><A NAME="300"></A>: plain text file ``Sismogrammi Storici'' software compliant.
 </LI>
-<LI><I>Timemark</I><A NAME="292"></A>: plain text file that contains coordinates <I>(x,y)</I> sequence identifying timemarks.
+<LI><I>Timemark</I><A NAME="302"></A>: plain text file that contains coordinates <I>(x,y)</I> sequence identifying timemarks.
 </LI>
-<LI><I>B&#233;zier</I><A NAME="294"></A>: <B>GIMP</B><A NAME="296"></A> 1.0 B&#233;zier path format. For downward compatibility.
+<LI><I>B&#233;zier</I><A NAME="304"></A>: <B>GIMP</B><A NAME="306"></A> 1.0 B&#233;zier path format. For downward compatibility.
 </LI>
-<LI><I>Examples</I><A NAME="298"></A>: binary format that contains information for neural networks learning. Not available yet.
+<LI><I>Examples</I><A NAME="308"></A>: binary format that contains information for neural networks learning. Not available yet.
 </LI>
 </UL>
 
 <P>
-Up to now, <I>SVG</I><A NAME="300"></A> export is possible only by <B>GIMP</B><A NAME="302"></A> Path Tool, <I>DXF</I><A NAME="304"></A> import is possible only on Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> exported paths, <I>SAC</I><A NAME="307"></A> import is not implemented yet.
+Up to now, <I>SVG</I><A NAME="310"></A> export is possible only by <B>GIMP</B><A NAME="312"></A> Path Tool, <I>DXF</I><A NAME="314"></A> import is possible only on Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> exported paths, <I>SAC</I><A NAME="317"></A> import is not implemented yet.
 
 <P>
 
@@ -433,9 +433,9 @@ Teseo Path Export</CAPTION>
 <P>
 
 <H1><A NAME="SECTION00070000000000000000">
-6 Before to go</A>
+6 Before leaving Teseo</A>
 </H1>
-Before to close <B>GIMP</B><A NAME="309"></A> is a very good practice to do:
+Before to close <B>GIMP</B><A NAME="319"></A> is a very good practice to do:
 
 <P>
 
@@ -444,9 +444,9 @@ Before to close <B>GIMP</B><A NAME="309"></A> is a very good practice to do:
 </LI>
 <LI>Close Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>.
 </LI>
-<LI>Save <I>xcf</I><A NAME="313"></A> image, it contains all your paths and layers. <I>xcf</I><A NAME="315"></A> is your friend and gzip or bzip2 too...
+<LI>Save <I>xcf</I><A NAME="323"></A> image, it contains all your paths and layers. <I>xcf</I><A NAME="325"></A> is your friend and gzip or bzip2 too...
 </LI>
-<LI>Close <B>GIMP</B><A NAME="317"></A>.
+<LI>Close <B>GIMP</B><A NAME="327"></A>.
 </LI>
 </OL>
 
@@ -472,7 +472,7 @@ List of Figures</A>
 <LI>7. <A NAME="tex2html7"
   HREF="teseo2_user_manual.html#141">Teseo window - Path menu</A>
 <LI>8. <A NAME="tex2html8"
-  HREF="teseo2_user_manual.html#151"><B>GIMP</B></A><A NAME="276"></A> Path Tool - Path order
+  HREF="teseo2_user_manual.html#151"><B>GIMP</B></A><A NAME="286"></A> Path Tool - Path order
 <LI>9. <A NAME="tex2html9"
   HREF="teseo2_user_manual.html#181">Teseo Path Import</A>
 <LI>10. <A NAME="tex2html10"
@@ -481,34 +481,34 @@ List of Figures</A>
 <H2><A NAME="SECTION00090000000000000000">
 Index</A>
 </H2><DL COMPACT>
-<DT><STRONG>Formato file</STRONG>
+<DT><STRONG>File formats</STRONG>
 <DD><DL COMPACT>
 <DT><STRONG>ASCII</STRONG>
-<DD><A HREF="teseo2_user_manual.html#286">5</A>
+<DD><A HREF="teseo2_user_manual.html#296">5</A>
 <DT><STRONG>B&#233;zier</STRONG>
-<DD><A HREF="teseo2_user_manual.html#294">5</A>
+<DD><A HREF="teseo2_user_manual.html#304">5</A>
 <DT><STRONG>DXF</STRONG>
-<DD><A HREF="teseo2_user_manual.html#281">5</A>
- | <A HREF="teseo2_user_manual.html#304">5</A>
+<DD><A HREF="teseo2_user_manual.html#291">5</A>
+ | <A HREF="teseo2_user_manual.html#314">5</A>
 <DT><STRONG>Examples</STRONG>
-<DD><A HREF="teseo2_user_manual.html#298">5</A>
+<DD><A HREF="teseo2_user_manual.html#308">5</A>
 <DT><STRONG>SAC</STRONG>
-<DD><A HREF="teseo2_user_manual.html#288">5</A>
- | <A HREF="teseo2_user_manual.html#307">5</A>
+<DD><A HREF="teseo2_user_manual.html#298">5</A>
+ | <A HREF="teseo2_user_manual.html#317">5</A>
 <DT><STRONG>SISMA</STRONG>
-<DD><A HREF="teseo2_user_manual.html#290">5</A>
+<DD><A HREF="teseo2_user_manual.html#300">5</A>
 <DT><STRONG>SVG</STRONG>
-<DD><A HREF="teseo2_user_manual.html#279">5</A>
- | <A HREF="teseo2_user_manual.html#300">5</A>
+<DD><A HREF="teseo2_user_manual.html#289">5</A>
+ | <A HREF="teseo2_user_manual.html#310">5</A>
 <DT><STRONG>Timemark</STRONG>
-<DD><A HREF="teseo2_user_manual.html#292">5</A>
+<DD><A HREF="teseo2_user_manual.html#302">5</A>
 <DT><STRONG>Trace</STRONG>
-<DD><A HREF="teseo2_user_manual.html#283">5</A>
+<DD><A HREF="teseo2_user_manual.html#293">5</A>
 <DT><STRONG>xcf</STRONG>
 <DD><A HREF="teseo2_user_manual.html#238">2</A>
  | <A HREF="teseo2_user_manual.html#245">2</A>
- | <A HREF="teseo2_user_manual.html#313">6</A>
- | <A HREF="teseo2_user_manual.html#315">6</A>
+ | <A HREF="teseo2_user_manual.html#323">6</A>
+ | <A HREF="teseo2_user_manual.html#325">6</A>
 </DL>
 <DT><STRONG>GIMP</STRONG>
 <DD><A HREF="teseo2_user_manual.html#229">1</A>
@@ -517,18 +517,31 @@ Index</A>
  | <A HREF="teseo2_user_manual.html#240">2</A>
  | <A HREF="teseo2_user_manual.html#243">2</A>
  | <A HREF="teseo2_user_manual.html#249">2</A>
- | <A HREF="teseo2_user_manual.html#276">4</A>
- | <A HREF="teseo2_user_manual.html#276">4</A>
+ | <A HREF="teseo2_user_manual.html#286">4</A>
+ | <A HREF="teseo2_user_manual.html#286">4</A>
  | <A HREF="teseo2_user_manual.html#259">4</A>
  | <A HREF="teseo2_user_manual.html#261">4</A>
  | <A HREF="teseo2_user_manual.html#264">4</A>
- | <A HREF="teseo2_user_manual.html#268">4</A>
- | <A HREF="teseo2_user_manual.html#272">4</A>
- | <A HREF="teseo2_user_manual.html#274">4</A>
- | <A HREF="teseo2_user_manual.html#296">5</A>
- | <A HREF="teseo2_user_manual.html#302">5</A>
- | <A HREF="teseo2_user_manual.html#309">6</A>
- | <A HREF="teseo2_user_manual.html#317">6</A>
+ | <A HREF="teseo2_user_manual.html#278">4</A>
+ | <A HREF="teseo2_user_manual.html#282">4</A>
+ | <A HREF="teseo2_user_manual.html#284">4</A>
+ | <A HREF="teseo2_user_manual.html#306">5</A>
+ | <A HREF="teseo2_user_manual.html#312">5</A>
+ | <A HREF="teseo2_user_manual.html#319">6</A>
+ | <A HREF="teseo2_user_manual.html#327">6</A>
+<DT><STRONG>Parameters</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>Back</STRONG>
+<DD><A HREF="teseo2_user_manual.html#270">4</A>
+<DT><STRONG>Forward</STRONG>
+<DD><A HREF="teseo2_user_manual.html#268">4</A>
+<DT><STRONG>Stop to the first guide</STRONG>
+<DD><A HREF="teseo2_user_manual.html#272">4</A>
+<DT><STRONG>Trace colour</STRONG>
+<DD><A HREF="teseo2_user_manual.html#274">4</A>
+<DT><STRONG>Trace thickness</STRONG>
+<DD><A HREF="teseo2_user_manual.html#276">4</A>
+</DL>
 <DT><STRONG>Session</STRONG>
 <DD><A HREF="teseo2_user_manual.html#252">3</A>
 <DT><STRONG>Teseo-2</STRONG>
@@ -570,7 +583,7 @@ About this document ...</A>
 </H1>
  <STRONG>
   <B>Teseo 2.0 user manual</B> 
-<BR>  <FONT SIZE="-2">Revision: 1.5  - Date: 2005/09/09 06:18:35 </FONT>
+<BR>  <FONT SIZE="-2">Revision: 1.5  - Beta </FONT>
 </STRONG><P>
 This document was generated using the
 <A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2002-2-1 (1.71)
