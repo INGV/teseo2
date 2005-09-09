@@ -18,6 +18,11 @@ To build and install it:
 
 STATIC BINARY DISTRIBUTION
 To install it:
-	- unpack file teseo-2.x.x-bin-static-OPERATINGSYSTEM.tar.gz
-	- run script install.sh from a shell
+	- unpack file teseo-2.x.x-bin-OPERATINGSYSTEM.tar.gz
+	- run script setup.sh from a shell
+
+WINDOWS BINARY DISTRIBUTION
+To install it:
+	- unpack file teseo-2.x.x-bin-win32.zip
+	- run teseo-2.0.6-setup.exe
 
