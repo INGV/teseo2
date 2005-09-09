@@ -100,7 +100,7 @@ elif [ "$SETUPTYPE" == "linux" ]; then
 		GIMPDATADIR=$($TOOL --gimpdatadir)
 		GIMPPLUGINDIR=$($TOOL --gimpplugindir)
 	else
-		echo "Teseo-2 installation abort .."
+		echo "Teseo-2 linux installation abort .."
 		echo "Please install $TOOL"
 		exit
 	fi
