@@ -90,7 +90,7 @@ if [ -z $SETUPTYPE ]; then
 	echo ""
 	exit
 
-elif [ "$SETUPTYPE" == "linux"]; then
+elif [ "$SETUPTYPE" == "linux" ]; then
 
 	# Check gimptool-2.0 utility
 	if  (hash $TOOL) ; then
@@ -103,11 +103,16 @@ elif [ "$SETUPTYPE" == "linux"]; then
 		exit
 	fi
 
-elif [ "$SETUPTYPE" == "macosx"]; then
+elif [ "$SETUPTYPE" == "macosx" ]; then
 
-	GIMPPREFIX=$2/Contents/Resources
-	GIMPDATADIR=$GIMPPREFIX/share/gimp/2.0
-	GIMPPLUGINDIR=$GIMPPREFIX/lib/gimp/2.0
+	if [ -e $2 ]; then
+		GIMPPREFIX=$2/Contents/Resources
+		GIMPDATADIR=$GIMPPREFIX/share/gimp/2.0
+		GIMPPLUGINDIR=$GIMPPREFIX/lib/gimp/2.0
+	else
+		echo "$2 not found !"
+		exit
+	fi
 
 fi
 
@@ -119,7 +124,7 @@ TESEODATADESTINATION=$GIMPDATADIR/teseo-2
 MSGERR="Maybe you have not required privileges !!!"
 
 # Install or Uninstall plug-in and associated files
-if [ -z $1 ]; then
+if [ "$1" != "macosx" ] || [ "$1" != "linux" ]; then
 
 	echo "Creating directory $TESEODATADESTINATION"
 	mkdir -p $TESEODATADESTINATION || echo $MSGERR; exit;
@@ -129,11 +134,15 @@ if [ -z $1 ]; then
 	cp -fR $TESEOPIXMAPS $TESEODATADESTINATION/ 
 	cp -fR $TESEOBIN $TESEOBINDESTINATION/
 
-else
+elif [ "$1" != "macosxuninstall" ] || [ "$1" != "linuxuninstall" ]; then
 
 	echo "Removing files..."
 	rm -fr $TESEODATADESTINATION
 	rm -f $TESEOBINDESTINATION/$TESEOBIN
+
+else
+
+	echo "Error..."
 
 fi
 
