@@ -33,7 +33,7 @@ Pre-requisite
 Install teseo2
 ==============
 
-Extract teseo2-setup.exe from the distibuted teseo-2.x.x-setup.zip, then run teseo-2.x.x-setup.exe.
+Extract teseo-2.x.x-setup.exe from the distibuted teseo-2.x.x-setup.zip, then run teseo-2.x.x-setup.exe.
 
 Restart Gimp if it was opened.
 
@@ -43,14 +43,36 @@ Restart Gimp if it was opened.
 ***************************************************
 *** MAC OS X BINARIES INSTALLATION
 ***************************************************
-	TODO
+
+You have 2 possibilities to install teseo-2 on Mac Os X.
+
+1- Download ISO image that contains Gimp.app with teseo-2 bundled
+	(ISO image is about 50 MB)
+
+2- Download binary distribution pack and use shell script configuration:
+	(distribution is about 1 MB)
+
+	Unpack binary distribution teseo-2.x.x-bin-macosx.tar.gz
+	cd teseo-2.x.x-bin-macosx
+	./setup.sh macosx Gimp.App
+
+	To uninstall run:
+	cd teseo-2.x.x-bin-macosx
+	./setup.sh macosxuninstall Gimp.App
 
 
 
 ***************************************************
 *** LINUX BINARIES INSTALLATION
 ***************************************************
-	TODO
+
+	Unpack binary distribution teseo-2.x.x-bin-linux.tar.gz
+	cd teseo-2.x.x-bin-linux
+	./setup.sh linux
+
+	To uninstall run:
+	cd teseo-2.x.x-bin-linux
+	./setup.sh linuxuninstall
 
 
 
