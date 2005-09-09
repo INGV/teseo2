@@ -44,34 +44,73 @@ TESEOPIXMAPS="pixmaps"
 
 TOOL="gimptool-2.0"
 
-SYNTAX="Syntax: $0 [uninstall]"
+SYNTAX1="Syntax Linux : $0 [linux|linuxuninstall]  (need gimptool-2.0)"
+SYNTAX2="Syntax MacOsX: $0 [macosx|macosxuninstall] <Gimp.app>"
 
 echo ""
 
-# Check parameters
+# Check first parameter
+if [ -z $1 ]; then
+	echo $SYNTAX1
+	echo $SYNTAX2
+	echo ""
+	exit
+fi
+
+# Check parameters for Mac OS X
 if [ ! -z $2 ]; then
-	echo $SYNTAX
+
+	if [ "$1" != "macosx" ] && [ "$1" != "macosxuninstall" ]; then
+		echo $SYNTAX1
+		echo $SYNTAX2
+		echo ""
+		exit
+	fi
+
+	SETUPTYPE=macosx
+
+# Check parameters for Linux
+elif [ ! -z $1 ] && [ "$1" != "linux" ] && [ "$1" != "linuxuninstall" ]; then
+
+	echo $SYNTAX1
+	echo $SYNTAX2
 	echo ""
 	exit
+
+	SETUPTYPE=linux
+
 fi
 
-if [ ! -z $1 ] && [ "$1" != "uninstall" ]; then
-	echo $SYNTAX
+
+if [ -z $SETUPTYPE ]; then
+
+	echo $SYNTAX1
+	echo $SYNTAX2
+	echo "Error..."
 	echo ""
 	exit
+
+elif [ "$SETUPTYPE" == "linux"]; then
+
+	# Check gimptool-2.0 utility
+	if  (hash $TOOL) ; then
+		#echo "$TOOL found"
+		GIMPDATADIR=$($TOOL --gimpdatadir)
+		GIMPPLUGINDIR=$($TOOL --gimpplugindir)
+	else
+		echo "Teseo-2 installation abort .."
+		echo "Please install $TOOL"
+		exit
+	fi
+
+elif [ "$SETUPTYPE" == "macosx"]; then
+
+	GIMPPREFIX=$2/Contents/Resources
+	GIMPDATADIR=$GIMPPREFIX/share/gimp/2.0
+	GIMPPLUGINDIR=$GIMPPREFIX/lib/gimp/2.0
+
 fi
 
-
-# Check gimptool-2.0 utility
-if  (hash $TOOL) ; then
-  #echo "$TOOL found"
-  GIMPDATADIR=$($TOOL --gimpdatadir)
-  GIMPPLUGINDIR=$($TOOL --gimpplugindir)
-else
- echo "Teseo-2 installation abort .."
- echo "Please install $TOOL"
- exit
-fi
 
 # Directories variables
 TESEOBINDESTINATION=$GIMPPLUGINDIR/plug-ins
