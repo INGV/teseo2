@@ -127,7 +127,7 @@ MSGERR="Maybe you have not required privileges !!!"
 if [ "$1" != "macosx" ] || [ "$1" != "linux" ]; then
 
 	echo "Creating directory $TESEODATADESTINATION"
-	mkdir -p $TESEODATADESTINATION || echo $MSGERR; exit;
+	mkdir -p $TESEODATADESTINATION || exit
 
 	echo "Copying files..."
 	cp -fR $TESEOHELP $TESEODATADESTINATION/ 
