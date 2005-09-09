@@ -77,10 +77,13 @@ elif [ ! -z $1 ] && [ "$1" != "linux" ] && [ "$1" != "linuxuninstall" ]; then
 	echo ""
 	exit
 
+else
+
 	SETUPTYPE=linux
 
 fi
 
+echo $SETUPTYPE
 
 if [ -z $SETUPTYPE ]; then
 
