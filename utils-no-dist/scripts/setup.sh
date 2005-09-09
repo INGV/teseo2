@@ -124,7 +124,7 @@ TESEODATADESTINATION=$GIMPDATADIR/teseo-2
 MSGERR="Maybe you have not required privileges !!!"
 
 # Install or Uninstall plug-in and associated files
-if [ "$1" != "macosx" ] || [ "$1" != "linux" ]; then
+if [ "$1" == "macosx" ] || [ "$1" == "linux" ]; then
 
 	echo "Creating directory $TESEODATADESTINATION"
 	mkdir -p $TESEODATADESTINATION || exit
@@ -134,7 +134,7 @@ if [ "$1" != "macosx" ] || [ "$1" != "linux" ]; then
 	cp -fR $TESEOPIXMAPS $TESEODATADESTINATION/ 
 	cp -fR $TESEOBIN $TESEOBINDESTINATION/
 
-elif [ "$1" != "macosxuninstall" ] || [ "$1" != "linuxuninstall" ]; then
+elif [ "$1" == "macosxuninstall" ] || [ "$1" == "linuxuninstall" ]; then
 
 	echo "Removing files..."
 	rm -fr $TESEODATADESTINATION
