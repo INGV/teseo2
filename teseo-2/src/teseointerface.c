@@ -112,6 +112,12 @@ create_win_teseo (void)
   GtkWidget *teseo_alg_back_toolbutton;
   GtkWidget *image143;
   GtkWidget *toolitem5;
+  GtkWidget *teseo_alg_down_toolbutton;
+  GtkWidget *image516;
+  GtkWidget *toolitem7;
+  GtkWidget *teseo_alg_up_toolbutton;
+  GtkWidget *image515;
+  GtkWidget *toolitem6;
   GtkWidget *teseo_alg_go_toolbutton;
   GtkWidget *image142;
   GtkWidget *handlebox2;
@@ -647,10 +653,52 @@ create_win_teseo (void)
   gtk_widget_show (toolitem5);
   gtk_container_add (GTK_CONTAINER (toolbar2), toolitem5);
 
+  teseo_alg_down_toolbutton = gtk_button_new ();
+  gtk_widget_set_name (teseo_alg_down_toolbutton, "teseo_alg_down_toolbutton");
+  gtk_widget_show (teseo_alg_down_toolbutton);
+  gtk_container_add (GTK_CONTAINER (toolitem5), teseo_alg_down_toolbutton);
+  gtk_widget_set_sensitive (teseo_alg_down_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_down_toolbutton, GTK_CAN_FOCUS);
+  gtk_tooltips_set_tip (tooltips, teseo_alg_down_toolbutton, "Go", NULL);
+  gtk_widget_add_accelerator (teseo_alg_down_toolbutton, "clicked", accel_group,
+                              GDK_F4, 0,
+                              GTK_ACCEL_VISIBLE);
+
+  image516 = gtk_image_new_from_stock ("gtk-goto-bottom", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_set_name (image516, "image516");
+  gtk_widget_show (image516);
+  gtk_container_add (GTK_CONTAINER (teseo_alg_down_toolbutton), image516);
+
+  toolitem7 = (GtkWidget*) gtk_tool_item_new ();
+  gtk_widget_set_name (toolitem7, "toolitem7");
+  gtk_widget_show (toolitem7);
+  gtk_container_add (GTK_CONTAINER (toolbar2), toolitem7);
+
+  teseo_alg_up_toolbutton = gtk_button_new ();
+  gtk_widget_set_name (teseo_alg_up_toolbutton, "teseo_alg_up_toolbutton");
+  gtk_widget_show (teseo_alg_up_toolbutton);
+  gtk_container_add (GTK_CONTAINER (toolitem7), teseo_alg_up_toolbutton);
+  gtk_widget_set_sensitive (teseo_alg_up_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_up_toolbutton, GTK_CAN_FOCUS);
+  gtk_tooltips_set_tip (tooltips, teseo_alg_up_toolbutton, "Go", NULL);
+  gtk_widget_add_accelerator (teseo_alg_up_toolbutton, "clicked", accel_group,
+                              GDK_F4, 0,
+                              GTK_ACCEL_VISIBLE);
+
+  image515 = gtk_image_new_from_stock ("gtk-goto-top", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_set_name (image515, "image515");
+  gtk_widget_show (image515);
+  gtk_container_add (GTK_CONTAINER (teseo_alg_up_toolbutton), image515);
+
+  toolitem6 = (GtkWidget*) gtk_tool_item_new ();
+  gtk_widget_set_name (toolitem6, "toolitem6");
+  gtk_widget_show (toolitem6);
+  gtk_container_add (GTK_CONTAINER (toolbar2), toolitem6);
+
   teseo_alg_go_toolbutton = gtk_button_new ();
   gtk_widget_set_name (teseo_alg_go_toolbutton, "teseo_alg_go_toolbutton");
   gtk_widget_show (teseo_alg_go_toolbutton);
-  gtk_container_add (GTK_CONTAINER (toolitem5), teseo_alg_go_toolbutton);
+  gtk_container_add (GTK_CONTAINER (toolitem6), teseo_alg_go_toolbutton);
   gtk_widget_set_sensitive (teseo_alg_go_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_go_toolbutton, "Go", NULL);
@@ -1307,6 +1355,12 @@ create_win_teseo (void)
   g_signal_connect ((gpointer) teseo_alg_back_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_back_toolbutton_clicked),
                     NULL);
+  g_signal_connect ((gpointer) teseo_alg_down_toolbutton, "clicked",
+                    G_CALLBACK (on_teseo_alg_down_toolbutton_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) teseo_alg_up_toolbutton, "clicked",
+                    G_CALLBACK (on_teseo_alg_up_toolbutton_clicked),
+                    NULL);
   g_signal_connect ((gpointer) teseo_alg_go_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_go_toolbutton_clicked),
                     NULL);
@@ -1401,6 +1455,12 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_back_toolbutton, "teseo_alg_back_toolbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, image143, "image143");
   GLADE_HOOKUP_OBJECT (win_teseo, toolitem5, "toolitem5");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_down_toolbutton, "teseo_alg_down_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, image516, "image516");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolitem7, "toolitem7");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_up_toolbutton, "teseo_alg_up_toolbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, image515, "image515");
+  GLADE_HOOKUP_OBJECT (win_teseo, toolitem6, "toolitem6");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_alg_go_toolbutton, "teseo_alg_go_toolbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, image142, "image142");
   GLADE_HOOKUP_OBJECT (win_teseo, handlebox2, "handlebox2");

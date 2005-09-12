@@ -893,6 +893,9 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 
   GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton", 0);
   GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton", 0);
+  GtkButton *teseo_alg_up_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_up_toolbutton", 0);
+  GtkButton *teseo_alg_down_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_down_toolbutton", 0);
+
 
   wmeanParams s;
 
@@ -933,6 +936,12 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
   gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_back_toolbutton, TRUE);
   GTK_WIDGET_SET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
 
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_up_toolbutton, TRUE);
+  GTK_WIDGET_SET_FLAGS (teseo_alg_up_toolbutton, GTK_CAN_FOCUS);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_down_toolbutton, TRUE);
+  GTK_WIDGET_SET_FLAGS (teseo_alg_down_toolbutton, GTK_CAN_FOCUS);
+
+
 }
 
 
@@ -943,15 +952,28 @@ on_alg_wmean_radiotoolbutton_clicked   (GtkToolButton   *toolbutton,
 static inline void disable_buttons(){
   GtkButton *teseo_alg_go_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_go_toolbutton", 0);
   GtkButton *teseo_alg_back_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_back_toolbutton", 0);
+
+  GtkButton *teseo_alg_up_toolbutton   = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_up_toolbutton", 0);
+  GtkButton *teseo_alg_down_toolbutton = (GtkButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_alg_down_toolbutton", 0);
+
+
   GtkRadioToolButton *ghost_radiotoolbutton = (GtkRadioToolButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "ghost_radiotoolbutton", 0);
 
   //toggle the alghoritms buttons as side effect
   gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
+
   //set go and back buttons insensitive
   gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_go_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_back_toolbutton, FALSE);
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
+  //set up and down buttons insensitive
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_up_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_up_toolbutton, GTK_CAN_FOCUS);
+  gtk_widget_set_sensitive ((GtkWidget *) teseo_alg_down_toolbutton, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_alg_down_toolbutton, GTK_CAN_FOCUS);
+
+
 }
 
 
@@ -1140,5 +1162,21 @@ on_salva1_activate                     (GtkMenuItem     *menuitem,
 {
   if (!save_session(current_session))
      g_message("Unable to save current Session.");
+}
+
+
+void
+on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
 }
 
