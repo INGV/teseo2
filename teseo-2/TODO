@@ -1,45 +1,15 @@
 This is your plugin's TODO list.
 
-
 Thu Aug  4 17:16:58 CEST 2005
-- Fix old TESEO_DATA with new ...
-	* Improve get_teseo_environment_path()
-        * does it check for a file teseorc?
-        * Does Gimp ever use $HOME/.gimp-x.x directory? I think so.
-- Display filename on window win_teseo () (?)
-- Path menu porting from teseo 1 to 2
-- Manage lock mechanism:
+- Improve management of the lock mechanism:
 	* when the program crash and does not remove the file lock
 	* when quit gimp and the plug-in has not been closed before
-
 
 Sun Aug  7 19:49:52 CEST 2005
 - Event pathname and time mark pathname in Properties-->Traces
 
-
-Tue Aug  9 14:13:53 CEST 2005
-- Specify when we are working with polyline and when with bezier curve
-
-
-Wed Aug 10 17:27:46 CEST 2005
-- Porting on Windows
-- Define source pack distribution (teseo-2.x.x.tar.gz)
-- Define binary pack distribution (Linux, Mac, Windows)
-    * define a makefile to compile a static binary
-    * Include pixmaps and help files in binary distribution
-    * installation software o.s. dependent
-    	Linux-Unix: shell script ?
-	MAC OS X:  shell script ?
-	Windows:   .exe?	
-- Change the path order when link or align them (?)
-	* Now the order is from the bottom to the top in Paths tool (Standar in GIMP (?))
-
-
 Sat Aug 13 11:27:26 CEST 2005
 - It is possibile to center image on a point? (Submit to mailinglists, forums, discussions,...)
-- Alternative exit condition from execution steps based on coordinates limit, using guide
-- Teseo works from left to right. Do we want consider other directions? NO
-- Print path for debug (type 3, BEZIER_MOVE)
 - gimp_path_get_points() fails when path contains more piecewise...
     Gimp-Vectors-WARNING **: gimp_vectors_compat_get_points(): convert failed
         until gimp-2.3.3,  function is the same...
@@ -47,11 +17,7 @@ Sat Aug 13 11:27:26 CEST 2005
 - check where g_free is needed !!!
 - Write a function to "open" a closed path
 
-
 Sun Aug 21 10:46:44 CEST 2005
-- Omologate by glib functions
-    * Use GString, g_printf, g_sprintf,
-    * Glib File Utilities
 - Omologate output message
         see developer.gimp.org/api/2.0/glib/glib-Message-Logging.html#g-warning
     * (i.e.  "Teseo2-Warning: function_name(): messsage")
@@ -61,17 +27,14 @@ Sun Aug 21 10:46:44 CEST 2005
     * g_print() should not be used from within libraries for debugging messages,
         since it may be redirected by applications to special purpose message windows or even files.
         Instead, libraries should use g_log(), or the convenience functions g_message(), g_warning() and g_error().
-- Don't modify locked path !!!!!!!
-
-
-Fri Aug 26 11:15:21 CEST 2005
-- Write a function to "snap" every point of a polyline path. It could be executed iteratively.
-
 
 Fri Sep  2 08:30:36 CEST 2005
 - logo Wilber Seismologists mtheo
-- Control Open/Save Session ilpint
-- Save win_teseo paramaters in session file ilpint
 - Import ASCII    mtheo
 - Import/Export Timemark    ilpint
 - Improve SAC export
+
+
+Mon Sep 12 10:53:44 CEST 2005
+- Insert up and down arrows in CWM algorithm
+
