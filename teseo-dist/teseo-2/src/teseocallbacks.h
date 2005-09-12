@@ -312,3 +312,11 @@ on_snap1_activate                      (GtkMenuItem     *menuitem,
 void
 on_salva1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
+                                        gpointer         user_data);
