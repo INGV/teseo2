@@ -13,16 +13,23 @@ historical seismogram acquired in raster format.
 
 SOURCE CODE DISTRIBUTION
 To build and install it:
-	- requires build and install gtkaddons library, it is distributed with Teseo-2
 	- refer to the file INSTALL
+	- requires build and install gtkaddons library, it is distributed with Teseo-2
 
-STATIC BINARY DISTRIBUTION
+STATIC UNIX-LIKE BINARY DISTRIBUTION (linux, darwin, ...)
 To install it:
+	- refer to the file INSTALL
 	- unpack file teseo-2.x.x-bin-OPERATINGSYSTEM.tar.gz
 	- run script setup.sh from a shell
 
 WINDOWS BINARY DISTRIBUTION
 To install it:
+	- refer to the file INSTALL
 	- unpack file teseo-2.x.x-bin-win32.zip
 	- run teseo-2.0.6-setup.exe
+
+MACOSX BINARY DISTRIBUTION
+To install it:
+	- refer to the file INSTALL
+	- download DMG or ISO image that contain Gimp.app with teseo-2 bundled
 

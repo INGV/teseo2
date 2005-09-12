@@ -46,8 +46,9 @@ Restart Gimp if it was opened.
 
 You have 2 possibilities to install teseo-2 on Mac Os X.
 
-1- Download ISO image that contains Gimp.app with teseo-2 bundled
-	(ISO image is about 50 MB)
+1- Download DMG or ISO image that contain Gimp.app with teseo-2 bundled
+	(DMG image is about 50 MB)
+	(ISO image is about 100 MB)
 
 2- Download binary distribution pack and use shell script configuration:
 	(distribution is about 1 MB)
