@@ -167,7 +167,8 @@ void teseo_timemark_add_from_guides(gint32 teseo_image) {
 
             g_printf("teseo_timemark_add_from_guides(): j %d, new_num_path_point_details %d\n", j, new_num_path_point_details);
 
-            gimp_path_set_points(teseo_image, "TIMEMARK DEBUG", 1, new_num_path_point_details, new_points_pairs);
+            // gimp_path_set_points(teseo_image, "TIMEMARK DEBUG", 1, new_num_path_point_details, new_points_pairs);
+            gimp_path_set_points(teseo_image, "TIMEMARK DEBUG", 1, j, new_points_pairs);
 
 
             g_free(new_points_pairs);
