@@ -36,5 +36,11 @@
   */
 GList* teseo_timemark_check_path(gint32 teseo_image);
 
+/*!
+  teseo_timemark_add_from_guides add points in current path where path is intersecated by the guides
+  \param gint32 teseo_image ID of the GIMP image
+  */
+void teseo_timemark_add_from_guides(gint32 teseo_image);
+
 
 #endif
