@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image508">
+			    <widget class="GtkImage" id="image523">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -92,7 +92,7 @@
 				  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image509">
+				    <widget class="GtkImage" id="image524">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image510">
+			    <widget class="GtkImage" id="image525">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image511">
+				    <widget class="GtkImage" id="image526">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -238,7 +238,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image512">
+				    <widget class="GtkImage" id="image527">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -473,9 +473,18 @@
 			      </child>
 
 			      <child>
+				<widget class="GtkMenuItem" id="add_tms_from_guides1">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">_Add TMs from guides</property>
+				  <property name="use_underline">True</property>
+				  <signal name="activate" handler="on_add_tms_from_guides1_activate" last_modification_time="Tue, 13 Sep 2005 12:59:37 GMT"/>
+				</widget>
+			      </child>
+
+			      <child>
 				<widget class="GtkMenuItem" id="adjustment1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Adjustment</property>
+				  <property name="label" translatable="yes">Ad_justment</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_adjustment1_activate" last_modification_time="Wed, 19 Nov 2003 17:35:58 GMT"/>
 				</widget>
@@ -523,7 +532,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image513">
+			    <widget class="GtkImage" id="image528">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -544,7 +553,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image514">
+			    <widget class="GtkImage" id="image529">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>
@@ -758,7 +767,7 @@
 			  <child>
 			    <widget class="GtkImage" id="image516">
 			      <property name="visible">True</property>
-			      <property name="stock">gtk-goto-bottom</property>
+			      <property name="stock">gtk-go-down</property>
 			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
@@ -795,7 +804,7 @@
 			  <child>
 			    <widget class="GtkImage" id="image515">
 			      <property name="visible">True</property>
-			      <property name="stock">gtk-goto-top</property>
+			      <property name="stock">gtk-go-up</property>
 			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>

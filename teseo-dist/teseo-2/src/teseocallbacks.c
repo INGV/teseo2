@@ -625,7 +625,6 @@ void
 on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    g_message(TODO_str);
     GList *x_list, *iter_list;
     gint i;
     x_list = teseo_timemark_check_path(teseo_image);
@@ -633,6 +632,7 @@ on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
         g_printf("%d: %d\n", i, GPOINTER_TO_INT(iter_list->data));
         gimp_image_add_vguide(teseo_image, GPOINTER_TO_INT(iter_list->data));
     }
+    g_list_free(x_list);
 }
 
 
@@ -1186,5 +1186,13 @@ on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
 
+}
+
+
+void
+on_add_tms_from_guides1_activate       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    teseo_timemark_add_from_guides(teseo_image);
 }
 

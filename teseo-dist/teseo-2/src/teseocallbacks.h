@@ -320,3 +320,7 @@ on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
 void
 on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_add_tms_from_guides1_activate       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
