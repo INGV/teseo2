@@ -49,6 +49,7 @@
 #include "teseo_gimp_extends.h"
 #include "teseo_snap.h"
 #include "teseo_sac.h"
+#include "teseo_timemark.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -625,6 +626,13 @@ on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     g_message(TODO_str);
+    GList *x_list, *iter_list;
+    gint i;
+    x_list = teseo_timemark_check_path(teseo_image);
+    for(iter_list = g_list_first(x_list), i=1; iter_list != NULL; iter_list = g_list_next(iter_list), i++ ) {
+        g_printf("%d: %d\n", i, GPOINTER_TO_INT(iter_list->data));
+        gimp_image_add_vguide(teseo_image, GPOINTER_TO_INT(iter_list->data));
+    }
 }
 
 

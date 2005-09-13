@@ -202,6 +202,8 @@ teseo_2_SOURCES = \
 	teseo_snap.c \
 	teseo_sac.h \
 	teseo_sac.c \
+	teseo_timemark.c	\
+	teseo_timemark.h	\
 	nrutil.h \
 	nrutil.c \
 	nr.h \
@@ -241,6 +243,7 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_resample.$(OBJEXT) \
 	teseo_snap.$(OBJEXT) \
 	teseo_sac.$(OBJEXT) \
+	teseo_timemark.$(OBJEXT) \
 	teseo_bezier_fit.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
