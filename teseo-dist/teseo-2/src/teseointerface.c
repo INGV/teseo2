@@ -3477,3 +3477,49 @@ create_dlg_move_rotation (void)
   return dlg_move_rotation;
 }
 
+GtkWidget*
+create_filechooser_export (void)
+{
+  GtkWidget *filechooser_export;
+  GtkWidget *dialog_vbox11;
+  GtkWidget *dialog_action_area12;
+  GtkWidget *button27;
+  GtkWidget *button28;
+
+  filechooser_export = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
+  gtk_widget_set_name (filechooser_export, "filechooser_export");
+  gtk_window_set_modal (GTK_WINDOW (filechooser_export), TRUE);
+  gtk_window_set_type_hint (GTK_WINDOW (filechooser_export), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox11 = GTK_DIALOG (filechooser_export)->vbox;
+  gtk_widget_set_name (dialog_vbox11, "dialog_vbox11");
+  gtk_widget_show (dialog_vbox11);
+
+  dialog_action_area12 = GTK_DIALOG (filechooser_export)->action_area;
+  gtk_widget_set_name (dialog_action_area12, "dialog_action_area12");
+  gtk_widget_show (dialog_action_area12);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area12), GTK_BUTTONBOX_END);
+
+  button27 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (button27, "button27");
+  gtk_widget_show (button27);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button27, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (button27, GTK_CAN_DEFAULT);
+
+  button28 = gtk_button_new_from_stock ("gtk-open");
+  gtk_widget_set_name (button28, "button28");
+  gtk_widget_show (button28);
+  gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button28, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (button28, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_export, filechooser_export, "filechooser_export");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_export, dialog_vbox11, "dialog_vbox11");
+  GLADE_HOOKUP_OBJECT_NO_REF (filechooser_export, dialog_action_area12, "dialog_action_area12");
+  GLADE_HOOKUP_OBJECT (filechooser_export, button27, "button27");
+  GLADE_HOOKUP_OBJECT (filechooser_export, button28, "button28");
+
+  gtk_widget_grab_default (button28);
+  return filechooser_export;
+}
+
