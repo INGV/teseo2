@@ -396,53 +396,54 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     gchar *image_filename = NULL;
     gchar dxf_path_filename[FILENAMELEN];
     gchar dxf_filename[FILENAMELEN];
-    gchar * filename;
+    gchar * filename = NULL;
     gchar *pathname = NULL;
     // TODO catch scale value
     gint scale = 0;
+    gint result;
 
     dxf_path = teseo_get_environment_path( DXFPATH );
     image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
     pathname = gimp_path_get_current(teseo_image);
 
     // TODO check bad character in pathname ...
-//    g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
+    //    g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
     g_sprintf(dxf_filename, "%s_%s%s",  image_filename, pathname, DXF_EXT);
 
     gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as DXF");
     gtk_file_chooser_set_current_folder(filechooser_export, dxf_path );
     gtk_file_chooser_set_current_name (filechooser_export, dxf_filename);
 
-    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
+    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+        result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
 
-    switch (result)
-    {
-      case GTK_RESPONSE_OK:
+        switch (result)
+        {
+            case GTK_RESPONSE_OK:
 
-	 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
-         //g_sprintf(dxf_path_filename, "%s%s%s", dxf_path, G_DIR_SEPARATOR_S, filename);
+                filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
+                //g_sprintf(dxf_path_filename, "%s%s%s", dxf_path, G_DIR_SEPARATOR_S, filename);
 
-         // TODO check if dxf_path_filename exists
+                // TODO check if dxf_path_filename exists
 
-        if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-	  // TODO check options in session windows before saving
-	  teseo_save_path_dxf(teseo_image, filename, scale);
-	  g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
-        } else {
-	  g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
+                // TODO check options in session windows before saving
+                teseo_save_path_dxf(teseo_image, filename, scale);
+                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+
+                break;
+            case GTK_RESPONSE_CANCEL:
+
+                break;
+            case GTK_RESPONSE_DELETE_EVENT:
+
+                break;
+            default:
+                break;
         }
-
-	 break;
-      case GTK_RESPONSE_CANCEL:
-
-	 break;
-      case GTK_RESPONSE_DELETE_EVENT:
-
-	 break;
-      default:
-	 break;
+        gtk_widget_hide ((GtkWidget *) filechooser_export);
+    } else {
+        g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
     }
-    gtk_widget_hide ((GtkWidget *) filechooser_export);
 
 
     g_free(dxf_path);
