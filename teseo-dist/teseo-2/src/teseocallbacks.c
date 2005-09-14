@@ -1181,6 +1181,36 @@ void
 on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
                                         gpointer         user_data)
 {
+   int iter;
+
+   gboolean check_guide;
+   gboolean use_guide=FALSE;
+
+   GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
+   GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+
+   check_guide = gtk_toggle_button_get_active(tcfgs);
+   iter = gtk_spin_button_get_value_as_int (tfss) ;
+
+   gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
+
+   //if checked and exist one guide
+    gint32 *guides=NULL, n_guides;
+
+    if (check_guide){
+      n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+      if(n_guides >= 1) {
+	iter=guides[0];
+//	g_message("Stopping at guide in %d",iter);
+	use_guide=TRUE;
+      }
+      else {
+	  g_message("No guide found");
+      }
+      g_free(guides);
+    }
+    teseo_wmean_set_dir(DOWN);
+    teseo_main_loop(iter, drawable_ID,use_guide);
 
 }
 
@@ -1189,6 +1219,36 @@ void
 on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data)
 {
+   int iter;
+
+   gboolean check_guide;
+   gboolean use_guide=FALSE;
+
+   GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
+   GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+
+   check_guide = gtk_toggle_button_get_active(tcfgs);
+   iter = gtk_spin_button_get_value_as_int (tfss) ;
+
+   gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
+
+   //if checked and exist one guide
+    gint32 *guides=NULL, n_guides;
+
+    if (check_guide){
+      n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+      if(n_guides >= 1) {
+	iter=guides[0];
+//	g_message("Stopping at guide in %d",iter);
+	use_guide=TRUE;
+      }
+      else {
+	  g_message("No guide found");
+      }
+      g_free(guides);
+    }
+    teseo_wmean_set_dir(UP);
+    teseo_main_loop(iter, drawable_ID,use_guide);
 
 }
 
