@@ -3506,7 +3506,7 @@ create_filechooser_export (void)
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button27, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (button27, GTK_CAN_DEFAULT);
 
-  button28 = gtk_button_new_from_stock ("gtk-open");
+  button28 = gtk_button_new_from_stock ("gtk-save");
   gtk_widget_set_name (button28, "button28");
   gtk_widget_show (button28);
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button28, GTK_RESPONSE_OK);
