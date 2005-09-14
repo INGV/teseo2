@@ -839,28 +839,6 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     gtk_widget_hide ((GtkWidget *) filechooser_import);
 }
 
-void
-on_teseo_alg_back_toolbutton_clicked   (GtkButton   *button,
-                                        gpointer         user_data)
-{
-    int iter;
-    glong n_strokes;
-    gdouble *strokes;
-    GtkSpinButton  * tbss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_back_step_spinbutton", 0);
-    char * pathname = gimp_path_get_current(teseo_image);
-
-    iter = gtk_spin_button_get_value_as_int (tbss) ;
-    strokes = teseo_open_path_to_strokes(teseo_image,  &n_strokes,  pathname);
-
-    teseo_strokes_to_open_path(teseo_image, n_strokes-iter, strokes, pathname);
-
-    //beware i'm deleting old path with pathname
-    gimp_path_delete(teseo_image,pathname);
-
-    g_free(pathname);
-    g_free(strokes);
-}
-
 
 void
 on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
@@ -894,6 +872,7 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
       }
       g_free(guides);
     }
+    teseo_wmean_set_dir(RIGHT);
     teseo_main_loop(iter, drawable_ID,use_guide);
 }
 
@@ -1267,4 +1246,65 @@ on_force_polyline1_activate            (GtkMenuItem     *menuitem,
 {
     teseo_path_force_polyline(teseo_image);
 }
+
+
+void
+on_teseo_alg_undo_toolbutton_clicked   (GtkToolButton   *toolbutton,
+                                        gpointer         user_data)
+{
+    int iter;
+    glong n_strokes;
+    gdouble *strokes;
+    GtkSpinButton  * tbss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_back_step_spinbutton", 0);
+    char * pathname = gimp_path_get_current(teseo_image);
+
+    iter = gtk_spin_button_get_value_as_int (tbss) ;
+    strokes = teseo_open_path_to_strokes(teseo_image,  &n_strokes,  pathname);
+
+    teseo_strokes_to_open_path(teseo_image, n_strokes-iter, strokes, pathname);
+
+    //beware i'm deleting old path with pathname
+    gimp_path_delete(teseo_image,pathname);
+
+    g_free(pathname);
+    g_free(strokes);
+}
+
+
+void
+on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
+                                        gpointer         user_data)
+{
+   int iter;
+
+   gboolean check_guide;
+   gboolean use_guide=FALSE;
+
+   GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
+   GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+
+   check_guide = gtk_toggle_button_get_active(tcfgs);
+   iter = gtk_spin_button_get_value_as_int (tfss) ;
+
+   gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
+
+   //if checked and exist one guide
+    gint32 *guides=NULL, n_guides;
+
+    if (check_guide){
+      n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+      if(n_guides >= 1) {
+	iter=guides[0];
+//	g_message("Stopping at guide in %d",iter);
+	use_guide=TRUE;
+      }
+      else {
+	  g_message("No guide found");
+      }
+      g_free(guides);
+    }
+    teseo_wmean_set_dir(LEFT);
+    teseo_main_loop(iter, drawable_ID,use_guide);
+}
+
 

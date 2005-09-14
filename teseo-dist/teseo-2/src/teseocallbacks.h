@@ -226,10 +226,6 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_teseo_alg_back_toolbutton_clicked   (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
                                         gpointer         user_data);
 
@@ -328,3 +324,12 @@ on_add_tms_from_guides1_activate       (GtkMenuItem     *menuitem,
 void
 on_force_polyline1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_teseo_alg_undo_toolbutton_clicked   (GtkToolButton   *toolbutton,
+                                        gpointer         user_data);
+
+void
+on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
+                                        gpointer         user_data);
+
