@@ -324,3 +324,7 @@ on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
 void
 on_add_tms_from_guides1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_force_polyline1_activate            (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);

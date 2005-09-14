@@ -144,4 +144,10 @@ void teseo_path_split_at_x(gint32 g_image, gchar *pathname, gint32 x);
   */
 void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 n_guides);
 
+/*!
+  teseo_path_force_polyline convert a path in a polyline without take care of control points.
+  \param g_image GIMP image ID
+  */
+void teseo_path_force_polyline(gint32 g_image);
+
 #endif

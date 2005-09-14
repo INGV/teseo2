@@ -374,7 +374,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 	teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
 	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
     } else {
-	g_message("Path \"%s\" need resampling before exporting in DXF format !", pathname);
+	g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
     }
 
     g_free(dxf_path);
@@ -628,9 +628,13 @@ on_evaluate_middle_tms1_activate       (GtkMenuItem     *menuitem,
     GList *x_list, *iter_list;
     gint i;
     x_list = teseo_timemark_check_path(teseo_image);
-    for(iter_list = g_list_first(x_list), i=1; iter_list != NULL; iter_list = g_list_next(iter_list), i++ ) {
-        g_printf("%d: %d\n", i, GPOINTER_TO_INT(iter_list->data));
-        gimp_image_add_vguide(teseo_image, GPOINTER_TO_INT(iter_list->data));
+    if(x_list) {
+        for(iter_list = g_list_first(x_list), i=1; iter_list != NULL; iter_list = g_list_next(iter_list), i++ ) {
+            g_printf("%d: %d\n", i, GPOINTER_TO_INT(iter_list->data));
+            gimp_image_add_vguide(teseo_image, GPOINTER_TO_INT(iter_list->data));
+        }
+    } else {
+        g_message("Path should have all timemarks.");
     }
     g_list_free(x_list);
 }
@@ -793,7 +797,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
 	teseo_save_path_ascii(teseo_image, ascii_path_filename->str);
 	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, ascii_path_filename->str);
     } else {
-	g_message("Path \"%s\" need resampling before exporting in ASCII format !", pathname);
+	g_message("Path \"%s\" need resampling or forcing polyline before exporting in ASCII format !", pathname);
     }
     
     g_string_free(ascii_path_filename, TRUE);
@@ -1194,5 +1198,13 @@ on_add_tms_from_guides1_activate       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     teseo_timemark_add_from_guides(teseo_image);
+}
+
+
+void
+on_force_polyline1_activate            (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    teseo_path_force_polyline(teseo_image);
 }
 
