@@ -1032,7 +1032,7 @@ create_win_teseo (void)
   gtk_misc_set_alignment (GTK_MISC (label63), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label63), 10, 0);
 
-  teseo_wm_height_spinbutton_adj = gtk_adjustment_new (30, 3, 1000, 1, 10, 10);
+  teseo_wm_height_spinbutton_adj = gtk_adjustment_new (25, 7, 1000, 1, 10, 10);
   teseo_wm_height_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_height_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_wm_height_spinbutton, "teseo_wm_height_spinbutton");
   gtk_widget_show (teseo_wm_height_spinbutton);
@@ -1044,7 +1044,7 @@ create_win_teseo (void)
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), GTK_UPDATE_IF_VALID);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), TRUE);
 
-  teseo_wm_width_spinbutton_adj = gtk_adjustment_new (5, 3, 1000, 1, 10, 10);
+  teseo_wm_width_spinbutton_adj = gtk_adjustment_new (10, 3, 1000, 1, 10, 10);
   teseo_wm_width_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_width_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_wm_width_spinbutton, "teseo_wm_width_spinbutton");
   gtk_widget_show (teseo_wm_width_spinbutton);

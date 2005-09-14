@@ -75,6 +75,9 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
      width        = this_params.width;
      height       = this_params.height;
      num= width*height;
+     ab_c         = (int)(width/2);
+     // 1 pixel move
+     ab_s = ab_c + 1;  
      break;
    case UP:
    case DOWN:
@@ -82,13 +85,13 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
      MAX_STEP_ORD = this_params.height;
      width        = this_params.height;
      height       = this_params.width;
+     ab_c         = (int)(width/2);
+     // n pixel move
+     ab_s = ab_c + 3;  
      break;
   }
 
   step_ab      = this_params.step;
-  ab_c         = (int)(width/2);
-  // 1 pixel move
-  ab_s = ab_c + 1;  
 
 
   sum_num = 0.0;
