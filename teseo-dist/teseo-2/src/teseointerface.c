@@ -631,7 +631,7 @@ create_win_teseo (void)
   gtk_container_add (GTK_CONTAINER (toolitem8), teseo_alg_undo_toolbutton);
   gtk_tooltips_set_tip (tooltips, teseo_alg_undo_toolbutton, "Undo", NULL);
   gtk_widget_add_accelerator (teseo_alg_undo_toolbutton, "clicked", accel_group,
-                              GDK_BackSpace, 0,
+                              GDK_x, 0,
                               GTK_ACCEL_VISIBLE);
 
   image542 = gtk_image_new_from_stock ("gtk-undo", GTK_ICON_SIZE_BUTTON);
