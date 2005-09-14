@@ -44,3 +44,9 @@ Mon Sep 12 10:53:44 CEST 2005
 Tue Sep 13 15:03:02 CEST 2005
 - Split function should add the intersection point when split a path with long curves
 
+
+
+Wed Sep 14 11:54:15 CEST 2005
+- Adjust evaluate timemark (distance, y_mean, remove all guides before computation)
+
+

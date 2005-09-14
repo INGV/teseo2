@@ -44,6 +44,9 @@ GList* teseo_timemark_check_path(gint32 teseo_image) {
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
 
+    // remove all vertical guides
+    teseo_gimp_image_delete_all_guides(teseo_image, GIMP_ORIENTATION_VERTICAL);
+
     teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
 
     // Set first delta_mean

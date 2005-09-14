@@ -48,6 +48,13 @@ gint32 teseo_gimp_image_find_next_guide_orientation(gint32 g_image, gint32 g_gui
 gint32 teseo_gimp_image_find_guides_orientation(gint32 g_image, gint32 g_orientation, gint32 **a_guides);
 
 /*!
+  teseo_gimp_image_delete_all_guides delete all guides with a specific orientation
+  \param g_image
+  \param g_orientation
+  */
+void teseo_gimp_image_delete_all_guides(gint32 g_image, gint32 g_orientation);
+
+/*!
  TODO Wrapper to intercept error/warning and display with g_message
  */
 gint teseo_gimp_path_get_points (gint32           image_ID,
