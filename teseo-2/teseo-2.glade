@@ -673,25 +673,45 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkToolButton" id="teseo_alg_undo_toolbutton">
+		    <widget class="GtkToolItem" id="toolitem8">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Undo</property>
-		      <property name="label" translatable="yes"></property>
-		      <property name="use_underline">True</property>
-		      <property name="stock_id">gtk-undo</property>
 		      <property name="visible_horizontal">True</property>
 		      <property name="visible_vertical">True</property>
 		      <property name="is_important">False</property>
+
+		      <child>
+			<widget class="GtkButton" id="teseo_alg_undo_toolbutton">
+			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Undo</property>
+			  <property name="can_focus">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="on_teseo_alg_undo_toolbutton_clicked" last_modification_time="Wed, 14 Sep 2005 07:43:23 GMT"/>
+			  <accelerator key="BackSpace" modifiers="0" signal="clicked"/>
+
+			  <child>
+			    <widget class="GtkImage" id="image542">
+			      <property name="visible">True</property>
+			      <property name="stock">gtk-undo</property>
+			      <property name="icon_size">4</property>
+			      <property name="xalign">0.5</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">0</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
 		    </widget>
 		    <packing>
 		      <property name="expand">False</property>
-		      <property name="homogeneous">True</property>
+		      <property name="homogeneous">False</property>
 		    </packing>
 		  </child>
 
 		  <child>
 		    <widget class="GtkToolButton" id="teseo_alg_redo_toolbutton">
-		      <property name="visible">True</property>
+		      <property name="sensitive">False</property>
 		      <property name="tooltip" translatable="yes">Redo</property>
 		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">True</property>
@@ -730,11 +750,11 @@
 			<widget class="GtkButton" id="teseo_alg_back_toolbutton">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="tooltip" translatable="yes">Back</property>
+			  <property name="tooltip" translatable="yes">Left</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
-			  <signal name="clicked" handler="on_teseo_alg_back_toolbutton_clicked" last_modification_time="Wed, 13 Jul 2005 07:24:10 GMT"/>
-			  <accelerator key="F3" modifiers="0" signal="clicked"/>
+			  <signal name="clicked" handler="on_teseo_alg_left_toolbutton_clicked" last_modification_time="Wed, 14 Sep 2005 07:20:17 GMT"/>
+			  <accelerator key="h" modifiers="0" signal="clicked"/>
 
 			  <child>
 			    <widget class="GtkImage" id="image143">
@@ -767,11 +787,11 @@
 			<widget class="GtkButton" id="teseo_alg_down_toolbutton">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="tooltip" translatable="yes">Go</property>
+			  <property name="tooltip" translatable="yes">Down</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
 			  <signal name="clicked" handler="on_teseo_alg_down_toolbutton_clicked" last_modification_time="Mon, 12 Sep 2005 13:54:15 GMT"/>
-			  <accelerator key="F4" modifiers="0" signal="clicked"/>
+			  <accelerator key="j" modifiers="0" signal="clicked"/>
 
 			  <child>
 			    <widget class="GtkImage" id="image516">
@@ -804,11 +824,11 @@
 			<widget class="GtkButton" id="teseo_alg_up_toolbutton">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="tooltip" translatable="yes">Go</property>
+			  <property name="tooltip" translatable="yes">Up</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
 			  <signal name="clicked" handler="on_teseo_alg_up_toolbutton_clicked" last_modification_time="Mon, 12 Sep 2005 13:54:31 GMT"/>
-			  <accelerator key="F4" modifiers="0" signal="clicked"/>
+			  <accelerator key="k" modifiers="0" signal="clicked"/>
 
 			  <child>
 			    <widget class="GtkImage" id="image515">
@@ -841,11 +861,11 @@
 			<widget class="GtkButton" id="teseo_alg_go_toolbutton">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
-			  <property name="tooltip" translatable="yes">Go</property>
+			  <property name="tooltip" translatable="yes">Right</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
 			  <signal name="clicked" handler="on_teseo_alg_go_toolbutton_clicked" last_modification_time="Wed, 13 Jul 2005 07:24:23 GMT"/>
-			  <accelerator key="F4" modifiers="0" signal="clicked"/>
+			  <accelerator key="l" modifiers="0" signal="clicked"/>
 
 			  <child>
 			    <widget class="GtkImage" id="image142">
