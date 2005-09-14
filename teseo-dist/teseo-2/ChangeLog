@@ -1,3 +1,64 @@
+2005-09-14 15:50  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.58): Converted Open button in Save button
+
+2005-09-14 15:49  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseocallbacks.c (1.70): Improved check before DXF export
+
+2005-09-14 15:41  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_session.c (1.22): Minor revision
+
+2005-09-14 15:09  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_timemark.c (1.6): Improved
+	  teseo_timemark_add_from_guides()
+
+2005-09-14 12:47  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.26), teseocallbacks.c (1.69),
+	  teseocallbacks.h (1.33), teseointerface.c (1.57),
+	  teseointerface.h (1.19): Added filechooser_export, implemented
+	  save dxf as.
+
+2005-09-14 12:13  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_gimp_extends.c (1.5), teseo_gimp_extends.h (1.4),
+	  teseo_timemark.c (1.5): Inserted
+	  teseo_gimp_image_delete_all_guides() function
+
+2005-09-14 12:12  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.56): Inserted accelerator key "x" to
+	  delete last points
+
+2005-09-14 11:42  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_wmean.c (1.12), teseointerface.c (1.55): Minor
+	  revision
+
+2005-09-14 11:05  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.68), teseocallbacks.h (1.32),
+	  teseointerface.c (1.54): Adjustment CWM button and tooltips
+
+2005-09-14 08:08  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_wmean.c (1.11), teseo_wmean.h (1.9), teseocallbacks.c
+	  (1.67): up and down in wmean algorithm
+
+2005-09-14 07:36  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_timemark.c (1.4): Fixed bug in
+	  teseo_timemark_add_from_guides()
+
+2005-09-14 07:35  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_path.c (1.21), teseo_path.h (1.10), teseocallbacks.c
+	  (1.66), teseocallbacks.h (1.31), teseointerface.c (1.53): Added
+	  teseo_path_force_polyline() function
+
 2005-09-13 15:44  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/teseo_timemark.c (1.3): teseo_timemark_add_from_guides()
