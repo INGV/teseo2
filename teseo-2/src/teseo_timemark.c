@@ -100,26 +100,21 @@ GList* teseo_timemark_check_path(gint32 teseo_image) {
 
 
 void teseo_timemark_add_from_guides(gint32 teseo_image) {
+    GString *path_name_new = NULL;
     gdouble *points_pairs=NULL, *new_points_pairs=NULL;
     gint path_closed, num_path_point_details, new_num_path_point_details;
-
+    gdouble y_mean;
     gint i, j, k, n;
     gint32 *guides=NULL, n_guides;
-    n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
 
-    g_printf("teseo_timemark_add_from_guides(): start, n_guides %d\n", n_guides);
+    n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
 
     if(n_guides > 0) {
 
-        g_printf("teseo_timemark_add_from_guides(): get_current_path\n");
-
         teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
-
         if(num_path_point_details < 1) {
             g_message("Path is empty !");
         } else {
-
-            g_printf("teseo_timemark_add_from_guides(): compute new path\n");
 
             new_num_path_point_details = num_path_point_details + (n_guides * 9);
             new_points_pairs = g_malloc(new_num_path_point_details *  sizeof(gdouble));
@@ -141,36 +136,37 @@ void teseo_timemark_add_from_guides(gint32 teseo_image) {
                 while( (n < n_guides) &&  (points_pairs[i+3] >= guides[n])) {
                     // add points
                     g_printf("teseo_timemark_add_from_guides(): n %d\n", n);
+                    y_mean = (points_pairs[i+1] + points_pairs[i-5]) / 2.0;
                     new_points_pairs[j++] = guides[n];
-                    new_points_pairs[j++] = points_pairs[i-5];
+                    new_points_pairs[j++] = y_mean;
                     new_points_pairs[j++] = 2.0;
 
                     new_points_pairs[j++] = guides[n];
-                    new_points_pairs[j++] = points_pairs[i-5];
+                    new_points_pairs[j++] = y_mean;
                     new_points_pairs[j++] = 1.0;
 
                     new_points_pairs[j++] = guides[n];
-                    new_points_pairs[j++] = points_pairs[i-5];
+                    new_points_pairs[j++] = y_mean;
                     new_points_pairs[j++] = 2.0;
 
                     n++;
                 }
 
                 // copy point
-                for(k=0; k < 2; k++) {
-                    new_points_pairs[j++] = points_pairs[i+k+0];
-                    new_points_pairs[j++] = points_pairs[i+k+1];
-                    new_points_pairs[j++] = points_pairs[i+k+2];
+                for(k=0; k < 9; k++) {
+                    new_points_pairs[j++] = points_pairs[i+k];
                 }
                 
             }
 
             g_printf("teseo_timemark_add_from_guides(): j %d, new_num_path_point_details %d\n", j, new_num_path_point_details);
 
-            // gimp_path_set_points(teseo_image, "TIMEMARK DEBUG", 1, new_num_path_point_details, new_points_pairs);
-            gimp_path_set_points(teseo_image, "TIMEMARK DEBUG", 1, j, new_points_pairs);
+            path_name_new = g_string_new("Uname");
+            g_string_printf(path_name_new, "%s_TM", gimp_path_get_current(teseo_image));
+            gimp_path_set_points(teseo_image, path_name_new->str, 1, j, new_points_pairs);
 
 
+            g_free(path_name_new);
             g_free(new_points_pairs);
             g_free(points_pairs);
         }
