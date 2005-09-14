@@ -307,7 +307,7 @@ gchar test_session(char * filename){
     gchar * entry = NULL;
 
     gchar * basename=NULL;
-    gchar * basename_noext;
+    gchar * basename_noext = NULL;
     gchar * myentry = NULL;
     gchar * token = NULL;
 
