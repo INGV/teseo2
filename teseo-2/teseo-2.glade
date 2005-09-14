@@ -1571,7 +1571,7 @@ first guide</property>
 			  <property name="update_policy">GTK_UPDATE_IF_VALID</property>
 			  <property name="snap_to_ticks">True</property>
 			  <property name="wrap">False</property>
-			  <property name="adjustment">30 3 1000 1 10 10</property>
+			  <property name="adjustment">25 7 1000 1 10 10</property>
 			  <signal name="input" handler="on_teseo_wm_height_spinbutton_input" last_modification_time="Tue, 26 Jul 2005 07:15:29 GMT"/>
 			</widget>
 			<packing>
@@ -1593,7 +1593,7 @@ first guide</property>
 			  <property name="update_policy">GTK_UPDATE_IF_VALID</property>
 			  <property name="snap_to_ticks">True</property>
 			  <property name="wrap">False</property>
-			  <property name="adjustment">5 3 1000 1 10 10</property>
+			  <property name="adjustment">10 3 1000 1 10 10</property>
 			  <signal name="input" handler="on_teseo_wm_width_spinbutton_input" last_modification_time="Tue, 26 Jul 2005 07:21:25 GMT"/>
 			</widget>
 			<packing>
