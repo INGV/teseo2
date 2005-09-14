@@ -35,9 +35,196 @@ void teseo_wmean_init( wmeanParams* s){
   this_params.step   = (*s).step;
   this_params.width  = (*s).width;
   this_params.height  = (*s).height;
+  this_params.dir  = RIGHT;
+
+}
+
+void teseo_wmean_set_dir(int dir){
+  this_params.dir = dir;
+}
+
+ 
+
+int teseo_wmean( const wm_is * is, wm_os * os ){
+  int ret =1;
+  //int ab,ord;
+  int ab_c,ab_s, step_ab;
+  int width, height;
+  long num=0;
+
+  float colour;
+  double sum_num, sum_den;
+  double coord;
+  double weight, dist;
+  int Ord_abs, Ord_rel, Ab_abs, Ab_rel;
+//  int Yabs, Yrel, Xabs, Xrel;
+  int ORD;
+  int t, tmean;
+  int MAX_STEP_ORD;
+
+  int dir=this_params.dir;
+
+  int COLOUR  = this_params.colour;
+
+   
+  switch (dir) {
+    case LEFT:
+    case RIGHT:
+     //starting LEFT-RIGHT parameters
+     MAX_STEP_ORD = this_params.width;
+     width        = this_params.width;
+     height       = this_params.height;
+     num= width*height;
+     break;
+   case UP:
+   case DOWN:
+     //starting UP-DOWN parameters
+     MAX_STEP_ORD = this_params.height;
+     width        = this_params.height;
+     height       = this_params.width;
+     break;
+  }
+
+  step_ab      = this_params.step;
+  ab_c         = (int)(width/2);
+  // 1 pixel move
+  ab_s = ab_c + 1;  
+
+
+  sum_num = 0.0;
+  sum_den = 0.0;
+
+  // inizialmente mi sposto verso destra sulle x
+  // se poi la Ord_rel ? maggiore di un certo valore MAX_STEP_ORD allora faccio la media anche per le x
+
+  
+  //column mean
+  for(t=0; t < height; t++) {
+
+	coord = t + 1;
+	coord /= (double) height;
+ 
+      switch (dir) {
+        case RIGHT:
+         colour = (*is).bufin[(t*width) + ab_s];
+         break;
+        case LEFT:
+         colour = (*is).bufin[ num - 1 - (width*t+ab_s) ];
+         break;
+        case UP:
+         colour = (*is).bufin[ height*(width - ab_s -1) + t ];
+         break;
+        case DOWN:
+         colour = (*is).bufin[ height*(ab_s +1) - t - 1 ];
+         break;
+      }
+
+	weight = (double) ( (COLOUR >= 128)? ( colour ) : (255.0 - colour) );
+	weight /= 255.0;
+	weight *= weight;
+	weight *= weight;
+
+	dist = fabs(t - (height/2));
+	if(dist!=0.0) {
+		dist = sqrt(dist);
+			dist = sqrt(dist);
+			weight /= ( (dist) / (double) (height/2));
+		} else {
+			weight = 0.0;
+		}
+
+		sum_num += ( weight * (double) coord );
+		sum_den += weight;
+  }
+
+	tmean = (int) (((sum_num / sum_den) * (double) height) + 0.5);
+
+	Ord_abs = ( (*is).LastCentre.y - (height/2) + (tmean - 1));
+
+	Ord_rel = (Ord_abs - (*is).LastCentre.y);
+
+	Ab_rel = step_ab;
+
+	if(abs(Ord_rel) > MAX_STEP_ORD) {
+		ORD = (Ord_abs - ((*is).LastCentre.y - (height/2)));
+		if(ORD < 0) {
+			ret=0;
+		}
+		sum_num = 0.0;
+		sum_den = 0.0;
+		for(t=0; t < width; t++) {
+			coord = t + 1;
+			coord /= (double) width;
+
+                  switch (dir) {
+                    case RIGHT:
+                      colour = (*is).bufin[(ORD*width) + t];
+                      break;
+                    case LEFT:
+                      colour = (*is).bufin[ num - 1 - (width*ORD+t) ];
+                      break;
+                    case UP:
+                      colour = (*is).bufin[ height*(width - t -1) + ORD ];
+                      break;
+                    case DOWN:
+                      colour = (*is).bufin[ height*(t +1) - ORD - 1 ];
+                      break;
+                  }
+
+
+			weight = (double) ( (COLOUR >= 128)? ( colour ) : (255.0 - colour) );
+			weight /= 255.0;
+			weight *= weight;
+			weight *= weight;
+
+			dist = fabs(t - (width/2));
+
+			if(dist!=0.0) {
+				dist = sqrt(dist);
+				dist = sqrt(dist);
+				weight /= ((dist) / (double) (width/2));
+			} else {
+				weight = 0.0;
+			}
+
+			sum_num += ( weight * (double) coord );
+			sum_den += weight;
+		}
+
+		tmean = (int) (((sum_num / sum_den) * (double) width) + 0.5);
+
+		Ab_abs = ((*is).LastCentre.x - (width/2) + (tmean - 1));
+
+		Ab_rel = (Ab_abs - (*is).LastCentre.x);
+
+	} else {
+		Ab_rel = step_ab;
+	}
+
+       switch (dir) {
+         case RIGHT:
+          (*os).x += (double) Ab_rel;
+          (*os).y += (double) Ord_rel;
+           break;
+         case LEFT:
+          (*os).x += (double) -Ab_rel;
+          (*os).y += (double) -Ord_rel;
+          break;
+         case UP:
+          (*os).x += (double) Ord_rel;
+          (*os).y += (double) -Ab_rel;
+           break;
+         case DOWN:
+          (*os).x += (double) -Ord_rel;
+          (*os).y += (double) Ab_rel;
+           break;
+       }
+
+    return ret;
 }
 
 
+/*
 int teseo_wmean( const wm_is * is, wm_os * os ){
   int ret =1;
 
@@ -62,6 +249,7 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
   x_s = x_c + 1;
   sum_num = 0.0;
   sum_den = 0.0;
+
   for(t=0; t < height; t++) {
 
 	coord = t + 1;
@@ -83,7 +271,7 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
 
 		sum_num += ( weight * (double) coord );
 		sum_den += weight;
-	}
+  }
 
 	tmean = (int) (((sum_num / sum_den) * (double) height) + 0.5);
 
@@ -139,7 +327,7 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
 
     return ret;
 }
-
+*/
 
 int teseo_wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable_ID){
   int ret=0;

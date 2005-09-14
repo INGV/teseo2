@@ -47,12 +47,14 @@ struct WM_I{
 typedef struct SPoint wm_os;
 typedef struct WM_I   wm_is;
 
+typedef enum { RIGHT, UP, DOWN, LEFT } DIRECTIONS;
 
 struct wmeanParam{
 	int colour;
 	int step;
 	int width;
 	int height;
+	int dir;
 };
 
 typedef struct wmeanParam wmeanParams;
@@ -67,6 +69,11 @@ int teseo_wmean( const wm_is * is, wm_os * os );
  * teseo_wmean_init initialise some const for algorithm execution
  */
 void teseo_wmean_init( wmeanParams* s);
+
+/*!
+ * teseo_wmean_set_dir initialise direction for algorithm execution
+ */
+void teseo_wmean_set_dir(int dir);
 
 /*!
  * teseo_wmean_getinput return is extracted from previous os and drawable
