@@ -81,6 +81,18 @@ gint32 teseo_gimp_image_find_guides_orientation(gint32 g_image, gint32 g_orienta
     return n_guides;
 }
 
+void teseo_gimp_image_delete_all_guides(gint32 g_image, gint32 g_orientation) {
+    gint32 curr_guide = 1;
+
+    while(curr_guide) {
+        curr_guide = teseo_gimp_image_find_next_guide_orientation(g_image, 0, g_orientation);
+        if(curr_guide !=0 ) {
+            gimp_image_delete_guide(g_image, curr_guide);
+        }
+    }
+
+}
+
 // Wrapper to intercept error/warning and display with g_message
 gint teseo_gimp_path_get_points (gint32           image_ID,
 			const gchar     *name,
