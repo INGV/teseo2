@@ -57,6 +57,7 @@ GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
 GtkFileChooser * filechooser_import;
+GtkFileChooser * filechooser_export;
 GtkFileChooser * filechooser_session;
 
 GimpDrawable * private_drawable ;
@@ -347,6 +348,44 @@ on_path1_activate                      (GtkMenuItem     *menuitem,
     g_message(TODO_str);
 }
 
+/*
+
+    // Import SVG
+    char filename[FILENAMELEN];
+    char * path=NULL;
+
+    path=teseo_get_environment_path( SVGPATH );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Import bezier path from SVG file");
+    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    g_free(path);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
+
+    switch (result)
+    {
+      case GTK_RESPONSE_OK:
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+	 teseo_import_svg_vectors( teseo_image, filename );
+	 break;
+      case GTK_RESPONSE_CANCEL:
+
+	 break;
+      case GTK_RESPONSE_DELETE_EVENT:
+
+	 break;
+      default:
+	 break;
+    }
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
+
+
+
+ gtk_file_chooser_set_current_name (GtkFileChooser *chooser, const gchar *name);
+
+TODO correct gtk_file_chooser_get_filename lines gfree the result!!!!
+
+
+*/
 
 void
 on_dxf1_activate                       (GtkMenuItem     *menuitem,
@@ -356,6 +395,8 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     gchar *dxf_path = NULL;
     gchar *image_filename = NULL;
     gchar dxf_path_filename[FILENAMELEN];
+    gchar dxf_filename[FILENAMELEN];
+    gchar * filename;
     gchar *pathname = NULL;
     // TODO catch scale value
     gint scale = 0;
@@ -365,21 +406,48 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     pathname = gimp_path_get_current(teseo_image);
 
     // TODO check bad character in pathname ...
-    g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
+//    g_sprintf(dxf_path_filename, "%s%s%s_%s%s", dxf_path, G_DIR_SEPARATOR_S, image_filename, pathname, DXF_EXT);
+    g_sprintf(dxf_filename, "%s_%s%s",  image_filename, pathname, DXF_EXT);
 
-    // TODO check if dxf_path_filename exists
+    gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as DXF");
+    gtk_file_chooser_set_current_folder(filechooser_export, dxf_path );
+    gtk_file_chooser_set_current_name (filechooser_export, dxf_filename);
 
-    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-	// TODO check options in session windows before saving
-	teseo_save_path_dxf(teseo_image, dxf_path_filename, scale);
-	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, dxf_path_filename);
-    } else {
-	g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
+
+    switch (result)
+    {
+      case GTK_RESPONSE_OK:
+
+	 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
+         //g_sprintf(dxf_path_filename, "%s%s%s", dxf_path, G_DIR_SEPARATOR_S, filename);
+
+         // TODO check if dxf_path_filename exists
+
+        if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+	  // TODO check options in session windows before saving
+	  teseo_save_path_dxf(teseo_image, filename, scale);
+	  g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+        } else {
+	  g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
+        }
+
+	 break;
+      case GTK_RESPONSE_CANCEL:
+
+	 break;
+      case GTK_RESPONSE_DELETE_EVENT:
+
+	 break;
+      default:
+	 break;
     }
+    gtk_widget_hide ((GtkWidget *) filechooser_export);
+
 
     g_free(dxf_path);
     g_free(image_filename);
-
+    g_free(filename);
 }
 
 
@@ -423,7 +491,7 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     } else {
 	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
     }
-    
+
     g_free(sac_path);
     g_free(image_filename);
 }
@@ -786,7 +854,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     pathname = gimp_path_get_current(teseo_image);
 
     ascii_path_filename = g_string_new("Uname");
-    
+
     // TODO check bad character in pathname ...
     g_string_printf(ascii_path_filename, "%s%s%s_%s%s", ascii_path, G_DIR_SEPARATOR_S, image_filename, pathname, ASCII_EXT);
 
@@ -799,7 +867,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     } else {
 	g_message("Path \"%s\" need resampling or forcing polyline before exporting in ASCII format !", pathname);
     }
-    
+
     g_string_free(ascii_path_filename, TRUE);
     g_free(ascii_path);
     g_free(image_filename);

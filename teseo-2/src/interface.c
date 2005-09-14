@@ -171,6 +171,7 @@ dialog (gint32              image_ID,
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
 
+              filechooser_export = (GtkFileChooser *) create_filechooser_export();
               filechooser_import = (GtkFileChooser *) create_filechooser_import();
               filechooser_session = (GtkFileChooser *) create_filechooser_session ();
               gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
