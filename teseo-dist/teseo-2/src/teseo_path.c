@@ -964,4 +964,35 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
 }
 
 
+void teseo_path_force_polyline(gint32 g_image) {
+    GString *path_name_new = NULL;
+    gint i, j;
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+
+    teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs);
+
+    // Check if path is empty
+    if(num_path_point_details == 0) {
+	g_message("Path is empty!");
+    }
+
+    points_pairs[3] = points_pairs[0];
+    points_pairs[4] = points_pairs[1];
+
+    for(i=6; i <= num_path_point_details-9; i+=9) {
+        points_pairs[i] = points_pairs[i+3];
+        points_pairs[i+1] = points_pairs[i+4];
+
+        points_pairs[i+6] = points_pairs[i+3];
+        points_pairs[i+7] = points_pairs[i+4];
+    }
+
+    path_name_new = g_string_new("Uname");
+    g_string_printf(path_name_new, "%s_P", gimp_path_get_current(g_image));
+    gimp_path_set_points(g_image, path_name_new->str, 1, num_path_point_details, points_pairs);
+
+    g_string_free(path_name_new, TRUE);
+    g_free(points_pairs);
+}
 
