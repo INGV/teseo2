@@ -199,10 +199,12 @@ gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_veloc
                 g_free(data);
             } else {
                 ret = FALSE;
+                g_printf("teseo_sac_path_export(): have no samples data");
             }
             g_free(points_pairs);
         } else {
             // TODO unevenly spaced data
+            g_printf("teseo_sac_path_export(): ");
             ret = FALSE;
         }
     } else {
