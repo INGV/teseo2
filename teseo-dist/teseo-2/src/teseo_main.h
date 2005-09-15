@@ -51,7 +51,7 @@ void teseo_main_init(
  * teseo_main_loop is the main loop of our algorithm
  */
 //void teseo_main_loop(int iter, gint32 drawable_ID);
-void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide );
+void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide , gboolean is_bezier);
 /*!
  * teseo_main_loop is the guide position oriented main loop variant of our algorithm
  */

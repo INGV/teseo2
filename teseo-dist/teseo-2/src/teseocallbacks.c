@@ -758,10 +758,10 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 
     // if at least one path exists
     if (num_paths>0) {
-	
+
 	// catch the name ot the current path
 	strcpy(pathname, gimp_path_get_current(teseo_image));
-	
+
 	// convert path in strokes
 	strokes = teseo_open_path_to_strokes(teseo_image, &num_strokes,  pathname);
 
@@ -770,7 +770,7 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 
 	g_sprintf(newpathname, "%s - Fit Bezier", pathname);
 
-	// create new path 
+	// create new path
 	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
 
 	if(path_inter) {
@@ -1049,11 +1049,16 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
 
    gboolean check_guide;
    gboolean use_guide=FALSE;
+   gboolean use_bezier=FALSE;
 
    GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+   GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
+   use_bezier = gtk_toggle_button_get_active(tcdbc);
    check_guide = gtk_toggle_button_get_active(tcfgs);
+
+
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
@@ -1074,7 +1079,7 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
       g_free(guides);
     }
     teseo_wmean_set_dir(RIGHT);
-    teseo_main_loop(iter, drawable_ID,use_guide);
+    teseo_main_loop(iter, drawable_ID,use_guide, use_bezier);
 }
 
 
@@ -1368,10 +1373,13 @@ on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
 
    gboolean check_guide;
    gboolean use_guide=FALSE;
+   gboolean use_bezier=FALSE;
 
    GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+   GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
+   use_bezier = gtk_toggle_button_get_active(tcdbc);
    check_guide = gtk_toggle_button_get_active(tcfgs);
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
@@ -1393,7 +1401,7 @@ on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
       g_free(guides);
     }
     teseo_wmean_set_dir(DOWN);
-    teseo_main_loop(iter, drawable_ID,use_guide);
+    teseo_main_loop(iter, drawable_ID,use_guide, use_bezier);
 
 }
 
@@ -1406,10 +1414,13 @@ on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
 
    gboolean check_guide;
    gboolean use_guide=FALSE;
+   gboolean use_bezier=FALSE;
 
    GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+   GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
+   use_bezier = gtk_toggle_button_get_active(tcdbc);
    check_guide = gtk_toggle_button_get_active(tcfgs);
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
@@ -1431,7 +1442,7 @@ on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
       g_free(guides);
     }
     teseo_wmean_set_dir(UP);
-    teseo_main_loop(iter, drawable_ID,use_guide);
+    teseo_main_loop(iter, drawable_ID,use_guide, use_bezier);
 
 }
 
@@ -1483,10 +1494,13 @@ on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
 
    gboolean check_guide;
    gboolean use_guide=FALSE;
+   gboolean use_bezier=FALSE;
 
    GtkSpinButton  * tfss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_forward_step_spinbutton", 0);
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
+   GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
+   use_bezier = gtk_toggle_button_get_active(tcdbc);
    check_guide = gtk_toggle_button_get_active(tcfgs);
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
@@ -1508,7 +1522,7 @@ on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
       g_free(guides);
     }
     teseo_wmean_set_dir(LEFT);
-    teseo_main_loop(iter, drawable_ID,use_guide);
+    teseo_main_loop(iter, drawable_ID,use_guide,  use_bezier);
 }
 
 
