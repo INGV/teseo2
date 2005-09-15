@@ -71,6 +71,26 @@ void teseo_sac_init_header(struct SAChead *header) {
 
 }
 
+void teseo_sac_station_header(struct SAChead *header, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
+
+    if(KSTNM) {
+        if(strlen(KSTNM) < 8) {
+            strcpy(header->kstnm, KSTNM);
+        } else {
+            g_message("teseo_sac_fill_station_in_header(): KSTNM \"%s\" is too long!\n", KSTNM);
+        }
+    }
+
+    header->cmpaz = CMPAZ;
+    header->cmpinc = CMPINC;
+    
+    header->stla = STLA;
+    header->stlo = STLO;
+    header->stel = STEL;
+
+}
+
+
 gboolean teseo_sac_read(gchar *filename, struct SAChead *header, float *data) {
     gboolean ret = FALSE;
     FILE *f = fopen(filename, "rb");
@@ -108,7 +128,7 @@ gboolean teseo_sac_write(gchar *filename, struct SAChead *header, float *data) {
     return ret;
 }
 
-gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity) {
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
     gboolean ret = TRUE;
     struct SAChead header;
     float *data = NULL;
@@ -122,6 +142,7 @@ gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_veloc
     g_printf("Init sac header\n");
 
     teseo_sac_init_header(&header);
+    teseo_sac_station_header(&header, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL);
 
     g_printf("End Init sac header\n");
 
