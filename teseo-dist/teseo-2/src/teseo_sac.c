@@ -71,15 +71,9 @@ void teseo_sac_init_header(struct SAChead *header) {
 
 }
 
-void teseo_sac_station_header(struct SAChead *header, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
+void teseo_sac_station_header(struct SAChead *header, char *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
 
-    if(KSTNM) {
-        if(strlen(KSTNM) < 8) {
-            strcpy(header->kstnm, KSTNM);
-        } else {
-            g_message("teseo_sac_fill_station_in_header(): KSTNM \"%s\" is too long!\n", KSTNM);
-        }
-    }
+    g_memmove(header->kstnm,KSTNM,8);
 
     header->cmpaz = CMPAZ;
     header->cmpinc = CMPINC;
@@ -192,8 +186,6 @@ gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_veloc
             teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs);
 
             header.npts = (((num_path_point_details-6)/9) + 1);
-            
-            g_printf("npts %d\n", header.npts);
             
             data = g_malloc ( header.npts * sizeof(float));
             if(data) {
