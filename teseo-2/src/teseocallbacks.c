@@ -394,7 +394,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     // TODO Export DXF
     gchar *dxf_path = NULL;
     gchar *image_filename = NULL;
-    gchar dxf_path_filename[FILENAMELEN];
+    // gchar dxf_path_filename[FILENAMELEN];
     gchar dxf_filename[FILENAMELEN];
     gchar * filename = NULL;
     gchar *pathname = NULL;
@@ -467,12 +467,13 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // TODO Export SAC
-    g_message(TODO_str);
     gchar *sac_path = NULL;
     gchar *image_filename = NULL;
     gchar sac_path_filename[FILENAMELEN];
     gchar *pathname = NULL;
-    float delta;
+    float paper_velocity = 1;
+    gchar * filename = NULL;
+    gint result;
     // TODO catch scale value
 
     sac_path = teseo_get_environment_path( SACPATH );
@@ -480,21 +481,56 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     pathname = gimp_path_get_current(teseo_image);
 
     // TODO check bad character in pathname ...
-    g_sprintf(sac_path_filename, "%s%s%s_%s%s", sac_path, G_DIR_SEPARATOR_S, image_filename, pathname, SAC_EXT);
+    // g_sprintf(sac_path_filename, "%s%s%s_%s%s", sac_path, G_DIR_SEPARATOR_S, image_filename, pathname, SAC_EXT);
+    g_sprintf(sac_path_filename, "%s_%s%s",  image_filename, pathname, SAC_EXT);
 
     // TODO check if sac_path_filename exists
 
+    gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as SAC");
+    gtk_file_chooser_set_current_folder(filechooser_export, sac_path );
+    gtk_file_chooser_set_current_name (filechooser_export, sac_path_filename);
+
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-	// TODO check options in session windows before saving
-        // TODO when resampling catch delta value for SAC
-	teseo_sac_path_export(teseo_image, sac_path_filename, delta);
-	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, sac_path_filename);
+
+        g_message("Teseo2-Warning: at the moment, this function exports only samples evenlys spaced without station information.");
+
+        result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
+        switch (result)
+        {
+            case GTK_RESPONSE_OK:
+                filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
+
+                // TODO check options in session windows before saving
+                // TODO when resampling catch delta value for SAC
+                // TODO catch paper_velocity
+                if(teseo_sac_path_export(teseo_image, filename, paper_velocity)) {
+                    g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                } else {
+                    g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
+                }
+
+                break;
+            case GTK_RESPONSE_CANCEL:
+
+                break;
+            case GTK_RESPONSE_DELETE_EVENT:
+
+                break;
+            default:
+                break;
+        }
+        gtk_widget_hide ((GtkWidget *) filechooser_export);
+
+
+        
+
     } else {
 	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
     }
 
     g_free(sac_path);
     g_free(image_filename);
+    g_free(filename);
 }
 
 
@@ -849,6 +885,8 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     gchar *image_filename = NULL;
     GString *ascii_path_filename=NULL;
     gchar *pathname = NULL;
+    gchar * filename = NULL;
+    gint result;
 
     ascii_path = teseo_get_environment_path( ASCIIPATH );
     image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
@@ -857,14 +895,40 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     ascii_path_filename = g_string_new("Uname");
 
     // TODO check bad character in pathname ...
-    g_string_printf(ascii_path_filename, "%s%s%s_%s%s", ascii_path, G_DIR_SEPARATOR_S, image_filename, pathname, ASCII_EXT);
+    // g_string_printf(ascii_path_filename, "%s%s%s_%s%s", ascii_path, G_DIR_SEPARATOR_S, image_filename, pathname, ASCII_EXT);
+    g_string_printf(ascii_path_filename, "%s_%s%s", image_filename, pathname, ASCII_EXT);
 
     // TODO check if ascii_path_filename exists
 
+    gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as ASCII");
+    gtk_file_chooser_set_current_folder(filechooser_export, ascii_path );
+    gtk_file_chooser_set_current_name (filechooser_export, ascii_path_filename->str);
+
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-	// TODO check options in session windows before saving
-	teseo_save_path_ascii(teseo_image, ascii_path_filename->str);
-	g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, ascii_path_filename->str);
+
+        result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
+        switch (result)
+        {
+            case GTK_RESPONSE_OK:
+                filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
+                // TODO check if ascii_path_filename exists
+
+                // TODO check options in session windows before saving
+                teseo_save_path_ascii(teseo_image, filename);
+                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+
+                break;
+            case GTK_RESPONSE_CANCEL:
+
+                break;
+            case GTK_RESPONSE_DELETE_EVENT:
+
+                break;
+            default:
+                break;
+        }
+        gtk_widget_hide ((GtkWidget *) filechooser_export);
+
     } else {
 	g_message("Path \"%s\" need resampling or forcing polyline before exporting in ASCII format !", pathname);
     }
@@ -872,6 +936,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     g_string_free(ascii_path_filename, TRUE);
     g_free(ascii_path);
     g_free(image_filename);
+    g_free(filename);
 }
 
 
