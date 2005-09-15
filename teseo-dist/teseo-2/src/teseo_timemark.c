@@ -39,8 +39,6 @@ GList* teseo_timemark_check_path(gint32 teseo_image) {
     GList *ret = NULL;
     gint i, j;
     gint x_missing = 0;
-    gint y_missing; // not used
-    gdouble slope; // not used
     gint n_missings_cur = 0;
     gdouble delta_mean = 0, delta_cur = 0, delta_middle = 0;
     gdouble x_cur, x_prev;
@@ -184,7 +182,7 @@ void teseo_timemark_add_from_guides(gint32 teseo_image) {
             gimp_path_set_points(teseo_image, path_name_new->str, 1, j, new_points_pairs);
 
 
-            g_string_free(path_name_new, NULL);
+            g_string_free(path_name_new, TRUE);
             g_free(new_points_pairs);
             g_free(points_pairs);
         }
