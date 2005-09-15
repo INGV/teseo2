@@ -78,6 +78,10 @@ teseo_lookup_widget(GtkWidget *widget, const gchar *widget_name, gint default_va
     return ret;
 }
 
+// Private function to wrap gtk_statusbar_push
+guint teseo_gtk_statusbar_push(const gchar *text) {
+      return gtk_statusbar_push (GTK_STATUSBAR(teseo_lookup_widget(GTK_WIDGET(win_teseo), "statusbar", 0)), 0, text);
+}
 
 int
 on_new1_activate                       (GtkMenuItem     *menuitem,
@@ -252,6 +256,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
       case GTK_RESPONSE_OK:
 	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
 	 teseo_import_svg_vectors( teseo_image, filename );
+         teseo_gtk_statusbar_push("SVG file imported in current path.");
 	 break;
       case GTK_RESPONSE_CANCEL:
 
@@ -287,6 +292,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
       case GTK_RESPONSE_OK:
          strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
          teseo_import_dxf( teseo_image, filename );
+         teseo_gtk_statusbar_push("DXF file imported in current path.");
          break;
       case GTK_RESPONSE_CANCEL:
          g_message("Cancel pressed: don't do anything.");
@@ -428,7 +434,8 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 
                 // TODO check options in session windows before saving
                 teseo_save_path_dxf(teseo_image, filename, scale);
-                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                teseo_gtk_statusbar_push("Current path exported in DXF format.");
 
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -504,7 +511,8 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 // TODO when resampling catch delta value for SAC
                 // TODO catch paper_velocity
                 if(teseo_sac_path_export(teseo_image, filename, paper_velocity)) {
-                    g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                    // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                    teseo_gtk_statusbar_push("Current path exported in SAC format.");
                 } else {
                     g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
                 }
@@ -593,7 +601,8 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
 
                 // TODO check options in session windows before saving
                 teseo_save_path_ascii(teseo_image, filename);
-                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                teseo_gtk_statusbar_push("Current path exported in TIMEMARK ASCII format.");
 
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -971,7 +980,8 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
 
                 // TODO check options in session windows before saving
                 teseo_save_path_ascii(teseo_image, filename);
-                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                teseo_gtk_statusbar_push("Current path exported in ASCII format.");
 
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -1016,6 +1026,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
       case GTK_RESPONSE_OK:
 	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
 	 teseo_import_bzr( teseo_image, filename );
+         teseo_gtk_statusbar_push("Bezier file imported in current path.");
 	 break;
       case GTK_RESPONSE_CANCEL:
 	 g_message("Cancel pressed: don't do anything.");
@@ -1341,8 +1352,11 @@ void
 on_salva1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  if (!save_session(current_session))
+  if (!save_session(current_session)) {
      g_message("Unable to save current Session.");
+  } else {
+      teseo_gtk_statusbar_push ("Session saved.");
+  }
 }
 
 

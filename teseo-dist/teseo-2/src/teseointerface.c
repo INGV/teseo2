@@ -211,6 +211,7 @@ create_win_teseo (void)
   GtkObject *spinbutton26_adj;
   GtkWidget *spinbutton26;
   GtkWidget *label75;
+  GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
   GtkTooltips *tooltips;
 
@@ -524,12 +525,13 @@ create_win_teseo (void)
 
   adjustment1 = gtk_menu_item_new_with_mnemonic ("Ad_justment");
   gtk_widget_set_name (adjustment1, "adjustment1");
-  gtk_widget_show (adjustment1);
   gtk_container_add (GTK_CONTAINER (timemark3_menu), adjustment1);
+  gtk_widget_set_sensitive (adjustment1, FALSE);
 
   recover_last2 = gtk_menu_item_new_with_mnemonic ("_Recover last");
   gtk_widget_set_name (recover_last2, "recover_last2");
   gtk_container_add (GTK_CONTAINER (path3_menu), recover_last2);
+  gtk_widget_set_sensitive (recover_last2, FALSE);
 
   print_for_debug1 = gtk_menu_item_new_with_mnemonic ("Print for debug");
   gtk_widget_set_name (print_for_debug1, "print_for_debug1");
@@ -1272,6 +1274,11 @@ create_win_teseo (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 3), label75);
   gtk_label_set_use_markup (GTK_LABEL (label75), TRUE);
 
+  statusbar = gtk_statusbar_new ();
+  gtk_widget_set_name (statusbar, "statusbar");
+  gtk_widget_show (statusbar);
+  gtk_box_pack_start (GTK_BOX (vbox1), statusbar, FALSE, FALSE, 0);
+
   g_signal_connect ((gpointer) win_teseo, "delete_event",
                     G_CALLBACK (on_win_teseo_delete_event),
                     NULL);
@@ -1577,6 +1584,7 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, label83, "label83");
   GLADE_HOOKUP_OBJECT (win_teseo, spinbutton26, "spinbutton26");
   GLADE_HOOKUP_OBJECT (win_teseo, label75, "label75");
+  GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
   GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");
 
   gtk_widget_grab_default (alg_wmean_radiotoolbutton);
