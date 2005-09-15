@@ -996,3 +996,50 @@ void teseo_path_force_polyline(gint32 g_image) {
     g_free(points_pairs);
 }
 
+void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details, gdouble *new_points_pairs) {
+    GString *path_name = NULL;
+    gint i, j;
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+    gint new_size;
+
+    // get current path name
+    path_name = g_string_new(gimp_path_get_current(g_image));
+
+    // get points_pairs from current path
+    teseo_gimp_path_get_points (g_image, path_name->str, &path_closed, &num_path_point_details, &points_pairs);
+
+    // Check if path is empty
+    if(num_path_point_details == 0) {
+	g_message("Path is empty!");
+    }
+
+    // compute new_size
+    new_size = (num_path_point_details + new_num_path_point_details + 3);
+    points_pairs = g_realloc(points_pairs,  new_size * sizeof(gdouble));
+
+    if(points_pairs) {
+
+        // add a control point same to the first point of the new_points_pairs
+        for(i=0; i < 3; i++) {
+            points_pairs[num_path_point_details + i] = new_points_pairs[i];
+        }
+
+        // copy new_points_pairs in points_pairs
+        for(i=0; i < new_num_path_point_details; i++) {
+            points_pairs[num_path_point_details + 3 + i] = new_points_pairs[i];
+        }
+
+        // create a new path
+        gimp_path_set_points(g_image, path_name->str, 1, num_path_point_details, points_pairs);
+        gimp_path_delete(g_image, path_name->str);
+
+        g_free(points_pairs);
+
+    } else {
+        g_message("teseo_path_add_points_pairs(): g_realloc failed!\n");
+    }
+
+    g_string_free(path_name, TRUE);
+}
+
