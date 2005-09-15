@@ -323,6 +323,7 @@ gchar test_session(char * filename){
     //extract basename without extension
     token = strpbrk(basename, delimiters);
     basename_noext = g_strndup(basename , strlen(basename) - strlen(token) );
+    g_free(basename);
 
     dir = g_dir_open ( p, 0, NULL);
     g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
@@ -336,20 +337,18 @@ gchar test_session(char * filename){
 	{
 	  //then looking for extension
 	  if(g_strrstr(myentry,SESSION_EXT)!=NULL){
-	     if ( myentry != NULL ) g_free(myentry);
+	     g_free(myentry);
 	     ret=1;
              break;
 	  }
 	}
-        if ( myentry != NULL ) g_free(myentry);
+        g_free(myentry);
       }//while
       g_dir_close(dir);
     }
 
-    g_free(basename);
     g_free(basename_noext);
-    g_free(token);
     g_free(p);
-    g_printf("test_session::stop exiting %d", ret);
+    g_printf("test_session::stop exiting %d\n", ret);
     return ret;
 }
