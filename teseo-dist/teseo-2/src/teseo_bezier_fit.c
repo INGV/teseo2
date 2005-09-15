@@ -112,7 +112,7 @@ inline float teseo_func_sum_distance_bezier(float param_bez[])
 
     toll_su_t =  1.0 / (20.0 * teseo_distance(x0, y0, x3, y3));
     if(toll_su_t < 1.0e-4) {
-	g_message("\ntoll_su_t = %f < 1.0e-4, set up to 1.0e-4\n", toll_su_t);
+	g_printf("\ntoll_su_t = %f < 1.0e-4, set up to 1.0e-4\n", toll_su_t);
 	toll_su_t = 1.0e-4;
     }
     // printf("%f\n", toll_su_t);
@@ -194,7 +194,7 @@ inline float teseo_func_sum_distance_bezier(float param_bez[])
 	}
       } while(!finito);
       if(n_iter_do > max_n_iter_do) {
-	g_message("\nMax iterations exceeded (%d). toll_su_t = %f # dist_min = %f\n", max_n_iter_do, toll_su_t, dist_min);
+	g_printf("\nMax iterations exceeded (%d). toll_su_t = %f # dist_min = %f\n", max_n_iter_do, toll_su_t, dist_min);
       }
 
     }
@@ -413,7 +413,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	 	cur_path_inter++;
 	 	
 	 	if(cur_path_inter - 3 > max_num_path_inter) {
-	 		g_message("\ncur_path_inter = %d, max_num_path_inter = %d\n", cur_path_inter, max_num_path_inter);
+	 		g_printf("\ncur_path_inter = %d, max_num_path_inter = %d\n", cur_path_inter, max_num_path_inter);
 	 	}
   	
   }
@@ -423,7 +423,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
 	path_inter[cur_path_inter * 3 +2] = 2.0;
  	cur_path_inter++;
  	
- 	g_message("\ncur_path_inter = %d, num_strokes = %d\n", cur_path_inter, num_strokes);
+ 	g_printf("\ncur_path_inter = %d, num_strokes = %d\n", cur_path_inter, num_strokes);
  	
   if(idirezione[num_strokes] != (gint) CANARY)
 		g_message("Canary in idirezione is dead!");
@@ -447,7 +447,7 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
    g_free(xi);
 
 	*ppath_inter = path_inter;
-	*pnum_path_inter = cur_path_inter;
+	*pnum_path_inter = cur_path_inter * 3;
 	
 	gimp_progress_init("Teseo - Fitting Bezier finished.");
 
