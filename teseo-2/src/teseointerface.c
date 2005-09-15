@@ -211,7 +211,6 @@ create_win_teseo (void)
   GtkObject *spinbutton26_adj;
   GtkWidget *spinbutton26;
   GtkWidget *label75;
-  GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
   GtkTooltips *tooltips;
 
@@ -525,13 +524,12 @@ create_win_teseo (void)
 
   adjustment1 = gtk_menu_item_new_with_mnemonic ("Ad_justment");
   gtk_widget_set_name (adjustment1, "adjustment1");
+  gtk_widget_show (adjustment1);
   gtk_container_add (GTK_CONTAINER (timemark3_menu), adjustment1);
-  gtk_widget_set_sensitive (adjustment1, FALSE);
 
   recover_last2 = gtk_menu_item_new_with_mnemonic ("_Recover last");
   gtk_widget_set_name (recover_last2, "recover_last2");
   gtk_container_add (GTK_CONTAINER (path3_menu), recover_last2);
-  gtk_widget_set_sensitive (recover_last2, FALSE);
 
   print_for_debug1 = gtk_menu_item_new_with_mnemonic ("Print for debug");
   gtk_widget_set_name (print_for_debug1, "print_for_debug1");
@@ -1274,11 +1272,6 @@ create_win_teseo (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 3), label75);
   gtk_label_set_use_markup (GTK_LABEL (label75), TRUE);
 
-  statusbar = gtk_statusbar_new ();
-  gtk_widget_set_name (statusbar, "statusbar");
-  gtk_widget_show (statusbar);
-  gtk_box_pack_start (GTK_BOX (vbox1), statusbar, FALSE, FALSE, 0);
-
   g_signal_connect ((gpointer) win_teseo, "delete_event",
                     G_CALLBACK (on_win_teseo_delete_event),
                     NULL);
@@ -1584,7 +1577,6 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, label83, "label83");
   GLADE_HOOKUP_OBJECT (win_teseo, spinbutton26, "spinbutton26");
   GLADE_HOOKUP_OBJECT (win_teseo, label75, "label75");
-  GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
   GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");
 
   gtk_widget_grab_default (alg_wmean_radiotoolbutton);
@@ -1767,20 +1759,22 @@ create_dlg_session (void)
   GtkWidget *alignment24;
   GtkWidget *table18;
   GtkWidget *stacode;
-  GtkWidget *teseo_station_code_entry;
+  GtkWidget *teseo_kstnm_entry;
   GtkWidget *chcode;
-  GtkWidget *teseo_ch_code_entry;
   GtkWidget *label170;
-  GtkWidget *teseo_comp_code_entry;
   GtkWidget *label193;
-  GtkObject *teseo_lat_spinbutton_adj;
-  GtkWidget *teseo_lat_spinbutton;
-  GtkObject *teseo_lon_spinbutton_adj;
-  GtkWidget *teseo_lon_spinbutton;
+  GtkObject *teseo_stla_spinbutton_adj;
+  GtkWidget *teseo_stla_spinbutton;
+  GtkObject *teseo_stlo_spinbutton_adj;
+  GtkWidget *teseo_stlo_spinbutton;
   GtkWidget *label194;
-  GtkObject *teseo_quo_spinbutton_adj;
-  GtkWidget *teseo_quo_spinbutton;
+  GtkObject *teseo_stel_spinbutton_adj;
+  GtkWidget *teseo_stel_spinbutton;
   GtkWidget *label195;
+  GtkObject *teseo_cmpinc_spinbutton_adj;
+  GtkWidget *teseo_cmpinc_spinbutton;
+  GtkObject *teseo_cmpaz_spinbutton_adj;
+  GtkWidget *teseo_cmpaz_spinbutton;
   GtkWidget *label178;
   GtkWidget *frame50;
   GtkWidget *alignment2;
@@ -1987,7 +1981,7 @@ create_dlg_session (void)
   gtk_table_set_row_spacings (GTK_TABLE (table18), 2);
   gtk_table_set_col_spacings (GTK_TABLE (table18), 6);
 
-  stacode = gtk_label_new ("Code:");
+  stacode = gtk_label_new ("Name");
   gtk_widget_set_name (stacode, "stacode");
   gtk_widget_show (stacode);
   gtk_table_attach (GTK_TABLE (table18), stacode, 0, 1, 0, 1,
@@ -1995,16 +1989,16 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_label_set_use_markup (GTK_LABEL (stacode), TRUE);
 
-  teseo_station_code_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_station_code_entry, "teseo_station_code_entry");
-  gtk_widget_show (teseo_station_code_entry);
-  gtk_table_attach (GTK_TABLE (table18), teseo_station_code_entry, 0, 1, 1, 2,
+  teseo_kstnm_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_kstnm_entry, "teseo_kstnm_entry");
+  gtk_widget_show (teseo_kstnm_entry);
+  gtk_table_attach (GTK_TABLE (table18), teseo_kstnm_entry, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_entry_set_max_length (GTK_ENTRY (teseo_station_code_entry), 5);
-  gtk_entry_set_width_chars (GTK_ENTRY (teseo_station_code_entry), 8);
+  gtk_entry_set_max_length (GTK_ENTRY (teseo_kstnm_entry), 5);
+  gtk_entry_set_width_chars (GTK_ENTRY (teseo_kstnm_entry), 8);
 
-  chcode = gtk_label_new ("Channel:");
+  chcode = gtk_label_new ("Azimuth");
   gtk_widget_set_name (chcode, "chcode");
   gtk_widget_show (chcode);
   gtk_table_attach (GTK_TABLE (table18), chcode, 1, 2, 0, 1,
@@ -2012,16 +2006,7 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_label_set_use_markup (GTK_LABEL (chcode), TRUE);
 
-  teseo_ch_code_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_ch_code_entry, "teseo_ch_code_entry");
-  gtk_widget_show (teseo_ch_code_entry);
-  gtk_table_attach (GTK_TABLE (table18), teseo_ch_code_entry, 1, 2, 1, 2,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_entry_set_max_length (GTK_ENTRY (teseo_ch_code_entry), 2);
-  gtk_entry_set_width_chars (GTK_ENTRY (teseo_ch_code_entry), 8);
-
-  label170 = gtk_label_new ("Component:");
+  label170 = gtk_label_new ("Incident angle");
   gtk_widget_set_name (label170, "label170");
   gtk_widget_show (label170);
   gtk_table_attach (GTK_TABLE (table18), label170, 2, 3, 0, 1,
@@ -2030,16 +2015,7 @@ create_dlg_session (void)
   gtk_label_set_use_markup (GTK_LABEL (label170), TRUE);
   gtk_label_set_justify (GTK_LABEL (label170), GTK_JUSTIFY_RIGHT);
 
-  teseo_comp_code_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_comp_code_entry, "teseo_comp_code_entry");
-  gtk_widget_show (teseo_comp_code_entry);
-  gtk_table_attach (GTK_TABLE (table18), teseo_comp_code_entry, 2, 3, 1, 2,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_entry_set_max_length (GTK_ENTRY (teseo_comp_code_entry), 3);
-  gtk_entry_set_width_chars (GTK_ENTRY (teseo_comp_code_entry), 8);
-
-  label193 = gtk_label_new ("Latitude:");
+  label193 = gtk_label_new ("Latitude");
   gtk_widget_set_name (label193, "label193");
   gtk_widget_show (label193);
   gtk_table_attach (GTK_TABLE (table18), label193, 3, 4, 0, 1,
@@ -2047,25 +2023,25 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_label_set_use_markup (GTK_LABEL (label193), TRUE);
 
-  teseo_lat_spinbutton_adj = gtk_adjustment_new (0, -90, 90, 0.00999999977648, 10, 10);
-  teseo_lat_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_lat_spinbutton_adj), 1, 2);
-  gtk_widget_set_name (teseo_lat_spinbutton, "teseo_lat_spinbutton");
-  gtk_widget_show (teseo_lat_spinbutton);
-  gtk_table_attach (GTK_TABLE (table18), teseo_lat_spinbutton, 3, 4, 1, 2,
+  teseo_stla_spinbutton_adj = gtk_adjustment_new (-90, -90, 90, 0.00999999977648, 10, 10);
+  teseo_stla_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_stla_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_stla_spinbutton, "teseo_stla_spinbutton");
+  gtk_widget_show (teseo_stla_spinbutton);
+  gtk_table_attach (GTK_TABLE (table18), teseo_stla_spinbutton, 3, 4, 1, 2,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_lat_spinbutton), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_stla_spinbutton), TRUE);
 
-  teseo_lon_spinbutton_adj = gtk_adjustment_new (0, -180, 180, 0.00999999977648, 10, 10);
-  teseo_lon_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_lon_spinbutton_adj), 1, 2);
-  gtk_widget_set_name (teseo_lon_spinbutton, "teseo_lon_spinbutton");
-  gtk_widget_show (teseo_lon_spinbutton);
-  gtk_table_attach (GTK_TABLE (table18), teseo_lon_spinbutton, 4, 5, 1, 2,
+  teseo_stlo_spinbutton_adj = gtk_adjustment_new (-180, -180, 180, 0.00999999977648, 10, 10);
+  teseo_stlo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_stlo_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_stlo_spinbutton, "teseo_stlo_spinbutton");
+  gtk_widget_show (teseo_stlo_spinbutton);
+  gtk_table_attach (GTK_TABLE (table18), teseo_stlo_spinbutton, 4, 5, 1, 2,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_lon_spinbutton), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_stlo_spinbutton), TRUE);
 
-  label194 = gtk_label_new ("Longitude:");
+  label194 = gtk_label_new ("Longitude");
   gtk_widget_set_name (label194, "label194");
   gtk_widget_show (label194);
   gtk_table_attach (GTK_TABLE (table18), label194, 4, 5, 0, 1,
@@ -2073,22 +2049,40 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_label_set_use_markup (GTK_LABEL (label194), TRUE);
 
-  teseo_quo_spinbutton_adj = gtk_adjustment_new (1, -1000, 10000, 1, 10, 10);
-  teseo_quo_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_quo_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_quo_spinbutton, "teseo_quo_spinbutton");
-  gtk_widget_show (teseo_quo_spinbutton);
-  gtk_table_attach (GTK_TABLE (table18), teseo_quo_spinbutton, 5, 6, 1, 2,
+  teseo_stel_spinbutton_adj = gtk_adjustment_new (1, -1000, 10000, 1, 10, 10);
+  teseo_stel_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_stel_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_stel_spinbutton, "teseo_stel_spinbutton");
+  gtk_widget_show (teseo_stel_spinbutton);
+  gtk_table_attach (GTK_TABLE (table18), teseo_stel_spinbutton, 5, 6, 1, 2,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_quo_spinbutton), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_stel_spinbutton), TRUE);
 
-  label195 = gtk_label_new ("Quote:");
+  label195 = gtk_label_new ("Quote");
   gtk_widget_set_name (label195, "label195");
   gtk_widget_show (label195);
   gtk_table_attach (GTK_TABLE (table18), label195, 5, 6, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_label_set_use_markup (GTK_LABEL (label195), TRUE);
+
+  teseo_cmpinc_spinbutton_adj = gtk_adjustment_new (90, 0, 180, 0.00999999977648, 10, 10);
+  teseo_cmpinc_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_cmpinc_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_cmpinc_spinbutton, "teseo_cmpinc_spinbutton");
+  gtk_widget_show (teseo_cmpinc_spinbutton);
+  gtk_table_attach (GTK_TABLE (table18), teseo_cmpinc_spinbutton, 2, 3, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_cmpinc_spinbutton), TRUE);
+
+  teseo_cmpaz_spinbutton_adj = gtk_adjustment_new (90, -360, 360, 0.00999999977648, 10, 10);
+  teseo_cmpaz_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_cmpaz_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_cmpaz_spinbutton, "teseo_cmpaz_spinbutton");
+  gtk_widget_show (teseo_cmpaz_spinbutton);
+  gtk_table_attach (GTK_TABLE (table18), teseo_cmpaz_spinbutton, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_cmpaz_spinbutton), TRUE);
 
   label178 = gtk_label_new ("<b>Station data</b>");
   gtk_widget_set_name (label178, "label178");
@@ -3036,17 +3030,17 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, alignment24, "alignment24");
   GLADE_HOOKUP_OBJECT (dlg_session, table18, "table18");
   GLADE_HOOKUP_OBJECT (dlg_session, stacode, "stacode");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_station_code_entry, "teseo_station_code_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_kstnm_entry, "teseo_kstnm_entry");
   GLADE_HOOKUP_OBJECT (dlg_session, chcode, "chcode");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_ch_code_entry, "teseo_ch_code_entry");
   GLADE_HOOKUP_OBJECT (dlg_session, label170, "label170");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_comp_code_entry, "teseo_comp_code_entry");
   GLADE_HOOKUP_OBJECT (dlg_session, label193, "label193");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_lat_spinbutton, "teseo_lat_spinbutton");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_lon_spinbutton, "teseo_lon_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_stla_spinbutton, "teseo_stla_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_stlo_spinbutton, "teseo_stlo_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label194, "label194");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_quo_spinbutton, "teseo_quo_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_stel_spinbutton, "teseo_stel_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label195, "label195");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_cmpinc_spinbutton, "teseo_cmpinc_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_cmpaz_spinbutton, "teseo_cmpaz_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label178, "label178");
   GLADE_HOOKUP_OBJECT (dlg_session, frame50, "frame50");
   GLADE_HOOKUP_OBJECT (dlg_session, alignment2, "alignment2");
@@ -3514,7 +3508,7 @@ create_filechooser_export (void)
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button27, GTK_RESPONSE_CANCEL);
   GTK_WIDGET_SET_FLAGS (button27, GTK_CAN_DEFAULT);
 
-  button28 = gtk_button_new_from_stock ("gtk-save");
+  button28 = gtk_button_new_from_stock ("gtk-open");
   gtk_widget_set_name (button28, "button28");
   gtk_widget_show (button28);
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button28, GTK_RESPONSE_OK);
