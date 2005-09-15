@@ -150,4 +150,12 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
   */
 void teseo_path_force_polyline(gint32 g_image);
 
+/*!
+  teseo_path_add_points_pairs add at the current path new_points_pairs
+  \param g_image GIMP image ID
+  \param new_num_path_point_details number of points in new_points_pairs
+  \param new_points_pairs points vector
+  */
+void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details, gdouble *new_points_pairs);
+
 #endif
