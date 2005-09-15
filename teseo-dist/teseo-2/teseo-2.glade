@@ -492,7 +492,7 @@
 
 			      <child>
 				<widget class="GtkMenuItem" id="adjustment1">
-				  <property name="visible">True</property>
+				  <property name="sensitive">False</property>
 				  <property name="label" translatable="yes">Ad_justment</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_adjustment1_activate" last_modification_time="Wed, 19 Nov 2003 17:35:58 GMT"/>
@@ -505,6 +505,7 @@
 
 		      <child>
 			<widget class="GtkMenuItem" id="recover_last2">
+			  <property name="sensitive">False</property>
 			  <property name="label" translatable="yes">_Recover last</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_recover_last2_activate" last_modification_time="Wed, 19 Nov 2003 17:58:26 GMT"/>
@@ -2247,6 +2248,18 @@ and again . . .</property>
 	  <property name="padding">0</property>
 	  <property name="expand">True</property>
 	  <property name="fill">True</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkStatusbar" id="statusbar">
+	  <property name="visible">True</property>
+	  <property name="has_resize_grip">True</property>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
 	</packing>
       </child>
     </widget>
