@@ -321,7 +321,7 @@ gchar test_session(char * filename){
     p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
 
     //extract basename without extension
-    token = strpbrk(basename, delimiters);
+    token = g_strrstr(basename, delimiters);
     basename_noext = g_strndup(basename , strlen(basename) - strlen(token) );
     g_free(basename);
 
