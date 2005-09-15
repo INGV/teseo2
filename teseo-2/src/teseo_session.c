@@ -338,6 +338,7 @@ gchar test_session(char * filename){
 	  //then looking for extension
 	  if(g_strrstr(myentry,SESSION_EXT)!=NULL){
 	     g_free(myentry);
+	     myentry=NULL;
 	     ret=1;
              break;
 	  }
