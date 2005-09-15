@@ -72,7 +72,7 @@ teseo_lookup_widget(GtkWidget *widget, const gchar *widget_name, gint default_va
     gchar msg[1024];
     GtkWidget * ret = lookup_widget(widget, widget_name);
     if(!ret) {
-	g_sprintf(msg, "Widget \"%s\" not found in \"%s\". Set to %d (default).", gtk_widget_get_name(widget), widget_name, default_value);
+	g_sprintf(msg, "Teseo2-WARNING: widget \"%s\" not found in \"%s\". Set to %d (default).", gtk_widget_get_name(widget), widget_name, default_value);
 	g_message(msg);
     }
     return ret;
@@ -499,8 +499,6 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
 
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 
-        g_message("Teseo2-Warning: at the moment, this function exports only samples evenlys spaced without station information.");
-
         result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
         switch (result)
         {
@@ -510,25 +508,54 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 // TODO check options in session windows before saving
                 // TODO when resampling catch delta value for SAC
                 // TODO catch paper_velocity
-                // gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
 
-                /*
+                gchar KSTNM[8] = SACSTRUNDEF;
+                float CMPAZ=0.0, CMPINC=0.0, STLA=0.0, STLO=0.0, STEL=0.0;
+
+                GtkEntry *teseo_kstnm_entry      =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_kstnm_entry", 0);
+
                 GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
-                GtkSpinButton *teseo_cmpaz_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpaz_spinbutton", teseo_cmpaz_spinbutton_value);
-                GtkSpinButton *teseo_cmpinc_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpinc_spinbutton", teseo_cmpinc_spinbutton_value);
-                GtkSpinButton *teseo_stla_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stla_spinbutton", teseo_stla_spinbutton_value);
-                GtkSpinButton *teseo_stlo_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stlo_spinbutton", teseo_stlo_spinbutton_value);
-                GtkSpinButton *teseo_stel_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stel_spinbutton", teseo_stel_spinbutton_value);
-                 */
+                GtkSpinButton *teseo_cmpaz_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpaz_spinbutton", CMPAZ);
+                GtkSpinButton *teseo_cmpinc_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpinc_spinbutton", CMPINC);
+                GtkSpinButton *teseo_stla_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stla_spinbutton", STLA);
+                GtkSpinButton *teseo_stlo_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stlo_spinbutton", STLO);
+                GtkSpinButton *teseo_stel_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stel_spinbutton", STEL);
                 
-                /*
-                if(teseo_sac_path_export(teseo_image, filename, paper_velocity)) {
+                if(teseo_paper_speed_spinbutton) {
+                    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton);
+                }
+
+                if(teseo_kstnm_entry) {
+                    strcpy(KSTNM, gtk_entry_get_text(teseo_kstnm_entry));
+                }
+
+                if(teseo_cmpaz_spinbutton) {
+                    CMPAZ = gtk_spin_button_get_value (teseo_cmpaz_spinbutton);
+                }
+
+                if(teseo_cmpinc_spinbutton) {
+                    CMPINC = gtk_spin_button_get_value (teseo_cmpinc_spinbutton);
+                }
+
+                if(teseo_stla_spinbutton) {
+                    STLA = gtk_spin_button_get_value (teseo_stla_spinbutton);
+                }
+
+                if(teseo_stlo_spinbutton) {
+                    STLO = gtk_spin_button_get_value (teseo_stlo_spinbutton);
+                }
+
+                if(teseo_stel_spinbutton) {
+                    STEL = gtk_spin_button_get_value (teseo_stel_spinbutton);
+                }
+
+
+                if(teseo_sac_path_export(teseo_image, filename, paper_velocity, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL)) {
                     // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
                     teseo_gtk_statusbar_push("Current path exported in SAC format.");
                 } else {
                     g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
                 }
-                */
 
                 break;
             case GTK_RESPONSE_CANCEL:
