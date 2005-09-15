@@ -492,7 +492,7 @@
 
 			      <child>
 				<widget class="GtkMenuItem" id="adjustment1">
-				  <property name="sensitive">False</property>
+				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">Ad_justment</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_adjustment1_activate" last_modification_time="Wed, 19 Nov 2003 17:35:58 GMT"/>
@@ -505,7 +505,6 @@
 
 		      <child>
 			<widget class="GtkMenuItem" id="recover_last2">
-			  <property name="sensitive">False</property>
 			  <property name="label" translatable="yes">_Recover last</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_recover_last2_activate" last_modification_time="Wed, 19 Nov 2003 17:58:26 GMT"/>
@@ -2250,18 +2249,6 @@ and again . . .</property>
 	  <property name="fill">True</property>
 	</packing>
       </child>
-
-      <child>
-	<widget class="GtkStatusbar" id="statusbar">
-	  <property name="visible">True</property>
-	  <property name="has_resize_grip">True</property>
-	</widget>
-	<packing>
-	  <property name="padding">0</property>
-	  <property name="expand">False</property>
-	  <property name="fill">False</property>
-	</packing>
-      </child>
     </widget>
   </child>
 </widget>
@@ -2665,7 +2652,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  <child>
 			    <widget class="GtkLabel" id="stacode">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Code:</property>
+			      <property name="label" translatable="yes">Name</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2687,7 +2674,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="teseo_station_code_entry">
+			    <widget class="GtkEntry" id="teseo_kstnm_entry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -2711,7 +2698,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  <child>
 			    <widget class="GtkLabel" id="chcode">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Channel:</property>
+			      <property name="label" translatable="yes">Azimuth</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2733,31 +2720,9 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="teseo_ch_code_entry">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="editable">True</property>
-			      <property name="visibility">True</property>
-			      <property name="max_length">2</property>
-			      <property name="text" translatable="yes"></property>
-			      <property name="has_frame">True</property>
-			      <property name="invisible_char">*</property>
-			      <property name="activates_default">False</property>
-			      <property name="width_chars">8</property>
-			    </widget>
-			    <packing>
-			      <property name="left_attach">1</property>
-			      <property name="right_attach">2</property>
-			      <property name="top_attach">1</property>
-			      <property name="bottom_attach">2</property>
-			      <property name="y_options"></property>
-			    </packing>
-			  </child>
-
-			  <child>
 			    <widget class="GtkLabel" id="label170">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Component:</property>
+			      <property name="label" translatable="yes">Incident angle</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_RIGHT</property>
@@ -2779,31 +2744,9 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="teseo_comp_code_entry">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="editable">True</property>
-			      <property name="visibility">True</property>
-			      <property name="max_length">3</property>
-			      <property name="text" translatable="yes"></property>
-			      <property name="has_frame">True</property>
-			      <property name="invisible_char">*</property>
-			      <property name="activates_default">False</property>
-			      <property name="width_chars">8</property>
-			    </widget>
-			    <packing>
-			      <property name="left_attach">2</property>
-			      <property name="right_attach">3</property>
-			      <property name="top_attach">1</property>
-			      <property name="bottom_attach">2</property>
-			      <property name="y_options"></property>
-			    </packing>
-			  </child>
-
-			  <child>
 			    <widget class="GtkLabel" id="label193">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Latitude:</property>
+			      <property name="label" translatable="yes">Latitude</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2825,7 +2768,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="teseo_lat_spinbutton">
+			    <widget class="GtkSpinButton" id="teseo_stla_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -2834,7 +2777,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">0 -90 90 0.00999999977648 10 10</property>
+			      <property name="adjustment">-90 -90 90 0.00999999977648 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">3</property>
@@ -2846,7 +2789,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="teseo_lon_spinbutton">
+			    <widget class="GtkSpinButton" id="teseo_stlo_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -2855,7 +2798,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">0 -180 180 0.00999999977648 10 10</property>
+			      <property name="adjustment">-180 -180 180 0.00999999977648 10 10</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">4</property>
@@ -2869,7 +2812,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  <child>
 			    <widget class="GtkLabel" id="label194">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Longitude:</property>
+			      <property name="label" translatable="yes">Longitude</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2891,7 +2834,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="teseo_quo_spinbutton">
+			    <widget class="GtkSpinButton" id="teseo_stel_spinbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -2914,7 +2857,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			  <child>
 			    <widget class="GtkLabel" id="label195">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Quote:</property>
+			      <property name="label" translatable="yes">Quote</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2931,6 +2874,48 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			      <property name="top_attach">0</property>
 			      <property name="bottom_attach">1</property>
 			      <property name="x_options">fill</property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkSpinButton" id="teseo_cmpinc_spinbutton">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="climb_rate">1</property>
+			      <property name="digits">2</property>
+			      <property name="numeric">True</property>
+			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			      <property name="snap_to_ticks">False</property>
+			      <property name="wrap">False</property>
+			      <property name="adjustment">90 0 180 0.00999999977648 10 10</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">2</property>
+			      <property name="right_attach">3</property>
+			      <property name="top_attach">1</property>
+			      <property name="bottom_attach">2</property>
+			      <property name="y_options"></property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkSpinButton" id="teseo_cmpaz_spinbutton">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="climb_rate">1</property>
+			      <property name="digits">2</property>
+			      <property name="numeric">True</property>
+			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			      <property name="snap_to_ticks">False</property>
+			      <property name="wrap">False</property>
+			      <property name="adjustment">90 -360 360 0.00999999977648 10 10</property>
+			    </widget>
+			    <packing>
+			      <property name="left_attach">1</property>
+			      <property name="right_attach">2</property>
+			      <property name="top_attach">1</property>
+			      <property name="bottom_attach">2</property>
 			      <property name="y_options"></property>
 			    </packing>
 			  </child>
@@ -6049,7 +6034,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	      <property name="can_default">True</property>
 	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-save</property>
+	      <property name="label">gtk-open</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
