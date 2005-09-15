@@ -1021,9 +1021,10 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
     if(points_pairs) {
 
         // add a control point same to the first point of the new_points_pairs
-        for(i=0; i < 3; i++) {
+        for(i=0; i < 2; i++) {
             points_pairs[num_path_point_details + i] = new_points_pairs[i];
         }
+        points_pairs[num_path_point_details + 2] = 2.0;
 
         // copy new_points_pairs in points_pairs
         for(i=0; i < new_num_path_point_details; i++) {
