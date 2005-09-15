@@ -391,7 +391,7 @@ void
 on_dxf1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // TODO Export DXF
+    // Export DXF
     gchar *dxf_path = NULL;
     gchar *image_filename = NULL;
     // gchar dxf_path_filename[FILENAMELEN];
@@ -442,7 +442,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
         }
         gtk_widget_hide ((GtkWidget *) filechooser_export);
     } else {
-        g_message("Path \"%s\" need resampling or forcing polyline before exporting in DXF format !", pathname);
+        g_message("Path \"%s\" needs resampling or forcing polyline before exporting in DXF format !", pathname);
     }
 
 
@@ -466,7 +466,7 @@ void
 on_sac1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // TODO Export SAC
+    // Export SAC
     gchar *sac_path = NULL;
     gchar *image_filename = NULL;
     gchar sac_path_filename[FILENAMELEN];
@@ -525,7 +525,7 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
         
 
     } else {
-	g_message("Path \"%s\" need resampling before exporting in SAC format !", pathname);
+	g_message("Path \"%s\" needs resampling before exporting in SAC format !", pathname);
     }
 
     g_free(sac_path);
@@ -558,7 +558,63 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
 {
     // TODO Export Timemark
     // TODO teseo_save_path_timemarker(teseo_image, dxf_filename, 0);
-    g_message(TODO_str);
+
+    gchar *timemark_path = NULL;
+    gchar *image_filename = NULL;
+    GString *timemark_path_filename=NULL;
+    gchar *pathname = NULL;
+    gchar * filename = NULL;
+    gint result;
+
+    timemark_path = teseo_get_environment_path( TMARKPATH );
+    image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
+    pathname = gimp_path_get_current(teseo_image);
+
+    timemark_path_filename = g_string_new("Uname");
+
+    // TODO check bad character in pathname ...
+    // g_string_printf(timemark_path_filename, "%s%s%s_%s%s", timemark_path, G_DIR_SEPARATOR_S, image_filename, pathname, ASCII_EXT);
+    g_string_printf(timemark_path_filename, "%s_%s%s", image_filename, pathname, ASCII_EXT);
+
+    // TODO check if timemark_path_filename exists
+
+    gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as TIMEMARK ASCII");
+    gtk_file_chooser_set_current_folder(filechooser_export, timemark_path );
+    gtk_file_chooser_set_current_name (filechooser_export, timemark_path_filename->str);
+
+    if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+
+        result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
+        switch (result)
+        {
+            case GTK_RESPONSE_OK:
+                filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
+                // TODO check if timemark_path_filename exists
+
+                // TODO check options in session windows before saving
+                teseo_save_path_ascii(teseo_image, filename);
+                g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+
+                break;
+            case GTK_RESPONSE_CANCEL:
+
+                break;
+            case GTK_RESPONSE_DELETE_EVENT:
+
+                break;
+            default:
+                break;
+        }
+        gtk_widget_hide ((GtkWidget *) filechooser_export);
+
+    } else {
+	g_message("Path \"%s\" needs forcing polyline before exporting in ASCII format !", pathname);
+    }
+
+    g_string_free(timemark_path_filename, TRUE);
+    g_free(timemark_path);
+    g_free(image_filename);
+    g_free(filename);
 }
 
 
@@ -879,7 +935,7 @@ void
 on_ascii2_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // TODO Export ASCII
+    // Export ASCII
 
     gchar *ascii_path = NULL;
     gchar *image_filename = NULL;
@@ -930,7 +986,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
         gtk_widget_hide ((GtkWidget *) filechooser_export);
 
     } else {
-	g_message("Path \"%s\" need resampling or forcing polyline before exporting in ASCII format !", pathname);
+	g_message("Path \"%s\" needs resampling or forcing polyline before exporting in ASCII format !", pathname);
     }
 
     g_string_free(ascii_path_filename, TRUE);
