@@ -1032,7 +1032,7 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
         }
 
         // create a new path
-        gimp_path_set_points(g_image, path_name->str, 1, num_path_point_details, points_pairs);
+        gimp_path_set_points(g_image, path_name->str, 1, new_size, points_pairs);
         gimp_path_delete(g_image, path_name->str);
 
         g_free(points_pairs);
