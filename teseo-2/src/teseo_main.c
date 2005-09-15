@@ -141,7 +141,6 @@ void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide, gboolean 
 	    gimp_progress_init("Teseo execution steps terminated.");
 	}
 	//TODO generalise
-
 	if (!is_bezier) {
 	  teseo_cat_path_strokes( gimp_drawable_get_image(drawable_ID), num_strokes, strokes);
 	}
@@ -150,16 +149,13 @@ void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide, gboolean 
 		gdouble *path_inter = NULL;
          	// fitting strokes with bezier curves
 		teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
-		//g_sprintf(newpathname, "%s - Fit Bezier", pathname);
-		// create new path
-		gimp_path_set_points(gimp_drawable_get_image(drawable_ID), "Test", 1, num_path * 3, path_inter);
+		teseo_path_add_points_pairs(gimp_drawable_get_image(drawable_ID), num_path, path_inter);
 		if(path_inter) {
 			g_free(path_inter);
 		}
 	}
 	//strokes_to_open_path(gimp_drawable_get_image(drawable_ID), num_strokes, strokes, "Path");
 	g_free(strokes);
-
 	RELEASE(&is,&os);
     }
 }
