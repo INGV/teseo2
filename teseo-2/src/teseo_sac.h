@@ -42,6 +42,11 @@
     /*!
       TODO
       */
+    void teseo_sac_station_header(struct SAChead *header, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL);
+
+    /*!
+      TODO
+      */
     gboolean teseo_sac_read(gchar *filename, struct SAChead *header, float *data);
 
     /*!
@@ -52,6 +57,6 @@
     /*!
       TODO
       */
-    gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity);
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL);
 
 #endif
