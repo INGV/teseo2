@@ -593,6 +593,7 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
     gint path_closed, num_path_point_details;
     FILE *fascii=NULL;
     gdouble xres, yres, xfactor, yfactor;
+    gint32 image_height = gimp_image_height(g_image);
 
 
     if(teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs)) {
@@ -605,7 +606,7 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
         if(fascii) {
             for(i=0; i<num_path_point_details; i+=3) {
                 if(points_pairs[i+2]==1.0) {
-                    g_fprintf(fascii, "%f %f\n", xfactor * points_pairs[i], yfactor * points_pairs[i+1]);
+                    g_fprintf(fascii, "%f %f\n", xfactor * points_pairs[i], yfactor * (image_height - points_pairs[i+1]));
                 }
             }
             fclose(fascii);
