@@ -527,6 +527,9 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
 
                 if(teseo_kstnm_entry) {
                     strcpy(KSTNM, gtk_entry_get_text(teseo_kstnm_entry));
+                    if(strcmp(KSTNM, "") == 0) {
+                        strcpy(KSTNM, SACSTRUNDEF);
+                    }
                 }
 
                 if(teseo_cmpaz_spinbutton) {
@@ -548,7 +551,6 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 if(teseo_stel_spinbutton) {
                     STEL = gtk_spin_button_get_value (teseo_stel_spinbutton);
                 }
-
 
                 if(teseo_sac_path_export(teseo_image, filename, paper_velocity, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL)) {
                     // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
