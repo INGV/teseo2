@@ -316,7 +316,6 @@ gchar test_session(char * filename){
     const char delimiters[] = ".";
     gchar ret=0;
 
-
     g_printf("test_session::start filename %s\n",filename );
     basename = g_path_get_basename (filename); //basename without path, to be g_freed
     p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
@@ -337,13 +336,12 @@ gchar test_session(char * filename){
 	{
 	  //then looking for extension
 	  if(g_strrstr(myentry,SESSION_EXT)!=NULL){
-	     g_free(myentry);
-	     myentry=NULL;
+	     if ( myentry != NULL ) g_free(myentry);
 	     ret=1;
              break;
 	  }
 	}
-        g_free(myentry);
+        if ( myentry != NULL ) g_free(myentry);
       }//while
       g_dir_close(dir);
     }
