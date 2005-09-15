@@ -510,12 +510,25 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 // TODO check options in session windows before saving
                 // TODO when resampling catch delta value for SAC
                 // TODO catch paper_velocity
+                // gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
+
+                /*
+                GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
+                GtkSpinButton *teseo_cmpaz_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpaz_spinbutton", teseo_cmpaz_spinbutton_value);
+                GtkSpinButton *teseo_cmpinc_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_cmpinc_spinbutton", teseo_cmpinc_spinbutton_value);
+                GtkSpinButton *teseo_stla_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stla_spinbutton", teseo_stla_spinbutton_value);
+                GtkSpinButton *teseo_stlo_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stlo_spinbutton", teseo_stlo_spinbutton_value);
+                GtkSpinButton *teseo_stel_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stel_spinbutton", teseo_stel_spinbutton_value);
+                 */
+                
+                /*
                 if(teseo_sac_path_export(teseo_image, filename, paper_velocity)) {
                     // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
                     teseo_gtk_statusbar_push("Current path exported in SAC format.");
                 } else {
                     g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
                 }
+                */
 
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -771,14 +784,10 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
 	g_sprintf(newpathname, "%s - Fit Bezier", pathname);
 
 	// create new path
-	gimp_path_set_points(teseo_image, newpathname, 1, num_path * 3, path_inter);
+	gimp_path_set_points(teseo_image, newpathname, 1, num_path, path_inter);
 
-	if(path_inter) {
-		g_free(path_inter);
-	}
-	if(strokes) {
-		g_free(strokes);
-	}
+        g_free(path_inter);
+        g_free(strokes);
     }
 }
 
@@ -1468,21 +1477,41 @@ on_teseo_alg_undo_toolbutton_clicked   (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
     int iter;
+    /*
     glong n_strokes;
     gdouble *strokes;
+    */
+    gint new_size;
+    gdouble * points_pairs=NULL;
+    gint path_closed, num_path_point_details;
+
     GtkSpinButton  * tbss  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_back_step_spinbutton", 0);
     char * pathname = gimp_path_get_current(teseo_image);
 
     iter = gtk_spin_button_get_value_as_int (tbss) ;
+
+    /*
     strokes = teseo_open_path_to_strokes(teseo_image,  &n_strokes,  pathname);
-
     teseo_strokes_to_open_path(teseo_image, n_strokes-iter, strokes, pathname);
+    */
 
-    //beware i'm deleting old path with pathname
-    gimp_path_delete(teseo_image,pathname);
+    teseo_gimp_path_get_points (teseo_image, pathname, &path_closed, &num_path_point_details, &points_pairs);
+
+    new_size = num_path_point_details - (iter * 9);
+
+    if(new_size > 0) {
+
+        gimp_path_set_points(teseo_image, pathname, 1, new_size, points_pairs);
+        //beware i'm deleting old path with pathname
+        gimp_path_delete(teseo_image,pathname);
+
+    } else {
+        g_message("Too much points to delete !");
+    }
 
     g_free(pathname);
-    g_free(strokes);
+    // g_free(strokes);
+    g_free(points_pairs);
 }
 
 
