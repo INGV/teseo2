@@ -334,3 +334,7 @@ void
 on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
                                         gpointer         user_data);
 
+
+void
+on_teseo_alg2_radiotoolbutton_clicked  (GtkToolButton   *toolbutton,
+                                        gpointer         user_data);

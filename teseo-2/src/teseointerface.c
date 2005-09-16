@@ -1390,6 +1390,9 @@ create_win_teseo (void)
   g_signal_connect ((gpointer) alg_wmean_radiotoolbutton, "clicked",
                     G_CALLBACK (on_alg_wmean_radiotoolbutton_clicked),
                     NULL);
+  g_signal_connect ((gpointer) teseo_alg2_radiotoolbutton, "clicked",
+                    G_CALLBACK (on_teseo_alg2_radiotoolbutton_clicked),
+                    NULL);
   g_signal_connect ((gpointer) teseo_alg_undo_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_undo_toolbutton_clicked),
                     NULL);

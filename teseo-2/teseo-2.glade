@@ -634,6 +634,7 @@
 		      <property name="is_important">False</property>
 		      <property name="active">False</property>
 		      <property name="group">alg_wmean_radiotoolbutton</property>
+		      <signal name="clicked" handler="on_teseo_alg2_radiotoolbutton_clicked" last_modification_time="Fri, 16 Sep 2005 15:03:38 GMT"/>
 		    </widget>
 		    <packing>
 		      <property name="expand">False</property>
