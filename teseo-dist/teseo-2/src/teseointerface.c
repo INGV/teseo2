@@ -1829,24 +1829,24 @@ create_dlg_session (void)
   GtkWidget *label224;
   GtkWidget *label217;
   GtkWidget *label218;
-  GtkObject *spinbutton27_adj;
-  GtkWidget *spinbutton27;
-  GtkObject *spinbutton28_adj;
-  GtkWidget *spinbutton28;
-  GtkObject *spinbutton29_adj;
-  GtkWidget *spinbutton29;
+  GtkObject *teseo_event_year_spinbutton_adj;
+  GtkWidget *teseo_event_year_spinbutton;
+  GtkObject *teseo_event_month_spinbutton_adj;
+  GtkWidget *teseo_event_month_spinbutton;
+  GtkObject *teseo_event_day_spinbutton_adj;
+  GtkWidget *teseo_event_day_spinbutton;
   GtkWidget *table15;
   GtkWidget *label228;
-  GtkObject *spinbutton36_adj;
-  GtkWidget *spinbutton36;
+  GtkObject *teseo_event_hour_spinbutton_adj;
+  GtkWidget *teseo_event_hour_spinbutton;
   GtkWidget *label237;
   GtkWidget *label232;
-  GtkObject *spinbutton37_adj;
-  GtkWidget *spinbutton37;
+  GtkObject *teseo_event_minute_spinbutton_adj;
+  GtkWidget *teseo_event_minute_spinbutton;
   GtkWidget *label238;
   GtkWidget *label233;
-  GtkObject *spinbutton38_adj;
-  GtkWidget *spinbutton38;
+  GtkObject *teseo_event_second_spinbutton_adj;
+  GtkWidget *teseo_event_second_spinbutton;
   GtkWidget *vbox74;
   GtkWidget *teseo_event_checkbutton;
   GtkWidget *hbox33;
@@ -1864,12 +1864,12 @@ create_dlg_session (void)
   GtkWidget *label241;
   GtkWidget *label242;
   GtkWidget *label243;
-  GtkObject *spinbutton39_adj;
-  GtkWidget *spinbutton39;
-  GtkObject *spinbutton40_adj;
-  GtkWidget *spinbutton40;
-  GtkObject *spinbutton41_adj;
-  GtkWidget *spinbutton41;
+  GtkObject *teseo_tm_year_spinbutton_adj;
+  GtkWidget *teseo_tm_year_spinbutton;
+  GtkObject *teseo_tm_month_spinbutton_adj;
+  GtkWidget *teseo_tm_month_spinbutton;
+  GtkObject *teseo_tm_day_spinbutton_adj;
+  GtkWidget *teseo_tm_day_spinbutton;
   GtkWidget *table17;
   GtkWidget *label244;
   GtkWidget *label245;
@@ -2363,32 +2363,32 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label218), 0, 0.5);
 
-  spinbutton27_adj = gtk_adjustment_new (1900, 1800, 2050, 1, 10, 10);
-  spinbutton27 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton27_adj), 1, 0);
-  gtk_widget_set_name (spinbutton27, "spinbutton27");
-  gtk_widget_show (spinbutton27);
-  gtk_table_attach (GTK_TABLE (table14), spinbutton27, 0, 1, 1, 2,
+  teseo_event_year_spinbutton_adj = gtk_adjustment_new (1900, 1800, 2050, 1, 10, 10);
+  teseo_event_year_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_year_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_year_spinbutton, "teseo_event_year_spinbutton");
+  gtk_widget_show (teseo_event_year_spinbutton);
+  gtk_table_attach (GTK_TABLE (table14), teseo_event_year_spinbutton, 0, 1, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton27), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_year_spinbutton), TRUE);
 
-  spinbutton28_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
-  spinbutton28 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton28_adj), 1, 0);
-  gtk_widget_set_name (spinbutton28, "spinbutton28");
-  gtk_widget_show (spinbutton28);
-  gtk_table_attach (GTK_TABLE (table14), spinbutton28, 2, 3, 1, 2,
+  teseo_event_month_spinbutton_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
+  teseo_event_month_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_month_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_month_spinbutton, "teseo_event_month_spinbutton");
+  gtk_widget_show (teseo_event_month_spinbutton);
+  gtk_table_attach (GTK_TABLE (table14), teseo_event_month_spinbutton, 2, 3, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton28), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_month_spinbutton), TRUE);
 
-  spinbutton29_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
-  spinbutton29 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton29_adj), 1, 0);
-  gtk_widget_set_name (spinbutton29, "spinbutton29");
-  gtk_widget_show (spinbutton29);
-  gtk_table_attach (GTK_TABLE (table14), spinbutton29, 4, 5, 1, 2,
+  teseo_event_day_spinbutton_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
+  teseo_event_day_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_day_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_day_spinbutton, "teseo_event_day_spinbutton");
+  gtk_widget_show (teseo_event_day_spinbutton);
+  gtk_table_attach (GTK_TABLE (table14), teseo_event_day_spinbutton, 4, 5, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton29), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_day_spinbutton), TRUE);
 
   table15 = gtk_table_new (2, 5, FALSE);
   gtk_widget_set_name (table15, "table15");
@@ -2403,14 +2403,14 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label228), 0, 0.5);
 
-  spinbutton36_adj = gtk_adjustment_new (0, 0, 23, 1, 10, 10);
-  spinbutton36 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton36_adj), 1, 0);
-  gtk_widget_set_name (spinbutton36, "spinbutton36");
-  gtk_widget_show (spinbutton36);
-  gtk_table_attach (GTK_TABLE (table15), spinbutton36, 0, 1, 1, 2,
+  teseo_event_hour_spinbutton_adj = gtk_adjustment_new (0, 0, 23, 1, 10, 10);
+  teseo_event_hour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_hour_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_hour_spinbutton, "teseo_event_hour_spinbutton");
+  gtk_widget_show (teseo_event_hour_spinbutton);
+  gtk_table_attach (GTK_TABLE (table15), teseo_event_hour_spinbutton, 0, 1, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton36), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_hour_spinbutton), TRUE);
 
   label237 = gtk_label_new (" : ");
   gtk_widget_set_name (label237, "label237");
@@ -2428,14 +2428,14 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label232), 0, 0.5);
 
-  spinbutton37_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
-  spinbutton37 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton37_adj), 1, 0);
-  gtk_widget_set_name (spinbutton37, "spinbutton37");
-  gtk_widget_show (spinbutton37);
-  gtk_table_attach (GTK_TABLE (table15), spinbutton37, 2, 3, 1, 2,
+  teseo_event_minute_spinbutton_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  teseo_event_minute_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_minute_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_minute_spinbutton, "teseo_event_minute_spinbutton");
+  gtk_widget_show (teseo_event_minute_spinbutton);
+  gtk_table_attach (GTK_TABLE (table15), teseo_event_minute_spinbutton, 2, 3, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton37), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_minute_spinbutton), TRUE);
 
   label238 = gtk_label_new (" : ");
   gtk_widget_set_name (label238, "label238");
@@ -2453,14 +2453,14 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label233), 0, 0.5);
 
-  spinbutton38_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
-  spinbutton38 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton38_adj), 1, 0);
-  gtk_widget_set_name (spinbutton38, "spinbutton38");
-  gtk_widget_show (spinbutton38);
-  gtk_table_attach (GTK_TABLE (table15), spinbutton38, 4, 5, 1, 2,
+  teseo_event_second_spinbutton_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
+  teseo_event_second_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_second_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_second_spinbutton, "teseo_event_second_spinbutton");
+  gtk_widget_show (teseo_event_second_spinbutton);
+  gtk_table_attach (GTK_TABLE (table15), teseo_event_second_spinbutton, 4, 5, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton38), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_event_second_spinbutton), TRUE);
 
   vbox74 = gtk_vbox_new (FALSE, 2);
   gtk_widget_set_name (vbox74, "vbox74");
@@ -2566,32 +2566,32 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label243), 0, 0.5);
 
-  spinbutton39_adj = gtk_adjustment_new (1900, 1800, 2050, 1, 10, 10);
-  spinbutton39 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton39_adj), 1, 0);
-  gtk_widget_set_name (spinbutton39, "spinbutton39");
-  gtk_widget_show (spinbutton39);
-  gtk_table_attach (GTK_TABLE (table16), spinbutton39, 0, 1, 1, 2,
+  teseo_tm_year_spinbutton_adj = gtk_adjustment_new (1900, 1800, 2050, 1, 10, 10);
+  teseo_tm_year_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_tm_year_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_tm_year_spinbutton, "teseo_tm_year_spinbutton");
+  gtk_widget_show (teseo_tm_year_spinbutton);
+  gtk_table_attach (GTK_TABLE (table16), teseo_tm_year_spinbutton, 0, 1, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton39), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_tm_year_spinbutton), TRUE);
 
-  spinbutton40_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
-  spinbutton40 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton40_adj), 1, 0);
-  gtk_widget_set_name (spinbutton40, "spinbutton40");
-  gtk_widget_show (spinbutton40);
-  gtk_table_attach (GTK_TABLE (table16), spinbutton40, 2, 3, 1, 2,
+  teseo_tm_month_spinbutton_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
+  teseo_tm_month_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_tm_month_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_tm_month_spinbutton, "teseo_tm_month_spinbutton");
+  gtk_widget_show (teseo_tm_month_spinbutton);
+  gtk_table_attach (GTK_TABLE (table16), teseo_tm_month_spinbutton, 2, 3, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton40), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_tm_month_spinbutton), TRUE);
 
-  spinbutton41_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
-  spinbutton41 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton41_adj), 1, 0);
-  gtk_widget_set_name (spinbutton41, "spinbutton41");
-  gtk_widget_show (spinbutton41);
-  gtk_table_attach (GTK_TABLE (table16), spinbutton41, 4, 5, 1, 2,
+  teseo_tm_day_spinbutton_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
+  teseo_tm_day_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_tm_day_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_tm_day_spinbutton, "teseo_tm_day_spinbutton");
+  gtk_widget_show (teseo_tm_day_spinbutton);
+  gtk_table_attach (GTK_TABLE (table16), teseo_tm_day_spinbutton, 4, 5, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton41), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_tm_day_spinbutton), TRUE);
 
   table17 = gtk_table_new (2, 5, FALSE);
   gtk_widget_set_name (table17, "table17");
@@ -2654,6 +2654,7 @@ create_dlg_session (void)
   gtk_table_attach (GTK_TABLE (table17), teseo_tm_minute_spinbutton, 2, 3, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_tm_minute_spinbutton), TRUE);
 
   teseo_tm_second_spinbutton_adj = gtk_adjustment_new (0, 0, 59, 1, 10, 10);
   teseo_tm_second_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_tm_second_spinbutton_adj), 1, 0);
@@ -2662,6 +2663,7 @@ create_dlg_session (void)
   gtk_table_attach (GTK_TABLE (table17), teseo_tm_second_spinbutton, 4, 5, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_tm_second_spinbutton), TRUE);
 
   vbox76 = gtk_vbox_new (FALSE, 2);
   gtk_widget_set_name (vbox76, "vbox76");
@@ -3091,18 +3093,18 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, label224, "label224");
   GLADE_HOOKUP_OBJECT (dlg_session, label217, "label217");
   GLADE_HOOKUP_OBJECT (dlg_session, label218, "label218");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton27, "spinbutton27");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton28, "spinbutton28");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton29, "spinbutton29");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_year_spinbutton, "teseo_event_year_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_month_spinbutton, "teseo_event_month_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_day_spinbutton, "teseo_event_day_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, table15, "table15");
   GLADE_HOOKUP_OBJECT (dlg_session, label228, "label228");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton36, "spinbutton36");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_hour_spinbutton, "teseo_event_hour_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label237, "label237");
   GLADE_HOOKUP_OBJECT (dlg_session, label232, "label232");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton37, "spinbutton37");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_minute_spinbutton, "teseo_event_minute_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label238, "label238");
   GLADE_HOOKUP_OBJECT (dlg_session, label233, "label233");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton38, "spinbutton38");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_second_spinbutton, "teseo_event_second_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, vbox74, "vbox74");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_checkbutton, "teseo_event_checkbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, hbox33, "hbox33");
@@ -3120,9 +3122,9 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, label241, "label241");
   GLADE_HOOKUP_OBJECT (dlg_session, label242, "label242");
   GLADE_HOOKUP_OBJECT (dlg_session, label243, "label243");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton39, "spinbutton39");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton40, "spinbutton40");
-  GLADE_HOOKUP_OBJECT (dlg_session, spinbutton41, "spinbutton41");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_year_spinbutton, "teseo_tm_year_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_month_spinbutton, "teseo_tm_month_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_tm_day_spinbutton, "teseo_tm_day_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, table17, "table17");
   GLADE_HOOKUP_OBJECT (dlg_session, label244, "label244");
   GLADE_HOOKUP_OBJECT (dlg_session, label245, "label245");
