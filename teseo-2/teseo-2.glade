@@ -3623,7 +3623,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton27">
+				    <widget class="GtkSpinButton" id="teseo_event_year_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -3645,7 +3645,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton28">
+				    <widget class="GtkSpinButton" id="teseo_event_month_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -3667,7 +3667,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton29">
+				    <widget class="GtkSpinButton" id="teseo_event_day_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -3729,7 +3729,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton36">
+				    <widget class="GtkSpinButton" id="teseo_event_hour_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -3799,7 +3799,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton37">
+				    <widget class="GtkSpinButton" id="teseo_event_minute_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -3869,7 +3869,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton38">
+				    <widget class="GtkSpinButton" id="teseo_event_second_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -4187,7 +4187,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton39">
+				    <widget class="GtkSpinButton" id="teseo_tm_year_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -4209,7 +4209,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton40">
+				    <widget class="GtkSpinButton" id="teseo_tm_month_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -4231,7 +4231,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  </child>
 
 				  <child>
-				    <widget class="GtkSpinButton" id="spinbutton41">
+				    <widget class="GtkSpinButton" id="teseo_tm_day_spinbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
@@ -4416,7 +4416,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
 				      <property name="digits">0</property>
-				      <property name="numeric">False</property>
+				      <property name="numeric">True</property>
 				      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				      <property name="snap_to_ticks">False</property>
 				      <property name="wrap">False</property>
@@ -4438,7 +4438,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
 				      <property name="digits">0</property>
-				      <property name="numeric">False</property>
+				      <property name="numeric">True</property>
 				      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				      <property name="snap_to_ticks">False</property>
 				      <property name="wrap">False</property>
