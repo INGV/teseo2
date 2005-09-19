@@ -69,7 +69,7 @@ rsync -av $SUBDIRTESEO2/README $TESEODISTNAME/
 rsync -av $SUBDIRTESEO2/INSTALL $TESEODISTNAME/
 rsync -av $SUBDIRTESEO2/AUTHORS $TESEODISTNAME/
 rsync -av $SUBDIRTESEO2/COPYING $TESEODISTNAME/
-# rsync -av $SUBDIRTESEO2/example.xcf $TESEODISTNAME/
+rsync -av --exclude "Makefile*" --exclude "CVS" $SUBDIRTESEO2/docs $TESEODISTNAME/
 rsync -av --exclude "Makefile*" --exclude "CVS" $SUBDIRTESEO2/pixmaps $TESEODISTNAME/
 rsync -av --exclude "Makefile*" --exclude "CVS" $SUBDIRTESEO2/help $TESEODISTNAME/
 
