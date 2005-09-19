@@ -33,3 +33,5 @@ To install it:
 	- refer to the file INSTALL
 	- download DMG or ISO image that contain Gimp.app with teseo-2 bundled
 
+EXAMPLES FILES:
+	docs/example.xcf.gz contains a seismogram portion and some vectorised path example
