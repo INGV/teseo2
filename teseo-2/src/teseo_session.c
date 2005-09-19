@@ -313,7 +313,7 @@ gchar test_session(char * filename){
 
     gchar * p=NULL;
 
-    const char delimiters[] = ".";
+    const char delimiters[] = ".xcf";
     gchar ret=0;
 
     g_printf("test_session::start filename %s\n",filename );
