@@ -1601,3 +1601,11 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     teseo_filter_fill_continuous_segment(teseo_image, 0, 200, TRUE, 35, 255, 0);
 }
 
+
+void
+on_clean_less1_activate                (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    teseo_filter_fill_continuous_segment(teseo_image, 0, 200, FALSE, 25, 255, 90);
+}
+

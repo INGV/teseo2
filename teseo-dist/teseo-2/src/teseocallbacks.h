@@ -342,3 +342,7 @@ on_teseo_alg2_radiotoolbutton_clicked  (GtkToolButton   *toolbutton,
 void
 on_clean1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_clean_less1_activate                (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
