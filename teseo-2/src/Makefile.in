@@ -204,6 +204,8 @@ teseo_2_SOURCES = \
 	teseo_sac.c \
 	teseo_timemark.c	\
 	teseo_timemark.h	\
+	teseo_filters.c	\
+	teseo_filters.h	\
 	nrutil.h \
 	nrutil.c \
 	nr.h \
@@ -251,6 +253,7 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_wmean.$(OBJEXT) \
 	teseo_main.$(OBJEXT) \
 	teseo_gimp_extends.$(OBJEXT) \
+	teseo_filters.$(OBJEXT) \
 	nrutil.$(OBJEXT) \
 	brent.$(OBJEXT) f1dim.$(OBJEXT) linmin.$(OBJEXT) mnbrak.$(OBJEXT) powell.$(OBJEXT) 
 

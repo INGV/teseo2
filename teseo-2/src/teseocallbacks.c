@@ -50,6 +50,7 @@
 #include "teseo_snap.h"
 #include "teseo_sac.h"
 #include "teseo_timemark.h"
+#include "teseo_filters.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -1590,5 +1591,14 @@ on_teseo_alg2_radiotoolbutton_clicked  (GtkToolButton   *toolbutton,
                                         gpointer         user_data)
 {
 	disable_buttons();
+}
+
+
+void
+on_clean1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    // void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gint32 max_d, gint32 fill_colour, gint32 angle) {
+    teseo_filter_1(teseo_image, 0, 200, 35, 255, 0);
 }
 

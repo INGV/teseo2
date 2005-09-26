@@ -50,6 +50,8 @@ teseo_2_SOURCES = \
 	teseo_sac.h	\
 	teseo_timemark.c	\
 	teseo_timemark.h	\
+	teseo_filters.c	\
+	teseo_filters.h	\
 	nrutil.h \
 	nrutil.c \
 	nr.h \
