@@ -42,6 +42,7 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
     glong bufsize;
     guchar *bufin=NULL;
     guchar *bufout=NULL;
+    gboolean fill_condition, dist_condition;
 
     gboolean non_empty;
     gint x1, y1, x2, y2, width, height;
@@ -68,25 +69,19 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
                 gimp_pixel_rgn_get_rect (&pr, bufin, x1, y1, width, height);
 
                 for(i=0; i < bufsize; i++) {
-                    if(fill_greater_dist) {
                         bufout[i] = bufin[i];
-                    } else {
-                        bufout[i] = 255 - bufin[i];
-                    }
                 }
 
-                if(!fill_greater_dist) {
-                    fill_colour = 255 - fill_colour;
-                }
-
-                g_printf("teseo_filter_1() w %d, h %d, bpp %d\n", width, height, bpp);
+                g_printf("teseo_filter_fill_continuous_segment() w %d, h %d, bpp %d\n", width, height, bpp);
 
                 for(i=0; i < height; i++) {
                     s_j = -1;
                     d_j = 0;
                     for(j=0; j < width; j++) {
-                        if(BUFOUTXY(j, i, width, bpp) > trace_colour - thresh_colour  &&
-                                BUFOUTXY(j, i, width, bpp) < trace_colour + thresh_colour
+                        fill_condition = (BUFOUTXY(j, i, width, bpp) > trace_colour - thresh_colour  &&
+                                BUFOUTXY(j, i, width, bpp) < trace_colour + thresh_colour);
+
+                        if(fill_condition
                                 && j < width-1) {
                             // g_printf("condition s_j %d, d_j %d\n", s_j, d_j);
                             if(s_j == -1) {
@@ -96,7 +91,13 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
                             d_j++;
                         } else {
                             if(s_j != -1) {
-                                if(d_j >= dist) {
+                                dist_condition = (d_j >= dist);
+
+                                if(!fill_greater_dist) {
+                                    dist_condition = !dist_condition;
+                                }
+
+                                if(dist_condition) {
                                     // change bufin from s_j for d_j elements
                                     g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
                                     for(k=0; k < d_j; k++) {
@@ -107,12 +108,6 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
                                 d_j = 0;
                             }
                         }
-                    }
-                }
-
-                if(!fill_greater_dist) {
-                    for(i=0; i < bufsize; i++) {
-                        bufout[i] = 255 - bufout[i];
                     }
                 }
 
