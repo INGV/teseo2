@@ -1598,7 +1598,6 @@ void
 on_clean1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gint32 max_d, gint32 fill_colour, gint32 angle) {
-    teseo_filter_1(teseo_image, 0, 200, 35, 255, 0);
+    teseo_filter_fill_continuous_segment(teseo_image, 0, 200, TRUE, 35, 255, 0);
 }
 
