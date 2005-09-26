@@ -33,7 +33,6 @@
 /*!
   TODO
   */
-void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gint32 max_d, gint32 fill_colour, gint32 angle);
-
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_dist, gint32 dist, gint32 fill_colour, gint32 angle);
 
 #endif

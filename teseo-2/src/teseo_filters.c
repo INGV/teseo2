@@ -34,7 +34,7 @@
 //to manage more layers, gimp add alpha channel in background layer
 #define BUFOUTXY(X, Y, width, bpp) bufout[ ((Y*width) + X ) * bpp]
 
-void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gint32 max_d, gint32 fill_colour, gint32 angle) {
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_dist, gint32 dist, gint32 fill_colour, gint32 angle) {
     GimpDrawable *drawable=NULL;
     GimpPixelRgn pr, pr_dest;
     int bpp = 0;
@@ -68,7 +68,15 @@ void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, g
                 gimp_pixel_rgn_get_rect (&pr, bufin, x1, y1, width, height);
 
                 for(i=0; i < bufsize; i++) {
-                    bufout[i] = bufin[i];
+                    if(fill_greater_dist) {
+                        bufout[i] = bufin[i];
+                    } else {
+                        bufout[i] = 255 - bufin[i];
+                    }
+                }
+
+                if(!fill_greater_dist) {
+                    fill_colour = 255 - fill_colour;
                 }
 
                 g_printf("teseo_filter_1() w %d, h %d, bpp %d\n", width, height, bpp);
@@ -78,8 +86,8 @@ void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, g
                     d_j = 0;
                     for(j=0; j < width; j++) {
                         if(BUFOUTXY(j, i, width, bpp) > trace_colour - thresh_colour  &&
-                                BUFOUTXY(j, i, width, bpp) < trace_colour + thresh_colour &&
-                                j < width-1) {
+                                BUFOUTXY(j, i, width, bpp) < trace_colour + thresh_colour
+                                && j < width-1) {
                             // g_printf("condition s_j %d, d_j %d\n", s_j, d_j);
                             if(s_j == -1) {
                                 s_j = j;
@@ -88,7 +96,7 @@ void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, g
                             d_j++;
                         } else {
                             if(s_j != -1) {
-                                if(d_j >= max_d) {
+                                if(d_j >= dist) {
                                     // change bufin from s_j for d_j elements
                                     g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
                                     for(k=0; k < d_j; k++) {
@@ -99,6 +107,12 @@ void teseo_filter_1(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, g
                                 d_j = 0;
                             }
                         }
+                    }
+                }
+
+                if(!fill_greater_dist) {
+                    for(i=0; i < bufsize; i++) {
+                        bufout[i] = 255 - bufout[i];
                     }
                 }
 
