@@ -36,18 +36,18 @@ create_win_teseo (void)
   GtkWidget *menuitem4;
   GtkWidget *menuitem4_menu;
   GtkWidget *session1;
-  GtkWidget *image567;
+  GtkWidget *image585;
   GtkWidget *session1_menu;
   GtkWidget *new1;
   GtkWidget *open1;
   GtkWidget *properties1;
-  GtkWidget *image568;
+  GtkWidget *image586;
   GtkWidget *salva1;
   GtkWidget *path4;
-  GtkWidget *image569;
+  GtkWidget *image587;
   GtkWidget *path4_menu;
   GtkWidget *import1;
-  GtkWidget *image570;
+  GtkWidget *image588;
   GtkWidget *import1_menu;
   GtkWidget *dxf2;
   GtkWidget *ascii1;
@@ -58,7 +58,7 @@ create_win_teseo (void)
   GtkWidget *separator6;
   GtkWidget *bezier1;
   GtkWidget *export1;
-  GtkWidget *image571;
+  GtkWidget *image589;
   GtkWidget *export1_menu;
   GtkWidget *dxf1;
   GtkWidget *ascii2;
@@ -95,13 +95,12 @@ create_win_teseo (void)
   GtkWidget *filters1;
   GtkWidget *filters1_menu;
   GtkWidget *clean1;
-  GtkWidget *clean_less1;
   GtkWidget *menuitem7;
   GtkWidget *menuitem7_menu;
   GtkWidget *help1;
-  GtkWidget *image572;
+  GtkWidget *image590;
   GtkWidget *about1;
-  GtkWidget *image573;
+  GtkWidget *image591;
   GtkWidget *handlebox3;
   GtkWidget *toolbar2;
   GtkIconSize tmp_toolbar_icon_size;
@@ -215,6 +214,31 @@ create_win_teseo (void)
   GtkObject *spinbutton26_adj;
   GtkWidget *spinbutton26;
   GtkWidget *label75;
+  GtkWidget *vbox79;
+  GtkWidget *frame74;
+  GtkWidget *hbox51;
+  GtkWidget *table21;
+  GtkWidget *label267;
+  GtkObject *teseo_clean_colour_spinbutton_adj;
+  GtkWidget *teseo_clean_colour_spinbutton;
+  GtkObject *teseo_clean_threshold_spinbutton_adj;
+  GtkWidget *teseo_clean_threshold_spinbutton;
+  GtkWidget *label268;
+  GtkWidget *label273;
+  GtkObject *teseo_clean_fill_colour_spinbutton_adj;
+  GtkWidget *teseo_clean_fill_colour_spinbutton;
+  GtkWidget *table22;
+  GtkWidget *label277;
+  GtkObject *teseo_clean_max_spinbutton_adj;
+  GtkWidget *teseo_clean_max_spinbutton;
+  GtkWidget *label278;
+  GtkObject *teseo_clean_angle_spinbutton_adj;
+  GtkWidget *teseo_clean_angle_spinbutton;
+  GtkWidget *label280;
+  GtkObject *teseo_clean_length_spinbutton_adj;
+  GtkWidget *teseo_clean_length_spinbutton;
+  GtkWidget *label269;
+  GtkWidget *label266;
   GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
   GtkTooltips *tooltips;
@@ -258,10 +282,10 @@ create_win_teseo (void)
   gtk_widget_show (session1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), session1);
 
-  image567 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image567, "image567");
-  gtk_widget_show (image567);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (session1), image567);
+  image585 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image585, "image585");
+  gtk_widget_show (image585);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (session1), image585);
 
   session1_menu = gtk_menu_new ();
   gtk_widget_set_name (session1_menu, "session1_menu");
@@ -285,10 +309,10 @@ create_win_teseo (void)
                               GDK_R, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image568 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image568, "image568");
-  gtk_widget_show (image568);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image568);
+  image586 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image586, "image586");
+  gtk_widget_show (image586);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image586);
 
   salva1 = gtk_image_menu_item_new_from_stock ("gtk-save", accel_group);
   gtk_widget_set_name (salva1, "salva1");
@@ -300,10 +324,10 @@ create_win_teseo (void)
   gtk_widget_show (path4);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), path4);
 
-  image569 = gtk_image_new_from_stock ("gtk-harddisk", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image569, "image569");
-  gtk_widget_show (image569);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (path4), image569);
+  image587 = gtk_image_new_from_stock ("gtk-harddisk", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image587, "image587");
+  gtk_widget_show (image587);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (path4), image587);
 
   path4_menu = gtk_menu_new ();
   gtk_widget_set_name (path4_menu, "path4_menu");
@@ -314,10 +338,10 @@ create_win_teseo (void)
   gtk_widget_show (import1);
   gtk_container_add (GTK_CONTAINER (path4_menu), import1);
 
-  image570 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image570, "image570");
-  gtk_widget_show (image570);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image570);
+  image588 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image588, "image588");
+  gtk_widget_show (image588);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image588);
 
   import1_menu = gtk_menu_new ();
   gtk_widget_set_name (import1_menu, "import1_menu");
@@ -371,10 +395,10 @@ create_win_teseo (void)
   gtk_widget_show (export1);
   gtk_container_add (GTK_CONTAINER (path4_menu), export1);
 
-  image571 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image571, "image571");
-  gtk_widget_show (image571);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image571);
+  image589 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image589, "image589");
+  gtk_widget_show (image589);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image589);
 
   export1_menu = gtk_menu_new ();
   gtk_widget_set_name (export1_menu, "export1_menu");
@@ -551,15 +575,10 @@ create_win_teseo (void)
   gtk_widget_set_name (filters1_menu, "filters1_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (filters1), filters1_menu);
 
-  clean1 = gtk_menu_item_new_with_mnemonic ("_Clean greater");
+  clean1 = gtk_menu_item_new_with_mnemonic ("_Clean");
   gtk_widget_set_name (clean1, "clean1");
   gtk_widget_show (clean1);
   gtk_container_add (GTK_CONTAINER (filters1_menu), clean1);
-
-  clean_less1 = gtk_menu_item_new_with_mnemonic ("Clean less");
-  gtk_widget_set_name (clean_less1, "clean_less1");
-  gtk_widget_show (clean_less1);
-  gtk_container_add (GTK_CONTAINER (filters1_menu), clean_less1);
 
   menuitem7 = gtk_menu_item_new_with_mnemonic ("_Help");
   gtk_widget_set_name (menuitem7, "menuitem7");
@@ -575,20 +594,20 @@ create_win_teseo (void)
   gtk_widget_show (help1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), help1);
 
-  image572 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image572, "image572");
-  gtk_widget_show (image572);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image572);
+  image590 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image590, "image590");
+  gtk_widget_show (image590);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image590);
 
   about1 = gtk_image_menu_item_new_with_mnemonic ("_About ...");
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), about1);
 
-  image573 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image573, "image573");
-  gtk_widget_show (image573);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image573);
+  image591 = gtk_image_new_from_stock ("gtk-dialog-info", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image591, "image591");
+  gtk_widget_show (image591);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image591);
 
   handlebox3 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox3, "handlebox3");
@@ -1291,6 +1310,164 @@ create_win_teseo (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 3), label75);
   gtk_label_set_use_markup (GTK_LABEL (label75), TRUE);
 
+  vbox79 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox79, "vbox79");
+  gtk_widget_show (vbox79);
+  gtk_container_add (GTK_CONTAINER (notebook2), vbox79);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox79), 3);
+
+  frame74 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame74, "frame74");
+  gtk_widget_show (frame74);
+  gtk_box_pack_start (GTK_BOX (vbox79), frame74, FALSE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame74), GTK_SHADOW_NONE);
+
+  hbox51 = gtk_hbox_new (FALSE, 20);
+  gtk_widget_set_name (hbox51, "hbox51");
+  gtk_widget_show (hbox51);
+  gtk_container_add (GTK_CONTAINER (frame74), hbox51);
+
+  table21 = gtk_table_new (3, 2, FALSE);
+  gtk_widget_set_name (table21, "table21");
+  gtk_widget_show (table21);
+  gtk_box_pack_start (GTK_BOX (hbox51), table21, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (table21), 4);
+  gtk_table_set_row_spacings (GTK_TABLE (table21), 4);
+  gtk_table_set_col_spacings (GTK_TABLE (table21), 4);
+
+  label267 = gtk_label_new ("Threshold");
+  gtk_widget_set_name (label267, "label267");
+  gtk_widget_show (label267);
+  gtk_table_attach (GTK_TABLE (table21), label267, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label267), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label267), 10, 0);
+
+  teseo_clean_colour_spinbutton_adj = gtk_adjustment_new (0, 0, 255, 1, 10, 10);
+  teseo_clean_colour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_colour_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_colour_spinbutton, "teseo_clean_colour_spinbutton");
+  gtk_widget_show (teseo_clean_colour_spinbutton);
+  gtk_table_attach (GTK_TABLE (table21), teseo_clean_colour_spinbutton, 1, 2, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_colour_spinbutton), TRUE);
+
+  teseo_clean_threshold_spinbutton_adj = gtk_adjustment_new (0, 0, 255, 1, 10, 10);
+  teseo_clean_threshold_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_threshold_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
+  gtk_widget_show (teseo_clean_threshold_spinbutton);
+  gtk_table_attach (GTK_TABLE (table21), teseo_clean_threshold_spinbutton, 1, 2, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
+
+  label268 = gtk_label_new ("Colour");
+  gtk_widget_set_name (label268, "label268");
+  gtk_widget_show (label268);
+  gtk_table_attach (GTK_TABLE (table21), label268, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label268), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label268), 10, 0);
+
+  label273 = gtk_label_new ("Fill Colour");
+  gtk_widget_set_name (label273, "label273");
+  gtk_widget_show (label273);
+  gtk_table_attach (GTK_TABLE (table21), label273, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label273), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label273), 10, 0);
+
+  teseo_clean_fill_colour_spinbutton_adj = gtk_adjustment_new (255, 0, 255, 1, 10, 10);
+  teseo_clean_fill_colour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_fill_colour_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
+  gtk_widget_show (teseo_clean_fill_colour_spinbutton);
+  gtk_table_attach (GTK_TABLE (table21), teseo_clean_fill_colour_spinbutton, 1, 2, 2, 3,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_fill_colour_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_fill_colour_spinbutton), TRUE);
+
+  table22 = gtk_table_new (3, 2, FALSE);
+  gtk_widget_set_name (table22, "table22");
+  gtk_widget_show (table22);
+  gtk_box_pack_start (GTK_BOX (hbox51), table22, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (table22), 4);
+  gtk_table_set_row_spacings (GTK_TABLE (table22), 4);
+  gtk_table_set_col_spacings (GTK_TABLE (table22), 4);
+
+  label277 = gtk_label_new ("Max");
+  gtk_widget_set_name (label277, "label277");
+  gtk_widget_show (label277);
+  gtk_table_attach (GTK_TABLE (table22), label277, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label277), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label277), 10, 0);
+
+  teseo_clean_max_spinbutton_adj = gtk_adjustment_new (0, 0, 1, 1, 1, 1);
+  teseo_clean_max_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_max_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_max_spinbutton, "teseo_clean_max_spinbutton");
+  gtk_widget_show (teseo_clean_max_spinbutton);
+  gtk_table_attach (GTK_TABLE (table22), teseo_clean_max_spinbutton, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_max_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_max_spinbutton), TRUE);
+
+  label278 = gtk_label_new ("Length");
+  gtk_widget_set_name (label278, "label278");
+  gtk_widget_show (label278);
+  gtk_table_attach (GTK_TABLE (table22), label278, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label278), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label278), 10, 0);
+
+  teseo_clean_angle_spinbutton_adj = gtk_adjustment_new (0, 0, 90, 90, 90, 90);
+  teseo_clean_angle_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_angle_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_angle_spinbutton, "teseo_clean_angle_spinbutton");
+  gtk_widget_show (teseo_clean_angle_spinbutton);
+  gtk_table_attach (GTK_TABLE (table22), teseo_clean_angle_spinbutton, 1, 2, 2, 3,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_angle_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_angle_spinbutton), TRUE);
+
+  label280 = gtk_label_new ("Angle");
+  gtk_widget_set_name (label280, "label280");
+  gtk_widget_show (label280);
+  gtk_table_attach (GTK_TABLE (table22), label280, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label280), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label280), 10, 0);
+
+  teseo_clean_length_spinbutton_adj = gtk_adjustment_new (10, 1, 10000, 1, 10, 10);
+  teseo_clean_length_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_length_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
+  gtk_widget_show (teseo_clean_length_spinbutton);
+  gtk_table_attach (GTK_TABLE (table22), teseo_clean_length_spinbutton, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
+
+  label269 = gtk_label_new ("<b>Parameters</b>");
+  gtk_widget_set_name (label269, "label269");
+  gtk_widget_show (label269);
+  gtk_frame_set_label_widget (GTK_FRAME (frame74), label269);
+  gtk_label_set_use_markup (GTK_LABEL (label269), TRUE);
+
+  label266 = gtk_label_new ("<small><b>Clean</b></small>");
+  gtk_widget_set_name (label266, "label266");
+  gtk_widget_show (label266);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook2), 4), label266);
+  gtk_label_set_use_markup (GTK_LABEL (label266), TRUE);
+
   statusbar = gtk_statusbar_new ();
   gtk_widget_set_name (statusbar, "statusbar");
   gtk_widget_show (statusbar);
@@ -1401,9 +1578,6 @@ create_win_teseo (void)
   g_signal_connect ((gpointer) clean1, "activate",
                     G_CALLBACK (on_clean1_activate),
                     NULL);
-  g_signal_connect ((gpointer) clean_less1, "activate",
-                    G_CALLBACK (on_clean_less1_activate),
-                    NULL);
   g_signal_connect ((gpointer) help1, "activate",
                     G_CALLBACK (on_help1_activate),
                     NULL);
@@ -1449,18 +1623,18 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem4, "menuitem4");
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem4_menu, "menuitem4_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, session1, "session1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image567, "image567");
+  GLADE_HOOKUP_OBJECT (win_teseo, image585, "image585");
   GLADE_HOOKUP_OBJECT (win_teseo, session1_menu, "session1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, new1, "new1");
   GLADE_HOOKUP_OBJECT (win_teseo, open1, "open1");
   GLADE_HOOKUP_OBJECT (win_teseo, properties1, "properties1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image568, "image568");
+  GLADE_HOOKUP_OBJECT (win_teseo, image586, "image586");
   GLADE_HOOKUP_OBJECT (win_teseo, salva1, "salva1");
   GLADE_HOOKUP_OBJECT (win_teseo, path4, "path4");
-  GLADE_HOOKUP_OBJECT (win_teseo, image569, "image569");
+  GLADE_HOOKUP_OBJECT (win_teseo, image587, "image587");
   GLADE_HOOKUP_OBJECT (win_teseo, path4_menu, "path4_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image570, "image570");
+  GLADE_HOOKUP_OBJECT (win_teseo, image588, "image588");
   GLADE_HOOKUP_OBJECT (win_teseo, import1_menu, "import1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, dxf2, "dxf2");
   GLADE_HOOKUP_OBJECT (win_teseo, ascii1, "ascii1");
@@ -1471,7 +1645,7 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, separator6, "separator6");
   GLADE_HOOKUP_OBJECT (win_teseo, bezier1, "bezier1");
   GLADE_HOOKUP_OBJECT (win_teseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image571, "image571");
+  GLADE_HOOKUP_OBJECT (win_teseo, image589, "image589");
   GLADE_HOOKUP_OBJECT (win_teseo, export1_menu, "export1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, dxf1, "dxf1");
   GLADE_HOOKUP_OBJECT (win_teseo, ascii2, "ascii2");
@@ -1508,13 +1682,12 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, filters1, "filters1");
   GLADE_HOOKUP_OBJECT (win_teseo, filters1_menu, "filters1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, clean1, "clean1");
-  GLADE_HOOKUP_OBJECT (win_teseo, clean_less1, "clean_less1");
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem7, "menuitem7");
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem7_menu, "menuitem7_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image572, "image572");
+  GLADE_HOOKUP_OBJECT (win_teseo, image590, "image590");
   GLADE_HOOKUP_OBJECT (win_teseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image573, "image573");
+  GLADE_HOOKUP_OBJECT (win_teseo, image591, "image591");
   GLADE_HOOKUP_OBJECT (win_teseo, handlebox3, "handlebox3");
   GLADE_HOOKUP_OBJECT (win_teseo, toolbar2, "toolbar2");
   GLADE_HOOKUP_OBJECT (win_teseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
@@ -1614,6 +1787,25 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, label83, "label83");
   GLADE_HOOKUP_OBJECT (win_teseo, spinbutton26, "spinbutton26");
   GLADE_HOOKUP_OBJECT (win_teseo, label75, "label75");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox79, "vbox79");
+  GLADE_HOOKUP_OBJECT (win_teseo, frame74, "frame74");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox51, "hbox51");
+  GLADE_HOOKUP_OBJECT (win_teseo, table21, "table21");
+  GLADE_HOOKUP_OBJECT (win_teseo, label267, "label267");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_colour_spinbutton, "teseo_clean_colour_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label268, "label268");
+  GLADE_HOOKUP_OBJECT (win_teseo, label273, "label273");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, table22, "table22");
+  GLADE_HOOKUP_OBJECT (win_teseo, label277, "label277");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_max_spinbutton, "teseo_clean_max_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label278, "label278");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_angle_spinbutton, "teseo_clean_angle_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label280, "label280");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label269, "label269");
+  GLADE_HOOKUP_OBJECT (win_teseo, label266, "label266");
   GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
   GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");
 

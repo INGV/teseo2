@@ -343,6 +343,3 @@ void
 on_clean1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
-void
-on_clean_less1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);

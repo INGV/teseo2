@@ -1598,14 +1598,48 @@ void
 on_clean1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    teseo_filter_fill_continuous_segment(teseo_image, 0, 200, TRUE, 35, 255, 0);
+    gint32 clean_colour = 0;
+    gint32 clean_threshold = 150;
+    gint32 clean_fill_colour = 255;
+    gint32 clean_max = 0;
+    gint32 clean_length = 35;
+    gint32 clean_angle = 0;
+
+    GtkSpinButton *teseo_clean_colour = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_colour_spinbutton", clean_colour);
+    GtkSpinButton *teseo_clean_threshold = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_threshold_spinbutton", clean_threshold);
+    GtkSpinButton *teseo_clean_fill_colour = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_fill_colour_spinbutton", clean_fill_colour);
+    GtkSpinButton *teseo_clean_max = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_max_spinbutton", clean_max);
+    GtkSpinButton *teseo_clean_length = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
+    GtkSpinButton *teseo_clean_angle = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_angle_spinbutton", clean_angle);
+
+    if(teseo_clean_colour) {
+        clean_colour = gtk_spin_button_get_value (teseo_clean_colour);
+    }
+
+    if(teseo_clean_threshold) {
+        clean_threshold = gtk_spin_button_get_value (teseo_clean_threshold);
+    }
+
+    if(teseo_clean_fill_colour) {
+        clean_fill_colour = gtk_spin_button_get_value (teseo_clean_fill_colour);
+    }
+
+    if(teseo_clean_max) {
+        clean_max = gtk_spin_button_get_value (teseo_clean_max);
+    }
+
+    if(teseo_clean_length) {
+        clean_length = gtk_spin_button_get_value (teseo_clean_length);
+    }
+
+    if(teseo_clean_angle) {
+        clean_angle = gtk_spin_button_get_value (teseo_clean_angle);
+    }
+
+    
+    // teseo_filter_fill_continuous_segment(teseo_image, 0, 200, TRUE, 35, 255, 0);
+    teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, (gboolean) clean_max, clean_length, clean_fill_colour, clean_angle);
+    g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_max, clean_length, clean_fill_colour, clean_angle);
 }
 
-
-void
-on_clean_less1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-    teseo_filter_fill_continuous_segment(teseo_image, 0, 200, FALSE, 25, 255, 90);
-}
 
