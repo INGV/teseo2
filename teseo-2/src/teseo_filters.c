@@ -106,7 +106,7 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
 
                         if(segment_length_condition) {
                             // change bufin from s_j for d_j elements
-                            g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
+                            // g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
                             for(k=0; k < d_j; k++) {
                                 BUFOUTXY(s_j + k, i, width, bpp) = fill_colour;
                             }
