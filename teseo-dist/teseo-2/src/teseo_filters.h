@@ -5,7 +5,7 @@
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * the rights to use, copy, modify, merge, publish, segment_lengthribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
  *
@@ -31,8 +31,15 @@
 #include <libgimp/gimp.h>
 
 /*!
-  TODO
+  teseo_filter_fill_continuous_segment() fills continuous line or non continuous lines that contain pixel with colour trace_colour and threshol trace_colour
+  \param g_image GIMP image ID
+  \param trace_colour base colour of the trace
+  \param thresh_colour threshold colour of the trace
+  \param fill_greater_segment_length if TRUE, function fills segment greater than length, else it fills segment less than length
+  \param segment_length
+  \param fill_colour value of the colour used to fill segment
+  \param angle at the moment it's possible use 0, horizontal line, or not equal to 0, vertical line
   */
-void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_dist, gint32 dist, gint32 fill_colour, gint32 angle);
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gint32 angle);
 
 #endif
