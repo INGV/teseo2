@@ -61,4 +61,5 @@ void main(int argc, char* argv[]){
 		printf("\n\nResults with N=%d\tNPT=%d\n",n,NPT);
 		NEWUOA (n,NPT,X,RHOBEG,RHOEND,IPRINT,MAXFUN,W);
 	}
+	printf("\n");
 }
