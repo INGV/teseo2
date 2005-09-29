@@ -343,3 +343,7 @@ void
 on_clean1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
+
+void
+on_fitting_powell_bezier1_activate     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
