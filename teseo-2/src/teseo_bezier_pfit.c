@@ -35,8 +35,8 @@
 #include "string.h"
 
 int N_P_MIS_MAX, N_P_MIS;
-float *x_p_mis;
-float *y_p_mis;
+double *x_p_mis;
+double *y_p_mis;
 
 inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
  return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
@@ -235,7 +235,7 @@ PROTOCCALLSFSUB8(NEWUOA,newuoa,INT, INT, PDOUBLE, DOUBLE, DOUBLE, INT, INT, PDOU
 #define NEWUOA(A,B,C,D,E,F,G,H) CCALLSFSUB8(NEWUOA,newuoa, INT, INT, PDOUBLE, DOUBLE, DOUBLE, INT, INT, PDOUBLE, A,B,C,D,E,F,G,H)
 
 glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path_inter, gdouble** ppath_inter) {
-    float x0_bez=0, y0_bez=0, x3_bez=0, y3_bez=0;
+    double x0_bez=0, y0_bez=0, x3_bez=0, y3_bez=0;
     gdouble *path_inter;
     glong max_num_path_inter;
     glong cur_path_inter;
@@ -245,7 +245,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     int cur_dir, app;
     int j, i;
     int ii, jj;
-    // float fret,**xi;
+    // double fret,**xi;
     // int iter;
     double p[NDIM];
 
@@ -264,8 +264,8 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     // filtro i massimi e minimi spuri, (quelli che hanno una teseo_p_distance molto piccola
     i=1;
     while(i<(n_dir-1)) {
-        if(teseo_p_distance((float) strokes[idirezione[i]*2], (float) strokes[idirezione[i]*2   +1],
-                    (float) strokes[idirezione[i+1]*2], (float) strokes[idirezione[i+1]*2 +1]) <= 2.5) {
+        if(teseo_p_distance(strokes[idirezione[i]*2], strokes[idirezione[i]*2   +1],
+                    strokes[idirezione[i+1]*2], strokes[idirezione[i+1]*2 +1]) <= 2.5) {
             for(j=i; j<n_dir-1; j++) {
                 idirezione[j] = idirezione[j+1];
             }
@@ -292,13 +292,13 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     }
 
     if(N_P_MIS_MAX > 0) {
-        x_p_mis = (float *) g_malloc(sizeof(float) * (N_P_MIS_MAX));
+        x_p_mis = (double *) g_malloc(sizeof(double) * (N_P_MIS_MAX));
         if(!x_p_mis) {
             g_message("Not enough free memory for x_p_mis!");
             exit(1);
         }
 
-        y_p_mis = (float *) g_malloc(sizeof(float) * (N_P_MIS_MAX));
+        y_p_mis = (double *) g_malloc(sizeof(double) * (N_P_MIS_MAX));
         if(!y_p_mis) {
             g_message("Not enough free memory for y_p_mis!");
             exit(1);
