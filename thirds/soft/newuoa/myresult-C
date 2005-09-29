@@ -1,0 +1,117 @@
+
+C driver created by teseo2 authors
+
+
+Results with N=2	NPT=5
+
+    New RHO = 6.6667E-03     Number of function values =    16
+    Least value of F =  2.783511614854187E-03         The corresponding X is:
+     2.183784E-01   8.129881E-01
+
+    New RHO = 6.6667E-04     Number of function values =    22
+    Least value of F =  4.152044655763886E-05         The corresponding X is:
+     2.084800E-01   7.882098E-01
+
+    New RHO = 6.6667E-05     Number of function values =    28
+    Least value of F =  7.868337555876834E-08         The corresponding X is:
+     2.114351E-01   7.886733E-01
+
+    New RHO = 8.1650E-06     Number of function values =    32
+    Least value of F =  1.263814209509748E-10         The corresponding X is:
+     2.113269E-01   7.886723E-01
+
+    New RHO = 1.0000E-06     Number of function values =    35
+    Least value of F =  1.154785562178495E-14         The corresponding X is:
+     2.113249E-01   7.886752E-01
+
+    At the return from NEWUOA     Number of function values =    39
+    Least value of F =  1.806702201762856E-18         The corresponding X is:
+     2.113249E-01   7.886751E-01
+
+
+Results with N=4	NPT=9
+
+    New RHO = 4.0000E-03     Number of function values =    33
+    Least value of F =  9.909808075743390E-03         The corresponding X is:
+     6.743854E-02   3.433281E-01   5.831532E-01   8.859879E-01
+
+    New RHO = 4.0000E-04     Number of function values =    79
+    Least value of F =  2.799865737733267E-04         The corresponding X is:
+     1.065094E-01   4.157632E-01   6.045590E-01   9.010276E-01
+
+    New RHO = 4.0000E-05     Number of function values =   108
+    Least value of F =  3.156217852391573E-07         The corresponding X is:
+     1.025768E-01   4.058264E-01   5.935857E-01   8.972380E-01
+
+    New RHO = 6.3246E-06     Number of function values =   124
+    Least value of F =  2.349695419547847E-10         The corresponding X is:
+     1.026738E-01   4.062037E-01   5.938008E-01   8.973332E-01
+
+    New RHO = 1.0000E-06     Number of function values =   132
+    Least value of F =  2.870441895621272E-12         The corresponding X is:
+     1.026726E-01   4.062031E-01   5.937969E-01   8.973275E-01
+
+    At the return from NEWUOA     Number of function values =   141
+    Least value of F =  4.792318896625711E-14         The corresponding X is:
+     1.026728E-01   4.062038E-01   5.937964E-01   8.973273E-01
+
+
+Results with N=6	NPT=13
+
+    New RHO = 2.8571E-03     Number of function values =    14
+    Least value of F =  1.246860192194357E-01         The corresponding X is:
+     2.857143E-02   1.428571E-01   2.857143E-01   4.285714E-01   5.714286E-01
+     7.142857E-01
+
+    New RHO = 2.8571E-04     Number of function values =   134
+    Least value of F =  3.735479301289590E-05         The corresponding X is:
+     6.683473E-02   2.911612E-01   3.638050E-01   6.317411E-01   7.124378E-01
+     9.339537E-01
+
+    New RHO = 2.8571E-05     Number of function values =   170
+    Least value of F =  1.128296860932497E-06         The corresponding X is:
+     6.709991E-02   2.892176E-01   3.667976E-01   6.331184E-01   7.120365E-01
+     9.333073E-01
+
+    New RHO = 5.3452E-06     Number of function values =   247
+    Least value of F =  9.623098624944001E-09         The corresponding X is:
+     6.684608E-02   2.886479E-01   3.667049E-01   6.332534E-01   7.112828E-01
+     9.331179E-01
+
+    New RHO = 1.0000E-06     Number of function values =   337
+    Least value of F =  1.620975390911313E-11         The corresponding X is:
+     6.687737E-02   2.887446E-01   3.666815E-01   6.333201E-01   7.112591E-01
+     9.331241E-01
+
+    At the return from NEWUOA     Number of function values =   364
+    Least value of F =  5.616690486220907E-13         The corresponding X is:
+     6.687648E-02   2.887401E-01   3.666828E-01   6.333174E-01   7.112599E-01
+     9.331235E-01
+
+
+Results with N=8	NPT=17
+
+    New RHO = 2.2222E-03     Number of function values =    18
+    Least value of F =  8.764167324550527E-02         The corresponding X is:
+     2.222222E-02   1.111111E-01   2.222222E-01   3.333333E-01   4.444444E-01
+     5.555556E-01   6.666667E-01   7.777778E-01
+
+    New RHO = 2.2222E-04     Number of function values =   222
+    Least value of F =  4.966859689997067E-03         The corresponding X is:
+     4.508976E-02   1.982025E-01   2.658458E-01   4.856472E-01   4.975360E-01
+     7.005953E-01   7.896679E-01   9.261357E-01
+
+    New RHO = 1.4907E-05     Number of function values =   480
+    Least value of F =  3.517193404749160E-03         The corresponding X is:
+     4.333142E-02   1.934174E-01   2.664961E-01   5.003658E-01   5.001901E-01
+     7.338729E-01   8.071787E-01   9.569702E-01
+
+    New RHO = 1.0000E-06     Number of function values =   538
+    Least value of F =  3.516873943040371E-03         The corresponding X is:
+     4.314849E-02   1.930840E-01   2.663231E-01   4.999952E-01   4.999942E-01
+     7.336689E-01   8.069011E-01   9.568445E-01
+
+    At the return from NEWUOA     Number of function values =   578
+    Least value of F =  3.516873727584096E-03         The corresponding X is:
+     4.315272E-02   1.930906E-01   2.663283E-01   4.999994E-01   4.999997E-01
+     7.336705E-01   8.069092E-01   9.568471E-01
