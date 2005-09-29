@@ -177,6 +177,8 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
     // printf("(%-06.02f, %-06.02f)   (%-06.02f, %-06.02f)   #  dist = %-06.02f                \r", param_bez[0], param_bez[1], param_bez[2], param_bez[3], somma_quad_dist);
     // fflush(stdout);
 
+    g_printf("\nsomma_quad_dist = %f\n", somma_quad_dist);
+
     return somma_quad_dist;
 }
 
@@ -251,10 +253,10 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
 
     // NEWUOA variables
     double W[10000]={};
-    int IPRINT=0;
+    int IPRINT=2;
     int MAXFUN=5000;
     double RHOEND=1.0E-3;
-    double RHOBEG;
+    double RHOBEG=1.0E-3;
     int n,NPT;
 
 
@@ -365,7 +367,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
                 n = NDIM;
                 NPT=2*n+1;
 
-                RHOBEG=0.2*p[0];
+                // RHOBEG=0.2*p[0];
                 // printf("\n\nPowell start with N=%d\tNPT=%d\n",n,NPT);
                 NEWUOA (n, NPT, p, RHOBEG, RHOEND, IPRINT, MAXFUN, W);
                 // printf("\n\nPowell stop\n");
