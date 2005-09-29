@@ -188,6 +188,8 @@ teseo_2_SOURCES = \
 	teseo_resample.h	\
 	teseo_bezier_fit.c	\
 	teseo_bezier_fit.h	\
+	teseo_bezier_pfit.c	\
+	teseo_bezier_pfit.h	\
 	teseo_session.c	\
 	teseo_session.h \
 	teseo_lock.c	\
@@ -247,6 +249,7 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_sac.$(OBJEXT) \
 	teseo_timemark.$(OBJEXT) \
 	teseo_bezier_fit.$(OBJEXT) \
+	teseo_bezier_pfit.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
 	teseo_lock.$(OBJEXT) \

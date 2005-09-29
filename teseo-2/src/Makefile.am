@@ -34,6 +34,8 @@ teseo_2_SOURCES = \
 	teseo_resample.h	\
 	teseo_bezier_fit.c	\
 	teseo_bezier_fit.h	\
+	teseo_bezier_pfit.c	\
+	teseo_bezier_pfit.h	\
 	teseo_session.c	\
 	teseo_session.h \
 	teseo_lock.c	\

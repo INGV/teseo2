@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image585">
+			    <widget class="GtkImage" id="image597">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -92,7 +92,7 @@
 				  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image586">
+				    <widget class="GtkImage" id="image598">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image587">
+			    <widget class="GtkImage" id="image599">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image588">
+				    <widget class="GtkImage" id="image600">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -238,7 +238,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image589">
+				    <widget class="GtkImage" id="image601">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -360,6 +360,15 @@
 			  <property name="label" translatable="yes">R_esample</property>
 			  <property name="use_underline">True</property>
 			  <signal name="activate" handler="on_resample1_activate" last_modification_time="Wed, 19 Nov 2003 18:07:23 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenuItem" id="fitting_powell_bezier1">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Fitting _Powell Bezier</property>
+			  <property name="use_underline">True</property>
+			  <signal name="activate" handler="on_fitting_powell_bezier1_activate" last_modification_time="Thu, 29 Sep 2005 10:17:16 GMT"/>
 			</widget>
 		      </child>
 
@@ -564,7 +573,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image590">
+			    <widget class="GtkImage" id="image602">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -585,7 +594,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image591">
+			    <widget class="GtkImage" id="image603">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-dialog-info</property>
 			      <property name="icon_size">1</property>

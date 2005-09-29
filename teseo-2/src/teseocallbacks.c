@@ -41,6 +41,7 @@
 #include "teseo_path.h"
 #include "teseo_io.h"
 #include "teseo_bezier_fit.h"
+#include "teseo_bezier_pfit.h"
 #include "teseo_lock.h"
 #include "teseo_resample.h"
 #include "teseo_session.h"
@@ -1642,4 +1643,42 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_max, clean_length, clean_fill_colour, clean_angle);
 }
 
+
+
+void
+on_fitting_powell_bezier1_activate     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    glong num_strokes;
+    gdouble *strokes = NULL;
+    glong num_path;
+    gdouble *path_inter = NULL;
+    char pathname [255] ;
+    gchar newpathname [255] ;
+
+    gint num_paths=0;
+
+    gimp_path_list (teseo_image, &num_paths);
+
+    // if at least one path exists
+    if (num_paths>0) {
+
+	// catch the name ot the current path
+	strcpy(pathname, gimp_path_get_current(teseo_image));
+
+	// convert path in strokes
+	strokes = teseo_open_path_to_strokes(teseo_image, &num_strokes,  pathname);
+
+	// fitting strokes with bezier curves
+	teseo_p_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
+
+	g_sprintf(newpathname, "%s - Powell fit", pathname);
+
+	// create new path
+	gimp_path_set_points(teseo_image, newpathname, 1, num_path, path_inter);
+
+        g_free(path_inter);
+        g_free(strokes);
+    }
+}
 
