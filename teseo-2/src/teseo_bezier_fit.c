@@ -369,10 +369,17 @@ glong teseo_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path
     		N_MIS++;
     	}
     	
+      /*
       p[1] = (2.0 * x_mis[0]) - x0_bez;
       p[2] = (2.0 * y_mis[0]) - y0_bez;
       p[3] = (2.0 * x_mis[N_MIS - 1]) - x3_bez;
       p[4] = (2.0 * y_mis[N_MIS - 1]) - y3_bez;
+      */
+
+      p[1] = x0_bez + ((x3_bez - x0_bez) / 4);
+      p[2] = y0_bez + ((y3_bez - y0_bez) / 4);
+      p[3] = x3_bez - ((x3_bez - x0_bez) / 4);
+      p[4] = y3_bez - ((y3_bez - y0_bez) / 4);
     	
       for (ii=1; ii<=NDIM; ii++) {
         for (jj=1; jj<=NDIM; jj++) {
