@@ -26,10 +26,7 @@
  */
 
 #include "teseo_bezier_pfit.h"
-#include "teseo_bezier_point.h"
 #include "cfortran.h" 
-// #include "nrutil.h"
-// #include "nr.h"
 
 #include <stdio.h>
 #include <stdlib.h>
