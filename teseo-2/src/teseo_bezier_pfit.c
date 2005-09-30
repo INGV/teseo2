@@ -42,6 +42,10 @@ inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
  return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
 }
 
+#define NOTEQUALZERO 1.0e-4
+#define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
+#define MAXTOL 1.0e-4
+
 double teseo_p_func_sum_distance_bezier__(double *param_bez)
 {
     // prima di richiamare questa funzione bisogna inizializzare
@@ -61,6 +65,7 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
     int finito;
     int n_iter_do;
     int max_n_iter_do = 200;
+    int first_time;
 
     // Calcolo i parametri delle cubiche x(u) e y(u)
     x0 = x_p_mis[0];
@@ -83,9 +88,9 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
     b0 = (y3 + y0) / 2.0 - b2;
 
     toll_su_t =  1.0 / (20.0 * teseo_p_distance(x0, y0, x3, y3));
-    if(toll_su_t < 1.0e-4) {
-        g_printf("\ntoll_su_t = %f < 1.0e-4, set up to 1.0e-4\n", toll_su_t);
-        toll_su_t = 1.0e-4;
+    if(toll_su_t < MAXTOL) {
+        g_printf("\ntoll_su_t = %f < %f, set up to %f\n", toll_su_t, MAXTOL, MAXTOL);
+        toll_su_t = MAXTOL;
     }
     // g_printf("%f\n", toll_su_t);
 
@@ -94,7 +99,8 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
     for(i=0; i<N_P_MIS; i++) {
 
         dist_app = 1.0;
-        for(t=-1.0; t<=1.0  &&  dist_app != 0.0; t+=t_step) {
+        first_time = 1;
+        for(t=-1.0; t<=1.0  &&  !ALMOSTZERO(dist_app); t+=t_step) {
             x4 = x_p_mis[i];
             y4 = y_p_mis[i];
 
@@ -107,10 +113,11 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
             z = dx * dx4 + dy * dy4;
             dist_app = dx4 * dx4 + dy4 * dy4;
 
-            if(t == -1.0  ||  dist_app == 0.0) {
+            if(first_time  ||  ALMOSTZERO(dist_app)) {
                 dist_min = dist_app;
                 z_min = z;
                 t_min = t;
+                first_time = 0;
             }
             if(dist_app < dist_min) {
                 dist_min = dist_app;
@@ -119,7 +126,7 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
             }
         }
 
-        if(dist_min != 0.0) {
+        if(!ALMOSTZERO(dist_min)) {
             t = t_min + t_step;
             if(t > 1.0)
                 t = 1.0 - t_step;
@@ -134,11 +141,11 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
                 dy = b1 + t * (2 * b2 + t * 3 * b3);
                 z = dx * dx4 + dy * dy4;
                 dist_app = dx4 * dx4 + dy4 * dy4;
-                if(dist_app != 0.0  &&  z != 0.0) {
+                if(!ALMOSTZERO(dist_app)  &&  !ALMOSTZERO(z)) {
                     t2 = t;
                     z2 = z;
                     temp = z2 - z_min;
-                    if(temp != 0.0) {
+                    if(!ALMOSTZERO(temp)) {
                         t = ((z2 * t_min) - (z_min * t2)) / temp;
                     } else {
                         t = (t_min + t2)  / 2.0;
