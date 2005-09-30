@@ -2,13 +2,13 @@
 
 LIBNAME=libpowell.a
 EXENAME=newuoa-C
-OBJS=bigden.o biglag.o calfun.o newuoa.o newuob.o trsapp.o update.o
+OBJS=biglag.o calfun.o newuoa.o newuob.o trsapp.o update.o bigden.o
 
 main: $(OBJS) main.o
 	gcc -Df2cFortran -O -o $(newuoa-C) $(OBJS) main.o -lg2c -lm
 
 liblinux: $(OBJS)
-	glibtool --mode=link $(OBJS) -o libpowell.a
+	libtool --mode=link $(OBJS) -o libpowell.a
 
 libmac: $(OBJS)
 	libtool -static -o $(LIBNAME) *.o
