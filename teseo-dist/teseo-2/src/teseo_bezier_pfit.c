@@ -26,7 +26,7 @@
  */
 
 #include "teseo_bezier_pfit.h"
-#include "cfortran.h" 
+#include "cfortran.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,9 +42,9 @@ inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
  return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
 }
 
-#define NOTEQUALZERO 1.0e-4
+#define NOTEQUALZERO 1.0e-6
 #define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
-#define MAXTOL 1.0e-4
+#define MAXTOL 1.0e-5
 
 double teseo_p_func_sum_distance_bezier__(double *param_bez)
 {
@@ -207,14 +207,14 @@ void teseo_p_maxima_minima_strokes(gdouble *strokes, glong num_strokes, gint **p
   n_dir = 0;
   idirezione[n_dir++] = 0;
   for(i=1; i<num_strokes-1; i++) {
-  	
+
   	if(strokes[(i-1)*2 +1] == strokes[i*2 +1]) {
   		if(!in_piano) {
   			i_scoll = i-1;
   		}
   		in_piano = 1;
   	}
-  	
+
   	if(in_piano) {
   		if(i_scoll > 0) {
       	// "se non è il piano infinito" I.Allende
@@ -240,8 +240,11 @@ void teseo_p_maxima_minima_strokes(gdouble *strokes, glong num_strokes, gint **p
   *pn_dir = n_dir;
 }
 
-PROTOCCALLSFSUB8(NEWUOA,newuoa,INT, INT, PDOUBLE, DOUBLE, DOUBLE, INT, INT, PDOUBLE)
-#define NEWUOA(A,B,C,D,E,F,G,H) CCALLSFSUB8(NEWUOA,newuoa, INT, INT, PDOUBLE, DOUBLE, DOUBLE, INT, INT, PDOUBLE, A,B,C,D,E,F,G,H)
+
+//TODO look at W type
+PROTOCCALLSFSUB8(NEWUOA,newuoa,INT, INT, DOUBLEV, DOUBLE, DOUBLE, INT, INT, DOUBLEV)
+#define NEWUOA(A,B,C,D,E,F,G,H) CCALLSFSUB8(NEWUOA,newuoa, INT, INT, DOUBLEV, DOUBLE, DOUBLE, INT, INT, DOUBLEV, A,B,C,D,E,F,G,H)
+//   NEWUOA (n, NPT, p, RHOBEG, RHOEND, IPRINT, MAXFUN, W);
 
 glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_path_inter, gdouble** ppath_inter) {
     double x0_bez=0, y0_bez=0, x3_bez=0, y3_bez=0;
@@ -263,14 +266,14 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     int IPRINT=2;
     int MAXFUN=5000;
     double RHOEND=1.0E-3;
-    double RHOBEG=1.0E-3;
+    double RHOBEG;
     int n,NPT;
 
 
     teseo_p_maxima_minima_strokes(strokes, num_strokes, &idirezione, &n_dir);
     // flessi_strokes(strokes, num_strokes, &idirezione, &n_dir);
 
-    // filtro i massimi e minimi spuri, (quelli che hanno una teseo_p_distance molto piccola
+    // TODO Rivederefiltro i massimi e minimi spuri, (quelli che hanno una teseo_p_distance molto piccola
     i=1;
     while(i<(n_dir-1)) {
         if(teseo_p_distance(strokes[idirezione[i]*2], strokes[idirezione[i]*2   +1],
@@ -284,7 +287,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
         }
     }
 
-    // invece di utilizzare i massimi e i minimi selezione i punti di indice intermedio
+    // TODO DA guardare assolutamente !!! invece di utilizzare i massimi e i minimi selezione i punti di indice intermedio
     //  for(i=1; i<(n_dir-1); i++) {
     //  	idirezione[i] -= ( (idirezione[i] - idirezione[i-1]) / 2) ;
     //  }
@@ -293,7 +296,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     for(i=1; i<n_dir; i++) {
         app = (int) (idirezione[i] - idirezione[i-1] - 1);
         if(app > N_P_MIS_MAX)
-            N_P_MIS_MAX = app;  		
+            N_P_MIS_MAX = app;
         else if(app < 0) {
             // questo caso non deve mai verificarsi !!!
             g_message("\nError: app < 0 !!\n");
@@ -352,10 +355,14 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
                 N_P_MIS++;
             }
 
-            p[0] = x0_bez + ((x3_bez - x0_bez) / 4);
-            p[1] = y0_bez + ((y3_bez - y0_bez) / 4);
-            p[2] = x3_bez - ((x3_bez - x0_bez) / 4);
-            p[3] = y3_bez - ((y3_bez - y0_bez) / 4);
+            p[0] = x0_bez + ((x3_bez - x0_bez) / 4.0);
+            p[1] = y0_bez + ((y3_bez - y0_bez) / 4.0);
+            p[2] = x3_bez - ((x3_bez - x0_bez) / 4.0);
+            p[3] = y3_bez - ((y3_bez - y0_bez) / 4.0);
+
+
+	    RHOBEG=0.1*sqrt((x3_bez - x0_bez)*(x3_bez - x0_bez)+(y3_bez - y0_bez)*(y3_bez - y0_bez));
+
 
             /*
             for (ii=1; ii<=NDIM; ii++) {
@@ -367,14 +374,10 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
         }
 
         if(N_P_MIS > 0) {
-            // printf("\npowell inizio con %d misure\n", N_P_MIS);
-            //nr powell(p,xi,NDIM,FTOL,&iter,&fret,teseo_p_func_sum_distance_bezier);
-            // printf("powell fine\n");
 
                 n = NDIM;
                 NPT=2*n+1;
 
-                // RHOBEG=0.2*p[0];
                 // printf("\n\nPowell start with N=%d\tNPT=%d\n",n,NPT);
                 NEWUOA (n, NPT, p, RHOBEG, RHOEND, IPRINT, MAXFUN, W);
                 // printf("\n\nPowell stop\n");
@@ -407,7 +410,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
         cur_path_inter++;
 
         if(cur_path_inter - 3 > max_num_path_inter) {
-            g_printf("\ncur_path_inter = %d, max_num_path_inter = %d\n", cur_path_inter, max_num_path_inter);
+            g_printf("\ncur_path_inter = %ld, max_num_path_inter = %ld\n", cur_path_inter, max_num_path_inter);
         }
 
     }
@@ -447,5 +450,5 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
 
     gimp_progress_init("Teseo - Fitting Bezier finished.");
 
-    return (cur_path_inter); 	
+    return (cur_path_inter);
 }
