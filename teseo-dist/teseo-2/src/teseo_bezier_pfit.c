@@ -26,6 +26,7 @@
  */
 
 #include "teseo_bezier_pfit.h"
+#define    f2cFortran
 #include "cfortran.h"
 
 #include <stdio.h>

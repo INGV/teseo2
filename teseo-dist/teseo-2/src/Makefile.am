@@ -67,8 +67,10 @@ INCLUDES =\
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
 	@GTKADDONS_CFLAGS@		\
+	@NEWUOA_CFLAGS@		\
 	-I$(includedir)
 
 LDADD = $(GIMP_LIBS) \
-	$(GTKADDONS_LIBS)
+	$(GTKADDONS_LIBS) \
+	$(NEWUOA_LIBS)
 
