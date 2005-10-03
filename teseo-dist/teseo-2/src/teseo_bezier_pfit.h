@@ -30,6 +30,8 @@
 
 #include <libgimp/gimp.h>
 #include "teseo_types.h"
+#define    f2cFortran
+#include "cfortran.h"
 
 #define NDIM 4
 //nr #define FTOL 0.1
@@ -42,7 +44,7 @@ double teseo_p_distance(double x1, double y1, double x2, double y2);
 /*!
   minimization function
   */
-double teseo_p_func_sum_distance_bezier__(double *param_bez);
+double teseo_p_func_sum_distance_bezier(double *param_bez);
 
 /*!
   Find maximum and minimum point of a path

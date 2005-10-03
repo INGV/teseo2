@@ -26,8 +26,6 @@
  */
 
 #include "teseo_bezier_pfit.h"
-#define    f2cFortran
-#include "cfortran.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,7 +45,7 @@ inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
 #define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
 #define MAXTOL 1.0e-5
 
-double teseo_p_func_sum_distance_bezier__(double *param_bez)
+double teseo_p_func_sum_distance_bezier(double *param_bez)
 {
     // prima di richiamare questa funzione bisogna inizializzare
     // i vettori x_p_mis e y_p_mis con N_P_MIS
@@ -182,13 +180,17 @@ double teseo_p_func_sum_distance_bezier__(double *param_bez)
         somma_quad_dist += dist_min;
     }
 
-    // printf("(%-06.02f, %-06.02f)   (%-06.02f, %-06.02f)   #  dist = %-06.02f                \r", param_bez[0], param_bez[1], param_bez[2], param_bez[3], somma_quad_dist);
-    // fflush(stdout);
-
-    g_printf("\nsomma_quad_dist = %f\n", somma_quad_dist);
+    //g_printf("\nsomma_quad_dist = %f\n", somma_quad_dist);
 
     return somma_quad_dist;
 }
+
+/**!
+  for cfortran.h
+  */
+FCALLSCFUN1(DOUBLE, teseo_p_func_sum_distance_bezier, CMYFUN, cmyfun, DOUBLEV)
+
+
 
 void teseo_p_maxima_minima_strokes(gdouble *strokes, glong num_strokes, gint **pidirezione, glong *pn_dir) {
   gint *idirezione;
