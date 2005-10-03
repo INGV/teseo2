@@ -1,0 +1,12 @@
+prefix=/disk5/opt
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+
+Name: newuoa
+Description:A library created from  M.J.D. Powell (mjdp@cam.ac.uk) newuoa code
+Version: 0.1
+Requires:
+Libs: -L${libdir} -lnewuoa -lg2c
+Cflags: -I${includedir}/newuoa
