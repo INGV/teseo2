@@ -777,14 +777,6 @@ on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
 
 
 void
-on_fitting_polyline1_activate          (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-    g_message(TODO_str);
-}
-
-
-void
 on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
@@ -1642,11 +1634,4 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_max, clean_length, clean_fill_colour, clean_angle);
 }
 
-
-
-void
-on_fitting_powell_bezier1_activate     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-}
 
