@@ -619,7 +619,7 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
 
 void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 
-	g_printf("Importing %s\n",NomeFileAscii);
+	//g_printf("Importing %s\n",NomeFileAscii);
 	FILE *fascii = NULL;
 	glong num_path, num_points=10000;
 	gfloat X,Y;
@@ -641,7 +641,7 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 		if (path != NULL) {
 			while (fscanf(fascii,"%f %f\n", &X, &Y) !=  EOF)
 			{
-				g_printf("X=%f Y=%f\n",X,Y);
+				//g_printf("X=%f Y=%f\n",X,Y);
 				for ( k=1; k<4; k++){
 					if ( !(i==0 && k==1) ) {
 						path[ i*9+ 3*k -6    ]   =   ( double )  X / xfactor;
