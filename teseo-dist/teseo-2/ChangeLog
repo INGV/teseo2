@@ -1,3 +1,13 @@
+2005-10-04 10:42  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseocallbacks.c (1.86): Check on path type before path
+	  fitting
+
+2005-10-04 10:39  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.85), teseocallbacks.h (1.39),
+	  teseointerface.c (1.70): Interface revision
+
 2005-10-04 10:22  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: teseo_bezier_pfit.c (1.12), teseo_bezier_pfit.h (1.4),
