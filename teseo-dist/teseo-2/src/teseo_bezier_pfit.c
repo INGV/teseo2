@@ -268,7 +268,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
 
     // NEWUOA variables
     double W[10000]={};
-    int IPRINT=2;
+    int IPRINT=0;
     int MAXFUN=5000;
     double RHOEND=1.0E-3;
     double RHOBEG;
