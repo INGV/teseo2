@@ -36,10 +36,13 @@
 int N_P_MIS_MAX, N_P_MIS;
 double *x_p_mis;
 double *y_p_mis;
-
+/*
 inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
  return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
 }
+*/
+
+#define teseo_p_distance(x1,y1,x2,y2) sqrt(((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)))
 
 #define NOTEQUALZERO 1.0e-6
 #define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
@@ -77,10 +80,10 @@ double teseo_p_func_sum_distance_bezier(double *param_bez)
     y3 = y_p_mis[N_P_MIS-1];
 
 
-    a3 = (x3 - x0 + 3.0 * (x1 - x2)) / 8.0;
-    b3 = (y3 - y0 + 3.0 * (y1 - y2)) / 8.0;
-    a2 = (x3 + x0 - x1 - x2) * 3.0 / 8.0;
-    b2 = (y3 + y0 - y1 - y2) * 3.0 / 8.0;
+    a3 = (x3 - x0 + 3.0 * (x1 - x2)) / 4.0;
+    b3 = (y3 - y0 + 3.0 * (y1 - y2)) / 4.0;
+    a2 = (x3 + x0 - x1 - x2) * 3.0 / 4.0;
+    b2 = (y3 + y0 - y1 - y2) * 3.0 / 4.0;
     a1 = (x3 - x0) / 2.0 - a3;
     b1 = (y3 - y0) / 2.0 - b3;
     a0 = (x3 + x0) / 2.0 - a2;
@@ -364,8 +367,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
             p[3] = y3_bez - ((y3_bez - y0_bez) / 4.0);
 
 
-	    RHOBEG=0.1*sqrt((x3_bez - x0_bez)*(x3_bez - x0_bez)+(y3_bez - y0_bez)*(y3_bez - y0_bez));
-
+	    RHOBEG=0.1*teseo_p_distance(x0_bez,y0_bez,x3_bez,y3_bez);
 
             /*
             for (ii=1; ii<=NDIM; ii++) {
@@ -378,13 +380,12 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
 
         if(N_P_MIS > 0) {
 
-                n = NDIM;
-                NPT=2*n+1;
+           n = NDIM;
+           NPT=2*n+1;
 
-                // printf("\n\nPowell start with N=%d\tNPT=%d\n",n,NPT);
-                NEWUOA (n, NPT, p, RHOBEG, RHOEND, IPRINT, MAXFUN, W);
-                // printf("\n\nPowell stop\n");
-
+           // printf("\n\nPowell start with N=%d\tNPT=%d\n",n,NPT);
+           NEWUOA (n, NPT, p, RHOBEG, RHOEND, IPRINT, MAXFUN, W);
+           // printf("\n\nPowell stop\n");
 
             path_inter[cur_path_inter * 3   ] = p[0];
             path_inter[cur_path_inter * 3 +1] = p[1];

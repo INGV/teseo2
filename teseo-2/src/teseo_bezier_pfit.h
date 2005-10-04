@@ -39,7 +39,7 @@
 /*!
   Compute teseo_p_distance between 2 points
   */
-double teseo_p_distance(double x1, double y1, double x2, double y2);
+//double teseo_p_distance(double x1, double y1, double x2, double y2);
 
 /*!
   minimization function
