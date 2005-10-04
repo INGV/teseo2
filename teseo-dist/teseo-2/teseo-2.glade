@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image633">
+			    <widget class="GtkImage" id="image662">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -86,13 +86,13 @@
 			      <child>
 				<widget class="GtkImageMenuItem" id="properties1">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">P_roperties</property>
+				  <property name="label" translatable="yes">_Properties</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_properties1_activate" last_modification_time="Fri, 15 Jul 2005 14:14:59 GMT"/>
-				  <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+				  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image634">
+				    <widget class="GtkImage" id="image663">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image635">
+			    <widget class="GtkImage" id="image664">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image636">
+				    <widget class="GtkImage" id="image665">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -163,6 +163,7 @@
 				      <child>
 					<widget class="GtkMenuItem" id="dxf2">
 					  <property name="visible">True</property>
+					  <property name="sensitive">False</property>
 					  <property name="label" translatable="yes">_DXF</property>
 					  <property name="use_underline">True</property>
 					  <signal name="activate" handler="on_dxf2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
@@ -181,6 +182,7 @@
 				      <child>
 					<widget class="GtkMenuItem" id="sac2">
 					  <property name="visible">True</property>
+					  <property name="sensitive">False</property>
 					  <property name="label" translatable="yes">_SAC</property>
 					  <property name="use_underline">True</property>
 					  <signal name="activate" handler="on_sac2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>
@@ -238,7 +240,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image637">
+				    <widget class="GtkImage" id="image666">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -554,7 +556,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image638">
+			    <widget class="GtkImage" id="image667">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -575,9 +577,9 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image639">
+			    <widget class="GtkImage" id="image668">
 			      <property name="visible">True</property>
-			      <property name="stock">gtk-dialog-info</property>
+			      <property name="stock">gtk-home</property>
 			      <property name="icon_size">1</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
