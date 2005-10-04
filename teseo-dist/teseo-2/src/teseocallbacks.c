@@ -964,7 +964,35 @@ void
 on_ascii1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    g_message(TODO_str);
+    // Import Ascii poliline path (Teseo 2 format)
+    char filename[FILENAMELEN];
+    char * path=NULL;
+
+    path=teseo_get_environment_path( ASCIIPATH );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open ASCII Path");
+    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    g_free(path);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
+
+    switch (result)
+    {
+      case GTK_RESPONSE_OK:
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+	 teseo_import_path_ascii( teseo_image, filename );
+         teseo_gtk_statusbar_push("ASCII file imported in current path.");
+	 break;
+      case GTK_RESPONSE_CANCEL:
+	 //g_message("Cancel pressed: don't do anything.");
+	 break;
+      case GTK_RESPONSE_DELETE_EVENT:
+	 //g_message("Delete event, same as Cancel pressed.");
+	 break;
+      default:
+	 break;
+    }
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
+
 }
 
 
