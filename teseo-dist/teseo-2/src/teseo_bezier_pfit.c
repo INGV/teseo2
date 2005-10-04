@@ -36,12 +36,6 @@
 int N_P_MIS_MAX, N_P_MIS;
 double *x_p_mis;
 double *y_p_mis;
-/*
-inline double teseo_p_distance(double x1, double y1, double x2, double y2) {
- return sqrt( ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1)) );
-}
-*/
-#define  teseo_p_distance( x1, y1, x2, y2) sqrt((((double)x2 - (double)x1)*((double)x2 - (double)x1)) + (((double)y2 - (double)y1)*((double)y2 - (double)y1)))
 
 #define NOTEQUALZERO 1.0e-6
 #define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
@@ -342,7 +336,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
 
     //nr xi=matrix(1,NDIM,1,NDIM);
 
-    gimp_progress_init("Teseo - Powell fitting . . .");
+    gimp_progress_init("Teseo - Path fitting . . .");
     gimp_progress_update(0.0);
     for(i=1; i<n_dir; i++) {
         gimp_progress_update((float) idirezione[i] / (float) num_strokes);
@@ -452,7 +446,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     *ppath_inter = path_inter;
     *pnum_path_inter = cur_path_inter * 3;
 
-    gimp_progress_init("Teseo - Fitting Bezier finished.");
+    gimp_progress_init("Teseo - Path fitting finished.");
 
     return (cur_path_inter);
 }

@@ -32,8 +32,6 @@ teseo_2_SOURCES = \
 	teseo_bezier_point.h	\
 	teseo_resample.c	\
 	teseo_resample.h	\
-	teseo_bezier_fit.c	\
-	teseo_bezier_fit.h	\
 	teseo_bezier_pfit.c	\
 	teseo_bezier_pfit.h	\
 	teseo_session.c	\
@@ -53,11 +51,7 @@ teseo_2_SOURCES = \
 	teseo_timemark.c	\
 	teseo_timemark.h	\
 	teseo_filters.c	\
-	teseo_filters.h	\
-	nrutil.h \
-	nrutil.c \
-	nr.h \
-	brent.c f1dim.c linmin.c mnbrak.c powell.c 
+	teseo_filters.h
 
 AM_CPPFLAGS = \
 	-DLOCALEDIR=\""$(LOCALEDIR)"\"		\

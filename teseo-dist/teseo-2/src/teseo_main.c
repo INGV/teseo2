@@ -148,7 +148,7 @@ void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide, gboolean 
 		glong num_path;
 		gdouble *path_inter = NULL;
          	// fitting strokes with bezier curves
-		teseo_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
+		teseo_p_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
 		teseo_path_add_points_pairs(gimp_drawable_get_image(drawable_ID), num_path, path_inter);
 		if(path_inter) {
 			g_free(path_inter);

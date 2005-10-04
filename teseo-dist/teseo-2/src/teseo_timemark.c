@@ -32,7 +32,7 @@
 
 #include "teseo_timemark.h"
 #include "teseo_gimp_extends.h"
-#include "teseo_bezier_fit.h"
+#include "teseo_bezier_pfit.h"
 
 
 GList* teseo_timemark_check_path(gint32 teseo_image) {
@@ -54,7 +54,7 @@ GList* teseo_timemark_check_path(gint32 teseo_image) {
 
     // Set first delta_mean
     if(num_path_point_details >= 18 ) {
-        delta_mean = teseo_distance(points_pairs[0], points_pairs[1], points_pairs[9], points_pairs[10]);
+        delta_mean = teseo_p_distance(points_pairs[0], points_pairs[1], points_pairs[9], points_pairs[10]);
     } else {
         delta_mean = 0.0;
     }
@@ -69,7 +69,7 @@ GList* teseo_timemark_check_path(gint32 teseo_image) {
         x_prev =  points_pairs[i-9];
         y_prev =  points_pairs[i-8];
 
-        delta_cur = teseo_distance(x_prev, y_prev, x_cur, y_cur);
+        delta_cur = teseo_p_distance(x_prev, y_prev, x_cur, y_cur);
 
         if(delta_cur > delta_mean * delta_factor) {
             

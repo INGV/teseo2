@@ -189,8 +189,6 @@ teseo_2_SOURCES = \
 	teseo_bezier_point.h	\
 	teseo_resample.c	\
 	teseo_resample.h	\
-	teseo_bezier_fit.c	\
-	teseo_bezier_fit.h	\
 	teseo_bezier_pfit.c	\
 	teseo_bezier_pfit.h	\
 	teseo_session.c	\
@@ -210,11 +208,7 @@ teseo_2_SOURCES = \
 	teseo_timemark.c	\
 	teseo_timemark.h	\
 	teseo_filters.c	\
-	teseo_filters.h	\
-	nrutil.h \
-	nrutil.c \
-	nr.h \
-	brent.c f1dim.c linmin.c mnbrak.c powell.c 
+	teseo_filters.h
 
 
 
@@ -252,7 +246,6 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_snap.$(OBJEXT) \
 	teseo_sac.$(OBJEXT) \
 	teseo_timemark.$(OBJEXT) \
-	teseo_bezier_fit.$(OBJEXT) \
 	teseo_bezier_pfit.$(OBJEXT) \
 	teseo_bezier_point.$(OBJEXT) \
 	teseo_session.$(OBJEXT) \
@@ -260,9 +253,7 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_wmean.$(OBJEXT) \
 	teseo_main.$(OBJEXT) \
 	teseo_gimp_extends.$(OBJEXT) \
-	teseo_filters.$(OBJEXT) \
-	nrutil.$(OBJEXT) \
-	brent.$(OBJEXT) f1dim.$(OBJEXT) linmin.$(OBJEXT) mnbrak.$(OBJEXT) powell.$(OBJEXT)
+	teseo_filters.$(OBJEXT)
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)
