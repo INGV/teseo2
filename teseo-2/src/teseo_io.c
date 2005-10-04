@@ -359,10 +359,10 @@ return 1;
 }
 
 
-//TODO: unify next two functions 
+//TODO: unify next two functions
 
 /* Save the current path on the image g_image in filename in dxf format
- * scalatura = 1 -> shift first point of the trace in 0,0.0,0 
+ * scalatura = 1 -> shift first point of the trace in 0,0.0,0
  * Remember to resample before call.
 */
 
@@ -375,7 +375,7 @@ void teseo_save_path_dxf(gint32 g_image, char* filename, gint scalatura){
  /*Se esiste una traccia esegue*/
  gimp_path_list (g_image, &num_paths);
  if (num_paths>0){
-   //get path name 
+   //get path name
    strcpy(pathname, gimp_path_get_current(g_image));
    strokes = teseo_open_path_to_strokes(g_image, &n_strokes, pathname);
    teseo_strokes_dxf(g_image,filename, strokes, n_strokes, 1, scalatura); //tracciato
@@ -405,7 +405,7 @@ void	teseo_save_path_timemarker(gint32 g_image, char* filename, gint scalatura){
 
 /*Save the current path on the image g_image in filename in sisma format*/
 void teseo_save_path_sisma(gint32 g_image, char* filename){
- 
+
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
@@ -425,7 +425,7 @@ void teseo_save_path_sisma(gint32 g_image, char* filename){
 
 /* Put a strokes vector in a dxf file
  * tracciato = 0 -> timemarker
- * tracciato = 1 -> trace 
+ * tracciato = 1 -> trace
  */
 
 void teseo_strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato, gint scalatura){
@@ -514,7 +514,7 @@ void teseo_save_path_traccia(gint32 g_image, char* filename){
 }
 */
 
-/* Save the current open path in sac format 
+/* Save the current open path in sac format
  * Remember: to use on a resampled path 
  */
   
@@ -595,7 +595,6 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
     gdouble xres, yres, xfactor, yfactor;
     gint32 image_height = gimp_image_height(g_image);
 
-
     if(teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs)) {
 
         gimp_image_get_resolution (g_image, &xres, &yres);
@@ -618,10 +617,70 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
     g_free(points_pairs);
 }
 
+void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
+
+	g_printf("Importing %s\n",NomeFileAscii);
+	FILE *fascii = NULL;
+	glong num_path, num_points=10000;
+	gfloat X,Y;
+	gdouble *path = NULL;
+	gdouble *appath = NULL;
+	gdouble xres, yres, xfactor, yfactor;
+	gint i=0,k;
+
+	gint32 image_height = gimp_image_height(g_image);
+        gimp_image_get_resolution (g_image, &xres, &yres);
+
+	xfactor = 25.4 / xres;
+        yfactor = 25.4 / yres;
+
+	if( (fascii = fopen(NomeFileAscii, "rt" )) )
+	{
+		path = (gdouble *) g_malloc( num_points * sizeof(gdouble) );
+
+		if (path != NULL) {
+			while (fscanf(fascii,"%f %f\n", &X, &Y) !=  EOF)
+			{
+				g_printf("X=%f Y=%f\n",X,Y);
+				for ( k=1; k<4; k++){
+					if ( !(i==0 && k==1) ) {
+						path[ i*9+ 3*k -6    ]   =   ( double )  X / xfactor;
+						path[ i*9+ 3*k -6 +1 ]   = - (( double ) Y / yfactor) + image_height;
+						path[ i*9+ 3*k -6 +2 ]   =   ( double ) ( k==2 ) ? 1 : 2;
+						//g_printf("X=%f Y=%f\n",path[ i*9+ 3*k -6    ],path[ i*9+ 3*k -6 +1 ]);
+					}
+				}
+				if( (i+2)*9-4 >= num_points-1){
+					num_points+=10000;
+					path=g_realloc(path, num_points * sizeof(gdouble) );
+					//g_printf("Realloc...\n");
+					//path=appath;
+				}
+				i++;
+
+			}
+			g_printf("%d points read in vector of %d double\n",i,i*9-3);
+			gimp_path_set_points(g_image, "Path imported", 1, i*9-3 , path);
+		}
+		else {
+			g_message("Not enough free memory for path.");
+		}
+		if(path) {
+			g_free(path);
+		}
+		fclose(fascii);
+	}
+	else
+	{
+		g_message("File \"%s\" not found.", NomeFileAscii);
+	}
+}
+
+
 /* Import a timemark file*/
 void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 {
- 
+
  FILE *fp = NULL;
  glong num_path, closed, draw, state, tipo,X,Y;
  gdouble *strokes = NULL;
@@ -891,7 +950,7 @@ void teseo_save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble 
 */
 
 /* Save the vector in sisma format, dpi resolution, height of the image in pixel, 
-    xy to have x,y couples 
+    xy to have x,y couples
 */
 
 void teseo_save_sisma_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dpi, gint height, gchar xy){
@@ -1021,17 +1080,17 @@ gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGfile  )
 {
 	gboolean ok ;
 	gboolean merge=FALSE;
-    
+
     ok=gimp_path_import(g_image, SVGfile, merge, FALSE);
-	
+
     if (ok == FALSE)
-    { 
+    {
       /* Report error to user*/
       fprintf (stderr, "Unable to write file: \n");
-    } 
+    }
     return ok;
 }
 
 gboolean teseo_export_svg_vectors ( gint32 g_image, char * SVGfile  )
-{ 
+{
 }

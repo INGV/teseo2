@@ -77,6 +77,10 @@
       */
     void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker );
 
+    /*!
+      teseo_import_path_ascii load the path from file.
+      */
+    void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii );
 
 /* ******************
    Funzioni di output
@@ -127,7 +131,7 @@
 /* **********************************************************
    Funzioni di output che agiscono direttamente sugli strokes
  ************************************************************ */
-    
+
     // 31/05 sintax C void teseo_strokes_dxf(gint32 g_image, const char * file_dxf, gdouble* strokes , glong num_stroke, gint tracciato=1, gint scalatura=0); //Default tracciato non scalato
     // 31/05 sintax C void teseo_strokes_sisma(gint32 g_image, const char * file_sisma, gdouble* strokes , glong num_stroke, gchar xy=0);
 
