@@ -51,6 +51,7 @@ MODULENAME=teseo-dist
 DISTDIR=$CVSWORKTESEO2/$MODULENAME
 SUBDIRTESEO2=$DISTDIR/teseo-2
 SUBDIRGTKADDONS=$DISTDIR/gtk-addons
+SUBDIRNEWUOA=$DISTDIR/newuoa
 
 # Following variables determine file name distribution and tag for CVS repository
 SOFTNAME=teseo
@@ -86,6 +87,15 @@ echo ""
 # ChangeLog update for gtk-addons
 echo "cd $SUBDIRGTKADDONS"
 cd $SUBDIRGTKADDONS
+cvs edit $FILECHANGELOG
+echo "cvs2cl.pl $CVS2CLOPT src/*.[ch]"
+cvs2cl.pl $CVS2CLOPT src/*.[ch]  &&  cvs ci -m "ChangeLog for $TESEODISTNAME distribution" $FILECHANGELOG
+
+echo ""
+
+# ChangeLog update for newuoa`
+echo "cd $SUBDIRNEWUOA"
+cd $SUBDIRNEWUOA
 cvs edit $FILECHANGELOG
 echo "cvs2cl.pl $CVS2CLOPT src/*.[ch]"
 cvs2cl.pl $CVS2CLOPT src/*.[ch]  &&  cvs ci -m "ChangeLog for $TESEODISTNAME distribution" $FILECHANGELOG
