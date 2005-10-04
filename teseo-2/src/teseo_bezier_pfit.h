@@ -40,6 +40,10 @@
   Compute teseo_p_distance between 2 points
   */
 //double teseo_p_distance(double x1, double y1, double x2, double y2);
+#ifndef teseo_p_distance
+#define  teseo_p_distance( x1, y1, x2, y2) sqrt((((double)x2 - (double)x1)*((double)x2 - (double)x1)) + (((double)y2 - (double)y1)*((double)y2 - (double)y1)))
+#endif
+
 
 /*!
   minimization function
