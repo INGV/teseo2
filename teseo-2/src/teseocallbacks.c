@@ -130,19 +130,28 @@ void
 on_properties1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
- gint result = gtk_dialog_run (GTK_DIALOG (dlg_session));
+  gchar * tep = NULL;
+  gchar filename_session [FILENAMELEN];
+
+  gint result = gtk_dialog_run (GTK_DIALOG (dlg_session));
   switch (result)
     {
       case GTK_RESPONSE_OK:
-          if (!save_session(current_session))
-             g_message("Unable to save current Session.");
+         if (!save_session(current_session))
+	 	g_message("Unable to save current Session.");
          break;
       case GTK_RESPONSE_CANCEL:
       case GTK_RESPONSE_DELETE_EVENT:
-         load_session(current_session);
-         break;
+	// concatenate path session and filename
+	tep = teseo_get_environment_path(SESSIONPATH);
+	strcpy(filename_session,tep);
+	strcat(filename_session,G_DIR_SEPARATOR_S);
+	strcat(filename_session,current_session);
+	g_free(tep);
+	load_session(filename_session);
+        break;
       default:
-         break;
+        break;
     }
  gtk_widget_hide (dlg_session);
 }
@@ -156,6 +165,8 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   char old_current_session[FILENAMELEN];
   char filename[FILENAMELEN];
   char * path=NULL;
+  gchar * tep = NULL;
+  gchar filename_session [FILENAMELEN];
 
   int ret=0;
   int ls=0;
@@ -173,6 +184,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
 	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_session)) );
+	 //debug g_message("Opening %s",filename);
          ret=load_session(filename);
          break;
       case GTK_RESPONSE_CANCEL:
@@ -198,7 +210,13 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_DELETE_EVENT:
   	       gtk_window_set_title (GTK_WINDOW (dlg_session), "");
-               ls=load_session(old_current_session);
+	       // concatenate path session and filename
+	       tep = teseo_get_environment_path(SESSIONPATH);
+	       strcpy(filename_session,tep);
+	       strcat(filename_session,G_DIR_SEPARATOR_S);
+	       strcat(filename_session,old_current_session);
+	       g_free(tep);
+	       ls=load_session(filename_session);
 	       ret=2;
                break;
             default:
