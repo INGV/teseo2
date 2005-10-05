@@ -1050,6 +1050,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
     gdouble *vt = g_malloc((n_guides+2) * sizeof(gdouble) );
     gint i_vi = 0;
     gboolean need_split;
+    gboolean started;
     gint ii;
 
     int i_guides=0;
@@ -1080,10 +1081,14 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
             g_printf("i_guides %d, guides[i_guides] %d\n", i_guides, guides[i_guides]);
 
             // Find first occurrence greater than n_guides[i_guides], take it in vi at index i_vi
+            started = FALSE;
             need_split = FALSE;
             ii = 0;
             while( !( ii>=num_path_point_details || need_split) ) {
-                if(points_pairs[ii] >= guides[i_guides]) {
+                if(points_pairs[ii] < guides[i_guides]) {
+                    started = TRUE;
+                }
+                if(points_pairs[ii] >= guides[i_guides] && started) {
                     need_split = TRUE;
                     vi[i_vi++]=ii;
                     vt[i_vi]=(points_pairs[ii] - (gdouble) guides[i_guides]) / (points_pairs[ii] - points_pairs[ii-9]);
