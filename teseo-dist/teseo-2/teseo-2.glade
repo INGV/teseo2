@@ -163,7 +163,6 @@
 				      <child>
 					<widget class="GtkMenuItem" id="dxf2">
 					  <property name="visible">True</property>
-					  <property name="sensitive">False</property>
 					  <property name="label" translatable="yes">_DXF</property>
 					  <property name="use_underline">True</property>
 					  <signal name="activate" handler="on_dxf2_activate" last_modification_time="Wed, 19 Nov 2003 17:09:03 GMT"/>

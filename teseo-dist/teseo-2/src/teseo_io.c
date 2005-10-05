@@ -217,7 +217,7 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
 	    g_message("File \"%s\" corrupted.", NomeFileDxf);
     }
 
-    teseo_strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "Imported Path");
+    teseo_strokes_to_open_path( g_image, (glong) n_punti_tot, v_punti, "DXF Path imported");
 
     if(v_punti)
 	g_free(v_punti);
@@ -515,11 +515,11 @@ void teseo_save_path_traccia(gint32 g_image, char* filename){
 */
 
 /* Save the current open path in sac format
- * Remember: to use on a resampled path 
+ * Remember: to use on a resampled path
  */
-  
+
 void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gchar xy ){
- 
+
  gdouble * strokes=NULL;
  glong n_strokes;
  char pathname [80] ;
@@ -532,7 +532,7 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
  char argv3[100];
  char argv4[100];
 
- char *env[]={"SACAUX=/",NULL};  //need SACAUX but don't use it 
+ char *env[]={"SACAUX=/",NULL};  //need SACAUX but don't use it
 
  gchar filename_tmp [255];
 
@@ -668,7 +668,7 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 				i++;
 			}
 			//g_printf("%d points read in vector of %d double\n",i,i*9-3);
-			gimp_path_set_points(g_image, "Path imported", 1, i*9-3 , path);
+			gimp_path_set_points(g_image, "ASCII Path imported", 1, i*9-3 , path);
 		}
 		else {
 			g_warning("teseo_import_path_ascii: Not enough memory");
