@@ -1,3 +1,75 @@
+2005-10-05 17:30  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.30): Fixed mal assignment of the path names
+	  in teseo_path_split_at_xs()
+
+2005-10-05 17:13  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.29): Fixed idiot bug
+
+2005-10-05 17:07  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.28): Linear approximation for t
+
+2005-10-05 16:42  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.27): Improved function
+	  teseo_path_split_at_xs()
+
+2005-10-05 16:17  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.26): Some improvements in
+	  teseo_path_split_at_xs()
+
+2005-10-05 16:06  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_path.c (1.25), teseo_path.h (1.12): Added function
+	  teseo_path_split_at_xs(). It doesn't work well yet ;-(
+
+2005-10-05 16:04  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseointerface.c (1.73), teseocallbacks.c (1.90),
+	  teseocallbacks.h (1.40): Added Split option in Path menu: split
+	  the current path at x positions of the vertical guides
+
+2005-10-05 16:02  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_point.c (1.5), teseo_bezier_point.h (1.4):
+	  Added functions:	  teseo_bezier_point_split()
+	  teseo_bezier_point_split_points_pairs()
+
+2005-10-05 09:57  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_session.c (1.28), teseocallbacks.c (1.89): Fixed
+	  session management
+
+2005-10-05 08:58  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_io.c (1.25), teseo_io.h (1.11), teseocallbacks.c
+	  (1.88): Import timemarkers
+
+2005-10-05 08:36  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_io.c (1.24), teseointerface.c (1.72): Re-enabled dxf
+	  import
+
+2005-10-05 08:11  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_io.c (1.23): Secured realloc
+
+2005-10-04 16:08  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_io.c (1.22): Ascii import, removed debug output
+
+2005-10-04 16:07  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_io.c (1.21), teseo_io.h (1.10), teseocallbacks.c
+	  (1.87): Ascii import
+
+2005-10-04 11:58  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.71): Minor cleaning.
+
 2005-10-04 10:42  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/teseocallbacks.c (1.86): Check on path type before path
