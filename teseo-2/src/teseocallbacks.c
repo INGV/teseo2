@@ -1711,3 +1711,16 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
 }
 
 
+
+void
+on_split1_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    gint32 *guides=NULL, n_guides;
+    n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
+    if(n_guides > 0) {
+        teseo_path_split_at_xs(teseo_image, guides, n_guides);
+    }
+    g_free(guides);
+}
+
