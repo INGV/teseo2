@@ -125,7 +125,6 @@ char load_session(char * filename){
 
       f = fopen(filename,"r");
       if ( f != NULL ){
-         //debug g_message("File exist");
 	 while(fgets (line, 1024,  f)){
 	   if ( strstr(line, "#") == NULL ) {
             sscanf(line,"%s ", var);
@@ -170,14 +169,14 @@ char load_session(char * filename){
       }
     }
     else {
-      g_message("You should open an existing session or create new one.");
+      g_warning("load_session: File %s not found",filename);
     }
     //Registering current session
     if(ret==1){
      strcpy(current_session,session_filename);
      strcpy(current_dlg_session,dlg_session_filename);
      strcpy(current_main_window,main_window_filename);
-     //g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
+     //debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
     }
 
     return ret;
