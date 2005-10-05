@@ -1068,7 +1068,6 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
     gdouble t = 0.5;
     gint k;
 
-
     teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs);
 
     if(points_pairs) {
@@ -1120,7 +1119,6 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                     num_path_point_details_new -= 3;
                 }
 
-
                 // g_printf("num_path_point_details_new %d\n", num_path_point_details_new);
                 num_path_point_details_new_alloc = num_path_point_details_new + 9;
                 if( (j_vi > 1)  &&  (j_vi < i_vi-1) ) {
@@ -1146,24 +1144,26 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                     teseo_bezier_point_split_points_pairs(points_pairs_new + num_path_point_details_new - 6 - ( (j_vi==1)? 2 : 0 ), &new_points_pairs_split, t);
 
                     // I have to override last control point
-                    i_num_path_point_details_new_alloc -= 3;
+                    if(j_vi == 1) {
+                        i_num_path_point_details_new_alloc -= 5;
+                    } else {
+                        i_num_path_point_details_new_alloc -= 3;
+                    }
 
                     for(k=3; k<15; k++) {
                         points_pairs_new_alloc[i_num_path_point_details_new_alloc++] = new_points_pairs_split[k];
                     }
                 }
 
-
-                // gimp_path_set_points(g_image, path_name_new->str, 1, num_path_point_details_new, points_pairs_new);
-
-                if(i_num_path_point_details_new_alloc == num_path_point_details_new_alloc) {
+                if(i_num_path_point_details_new_alloc == num_path_point_details_new_alloc ||
+                        (j_vi == 1  &&  i_num_path_point_details_new_alloc == num_path_point_details_new_alloc-2) ) {
                     gimp_path_set_points(g_image, path_name_new->str, 1, num_path_point_details_new_alloc, points_pairs_new_alloc);
                 } else {
                     g_printf("i_num_path_point_details_new_alloc != num_path_point_details_new_alloc,  %d != %d\n", i_num_path_point_details_new_alloc, num_path_point_details_new_alloc);
                 }
 
                 if( (j_vi < i_vi-1) ) {
-                    // display points only for debugging
+                    // set points only for debugging
                     gimp_path_set_points(g_image, path_name_new->str, 1, 24, new_points_pairs_split);
                 }
 
