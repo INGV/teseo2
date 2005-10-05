@@ -350,7 +350,6 @@ create_win_teseo (void)
   gtk_widget_set_name (dxf2, "dxf2");
   gtk_widget_show (dxf2);
   gtk_container_add (GTK_CONTAINER (import1_menu), dxf2);
-  gtk_widget_set_sensitive (dxf2, FALSE);
 
   ascii1 = gtk_menu_item_new_with_mnemonic ("_ASCII");
   gtk_widget_set_name (ascii1, "ascii1");
