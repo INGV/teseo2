@@ -618,10 +618,10 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
 }
 
 void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
-
 	//g_printf("Importing %s\n",NomeFileAscii);
 	FILE *fascii = NULL;
-	glong num_path, num_points=10000;
+	glong DIM_VECT=10000;
+	glong num_path, num_points=DIM_VECT;
 	gfloat X,Y;
 	gdouble *path = NULL;
 	gdouble *appath = NULL;
@@ -641,7 +641,6 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 		if (path != NULL) {
 			while (fscanf(fascii,"%f %f\n", &X, &Y) !=  EOF)
 			{
-				//g_printf("X=%f Y=%f\n",X,Y);
 				for ( k=1; k<4; k++){
 					if ( !(i==0 && k==1) ) {
 						path[ i*9+ 3*k -6    ]   =   ( double )  X / xfactor;
@@ -651,19 +650,28 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 					}
 				}
 				if( (i+2)*9-4 >= num_points-1){
-					num_points+=10000;
-					path=g_realloc(path, num_points * sizeof(gdouble) );
-					//g_printf("Realloc...\n");
-					//path=appath;
+					num_points+=DIM_VECT;
+					appath=g_try_realloc(path, num_points * sizeof(gdouble) );
+					if (appath!=NULL) {
+						if(appath!=path){
+							//g_printf("Realloc %p %p\n", path,appath);
+							path=appath;
+							appath=NULL;
+						}
+						else {
+						}
+					}
+					else{
+					g_warning("teseo_import_path_ascii: Not enough memory");
+					}
 				}
 				i++;
-
 			}
-			g_printf("%d points read in vector of %d double\n",i,i*9-3);
+			//g_printf("%d points read in vector of %d double\n",i,i*9-3);
 			gimp_path_set_points(g_image, "Path imported", 1, i*9-3 , path);
 		}
 		else {
-			g_message("Not enough free memory for path.");
+			g_warning("teseo_import_path_ascii: Not enough memory");
 		}
 		if(path) {
 			g_free(path);
