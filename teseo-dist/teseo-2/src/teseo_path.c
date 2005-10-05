@@ -32,6 +32,7 @@
 #include "teseo_path.h"
 #include "teseo_bezier_point.h"
 #include "teseo_gimp_extends.h"
+#include "teseo_bezier_pfit.h"
 
 
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
@@ -1059,6 +1060,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
     gint j_vi = 0;
     GString *path_name_new = NULL;
+    GString *path_name_source = NULL;
     gint num_path_point_details_new;
     gdouble *points_pairs_new=NULL;
 
@@ -1091,7 +1093,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                 if(points_pairs[ii] >= guides[i_guides] && started) {
                     need_split = TRUE;
                     vi[i_vi++]=ii;
-                    vt[i_vi]=(points_pairs[ii] - (gdouble) guides[i_guides]) / (points_pairs[ii] - points_pairs[ii-9]);
+                    vt[i_vi]=(points_pairs[ii] - (gdouble) guides[i_guides]) / teseo_p_distance(points_pairs[ii], points_pairs[ii+1], points_pairs[ii-9], points_pairs[ii-9+1]);
                     g_printf("add index %d in vi\n", ii);
                 } else {
                     ii+=9;
@@ -1106,6 +1108,9 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
         g_printf("i_vi = %d\n", i_vi);
 
+        path_name_source = g_string_new("Uname");
+        g_string_printf(path_name_source, "%s", gimp_path_get_current(g_image));
+        
         // Split array at vi[] positions
         if(i_vi > 2) {
             path_name_new = g_string_new("Uname");
@@ -1113,7 +1118,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
             for(j_vi=1; j_vi<i_vi; j_vi++) {
                 g_printf("j_vi %d vi[j_vi] %d\n", j_vi,  vi[j_vi]);
 
-                g_string_printf(path_name_new, "%s_S%d-%d", gimp_path_get_current(g_image), j_vi, i_vi-1);
+                g_string_printf(path_name_new, "%s_S%d-%d", path_name_source->str, j_vi, i_vi-1);
 
                 points_pairs_new = points_pairs + vi[j_vi-1];
                 /*
@@ -1186,6 +1191,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
         }
 
+        g_string_free(path_name_source, TRUE);
         g_free(points_pairs);
     }
 
