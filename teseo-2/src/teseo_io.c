@@ -617,7 +617,7 @@ void teseo_save_path_ascii(gint32 g_image, char* filename) {
     g_free(points_pairs);
 }
 
-void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
+void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii, gint tm ) {
 	//g_printf("Importing %s\n",NomeFileAscii);
 	FILE *fascii = NULL;
 	glong DIM_VECT=10000;
@@ -627,6 +627,7 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 	gdouble *appath = NULL;
 	gdouble xres, yres, xfactor, yfactor;
 	gint i=0,k;
+	gint fscanf_ret=0;
 
 	gint32 image_height = gimp_image_height(g_image);
         gimp_image_get_resolution (g_image, &xres, &yres);
@@ -639,7 +640,7 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 		path = (gdouble *) g_malloc( num_points * sizeof(gdouble) );
 
 		if (path != NULL) {
-			while (fscanf(fascii,"%f %f\n", &X, &Y) !=  EOF)
+			while ( ((fscanf_ret=fscanf(fascii,"%f %f\n", &X, &Y)) !=  EOF) && (fscanf_ret!=0) )
 			{
 				for ( k=1; k<4; k++){
 					if ( !(i==0 && k==1) ) {
@@ -662,13 +663,18 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii ) {
 						}
 					}
 					else{
-					g_warning("teseo_import_path_ascii: Not enough memory");
+						g_warning("teseo_import_path_ascii: Not enough memory");
 					}
 				}
 				i++;
 			}
 			//g_printf("%d points read in vector of %d double\n",i,i*9-3);
-			gimp_path_set_points(g_image, "ASCII Path imported", 1, i*9-3 , path);
+			if (tm==0){
+				gimp_path_set_points(g_image, "ASCII Path imported", 1, i*9-3 , path);
+			}
+			else{
+				gimp_path_set_points(g_image, "Timemark path imported", 1, i*9-3 , path);
+			}
 		}
 		else {
 			g_warning("teseo_import_path_ascii: Not enough memory");
@@ -822,7 +828,7 @@ void teseo_save_dxf_cm(FILE * fp, gint num_punti, gdouble *vet_punti, gdouble dp
 
 
 
-/* Save a vector in dxf format, in centimeters.  
+/* Save a vector in dxf format, in centimeters.
  * dpi resolution, height the height of the image in pixel
  */
 
