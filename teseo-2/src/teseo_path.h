@@ -158,4 +158,9 @@ void teseo_path_force_polyline(gint32 g_image);
   */
 void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details, gdouble *new_points_pairs);
 
+/*!
+  Split the current path at x positions of the vertical guides
+  */
+void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides);
+    
 #endif

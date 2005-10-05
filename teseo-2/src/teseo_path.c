@@ -30,6 +30,7 @@
 #include <glib/gprintf.h>
 
 #include "teseo_path.h"
+#include "teseo_bezier_point.h"
 #include "teseo_gimp_extends.h"
 
 
@@ -861,7 +862,6 @@ void teseo_path_split_at_x(gint32 g_image, gchar *path_name, gint32 x) {
 }
 
 
-// TODO teseo_path_split_at_xs_in_vector
 void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 n_guides) {
     gint *vi = g_malloc((n_guides+2) * sizeof(gint) );
     gint i_vi = 0;
@@ -966,7 +966,7 @@ void teseo_path_split_at_xs_all_unlocked(gint32 g_image, gint32 *guides, gint32 
 
 void teseo_path_force_polyline(gint32 g_image) {
     GString *path_name_new = NULL;
-    gint i, j;
+    gint i;
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
 
@@ -998,7 +998,7 @@ void teseo_path_force_polyline(gint32 g_image) {
 
 void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details, gdouble *new_points_pairs) {
     GString *path_name = NULL;
-    gint i, j;
+    gint i;
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
     gint new_size;
@@ -1044,3 +1044,164 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
     g_string_free(path_name, TRUE);
 }
 
+
+void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
+    gint *vi = g_malloc((n_guides+2) * sizeof(gint) );
+    gint i_vi = 0;
+    gboolean need_split;
+    gint ii;
+    
+    // Paths need to split
+    GString **unlocked_path_names=NULL;
+    gint unlocked_num_paths;
+
+    int i_path=0, i_guides=0;
+    gchar **p=NULL;
+    gdouble *points_pairs=NULL;
+    gint path_closed, num_path_point_details, num_paths;
+
+    gint j_vi = 0;
+    GString *path_name_new = NULL;
+    gint num_path_point_details_new;
+    gdouble *points_pairs_new=NULL;
+
+    gint i_num_path_point_details_new_alloc;
+    gint num_path_point_details_new_alloc;
+    gdouble *points_pairs_new_alloc=NULL;
+
+    gdouble *new_points_pairs_split = NULL;
+    gdouble t = 0.5;
+    gint k;
+                
+    p = gimp_path_list (g_image, &num_paths);
+
+    // Max num_paths
+    unlocked_path_names = g_malloc( num_paths * sizeof(GString *));
+    unlocked_num_paths = 0;
+
+    // Search unlocked paths and 
+    for ( i_path=0; i_path<num_paths; i_path++) {
+	if(!gimp_path_get_locked(g_image, p[i_path])) {
+            unlocked_path_names[unlocked_num_paths++] = g_string_new(p[i_path]);
+	}
+    }
+
+    for(i_path=0; i_path<unlocked_num_paths; i_path++) {
+        g_printf("%s\n", unlocked_path_names[i_path]->str);
+
+        teseo_gimp_path_get_points (g_image, unlocked_path_names[i_path]->str, &path_closed, &num_path_point_details, &points_pairs);
+
+        if(points_pairs) {
+
+            i_vi=0;
+            vi[i_vi++]=0;
+            for(i_guides=0; i_guides<n_guides; i_guides++) {
+                g_printf("i_guides %d, guides[i_guides] %d\n", i_guides, guides[i_guides]);
+
+                // Find first occurrence greater than n_guides[i_guides], take it in vi at index i_vi
+                need_split = FALSE;
+                ii = 0;
+                while( !( ii>=num_path_point_details || need_split) ) {
+                    if(points_pairs[ii] >= guides[i_guides]) {
+                        need_split = TRUE;
+                        vi[i_vi++]=ii;
+                        g_printf("add index %d in vi\n", ii);
+                    } else {
+                        ii+=9;
+                    }
+                }
+
+            }
+            vi[i_vi++]=num_path_point_details;
+            
+            // vi should contain (0, ..., ..., num_path_point_details)
+            // vi contains at least 2 items (0, num_path_point_details)
+
+            g_printf("i_vi = %d\n", i_vi);
+
+            // Split array at vi[] positions
+            if(i_vi > 2) {
+                path_name_new = g_string_new("Uname");
+
+                for(j_vi=1; j_vi<i_vi; j_vi++) {
+                    g_printf("j_vi %d vi[j_vi] %d\n", j_vi,  vi[j_vi]);
+
+                    g_string_printf(path_name_new, "%s_S%d-%d", unlocked_path_names[i_path]->str, j_vi, i_vi-1);
+             
+                    points_pairs_new = points_pairs + vi[j_vi-1];
+                    /*
+                    g_printf("%f, %f, %f\n",points_pairs_new[0], points_pairs_new[1],  points_pairs_new[2]);
+                    g_printf("%f, %f, %f\n",points_pairs_new[3], points_pairs_new[4],  points_pairs_new[5]);
+                    g_printf("%f, %f, %f\n",points_pairs_new[6], points_pairs_new[7],  points_pairs_new[8]);
+                    */
+
+                    num_path_point_details_new = vi[j_vi] - vi[j_vi-1] - ( (j_vi==1)? 1 : 0 );
+                    if( (j_vi > 1)  &&  (j_vi < i_vi-1) ) {
+                        num_path_point_details_new -= 3;
+                    }
+
+
+                    // g_printf("num_path_point_details_new %d\n", num_path_point_details_new);
+                    num_path_point_details_new_alloc = num_path_point_details_new + 9;
+                    if( (j_vi > 1)  &&  (j_vi < i_vi-1) ) {
+                        num_path_point_details_new_alloc += 9;
+                    }
+                    points_pairs_new_alloc = (gdouble *) g_malloc(sizeof(gdouble) * num_path_point_details_new_alloc);
+                    i_num_path_point_details_new_alloc = 0;
+
+                    // building points_pairs_new_alloc ...
+                    if(j_vi > 1) {
+                        // Use new_points_pairs_split built in the previous cycle
+                        for(k=9; k<18; k++) {
+                            points_pairs_new_alloc[i_num_path_point_details_new_alloc++] = new_points_pairs_split[k];
+                        }
+                    }
+
+                    for(k=0; k<num_path_point_details_new; k++) {
+                        points_pairs_new_alloc[i_num_path_point_details_new_alloc++] = points_pairs_new[k];
+                    }
+
+                    if(j_vi < i_vi-1) {
+                        g_free(new_points_pairs_split);
+                        teseo_bezier_point_split_points_pairs(points_pairs_new + num_path_point_details_new - 6 - ( (j_vi==1)? 2 : 0 ), &new_points_pairs_split, t);
+
+                        // I have to override last control point
+                        i_num_path_point_details_new_alloc -= 3;
+
+                        for(k=3; k<15; k++) {
+                            points_pairs_new_alloc[i_num_path_point_details_new_alloc++] = new_points_pairs_split[k];
+                        }
+                    }
+
+
+                    // gimp_path_set_points(g_image, path_name_new->str, 1, num_path_point_details_new, points_pairs_new);
+
+                    if(i_num_path_point_details_new_alloc == num_path_point_details_new_alloc) {
+                        gimp_path_set_points(g_image, path_name_new->str, 1, num_path_point_details_new_alloc, points_pairs_new_alloc);
+                    } else {
+                        g_printf("i_num_path_point_details_new_alloc != num_path_point_details_new_alloc,  %d != %d\n", i_num_path_point_details_new_alloc, num_path_point_details_new_alloc);
+                    }
+
+                    if( (j_vi < i_vi-1) ) {
+                        // display points only for debugging
+                        gimp_path_set_points(g_image, path_name_new->str, 1, 24, new_points_pairs_split);
+                    }
+
+                    g_free(points_pairs_new_alloc);
+
+
+                }
+
+                g_string_free(path_name_new, TRUE);
+
+            }
+
+            g_free(points_pairs);
+        }
+    }
+
+    for(i_path=0; i_path<unlocked_num_paths; i_path++) {
+        g_string_free(unlocked_path_names[i_path], TRUE);
+    }
+
+}
