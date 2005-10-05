@@ -1047,6 +1047,7 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
 
 void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
     gint *vi = g_malloc((n_guides+2) * sizeof(gint) );
+    gdouble *vt = g_malloc((n_guides+2) * sizeof(gdouble) );
     gint i_vi = 0;
     gboolean need_split;
     gint ii;
@@ -1074,6 +1075,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
         i_vi=0;
         vi[i_vi++]=0;
+        vt[i_vi]=0.0;
         for(i_guides=0; i_guides<n_guides; i_guides++) {
             g_printf("i_guides %d, guides[i_guides] %d\n", i_guides, guides[i_guides]);
 
@@ -1084,6 +1086,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                 if(points_pairs[ii] >= guides[i_guides]) {
                     need_split = TRUE;
                     vi[i_vi++]=ii;
+                    vt[i_vi]=(points_pairs[ii] - (gdouble) guides[i_guides]) / (points_pairs[ii] - points_pairs[ii-9]);
                     g_printf("add index %d in vi\n", ii);
                 } else {
                     ii+=9;
@@ -1141,6 +1144,8 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
                 if(j_vi < i_vi-1) {
                     g_free(new_points_pairs_split);
+                    t = (vt[j_vi] > 0.0  &&  vt[j_vi] < 1.0)? vt[j_vi] : 0.5;
+                    g_printf("vt[%d] %f - t = %f\n", j_vi, vt[j_vi], t);
                     teseo_bezier_point_split_points_pairs(points_pairs_new + num_path_point_details_new - 6 - ( (j_vi==1)? 2 : 0 ), &new_points_pairs_split, t);
 
                     // I have to override last control point
@@ -1164,7 +1169,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
                 if( (j_vi < i_vi-1) ) {
                     // set points only for debugging
-                    gimp_path_set_points(g_image, path_name_new->str, 1, 24, new_points_pairs_split);
+                    // gimp_path_set_points(g_image, path_name_new->str, 1, 24, new_points_pairs_split);
                 }
 
                 g_free(points_pairs_new_alloc);
@@ -1179,4 +1184,6 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
         g_free(points_pairs);
     }
 
+    g_free(vi);
+    g_free(vt);
 }
