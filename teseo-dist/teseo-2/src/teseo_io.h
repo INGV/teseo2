@@ -79,8 +79,11 @@
 
     /*!
       teseo_import_path_ascii load the path from file.
+      \param g_image, the image onto import
+      \param NomeFileAscii file containing the path in ascii format
+      \param tm 0 if path, 1 if timemark
       */
-    void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii );
+    void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii , gint tm);
 
 /* ******************
    Funzioni di output

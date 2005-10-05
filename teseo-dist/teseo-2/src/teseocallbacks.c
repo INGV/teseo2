@@ -344,7 +344,35 @@ void
 on_timemark2_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    g_message(TODO_str);
+    // Import Ascii timemarker path (Teseo 2 format)
+    char filename[FILENAMELEN];
+    char * path=NULL;
+
+    path=teseo_get_environment_path( TMARKPATH );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open ASCII Timemarker path");
+    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    g_free(path);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
+
+    switch (result)
+    {
+      case GTK_RESPONSE_OK:
+	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+	 teseo_import_path_ascii( teseo_image, filename, 1 );
+         teseo_gtk_statusbar_push("ASCII Timemarker file imported in current path.");
+	 break;
+      case GTK_RESPONSE_CANCEL:
+	 //g_message("Cancel pressed: don't do anything.");
+	 break;
+      case GTK_RESPONSE_DELETE_EVENT:
+	 //g_message("Delete event, same as Cancel pressed.");
+	 break;
+      default:
+	 break;
+    }
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
+
 }
 
 
@@ -607,9 +635,6 @@ void
 on_timemark1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // TODO Export Timemark
-    // TODO teseo_save_path_timemarker(teseo_image, dxf_filename, 0);
-
     gchar *timemark_path = NULL;
     gchar *image_filename = NULL;
     GString *timemark_path_filename=NULL;
@@ -979,7 +1004,7 @@ on_ascii1_activate                     (GtkMenuItem     *menuitem,
     {
       case GTK_RESPONSE_OK:
 	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
-	 teseo_import_path_ascii( teseo_image, filename );
+	 teseo_import_path_ascii( teseo_image, filename, 0 );
          teseo_gtk_statusbar_push("ASCII file imported in current path.");
 	 break;
       case GTK_RESPONSE_CANCEL:
@@ -992,7 +1017,6 @@ on_ascii1_activate                     (GtkMenuItem     *menuitem,
 	 break;
     }
     gtk_widget_hide ((GtkWidget *) filechooser_import);
-
 }
 
 
