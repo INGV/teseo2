@@ -238,7 +238,7 @@ char new_session(char * filename, char * main_window_filename){
 
       }
       else {
-         g_warning("TODO: find another name, to not overwriting session");
+         //g_warning("TODO: find another name, to not overwriting session");
       }
     }
 
