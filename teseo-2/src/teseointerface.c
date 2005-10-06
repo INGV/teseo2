@@ -945,6 +945,7 @@ create_win_teseo (void)
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), TRUE);
+  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), GTK_UPDATE_IF_VALID);
 
   teseo_back_step_spinbutton_adj = gtk_adjustment_new (10, 1, 10000, 1, 10, 10);
   teseo_back_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_back_step_spinbutton_adj), 1, 0);
@@ -954,7 +955,7 @@ create_win_teseo (void)
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), TRUE);
-  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), TRUE);
+  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), GTK_UPDATE_IF_VALID);
 
   label73 = gtk_label_new ("Forward");
   gtk_widget_set_name (label73, "label73");
@@ -1084,6 +1085,7 @@ create_win_teseo (void)
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), TRUE);
+  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), GTK_UPDATE_IF_VALID);
 
   teseo_wm_width_spinbutton_adj = gtk_adjustment_new (10, 3, 1000, 1, 10, 10);
   teseo_wm_width_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_wm_width_spinbutton_adj), 1, 0);
@@ -1093,6 +1095,7 @@ create_win_teseo (void)
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), TRUE);
+  gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), GTK_UPDATE_IF_VALID);
 
   label65 = gtk_label_new ("<b>Rectangle dimensions</b>");
   gtk_widget_set_name (label65, "label65");
