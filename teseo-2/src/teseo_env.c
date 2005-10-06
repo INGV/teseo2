@@ -122,7 +122,7 @@ char * teseo_get_teseo_environment_path( ){
 
     pathbase=gimp_directory();
     bf=g_strdup_printf("%s%s%s",pathbase,G_DIR_SEPARATOR_S,PROCEDURE_NAME);
-    g_printf("\nDebug 2 %s \n",bf );
+    //g_printf("\nDebug 2 %s \n",bf );
     return bf;
 }
 

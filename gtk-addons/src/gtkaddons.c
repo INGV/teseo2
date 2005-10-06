@@ -37,7 +37,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 	int ret=0;
 	gchar name[80]; //corto?
 
-	g_sprintf(name, "%s",gtk_widget_get_name(widget));
+	//g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -46,7 +46,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 int is_marked_widget(GtkWidget * widget) {
 	int ret=0;
 	gchar name[80]; //corto?
-	g_sprintf(name, "%s",gtk_widget_get_name(widget));
+	//g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -73,7 +73,7 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 		if (GTK_IS_TOGGLE_BUTTON(data) ){
 			// Contents of radiobuttons and togglebuttons
 			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {
-				g_printf("found %s set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
+				//g_printf("found %s set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
 				if ( strcmp( (*tmp).w_content_to, "TRUE" ) ==0) {
 					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data))==FALSE )
 						gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data),TRUE);
@@ -130,7 +130,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	GList *l=NULL;
 
 	struct mydata tmp;
-	printf("iface_load_rc::loading file %s\n", file_rc);
+	//debug g_printf("iface_load_rc::loading file %s\n", file_rc);
 	f = fopen(file_rc, "rt");
 	if(f) {
 		while(fgets (line, 1024,  f)){
@@ -141,7 +141,7 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 				subline = line + 2 +strlen(widget_type)+strlen(widget_name);
 				lenght=strlen(subline);
 				subline[lenght-1]='\0';
-				g_printf("%s %s %s\n", widget_type, widget_name,subline);
+				//g_printf("%s %s %s\n", widget_type, widget_name,subline);
 				if(GTK_IS_CONTAINER (parent_widget) ){
      				// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
    					l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
@@ -184,11 +184,11 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	FILE *f=NULL;
 	char ret=1;
-	printf("iface_save_rc::saving file %s\n", file_rc);
+	//debug g_printf("iface_save_rc::saving file %s\n", file_rc);
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.8 2005-08-30 09:57:18 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.9 2005-10-06 07:28:11 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
