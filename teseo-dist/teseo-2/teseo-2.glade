@@ -1220,7 +1220,7 @@
 			      <property name="climb_rate">1</property>
 			      <property name="digits">0</property>
 			      <property name="numeric">True</property>
-			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			      <property name="update_policy">GTK_UPDATE_IF_VALID</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
 			      <property name="adjustment">50 1 10000 1 10 10</property>
@@ -1242,8 +1242,8 @@
 			      <property name="climb_rate">1</property>
 			      <property name="digits">0</property>
 			      <property name="numeric">True</property>
-			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-			      <property name="snap_to_ticks">True</property>
+			      <property name="update_policy">GTK_UPDATE_IF_VALID</property>
+			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
 			      <property name="adjustment">10 1 10000 1 10 10</property>
 			    </widget>
@@ -1593,7 +1593,7 @@ first guide</property>
 			  <property name="climb_rate">1</property>
 			  <property name="digits">0</property>
 			  <property name="numeric">True</property>
-			  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			  <property name="update_policy">GTK_UPDATE_IF_VALID</property>
 			  <property name="snap_to_ticks">False</property>
 			  <property name="wrap">False</property>
 			  <property name="adjustment">25 7 1000 1 10 10</property>
@@ -1616,7 +1616,7 @@ first guide</property>
 			  <property name="climb_rate">1</property>
 			  <property name="digits">0</property>
 			  <property name="numeric">True</property>
-			  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+			  <property name="update_policy">GTK_UPDATE_IF_VALID</property>
 			  <property name="snap_to_ticks">False</property>
 			  <property name="wrap">False</property>
 			  <property name="adjustment">10 3 1000 1 10 10</property>
