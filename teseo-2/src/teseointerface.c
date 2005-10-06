@@ -944,6 +944,7 @@ create_win_teseo (void)
   gtk_table_attach (GTK_TABLE (table4), teseo_forward_step_spinbutton, 1, 2, 0, 1,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  GTK_WIDGET_UNSET_FLAGS (teseo_forward_step_spinbutton, GTK_CAN_FOCUS);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), TRUE);
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_forward_step_spinbutton), GTK_UPDATE_IF_VALID);
 
@@ -954,6 +955,7 @@ create_win_teseo (void)
   gtk_table_attach (GTK_TABLE (table4), teseo_back_step_spinbutton, 1, 2, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  GTK_WIDGET_UNSET_FLAGS (teseo_back_step_spinbutton, GTK_CAN_FOCUS);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), TRUE);
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_back_step_spinbutton), GTK_UPDATE_IF_VALID);
 
@@ -1084,6 +1086,7 @@ create_win_teseo (void)
   gtk_table_attach (GTK_TABLE (table13), teseo_wm_height_spinbutton, 1, 2, 0, 1,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  GTK_WIDGET_UNSET_FLAGS (teseo_wm_height_spinbutton, GTK_CAN_FOCUS);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), TRUE);
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_height_spinbutton), GTK_UPDATE_IF_VALID);
 
@@ -1094,6 +1097,7 @@ create_win_teseo (void)
   gtk_table_attach (GTK_TABLE (table13), teseo_wm_width_spinbutton, 1, 2, 1, 2,
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
+  GTK_WIDGET_UNSET_FLAGS (teseo_wm_width_spinbutton, GTK_CAN_FOCUS);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), TRUE);
   gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (teseo_wm_width_spinbutton), GTK_UPDATE_IF_VALID);
 
