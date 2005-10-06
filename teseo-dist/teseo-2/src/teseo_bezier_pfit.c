@@ -37,8 +37,6 @@ int N_P_MIS_MAX, N_P_MIS;
 double *x_p_mis;
 double *y_p_mis;
 
-#define NOTEQUALZERO 1.0e-6
-#define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
 #define MAXTOL 1.0e-5
 
 double teseo_p_func_sum_distance_bezier(double *param_bez)
