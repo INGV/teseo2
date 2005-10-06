@@ -315,7 +315,7 @@ gchar test_session(char * filename){
     const char delimiters[] = ".xcf";
     gchar ret=0;
 
-    g_printf("test_session::start filename %s\n",filename );
+    //g_printf("test_session::start filename %s\n",filename );
     basename = g_path_get_basename (filename); //basename without path, to be g_freed
     p = teseo_get_environment_path( SESSIONPATH ); // path to session files to be g_freed
 
@@ -325,12 +325,12 @@ gchar test_session(char * filename){
     g_free(basename);
 
     dir = g_dir_open ( p, 0, NULL);
-    g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
+    //g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
 
     if ( dir!=NULL ) {
       while ( ( entry=g_dir_read_name (dir) ) != NULL ){ //don't free entry
 	myentry=g_strdup(entry);
-	g_printf("test_session::myentry %s\n",myentry );
+	//g_printf("test_session::myentry %s\n",myentry );
 	//First looking for basename
 	if (g_strrstr(myentry,basename_noext)!=NULL)
 	{
@@ -348,6 +348,6 @@ gchar test_session(char * filename){
 
     g_free(basename_noext);
     g_free(p);
-    g_printf("test_session::stop exiting %d\n", ret);
+    //g_printf("test_session::stop exiting %d\n", ret);
     return ret;
 }
