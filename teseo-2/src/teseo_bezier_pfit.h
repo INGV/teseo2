@@ -36,6 +36,9 @@
 #define NDIM 4
 //nr #define FTOL 0.1
 
+#define NOTEQUALZERO 1.0e-6
+#define ALMOSTZERO(x) ( x > -NOTEQUALZERO  &&  x < NOTEQUALZERO)
+
 /*!
   Compute teseo_p_distance between 2 points
   */
