@@ -45,6 +45,11 @@ void teseo_bezier_point_init(struct teseo_bezier_point *tbp, int agrado, double 
     teseo_bezier_point_setPointsZero(tbp);
 }
 
+void teseo_bezier_point_init_points_pairs(struct teseo_bezier_point *tbp, gdouble *points_pairs) {
+    teseo_bezier_point_init(tbp, 3, NULL, NULL);
+    teseo_bezier_point_setPoints_points_pairs(tbp, points_pairs);
+}
+
 // Bezier::~Bezier() {
 void teseo_bezier_point_free(struct teseo_bezier_point *tbp) {
     g_free(tbp->Px);
@@ -67,6 +72,24 @@ void teseo_bezier_point_setPointsZero(struct teseo_bezier_point *tbp) {
     tbp->Px[i] = 0;
     tbp->Py[i] = 0;
   }
+}
+
+void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, gdouble *points_pairs) {
+    gdouble Px[4], Py[4];
+
+    Px[0] = points_pairs[0];
+    Py[0] = points_pairs[1];
+
+    Px[1] = points_pairs[3];
+    Py[1] = points_pairs[4];
+
+    Px[2] = points_pairs[6];
+    Py[2] = points_pairs[7];
+
+    Px[3] = points_pairs[9];
+    Py[3] = points_pairs[10];
+
+    teseo_bezier_point_setPoints(tbp, Px, Py);
 }
 
 // int Bezier::getStrokes(int freq_c, double **astrokes, int sw_cast_int) {
@@ -182,26 +205,18 @@ int teseo_bezier_point_Grado(struct teseo_bezier_point *tbp) {
   return tbp->grado;
 }
 
-int teseo_bezier_point_split(struct teseo_bezier_point *tbp, struct teseo_bezier_point *tbp_split1, struct teseo_bezier_point *tbp_split2, double t) {
-    int ret = 1;
-    // int j, i;
-    // double *Pxi = NULL, *Pyi = NULL;
-    // double step =  1.0 / 100.0;
-    
-    // calcolo le coordinate X, Y a distanza t sulla curva
-    /*
-    for (j=tbp->grado; j > 0; j--) {
-        for (i=0; i < j; i++) {
-            Pxi[i] = (1-t)*Pxi[i] + t*Pxi[i+1];
-            Pyi[i] = (1-t)*Pyi[i] + t*Pyi[i+1];
-        }
-    }
-    */
+gdouble new_coord(gdouble p1, gdouble p2, gdouble t) {
+    return p1 + ( (1.0- t) * ( p2 -  p1) );
+}
 
-#define new_coord(p1, p2, t)  (p1 + t * (p2 - p1))
+// #define new_coord(p1, p2, t)  ((gdouble) p1 + ((1.0-(gdouble) t) * ((gdouble) p2 - (gdouble) p1)))
+
+int teseo_bezier_point_split(struct teseo_bezier_point *tbp, struct teseo_bezier_point *tbp_split1, struct teseo_bezier_point *tbp_split2, gdouble t) {
+    int ret = 1;
+
 
     if(tbp->grado == 3) {
-        double x12, y12;
+        gdouble x12, y12;
 
         tbp_split1->Px[0] = tbp->Px[0]; 
         tbp_split1->Py[0] = tbp->Py[0]; 
@@ -298,6 +313,113 @@ int teseo_bezier_point_split_points_pairs(const gdouble *points_pairs, gdouble *
     
     *new_points_pairs = pnew_points_pairs;
     
+    return ret;
+}
+
+void teseo_bezier_point_get_xy_from_t(struct teseo_bezier_point *tbp, gdouble t, gdouble *x, gdouble *y) {
+    gint j, i, p;
+    gdouble *Pxi = NULL, *Pyi = NULL;
+    
+    Pxi = (gdouble *) g_malloc(tbp->n_punti * sizeof(gdouble));
+    Pyi = (gdouble *) g_malloc(tbp->n_punti * sizeof(gdouble));
+
+    for(p=0; p<tbp->n_punti; p++) {
+        Pxi[p] = tbp->Px[p];
+        Pyi[p] = tbp->Py[p];
+    }
+
+    // calcolo le coordinate X, Y a distanza t sulla curva
+    for (j=tbp->grado; j > 0; j--) {
+        for (i=0; i < j; i++) {
+            Pxi[i] = (1-t)*Pxi[i] + t*Pxi[i+1];
+            Pyi[i] = (1-t)*Pyi[i] + t*Pyi[i+1];
+        }
+    }
+
+    *x = Pxi[0];
+    *y = Pyi[0];
+
+    g_printf("teseo_bezier_point_get_xy_from_t() t %f, x %f, y %f\n", t, *x, *y);
+
+    g_free(Pxi);
+    g_free(Pyi);
+}
+
+gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble x, gdouble *t) {
+    gboolean ret = FALSE;
+    gboolean reversed = FALSE;
+    gint k;
+    gdouble app;
+    gdouble t_cmp=0.5, t_min, t_max;
+    gdouble xt, yt;
+    const gint max_iter = 1000;
+    gint iter=0;
+
+    g_printf("teseo_bezier_point_get_t_from_x() called, x %f\n", x);
+
+    if(tbp->Px[0] > tbp->Px[tbp->n_punti-1]) {
+        g_printf("teseo_bezier_point_get_t_from_x(): reversed array before\n");
+        reversed = TRUE;
+        for(k=0; k/2; k++) {
+            app = tbp->Px[k];
+            tbp->Px[k] = tbp->Px[tbp->n_punti-1-k];
+            tbp->Px[tbp->n_punti-1-k] = app;
+
+            app = tbp->Py[k];
+            tbp->Py[k] = tbp->Py[tbp->n_punti-1-k];
+            tbp->Py[tbp->n_punti-1-k] = app;
+        }
+    }
+
+    // This condition limits where x must be
+    if(tbp->Px[0] < x  &&  x < tbp->Px[tbp->n_punti-1]) {
+
+        t_min = 0.0;
+        t_cmp = 0.5;
+        t_max = 1.0;
+        iter = 0;
+        while(ret == FALSE  &&  iter < max_iter) {
+            teseo_bezier_point_get_xy_from_t(tbp, t_cmp, &xt, &yt);
+            g_printf("xt %f, x %f (t_min %.10f, t_max %.10f)\n", xt, x, t_min, t_max);
+
+            if((t_max - t_min) < 1.0e-36) {
+            // if(fabs(xt - x) < 1.0e-6)
+                ret = TRUE;
+                *t = t_cmp;
+            } else {
+                if(xt > x) {
+                    t_max = t_cmp;
+                } else {
+                    t_min = t_cmp;
+                }
+            }
+            t_cmp = t_min + ((t_max - t_min) / 2.0);
+            iter++;
+        }
+        
+    } else {
+        g_printf("teseo_bezier_point_get_t_from_x(): x is not belonging to anchor points.\n");
+    }
+
+    if(iter >= max_iter) {
+        ret = TRUE;
+        *t = t_cmp;
+        g_printf("teseo_bezier_point_get_t_from_x(): max iteration exceeded %d. t %f\n", max_iter, *t);
+    }
+
+    if(reversed) {
+        g_printf("teseo_bezier_point_get_t_from_x(): reversed array after\n");
+        for(k=0; k/2; k++) {
+            app = tbp->Px[k];
+            tbp->Px[k] = tbp->Px[tbp->n_punti-1-k];
+            tbp->Px[tbp->n_punti-1-k] = app;
+
+            app = tbp->Py[k];
+            tbp->Py[k] = tbp->Py[tbp->n_punti-1-k];
+            tbp->Py[tbp->n_punti-1-k] = app;
+        }
+    }
+
     return ret;
 }
 

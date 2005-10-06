@@ -37,27 +37,55 @@ struct teseo_bezier_point {
     double *Px, *Py;
 };
 
-// i vettori devono essere lunghi agrado+1, dove il primo e l'ultimo valore sono di tipo ANCHOR_BEZIER
+/*!
+  i vettori devono essere lunghi agrado+1, dove il primo e l'ultimo valore sono di tipo ANCHOR_BEZIER
+  */
 void teseo_bezier_point_init(struct teseo_bezier_point *tbp, int agrado, double *aPx, double *aP);
+
+/*!
+  Only cubic curves
+  */
+void teseo_bezier_point_init_points_pairs(struct teseo_bezier_point *tbp, gdouble *points_pairs);
+
 void teseo_bezier_point_free(struct teseo_bezier_point *tbp);
+
 void teseo_bezier_point_setPoints(struct teseo_bezier_point *tbp, double *aPx, double *aPy);
+
+void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, gdouble *points_pairs);
+
 void teseo_bezier_point_setPointsZero(struct teseo_bezier_point *tbp);
-// ritorna il numero di elementi e il vettore vet con coordinate x,y
-// campionato in x esattamente a passo freq_c
-// i tipi garantiscono compatibità con i costruttori di neuronpunti
-// si può scegliere se gli strokes ritornati abbiano un casting (int), per default è double
+
+/*!
+  ritorna il numero di elementi e il vettore vet con coordinate x,y
+  campionato in x esattamente a passo freq_c
+  i tipi garantiscono compatibità con i costruttori di neuronpunti
+  si può scegliere se gli strokes ritornati abbiano un casting (int), per default è double
+*/
 int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, double **astrokes, int sw_cast_int);
+
 int teseo_bezier_point_Grado(struct teseo_bezier_point *tbp);
 
 /*!
   teseo_bezier_point_split() split a single bezier curve into two cubic bezier curves with same degree at t position
+  Only cubic curves
   */
-int teseo_bezier_point_split(struct teseo_bezier_point *tbp, struct teseo_bezier_point *tbp_split1, struct teseo_bezier_point *tbp_split2, double t);
+int teseo_bezier_point_split(struct teseo_bezier_point *tbp, struct teseo_bezier_point *tbp_split1, struct teseo_bezier_point *tbp_split2, gdouble t);
 
 /*!
   teseo_bezier_point_split_points_pairs() wrapper for teseo_bezier_point_split() using points_pairs 
   \param new_points_pairs needs to be freed
+  Only cubic curves
   */
 int teseo_bezier_point_split_points_pairs(const gdouble *points_pairs, gdouble **new_points_pairs, double t);
+
+/*!
+  TODO
+  */
+void teseo_bezier_point_get_xy_from_t(struct teseo_bezier_point *tbp, gdouble t, gdouble *x, gdouble *y);
+
+/*!
+  TODO
+  */
+gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble x, gdouble *t);
 
 #endif
