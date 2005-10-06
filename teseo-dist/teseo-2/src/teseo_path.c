@@ -1072,10 +1072,14 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
     gdouble t = 0.5;
     gint k;
 
+    struct teseo_bezier_point tbp;
+    gdouble app_t;
+
     teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs);
 
     if(points_pairs) {
 
+        teseo_bezier_point_init(&tbp, 3, NULL, NULL);
         i_vi=0;
         vi[i_vi++]=0;
         vt[i_vi]=0.0;
@@ -1093,7 +1097,12 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                 if(points_pairs[ii] >= guides[i_guides] && started) {
                     need_split = TRUE;
                     vi[i_vi++]=ii;
-                    vt[i_vi]=(points_pairs[ii] - (gdouble) guides[i_guides]) / teseo_p_distance(points_pairs[ii], points_pairs[ii+1], points_pairs[ii-9], points_pairs[ii-9+1]);
+                    teseo_bezier_point_setPoints_points_pairs(&tbp, points_pairs + ii - 9 );
+                    if(teseo_bezier_point_get_t_from_x(&tbp, guides[i_guides], &app_t)) {
+                        vt[i_vi] = app_t;
+                    } else {
+                        vt[i_vi] = 0.5;
+                    }
                     g_printf("add index %d in vi\n", ii);
                 } else {
                     ii+=9;
@@ -1102,6 +1111,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
         }
         vi[i_vi++]=num_path_point_details;
+        teseo_bezier_point_free(&tbp);
 
         // vi should contain (0, ..., ..., num_path_point_details)
         // vi contains at least 2 items (0, num_path_point_details)
