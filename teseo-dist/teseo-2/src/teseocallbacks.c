@@ -1397,19 +1397,6 @@ on_dlg_session_show_teseo_eventpathname
 
 
 void
-on_split_unlocked_paths1_activate      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-    gint32 *guides=NULL, n_guides;
-    n_guides = teseo_gimp_image_find_guides_orientation(teseo_image, GIMP_ORIENTATION_VERTICAL, &guides);
-    if(n_guides > 0) {
-        teseo_path_split_at_xs_all_unlocked(teseo_image, guides, n_guides);
-    }
-    g_free(guides);
-}
-
-
-void
 on_print_for_debug1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {

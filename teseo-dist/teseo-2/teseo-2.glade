@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image680">
+			    <widget class="GtkImage" id="image692">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -92,7 +92,7 @@
 				  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image681">
+				    <widget class="GtkImage" id="image693">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image682">
+			    <widget class="GtkImage" id="image694">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image683">
+				    <widget class="GtkImage" id="image695">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -239,7 +239,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image684">
+				    <widget class="GtkImage" id="image696">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -415,15 +415,6 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkMenuItem" id="split_unlocked_paths1">
-			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">_Split unlocked paths</property>
-			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_split_unlocked_paths1_activate" last_modification_time="Sat, 13 Aug 2005 10:10:10 GMT"/>
-			</widget>
-		      </child>
-
-		      <child>
 			<widget class="GtkMenuItem" id="align_unlocked_paths1">
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">Ali_gn unlocked paths</property>
@@ -564,7 +555,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image685">
+			    <widget class="GtkImage" id="image697">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -585,7 +576,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image686">
+			    <widget class="GtkImage" id="image698">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-home</property>
 			      <property name="icon_size">1</property>
