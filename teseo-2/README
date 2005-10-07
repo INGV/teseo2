@@ -8,30 +8,75 @@ Istituto Nazionale di Geofisica e Vulcanologia
 Web page: http://sismos.ingv.it/
 e-mail:   teseo@ingv.it
 
-This package is a plug-in for GIMP 2 capable of vectorize seismic trace from 
+This package is a plug-in for GIMP 2 capable of vectorize seismic trace from
 historical seismogram acquired in raster format.
 
-SOURCE CODE DISTRIBUTION
+- SOURCE CODE DISTRIBUTION
 To build and install it:
 	- refer to the file INSTALL
 	- requires build and install gtkaddons library, it is distributed with Teseo-2
 
-STATIC UNIX-LIKE BINARY DISTRIBUTION (linux, darwin, ...)
+- STATIC UNIX-LIKE BINARY DISTRIBUTION (linux, darwin, ...)
 To install it:
 	- refer to the file INSTALL
 	- unpack file teseo-2.x.x-bin-OPERATINGSYSTEM.tar.gz
 	- run script setup.sh from a shell
 
-WINDOWS BINARY DISTRIBUTION
+- WINDOWS BINARY DISTRIBUTION
 To install it:
 	- refer to the file INSTALL
 	- unpack file teseo-2.x.x-bin-win32.zip
 	- run teseo-2.x.x-setup.exe
 
-MACOSX BINARY DISTRIBUTION
+- MACOSX BINARY DISTRIBUTION
 To install it:
 	- refer to the file INSTALL
 	- download DMG or ISO image that contain Gimp.app with teseo-2 bundled
 
-EXAMPLES FILES:
+- EXAMPLES FILES:
 	docs/example.xcf.gz contains a seismogram portion and some vectorised path example
+
+- CONTRIBUTIONS:
+In teseo-2 sources has been integrated some other authors work, that are distributed respecting
+their copyright or license:
+
+NEWUOA     - Author:  M.J.D. Powell (mjdp@cam.ac.uk)
+
+CFORTRAN.h - Author: Burkhard Burow (burow@desy.de)  www: www-zeus.desy.de/~burow/cfortran
+
+- NEWUOA
+
+Teseo-2 use a library created from the original NEWUOA Fortran files with little changes to permit
+call of the routines from C code.
+
+From the original documentation of NEWUOA:
+
+This is the Fortran version of NEWUOA. Its purpose is to seek
+the least value of a function F of several variables, when derivatives
+are not available, where F is specified by the user through a subroutine
+called CALFUN. The algorithm is intended to change the variables to values
+that are close to a local minimum of F
+...
+The method is described in the report "The NEWUOA software for unconstrained optimization
+without derivatives", which is available on the web at www.damtp.cam.ac.uk, where
+you have to click on Numerical Analysis and then on Reports, the number
+of the report being NA2004/08
+...
+There are no restrictions on or charges for its use. If you wish to refer to it,
+please cite the DAMTP report that is mentioned above, which has been submitted for
+publication in the proceedings of the 40th Workshop on Large Scale Nonlinear
+Optimization (Erice, Italy, 2004).
+
+See the README file in NEWUOA Directory for other details.
+
+- CFORTRAN.H
+Teseo-2 use cfortran.h to call newuoa routines.
+
+From the original documentation of cfortran.h
+
+cfortran.h is an easy-to-use powerful bridge between C and FORTRAN. It provides a
+completely transparent, machine independent interface between C and FORTRAN routines
+(= subroutines and/or functions) and global data, i.e. structures and COMMON blocks.
+...
+See the file cfortran.doc for details and copyright notes.
+
