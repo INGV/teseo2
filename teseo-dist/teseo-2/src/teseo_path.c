@@ -1094,17 +1094,30 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                 if(points_pairs[ii] < guides[i_guides]) {
                     started = TRUE;
                 }
-                if(points_pairs[ii] >= guides[i_guides] && started) {
-                    need_split = TRUE;
-                    vi[i_vi++]=ii;
-                    teseo_bezier_point_setPoints_points_pairs(&tbp, &(points_pairs[ii - 9]));
-                    if(teseo_bezier_point_get_t_from_x(&tbp, guides[i_guides], &app_t)) {
-                        vt[i_vi-1] = app_t;
+                if(points_pairs[ii] >= guides[i_guides]
+                        && started) {
+                    if(vi[i_vi-1] != ii) {
+                        need_split = TRUE;
+                        vi[i_vi++]=ii;
+                        teseo_bezier_point_setPoints_points_pairs(&tbp, &(points_pairs[ii - 9]));
+                        if(teseo_bezier_point_get_t_from_x(&tbp, guides[i_guides], &app_t)) {
+                            vt[i_vi-1] = app_t;
+                        } else {
+                            vt[i_vi-1] = 0.5;
+                        }
+                        g_printf("add index %d in vi[%d]\n", ii, i_vi-1);
+                        g_printf("add index %f in vt[%d]\n", vt[i_vi-1], i_vi-1);
                     } else {
-                        vt[i_vi-1] = 0.5;
+                        g_message("Teseo2-Warning: there are more than one guide in a single bezier.\nVertical guide at x=%d discarded.", guides[i_guides]);
+                        if(i_guides == n_guides -1) {
+                            ii = num_path_point_details+1;
+                        } else {
+                            while( ii<num_path_point_details
+                                    && points_pairs[ii] < guides[i_guides+1]) {
+                                ii+=9;
+                            }
+                        }
                     }
-                    g_printf("add index %d in vi[%d]\n", ii, i_vi-1);
-                    g_printf("add index %f in vt[%d]\n", vt[i_vi-1], i_vi-1);
                 } else {
                     ii+=9;
                 }
@@ -1165,7 +1178,7 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
 
                 if(j_vi < i_vi-1) {
                     g_free(new_points_pairs_split);
-                    t = (vt[j_vi] > 0.0  &&  vt[j_vi] < 1.0)? vt[j_vi] : 0.5;
+                    t = (vt[j_vi] >= 0.0  &&  vt[j_vi] <= 1.0)? vt[j_vi] : 0.5;
                     g_printf("vt[%d] %f - t = %f\n", j_vi, vt[j_vi], t);
                     teseo_bezier_point_split_points_pairs(points_pairs_new + num_path_point_details_new - 6 - ( (j_vi==1)? 2 : 0 ), &new_points_pairs_split, t);
 

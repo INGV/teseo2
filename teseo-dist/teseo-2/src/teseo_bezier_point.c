@@ -398,7 +398,15 @@ gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble
         g_printf("x %f, (xt %f, yt %f) t_cmp %f (t_min %.10f, t_max %.10f)\n", x, xt, yt, t_cmp, t_min, t_max);
         
     } else {
-        g_printf("teseo_bezier_point_get_t_from_x(): x is not belonging to anchor points.\n");
+        if(x == tbp->Px[0]) {
+            ret = TRUE;
+            *t = 0.0;
+        } else if(x == tbp->Px[tbp->n_punti-1]) {
+            ret = TRUE;
+            *t = 1.0;
+        } else {
+            g_printf("teseo_bezier_point_get_t_from_x(): x=%f is not belonging to anchor points [%f, %f].\n", x, tbp->Px[0], tbp->Px[tbp->n_punti-1]);
+        }
     }
 
     if(iter >= max_iter) {
