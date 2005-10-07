@@ -31,104 +31,115 @@
 #include "teseo_filters.h"
 
 
-//to manage more layers, gimp add alpha channel in background layer
-#define BUFOUTXY(X, Y, width, bpp) bufout[ ((Y*width) + X ) * bpp]
-
 void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gint32 angle) {
-    GimpDrawable *drawable=NULL;
-    GimpPixelRgn pr, pr_dest;
-    int bpp = 0;
-    int i, j, s_j, d_j, k;
-    glong bufsize;
-    guchar *bufin=NULL;
-    guchar *bufout=NULL;
-    gboolean fill_condition, segment_length_condition;
-
-    gboolean non_empty;
-    gint x1, y1, x2, y2, width, height;
+    gint i, channels;
+    gint x1, y1, x2, y2;
+    GimpPixelRgn rgn_in, rgn_out;
+    guchar *row = NULL;
+    guchar *outrow = NULL;
+    gint width, height;
+    GimpDrawable *drawable;
 
     drawable=gimp_drawable_get(gimp_image_get_active_drawable(g_image));
 
-    gimp_selection_bounds(g_image, &non_empty, &x1, &y1, &x2, &y2);
-
-    if(!non_empty) {
-        gimp_drawable_offsets(drawable->drawable_id, &x1, &y1);
-        x2 = x1 + gimp_drawable_width(drawable->drawable_id) - 1;
-        y2 = y1 + gimp_drawable_height(drawable->drawable_id) - 1;
-
-    }
-
+    /* Gets upper left and lower right coordinates,
+     * and layers number in the image */
+    gimp_drawable_mask_bounds (drawable->drawable_id, &x1, &y1, &x2, &y2);
     width = x2 - x1;
     height = y2 - y1;
 
-    bpp = drawable->bpp;
-    bufsize=bpp * width * height;
+    gimp_progress_init ("Clean seismogram ...");
 
-    bufin = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
-    bufout = (guchar*) g_malloc( (sizeof(guchar)) * bufsize);
+    channels = gimp_drawable_bpp(drawable->drawable_id);
 
-    if ( (drawable != NULL) && (bufin != NULL) ) {
+    /* Allocate a big enough tile cache */
+    gimp_tile_cache_ntiles (2 * (drawable->width / 
+                gimp_tile_width () + 1));
 
-        //get bufin from the pixel region content
-        gimp_pixel_rgn_init(&pr, drawable, x1, y1, width, height, FALSE, FALSE);
-        gimp_pixel_rgn_init(&pr_dest, drawable, x1, y1, width, height, TRUE, TRUE);
+    /* Initialises two PixelRgns, one to read original data,
+     * and the other to write output data. That second one will
+     * be merged at the end by the call to
+     * gimp_drawable_merge_shadow() */
+    gimp_pixel_rgn_init (&rgn_in, drawable, x1, y1, width, height, 
+            FALSE, FALSE);
+    gimp_pixel_rgn_init (&rgn_out, drawable, x1, y1, width, height, 
+            TRUE, TRUE);
 
-        gimp_pixel_rgn_get_rect (&pr, bufin, x1, y1, width, height);
+    /* Allocate memory for input and output tile rows */
+    // init_mem(&row, &outrow, width * channels);
+    row = (guchar*) g_malloc( (sizeof(guchar)) * width * channels);
+    outrow = (guchar*) g_malloc( (sizeof(guchar)) * width * channels);
 
-        for(i=0; i < bufsize; i++) {
-            bufout[i] = bufin[i];
-        }
-
-        g_printf("teseo_filter_fill_continuous_segment() w %d, h %d, bpp %d\n", width, height, bpp);
-
-        for(i=0; i < height; i++) {
-            s_j = -1;
-            d_j = 0;
-            for(j=0; j < width; j++) {
-                fill_condition = (BUFOUTXY(j, i, width, bpp) > trace_colour - thresh_colour  &&
-                        BUFOUTXY(j, i, width, bpp) < trace_colour + thresh_colour);
-
-                if(fill_condition
-                        && j < width-1) {
-                    // g_printf("condition s_j %d, d_j %d\n", s_j, d_j);
-                    if(s_j == -1) {
-                        s_j = j;
-                        d_j = 0;
-                    }
-                    d_j++;
-                } else {
-                    if(s_j != -1) {
-                        segment_length_condition = (d_j >= segment_length);
-
-                        if(!fill_greater_segment_length) {
-                            segment_length_condition = !segment_length_condition;
-                        }
-
-                        if(segment_length_condition) {
-                            // change bufin from s_j for d_j elements
-                            // g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
-                            for(k=0; k < d_j; k++) {
-                                BUFOUTXY(s_j + k, i, width, bpp) = fill_colour;
-                            }
-                        }
-                        s_j = -1;
-                        d_j = 0;
-                    }
-                }
-            }
-        }
-
-        gimp_pixel_rgn_set_rect (&pr_dest, bufout, x1, y1, width, height);
-
-        gimp_drawable_flush(drawable);
-        gimp_drawable_merge_shadow (drawable->drawable_id, TRUE);
-        gimp_drawable_update (drawable->drawable_id, x1, y1, width, height);
-
-        gimp_displays_flush ();
-
+    for (i = 0; i < height; i++)
+    {
+        gimp_pixel_rgn_get_row (&rgn_in, row, x1, y1 + i, width);
+        /* To be done for each tile row */
+        process_row(row, outrow, width, channels, trace_colour, thresh_colour, fill_greater_segment_length, segment_length, fill_colour);
+        gimp_pixel_rgn_set_row(&rgn_out, outrow, x1, y1 + i, width);
+        /* shift tile rows to insert the new one at the end */
+        // shuffle(&rgn_in, row, x1, y1, width, height, i );
+        if (i % (height / 20) == 0)
+            gimp_progress_update ((gdouble) i / 
+                    (gdouble) height);
     }
 
-    g_free(bufin);
-    g_free(bufout);
+    gimp_progress_update(1.0);
+    gimp_progress_init ("Clean seismogram finished.");
+
+    g_free (row);
+    g_free (outrow);
+
+    /*  Update the modified region */
+    gimp_drawable_flush (drawable);
+    gimp_drawable_merge_shadow (drawable->drawable_id, TRUE);
+    gimp_drawable_update (drawable->drawable_id, x1, y1, width, height);
+
+    gimp_displays_flush ();
+}
+
+
+#define ROWOUTXY(X, width, channels) outrow[X  * channels]
+void process_row(guchar *row, guchar *outrow, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour) {
+    gboolean fill_condition, segment_length_condition;
+    int j, s_j, d_j, k;
+    s_j = -1;
+    d_j = 0;
+
+    for(j=0; j<width*channels; j++) {
+        outrow[j] = row[j];
+    }
+    
+    for(j=0; j < width; j++) {
+        fill_condition = (ROWOUTXY(j, width, channels) > trace_colour - thresh_colour  &&
+                ROWOUTXY(j, width, channels) < trace_colour + thresh_colour);
+
+        if(fill_condition
+                && j < width-1) {
+            // g_printf("condition s_j %d, d_j %d\n", s_j, d_j);
+            if(s_j == -1) {
+                s_j = j;
+                d_j = 0;
+            }
+            d_j++;
+        } else {
+            if(s_j != -1) {
+                segment_length_condition = (d_j >= segment_length);
+
+                if(!fill_greater_segment_length) {
+                    segment_length_condition = !segment_length_condition;
+                }
+
+                if(segment_length_condition) {
+                    // change bufin from s_j for d_j elements
+                    // g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
+                    for(k=0; k < d_j; k++) {
+                        ROWOUTXY(s_j + k, width, channels) = fill_colour;
+                    }
+                }
+                s_j = -1;
+                d_j = 0;
+            }
+        }
+    }
 }
 
