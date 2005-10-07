@@ -1082,9 +1082,9 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
         teseo_bezier_point_init(&tbp, 3, NULL, NULL);
         i_vi=0;
         vi[i_vi++]=0;
-        vt[i_vi]=0.0;
+        vt[i_vi-1]=0.0;
         for(i_guides=0; i_guides<n_guides; i_guides++) {
-            g_printf("i_guides %d, guides[i_guides] %d\n", i_guides, guides[i_guides]);
+            g_printf("\n* * *\ni_guides %d, guides[i_guides] %d\n", i_guides, guides[i_guides]);
 
             // Find first occurrence greater than n_guides[i_guides], take it in vi at index i_vi
             started = FALSE;
@@ -1097,13 +1097,14 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides) {
                 if(points_pairs[ii] >= guides[i_guides] && started) {
                     need_split = TRUE;
                     vi[i_vi++]=ii;
-                    teseo_bezier_point_setPoints_points_pairs(&tbp, points_pairs + ii - 9 );
+                    teseo_bezier_point_setPoints_points_pairs(&tbp, &(points_pairs[ii - 9]));
                     if(teseo_bezier_point_get_t_from_x(&tbp, guides[i_guides], &app_t)) {
-                        vt[i_vi] = app_t;
+                        vt[i_vi-1] = app_t;
                     } else {
-                        vt[i_vi] = 0.5;
+                        vt[i_vi-1] = 0.5;
                     }
-                    g_printf("add index %d in vi\n", ii);
+                    g_printf("add index %d in vi[%d]\n", ii, i_vi-1);
+                    g_printf("add index %f in vt[%d]\n", vt[i_vi-1], i_vi-1);
                 } else {
                     ii+=9;
                 }
