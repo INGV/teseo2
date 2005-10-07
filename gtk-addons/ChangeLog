@@ -1,3 +1,7 @@
+2005-10-06 09:28  Stefano Pintore  <pintore@ingv.it>
+
+	* src/gtkaddons.c (1.9): Removed debug g_printf.
+
 2005-08-30 11:57  Stefano Pintore  <pintore@ingv.it>
 
 	* src/gtkaddons.c (1.8): Windows patches.

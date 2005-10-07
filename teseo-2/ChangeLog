@@ -1,3 +1,58 @@
+2005-10-07 15:54  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_filters.c (1.6), teseo_filters.h (1.4): Optimized
+	  function teseo_filter_fill_continuous_segment() following HOW TO
+	  at	 http://developer.gimp.org/writing-a-plug-in/1/index.html
+
+2005-10-07 12:33  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_path.c (1.34), teseo_path.h (1.13), teseocallbacks.c
+	  (1.91), teseocallbacks.h (1.41), teseointerface.c (1.76):
+	  Enhanced path split functions
+
+2005-10-07 11:59  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_point.c (1.8), teseo_path.c (1.33): Good path
+	  split function
+
+2005-10-07 11:14  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_point.c (1.7), teseo_path.c (1.32): Fixed mal
+	  functioning in path split functions
+
+2005-10-06 16:26  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_point.c (1.6), teseo_bezier_point.h (1.5):
+	  Unfortunately, functions related to split function don't work
+	  well yet ;-(
+
+2005-10-06 15:53  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseo_path.c (1.31): Inserted
+	  teseo_bezier_point_get_t_from_x() call
+
+2005-10-06 12:36  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_bezier_pfit.c (1.13), teseo_bezier_pfit.h (1.5):
+	  Moved some #define
+
+2005-10-06 10:25  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.30): Minor changes
+
+2005-10-06 10:22  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseointerface.c (1.75): minors
+
+2005-10-06 10:00  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseointerface.c (1.74): Minor changes.
+
+2005-10-06 09:28  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_env.c (1.16), teseo_session.c (1.29): Removed debug
+	  g_printf.
+
 2005-10-05 17:30  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/teseo_path.c (1.30): Fixed mal assignment of the path names
