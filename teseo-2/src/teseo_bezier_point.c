@@ -206,10 +206,9 @@ int teseo_bezier_point_Grado(struct teseo_bezier_point *tbp) {
 }
 
 gdouble new_coord(gdouble p1, gdouble p2, gdouble t) {
-    return p1 + ( (1.0- t) * ( p2 -  p1) );
+    return p1 + ( (t) * ( p2 -  p1) );
 }
 
-// #define new_coord(p1, p2, t)  ((gdouble) p1 + ((1.0-(gdouble) t) * ((gdouble) p2 - (gdouble) p1)))
 
 int teseo_bezier_point_split(struct teseo_bezier_point *tbp, struct teseo_bezier_point *tbp_split1, struct teseo_bezier_point *tbp_split2, gdouble t) {
     int ret = 1;
@@ -339,7 +338,7 @@ void teseo_bezier_point_get_xy_from_t(struct teseo_bezier_point *tbp, gdouble t,
     *x = Pxi[0];
     *y = Pyi[0];
 
-    g_printf("teseo_bezier_point_get_xy_from_t() t %f, x %f, y %f\n", t, *x, *y);
+    // g_printf("teseo_bezier_point_get_xy_from_t() t %f, x %f, y %f\n", t, *x, *y);
 
     g_free(Pxi);
     g_free(Pyi);
@@ -352,7 +351,7 @@ gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble
     gdouble app;
     gdouble t_cmp=0.5, t_min, t_max;
     gdouble xt, yt;
-    const gint max_iter = 1000;
+    const gint max_iter = 50;
     gint iter=0;
 
     g_printf("teseo_bezier_point_get_t_from_x() called, x %f\n", x);
@@ -380,7 +379,7 @@ gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble
         iter = 0;
         while(ret == FALSE  &&  iter < max_iter) {
             teseo_bezier_point_get_xy_from_t(tbp, t_cmp, &xt, &yt);
-            g_printf("xt %f, x %f (t_min %.10f, t_max %.10f)\n", xt, x, t_min, t_max);
+            // g_printf("x %f, (xt %f, yt %f) t_cmp %f (t_min %.10f, t_max %.10f)\n", x, xt, yt, t_cmp, t_min, t_max);
 
             if((t_max - t_min) < 1.0e-36) {
             // if(fabs(xt - x) < 1.0e-6)
@@ -396,6 +395,7 @@ gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble
             t_cmp = t_min + ((t_max - t_min) / 2.0);
             iter++;
         }
+        g_printf("x %f, (xt %f, yt %f) t_cmp %f (t_min %.10f, t_max %.10f)\n", x, xt, yt, t_cmp, t_min, t_max);
         
     } else {
         g_printf("teseo_bezier_point_get_t_from_x(): x is not belonging to anchor points.\n");
