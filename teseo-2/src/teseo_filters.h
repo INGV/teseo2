@@ -42,4 +42,9 @@
   */
 void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gint32 angle);
 
+/*!
+  TODO
+  */
+void process_row(guchar *row, guchar *outrow, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour);
+
 #endif
