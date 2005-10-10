@@ -1659,6 +1659,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     gint32 clean_length = 35;
     gboolean clean_horizontal = TRUE;
     gboolean clean_newlayer = FALSE;
+    gboolean clean_transparent = FALSE;
     gint32 teseo_active_layer, teseo_copy_layer;
 
     GtkSpinButton *teseo_clean_colour = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_colour_spinbutton", clean_colour);
@@ -1668,6 +1669,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     GtkSpinButton *teseo_clean_length = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
     GtkRadioButton * teseo_clean_horizontal = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_horizontal_radiobutton", 0);
     GtkCheckButton * teseo_clean_newlayer = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_newlayer_checkbutton", 0);
+    GtkCheckButton * teseo_clean_transparent = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_transparent_checkbutton", 0);
 
     if(teseo_clean_colour) {
         clean_colour = gtk_spin_button_get_value (teseo_clean_colour);
@@ -1690,6 +1692,8 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     clean_horizontal = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_clean_horizontal));
 
     clean_newlayer = gtk_toggle_button_get_active((GtkToggleButton *) teseo_clean_newlayer);
+
+    clean_transparent = gtk_toggle_button_get_active((GtkToggleButton *) teseo_clean_transparent);
     
     // Add a new layer if needed
     if(clean_newlayer) {
@@ -1710,7 +1714,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
         }
     }
     
-    teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal);
+    teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal, clean_transparent);
     g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal);
 }
 

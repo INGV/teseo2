@@ -31,7 +31,7 @@
 #include "teseo_filters.h"
 
 
-void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean horizontal) {
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean horizontal, gboolean transparent) {
     gint i, channels;
     gint x1, y1, x2, y2;
     GimpPixelRgn rgn_in, rgn_out;
@@ -97,7 +97,7 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
         }
 
         /* To be done for each tile line */
-        process_line(line, outline, length, channels, trace_colour, thresh_colour, fill_greater_segment_length, segment_length, fill_colour);
+        process_line(line, outline, length, channels, trace_colour, thresh_colour, fill_greater_segment_length, segment_length, fill_colour, transparent);
 
         if(horizontal) {
             gimp_pixel_rgn_set_row(&rgn_out, outline, x1, y1 + i, length);
@@ -128,7 +128,64 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
 }
 
 
-void process_line(guchar *line, guchar *outline, gint length, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour) {
+void process_line(guchar *line, guchar *outline, gint length, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean trasparent) {
+    gboolean fill_condition, segment_length_condition;
+    int j, s_j, d_j, k;
+    s_j = -1;
+    d_j = 0;
+
+    // copy line to outline
+    for(j=0; j< (length*channels); j++) {
+        outline[j] = line[j];
+    }
+    
+    if(channels == 2  &&  trasparent) {
+        for(j=0; j<length; j++) {
+            outline[ (j*channels) + 1] = 0;
+        }
+    }
+
+    // execute filling
+    for(j=0; j < length; j++) {
+        fill_condition = (outline[j * channels] > trace_colour - thresh_colour
+                && outline[j * channels] < trace_colour + thresh_colour);
+
+        if(fill_condition
+                && j < length-1) {
+            // g_printf("condition s_j %d, d_j %d\n", s_j, d_j);
+            if(s_j == -1) {
+                s_j = j;
+                d_j = 0;
+            }
+            d_j++;
+        } else {
+            if(s_j != -1) {
+                segment_length_condition = (d_j >= segment_length);
+
+                if(!fill_greater_segment_length) {
+                    segment_length_condition = !segment_length_condition;
+                }
+
+                if(segment_length_condition) {
+                    // change bufin from s_j for d_j elements
+                    // g_printf("change at (%d,%d) from s_j %d, for d_j %d\n", j, i, s_j, d_j);
+                    for(k=0; k < d_j; k++) {
+                        outline[(s_j + k) * channels] = fill_colour;
+                        if(channels == 2  && trasparent) {
+                            outline[((s_j + k) * channels ) + 1] = 255;
+                        }
+                    }
+                }
+                s_j = -1;
+                d_j = 0;
+            }
+        }
+    }
+
+}
+
+
+void process_line_(guchar *line, guchar *outline, gint length, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour) {
     gboolean fill_condition, segment_length_condition;
     int j, s_j, d_j, k;
     s_j = -1;
