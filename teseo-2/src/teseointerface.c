@@ -228,7 +228,6 @@ create_win_teseo (void)
   GtkObject *teseo_clean_fill_colour_spinbutton_adj;
   GtkWidget *teseo_clean_fill_colour_spinbutton;
   GtkWidget *vbox84;
-  GtkWidget *teseo_clean_newlayer_checkbutton;
   GtkWidget *vbox81;
   GtkWidget *teseo_clean_horizontal_radiobutton;
   GSList *teseo_clean_horizontal_radiobutton_group = NULL;
@@ -242,6 +241,9 @@ create_win_teseo (void)
   GtkWidget *label281;
   GtkObject *teseo_clean_length_spinbutton_adj;
   GtkWidget *teseo_clean_length_spinbutton;
+  GtkWidget *hbox59;
+  GtkWidget *teseo_clean_newlayer_checkbutton;
+  GtkWidget *teseo_clean_transparent_checkbutton;
   GtkWidget *label269;
   GtkWidget *label266;
   GtkWidget *statusbar;
@@ -1406,11 +1408,6 @@ create_win_teseo (void)
   gtk_widget_show (vbox84);
   gtk_box_pack_start (GTK_BOX (hbox58), vbox84, FALSE, FALSE, 0);
 
-  teseo_clean_newlayer_checkbutton = gtk_check_button_new_with_mnemonic ("New layer");
-  gtk_widget_set_name (teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
-  gtk_widget_show (teseo_clean_newlayer_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox84), teseo_clean_newlayer_checkbutton, FALSE, FALSE, 0);
-
   vbox81 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox81, "vbox81");
   gtk_widget_show (vbox81);
@@ -1475,6 +1472,21 @@ create_win_teseo (void)
   gtk_box_pack_start (GTK_BOX (hbox56), teseo_clean_length_spinbutton, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
+
+  hbox59 = gtk_hbox_new (FALSE, 18);
+  gtk_widget_set_name (hbox59, "hbox59");
+  gtk_widget_show (hbox59);
+  gtk_box_pack_start (GTK_BOX (vbox83), hbox59, TRUE, TRUE, 0);
+
+  teseo_clean_newlayer_checkbutton = gtk_check_button_new_with_mnemonic ("New layer");
+  gtk_widget_set_name (teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
+  gtk_widget_show (teseo_clean_newlayer_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_clean_newlayer_checkbutton, FALSE, FALSE, 0);
+
+  teseo_clean_transparent_checkbutton = gtk_check_button_new_with_mnemonic ("Transparent");
+  gtk_widget_set_name (teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
+  gtk_widget_show (teseo_clean_transparent_checkbutton);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_clean_transparent_checkbutton, FALSE, FALSE, 0);
 
   label269 = gtk_label_new ("<b>Parameters</b>");
   gtk_widget_set_name (label269, "label269");
@@ -1815,7 +1827,6 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox84, "vbox84");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox81, "vbox81");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
@@ -1826,6 +1837,9 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_less_radiobutton, "teseo_clean_less_radiobutton");
   GLADE_HOOKUP_OBJECT (win_teseo, label281, "label281");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox59, "hbox59");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, label269, "label269");
   GLADE_HOOKUP_OBJECT (win_teseo, label266, "label266");
   GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
