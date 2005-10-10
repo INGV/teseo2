@@ -39,12 +39,13 @@
   \param segment_length
   \param fill_colour value of the colour used to fill segment
   \param horizontal is TRUE, else is vertical
+  \param transparent if TRUE will displayed only filled zone
   */
-void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean horizontal);
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean horizontal, gboolean transparent);
 
 /*!
   TODO
   */
-void process_line(guchar *line, guchar *outline, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour);
+void process_line(guchar *line, guchar *outline, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean trasparent);
 
 #endif
