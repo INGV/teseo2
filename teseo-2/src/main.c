@@ -31,6 +31,9 @@
 
 #include <libgimp/gimp.h>
 #include <libgimp/gimpui.h>
+#include <glib.h>
+#include <glib/gprintf.h>
+
 
 #include "main.h"
 #include "interface.h"

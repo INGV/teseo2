@@ -33,7 +33,6 @@
 #include <glib.h>
 #include <glib/gprintf.h>
 
-
 #include "teseocallbacks.h"
 #include "teseointerface.h"
 #include "teseosupport.h"
@@ -1656,16 +1655,19 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     gint32 clean_colour = 0;
     gint32 clean_threshold = 150;
     gint32 clean_fill_colour = 255;
-    gint32 clean_max = 0;
+    gboolean clean_greater = TRUE;
     gint32 clean_length = 35;
-    gint32 clean_angle = 0;
+    gboolean clean_horizontal = TRUE;
+    gboolean clean_newlayer = FALSE;
+    gint32 teseo_active_layer, teseo_copy_layer;
 
-    GtkSpinButton *teseo_clean_colour = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_colour_spinbutton", clean_colour);
-    GtkSpinButton *teseo_clean_threshold = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_threshold_spinbutton", clean_threshold);
-    GtkSpinButton *teseo_clean_fill_colour = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_fill_colour_spinbutton", clean_fill_colour);
-    GtkSpinButton *teseo_clean_max = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_max_spinbutton", clean_max);
-    GtkSpinButton *teseo_clean_length = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
-    GtkSpinButton *teseo_clean_angle = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_angle_spinbutton", clean_angle);
+    GtkSpinButton *teseo_clean_colour = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_colour_spinbutton", clean_colour);
+    GtkSpinButton *teseo_clean_threshold = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_threshold_spinbutton", clean_threshold);
+    GtkSpinButton *teseo_clean_fill_colour = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_fill_colour_spinbutton", clean_fill_colour);
+    GtkRadioButton * teseo_clean_greather = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_greater_radiobutton", 0);
+    GtkSpinButton *teseo_clean_length = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
+    GtkRadioButton * teseo_clean_horizontal = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_horizontal_radiobutton", 0);
+    GtkCheckButton * teseo_clean_newlayer = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_newlayer_checkbutton", 0);
 
     if(teseo_clean_colour) {
         clean_colour = gtk_spin_button_get_value (teseo_clean_colour);
@@ -1679,22 +1681,37 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
         clean_fill_colour = gtk_spin_button_get_value (teseo_clean_fill_colour);
     }
 
-    if(teseo_clean_max) {
-        clean_max = gtk_spin_button_get_value (teseo_clean_max);
-    }
+    clean_greater = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_clean_greather));
 
     if(teseo_clean_length) {
         clean_length = gtk_spin_button_get_value (teseo_clean_length);
     }
 
-    if(teseo_clean_angle) {
-        clean_angle = gtk_spin_button_get_value (teseo_clean_angle);
-    }
+    clean_horizontal = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_clean_horizontal));
 
+    clean_newlayer = gtk_toggle_button_get_active((GtkToggleButton *) teseo_clean_newlayer);
     
-    // teseo_filter_fill_continuous_segment(teseo_image, 0, 200, TRUE, 35, 255, 0);
-    teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, (gboolean) clean_max, clean_length, clean_fill_colour, clean_angle);
-    g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_max, clean_length, clean_fill_colour, clean_angle);
+    // Add a new layer if needed
+    if(clean_newlayer) {
+        // gint32      gimp_image_get_active_layer     (gint32 image_ID); != -1
+        teseo_active_layer = gimp_image_get_active_layer     (teseo_image);
+        if(teseo_active_layer != -1) {
+            // gint32      gimp_layer_copy                 (gint32 layer_ID);
+            teseo_copy_layer = gimp_layer_copy(teseo_active_layer);
+            // gboolean    gimp_layer_add_alpha            (gint32 layer_ID);
+            gimp_layer_add_alpha(teseo_copy_layer);
+            // gboolean    gimp_image_add_layer            (gint32 image_ID, gint32 layer_ID, gint position); position=-1
+            if(gimp_image_add_layer(teseo_image, teseo_copy_layer, -1)) {
+                // gboolean    gimp_image_set_active_layer     (gint32 image_ID, gint32 active_layer_ID);
+                gimp_image_set_active_layer(teseo_image, teseo_copy_layer);
+            }
+        } else {
+            g_message("Teseo2: no layer is active !");
+        }
+    }
+    
+    teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal);
+    g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal);
 }
 
 

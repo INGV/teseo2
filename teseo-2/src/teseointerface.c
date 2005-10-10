@@ -215,25 +215,31 @@ create_win_teseo (void)
   GtkWidget *label75;
   GtkWidget *vbox79;
   GtkWidget *frame74;
-  GtkWidget *hbox51;
-  GtkWidget *table21;
+  GtkWidget *vbox83;
+  GtkWidget *hbox58;
+  GtkWidget *table24;
+  GtkWidget *label268;
   GtkWidget *label267;
+  GtkWidget *label273;
   GtkObject *teseo_clean_colour_spinbutton_adj;
   GtkWidget *teseo_clean_colour_spinbutton;
   GtkObject *teseo_clean_threshold_spinbutton_adj;
   GtkWidget *teseo_clean_threshold_spinbutton;
-  GtkWidget *label268;
-  GtkWidget *label273;
   GtkObject *teseo_clean_fill_colour_spinbutton_adj;
   GtkWidget *teseo_clean_fill_colour_spinbutton;
-  GtkWidget *table22;
-  GtkWidget *label277;
-  GtkObject *teseo_clean_max_spinbutton_adj;
-  GtkWidget *teseo_clean_max_spinbutton;
+  GtkWidget *vbox84;
+  GtkWidget *teseo_clean_newlayer_checkbutton;
+  GtkWidget *vbox81;
+  GtkWidget *teseo_clean_horizontal_radiobutton;
+  GSList *teseo_clean_horizontal_radiobutton_group = NULL;
+  GtkWidget *teseo_clean_vertical_radiobutton;
+  GtkWidget *hbox56;
   GtkWidget *label278;
-  GtkObject *teseo_clean_angle_spinbutton_adj;
-  GtkWidget *teseo_clean_angle_spinbutton;
-  GtkWidget *label280;
+  GtkWidget *vbox80;
+  GtkWidget *teseo_clean_greater_radiobutton;
+  GSList *teseo_clean_greater_radiobutton_group = NULL;
+  GtkWidget *teseo_clean_less_radiobutton;
+  GtkWidget *label281;
   GtkObject *teseo_clean_length_spinbutton_adj;
   GtkWidget *teseo_clean_length_spinbutton;
   GtkWidget *label269;
@@ -1323,137 +1329,150 @@ create_win_teseo (void)
   gtk_box_pack_start (GTK_BOX (vbox79), frame74, FALSE, TRUE, 0);
   gtk_frame_set_shadow_type (GTK_FRAME (frame74), GTK_SHADOW_NONE);
 
-  hbox51 = gtk_hbox_new (FALSE, 20);
-  gtk_widget_set_name (hbox51, "hbox51");
-  gtk_widget_show (hbox51);
-  gtk_container_add (GTK_CONTAINER (frame74), hbox51);
+  vbox83 = gtk_vbox_new (FALSE, 5);
+  gtk_widget_set_name (vbox83, "vbox83");
+  gtk_widget_show (vbox83);
+  gtk_container_add (GTK_CONTAINER (frame74), vbox83);
 
-  table21 = gtk_table_new (3, 2, FALSE);
-  gtk_widget_set_name (table21, "table21");
-  gtk_widget_show (table21);
-  gtk_box_pack_start (GTK_BOX (hbox51), table21, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (table21), 4);
-  gtk_table_set_row_spacings (GTK_TABLE (table21), 4);
-  gtk_table_set_col_spacings (GTK_TABLE (table21), 4);
+  hbox58 = gtk_hbox_new (FALSE, 16);
+  gtk_widget_set_name (hbox58, "hbox58");
+  gtk_widget_show (hbox58);
+  gtk_box_pack_start (GTK_BOX (vbox83), hbox58, FALSE, FALSE, 0);
 
-  label267 = gtk_label_new ("Threshold");
-  gtk_widget_set_name (label267, "label267");
-  gtk_widget_show (label267);
-  gtk_table_attach (GTK_TABLE (table21), label267, 0, 1, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label267), 0, 0.5);
-  gtk_misc_set_padding (GTK_MISC (label267), 10, 0);
+  table24 = gtk_table_new (3, 2, FALSE);
+  gtk_widget_set_name (table24, "table24");
+  gtk_widget_show (table24);
+  gtk_box_pack_start (GTK_BOX (hbox58), table24, FALSE, FALSE, 0);
+  gtk_table_set_row_spacings (GTK_TABLE (table24), 4);
 
-  teseo_clean_colour_spinbutton_adj = gtk_adjustment_new (0, 0, 255, 1, 10, 10);
-  teseo_clean_colour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_colour_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_clean_colour_spinbutton, "teseo_clean_colour_spinbutton");
-  gtk_widget_show (teseo_clean_colour_spinbutton);
-  gtk_table_attach (GTK_TABLE (table21), teseo_clean_colour_spinbutton, 1, 2, 0, 1,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_colour_spinbutton), TRUE);
-
-  teseo_clean_threshold_spinbutton_adj = gtk_adjustment_new (0, 0, 255, 1, 10, 10);
-  teseo_clean_threshold_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_threshold_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
-  gtk_widget_show (teseo_clean_threshold_spinbutton);
-  gtk_table_attach (GTK_TABLE (table21), teseo_clean_threshold_spinbutton, 1, 2, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
-  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
-
-  label268 = gtk_label_new ("Colour");
+  label268 = gtk_label_new ("Base colour");
   gtk_widget_set_name (label268, "label268");
   gtk_widget_show (label268);
-  gtk_table_attach (GTK_TABLE (table21), label268, 0, 1, 0, 1,
+  gtk_table_attach (GTK_TABLE (table24), label268, 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label268), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label268), 10, 0);
 
+  label267 = gtk_label_new ("Threshold");
+  gtk_widget_set_name (label267, "label267");
+  gtk_widget_show (label267);
+  gtk_table_attach (GTK_TABLE (table24), label267, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label267), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label267), 10, 0);
+
   label273 = gtk_label_new ("Fill Colour");
   gtk_widget_set_name (label273, "label273");
   gtk_widget_show (label273);
-  gtk_table_attach (GTK_TABLE (table21), label273, 0, 1, 2, 3,
+  gtk_table_attach (GTK_TABLE (table24), label273, 0, 1, 2, 3,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label273), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label273), 10, 0);
 
+  teseo_clean_colour_spinbutton_adj = gtk_adjustment_new (0, 0, 255, 1, 10, 10);
+  teseo_clean_colour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_colour_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_colour_spinbutton, "teseo_clean_colour_spinbutton");
+  gtk_widget_show (teseo_clean_colour_spinbutton);
+  gtk_table_attach (GTK_TABLE (table24), teseo_clean_colour_spinbutton, 1, 2, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_colour_spinbutton), TRUE);
+
+  teseo_clean_threshold_spinbutton_adj = gtk_adjustment_new (128, 0, 255, 1, 10, 10);
+  teseo_clean_threshold_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_threshold_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
+  gtk_widget_show (teseo_clean_threshold_spinbutton);
+  gtk_table_attach (GTK_TABLE (table24), teseo_clean_threshold_spinbutton, 1, 2, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
+  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_threshold_spinbutton), TRUE);
+
   teseo_clean_fill_colour_spinbutton_adj = gtk_adjustment_new (255, 0, 255, 1, 10, 10);
   teseo_clean_fill_colour_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_fill_colour_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
   gtk_widget_show (teseo_clean_fill_colour_spinbutton);
-  gtk_table_attach (GTK_TABLE (table21), teseo_clean_fill_colour_spinbutton, 1, 2, 2, 3,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+  gtk_table_attach (GTK_TABLE (table24), teseo_clean_fill_colour_spinbutton, 1, 2, 2, 3,
+                    (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_fill_colour_spinbutton), TRUE);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_fill_colour_spinbutton), TRUE);
 
-  table22 = gtk_table_new (3, 2, FALSE);
-  gtk_widget_set_name (table22, "table22");
-  gtk_widget_show (table22);
-  gtk_box_pack_start (GTK_BOX (hbox51), table22, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (table22), 4);
-  gtk_table_set_row_spacings (GTK_TABLE (table22), 4);
-  gtk_table_set_col_spacings (GTK_TABLE (table22), 4);
+  vbox84 = gtk_vbox_new (FALSE, 8);
+  gtk_widget_set_name (vbox84, "vbox84");
+  gtk_widget_show (vbox84);
+  gtk_box_pack_start (GTK_BOX (hbox58), vbox84, FALSE, FALSE, 0);
 
-  label277 = gtk_label_new ("Max");
-  gtk_widget_set_name (label277, "label277");
-  gtk_widget_show (label277);
-  gtk_table_attach (GTK_TABLE (table22), label277, 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label277), 0, 0.5);
-  gtk_misc_set_padding (GTK_MISC (label277), 10, 0);
+  teseo_clean_newlayer_checkbutton = gtk_check_button_new_with_mnemonic ("New layer");
+  gtk_widget_set_name (teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
+  gtk_widget_show (teseo_clean_newlayer_checkbutton);
+  gtk_box_pack_start (GTK_BOX (vbox84), teseo_clean_newlayer_checkbutton, FALSE, FALSE, 0);
 
-  teseo_clean_max_spinbutton_adj = gtk_adjustment_new (0, 0, 1, 1, 1, 1);
-  teseo_clean_max_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_max_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_clean_max_spinbutton, "teseo_clean_max_spinbutton");
-  gtk_widget_show (teseo_clean_max_spinbutton);
-  gtk_table_attach (GTK_TABLE (table22), teseo_clean_max_spinbutton, 1, 2, 0, 1,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_max_spinbutton), TRUE);
-  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_max_spinbutton), TRUE);
+  vbox81 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox81, "vbox81");
+  gtk_widget_show (vbox81);
+  gtk_box_pack_start (GTK_BOX (vbox84), vbox81, TRUE, TRUE, 0);
 
-  label278 = gtk_label_new ("Length");
+  teseo_clean_horizontal_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Horizontal");
+  gtk_widget_set_name (teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
+  gtk_widget_show (teseo_clean_horizontal_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox81), teseo_clean_horizontal_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton), teseo_clean_horizontal_radiobutton_group);
+  teseo_clean_horizontal_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton));
+
+  teseo_clean_vertical_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "vertical");
+  gtk_widget_set_name (teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
+  gtk_widget_show (teseo_clean_vertical_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox81), teseo_clean_vertical_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton), teseo_clean_horizontal_radiobutton_group);
+  teseo_clean_horizontal_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton));
+
+  hbox56 = gtk_hbox_new (FALSE, 4);
+  gtk_widget_set_name (hbox56, "hbox56");
+  gtk_widget_show (hbox56);
+  gtk_box_pack_start (GTK_BOX (vbox83), hbox56, FALSE, FALSE, 0);
+
+  label278 = gtk_label_new ("Length is");
   gtk_widget_set_name (label278, "label278");
   gtk_widget_show (label278);
-  gtk_table_attach (GTK_TABLE (table22), label278, 0, 1, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
+  gtk_box_pack_start (GTK_BOX (hbox56), label278, FALSE, FALSE, 0);
   gtk_misc_set_alignment (GTK_MISC (label278), 0, 0.5);
   gtk_misc_set_padding (GTK_MISC (label278), 10, 0);
 
-  teseo_clean_angle_spinbutton_adj = gtk_adjustment_new (0, 0, 90, 90, 90, 90);
-  teseo_clean_angle_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_angle_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_clean_angle_spinbutton, "teseo_clean_angle_spinbutton");
-  gtk_widget_show (teseo_clean_angle_spinbutton);
-  gtk_table_attach (GTK_TABLE (table22), teseo_clean_angle_spinbutton, 1, 2, 2, 3,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_angle_spinbutton), TRUE);
-  gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_angle_spinbutton), TRUE);
+  vbox80 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox80, "vbox80");
+  gtk_widget_show (vbox80);
+  gtk_box_pack_start (GTK_BOX (hbox56), vbox80, FALSE, FALSE, 0);
 
-  label280 = gtk_label_new ("Angle");
-  gtk_widget_set_name (label280, "label280");
-  gtk_widget_show (label280);
-  gtk_table_attach (GTK_TABLE (table22), label280, 0, 1, 2, 3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label280), 0, 0.5);
-  gtk_misc_set_padding (GTK_MISC (label280), 10, 0);
+  teseo_clean_greater_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "greater");
+  gtk_widget_set_name (teseo_clean_greater_radiobutton, "teseo_clean_greater_radiobutton");
+  gtk_widget_show (teseo_clean_greater_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox80), teseo_clean_greater_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_greater_radiobutton), teseo_clean_greater_radiobutton_group);
+  teseo_clean_greater_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_greater_radiobutton));
 
-  teseo_clean_length_spinbutton_adj = gtk_adjustment_new (10, 1, 10000, 1, 10, 10);
+  teseo_clean_less_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "less");
+  gtk_widget_set_name (teseo_clean_less_radiobutton, "teseo_clean_less_radiobutton");
+  gtk_widget_show (teseo_clean_less_radiobutton);
+  gtk_box_pack_start (GTK_BOX (vbox80), teseo_clean_less_radiobutton, FALSE, FALSE, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_less_radiobutton), teseo_clean_greater_radiobutton_group);
+  teseo_clean_greater_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_less_radiobutton));
+
+  label281 = gtk_label_new ("than");
+  gtk_widget_set_name (label281, "label281");
+  gtk_widget_show (label281);
+  gtk_box_pack_start (GTK_BOX (hbox56), label281, FALSE, FALSE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label281), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label281), 10, 0);
+
+  teseo_clean_length_spinbutton_adj = gtk_adjustment_new (20, 1, 10000, 1, 10, 10);
   teseo_clean_length_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_clean_length_spinbutton_adj), 1, 0);
   gtk_widget_set_name (teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
   gtk_widget_show (teseo_clean_length_spinbutton);
-  gtk_table_attach (GTK_TABLE (table22), teseo_clean_length_spinbutton, 1, 2, 1, 2,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
+  gtk_box_pack_start (GTK_BOX (hbox56), teseo_clean_length_spinbutton, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
 
@@ -1786,20 +1805,26 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, label75, "label75");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox79, "vbox79");
   GLADE_HOOKUP_OBJECT (win_teseo, frame74, "frame74");
-  GLADE_HOOKUP_OBJECT (win_teseo, hbox51, "hbox51");
-  GLADE_HOOKUP_OBJECT (win_teseo, table21, "table21");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox83, "vbox83");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox58, "hbox58");
+  GLADE_HOOKUP_OBJECT (win_teseo, table24, "table24");
+  GLADE_HOOKUP_OBJECT (win_teseo, label268, "label268");
   GLADE_HOOKUP_OBJECT (win_teseo, label267, "label267");
+  GLADE_HOOKUP_OBJECT (win_teseo, label273, "label273");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_colour_spinbutton, "teseo_clean_colour_spinbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_threshold_spinbutton, "teseo_clean_threshold_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_teseo, label268, "label268");
-  GLADE_HOOKUP_OBJECT (win_teseo, label273, "label273");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_teseo, table22, "table22");
-  GLADE_HOOKUP_OBJECT (win_teseo, label277, "label277");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_max_spinbutton, "teseo_clean_max_spinbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox84, "vbox84");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox81, "vbox81");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, hbox56, "hbox56");
   GLADE_HOOKUP_OBJECT (win_teseo, label278, "label278");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_angle_spinbutton, "teseo_clean_angle_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_teseo, label280, "label280");
+  GLADE_HOOKUP_OBJECT (win_teseo, vbox80, "vbox80");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_greater_radiobutton, "teseo_clean_greater_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_less_radiobutton, "teseo_clean_less_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label281, "label281");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, label269, "label269");
   GLADE_HOOKUP_OBJECT (win_teseo, label266, "label266");
