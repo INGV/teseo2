@@ -38,13 +38,13 @@
   \param fill_greater_segment_length if TRUE, function fills segment greater than length, else it fills segment less than length
   \param segment_length
   \param fill_colour value of the colour used to fill segment
-  \param angle at the moment it's possible use 0, horizontal line, or not equal to 0, vertical line
+  \param horizontal is TRUE, else is vertical
   */
-void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gint32 angle);
+void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour, gboolean horizontal);
 
 /*!
   TODO
   */
-void process_row(guchar *row, guchar *outrow, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour);
+void process_line(guchar *line, guchar *outline, gint width, gint channels, gint32 trace_colour, gint32 thresh_colour, gboolean fill_greater_segment_length, gint32 segment_length, gint32 fill_colour);
 
 #endif
