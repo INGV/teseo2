@@ -37,7 +37,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 	int ret=0;
 	gchar name[80]; //corto?
 
-	//g_sprintf(name, "%s",gtk_widget_get_name(widget));
+	g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -46,7 +46,7 @@ int is_token_widget(GtkWidget * widget, const char * token) {
 int is_marked_widget(GtkWidget * widget) {
 	int ret=0;
 	gchar name[80]; //corto?
-	//g_sprintf(name, "%s",gtk_widget_get_name(widget));
+	g_sprintf(name, "%s",gtk_widget_get_name(widget));
 	if ( strstr(name,token) != NULL)
 		ret=1;
 	return ret;
@@ -188,7 +188,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.9 2005-10-06 07:28:11 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.10 2005-10-10 06:26:15 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
