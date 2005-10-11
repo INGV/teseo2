@@ -303,7 +303,6 @@ char* create_name(char * dirname, char* order, char* ext){
 
 gchar test_session(char * filename){
     GDir  * dir = NULL;
-    gchar * entry = NULL;
 
     gchar * basename=NULL;
     gchar * basename_noext = NULL;
@@ -328,8 +327,8 @@ gchar test_session(char * filename){
     //g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
 
     if ( dir!=NULL ) {
-      while ( ( entry=g_dir_read_name (dir) ) != NULL ){ //don't free entry
-	myentry=g_strdup(entry);
+      while ( g_dir_read_name (dir)  != NULL ){ //don't free entry
+	myentry=g_strdup(g_dir_read_name (dir));
 	//g_printf("test_session::myentry %s\n",myentry );
 	//First looking for basename
 	if (g_strrstr(myentry,basename_noext)!=NULL)

@@ -40,7 +40,7 @@ const char TESEO_DATA_deprecated[] = "TESEO_DATA";
 
 
 const gchar * teseo_caption(gboolean ver_devel) {
-    static gchar * caption[200];
+    static gchar caption[200];
     if(ver_devel) {
 	g_sprintf(caption, "Teseo %d.%d.%d", PLUGIN_MAJOR_VERSION, PLUGIN_MINOR_VERSION, PLUGIN_MICRO_VERSION);
     } else {
@@ -118,10 +118,8 @@ char *getenv_teseo_deprecated(const char *name_var) {
 char * teseo_get_teseo_environment_path( ){
 
     gchar * bf;
-    gchar * pathbase;
 
-    pathbase=gimp_directory();
-    bf=g_strdup_printf("%s%s%s",pathbase,G_DIR_SEPARATOR_S,PROCEDURE_NAME);
+    bf=g_strdup_printf("%s%s%s",gimp_directory(),G_DIR_SEPARATOR_S,PROCEDURE_NAME);
     //g_printf("\nDebug 2 %s \n",bf );
     return bf;
 }
@@ -130,7 +128,7 @@ char * teseo_get_teseo_environment_path( ){
 char * teseo_get_environment_path( int pathname ){
 
     gchar * pathbase=NULL;
-    gchar * path;
+    gchar * path = NULL;
 
     pathbase = teseo_get_teseo_environment_path();
 

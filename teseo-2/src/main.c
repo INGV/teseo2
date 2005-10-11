@@ -128,7 +128,7 @@ query (void)
   gimp_plugin_domain_register (PLUGIN_NAME, LOCALEDIR);
 
   help_path = g_build_filename (gimp_data_directory (), PACKAGE, "help", NULL);
-  g_printf("Debug : run time help_path %s\n",help_path);
+  // g_printf("Debug : run time help_path %s\n",help_path);
   help_uri = g_filename_to_uri (help_path, NULL, NULL);
   g_free (help_path);
 
@@ -166,9 +166,6 @@ run (const gchar      *name,
   *nreturn_vals = 1;
   *return_vals  = values;
 
-  /*For compile test only*/
-  struct Session mysession;
-
   /*  Initialize i18n support  */
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
@@ -178,7 +175,7 @@ run (const gchar      *name,
 
   //pixmap directory runtime lookup
   gchar *pixmap_path = g_build_filename (gimp_data_directory (), PACKAGE, "pixmaps", NULL);
-  g_printf("Debug : run time pixmap_path %s\n",pixmap_path);
+  // g_printf("Debug : run time pixmap_path %s\n",pixmap_path);
   add_pixmap_directory (pixmap_path);
 
   run_mode = param[0].data.d_int32;

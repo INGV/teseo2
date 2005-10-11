@@ -451,8 +451,13 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     gchar * filename = NULL;
     gchar *pathname = NULL;
     // TODO catch scale value
-    gint scale = 0;
     gint result;
+    gint scale = 0;
+    GtkCheckButton * teseo_reloc = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_reloc_checkbutton", scale);
+
+    if(teseo_reloc) {
+        scale = gtk_toggle_button_get_active((GtkToggleButton *) teseo_reloc);
+    }
 
     dxf_path = teseo_get_environment_path( DXFPATH );
     image_filename = g_path_get_basename( gimp_image_get_filename(teseo_image) );
@@ -973,15 +978,6 @@ on_win_teseo_delete_event        (GtkWidget       *widget,
 }
 
 
-gboolean
-on_win_preferences_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-
-}
-
-
 void
 on_dlg_preferences_response            (GtkDialog       *dialog,
                                         gint             response_id,
@@ -1161,8 +1157,8 @@ on_teseo_alg_go_toolbutton_clicked     (GtkButton       *button,
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
    GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
-   use_bezier = gtk_toggle_button_get_active(tcdbc);
-   check_guide = gtk_toggle_button_get_active(tcfgs);
+   use_bezier = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcdbc));
+   check_guide = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcfgs));
 
 
    iter = gtk_spin_button_get_value_as_int (tfss) ;
@@ -1388,7 +1384,7 @@ on_dlg_session_show_teseo_eventpathname
     // TODO insert path in teseo_eventpathname combobox and select right one....
     path_list = gimp_path_list(teseo_image, &n_path);
     for(i=0; i < n_path; i++) {
-	gtk_combo_box_append_text(combo_box, path_list[i]);
+	gtk_combo_box_append_text(GTK_COMBO_BOX(combo_box), path_list[i]);
     }
 
 
@@ -1472,8 +1468,8 @@ on_teseo_alg_down_toolbutton_clicked   (GtkButton       *button,
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
    GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
-   use_bezier = gtk_toggle_button_get_active(tcdbc);
-   check_guide = gtk_toggle_button_get_active(tcfgs);
+   use_bezier = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcdbc));
+   check_guide = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcfgs));
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
@@ -1513,8 +1509,8 @@ on_teseo_alg_up_toolbutton_clicked     (GtkButton       *button,
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
    GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
-   use_bezier = gtk_toggle_button_get_active(tcdbc);
-   check_guide = gtk_toggle_button_get_active(tcfgs);
+   use_bezier = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcdbc));
+   check_guide = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcfgs));
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);
@@ -1613,8 +1609,8 @@ on_teseo_alg_left_toolbutton_clicked   (GtkButton       *button,
    GtkCheckButton * tcfgs = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_checkbtn_first_guide_stop", 0);
    GtkCheckButton * tcdbc = (GtkCheckButton*) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_direct_bez_checkbutton", 0);
 
-   use_bezier = gtk_toggle_button_get_active(tcdbc);
-   check_guide = gtk_toggle_button_get_active(tcfgs);
+   use_bezier = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcdbc));
+   check_guide = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tcfgs));
    iter = gtk_spin_button_get_value_as_int (tfss) ;
 
    gint32 drawable_ID=  gimp_image_get_active_drawable  (teseo_image);

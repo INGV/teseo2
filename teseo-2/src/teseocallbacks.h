@@ -185,15 +185,6 @@ on_win_teseo_delete_event        (GtkWidget       *widget,
                                         gpointer         user_data);
 
 void
-on_win_preferences_destroy             (GtkObject       *object,
-                                        gpointer         user_data);
-
-gboolean
-on_win_preferences_delete_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
-void
 on_dlg_preferences_response            (GtkDialog       *dialog,
                                         gint             response_id,
                                         gpointer         user_data);

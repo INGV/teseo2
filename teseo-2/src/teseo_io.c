@@ -100,9 +100,7 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
     gchar n_punti_str[10];
     gint n_punti;
     gint n_punti_tot=0;
-    gint apro_path=0;
 
-    gint strl=0;
     gint counter=0;
 
     gint i=0, a=0;
@@ -111,8 +109,6 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
     gdouble yres;
     gdouble dpi;
     gint image_height;
-    gchar x_c[10],y_c[10];
-    gchar *end = NULL;
 
     gdouble x,y;
     gdouble *v_punti = NULL;
@@ -121,13 +117,11 @@ void teseo_import_dxf ( gint32 g_image, char * NomeFileDxf  ) {
     float my_y;
 
     gdouble vertex[200];
-    gint n_vertex=1;
 
     vertex[0]=0.0;   //for negative coordinate in DXF
     vertex[1]=0.0;
 
     gint test_vertex=0;
-    char nome_path [] = "Imported Path" ;
     char jpolyline[2];
 
 
@@ -249,7 +243,7 @@ void teseo_import_bzr ( gint32 g_image, char * NomeFileBzr  )
 {
 //g_message("%s",NomeFileBzr);
 FILE *fp = NULL;
-glong num_path, num_points, closed, draw, state, tipo,X,Y;
+glong num_points, closed, draw, state, tipo,X,Y;
 gdouble *path = NULL;
 gchar pathname [200] = "";
 gchar * app;
@@ -312,9 +306,8 @@ g_message("File \"%s\" not found.", NomeFileBzr);
 gint teseo_open_path_to_save(gint32 g_image,  char * nome_path, char * filename){
 glong i=0, num_righe, len;
 gdouble * points_pairs=NULL;
-gdouble * pstrokes_ret=NULL;
 FILE * fp=NULL;
-gint path_type, path_closed, num_path_point_details;
+gint path_closed, num_path_point_details;
 char s_tmp_app[255];
 char * canc=NULL;
 strcpy(s_tmp_app,nome_path);
@@ -541,7 +534,6 @@ void teseo_save_path_sac(gint32 g_image, char* filename, char *dir_teseo_bin, gc
  g_sprintf(filename_tmp, "%s/sisma.tmp", teseo_get_environment_path(TMPPATH) );
  gint num_paths=0;
  gdouble xres, yres, passo;
- gint image_height;
 
  gimp_image_get_resolution (g_image, &xres, &yres);
  passo=2.54/xres;
@@ -621,7 +613,7 @@ void teseo_import_path_ascii( gint32 g_image, char * NomeFileAscii, gint tm ) {
 	//g_printf("Importing %s\n",NomeFileAscii);
 	FILE *fascii = NULL;
 	glong DIM_VECT=10000;
-	glong num_path, num_points=DIM_VECT;
+	glong num_points=DIM_VECT;
 	gfloat X,Y;
 	gdouble *path = NULL;
 	gdouble *appath = NULL;
@@ -696,11 +688,7 @@ void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
 {
 
  FILE *fp = NULL;
- glong num_path, closed, draw, state, tipo,X,Y;
  gdouble *strokes = NULL;
- gchar pathname [200] = "";
- gchar * app;
- gchar linename [200] = "";
  gdouble xres,yres;
  gdouble dpi;
  gint image_height;
@@ -708,8 +696,6 @@ void teseo_import_timemark ( gint32 g_image, char * NomeFileTimeMarker )
  long counter=0;
  long counter_void;
  long counter0 = 32-1;
- double h_seg=10.0;
- double x_zero=0.0;
  double y_zero=0.0;
  double x1,y1,x2,y2;
 
@@ -1022,9 +1008,7 @@ void teseo_save_sac_cm( char * file_sac, gint num_punti, gdouble *vet_punti, gdo
  float media=0;
  float * teseo_strokes_sac;
  float CANARY=-123.456789e6;
- long int max = (long int ) num_punti;
- long int j , nerr=0, lstrokes, lun_name;
- float x , inizio = vet_punti[0]*2.54/dpi , passo_delta = 2.54/dpi ;
+ long int lstrokes, lun_name;
  int i=0;
 
  g_message("num_punti %d, dpi %f, height %d ", num_punti, dpi, height);
@@ -1107,4 +1091,6 @@ gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGfile  )
 
 gboolean teseo_export_svg_vectors ( gint32 g_image, char * SVGfile  )
 {
+    // TODO
+    return TRUE;
 }

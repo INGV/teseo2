@@ -51,14 +51,6 @@
 #define RANDOM_SEED_WIDTH  100
 
 
-
-/*  Local function prototypes  */
-
-static gboolean   dialog_image_constraint_func (gint32    image_id,
-                                                gpointer  data);
-
-
-
 /*  Local variables  */
 
 static PlugInUIVals *ui_state = NULL;
@@ -226,17 +218,4 @@ dialog (gint32              image_ID,
 
   return run;
 }
-
-
-/*  Private functions  */
-
-static gboolean
-dialog_image_constraint_func (gint32    image_id,
-                              gpointer  data)
-{
-  return (gimp_image_base_type (image_id) == GIMP_RGB);
-}
-
-
-
 
