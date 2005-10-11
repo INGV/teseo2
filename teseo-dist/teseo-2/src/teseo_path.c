@@ -211,12 +211,11 @@ gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, gl
 
 
 gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path){
-  glong i=0, num_strokes, lstrokes;
+  glong lstrokes;
   gdouble * points_pairs=NULL;
-  gdouble * pstrokes_ret=NULL;
   gdouble * strokes_ret=NULL;
 
-  gint path_type, path_closed, num_path_point_details;
+  gint path_closed, num_path_point_details;
 
   //ottengo il path
 	teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
@@ -275,7 +274,7 @@ gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nom
 void teseo_strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *strokes, char * nome_path){
 
   gdouble * vet_punti=NULL;
-  glong lpunti=0, i=0, j=0, k=0, kk=0, num_vet_punti;
+  glong lpunti=0, i=0, j=0, k=0, num_vet_punti;
 
   /* Se il numero di punti è multiplo di 3, gimp chiude automaticamente il PATH*/
   /*??Ridondante*/
@@ -348,7 +347,7 @@ gdouble * teseo_open_path_to_strokes(gint32 g_image, glong* n_strokes,  char * n
   gdouble * points_pairs=NULL;
   gdouble * pstrokes_ret=NULL;
 
-  gint path_type, path_closed, num_path_point_details;
+  gint path_closed, num_path_point_details;
 
   //ottengo il path
 	teseo_gimp_path_get_points (g_image, nome_path, &path_closed, &num_path_point_details, &points_pairs);
@@ -421,7 +420,6 @@ void teseo_align_all_path(gint32 g_image)
     while( num_paths>1)
     {
 	n_points_tot_eff=0;
-	n_point_eff[2];
 
 	for ( i=0; i<2; i++)
 	{
@@ -459,7 +457,7 @@ void teseo_align_all_path(gint32 g_image)
 		j=3*2;
 	    // numero di punti da saltare, per 3 ( x,y,tipo)...
 	    //serve per eliminare il primo punto del tracciato che coincide con l'ultimo di quello percedente
-	    for (j; j<n_point_eff[t] && k<n_points_tot_eff; j++, k++)
+	    for ( ; j<n_point_eff[t] && k<n_points_tot_eff; j++, k++)
 		path_strokes[k] = old_path[t][j];
 	}
 
@@ -739,8 +737,7 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
     char path_name [80] ;
 
     glong num_points;
-    glong num_points_details=0, i=0, j=0, k=0, kk=0, num_vet_punti;
-    gdouble ris=0;
+    glong num_points_details=0, i=0, j=0, k=0, num_vet_punti;
     /*Ricavo il vecchio path*/
 
     //printf("\nPrima \n");
@@ -795,7 +792,7 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 	    //}
 
 	    if ( num_vet_punti*3 != num_points_details)
-		g_message("num_vet_punti*3 - 3 = %d num_points_details = %d",num_vet_punti*3, num_points_details);
+		g_printf("num_vet_punti*3 - 3 = %ld num_points_details = %ld",num_vet_punti*3, num_points_details);
 
 	    if( num_vet_punti >  2) { //??
 		//gimp_path_delete(g_image,path_name); //gimp bug ? if you delete before then is not visible

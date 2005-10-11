@@ -48,11 +48,11 @@ void teseo_wmean_set_dir(int dir){
 int teseo_wmean( const wm_is * is, wm_os * os ){
   int ret =1;
   //int ab,ord;
-  int ab_c,ab_s, step_ab;
-  int width, height;
+  int ab_c, ab_s = 1, step_ab;
+  int width = 10, height = 10;
   long num=0;
 
-  float colour;
+  float colour = 0.0;
   double sum_num, sum_den;
   double coord;
   double weight, dist;
@@ -60,7 +60,7 @@ int teseo_wmean( const wm_is * is, wm_os * os ){
 //  int Yabs, Yrel, Xabs, Xrel;
   int ORD;
   int t, tmean;
-  int MAX_STEP_ORD;
+  int MAX_STEP_ORD = 1;
 
   int dir=this_params.dir;
 

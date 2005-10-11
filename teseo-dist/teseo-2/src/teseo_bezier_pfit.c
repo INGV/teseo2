@@ -32,6 +32,8 @@
 #include <glib.h>
 #include <glib/gprintf.h>
 #include "string.h"
+#define    f2cFortran
+#include "cfortran.h"
 
 int N_P_MIS_MAX, N_P_MIS;
 double *x_p_mis;
@@ -251,9 +253,8 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     glong lpath;
     gint *idirezione;
     glong n_dir;
-    int cur_dir, app;
+    int app;
     int j, i;
-    int ii, jj;
     // double fret,**xi;
     // int iter;
     double p[NDIM];
@@ -263,7 +264,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     int IPRINT=0;
     int MAXFUN=5000;
     double RHOEND=1.0E-3;
-    double RHOBEG;
+    double RHOBEG=1.0E-3;
     int n,NPT;
 
 
@@ -416,7 +417,7 @@ glong teseo_p_fitting_bezier(glong num_strokes, gdouble* strokes, glong *pnum_pa
     path_inter[cur_path_inter * 3 +2] = 2.0;
     cur_path_inter++;
 
-    g_printf("\ncur_path_inter = %d, num_strokes = %d\n", cur_path_inter, num_strokes);
+    g_printf("\ncur_path_inter = %ld, num_strokes = %ld\n", cur_path_inter, num_strokes);
 
     if(idirezione[num_strokes] != (gint) CANARY)
         g_message("Canary in idirezione is dead!");

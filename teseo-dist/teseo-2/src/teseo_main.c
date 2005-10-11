@@ -28,6 +28,7 @@
 #include <libgimp/gimp.h>
 #include "teseo_main.h"
 #include "teseo_path.h"
+#include "teseo_bezier_pfit.h"
 
 /*!
  * ALGORITHM function pointer to real algorithm function
@@ -102,7 +103,6 @@ void teseo_main_loop( gulong limit, gint32 drawable_ID, char is_guide, gboolean 
     void * is=NULL;
     gdouble * strokes=NULL;
     gulong num_strokes=0;
-    wm_os * myos;
 
     //initialize os as an ipothetique last running
 

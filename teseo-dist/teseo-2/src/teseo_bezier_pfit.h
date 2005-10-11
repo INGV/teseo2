@@ -30,8 +30,6 @@
 
 #include <libgimp/gimp.h>
 #include "teseo_types.h"
-#define    f2cFortran
-#include "cfortran.h"
 
 #define NDIM 4
 //nr #define FTOL 0.1

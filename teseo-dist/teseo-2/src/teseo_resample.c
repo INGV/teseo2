@@ -85,7 +85,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
     FILE *fbezier;
     char pathname [255] ;
     gchar newpathname [255] ;
-    gint32 path_type, path_closed, num_elementi_bezier, n;  
+    gint32 path_closed, num_elementi_bezier, n;  
     int bezier_n_strokes;
     double *bezier_strokes;
     int i, kk;
