@@ -1,3 +1,33 @@
+2005-10-11 12:43  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: interface.c (1.27), main.c (1.16), teseo_bezier_pfit.c
+	  (1.14), teseo_bezier_pfit.h (1.6), teseo_env.c (1.17), teseo_io.c
+	  (1.26), teseo_main.c (1.16), teseo_path.c (1.35),
+	  teseo_resample.c (1.11), teseo_session.c (1.31), teseo_wmean.c
+	  (1.13), teseocallbacks.c (1.94), teseocallbacks.h (1.42),
+	  teseointerface.c (1.80): Cleaned compiling warnings
+
+2005-10-10 12:05  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseo_filters.c (1.8), teseo_filters.h (1.6),
+	  teseocallbacks.c (1.93): Added transparent parameter in Clean
+	  filter
+
+2005-10-10 12:03  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.79): Better arrangment in Clean tab
+
+2005-10-10 11:52  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.78): Added transparent check for clean
+	  filter
+
+2005-10-10 08:41  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: main.c (1.15), teseo_filters.c (1.7), teseo_filters.h
+	  (1.5), teseocallbacks.c (1.92), teseointerface.c (1.77):
+	  Optimized Filter Clean and function Split
+
 2005-10-07 15:54  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: teseo_filters.c (1.6), teseo_filters.h (1.4): Optimized
