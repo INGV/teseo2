@@ -1,3 +1,15 @@
+2005-10-12 10:39  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.29), teseocallbacks.c (1.96),
+	  teseocallbacks.h (1.44), teseointerface.c (1.82): Removed useless
+	  callback.
+
+2005-10-12 09:36  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.28), teseocallbacks.c (1.95),
+	  teseocallbacks.h (1.43), teseointerface.c (1.81): Trying to stay
+	  on top
+
 2005-10-11 12:43  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: interface.c (1.27), main.c (1.16), teseo_bezier_pfit.c
