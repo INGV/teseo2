@@ -1729,19 +1729,4 @@ on_split1_activate                     (GtkMenuItem     *menuitem,
 }
 
 
-gboolean
-on_win_teseo_window_state_event        (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{ //GdkEventWindowState
-
-  //if (  (*(GDK_EVENT_WINDOWS_STATE(event)) .new_window_state == GDK_WINDOW_STATE_BELOW)) {
-  if (  (*((GdkEventWindowState *) event) ).new_window_state == GDK_WINDOW_STATE_BELOW ) {
-  	gtk_window_set_keep_above(GTK_WINDOW (win_teseo),TRUE);
-  }
-  else{
-	//g_message("Non below");
-  }
-  return TRUE;
-}
 
