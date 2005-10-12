@@ -1511,6 +1511,9 @@ create_win_teseo (void)
   g_signal_connect ((gpointer) win_teseo, "show",
                     G_CALLBACK (on_win_teseo_show),
                     NULL);
+  g_signal_connect ((gpointer) win_teseo, "window_state_event",
+                    G_CALLBACK (on_win_teseo_window_state_event),
+                    NULL);
   g_signal_connect ((gpointer) new1, "activate",
                     G_CALLBACK (on_new1_activate),
                     NULL);

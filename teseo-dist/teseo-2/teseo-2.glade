@@ -18,6 +18,7 @@
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <signal name="delete_event" handler="on_win_teseo_delete_event" last_modification_time="Mon, 23 May 2005 14:02:24 GMT"/>
   <signal name="show" handler="on_win_teseo_show" last_modification_time="Thu, 28 Jul 2005 12:06:42 GMT"/>
+  <signal name="window_state_event" handler="on_win_teseo_window_state_event" last_modification_time="Wed, 12 Oct 2005 06:55:04 GMT"/>
 
   <child>
     <widget class="GtkVBox" id="vbox1">
