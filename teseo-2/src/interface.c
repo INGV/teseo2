@@ -172,7 +172,7 @@ dialog (gint32              image_ID,
               gtk_file_filter_add_pattern (filter, pattern_session);
               gtk_file_filter_set_name    (filter, "Session");
               gtk_file_chooser_add_filter (filechooser_session, filter);
-
+              gtk_window_set_keep_above  (GTK_WINDOW (win_teseo),TRUE);
               gtk_widget_show (win_teseo);
               gtk_main ();
           } else {

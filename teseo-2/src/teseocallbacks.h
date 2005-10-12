@@ -329,3 +329,8 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
 void
 on_split1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+gboolean
+on_win_teseo_window_state_event        (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
