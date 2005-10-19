@@ -1,6 +1,0 @@
-Name: newuoa Uninstalled
-Description: A library created from  M.J.D. Powell (mjdp@cam.ac.uk) newuoa code, Not Installed
-Version: 0.1
-Requires:
-Libs: ${pc_top_builddir}/${pcfiledir}/newuoa/libnewuoa.a
-Cflags: -I${pc_top_builddir}/${pcfiledir}/.
