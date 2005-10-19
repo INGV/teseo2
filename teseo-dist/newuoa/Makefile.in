@@ -99,7 +99,7 @@ pkgconfig_DATA = newuoa.pc
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = newuoa.pc newuoa-uninstalled.pc
 DATA =  $(libnewuoadoc_DATA) $(pkgconfig_DATA)
 
 DIST_COMMON =  README ./stamp-h.in AUTHORS COPYING ChangeLog INSTALL \
