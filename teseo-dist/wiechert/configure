@@ -8368,7 +8368,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-                    ac_config_files="$ac_config_files Makefile src/Makefile"
+                    ac_config_files="$ac_config_files Makefile src/Makefile wiechert.pc wiechert-uninstalled.pc"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -8883,6 +8883,8 @@ for ac_config_target in $ac_config_targets
 do
   case "$ac_config_target" in
   # Handling of arguments.
+  "wiechert.pc" ) CONFIG_FILES="$CONFIG_FILES wiechert.pc" ;;
+  "wiechert-uninstalled.pc" ) CONFIG_FILES="$CONFIG_FILES wiechert-uninstalled.pc" ;;
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
