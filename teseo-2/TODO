@@ -30,23 +30,16 @@ Sun Aug 21 10:46:44 CEST 2005
 
 Fri Sep  2 08:30:36 CEST 2005
 - logo Wilber Seismologists mtheo
-- Import ASCII    mtheo
-- Import/Export Timemark    ilpint
 - Improve SAC export
 
 
 Mon Sep 12 10:53:44 CEST 2005
-- Insert up and down arrows in CWM algorithm
 - TODO and ChangeLog in distribution
 - Export by FileDialog
+	Check if file exists
 
 
-Tue Sep 13 15:03:02 CEST 2005
-- Split function should add the intersection point when split a path with long curves
-
-
-
-Wed Sep 14 11:54:15 CEST 2005
-- Adjust evaluate timemark (distance, y_mean, remove all guides before computation)
-
-
+Fri Oct 21 11:32:08 CEST 2005
+- Post-analysis, curvature correction. Antoine Schlupp
+- Tutorial and movie
+- Update Web pages
