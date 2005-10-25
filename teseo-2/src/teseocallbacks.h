@@ -344,3 +344,9 @@ on_wiechert_activate                   (GtkMenuItem     *menuitem,
 void
 on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_notebook2_switch_page               (GtkNotebook     *notebook,
+                                        GtkNotebookPage *page,
+                                        guint            page_num,
+                                        gpointer         user_data);

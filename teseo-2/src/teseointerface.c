@@ -232,12 +232,14 @@ create_win_teseo (void)
   GtkWidget *teseo_clean_fill_colour_spinbutton;
   GtkWidget *vbox84;
   GtkWidget *vbox85;
-  GtkWidget *teseo_clean_newlayer_checkbutton;
-  GtkWidget *teseo_clean_transparent_checkbutton;
   GtkWidget *vbox81;
-  GtkWidget *teseo_clean_horizontal_radiobutton;
-  GSList *teseo_clean_horizontal_radiobutton_group = NULL;
+  GtkWidget *fp_table;
+  GtkWidget *teseo_clean_newlayer_checkbutton;
   GtkWidget *teseo_clean_vertical_radiobutton;
+  GSList *teseo_clean_vertical_radiobutton_group = NULL;
+  GtkWidget *teseo_clean_transparent_checkbutton;
+  GtkWidget *teseo_clean_horizontal_radiobutton;
+  GtkWidget *label269;
   GtkWidget *hbox56;
   GtkWidget *label278;
   GtkWidget *vbox80;
@@ -247,7 +249,6 @@ create_win_teseo (void)
   GtkWidget *label281;
   GtkObject *teseo_clean_length_spinbutton_adj;
   GtkWidget *teseo_clean_length_spinbutton;
-  GtkWidget *label269;
   GtkWidget *label266;
   GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
@@ -584,6 +585,7 @@ create_win_teseo (void)
   gtk_widget_set_name (clean1, "clean1");
   gtk_widget_show (clean1);
   gtk_container_add (GTK_CONTAINER (filters1_menu), clean1);
+  gtk_widget_set_sensitive (clean1, FALSE);
 
   post_analisys = gtk_menu_item_new_with_mnemonic ("Post Analisys");
   gtk_widget_set_name (post_analisys, "post_analisys");
@@ -1355,13 +1357,13 @@ create_win_teseo (void)
 
   hbox58 = gtk_hbox_new (FALSE, 16);
   gtk_widget_set_name (hbox58, "hbox58");
-  gtk_widget_show (hbox58);
   gtk_box_pack_start (GTK_BOX (vbox83), hbox58, FALSE, FALSE, 0);
+  gtk_widget_set_sensitive (hbox58, FALSE);
 
   table24 = gtk_table_new (3, 2, FALSE);
   gtk_widget_set_name (table24, "table24");
-  gtk_widget_show (table24);
   gtk_box_pack_start (GTK_BOX (hbox58), table24, FALSE, FALSE, 0);
+  gtk_widget_set_sensitive (table24, FALSE);
   gtk_table_set_row_spacings (GTK_TABLE (table24), 4);
 
   label268 = gtk_label_new ("Base colour");
@@ -1430,39 +1432,58 @@ create_win_teseo (void)
   gtk_widget_show (vbox85);
   gtk_box_pack_start (GTK_BOX (vbox84), vbox85, FALSE, FALSE, 0);
 
-  teseo_clean_newlayer_checkbutton = gtk_check_button_new_with_mnemonic ("New layer");
-  gtk_widget_set_name (teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
-  gtk_widget_show (teseo_clean_newlayer_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox85), teseo_clean_newlayer_checkbutton, FALSE, FALSE, 0);
-
-  teseo_clean_transparent_checkbutton = gtk_check_button_new_with_mnemonic ("Transparent");
-  gtk_widget_set_name (teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
-  gtk_widget_show (teseo_clean_transparent_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox85), teseo_clean_transparent_checkbutton, FALSE, FALSE, 0);
-
   vbox81 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox81, "vbox81");
   gtk_widget_show (vbox81);
   gtk_box_pack_start (GTK_BOX (vbox84), vbox81, TRUE, TRUE, 0);
 
-  teseo_clean_horizontal_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Horizontal");
-  gtk_widget_set_name (teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
-  gtk_widget_show (teseo_clean_horizontal_radiobutton);
-  gtk_box_pack_start (GTK_BOX (vbox81), teseo_clean_horizontal_radiobutton, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton), teseo_clean_horizontal_radiobutton_group);
-  teseo_clean_horizontal_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton));
+  fp_table = gtk_table_new (6, 3, FALSE);
+  gtk_widget_set_name (fp_table, "fp_table");
+  gtk_widget_show (fp_table);
+  gtk_box_pack_start (GTK_BOX (vbox83), fp_table, TRUE, TRUE, 0);
+
+  teseo_clean_newlayer_checkbutton = gtk_check_button_new_with_mnemonic ("New layer");
+  gtk_widget_set_name (teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
+  gtk_widget_show (teseo_clean_newlayer_checkbutton);
+  gtk_table_attach (GTK_TABLE (fp_table), teseo_clean_newlayer_checkbutton, 0, 1, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
 
   teseo_clean_vertical_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Vertical");
   gtk_widget_set_name (teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
   gtk_widget_show (teseo_clean_vertical_radiobutton);
-  gtk_box_pack_start (GTK_BOX (vbox81), teseo_clean_vertical_radiobutton, FALSE, FALSE, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton), teseo_clean_horizontal_radiobutton_group);
-  teseo_clean_horizontal_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton));
+  gtk_table_attach (GTK_TABLE (fp_table), teseo_clean_vertical_radiobutton, 0, 1, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton), teseo_clean_vertical_radiobutton_group);
+  teseo_clean_vertical_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_vertical_radiobutton));
+
+  teseo_clean_transparent_checkbutton = gtk_check_button_new_with_mnemonic ("Transparent");
+  gtk_widget_set_name (teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
+  gtk_widget_show (teseo_clean_transparent_checkbutton);
+  gtk_table_attach (GTK_TABLE (fp_table), teseo_clean_transparent_checkbutton, 1, 2, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 5, 0);
+
+  teseo_clean_horizontal_radiobutton = gtk_radio_button_new_with_mnemonic (NULL, "Horizontal");
+  gtk_widget_set_name (teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
+  gtk_widget_show (teseo_clean_horizontal_radiobutton);
+  gtk_table_attach (GTK_TABLE (fp_table), teseo_clean_horizontal_radiobutton, 1, 2, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 5, 0);
+  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton), teseo_clean_vertical_radiobutton_group);
+  teseo_clean_vertical_radiobutton_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_clean_horizontal_radiobutton));
+
+  label269 = gtk_label_new ("<b>Parameters</b>");
+  gtk_widget_set_name (label269, "label269");
+  gtk_widget_show (label269);
+  gtk_frame_set_label_widget (GTK_FRAME (frame74), label269);
+  gtk_label_set_use_markup (GTK_LABEL (label269), TRUE);
 
   hbox56 = gtk_hbox_new (FALSE, 4);
   gtk_widget_set_name (hbox56, "hbox56");
   gtk_widget_show (hbox56);
-  gtk_box_pack_start (GTK_BOX (vbox83), hbox56, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox79), hbox56, TRUE, TRUE, 0);
 
   label278 = gtk_label_new ("Length is");
   gtk_widget_set_name (label278, "label278");
@@ -1504,12 +1525,6 @@ create_win_teseo (void)
   gtk_box_pack_start (GTK_BOX (hbox56), teseo_clean_length_spinbutton, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
   gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON (teseo_clean_length_spinbutton), TRUE);
-
-  label269 = gtk_label_new ("<b>Parameters</b>");
-  gtk_widget_set_name (label269, "label269");
-  gtk_widget_show (label269);
-  gtk_frame_set_label_widget (GTK_FRAME (frame74), label269);
-  gtk_label_set_use_markup (GTK_LABEL (label269), TRUE);
 
   label266 = gtk_label_new ("<small><b>Clean</b></small>");
   gtk_widget_set_name (label266, "label266");
@@ -1656,6 +1671,9 @@ create_win_teseo (void)
                     NULL);
   g_signal_connect ((gpointer) teseo_alg_go_toolbutton, "clicked",
                     G_CALLBACK (on_teseo_alg_go_toolbutton_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) notebook2, "switch_page",
+                    G_CALLBACK (on_notebook2_switch_page),
                     NULL);
   g_signal_connect ((gpointer) teseo_wm_colour_black_radiobutton, "toggled",
                     G_CALLBACK (on_teseo_wm_colour_black_radiobutton_toggled),
@@ -1854,11 +1872,13 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_fill_colour_spinbutton, "teseo_clean_fill_colour_spinbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox84, "vbox84");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox85, "vbox85");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox81, "vbox81");
-  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, fp_table, "fp_table");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_transparent_checkbutton, "teseo_clean_transparent_checkbutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_horizontal_radiobutton, "teseo_clean_horizontal_radiobutton");
+  GLADE_HOOKUP_OBJECT (win_teseo, label269, "label269");
   GLADE_HOOKUP_OBJECT (win_teseo, hbox56, "hbox56");
   GLADE_HOOKUP_OBJECT (win_teseo, label278, "label278");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox80, "vbox80");
@@ -1866,7 +1886,6 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_less_radiobutton, "teseo_clean_less_radiobutton");
   GLADE_HOOKUP_OBJECT (win_teseo, label281, "label281");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_length_spinbutton, "teseo_clean_length_spinbutton");
-  GLADE_HOOKUP_OBJECT (win_teseo, label269, "label269");
   GLADE_HOOKUP_OBJECT (win_teseo, label266, "label266");
   GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
   GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");

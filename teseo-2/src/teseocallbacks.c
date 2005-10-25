@@ -745,7 +745,7 @@ on_resample1_activate                  (GtkMenuItem     *menuitem,
 
     if(teseo_abscissa_asc_checkbutton) {
 	abscissa_asc = gtk_toggle_button_get_active((GtkToggleButton *) teseo_abscissa_asc_checkbutton);
-    }    
+    }
 
     teseo_resampling_bezier(teseo_image, abscissa_asc, step_bezier);
 }
@@ -1670,15 +1670,23 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     GtkCheckButton * teseo_clean_newlayer = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_newlayer_checkbutton", 0);
     GtkCheckButton * teseo_clean_transparent = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_transparent_checkbutton", 0);
 
+    GtkAdjustment*  teseo_base_gse       = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "base_gse", 0);
+    GtkAdjustment*  teseo_thr_gse        = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "thr_gse", 0);
+    GtkAdjustment*  teseo_fill_gse       = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "fill_gse", 0);
+
+
     if(teseo_clean_colour) {
+        gtk_spin_button_set_adjustment (teseo_clean_colour,teseo_base_gse);
         clean_colour = gtk_spin_button_get_value (teseo_clean_colour);
     }
 
     if(teseo_clean_threshold) {
+        gtk_spin_button_set_adjustment (teseo_clean_threshold,teseo_thr_gse);
         clean_threshold = gtk_spin_button_get_value (teseo_clean_threshold);
     }
 
     if(teseo_clean_fill_colour) {
+        gtk_spin_button_set_adjustment (teseo_clean_fill_colour, teseo_fill_gse);
         clean_fill_colour = gtk_spin_button_get_value (teseo_clean_fill_colour);
     }
 
@@ -1693,7 +1701,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     clean_newlayer = gtk_toggle_button_get_active((GtkToggleButton *) teseo_clean_newlayer);
 
     clean_transparent = gtk_toggle_button_get_active((GtkToggleButton *) teseo_clean_transparent);
-    
+
     // Add a new layer if needed
     if(clean_newlayer) {
         // gint32      gimp_image_get_active_layer     (gint32 image_ID); != -1
@@ -1712,7 +1720,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
             g_message("Teseo2: no layer is active !");
         }
     }
-    
+
     teseo_filter_fill_continuous_segment(teseo_image, clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal, clean_transparent);
     g_printf("%d, %d, %d, %d, %d, %d\n", clean_colour, clean_threshold, clean_greater, clean_length, clean_fill_colour, clean_horizontal);
 }
@@ -1766,12 +1774,11 @@ void
 on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
-	GtkTable *table=NULL;
 	gint column =1;
 	gint row=1;
 	const gchar text[]="testo1";
-	gint scale_width =  300;
-	gint spinbutton_width = 50;
+	gint scale_width =  100;
+	gint spinbutton_width = 100;
 	gdouble value = 33.0;
 	gdouble lower=-50.0;
 	gdouble upper=50.0;
@@ -1779,45 +1786,167 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gdouble page_increment=1.0;
 	guint digits=2;
 	gboolean constrain=TRUE;
-	gdouble unconstrained_lower=-100;
-	gdouble unconstrained_upper=100;
+	gdouble unconstrained_lower=-50;
+	gdouble unconstrained_upper=50;
 	const gchar tooltip[]="PROVA tooltip";
 	const gchar *help_id=NULL;
-	GtkObject*  gse;
+	GtkObject*  gse=NULL;
+	GtkTable *table=NULL;
 
 	table  = (GtkTable *) teseo_lookup_widget(GTK_WIDGET(dlg_histo), "histogram_table", 0);
 
-	gse= gimp_scale_entry_new (
-	table,
-	column,
-	row,
-	text,
-	scale_width,
-	spinbutton_width,
-	value,
-	lower,
-	upper,
-	step_increment,
-	page_increment,
-	digits,
-	constrain,
-	unconstrained_lower,
-	unconstrained_upper,
-	tooltip,
-	help_id);
+	static int i=0;
+	if (i == 0) {
+		gse = gimp_scale_entry_new (
+		table,
+		column,
+		row,
+		text,
+		scale_width,
+		spinbutton_width,
+		value,
+		lower,
+		upper,
+		step_increment,
+		page_increment,
+		digits,
+		constrain,
+		unconstrained_lower,
+		unconstrained_upper,
+		tooltip,
+		help_id);
+		i=1;
+	}
 
- gint result = gtk_dialog_run (GTK_DIALOG (dlg_histo));
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         break;
-      case GTK_RESPONSE_CANCEL:
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Correction done");
-        break;
-      default:
-        break;
-    }
- gtk_widget_hide (dlg_histo);
+	gint result = gtk_dialog_run (GTK_DIALOG (dlg_histo));
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+		break;
+	case GTK_RESPONSE_CANCEL:
+	case GTK_RESPONSE_DELETE_EVENT:
+		g_message("Correction done");
+		break;
+	default:
+		break;
+	}
+	gtk_widget_hide (dlg_histo);
+}
+
+void
+on_notebook2_switch_page               (GtkNotebook     *notebook,
+                                        GtkNotebookPage *page,
+                                        guint            page_num,
+                                        gpointer         user_data)
+{
+	gint scale_width = 5;
+	gint spinbutton_width = 3;
+	gdouble base_value = 255.0;
+	gdouble thr_value = 128.0;
+	gdouble fill_value = 0.0;
+	gdouble lower=0.0;
+	gdouble upper=255.0;
+	gdouble step_increment=1.0;
+	gdouble page_increment=10.0;
+	guint digits=0;
+	gboolean constrain=TRUE;
+	gdouble unconstrained_lower=0;
+	gdouble unconstrained_upper=255;
+	const gchar *help_id=NULL;
+
+	GtkAdjustment*  base_gse=NULL;
+	GtkAdjustment*  thr_gse=NULL;
+	GtkAdjustment*  fill_gse=NULL;
+
+	gint32 clean_colour = 0;
+	gint32 clean_threshold = 150;
+	gint32 clean_fill_colour = 255;
+	GtkSpinButton *teseo_clean_colour = NULL;
+	GtkSpinButton *teseo_clean_threshold = NULL;
+	GtkSpinButton *teseo_clean_fill_colour = NULL;
+
+	GtkTable *table=NULL;
+	GtkWidget * clean1;
+	static int i=0;
+
+	table  = (GtkTable  *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "fp_table", 0);
+	clean1 = (GtkWidget *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "clean1", 0);
+
+	teseo_clean_colour = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_colour_spinbutton", clean_colour);
+	teseo_clean_threshold = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_threshold_spinbutton", clean_threshold);
+	teseo_clean_fill_colour = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_fill_colour_spinbutton", clean_fill_colour);
+
+        gtk_widget_set_sensitive (clean1, TRUE);
+
+	if (i == 0 && table != NULL) {
+
+		base_gse = gimp_scale_entry_new (
+		table,
+		0,
+		0,
+		"Base",
+		scale_width,
+		spinbutton_width,
+		base_value,
+		lower,
+		upper,
+		step_increment,
+		page_increment,
+		digits,
+		constrain,
+		unconstrained_lower,
+		unconstrained_upper,
+		"Insert the trace base colour",
+		help_id);
+
+		g_object_set_data (G_OBJECT (win_teseo), "base_gse", base_gse);
+		gtk_adjustment_set_value (base_gse, gtk_spin_button_get_value (teseo_clean_colour));
+
+		thr_gse = gimp_scale_entry_new (
+		table,
+		0,
+		1,
+		"Threshold",
+		scale_width,
+		spinbutton_width,
+		thr_value,
+		lower,
+		upper,
+		step_increment,
+		page_increment,
+		digits,
+		constrain,
+		unconstrained_lower,
+		unconstrained_upper,
+		"Insert the threshold colour",
+		help_id);
+
+		g_object_set_data (G_OBJECT (win_teseo), "thr_gse", thr_gse);
+		gtk_adjustment_set_value (thr_gse, gtk_spin_button_get_value (teseo_clean_threshold));
+
+		fill_gse = gimp_scale_entry_new (
+		table,
+		0,
+		2,
+		"Fill",
+		scale_width,
+		spinbutton_width,
+		fill_value,
+		lower,
+		upper,
+		step_increment,
+		page_increment,
+		digits,
+		constrain,
+		unconstrained_lower,
+		unconstrained_upper,
+		"Insert the fill colour",
+		help_id);
+
+		g_object_set_data (G_OBJECT (win_teseo), "fill_gse", fill_gse);
+		gtk_adjustment_set_value (fill_gse, gtk_spin_button_get_value (teseo_clean_fill_colour));
+
+		i=1;
+	}
 }
 
