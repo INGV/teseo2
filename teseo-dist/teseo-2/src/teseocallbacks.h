@@ -39,6 +39,8 @@ extern   GtkWidget * dlg_move_rotation;
 extern   GtkFileChooser * filechooser_import;
 extern   GtkFileChooser * filechooser_export;
 extern   GtkFileChooser * filechooser_session;
+extern   GtkWidget *dlg_wiechert;
+extern   GtkWidget *dlg_histo;
 
 extern   GimpDrawable *private_drawable ;
 extern   gint32  teseo_image ;
@@ -330,3 +332,15 @@ void
 on_split1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
+
+void
+on_post_analisys_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_wiechert_activate                   (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
+                                        gpointer         user_data);

@@ -56,6 +56,9 @@ GtkWidget * dlg_preferences;
 GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
+GtkWidget * dlg_wiechert;
+GtkWidget * dlg_histo;
+
 GtkFileChooser * filechooser_import;
 GtkFileChooser * filechooser_export;
 GtkFileChooser * filechooser_session;
@@ -1729,4 +1732,92 @@ on_split1_activate                     (GtkMenuItem     *menuitem,
 }
 
 
+
+
+void
+on_post_analisys_activate              (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_wiechert_activate                   (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+  gint result = gtk_dialog_run (GTK_DIALOG (dlg_wiechert));
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         break;
+      case GTK_RESPONSE_CANCEL:
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Correction done");
+        break;
+      default:
+        break;
+    }
+ gtk_widget_hide (dlg_wiechert);
+}
+
+
+void
+on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
+                                        gpointer         user_data)
+{
+	GtkTable *table=NULL;
+	gint column =1;
+	gint row=1;
+	const gchar text[]="testo1";
+	gint scale_width =  300;
+	gint spinbutton_width = 50;
+	gdouble value = 33.0;
+	gdouble lower=-50.0;
+	gdouble upper=50.0;
+	gdouble step_increment=0.1;
+	gdouble page_increment=1.0;
+	guint digits=2;
+	gboolean constrain=TRUE;
+	gdouble unconstrained_lower=-100;
+	gdouble unconstrained_upper=100;
+	const gchar tooltip[]="PROVA tooltip";
+	const gchar *help_id=NULL;
+	GtkObject*  gse;
+
+	table  = (GtkTable *) teseo_lookup_widget(GTK_WIDGET(dlg_histo), "histogram_table", 0);
+
+	gse= gimp_scale_entry_new (
+	table,
+	column,
+	row,
+	text,
+	scale_width,
+	spinbutton_width,
+	value,
+	lower,
+	upper,
+	step_increment,
+	page_increment,
+	digits,
+	constrain,
+	unconstrained_lower,
+	unconstrained_upper,
+	tooltip,
+	help_id);
+
+ gint result = gtk_dialog_run (GTK_DIALOG (dlg_histo));
+  switch (result)
+    {
+      case GTK_RESPONSE_OK:
+         break;
+      case GTK_RESPONSE_CANCEL:
+      case GTK_RESPONSE_DELETE_EVENT:
+         g_message("Correction done");
+        break;
+      default:
+        break;
+    }
+ gtk_widget_hide (dlg_histo);
+}
 
