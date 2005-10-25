@@ -108,13 +108,13 @@ dialog (gint32              image_ID,
   if(gimp_image_get_filename(teseo_image)) {
 
 	// name need free
-  	name=g_path_get_basename (gimp_image_get_filename(teseo_image)); 
+  	name=g_path_get_basename (gimp_image_get_filename(teseo_image));
 	token = strpbrk(name, delimiters);
 
 	// Without extensions, name_noext need free
 	name_noext = g_strndup(name , strlen(name) - strlen(token) );
 
-	// Pointer to extensions, name_ext not need free 
+	// Pointer to extensions, name_ext not need free
 	name_ext = g_strrstr(name, ".xcf");
 	if(name_ext) {
 		name_ext_xcf = g_strdup(name_ext);
@@ -162,6 +162,8 @@ dialog (gint32              image_ID,
               dlg_about = create_dlg_about ();
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
+              dlg_wiechert = create_dlg_wiechert();
+              dlg_histo = create_dlg_histo();
 
               filechooser_export = (GtkFileChooser *) create_filechooser_export();
               filechooser_import = (GtkFileChooser *) create_filechooser_import();
