@@ -98,9 +98,16 @@ char save_widget(const char * filename, GtkWidget * dlg){
 
 char save_session(char * filename){
     char ret=0;
-
+    GimpParasite* first_parasite = NULL;
     ret=      save_widget(current_dlg_session, dlg_session);
     ret=ret * save_widget(current_main_window, win_teseo);
+
+
+    char str[]="Parassita !";
+    //create parasite
+    first_parasite = gimp_parasite_new ("Test",   GIMP_PARASITE_PERSISTENT,  strlen(str)+1,  str);
+    //attach parasite
+    gimp_image_parasite_attach  (teseo_image,  first_parasite);
 
     return ret;
 }
@@ -119,6 +126,12 @@ char load_session(char * filename){
     gchar * app;
     char var[80]="";
     gchar * base_content=NULL;
+
+    GimpParasite* first_parasite = NULL;
+    gint num_parasites;
+    gchar **parasites;
+
+
 
     //debug g_message("Attempting to load %s session",filename);
     if ( teseo_filexist(filename) ){
@@ -178,6 +191,19 @@ char load_session(char * filename){
      strcpy(current_main_window,main_window_filename);
      //debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
     }
+
+    if (gimp_image_parasite_list  (teseo_image, &num_parasites, &parasites)) {
+    //g_message("loking for %s",*parasites);
+    //first_parasite=gimp_image_parasite_find  (teseo_image, *parasites);
+    first_parasite=gimp_image_parasite_find  (teseo_image, "Test");
+    g_message("%s",gimp_parasite_data(first_parasite) );
+    }
+    else
+    {
+    g_message("No parasites found");
+    }
+
+
 
     return ret;
 }
