@@ -2066,6 +2066,29 @@ create_dlg_session (void)
   GtkWidget *dialog_vbox7;
   GtkWidget *notebook4;
   GtkWidget *vbox66;
+  GtkWidget *hbox66;
+  GtkWidget *frame50;
+  GtkWidget *alignment2;
+  GtkWidget *table19;
+  GtkWidget *label253;
+  GtkWidget *label254;
+  GtkObject *teseo_year_spinbutton_adj;
+  GtkWidget *teseo_year_spinbutton;
+  GtkObject *teseo_month_spinbutton_adj;
+  GtkWidget *teseo_month_spinbutton;
+  GtkObject *teseo_day_spinbutton_adj;
+  GtkWidget *teseo_day_spinbutton;
+  GtkWidget *label250;
+  GtkWidget *label251;
+  GtkWidget *label252;
+  GtkWidget *label165;
+  GtkWidget *frame75;
+  GtkWidget *alignment30;
+  GtkWidget *table25;
+  GtkObject *teseo_event_number_spinbutton_adj;
+  GtkWidget *teseo_event_number_spinbutton;
+  GtkWidget *label298;
+  GtkWidget *label303;
   GtkWidget *frame60;
   GtkWidget *alignment24;
   GtkWidget *table18;
@@ -2087,21 +2110,6 @@ create_dlg_session (void)
   GtkObject *teseo_cmpaz_spinbutton_adj;
   GtkWidget *teseo_cmpaz_spinbutton;
   GtkWidget *label178;
-  GtkWidget *frame50;
-  GtkWidget *alignment2;
-  GtkWidget *table19;
-  GtkWidget *label250;
-  GtkWidget *label251;
-  GtkWidget *label252;
-  GtkWidget *label253;
-  GtkWidget *label254;
-  GtkObject *teseo_year_spinbutton_adj;
-  GtkWidget *teseo_year_spinbutton;
-  GtkObject *teseo_month_spinbutton_adj;
-  GtkWidget *teseo_month_spinbutton;
-  GtkObject *teseo_day_spinbutton_adj;
-  GtkWidget *teseo_day_spinbutton;
-  GtkWidget *label165;
   GtkWidget *SpeedFrame;
   GtkWidget *alignment22;
   GtkWidget *hbox43;
@@ -2253,6 +2261,139 @@ create_dlg_session (void)
   gtk_notebook_set_tab_label_packing (GTK_NOTEBOOK (notebook4), vbox66,
                                       FALSE, FALSE, GTK_PACK_START);
 
+  hbox66 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox66, "hbox66");
+  gtk_widget_show (hbox66);
+  gtk_box_pack_start (GTK_BOX (vbox66), hbox66, FALSE, FALSE, 0);
+
+  frame50 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame50, "frame50");
+  gtk_widget_show (frame50);
+  gtk_box_pack_start (GTK_BOX (hbox66), frame50, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (frame50), 6);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame50), GTK_SHADOW_NONE);
+
+  alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment2, "alignment2");
+  gtk_widget_show (alignment2);
+  gtk_container_add (GTK_CONTAINER (frame50), alignment2);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment2), 8, 0, 14, 0);
+
+  table19 = gtk_table_new (2, 5, FALSE);
+  gtk_widget_set_name (table19, "table19");
+  gtk_widget_show (table19);
+  gtk_container_add (GTK_CONTAINER (alignment2), table19);
+
+  label253 = gtk_label_new (" / ");
+  gtk_widget_set_name (label253, "label253");
+  gtk_widget_show (label253);
+  gtk_table_attach (GTK_TABLE (table19), label253, 1, 2, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label253), 0, 0.5);
+
+  label254 = gtk_label_new (" / ");
+  gtk_widget_set_name (label254, "label254");
+  gtk_widget_show (label254);
+  gtk_table_attach (GTK_TABLE (table19), label254, 3, 4, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label254), 0, 0.5);
+
+  teseo_year_spinbutton_adj = gtk_adjustment_new (1900, 1700, 3000, 1, 10, 10);
+  teseo_year_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_year_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_year_spinbutton, "teseo_year_spinbutton");
+  gtk_widget_show (teseo_year_spinbutton);
+  gtk_table_attach (GTK_TABLE (table19), teseo_year_spinbutton, 0, 1, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  teseo_month_spinbutton_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
+  teseo_month_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_month_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_month_spinbutton, "teseo_month_spinbutton");
+  gtk_widget_show (teseo_month_spinbutton);
+  gtk_table_attach (GTK_TABLE (table19), teseo_month_spinbutton, 2, 3, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  teseo_day_spinbutton_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
+  teseo_day_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_day_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_day_spinbutton, "teseo_day_spinbutton");
+  gtk_widget_show (teseo_day_spinbutton);
+  gtk_table_attach (GTK_TABLE (table19), teseo_day_spinbutton, 4, 5, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label250 = gtk_label_new ("Year");
+  gtk_widget_set_name (label250, "label250");
+  gtk_widget_show (label250);
+  gtk_table_attach (GTK_TABLE (table19), label250, 0, 1, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (GTK_EXPAND), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label250), 0, 0.5);
+
+  label251 = gtk_label_new ("Month");
+  gtk_widget_set_name (label251, "label251");
+  gtk_widget_show (label251);
+  gtk_table_attach (GTK_TABLE (table19), label251, 2, 3, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (GTK_EXPAND), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label251), 0, 0.5);
+
+  label252 = gtk_label_new ("Day");
+  gtk_widget_set_name (label252, "label252");
+  gtk_widget_show (label252);
+  gtk_table_attach (GTK_TABLE (table19), label252, 4, 5, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (GTK_EXPAND), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label252), 0, 0.5);
+
+  label165 = gtk_label_new ("<b>Date</b>");
+  gtk_widget_set_name (label165, "label165");
+  gtk_widget_show (label165);
+  gtk_frame_set_label_widget (GTK_FRAME (frame50), label165);
+  gtk_label_set_use_markup (GTK_LABEL (label165), TRUE);
+
+  frame75 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame75, "frame75");
+  gtk_widget_show (frame75);
+  gtk_box_pack_start (GTK_BOX (hbox66), frame75, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (frame75), 6);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame75), GTK_SHADOW_NONE);
+
+  alignment30 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment30, "alignment30");
+  gtk_widget_show (alignment30);
+  gtk_container_add (GTK_CONTAINER (frame75), alignment30);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment30), 8, 0, 14, 0);
+
+  table25 = gtk_table_new (2, 1, FALSE);
+  gtk_widget_set_name (table25, "table25");
+  gtk_widget_show (table25);
+  gtk_container_add (GTK_CONTAINER (alignment30), table25);
+
+  teseo_event_number_spinbutton_adj = gtk_adjustment_new (1, 1, 99, 1, 10, 10);
+  teseo_event_number_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_event_number_spinbutton_adj), 1, 0);
+  gtk_widget_set_name (teseo_event_number_spinbutton, "teseo_event_number_spinbutton");
+  gtk_widget_show (teseo_event_number_spinbutton);
+  gtk_table_attach (GTK_TABLE (table25), teseo_event_number_spinbutton, 0, 1, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label298 = gtk_label_new ("Number");
+  gtk_widget_set_name (label298, "label298");
+  gtk_widget_show (label298);
+  gtk_table_attach (GTK_TABLE (table25), label298, 0, 1, 0, 1,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (GTK_EXPAND), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label298), 0, 0.5);
+
+  label303 = gtk_label_new ("<b>Event</b>");
+  gtk_widget_set_name (label303, "label303");
+  gtk_widget_show (label303);
+  gtk_frame_set_label_widget (GTK_FRAME (frame75), label303);
+  gtk_label_set_use_markup (GTK_LABEL (label303), TRUE);
+
   frame60 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame60, "frame60");
   gtk_widget_show (frame60);
@@ -2381,94 +2522,6 @@ create_dlg_session (void)
   gtk_widget_show (label178);
   gtk_frame_set_label_widget (GTK_FRAME (frame60), label178);
   gtk_label_set_use_markup (GTK_LABEL (label178), TRUE);
-
-  frame50 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame50, "frame50");
-  gtk_widget_show (frame50);
-  gtk_box_pack_start (GTK_BOX (vbox66), frame50, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (frame50), 6);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame50), GTK_SHADOW_NONE);
-
-  alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment2, "alignment2");
-  gtk_widget_show (alignment2);
-  gtk_container_add (GTK_CONTAINER (frame50), alignment2);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment2), 8, 0, 14, 0);
-
-  table19 = gtk_table_new (2, 5, FALSE);
-  gtk_widget_set_name (table19, "table19");
-  gtk_widget_show (table19);
-  gtk_container_add (GTK_CONTAINER (alignment2), table19);
-
-  label250 = gtk_label_new ("Year");
-  gtk_widget_set_name (label250, "label250");
-  gtk_widget_show (label250);
-  gtk_table_attach (GTK_TABLE (table19), label250, 0, 1, 0, 1,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label250), 0, 0.5);
-
-  label251 = gtk_label_new ("Month");
-  gtk_widget_set_name (label251, "label251");
-  gtk_widget_show (label251);
-  gtk_table_attach (GTK_TABLE (table19), label251, 2, 3, 0, 1,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label251), 0, 0.5);
-
-  label252 = gtk_label_new ("Day");
-  gtk_widget_set_name (label252, "label252");
-  gtk_widget_show (label252);
-  gtk_table_attach (GTK_TABLE (table19), label252, 4, 5, 0, 1,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label252), 0, 0.5);
-
-  label253 = gtk_label_new (" / ");
-  gtk_widget_set_name (label253, "label253");
-  gtk_widget_show (label253);
-  gtk_table_attach (GTK_TABLE (table19), label253, 1, 2, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label253), 0, 0.5);
-
-  label254 = gtk_label_new (" / ");
-  gtk_widget_set_name (label254, "label254");
-  gtk_widget_show (label254);
-  gtk_table_attach (GTK_TABLE (table19), label254, 3, 4, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label254), 0, 0.5);
-
-  teseo_year_spinbutton_adj = gtk_adjustment_new (1900, 1700, 3000, 1, 10, 10);
-  teseo_year_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_year_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_year_spinbutton, "teseo_year_spinbutton");
-  gtk_widget_show (teseo_year_spinbutton);
-  gtk_table_attach (GTK_TABLE (table19), teseo_year_spinbutton, 0, 1, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-
-  teseo_month_spinbutton_adj = gtk_adjustment_new (1, 1, 12, 1, 10, 10);
-  teseo_month_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_month_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_month_spinbutton, "teseo_month_spinbutton");
-  gtk_widget_show (teseo_month_spinbutton);
-  gtk_table_attach (GTK_TABLE (table19), teseo_month_spinbutton, 2, 3, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-
-  teseo_day_spinbutton_adj = gtk_adjustment_new (1, 1, 31, 1, 10, 10);
-  teseo_day_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_day_spinbutton_adj), 1, 0);
-  gtk_widget_set_name (teseo_day_spinbutton, "teseo_day_spinbutton");
-  gtk_widget_show (teseo_day_spinbutton);
-  gtk_table_attach (GTK_TABLE (table19), teseo_day_spinbutton, 4, 5, 1, 2,
-                    (GtkAttachOptions) (0),
-                    (GtkAttachOptions) (0), 0, 0);
-
-  label165 = gtk_label_new ("<b>Date</b>");
-  gtk_widget_set_name (label165, "label165");
-  gtk_widget_show (label165);
-  gtk_frame_set_label_widget (GTK_FRAME (frame50), label165);
-  gtk_label_set_use_markup (GTK_LABEL (label165), TRUE);
 
   SpeedFrame = gtk_frame_new (NULL);
   gtk_widget_set_name (SpeedFrame, "SpeedFrame");
@@ -3211,6 +3264,25 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dialog_vbox7, "dialog_vbox7");
   GLADE_HOOKUP_OBJECT (dlg_session, notebook4, "notebook4");
   GLADE_HOOKUP_OBJECT (dlg_session, vbox66, "vbox66");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox66, "hbox66");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame50, "frame50");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment2, "alignment2");
+  GLADE_HOOKUP_OBJECT (dlg_session, table19, "table19");
+  GLADE_HOOKUP_OBJECT (dlg_session, label253, "label253");
+  GLADE_HOOKUP_OBJECT (dlg_session, label254, "label254");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_year_spinbutton, "teseo_year_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_month_spinbutton, "teseo_month_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_day_spinbutton, "teseo_day_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label250, "label250");
+  GLADE_HOOKUP_OBJECT (dlg_session, label251, "label251");
+  GLADE_HOOKUP_OBJECT (dlg_session, label252, "label252");
+  GLADE_HOOKUP_OBJECT (dlg_session, label165, "label165");
+  GLADE_HOOKUP_OBJECT (dlg_session, frame75, "frame75");
+  GLADE_HOOKUP_OBJECT (dlg_session, alignment30, "alignment30");
+  GLADE_HOOKUP_OBJECT (dlg_session, table25, "table25");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_event_number_spinbutton, "teseo_event_number_spinbutton");
+  GLADE_HOOKUP_OBJECT (dlg_session, label298, "label298");
+  GLADE_HOOKUP_OBJECT (dlg_session, label303, "label303");
   GLADE_HOOKUP_OBJECT (dlg_session, frame60, "frame60");
   GLADE_HOOKUP_OBJECT (dlg_session, alignment24, "alignment24");
   GLADE_HOOKUP_OBJECT (dlg_session, table18, "table18");
@@ -3227,18 +3299,6 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_cmpinc_spinbutton, "teseo_cmpinc_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_cmpaz_spinbutton, "teseo_cmpaz_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label178, "label178");
-  GLADE_HOOKUP_OBJECT (dlg_session, frame50, "frame50");
-  GLADE_HOOKUP_OBJECT (dlg_session, alignment2, "alignment2");
-  GLADE_HOOKUP_OBJECT (dlg_session, table19, "table19");
-  GLADE_HOOKUP_OBJECT (dlg_session, label250, "label250");
-  GLADE_HOOKUP_OBJECT (dlg_session, label251, "label251");
-  GLADE_HOOKUP_OBJECT (dlg_session, label252, "label252");
-  GLADE_HOOKUP_OBJECT (dlg_session, label253, "label253");
-  GLADE_HOOKUP_OBJECT (dlg_session, label254, "label254");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_year_spinbutton, "teseo_year_spinbutton");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_month_spinbutton, "teseo_month_spinbutton");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_day_spinbutton, "teseo_day_spinbutton");
-  GLADE_HOOKUP_OBJECT (dlg_session, label165, "label165");
   GLADE_HOOKUP_OBJECT (dlg_session, SpeedFrame, "SpeedFrame");
   GLADE_HOOKUP_OBJECT (dlg_session, alignment22, "alignment22");
   GLADE_HOOKUP_OBJECT (dlg_session, hbox43, "hbox43");
