@@ -1,60 +1,63 @@
+      subroutine arm_shift_slope_sub(rXY, nPoints, xinitial, xfinal,
+     +           yi, yf, sec, Bg, r, Rg, a, b, ret_b_sl_e, max_val)
 c	****************************************************
 c	*** Calculation of the histogram of the slope at ***
-c	*** each point of the seismograme function of b value ***
-c	*** (arm shift) 						***
-c	*** input format = x, y                     ***
+c	*** each point of the seismograme function of b value	***
+c	*** (arm shift) 				***
+c	*** input format = x, y                     	***
 c	****************************************************
+c
+c    Variables passed in the routine:
+c
+c	inXY array of coordinates of input points
+c	nPoints dimension of inXY
+c
+c 	xinitial,xfinal,yi,yf: 	the two extremes points of the input file ( xinitial xfinal yi yf) along the base line:
+c 	sec: 	number of seconds between  xinitial and xfinal
+c
+c	Correction of the curvature of the signal due to the geometry
+c	of the Wiechert seismograph recorder
+c       Bg: 	The velocity of the paper in mm/min
+c	r:	Radius of the cylinder that carry the paper, in mm.
+c	Rg: 	Length of the writing arm from its rotation axe until the end of the needle in mm.
+c	a: 	Distance from the rotation axe of the writing arm until the axe of the cylinder that carry the paper
+c               measured perpendicular to the cylinder axe in mm :'
+c	b:      Maximum shift (positive value in mm) to be tested,
+c               between the needle position at rest and its normal equilibrium position
+c              (arm perpendicular to the axe of the cylinder) :'
+c
+
 
 c 	=========================
 c	VARIABLES
 c 	=========================
 
-	character*20 fiche
-	character*20 sortie
-	character*20 sortie2
+        PARAMETER (max_slope=180)
+
+	integer nPoints
+	integer max_val
+	REAL rXY(2,nPoints)
+	REAL ret_b_e(2,max_val)
+
 
 	integer i,cpt,b2
 
 	real yi,yf,pir
 	real sec,alp
-	real x(15000),y(15000),xx(15000),yy(15000)
-	real xa(15000),ya(15000),n(200),alpha(15000)
+	real x(nPoints),y(nPoints),xx(nPoints),yy(nPoints)
+	real xa(nPoints),ya(nPoints),alpha(nPoints)
+c WARNING only to insure to access in vector bounds always
+	real n(0:200)
 	real xinitial,xfinal
 	real Bg,r,Rg,a,b
 
-	write(*,*) 'Name of input file'
-	read(*,*) fiche
- 	write(*,*)'Name of output file'
-	read(*,*) sortie
- 	write(*,*) 'enter the two extremes points of the input file, * xinitial xfinal yi yf, along the base line:'
-	read(*,*) xinitial,xfinal,yi,yf
- 	write(*,*) 'number of seconds between  xinitial and xfinal:'
-	read(*,*) sec
 
 c	Correction of the curvature of the signal due to the geometry
 c	of the Wiechert seismograph recorder
 
 
-
-	write(*,*) 'Enter the velocity of the paper in mm/min :'
-	read(*,*)  Bg
-	write(*,*) 'Enter the radius of the cylinder that carry the paper, in mm:'
-	read(*,*)  r
-	write(*,*) 'Enter the length of the writting arm from its rotation axe
-     *until the end of the needle in mm :'
-	read(*,*)  Rg
-	write(*,*) 'Enter the distance from the rotation axe of the writing arm
-     *until the axe of the cylinder that carry the paper
-     *measured perpendicular to the cylinder axe in mm :'
-	read(*,*)  a
-	write(*,*) 'Enter the maximum shift (positive value in mm) to be tested,
-     * between the needle position at rest and its normal equilibrium position
-     * (arm perpendicular to the axe of the cylinder) :'
-	read(*,*)  b
-
-
 	open(1,file=fiche,status='old')
-	read(1,*,end=1000) (x(i),y(i),i=1,15000)
+	read(1,*,end=1000) (x(i),y(i),i=1,nPoints)
 1000    npt1=i-1
 
 
@@ -109,7 +112,7 @@ c *** next step: time correction ***
      &     r*asin((r*r+a*a-Rg*Rg+b*b)/2./a/r))
 
 
-c  	*** warning : the ploarity of data must be checked.  If inversion of
+c  	*** warning : the polarity of data must be checked.  If inversion of
 c	polarity necessary, use the formula here under.***
 c	   y(i)=-((Bg*sec/(xfinal-xinitial)/60)*y(i))
 
@@ -144,9 +147,9 @@ c	Count the histogram of each slope
 
 11    continue
 
-C	*** Write in output file, b, slope, number of point
+C	*** Write in output file, b, slope, number of points
 
-	do 58 j=1,180
+	do 58 j=1,max_slope
             write(4,*) b,j,n(j)
 58	continue
 		close(4)
