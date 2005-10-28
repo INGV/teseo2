@@ -350,3 +350,19 @@ on_notebook2_switch_page               (GtkNotebook     *notebook,
                                         GtkNotebookPage *page,
                                         guint            page_num,
                                         gpointer         user_data);
+
+void
+on_parasites1_activate                 (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_import2_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_export2_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_remove_all1_activate                (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
