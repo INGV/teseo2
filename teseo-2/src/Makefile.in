@@ -211,7 +211,9 @@ teseo_2_SOURCES = \
 	teseo_timemark.c	\
 	teseo_timemark.h	\
 	teseo_filters.c	\
-	teseo_filters.h
+	teseo_filters.h \
+	teseo_wiechert.c	\
+	teseo_wiechert.h
 
 
 
@@ -257,7 +259,8 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_wmean.$(OBJEXT) \
 	teseo_main.$(OBJEXT) \
 	teseo_gimp_extends.$(OBJEXT) \
-	teseo_filters.$(OBJEXT)
+	teseo_filters.$(OBJEXT) \
+	teseo_wiechert.$(OBJEXT)
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)

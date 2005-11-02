@@ -51,7 +51,9 @@ teseo_2_SOURCES = \
 	teseo_timemark.c	\
 	teseo_timemark.h	\
 	teseo_filters.c	\
-	teseo_filters.h
+	teseo_filters.h	\
+	teseo_wiechert.c	\
+	teseo_wiechert.h
 
 AM_CPPFLAGS = \
 	-DLOCALEDIR=\""$(LOCALEDIR)"\"		\
