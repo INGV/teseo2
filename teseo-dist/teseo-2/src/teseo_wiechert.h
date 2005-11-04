@@ -41,10 +41,33 @@
 #include <glib.h>
 #include <glib/gprintf.h>
 
-gboolean teseo_wiech_corr(gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b);
+/*!
+*/
+gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
+				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord, gboolean ignore_sec,
+				gdouble **corr, gulong* n_points);
+/*!
+*/
+gboolean teseo_wiech_estimate_b1(	gint32 g_image,
+					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore,
+					gdouble ret_b[], gdouble ret_errors[], gulong n_tries);
 
-gboolean teseo_wiech_estimate_b1(gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b, gdouble** ret_b, gdouble ** errors, gdouble * n);
-
+/*!
+*/
 gboolean teseo_wiech_estimate_b2(gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b);
+
+/*!Rotate the strokes of angle radian (clockwise if angle positive) around the first point
+*/
+void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle);
+
+
+/*!translate the strokes at point x,y
+*/
+void teseo_translate(gdouble * strokes, gulong n_strokes, gdouble x, gdouble y);
+
+/*!Copy in a new strokes
+*/
+gdouble * teseo_copy_strokes(gdouble * strokes, gulong n_strokes);
 
 #endif

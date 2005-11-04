@@ -135,6 +135,16 @@ void teseo_path_move(gint32 g_image,gint x, gint y , gdouble rotate);
 void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes);
 
 /*!
+  scale the strokes for the factors scale
+  */
+void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale);
+
+/*!
+  Create a polyline point_pairs from a strokes vector
+  */
+gboolean teseo_strokes_point_pairs(gdouble *strokes, gulong n_strokes, gdouble** pp, gulong* nppd);
+
+/*!
   teseo_path_force_polyline convert a path in a polyline without take care of control points.
   \param g_image GIMP image ID
   */
@@ -152,5 +162,5 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
   Split the current path at x positions of the vertical guides
   */
 void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides);
-    
+
 #endif

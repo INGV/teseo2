@@ -366,3 +366,7 @@ on_export2_activate                    (GtkMenuItem     *menuitem,
 void
 on_remove_all1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_btn_correct_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
