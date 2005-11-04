@@ -209,6 +209,46 @@ gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, gl
  return strokes;
 }
 
+void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale)
+{
+	gulong i;
+	for(i=0; i<n_points;i++){
+	strokes_corr[2*i]*=x_scale;
+	strokes_corr[2*i+1]*=y_scale;
+	}
+}
+
+gboolean teseo_strokes_point_pairs(gdouble *strokes, gulong n_points, gdouble** pp, gulong* nppd)
+{
+	gboolean ret=FALSE;
+	*nppd= 9*n_points - 3;
+	gdouble *app = NULL;
+	app = ( gdouble* ) g_malloc( sizeof(double) * (*nppd) );
+	gulong i,j,k;
+
+	if ( app!=NULL ) {
+		k=0;//conta i punti
+		for(j=0; j<2; j++) {
+			app[k*3]=strokes[0];
+			app[k*3+1]=strokes[1];
+			app[k*3+2]= (j == 0) ? 1.0 : 2.0;
+			k++;
+		}
+		for (i=1; i<n_points ; i++) {
+			for(j=0; j<3 ; j++) {
+				app[k*3]=strokes[i*2];
+				app[k*3+1]=strokes[i*2+1];
+				app[k*3+2]= ( (j % 3) == 1) ? 1.0 : 2.0;
+				k++;
+			}
+		}
+		*pp=app;
+		ret=TRUE;
+	}
+
+	return ret;
+}
+
 
 gdouble * teseo_open_path_to_array(gint32 g_image, glong* n_strokes,  char * nome_path){
   glong lstrokes;

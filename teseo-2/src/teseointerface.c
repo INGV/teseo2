@@ -3842,8 +3842,8 @@ create_dlg_wiechert (void)
   GtkWidget *hbox63;
   GtkObject *teseo_spbtn_arm_lenght_adj;
   GtkWidget *teseo_spbtn_arm_lenght;
-  GtkObject *teseospbtn_displ_adj;
-  GtkWidget *teseospbtn_displ;
+  GtkObject *teseo_spbtn_displ_adj;
+  GtkWidget *teseo_spbtn_displ;
   GtkObject *teseo_spbtn_cyl_radius_adj;
   GtkWidget *teseo_spbtn_cyl_radius;
   GtkObject *teseo_spbtn_vel_adj;
@@ -3865,7 +3865,8 @@ create_dlg_wiechert (void)
   GtkWidget *teseo_Xfin;
   GtkObject *teseo_Yfin_adj;
   GtkWidget *teseo_Yfin;
-  GtkWidget *label295;
+  GtkObject *teseo_spbtn_b_adj;
+  GtkWidget *teseo_spbtn_b;
   GtkWidget *hbox60;
   GtkWidget *comboboxentry1;
   GtkWidget *label282;
@@ -3944,13 +3945,13 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_arm_lenght, "Arm lenght, in mm", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_arm_lenght), TRUE);
 
-  teseospbtn_displ_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
-  teseospbtn_displ = gtk_spin_button_new (GTK_ADJUSTMENT (teseospbtn_displ_adj), 1, 2);
-  gtk_widget_set_name (teseospbtn_displ, "teseospbtn_displ");
-  gtk_widget_show (teseospbtn_displ);
-  gtk_box_pack_start (GTK_BOX (hbox63), teseospbtn_displ, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, teseospbtn_displ, "Distance from needle rotation axe and cylinder, in mm", NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseospbtn_displ), TRUE);
+  teseo_spbtn_displ_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
+  teseo_spbtn_displ = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_displ_adj), 1, 2);
+  gtk_widget_set_name (teseo_spbtn_displ, "teseo_spbtn_displ");
+  gtk_widget_show (teseo_spbtn_displ);
+  gtk_box_pack_start (GTK_BOX (hbox63), teseo_spbtn_displ, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_displ, "Distance from needle rotation axe and cylinder axe , in mm", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_displ), TRUE);
 
   teseo_spbtn_cyl_radius_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
   teseo_spbtn_cyl_radius = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_cyl_radius_adj), 1, 2);
@@ -4001,7 +4002,7 @@ create_dlg_wiechert (void)
   gtk_widget_show (label293);
   gtk_box_pack_start (GTK_BOX (hbox64), label293, FALSE, FALSE, 0);
 
-  label294 = gtk_label_new (" ");
+  label294 = gtk_label_new ("b");
   gtk_widget_set_name (label294, "label294");
   gtk_widget_show (label294);
   gtk_box_pack_start (GTK_BOX (hbox64), label294, FALSE, FALSE, 0);
@@ -4038,11 +4039,13 @@ create_dlg_wiechert (void)
   gtk_widget_show (teseo_Yfin);
   gtk_box_pack_start (GTK_BOX (hbox59), teseo_Yfin, FALSE, FALSE, 0);
 
-  label295 = gtk_label_new ("                         ");
-  gtk_widget_set_name (label295, "label295");
-  gtk_widget_show (label295);
-  gtk_box_pack_start (GTK_BOX (hbox59), label295, TRUE, FALSE, 0);
-  gtk_widget_set_sensitive (label295, FALSE);
+  teseo_spbtn_b_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
+  teseo_spbtn_b = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_b_adj), 1, 2);
+  gtk_widget_set_name (teseo_spbtn_b, "teseo_spbtn_b");
+  gtk_widget_show (teseo_spbtn_b);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_b, TRUE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_b, "Time span of the curve to be corrected, in secs", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_b), TRUE);
 
   hbox60 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox60, "hbox60");
@@ -4103,14 +4106,14 @@ create_dlg_wiechert (void)
   gtk_widget_show (label284);
   gtk_box_pack_start (GTK_BOX (hbox61), label284, FALSE, FALSE, 0);
 
-  spinbutton37_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+  spinbutton37_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
   spinbutton37 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton37_adj), 1, 2);
   gtk_widget_set_name (spinbutton37, "spinbutton37");
   gtk_widget_show (spinbutton37);
   gtk_box_pack_start (GTK_BOX (hbox61), spinbutton37, FALSE, FALSE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton37), TRUE);
 
-  hbox65 = gtk_hbox_new (FALSE, 0);
+  hbox65 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox65, "hbox65");
   gtk_widget_show (hbox65);
   gtk_box_pack_start (GTK_BOX (vbox87), hbox65, TRUE, TRUE, 0);
@@ -4118,7 +4121,7 @@ create_dlg_wiechert (void)
   btn_correct = gtk_button_new_with_mnemonic ("Correct");
   gtk_widget_set_name (btn_correct, "btn_correct");
   gtk_widget_show (btn_correct);
-  gtk_box_pack_start (GTK_BOX (hbox65), btn_correct, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox65), btn_correct, FALSE, FALSE, 0);
 
   dialog_action_area13 = GTK_DIALOG (dlg_wiechert)->action_area;
   gtk_widget_set_name (dialog_action_area13, "dialog_action_area13");
@@ -4134,6 +4137,9 @@ create_dlg_wiechert (void)
   g_signal_connect ((gpointer) teseo_calc_arm_shift, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_shift_clicked),
                     NULL);
+  g_signal_connect ((gpointer) btn_correct, "clicked",
+                    G_CALLBACK (on_btn_correct_clicked),
+                    NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dlg_wiechert, "dlg_wiechert");
@@ -4147,7 +4153,7 @@ create_dlg_wiechert (void)
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label287, "label287");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox63, "hbox63");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseospbtn_displ, "teseospbtn_displ");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_displ, "teseo_spbtn_displ");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_cyl_radius, "teseo_spbtn_cyl_radius");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_time_span, "teseo_spbtn_time_span");
@@ -4162,7 +4168,7 @@ create_dlg_wiechert (void)
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yin, "teseo_Yin");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Xfin, "teseo_Xfin");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yfin, "teseo_Yfin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label295, "label295");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox60, "hbox60");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry1, "comboboxentry1");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label282, "label282");

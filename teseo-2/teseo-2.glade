@@ -6725,9 +6725,9 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	      </child>
 
 	      <child>
-		<widget class="GtkSpinButton" id="teseospbtn_displ">
+		<widget class="GtkSpinButton" id="teseo_spbtn_displ">
 		  <property name="visible">True</property>
-		  <property name="tooltip" translatable="yes">Distance from needle rotation axe and cylinder, in mm</property>
+		  <property name="tooltip" translatable="yes">Distance from needle rotation axe and cylinder axe , in mm</property>
 		  <property name="can_focus">True</property>
 		  <property name="climb_rate">1</property>
 		  <property name="digits">2</property>
@@ -6909,7 +6909,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 		<widget class="GtkLabel" id="label294">
 		  <property name="visible">True</property>
 		  <property name="sensitive">False</property>
-		  <property name="label" translatable="yes"> </property>
+		  <property name="label" translatable="yes">b</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -7021,19 +7021,17 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="label295">
+		<widget class="GtkSpinButton" id="teseo_spbtn_b">
 		  <property name="visible">True</property>
-		  <property name="sensitive">False</property>
-		  <property name="label" translatable="yes">                         </property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="tooltip" translatable="yes">Time span of the curve to be corrected, in secs</property>
+		  <property name="can_focus">True</property>
+		  <property name="climb_rate">1</property>
+		  <property name="digits">2</property>
+		  <property name="numeric">True</property>
+		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+		  <property name="snap_to_ticks">False</property>
 		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
+		  <property name="adjustment">1 -100 100 1 10 10</property>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
@@ -7250,7 +7248,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 		  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		  <property name="snap_to_ticks">False</property>
 		  <property name="wrap">False</property>
-		  <property name="adjustment">1 0 100 1 10 10</property>
+		  <property name="adjustment">1 -100 100 1 10 10</property>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
@@ -7273,7 +7271,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	  <child>
 	    <widget class="GtkHBox" id="hbox65">
 	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
+	      <property name="homogeneous">True</property>
 	      <property name="spacing">0</property>
 
 	      <child>
@@ -7288,11 +7286,12 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_btn_correct_clicked" last_modification_time="Fri, 04 Nov 2005 10:05:35 GMT"/>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
 		  <property name="expand">False</property>
-		  <property name="fill">True</property>
+		  <property name="fill">False</property>
 		</packing>
 	      </child>
 
