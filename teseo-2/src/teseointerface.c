@@ -3832,12 +3832,12 @@ create_dlg_wiechert (void)
 {
   GtkWidget *dlg_wiechert;
   GtkWidget *dialog_vbox12;
+  GtkWidget *notebook5;
   GtkWidget *vbox87;
   GtkWidget *hbox62;
   GtkWidget *label285;
   GtkWidget *label286;
   GtkWidget *label289;
-  GtkWidget *label288;
   GtkWidget *label287;
   GtkWidget *hbox63;
   GtkObject *teseo_spbtn_arm_lenght_adj;
@@ -3846,17 +3846,29 @@ create_dlg_wiechert (void)
   GtkWidget *teseo_spbtn_displ;
   GtkObject *teseo_spbtn_cyl_radius_adj;
   GtkWidget *teseo_spbtn_cyl_radius;
-  GtkObject *teseo_spbtn_vel_adj;
-  GtkWidget *teseo_spbtn_vel;
   GtkObject *teseo_spbtn_time_span_adj;
   GtkWidget *teseo_spbtn_time_span;
   GtkWidget *hbox64;
-  GtkWidget *label290;
-  GtkWidget *label291;
-  GtkWidget *label292;
-  GtkWidget *label293;
   GtkWidget *label294;
+  GtkWidget *label288;
+  GtkWidget *label304;
+  GtkWidget *label311;
   GtkWidget *hbox59;
+  GtkObject *teseo_spbtn_b_adj;
+  GtkWidget *teseo_spbtn_b;
+  GtkObject *teseo_spbtn_vel_adj;
+  GtkWidget *teseo_spbtn_vel;
+  GtkObject *teseo_spbtn_ls_adj;
+  GtkWidget *teseo_spbtn_ls;
+  GtkObject *teseo_spbtn_angle_adj;
+  GtkWidget *teseo_spbtn_angle;
+  GtkWidget *frame76;
+  GtkWidget *alignment31;
+  GtkWidget *table26;
+  GtkWidget *label293;
+  GtkWidget *label292;
+  GtkWidget *label308;
+  GtkWidget *label291;
   GtkObject *teseo_Xin_adj;
   GtkWidget *teseo_Xin;
   GtkObject *teseo_Yin_adj;
@@ -3865,23 +3877,32 @@ create_dlg_wiechert (void)
   GtkWidget *teseo_Xfin;
   GtkObject *teseo_Yfin_adj;
   GtkWidget *teseo_Yfin;
-  GtkObject *teseo_spbtn_b_adj;
-  GtkWidget *teseo_spbtn_b;
+  GtkWidget *label309;
+  GtkWidget *frame77;
+  GtkWidget *alignment32;
+  GtkWidget *hbox70;
+  GtkWidget *teseo_chkbtn_extr;
+  GtkWidget *teseo_chkbtn_rangle;
+  GtkWidget *teseo_chkbtn_rot;
+  GtkWidget *teseo_chkbtn_span;
+  GtkWidget *teseo_chkbtn_transl;
+  GtkWidget *label310;
+  GtkWidget *hbox65;
+  GtkWidget *btn_correct;
+  GtkWidget *label305;
+  GtkWidget *vbox88;
   GtkWidget *hbox60;
   GtkWidget *comboboxentry1;
   GtkWidget *label282;
+  GtkWidget *hbox67;
   GtkWidget *teseo_calc_arm_shift;
-  GtkWidget *label296;
-  GtkWidget *label297;
+  GtkWidget *label306;
+  GtkWidget *vbox89;
   GtkWidget *hbox61;
   GtkWidget *comboboxentry2;
   GtkWidget *label283;
   GtkWidget *button29;
-  GtkWidget *label284;
-  GtkObject *spinbutton37_adj;
-  GtkWidget *spinbutton37;
-  GtkWidget *hbox65;
-  GtkWidget *btn_correct;
+  GtkWidget *label307;
   GtkWidget *dialog_action_area13;
   GtkWidget *closebutton1;
   GtkTooltips *tooltips;
@@ -3897,12 +3918,18 @@ create_dlg_wiechert (void)
   gtk_widget_set_name (dialog_vbox12, "dialog_vbox12");
   gtk_widget_show (dialog_vbox12);
 
-  vbox87 = gtk_vbox_new (TRUE, 0);
+  notebook5 = gtk_notebook_new ();
+  gtk_widget_set_name (notebook5, "notebook5");
+  gtk_widget_show (notebook5);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox12), notebook5, TRUE, TRUE, 0);
+
+  vbox87 = gtk_vbox_new (FALSE, 5);
   gtk_widget_set_name (vbox87, "vbox87");
   gtk_widget_show (vbox87);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox12), vbox87, TRUE, TRUE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook5), vbox87);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox87), 3);
 
-  hbox62 = gtk_hbox_new (TRUE, 6);
+  hbox62 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox62, "hbox62");
   gtk_widget_show (hbox62);
   gtk_box_pack_start (GTK_BOX (vbox87), hbox62, TRUE, TRUE, 0);
@@ -3922,11 +3949,6 @@ create_dlg_wiechert (void)
   gtk_widget_show (label289);
   gtk_box_pack_start (GTK_BOX (hbox62), label289, FALSE, FALSE, 0);
 
-  label288 = gtk_label_new ("Paper velocity");
-  gtk_widget_set_name (label288, "label288");
-  gtk_widget_show (label288);
-  gtk_box_pack_start (GTK_BOX (hbox62), label288, FALSE, FALSE, 0);
-
   label287 = gtk_label_new ("Time span");
   gtk_widget_set_name (label287, "label287");
   gtk_widget_show (label287);
@@ -3937,7 +3959,7 @@ create_dlg_wiechert (void)
   gtk_widget_show (hbox63);
   gtk_box_pack_start (GTK_BOX (vbox87), hbox63, TRUE, TRUE, 0);
 
-  teseo_spbtn_arm_lenght_adj = gtk_adjustment_new (1000, 0, 1000, 1, 10, 10);
+  teseo_spbtn_arm_lenght_adj = gtk_adjustment_new (100, 0, 1000, 1, 10, 10);
   teseo_spbtn_arm_lenght = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_arm_lenght_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
   gtk_widget_show (teseo_spbtn_arm_lenght);
@@ -3945,7 +3967,7 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_arm_lenght, "Arm lenght, in mm", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_arm_lenght), TRUE);
 
-  teseo_spbtn_displ_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
+  teseo_spbtn_displ_adj = gtk_adjustment_new (116.6, 0, 1000, 1, 10, 10);
   teseo_spbtn_displ = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_displ_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_displ, "teseo_spbtn_displ");
   gtk_widget_show (teseo_spbtn_displ);
@@ -3953,7 +3975,7 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_displ, "Distance from needle rotation axe and cylinder axe , in mm", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_displ), TRUE);
 
-  teseo_spbtn_cyl_radius_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
+  teseo_spbtn_cyl_radius_adj = gtk_adjustment_new (60, 0, 1000, 1, 10, 10);
   teseo_spbtn_cyl_radius = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_cyl_radius_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_cyl_radius, "teseo_spbtn_cyl_radius");
   gtk_widget_show (teseo_spbtn_cyl_radius);
@@ -3961,15 +3983,7 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_cyl_radius, "Radius of the cylinder carrying paper, in mm", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_cyl_radius), TRUE);
 
-  teseo_spbtn_vel_adj = gtk_adjustment_new (1, 0, 1000, 1, 10, 10);
-  teseo_spbtn_vel = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_vel_adj), 1, 2);
-  gtk_widget_set_name (teseo_spbtn_vel, "teseo_spbtn_vel");
-  gtk_widget_show (teseo_spbtn_vel);
-  gtk_box_pack_start (GTK_BOX (hbox63), teseo_spbtn_vel, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_spbtn_vel, "Paper velocity, in mm/min", NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_vel), TRUE);
-
-  teseo_spbtn_time_span_adj = gtk_adjustment_new (1, 0, 10000, 1, 10, 10);
+  teseo_spbtn_time_span_adj = gtk_adjustment_new (30, 0, 10000, 1, 10, 10);
   teseo_spbtn_time_span = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_time_span_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_time_span, "teseo_spbtn_time_span");
   gtk_widget_show (teseo_spbtn_time_span);
@@ -3977,80 +3991,234 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_time_span, "Time span of the curve to be corrected, in secs", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_time_span), TRUE);
 
-  hbox64 = gtk_hbox_new (TRUE, 6);
+  hbox64 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox64, "hbox64");
   gtk_widget_show (hbox64);
   gtk_box_pack_start (GTK_BOX (vbox87), hbox64, TRUE, TRUE, 0);
 
-  label290 = gtk_label_new ("Starting X");
-  gtk_widget_set_name (label290, "label290");
-  gtk_widget_show (label290);
-  gtk_box_pack_start (GTK_BOX (hbox64), label290, FALSE, FALSE, 0);
-
-  label291 = gtk_label_new ("Starting Y");
-  gtk_widget_set_name (label291, "label291");
-  gtk_widget_show (label291);
-  gtk_box_pack_start (GTK_BOX (hbox64), label291, FALSE, FALSE, 0);
-
-  label292 = gtk_label_new ("Final X");
-  gtk_widget_set_name (label292, "label292");
-  gtk_widget_show (label292);
-  gtk_box_pack_start (GTK_BOX (hbox64), label292, FALSE, FALSE, 0);
-
-  label293 = gtk_label_new ("Final Y");
-  gtk_widget_set_name (label293, "label293");
-  gtk_widget_show (label293);
-  gtk_box_pack_start (GTK_BOX (hbox64), label293, FALSE, FALSE, 0);
-
-  label294 = gtk_label_new ("b");
+  label294 = gtk_label_new ("Needle displacement");
   gtk_widget_set_name (label294, "label294");
   gtk_widget_show (label294);
   gtk_box_pack_start (GTK_BOX (hbox64), label294, FALSE, FALSE, 0);
-  gtk_widget_set_sensitive (label294, FALSE);
+
+  label288 = gtk_label_new ("Paper speed");
+  gtk_widget_set_name (label288, "label288");
+  gtk_widget_show (label288);
+  gtk_box_pack_start (GTK_BOX (hbox64), label288, FALSE, FALSE, 0);
+
+  label304 = gtk_label_new ("Lateral speed");
+  gtk_widget_set_name (label304, "label304");
+  gtk_widget_show (label304);
+  gtk_box_pack_start (GTK_BOX (hbox64), label304, FALSE, FALSE, 0);
+
+  label311 = gtk_label_new ("Raster angle");
+  gtk_widget_set_name (label311, "label311");
+  gtk_widget_show (label311);
+  gtk_box_pack_start (GTK_BOX (hbox64), label311, FALSE, FALSE, 0);
 
   hbox59 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox59, "hbox59");
   gtk_widget_show (hbox59);
   gtk_box_pack_start (GTK_BOX (vbox87), hbox59, TRUE, TRUE, 0);
 
-  teseo_Xin_adj = gtk_adjustment_new (100000, 0, 100000, 1, 10, 10);
+  teseo_spbtn_b_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
+  teseo_spbtn_b = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_b_adj), 1, 2);
+  gtk_widget_set_name (teseo_spbtn_b, "teseo_spbtn_b");
+  gtk_widget_show (teseo_spbtn_b);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_b, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_b, "Lateral displacement of the needle axe, b", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_b), TRUE);
+
+  teseo_spbtn_vel_adj = gtk_adjustment_new (30, 0, 1000, 1, 10, 10);
+  teseo_spbtn_vel = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_vel_adj), 1, 2);
+  gtk_widget_set_name (teseo_spbtn_vel, "teseo_spbtn_vel");
+  gtk_widget_show (teseo_spbtn_vel);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_vel, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_vel, "Paper velocity, in mm/min", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_vel), TRUE);
+
+  teseo_spbtn_ls_adj = gtk_adjustment_new (4.5, 0, 10000, 1, 10, 10);
+  teseo_spbtn_ls = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_ls_adj), 1, 2);
+  gtk_widget_set_name (teseo_spbtn_ls, "teseo_spbtn_ls");
+  gtk_widget_show (teseo_spbtn_ls);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_ls, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_ls, "Cylinder lateral speed ", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_ls), TRUE);
+
+  teseo_spbtn_angle_adj = gtk_adjustment_new (0, -90, 90, 1, 10, 10);
+  teseo_spbtn_angle = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_angle_adj), 1, 3);
+  gtk_widget_set_name (teseo_spbtn_angle, "teseo_spbtn_angle");
+  gtk_widget_show (teseo_spbtn_angle);
+  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_angle, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_spbtn_angle, "Error in paper scan, radian positive clockwise", NULL);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_angle), TRUE);
+
+  frame76 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame76, "frame76");
+  gtk_widget_show (frame76);
+  gtk_box_pack_start (GTK_BOX (vbox87), frame76, TRUE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame76), GTK_SHADOW_NONE);
+
+  alignment31 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment31, "alignment31");
+  gtk_widget_show (alignment31);
+  gtk_container_add (GTK_CONTAINER (frame76), alignment31);
+
+  table26 = gtk_table_new (2, 4, TRUE);
+  gtk_widget_set_name (table26, "table26");
+  gtk_widget_show (table26);
+  gtk_container_add (GTK_CONTAINER (alignment31), table26);
+
+  label293 = gtk_label_new ("Final Y");
+  gtk_widget_set_name (label293, "label293");
+  gtk_widget_show (label293);
+  gtk_table_attach (GTK_TABLE (table26), label293, 3, 4, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label292 = gtk_label_new ("Final X");
+  gtk_widget_set_name (label292, "label292");
+  gtk_widget_show (label292);
+  gtk_table_attach (GTK_TABLE (table26), label292, 2, 3, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label308 = gtk_label_new ("Starting X");
+  gtk_widget_set_name (label308, "label308");
+  gtk_widget_show (label308);
+  gtk_table_attach (GTK_TABLE (table26), label308, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  label291 = gtk_label_new ("Starting Y");
+  gtk_widget_set_name (label291, "label291");
+  gtk_widget_show (label291);
+  gtk_table_attach (GTK_TABLE (table26), label291, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+
+  teseo_Xin_adj = gtk_adjustment_new (1, 0, 100000, 1, 10, 10);
   teseo_Xin = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_Xin_adj), 1, 2);
   gtk_widget_set_name (teseo_Xin, "teseo_Xin");
   gtk_widget_show (teseo_Xin);
-  gtk_box_pack_start (GTK_BOX (hbox59), teseo_Xin, FALSE, FALSE, 0);
+  gtk_table_attach (GTK_TABLE (table26), teseo_Xin, 0, 1, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_Xin, "Starting point abscissa in dpi", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_Xin), TRUE);
 
   teseo_Yin_adj = gtk_adjustment_new (1, 0, 100000, 1, 10, 10);
   teseo_Yin = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_Yin_adj), 1, 2);
   gtk_widget_set_name (teseo_Yin, "teseo_Yin");
   gtk_widget_show (teseo_Yin);
-  gtk_box_pack_start (GTK_BOX (hbox59), teseo_Yin, FALSE, FALSE, 0);
+  gtk_table_attach (GTK_TABLE (table26), teseo_Yin, 1, 2, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_Yin, "Starting point ordinate in dpi", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_Yin), TRUE);
 
   teseo_Xfin_adj = gtk_adjustment_new (1, 0, 100000, 1, 10, 10);
   teseo_Xfin = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_Xfin_adj), 1, 2);
   gtk_widget_set_name (teseo_Xfin, "teseo_Xfin");
   gtk_widget_show (teseo_Xfin);
-  gtk_box_pack_start (GTK_BOX (hbox59), teseo_Xfin, FALSE, FALSE, 0);
+  gtk_table_attach (GTK_TABLE (table26), teseo_Xfin, 2, 3, 1, 2,
+                    (GtkAttachOptions) (0),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_Xfin, "Fianl point abscissa in dpi", NULL);
 
   teseo_Yfin_adj = gtk_adjustment_new (1, 0, 100000, 1, 10, 10);
   teseo_Yfin = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_Yfin_adj), 1, 2);
   gtk_widget_set_name (teseo_Yfin, "teseo_Yfin");
   gtk_widget_show (teseo_Yfin);
-  gtk_box_pack_start (GTK_BOX (hbox59), teseo_Yfin, FALSE, FALSE, 0);
+  gtk_table_attach (GTK_TABLE (table26), teseo_Yfin, 3, 4, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_Yfin, "Final point ordinate in dpi", NULL);
 
-  teseo_spbtn_b_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
-  teseo_spbtn_b = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_b_adj), 1, 2);
-  gtk_widget_set_name (teseo_spbtn_b, "teseo_spbtn_b");
-  gtk_widget_show (teseo_spbtn_b);
-  gtk_box_pack_start (GTK_BOX (hbox59), teseo_spbtn_b, TRUE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_spbtn_b, "Time span of the curve to be corrected, in secs", NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_b), TRUE);
+  label309 = gtk_label_new ("<b>Correction extrema</b>");
+  gtk_widget_set_name (label309, "label309");
+  gtk_widget_show (label309);
+  gtk_frame_set_label_widget (GTK_FRAME (frame76), label309);
+  gtk_label_set_use_markup (GTK_LABEL (label309), TRUE);
+
+  frame77 = gtk_frame_new (NULL);
+  gtk_widget_set_name (frame77, "frame77");
+  gtk_widget_show (frame77);
+  gtk_box_pack_start (GTK_BOX (vbox87), frame77, FALSE, FALSE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame77), GTK_SHADOW_NONE);
+
+  alignment32 = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_set_name (alignment32, "alignment32");
+  gtk_widget_show (alignment32);
+  gtk_container_add (GTK_CONTAINER (frame77), alignment32);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment32), 0, 0, 12, 0);
+
+  hbox70 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox70, "hbox70");
+  gtk_widget_show (hbox70);
+  gtk_container_add (GTK_CONTAINER (alignment32), hbox70);
+
+  teseo_chkbtn_extr = gtk_check_button_new_with_mnemonic ("Use Extrema");
+  gtk_widget_set_name (teseo_chkbtn_extr, "teseo_chkbtn_extr");
+  gtk_widget_show (teseo_chkbtn_extr);
+  gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_extr, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_extr, "Use explicit correction extrema ", NULL);
+
+  teseo_chkbtn_rangle = gtk_check_button_new_with_mnemonic ("Use raster angle");
+  gtk_widget_set_name (teseo_chkbtn_rangle, "teseo_chkbtn_rangle");
+  gtk_widget_show (teseo_chkbtn_rangle);
+  gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_rangle, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_rangle, "Use explicit raster angle in rotation", NULL);
+
+  teseo_chkbtn_rot = gtk_check_button_new_with_mnemonic ("Rotate  ");
+  gtk_widget_set_name (teseo_chkbtn_rot, "teseo_chkbtn_rot");
+  gtk_widget_show (teseo_chkbtn_rot);
+  gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_rot, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_rot, "Rotate before ", NULL);
+
+  teseo_chkbtn_span = gtk_check_button_new_with_mnemonic ("Use time span");
+  gtk_widget_set_name (teseo_chkbtn_span, "teseo_chkbtn_span");
+  gtk_widget_show (teseo_chkbtn_span);
+  gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_span, FALSE, FALSE, 0);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_span, "Use explicit time span ", NULL);
+
+  teseo_chkbtn_transl = gtk_check_button_new_with_mnemonic ("Translate");
+  gtk_widget_set_name (teseo_chkbtn_transl, "teseo_chkbtn_transl");
+  gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_transl, FALSE, FALSE, 0);
+  gtk_widget_set_sensitive (teseo_chkbtn_transl, FALSE);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_transl, "Correction for lateral speed after all", NULL);
+
+  label310 = gtk_label_new ("<b>Options</b>");
+  gtk_widget_set_name (label310, "label310");
+  gtk_widget_show (label310);
+  gtk_frame_set_label_widget (GTK_FRAME (frame77), label310);
+  gtk_label_set_use_markup (GTK_LABEL (label310), TRUE);
+
+  hbox65 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox65, "hbox65");
+  gtk_widget_show (hbox65);
+  gtk_box_pack_start (GTK_BOX (vbox87), hbox65, TRUE, TRUE, 0);
+
+  btn_correct = gtk_button_new_with_mnemonic ("Correct");
+  gtk_widget_set_name (btn_correct, "btn_correct");
+  gtk_widget_show (btn_correct);
+  gtk_box_pack_start (GTK_BOX (hbox65), btn_correct, FALSE, FALSE, 0);
+
+  label305 = gtk_label_new ("<b>Correction</b>");
+  gtk_widget_set_name (label305, "label305");
+  gtk_widget_show (label305);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 0), label305);
+  gtk_label_set_use_markup (GTK_LABEL (label305), TRUE);
+
+  vbox88 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox88, "vbox88");
+  gtk_widget_show (vbox88);
+  gtk_container_add (GTK_CONTAINER (notebook5), vbox88);
 
   hbox60 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox60, "hbox60");
   gtk_widget_show (hbox60);
-  gtk_box_pack_start (GTK_BOX (vbox87), hbox60, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox88), hbox60, TRUE, TRUE, 0);
 
   comboboxentry1 = gtk_combo_box_entry_new_text ();
   gtk_widget_set_name (comboboxentry1, "comboboxentry1");
@@ -4062,28 +4230,32 @@ create_dlg_wiechert (void)
   gtk_widget_show (label282);
   gtk_box_pack_start (GTK_BOX (hbox60), label282, FALSE, FALSE, 0);
 
+  hbox67 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox67, "hbox67");
+  gtk_widget_show (hbox67);
+  gtk_box_pack_start (GTK_BOX (vbox88), hbox67, TRUE, TRUE, 0);
+
   teseo_calc_arm_shift = gtk_button_new_with_mnemonic ("Calculate");
   gtk_widget_set_name (teseo_calc_arm_shift, "teseo_calc_arm_shift");
   gtk_widget_show (teseo_calc_arm_shift);
-  gtk_box_pack_start (GTK_BOX (hbox60), teseo_calc_arm_shift, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox67), teseo_calc_arm_shift, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_shift), 3);
 
-  label296 = gtk_label_new ("        ");
-  gtk_widget_set_name (label296, "label296");
-  gtk_widget_show (label296);
-  gtk_box_pack_start (GTK_BOX (hbox60), label296, FALSE, FALSE, 0);
-  gtk_widget_set_sensitive (label296, FALSE);
+  label306 = gtk_label_new ("<b>Errors Estimate</b>");
+  gtk_widget_set_name (label306, "label306");
+  gtk_widget_show (label306);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 1), label306);
+  gtk_label_set_use_markup (GTK_LABEL (label306), TRUE);
 
-  label297 = gtk_label_new ("        ");
-  gtk_widget_set_name (label297, "label297");
-  gtk_widget_show (label297);
-  gtk_box_pack_start (GTK_BOX (hbox60), label297, FALSE, FALSE, 0);
-  gtk_widget_set_sensitive (label297, FALSE);
+  vbox89 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox89, "vbox89");
+  gtk_widget_show (vbox89);
+  gtk_container_add (GTK_CONTAINER (notebook5), vbox89);
 
   hbox61 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox61, "hbox61");
   gtk_widget_show (hbox61);
-  gtk_box_pack_start (GTK_BOX (vbox87), hbox61, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox89), hbox61, TRUE, TRUE, 0);
 
   comboboxentry2 = gtk_combo_box_entry_new_text ();
   gtk_widget_set_name (comboboxentry2, "comboboxentry2");
@@ -4101,27 +4273,11 @@ create_dlg_wiechert (void)
   gtk_box_pack_start (GTK_BOX (hbox61), button29, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (button29), 3);
 
-  label284 = gtk_label_new ("Maximum shift value");
-  gtk_widget_set_name (label284, "label284");
-  gtk_widget_show (label284);
-  gtk_box_pack_start (GTK_BOX (hbox61), label284, FALSE, FALSE, 0);
-
-  spinbutton37_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
-  spinbutton37 = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton37_adj), 1, 2);
-  gtk_widget_set_name (spinbutton37, "spinbutton37");
-  gtk_widget_show (spinbutton37);
-  gtk_box_pack_start (GTK_BOX (hbox61), spinbutton37, FALSE, FALSE, 0);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton37), TRUE);
-
-  hbox65 = gtk_hbox_new (TRUE, 0);
-  gtk_widget_set_name (hbox65, "hbox65");
-  gtk_widget_show (hbox65);
-  gtk_box_pack_start (GTK_BOX (vbox87), hbox65, TRUE, TRUE, 0);
-
-  btn_correct = gtk_button_new_with_mnemonic ("Correct");
-  gtk_widget_set_name (btn_correct, "btn_correct");
-  gtk_widget_show (btn_correct);
-  gtk_box_pack_start (GTK_BOX (hbox65), btn_correct, FALSE, FALSE, 0);
+  label307 = gtk_label_new ("<b>Slope Estimate</b>");
+  gtk_widget_set_name (label307, "label307");
+  gtk_widget_show (label307);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 2), label307);
+  gtk_label_set_use_markup (GTK_LABEL (label307), TRUE);
 
   dialog_action_area13 = GTK_DIALOG (dlg_wiechert)->action_area;
   gtk_widget_set_name (dialog_action_area13, "dialog_action_area13");
@@ -4134,55 +4290,75 @@ create_dlg_wiechert (void)
   gtk_dialog_add_action_widget (GTK_DIALOG (dlg_wiechert), closebutton1, GTK_RESPONSE_CLOSE);
   GTK_WIDGET_SET_FLAGS (closebutton1, GTK_CAN_DEFAULT);
 
-  g_signal_connect ((gpointer) teseo_calc_arm_shift, "clicked",
-                    G_CALLBACK (on_teseo_calc_arm_shift_clicked),
-                    NULL);
   g_signal_connect ((gpointer) btn_correct, "clicked",
                     G_CALLBACK (on_btn_correct_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) teseo_calc_arm_shift, "clicked",
+                    G_CALLBACK (on_teseo_calc_arm_shift_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dlg_wiechert, "dlg_wiechert");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dialog_vbox12, "dialog_vbox12");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, notebook5, "notebook5");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox87, "vbox87");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox62, "hbox62");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label285, "label285");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label286, "label286");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label289, "label289");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label288, "label288");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label287, "label287");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox63, "hbox63");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_displ, "teseo_spbtn_displ");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_cyl_radius, "teseo_spbtn_cyl_radius");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_time_span, "teseo_spbtn_time_span");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox64, "hbox64");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label290, "label290");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label291, "label291");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label292, "label292");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label293, "label293");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label294, "label294");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label288, "label288");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label304, "label304");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label311, "label311");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox59, "hbox59");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_ls, "teseo_spbtn_ls");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_angle, "teseo_spbtn_angle");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, frame76, "frame76");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, alignment31, "alignment31");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, table26, "table26");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label293, "label293");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label292, "label292");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label308, "label308");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label291, "label291");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Xin, "teseo_Xin");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yin, "teseo_Yin");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Xfin, "teseo_Xfin");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yfin, "teseo_Yfin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label309, "label309");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, frame77, "frame77");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, alignment32, "alignment32");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox70, "hbox70");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_extr, "teseo_chkbtn_extr");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_rangle, "teseo_chkbtn_rangle");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_rot, "teseo_chkbtn_rot");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_span, "teseo_chkbtn_span");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_transl, "teseo_chkbtn_transl");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label310, "label310");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox65, "hbox65");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, btn_correct, "btn_correct");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label305, "label305");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox88, "vbox88");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox60, "hbox60");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry1, "comboboxentry1");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label282, "label282");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox67, "hbox67");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_calc_arm_shift, "teseo_calc_arm_shift");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label296, "label296");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label297, "label297");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label306, "label306");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox89, "vbox89");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox61, "hbox61");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry2, "comboboxentry2");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label283, "label283");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, button29, "button29");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label284, "label284");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, spinbutton37, "spinbutton37");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox65, "hbox65");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, btn_correct, "btn_correct");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, label307, "label307");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dialog_action_area13, "dialog_action_area13");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, closebutton1, "closebutton1");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, tooltips, "tooltips");

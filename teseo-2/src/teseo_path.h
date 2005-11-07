@@ -109,6 +109,7 @@ void teseo_strokes_to_open_path(gint32 g_image, glong num_strokes, gdouble *stro
   */
 void teseo_link_all_path( gint32 g_image );
 
+
 /*!
   TODO
   */
@@ -137,7 +138,7 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 /*!
   scale the strokes for the factors scale
   */
-void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale);
+void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale, gboolean mantain_offset);
 
 /*!
   Create a polyline point_pairs from a strokes vector

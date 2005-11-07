@@ -1667,7 +1667,7 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     GtkRadioButton * teseo_clean_greather = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_greater_radiobutton", 0);
     GtkSpinButton *teseo_clean_length = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
     GtkRadioButton * teseo_clean_horizontal = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_horizontal_radiobutton", 0);
-    GtkCheckButton * teseo_clean_newlayer = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_newlayer_checkbutton", 0);
+    GtkRadioButton * teseo_clean_newlayer = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_clean_newlayer", 0);
     GtkCheckButton * teseo_clean_transparent = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_transparent_checkbutton", 0);
 
     GtkAdjustment*  teseo_base_gse       = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "base_gse", 0);
@@ -1899,10 +1899,13 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	gdouble * point_pairs;
 	gulong num_details;
 	gdouble xfract=0.,yfract=0.;
-	gimp_image_get_resolution (teseo_image,  &xfract,  &yfract);
-
-	xfract= xfract/25.4;
-	yfract= yfract/25.4;
+	gboolean use_span=TRUE;
+	gboolean use_coord=FALSE;
+	gboolean rotate=TRUE;
+	gboolean use_angle=FALSE;
+	gdouble rotation_angle;
+	gchar corrected_path[FILENAMELEN];
+	gulong errors=0.0;
 
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_vel", Bg);
@@ -1914,6 +1917,12 @@ on_btn_correct_clicked                 (GtkButton       *button,
         GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yin", Yin);
         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xfin", Xfin);
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yfin", Yfin);
+	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_angle", rotation_angle);
+
+	GtkCheckButton * teseo_chkbtn_extr = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_extr", use_coord);
+	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_rangle", use_angle);
+	GtkCheckButton * teseo_chkbtn_rot = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_rot", rotate);
+	GtkCheckButton * teseo_chkbtn_span = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_span",use_span );
 
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
@@ -1945,27 +1954,38 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	if(teseo_Yfin) {
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
-
-	//b=1;
-	gboolean ignore_sec=FALSE;
-
-	if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-		teseo_wiech_corr( teseo_image, sec, Bg, r, Rg, a, b,
-					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ignore_sec, &strokes_corr, &n_points);
-
-		if (!ignore_sec) {
-			teseo_strokes_scale( strokes_corr, n_points, xfract*Bg/60.0, yfract);
-		}
-		else {
-			teseo_strokes_scale( strokes_corr, n_points, xfract, yfract);
-		}
-
-		teseo_strokes_point_pairs(strokes_corr, n_points, &point_pairs, &num_details);
-
-		gimp_path_set_points(teseo_image, "Correction", 1, num_details, point_pairs);
-		g_message("Points = %d details=%d",n_points,num_details);
+	if(teseo_spbtn_angle) {
+		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
 	}
 
+	if(teseo_chkbtn_extr) {
+		use_coord = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_extr);
+	}
+	if(teseo_chkbtn_rangle) {
+		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
+	}
+	if(teseo_chkbtn_rot) {
+		rotate = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rot);
+	}
+	if(teseo_chkbtn_span) {
+		use_span = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_span);
+	}
+
+	gimp_image_get_resolution (teseo_image,  &xfract,  &yfract);
+	xfract= xfract/25.4;
+	yfract= yfract/25.4;
+
+	if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+		errors=teseo_wiech_corr( teseo_image, sec, Bg, r, Rg, a, b,
+					rotate, TRUE,
+					Xin, Yin, Xfin, Yfin, rotation_angle,
+					use_angle, !use_coord, !use_span, &strokes_corr, &n_points);
+		teseo_strokes_scale( strokes_corr, n_points, xfract*Bg/60.0, yfract, TRUE);
+		teseo_strokes_point_pairs(strokes_corr, n_points, &point_pairs, &num_details);
+		sprintf(corrected_path, "R%2.2f_a%2.2f_r%2.2f_b%+2.2f_quality%d", Rg,a,r,b,errors);
+		gimp_path_set_points(teseo_image, corrected_path, 1, num_details, point_pairs);
+		g_message("Points = %d details=%d",n_points,num_details);
+	}
 }
 
 

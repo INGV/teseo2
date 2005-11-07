@@ -209,13 +209,40 @@ gdouble * teseo_path_array_to_strokes( gdouble * path_array, glong n_details, gl
  return strokes;
 }
 
-void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale)
+void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scale, gdouble y_scale, gboolean mantain_offset)
 {
 	gulong i;
-	for(i=0; i<n_points;i++){
-	strokes_corr[2*i]*=x_scale;
-	strokes_corr[2*i+1]*=y_scale;
+	gdouble Xorig;
+	gdouble Yorig;
+	gdouble scale;
+
+	if (!mantain_offset){
+		for(i=0; i<n_points;i++){
+			g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
+			strokes_corr[2*i]  = (strokes_corr[2*i])    * x_scale;
+			strokes_corr[2*i+1]= (strokes_corr[2*i+1] ) * y_scale;
+			g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
+		}
+	} else {
+
+		scale = (x_scale>y_scale) ? x_scale : y_scale;
+		Xorig = scale*strokes_corr[0];
+		Yorig = scale*strokes_corr[1];
+
+		for(i=1; i<n_points;i++){
+			g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
+			strokes_corr[2*i]  = ( strokes_corr[2*i]   - strokes_corr[0] ) * x_scale + Xorig;
+			strokes_corr[2*i+1]= ( strokes_corr[2*i+1] - strokes_corr[1] ) * y_scale + Yorig;
+			g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
+		}
+		
+		strokes_corr[0] = Xorig;
+		strokes_corr[1] = Yorig;
 	}
+
+
+
+	//g_printf("\nnpoints = %d\nscaling in %f %f, first point is %f %f \n",n_points, Xorig, Yorig,strokes_corr[0],strokes_corr[1]);
 }
 
 gboolean teseo_strokes_point_pairs(gdouble *strokes, gulong n_points, gdouble** pp, gulong* nppd)
