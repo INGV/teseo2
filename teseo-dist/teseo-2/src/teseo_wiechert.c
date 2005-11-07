@@ -253,7 +253,8 @@ return return_code;
 
 //TODO restituire puntatore e numero di elementi
 gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord, gboolean ignore_sec,
+				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
+				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 				gdouble **corr, gulong* n_points)
 {
 	gdouble *strokes_in=NULL;
@@ -285,10 +286,10 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	strokes_in= (gdouble *) g_malloc( n_strokes_in * sizeof (gdouble) );
 
 
-
 	g_printf("copying path in strokes of %d points\n", n_strokes_in/2);
 	//translate path in strokes in mm
-	if (!ignore_sec){
+	//if (!ignore_sec){
+	if (TRUE){
 		for ( i=0; i<n_strokes_in/2; i++ ) {
 			strokes_in[2*i]    = points_pairs[i*9]   / xfract ;
 			strokes_in[2*i+1]  = points_pairs[i*9+1] / yfract ;
@@ -324,15 +325,21 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	//rotate considering Xin, Yin, Xfin, Yfin,
 	//if rotate==false suppose eventually rotated before calling this function
 	if(rotate){
-		alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		if(use_angle){
+			alpha=angle;
+		}
+		else{
+			alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		}
 		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
 	}
 
 	if(ignore_sec){
-		factor=1./60.;
+		factor=1.0;
 	}
 	else {
-		factor= Bg * sec/ sqrt((Xfin-Xin)*(Xfin-Xin) + (Yfin-Yin)*(Yfin-Yin)  ) /60.;
+		//factor= Bg * sec/ sqrt((Xfin-Xin)*(Xfin-Xin) + (Yfin-Yin)*(Yfin-Yin)  ) /60.;
+		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
 	}
 	//working copy
 	strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
@@ -373,11 +380,13 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 			ret=ret+1;
 		}
 	}
-	g_printf("\nCounting right points done: %d\n",j);
+	//g_printf("\nCounting right points done: %d\n",j);
 
 	result=teseo_copy_strokes(strokes_copy,2*j);
+	//restore in starting point
+	teseo_translate(result, 2*j, -Xin, -Yin);
 
-	for(i=0; i < (j+1) ; i++) {
+	for(i=0; i < j ; i++) {
 		g_printf( "\ni=%d X=%f Y=%f", i, result[i*2], result[i*2+1]);
 	}
 
@@ -386,7 +395,7 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 
 	g_free(strokes_copy);
 	g_free(strokes_in);
-	return ret;
+	return (gulong) (100.0 * (((double) (n_strokes_in/2) - (double) ret ) )/ ((double) (n_strokes_in/2)) );
 
 }
 

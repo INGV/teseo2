@@ -44,7 +44,8 @@
 /*!
 */
 gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord, gboolean ignore_sec,
+				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
+				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 				gdouble **corr, gulong* n_points);
 /*!
 */
