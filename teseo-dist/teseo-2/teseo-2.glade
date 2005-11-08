@@ -6931,7 +6931,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 		      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 		      <property name="snap_to_ticks">False</property>
 		      <property name="wrap">False</property>
-		      <property name="adjustment">4.5 0 10000 1 10 10</property>
+		      <property name="adjustment">4.5 -50 50 0 1 1</property>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -7320,10 +7320,10 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 
 			  <child>
 			    <widget class="GtkCheckButton" id="teseo_chkbtn_transl">
-			      <property name="sensitive">False</property>
-			      <property name="tooltip" translatable="yes">Correction for lateral speed after all</property>
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Correction for lateral speed </property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Translate</property>
+			      <property name="label" translatable="yes">Shift</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
