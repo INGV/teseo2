@@ -4037,7 +4037,7 @@ create_dlg_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_vel, "Paper velocity, in mm/min", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_vel), TRUE);
 
-  teseo_spbtn_ls_adj = gtk_adjustment_new (4.5, 0, 10000, 1, 10, 10);
+  teseo_spbtn_ls_adj = gtk_adjustment_new (4.5, -50, 50, 0, 1, 1);
   teseo_spbtn_ls = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_ls_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_ls, "teseo_spbtn_ls");
   gtk_widget_show (teseo_spbtn_ls);
@@ -4182,11 +4182,11 @@ create_dlg_wiechert (void)
   gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_span, FALSE, FALSE, 0);
   gtk_tooltips_set_tip (tooltips, teseo_chkbtn_span, "Use explicit time span ", NULL);
 
-  teseo_chkbtn_transl = gtk_check_button_new_with_mnemonic ("Translate");
+  teseo_chkbtn_transl = gtk_check_button_new_with_mnemonic ("Shift");
   gtk_widget_set_name (teseo_chkbtn_transl, "teseo_chkbtn_transl");
+  gtk_widget_show (teseo_chkbtn_transl);
   gtk_box_pack_start (GTK_BOX (hbox70), teseo_chkbtn_transl, FALSE, FALSE, 0);
-  gtk_widget_set_sensitive (teseo_chkbtn_transl, FALSE);
-  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_transl, "Correction for lateral speed after all", NULL);
+  gtk_tooltips_set_tip (tooltips, teseo_chkbtn_transl, "Correction for lateral speed ", NULL);
 
   label310 = gtk_label_new ("<b>Options</b>");
   gtk_widget_set_name (label310, "label310");

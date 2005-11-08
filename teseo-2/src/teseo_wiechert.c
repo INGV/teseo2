@@ -253,8 +253,8 @@ return return_code;
 
 //TODO restituire puntatore e numero di elementi
 gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
-				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
+				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle, gdouble vshift,
+				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec, gboolean shift,
 				gdouble **corr, gulong* n_points)
 {
 	gdouble *strokes_in=NULL;
@@ -372,7 +372,12 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 		if ( x_i > xtest ) {
 			xtest=x_i;
 			strokes_copy[j*2]=x_i;
-			strokes_copy[j*2+1]=factor*strokes_in[2*i+1];
+			if(!shift){
+				strokes_copy[j*2+1]=factor*strokes_in[2*i+1];
+			}
+			else{
+				strokes_copy[j*2+1]=factor*strokes_in[2*i+1] - vshift*(x_i-strokes_copy[0]);
+			}
 			//g_printf("\nChanged Xtest=%f",xtest);
 			j++; //count right elements
 		}
