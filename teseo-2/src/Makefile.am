@@ -53,7 +53,9 @@ teseo_2_SOURCES = \
 	teseo_filters.c	\
 	teseo_filters.h	\
 	teseo_wiechert.c	\
-	teseo_wiechert.h
+	teseo_wiechert.h	\
+	teseo_plot.c	\
+	teseo_plot.h
 
 AM_CPPFLAGS = \
 	-DLOCALEDIR=\""$(LOCALEDIR)"\"		\
@@ -63,12 +65,14 @@ INCLUDES =\
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
 	@GTKADDONS_CFLAGS@		\
+	@GTKEXTRA_CFLAGS@		\
 	@NEWUOA_CFLAGS@		\
 	@WIECHERT_CFLAGS@		\
 	-I$(includedir)
 
 LDADD = $(GIMP_LIBS) \
 	$(GTKADDONS_LIBS) \
+	$(GTKEXTRA_LIBS) \
 	$(NEWUOA_LIBS) \
 	$(WIECHERT_LIBS)
 

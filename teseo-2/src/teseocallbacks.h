@@ -40,7 +40,8 @@ extern   GtkFileChooser * filechooser_import;
 extern   GtkFileChooser * filechooser_export;
 extern   GtkFileChooser * filechooser_session;
 extern   GtkWidget *dlg_wiechert;
-extern   GtkWidget *dlg_histo;
+extern   GtkWidget *dlg_plot;
+
 
 extern   GimpDrawable *private_drawable ;
 extern   gint32  teseo_image ;
@@ -369,4 +370,17 @@ on_remove_all1_activate                (GtkMenuItem     *menuitem,
 
 void
 on_btn_correct_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_win_plot_destroy                    (GtkObject       *object,
+                                        gpointer         user_data);
+
+gboolean
+on_win_plot_delete_event               (GtkWidget       *widget,
+                                        GdkEvent        *event,
                                         gpointer         user_data);

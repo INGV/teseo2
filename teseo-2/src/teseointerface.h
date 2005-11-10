@@ -12,3 +12,5 @@ GtkWidget* create_dlg_move_rotation (void);
 GtkWidget* create_filechooser_export (void);
 GtkWidget* create_dlg_wiechert (void);
 GtkWidget* create_dlg_histo (void);
+GtkWidget* create_win_plot (void);
+GtkWidget* create_dlg_plot (void);

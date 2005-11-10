@@ -3901,7 +3901,7 @@ create_dlg_wiechert (void)
   GtkWidget *hbox61;
   GtkWidget *comboboxentry2;
   GtkWidget *label283;
-  GtkWidget *button29;
+  GtkWidget *teseo_calc_arm_slope;
   GtkWidget *label307;
   GtkWidget *dialog_action_area13;
   GtkWidget *closebutton1;
@@ -4267,11 +4267,11 @@ create_dlg_wiechert (void)
   gtk_widget_show (label283);
   gtk_box_pack_start (GTK_BOX (hbox61), label283, FALSE, FALSE, 0);
 
-  button29 = gtk_button_new_with_mnemonic ("Calculate");
-  gtk_widget_set_name (button29, "button29");
-  gtk_widget_show (button29);
-  gtk_box_pack_start (GTK_BOX (hbox61), button29, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (button29), 3);
+  teseo_calc_arm_slope = gtk_button_new_with_mnemonic ("Calculate");
+  gtk_widget_set_name (teseo_calc_arm_slope, "teseo_calc_arm_slope");
+  gtk_widget_show (teseo_calc_arm_slope);
+  gtk_box_pack_start (GTK_BOX (hbox61), teseo_calc_arm_slope, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_slope), 3);
 
   label307 = gtk_label_new ("<b>Slope Estimate</b>");
   gtk_widget_set_name (label307, "label307");
@@ -4295,6 +4295,9 @@ create_dlg_wiechert (void)
                     NULL);
   g_signal_connect ((gpointer) teseo_calc_arm_shift, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_shift_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) teseo_calc_arm_slope, "clicked",
+                    G_CALLBACK (on_teseo_calc_arm_slope_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -4357,7 +4360,7 @@ create_dlg_wiechert (void)
   GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox61, "hbox61");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry2, "comboboxentry2");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label283, "label283");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, button29, "button29");
+  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_calc_arm_slope, "teseo_calc_arm_slope");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, label307, "label307");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dialog_action_area13, "dialog_action_area13");
   GLADE_HOOKUP_OBJECT (dlg_wiechert, closebutton1, "closebutton1");
@@ -4408,5 +4411,66 @@ create_dlg_histo (void)
   GLADE_HOOKUP_OBJECT (dlg_histo, closebutton2, "closebutton2");
 
   return dlg_histo;
+}
+
+GtkWidget*
+create_win_plot (void)
+{
+  GtkWidget *win_plot;
+
+  win_plot = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_name (win_plot, "win_plot");
+  gtk_window_set_title (GTK_WINDOW (win_plot), "Plot a diagram");
+  gtk_window_set_type_hint (GTK_WINDOW (win_plot), GDK_WINDOW_TYPE_HINT_UTILITY);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (win_plot, win_plot, "win_plot");
+
+  return win_plot;
+}
+
+GtkWidget*
+create_dlg_plot (void)
+{
+  GtkWidget *dlg_plot;
+  GtkWidget *dialog_vbox14;
+  GtkWidget *teseo_drawingarea;
+  GtkWidget *dialog_action_area15;
+  GtkWidget *closebutton3;
+
+  dlg_plot = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_plot, "dlg_plot");
+  gtk_window_set_title (GTK_WINDOW (dlg_plot), "Show a plot");
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_plot), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox14 = GTK_DIALOG (dlg_plot)->vbox;
+  gtk_widget_set_name (dialog_vbox14, "dialog_vbox14");
+  gtk_widget_show (dialog_vbox14);
+
+  teseo_drawingarea = gtk_drawing_area_new ();
+  gtk_widget_set_name (teseo_drawingarea, "teseo_drawingarea");
+  gtk_widget_show (teseo_drawingarea);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox14), teseo_drawingarea, FALSE, FALSE, 0);
+  GTK_WIDGET_SET_FLAGS (teseo_drawingarea, GTK_CAN_FOCUS);
+
+  dialog_action_area15 = GTK_DIALOG (dlg_plot)->action_area;
+  gtk_widget_set_name (dialog_action_area15, "dialog_action_area15");
+  gtk_widget_show (dialog_action_area15);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area15), GTK_BUTTONBOX_END);
+
+  closebutton3 = gtk_button_new_from_stock ("gtk-close");
+  gtk_widget_set_name (closebutton3, "closebutton3");
+  gtk_widget_show (closebutton3);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_plot), closebutton3, GTK_RESPONSE_CLOSE);
+  GTK_WIDGET_SET_FLAGS (closebutton3, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dlg_plot, "dlg_plot");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dialog_vbox14, "dialog_vbox14");
+  GLADE_HOOKUP_OBJECT (dlg_plot, teseo_drawingarea, "teseo_drawingarea");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dialog_action_area15, "dialog_action_area15");
+  GLADE_HOOKUP_OBJECT (dlg_plot, closebutton3, "closebutton3");
+
+  return dlg_plot;
 }
 
