@@ -163,7 +163,8 @@ dialog (gint32              image_ID,
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
               dlg_wiechert = create_dlg_wiechert();
-              dlg_histo = create_dlg_histo();
+              dlg_plot = create_dlg_plot();
+
 
               filechooser_export = (GtkFileChooser *) create_filechooser_export();
               filechooser_import = (GtkFileChooser *) create_filechooser_import();

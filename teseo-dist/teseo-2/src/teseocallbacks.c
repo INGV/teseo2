@@ -57,7 +57,7 @@ GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
 GtkWidget * dlg_wiechert;
-GtkWidget * dlg_histo;
+GtkWidget * dlg_plot;
 
 GtkFileChooser * filechooser_import;
 GtkFileChooser * filechooser_export;
@@ -1809,6 +1809,9 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xfin", Xfin);
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yfin", Yfin);
 
+	GtkWidget *drawingarea = (GtkDrawingArea *) teseo_lookup_widget(GTK_WIDGET(dlg_plot), "teseo_drawingarea", 0);
+
+
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
 	}
@@ -1844,50 +1847,43 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
 	}
 
-	/*
-	table  = (GtkTable *) teseo_lookup_widget(GTK_WIDGET(dlg_histo), "histogram_table", 0);
+        gtk_window_set_title (GTK_WINDOW (dlg_plot), "Showing results");
+	//g_signal_connect (G_OBJECT (dlg_plot), "delete_event", G_CALLBACK (on_dlg_plot_delete_event), NULL);
+	//gtk_window_set_deletable (win_plot,TRUE);
+	//gtk_window_set_transient_for (win_plot, win_teseo);
+	teseo_plot_new();
+	//gtk_widget_show(drawingarea->window);
+        gtk_window_present (dlg_plot);
 
-	static int i=0;
-	if (i == 0) {
-		gse = gimp_scale_entry_new (
-		table,
-		column,
-		row,
-		text,
-		scale_width,
-		spinbutton_width,
-		value,
-		lower,
-		upper,
-		step_increment,
-		page_increment,
-		digits,
-		constrain,
-		unconstrained_lower,
-		unconstrained_upper,
-		tooltip,
-		help_id);
-		i=1;
-	}
-
-	gint result = gtk_dialog_run (GTK_DIALOG (dlg_histo));
+	gint result = gtk_dialog_run (GTK_DIALOG (dlg_plot));
 	switch (result)
 	{
 	case GTK_RESPONSE_OK:
 		break;
 	case GTK_RESPONSE_CANCEL:
 	case GTK_RESPONSE_DELETE_EVENT:
-		g_message("Correction done");
+		g_message("Delete event done");
 		break;
 	default:
+		g_message("without response");
 		break;
 	}
-	gtk_widget_hide (dlg_histo);
-*/
+	gtk_widget_hide (dlg_plot);
 
 }
 
 
+/*
+gboolean
+on_win_plot_delete_event               (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data)
+{
+	gtk_widget_hide(dlg_plot);
+	g_message("Hidden");
+	return TRUE;
+}
+*/
 
 void
 on_btn_correct_clicked                 (GtkButton       *button,
@@ -2159,6 +2155,31 @@ on_remove_all1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+}
+
+
+
+
+void
+on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
+                                        gpointer         user_data)
+{
+/*
+	gtk_window_set_title (GTK_WINDOW (dlg_plot), "Showing results");
+	gint result = gtk_dialog_run (GTK_DIALOG (dlg_plot));
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+		break;
+	case GTK_RESPONSE_CANCEL:
+	case GTK_RESPONSE_DELETE_EVENT:
+		g_message("Correction done");
+		break;
+	default:
+		break;
+	}
+	gtk_widget_hide (dlg_plot);
+*/
 }
 
 

@@ -69,6 +69,9 @@ GMSGFMT = @GMSGFMT@
 GTKADDONS_CFLAGS = @GTKADDONS_CFLAGS@
 GTKADDONS_LIBDIR = @GTKADDONS_LIBDIR@
 GTKADDONS_LIBS = @GTKADDONS_LIBS@
+GTKEXTRA_CFLAGS = @GTKEXTRA_CFLAGS@
+GTKEXTRA_LIBDIR = @GTKEXTRA_LIBDIR@
+GTKEXTRA_LIBS = @GTKEXTRA_LIBS@
 NEWUOA_CFLAGS = @NEWUOA_CFLAGS@
 NEWUOA_LIBDIR = @NEWUOA_LIBDIR@
 NEWUOA_LIBS = @NEWUOA_LIBS@
@@ -213,7 +216,9 @@ teseo_2_SOURCES = \
 	teseo_filters.c	\
 	teseo_filters.h \
 	teseo_wiechert.c	\
-	teseo_wiechert.h
+	teseo_wiechert.h	\
+	teseo_plot.c	\
+	teseo_plot.h
 
 
 
@@ -226,6 +231,7 @@ INCLUDES = \
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
 	@GTKADDONS_CFLAGS@		\
+	@GTKEXTRA_CFLAGS@		\
 	@NEWUOA_CFLAGS@		\
 	@WIECHERT_CFLAGS@		\
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
@@ -234,7 +240,7 @@ INCLUDES = \
 
 # new 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 
-LDADD = $(GIMP_LIBS) $(GTKADDONS_LIBS) $(NEWUOA_LIBS) $(WIECHERT_LIBS)
+LDADD = $(GIMP_LIBS) $(GTKADDONS_LIBS) $(GTKEXTRA_LIBS) $(NEWUOA_LIBS) $(WIECHERT_LIBS)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -260,7 +266,8 @@ am_teseo_2_OBJECTS = interface.$(OBJEXT) main.$(OBJEXT) \
 	teseo_main.$(OBJEXT) \
 	teseo_gimp_extends.$(OBJEXT) \
 	teseo_filters.$(OBJEXT) \
-	teseo_wiechert.$(OBJEXT)
+	teseo_wiechert.$(OBJEXT) \
+	teseo_plot.$(OBJEXT)
 
 teseo_2_OBJECTS = $(am_teseo_2_OBJECTS)
 teseo_2_LDADD = $(LDADD)
