@@ -1847,7 +1847,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 	if (plot_count==0){
 
-		teseo_plot=teseo_plot_new(ret_b, ret_errors);
+		teseo_plot=teseo_plot_new(ret_b, ret_errors, n_tries);
 		plot_count++;
 	}
 	else{
