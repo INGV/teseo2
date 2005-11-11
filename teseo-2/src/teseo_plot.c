@@ -335,7 +335,7 @@ build_example1(GtkWidget *plot)
                                 GTK_PLOT_LINE_SOLID,
                                 0, 0, 0, &plot->style->black);
 
- //gtk_plot_data_set_legend(dataset[3], "Line + Symbol");
+ gtk_plot_data_set_legend(dataset[3], "Line + Symbol");
 
 
  gdk_color_parse("blue", &color);
@@ -396,7 +396,7 @@ build_example2(GtkWidget *plot)
 }
 
 //int main(int argc, char *argv[]){
-GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
+GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
 
  GtkWidget *window1;
  GtkWidget *vbox1;
@@ -413,8 +413,6 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
 
  page_width = GTK_PLOT_LETTER_W * scale;
  page_height = GTK_PLOT_LETTER_H * scale;
-
- //gtk_init(&argc,&argv);
 
  window1=gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
@@ -440,18 +438,18 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
  GTK_PLOT_CANVAS_SET_FLAGS(GTK_PLOT_CANVAS(canvas), GTK_PLOT_CANVAS_DND_FLAGS);
  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollw1), canvas);
 
-/*
- gdk_color_parse("light blue", &color);
- gdk_color_alloc(gtk_widget_get_colormap(canvas), &color);
- gtk_plot_canvas_set_background(GTK_PLOT_CANVAS(canvas), &color);
-*/
+ //OG
+ //gdk_color_parse("light blue", &color);
+ //gdk_color_alloc(gtk_widget_get_colormap(canvas), &color);
+ //gtk_plot_canvas_set_background(GTK_PLOT_CANVAS(canvas), &color);
+
 
  gtk_widget_show(canvas);
 
  active_plot = new_layer(canvas);
-/*
- gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
-*/
+ //OG
+ //gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
+
  gtk_plot_set_range(GTK_PLOT(active_plot), -1.0, 1.0, -1.0, 1.4);
  gtk_plot_legends_move(GTK_PLOT(active_plot), 0.500, 0.05);
  gtk_plot_set_legends_border(GTK_PLOT(active_plot), 0, 0);
@@ -473,6 +471,8 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
 
  build_example1(active_plot);
 
+
+/* Only one
  active_plot = new_layer(canvas);
  gdk_color_parse("light yellow", &color);
  gdk_color_alloc(gtk_widget_get_colormap(active_plot), &color);
@@ -485,10 +485,10 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
 				 NULL,
                                  &color);
  gtk_plot_set_range(GTK_PLOT(active_plot), 0.0 , 1.0, 0.0, 0.85);
-/*
- gtk_plot_set_range(GTK_PLOT(active_plot), 0.1 , 100., 0., .85);
- gtk_plot_set_xscale(GTK_PLOT(active_plot), GTK_PLOT_SCALE_LOG10);
-*/
+ //OG
+ //gtk_plot_set_range(GTK_PLOT(active_plot), 0.1 , 100., 0., .85);
+ //gtk_plot_set_xscale(GTK_PLOT(active_plot), GTK_PLOT_SCALE_LOG10);
+
  gtk_plot_axis_set_labels_numbers(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_LEFT), GTK_PLOT_LABEL_FLOAT, 2);
  gtk_plot_axis_set_labels_numbers(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_RIGHT), GTK_PLOT_LABEL_FLOAT, 2);
  gtk_plot_axis_set_visible(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP), TRUE);
@@ -505,37 +505,38 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
  gtk_widget_show(active_plot);
 
  build_example2(active_plot);
+*/
+
 
  g_signal_connect(GTK_OBJECT(canvas), "select_item",
                     (GtkSignalFunc) select_item, NULL);
 
+ //OG g_signal_connect(GTK_OBJECT(canvas), "move_item",
+ //OG                    (GtkSignalFunc) move_item, NULL);
 
- g_signal_connect(GTK_OBJECT(canvas), "move_item",
-                    (GtkSignalFunc) move_item, NULL);
 
-
- child = gtk_plot_canvas_text_new("Times-BoldItalic", 32, 0, NULL, NULL, TRUE,
+ child = gtk_plot_canvas_text_new("Times-BoldItalic", 16, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "DnD titles, legends and plots");
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
- /*child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
-                          GTK_JUSTIFY_CENTER,
-                          "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");*/
+ //child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
+ //                         GTK_JUSTIFY_CENTER,
+ //                         "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");
  child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "You can use subscripts and superscripts");
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .720, .0, .0);
 
- /*  child = gtk_plot_canvas_text_new("Times-Roman", 12, 0, NULL, NULL, TRUE,
-                          GTK_JUSTIFY_CENTER,
-                          "Format text mixing \\Bbold \\N\\i, italics, \\ggreek \\4\\N and \\+different fonts"); */
+ //  child = gtk_plot_canvas_text_new("Times-Roman", 12, 0, NULL, NULL, TRUE,
+ //                         GTK_JUSTIFY_CENTER,
+ //                         "Format text mixing \\Bbold \\N\\i, italics, \\ggreek \\4\\N and \\+different fonts"); */
 
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .765, .0, .0);
 
  gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text,
                            GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
 
- array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 12, G_TYPE_STRING, FALSE));
+ array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 128, G_TYPE_STRING, FALSE));
  gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), TRUE);
 
@@ -544,11 +545,8 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
  gtk_widget_show_all(window1);
 
  //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
-/*
- gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);
-*/
-
- //gtk_main();
+ //OG
+ //gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);
 
  return window1;
 }
