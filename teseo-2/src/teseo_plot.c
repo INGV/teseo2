@@ -66,15 +66,20 @@ static void put_child(GtkPlotCanvas *canvas, gdouble x, gdouble y);
 void
 quit (GtkWidget * win)
 {
-//  gtk_main_quit();
-gtk_widget_hide(win);
 
+g_printf("quit entered\n");
+//  gtk_main_quit();
+//gtk_widget_hide(win);
+nlayers = 0;
 }
 
 gdouble function(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 {
+
  gdouble y;
  *err = FALSE;
+
+ g_printf("function entered\n");
  y = (-.5+.3*sin(3.*x)*sin(50.*x));
 /* y = 100*pow(x,2);
  y = 1./(10*x);
@@ -85,19 +90,23 @@ gdouble function(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 
 gdouble gaussian(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 {
+
  gdouble y;
  *err = FALSE;
+ g_printf("gaussian entered\n");
  y = .65*exp(-.5*pow(x-.5,2)/.02);
 
  return y;
 }
 
-/*
+
 gint
 move_item(GtkWidget *widget, GtkPlotCanvasChild *item,
           gdouble x, gdouble y, gpointer data)
 {
   GtkPlotCanvas *canvas = NULL;
+
+  g_printf("move_item entered\n");
 
   canvas = GTK_PLOT_CANVAS(widget);
 
@@ -113,7 +122,7 @@ move_item(GtkWidget *widget, GtkPlotCanvasChild *item,
 
   return TRUE;
 }
-*/
+
 
 gint
 select_item(GtkWidget *widget, GdkEvent *event, GtkPlotCanvasChild *child,
@@ -123,6 +132,7 @@ select_item(GtkWidget *widget, GdkEvent *event, GtkPlotCanvasChild *child,
   GtkWidget *active_widget = NULL;
   gint n = 0;
   gdouble *x = NULL, *y = NULL;
+  g_printf("select_item entered\n");
 
   if(GTK_IS_PLOT_CANVAS_TEXT(child))
         printf("Item selected: TEXT\n");
@@ -180,6 +190,7 @@ activate_plot(GtkWidget *widget, gpointer data)
   GtkWidget *active_widget = NULL;
   GtkWidget *canvas = NULL;
   gint n = 0;
+  g_printf("activate_plot entered\n");
 
   canvas = GTK_WIDGET(data);
   widget_list = buttons;
@@ -210,6 +221,7 @@ new_layer(GtkWidget *canvas)
  gchar label[10];
  GtkRequisition req;
  gint size;
+ g_printf("new_layer entered\n");
 
  nlayers++;
 
@@ -266,6 +278,8 @@ build_example1(GtkWidget *plot)
  static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
  static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
 
+  g_printf("build_example1 entered\n");
+
  /* CUSTOM TICK LABELS */
 
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_RIGHT), TRUE);
@@ -321,11 +335,11 @@ build_example1(GtkWidget *plot)
                                 GTK_PLOT_LINE_SOLID,
                                 0, 0, 0, &plot->style->black);
 
- gtk_plot_data_set_legend(dataset[3], "Line + Symbol");
+ //gtk_plot_data_set_legend(dataset[3], "Line + Symbol");
 
- 
+
  gdk_color_parse("blue", &color);
- gdk_color_alloc(gdk_colormap_get_system(), &color); 
+ gdk_color_alloc(gdk_colormap_get_system(), &color);
 
  dataset[1] = gtk_plot_add_function(GTK_PLOT(plot), (GtkPlotFunc)function);
  gtk_widget_show(GTK_WIDGET(dataset[1]));
@@ -344,10 +358,12 @@ build_example2(GtkWidget *plot)
  static double py2[] = {.012, .067, .24, .5, .65, .5, .24, .067};
  static double dx2[] = {.1, .1, .1, .1, .1, .1, .1, .1};
 
+ g_printf("build_example2 entered\n");
+
  dataset[4] = gtk_plot_add_function(GTK_PLOT(plot), (GtkPlotFunc)gaussian);
  gtk_widget_show(GTK_WIDGET(dataset[4]));
  gdk_color_parse("dark green", &color);
- gdk_color_alloc(gdk_colormap_get_system(), &color); 
+ gdk_color_alloc(gdk_colormap_get_system(), &color);
  gtk_plot_data_set_line_attributes(dataset[4],
                                    GTK_PLOT_LINE_DASHED,
                                    0, 0, 2, &color);
@@ -380,7 +396,7 @@ build_example2(GtkWidget *plot)
 }
 
 //int main(int argc, char *argv[]){
-void teseo_plot_new(){
+GtkWidget * teseo_plot_new(double *ret_b, double *ret_e){
 
  GtkWidget *window1;
  GtkWidget *vbox1;
@@ -393,13 +409,16 @@ void teseo_plot_new(){
  gchar *custom_labels[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
  GtkPlotArray *array;
 
+ g_printf("teseo_plot_new entered\n");
+
  page_width = GTK_PLOT_LETTER_W * scale;
  page_height = GTK_PLOT_LETTER_H * scale;
 
  //gtk_init(&argc,&argv);
 
  window1=gtk_window_new(GTK_WINDOW_TOPLEVEL);
- gtk_window_set_title(GTK_WINDOW(window1), "GtkPlot Demo");
+
+ gtk_window_set_title(GTK_WINDOW(window1), "Teseo Plot");
  gtk_widget_set_usize(window1,550,650);
  gtk_container_set_border_width(GTK_CONTAINER(window1),0);
 
@@ -433,8 +452,8 @@ void teseo_plot_new(){
 /*
  gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
 */
- gtk_plot_set_range(GTK_PLOT(active_plot), -1., 1., -1., 1.4);
- gtk_plot_legends_move(GTK_PLOT(active_plot), .500, .05);
+ gtk_plot_set_range(GTK_PLOT(active_plot), -1.0, 1.0, -1.0, 1.4);
+ gtk_plot_legends_move(GTK_PLOT(active_plot), 0.500, 0.05);
  gtk_plot_set_legends_border(GTK_PLOT(active_plot), 0, 0);
  gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP));
  gtk_plot_axis_show_ticks(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), 15, 3);
@@ -465,7 +484,7 @@ void teseo_plot_new(){
                                  NULL, 0,
 				 NULL,
                                  &color);
- gtk_plot_set_range(GTK_PLOT(active_plot), 0. , 1., 0., .85);
+ gtk_plot_set_range(GTK_PLOT(active_plot), 0.0 , 1.0, 0.0, 0.85);
 /*
  gtk_plot_set_range(GTK_PLOT(active_plot), 0.1 , 100., 0., .85);
  gtk_plot_set_xscale(GTK_PLOT(active_plot), GTK_PLOT_SCALE_LOG10);
@@ -490,27 +509,31 @@ void teseo_plot_new(){
  g_signal_connect(GTK_OBJECT(canvas), "select_item",
                     (GtkSignalFunc) select_item, NULL);
 
-/*
+
  g_signal_connect(GTK_OBJECT(canvas), "move_item",
                     (GtkSignalFunc) move_item, NULL);
-*/
 
- child = gtk_plot_canvas_text_new("Times-BoldItalic", 16, 0, NULL, NULL, TRUE,
+
+ child = gtk_plot_canvas_text_new("Times-BoldItalic", 32, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "DnD titles, legends and plots");
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
- child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
+ /*child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
-                          "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");
+                          "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");*/
+ child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
+                          GTK_JUSTIFY_CENTER,
+                          "You can use subscripts and superscripts");
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .720, .0, .0);
 
- child = gtk_plot_canvas_text_new("Times-Roman", 12, 0, NULL, NULL, TRUE,
-                          GTK_JUSTIFY_CENTER, 
-                          "Format text mixing \\Bbold \\N\\i, italics, \\ggreek \\4\\N and \\+different fonts");
- gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .765, .0, .0); 
+ /*  child = gtk_plot_canvas_text_new("Times-Roman", 12, 0, NULL, NULL, TRUE,
+                          GTK_JUSTIFY_CENTER,
+                          "Format text mixing \\Bbold \\N\\i, italics, \\ggreek \\4\\N and \\+different fonts"); */
 
- gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, 
-                          GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
+ gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .765, .0, .0);
+
+ gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text,
+                           GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
 
  array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 12, G_TYPE_STRING, FALSE));
  gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
@@ -520,14 +543,14 @@ void teseo_plot_new(){
 
  gtk_widget_show_all(window1);
 
- gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
-/* 
+ //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
+/*
  gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);
 */
 
  //gtk_main();
 
- return(0);
+ return window1;
 }
 
 static void

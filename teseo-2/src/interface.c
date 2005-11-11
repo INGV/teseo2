@@ -162,7 +162,7 @@ dialog (gint32              image_ID,
               dlg_about = create_dlg_about ();
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
-              dlg_wiechert = create_dlg_wiechert();
+              win_wiechert = create_win_wiechert();
               dlg_plot = create_dlg_plot();
 
 
