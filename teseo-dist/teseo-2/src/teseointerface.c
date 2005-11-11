@@ -3828,10 +3828,53 @@ create_filechooser_export (void)
 }
 
 GtkWidget*
-create_dlg_wiechert (void)
+create_dlg_histo (void)
 {
-  GtkWidget *dlg_wiechert;
-  GtkWidget *dialog_vbox12;
+  GtkWidget *dlg_histo;
+  GtkWidget *dialog_vbox13;
+  GtkWidget *histogram_table;
+  GtkWidget *dialog_action_area14;
+  GtkWidget *closebutton2;
+
+  dlg_histo = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_histo, "dlg_histo");
+  gtk_window_set_title (GTK_WINDOW (dlg_histo), "Results histogram ");
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_histo), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox13 = GTK_DIALOG (dlg_histo)->vbox;
+  gtk_widget_set_name (dialog_vbox13, "dialog_vbox13");
+  gtk_widget_show (dialog_vbox13);
+
+  histogram_table = gtk_table_new (3, 3, FALSE);
+  gtk_widget_set_name (histogram_table, "histogram_table");
+  gtk_widget_show (histogram_table);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox13), histogram_table, TRUE, TRUE, 0);
+
+  dialog_action_area14 = GTK_DIALOG (dlg_histo)->action_area;
+  gtk_widget_set_name (dialog_action_area14, "dialog_action_area14");
+  gtk_widget_show (dialog_action_area14);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area14), GTK_BUTTONBOX_END);
+
+  closebutton2 = gtk_button_new_from_stock ("gtk-close");
+  gtk_widget_set_name (closebutton2, "closebutton2");
+  gtk_widget_show (closebutton2);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_histo), closebutton2, GTK_RESPONSE_CLOSE);
+  GTK_WIDGET_SET_FLAGS (closebutton2, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dlg_histo, "dlg_histo");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_vbox13, "dialog_vbox13");
+  GLADE_HOOKUP_OBJECT (dlg_histo, histogram_table, "histogram_table");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_action_area14, "dialog_action_area14");
+  GLADE_HOOKUP_OBJECT (dlg_histo, closebutton2, "closebutton2");
+
+  return dlg_histo;
+}
+
+GtkWidget*
+create_win_wiechert (void)
+{
+  GtkWidget *win_wiechert;
   GtkWidget *notebook5;
   GtkWidget *vbox87;
   GtkWidget *hbox62;
@@ -3903,25 +3946,19 @@ create_dlg_wiechert (void)
   GtkWidget *label283;
   GtkWidget *teseo_calc_arm_slope;
   GtkWidget *label307;
-  GtkWidget *dialog_action_area13;
-  GtkWidget *closebutton1;
   GtkTooltips *tooltips;
 
   tooltips = gtk_tooltips_new ();
 
-  dlg_wiechert = gtk_dialog_new ();
-  gtk_widget_set_name (dlg_wiechert, "dlg_wiechert");
-  gtk_window_set_title (GTK_WINDOW (dlg_wiechert), "Curvature Correction");
-  gtk_window_set_type_hint (GTK_WINDOW (dlg_wiechert), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox12 = GTK_DIALOG (dlg_wiechert)->vbox;
-  gtk_widget_set_name (dialog_vbox12, "dialog_vbox12");
-  gtk_widget_show (dialog_vbox12);
+  win_wiechert = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_set_name (win_wiechert, "win_wiechert");
+  gtk_window_set_title (GTK_WINDOW (win_wiechert), "Plot a diagram");
+  gtk_window_set_type_hint (GTK_WINDOW (win_wiechert), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   notebook5 = gtk_notebook_new ();
   gtk_widget_set_name (notebook5, "notebook5");
   gtk_widget_show (notebook5);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox12), notebook5, TRUE, TRUE, 0);
+  gtk_container_add (GTK_CONTAINER (win_wiechert), notebook5);
 
   vbox87 = gtk_vbox_new (FALSE, 5);
   gtk_widget_set_name (vbox87, "vbox87");
@@ -4279,17 +4316,6 @@ create_dlg_wiechert (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 2), label307);
   gtk_label_set_use_markup (GTK_LABEL (label307), TRUE);
 
-  dialog_action_area13 = GTK_DIALOG (dlg_wiechert)->action_area;
-  gtk_widget_set_name (dialog_action_area13, "dialog_action_area13");
-  gtk_widget_show (dialog_action_area13);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area13), GTK_BUTTONBOX_END);
-
-  closebutton1 = gtk_button_new_from_stock ("gtk-close");
-  gtk_widget_set_name (closebutton1, "closebutton1");
-  gtk_widget_show (closebutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_wiechert), closebutton1, GTK_RESPONSE_CLOSE);
-  GTK_WIDGET_SET_FLAGS (closebutton1, GTK_CAN_DEFAULT);
-
   g_signal_connect ((gpointer) btn_correct, "clicked",
                     G_CALLBACK (on_btn_correct_clicked),
                     NULL);
@@ -4301,132 +4327,69 @@ create_dlg_wiechert (void)
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dlg_wiechert, "dlg_wiechert");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dialog_vbox12, "dialog_vbox12");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, notebook5, "notebook5");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox87, "vbox87");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox62, "hbox62");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label285, "label285");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label286, "label286");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label289, "label289");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label287, "label287");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox63, "hbox63");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_displ, "teseo_spbtn_displ");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_cyl_radius, "teseo_spbtn_cyl_radius");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_time_span, "teseo_spbtn_time_span");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox64, "hbox64");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label294, "label294");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label288, "label288");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label304, "label304");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label311, "label311");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox59, "hbox59");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_ls, "teseo_spbtn_ls");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_spbtn_angle, "teseo_spbtn_angle");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, frame76, "frame76");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, alignment31, "alignment31");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, table26, "table26");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label293, "label293");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label292, "label292");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label308, "label308");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label291, "label291");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Xin, "teseo_Xin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yin, "teseo_Yin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Xfin, "teseo_Xfin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_Yfin, "teseo_Yfin");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label309, "label309");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, frame77, "frame77");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, alignment32, "alignment32");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox70, "hbox70");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_extr, "teseo_chkbtn_extr");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_rangle, "teseo_chkbtn_rangle");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_rot, "teseo_chkbtn_rot");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_span, "teseo_chkbtn_span");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_chkbtn_transl, "teseo_chkbtn_transl");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label310, "label310");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox65, "hbox65");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, btn_correct, "btn_correct");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label305, "label305");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox88, "vbox88");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox60, "hbox60");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry1, "comboboxentry1");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label282, "label282");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox67, "hbox67");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_calc_arm_shift, "teseo_calc_arm_shift");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label306, "label306");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, vbox89, "vbox89");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, hbox61, "hbox61");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, comboboxentry2, "comboboxentry2");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label283, "label283");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, teseo_calc_arm_slope, "teseo_calc_arm_slope");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, label307, "label307");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, dialog_action_area13, "dialog_action_area13");
-  GLADE_HOOKUP_OBJECT (dlg_wiechert, closebutton1, "closebutton1");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_wiechert, tooltips, "tooltips");
+  GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, win_wiechert, "win_wiechert");
+  GLADE_HOOKUP_OBJECT (win_wiechert, notebook5, "notebook5");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox87, "vbox87");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox62, "hbox62");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label285, "label285");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label286, "label286");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label289, "label289");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label287, "label287");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox63, "hbox63");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_displ, "teseo_spbtn_displ");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_cyl_radius, "teseo_spbtn_cyl_radius");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_time_span, "teseo_spbtn_time_span");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox64, "hbox64");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label294, "label294");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label288, "label288");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label304, "label304");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label311, "label311");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox59, "hbox59");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_ls, "teseo_spbtn_ls");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_angle, "teseo_spbtn_angle");
+  GLADE_HOOKUP_OBJECT (win_wiechert, frame76, "frame76");
+  GLADE_HOOKUP_OBJECT (win_wiechert, alignment31, "alignment31");
+  GLADE_HOOKUP_OBJECT (win_wiechert, table26, "table26");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label293, "label293");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label292, "label292");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label308, "label308");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label291, "label291");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Xin, "teseo_Xin");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Yin, "teseo_Yin");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Xfin, "teseo_Xfin");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Yfin, "teseo_Yfin");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label309, "label309");
+  GLADE_HOOKUP_OBJECT (win_wiechert, frame77, "frame77");
+  GLADE_HOOKUP_OBJECT (win_wiechert, alignment32, "alignment32");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox70, "hbox70");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_extr, "teseo_chkbtn_extr");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_rangle, "teseo_chkbtn_rangle");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_rot, "teseo_chkbtn_rot");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_span, "teseo_chkbtn_span");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_transl, "teseo_chkbtn_transl");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label310, "label310");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox65, "hbox65");
+  GLADE_HOOKUP_OBJECT (win_wiechert, btn_correct, "btn_correct");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label305, "label305");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox88, "vbox88");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox60, "hbox60");
+  GLADE_HOOKUP_OBJECT (win_wiechert, comboboxentry1, "comboboxentry1");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label282, "label282");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox67, "hbox67");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_shift, "teseo_calc_arm_shift");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label306, "label306");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox89, "vbox89");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox61, "hbox61");
+  GLADE_HOOKUP_OBJECT (win_wiechert, comboboxentry2, "comboboxentry2");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label283, "label283");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_slope, "teseo_calc_arm_slope");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label307, "label307");
+  GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");
 
-  return dlg_wiechert;
-}
-
-GtkWidget*
-create_dlg_histo (void)
-{
-  GtkWidget *dlg_histo;
-  GtkWidget *dialog_vbox13;
-  GtkWidget *histogram_table;
-  GtkWidget *dialog_action_area14;
-  GtkWidget *closebutton2;
-
-  dlg_histo = gtk_dialog_new ();
-  gtk_widget_set_name (dlg_histo, "dlg_histo");
-  gtk_window_set_title (GTK_WINDOW (dlg_histo), "Results histogram ");
-  gtk_window_set_type_hint (GTK_WINDOW (dlg_histo), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox13 = GTK_DIALOG (dlg_histo)->vbox;
-  gtk_widget_set_name (dialog_vbox13, "dialog_vbox13");
-  gtk_widget_show (dialog_vbox13);
-
-  histogram_table = gtk_table_new (3, 3, FALSE);
-  gtk_widget_set_name (histogram_table, "histogram_table");
-  gtk_widget_show (histogram_table);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox13), histogram_table, TRUE, TRUE, 0);
-
-  dialog_action_area14 = GTK_DIALOG (dlg_histo)->action_area;
-  gtk_widget_set_name (dialog_action_area14, "dialog_action_area14");
-  gtk_widget_show (dialog_action_area14);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area14), GTK_BUTTONBOX_END);
-
-  closebutton2 = gtk_button_new_from_stock ("gtk-close");
-  gtk_widget_set_name (closebutton2, "closebutton2");
-  gtk_widget_show (closebutton2);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_histo), closebutton2, GTK_RESPONSE_CLOSE);
-  GTK_WIDGET_SET_FLAGS (closebutton2, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dlg_histo, "dlg_histo");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_vbox13, "dialog_vbox13");
-  GLADE_HOOKUP_OBJECT (dlg_histo, histogram_table, "histogram_table");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_action_area14, "dialog_action_area14");
-  GLADE_HOOKUP_OBJECT (dlg_histo, closebutton2, "closebutton2");
-
-  return dlg_histo;
-}
-
-GtkWidget*
-create_win_plot (void)
-{
-  GtkWidget *win_plot;
-
-  win_plot = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (win_plot, "win_plot");
-  gtk_window_set_title (GTK_WINDOW (win_plot), "Plot a diagram");
-  gtk_window_set_type_hint (GTK_WINDOW (win_plot), GDK_WINDOW_TYPE_HINT_UTILITY);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (win_plot, win_plot, "win_plot");
-
-  return win_plot;
+  return win_wiechert;
 }
 
 GtkWidget*

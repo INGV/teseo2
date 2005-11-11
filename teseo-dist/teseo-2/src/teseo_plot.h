@@ -27,5 +27,5 @@
 
 #ifndef __TESEO_PLOT_H__
 #define __TESEO_PLOT_H__ 1
-
+GtkWidget * teseo_plot_new( double * b, double * e );
 #endif

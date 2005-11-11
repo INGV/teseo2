@@ -56,8 +56,10 @@ GtkWidget * dlg_preferences;
 GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
-GtkWidget * dlg_wiechert;
+GtkWidget * win_wiechert;
 GtkWidget * dlg_plot;
+GtkWidget * teseo_plot=NULL;
+gint plot_count=0;
 
 GtkFileChooser * filechooser_import;
 GtkFileChooser * filechooser_export;
@@ -790,7 +792,7 @@ on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
     gint x=0, y=0;
     gdouble rotation = 0.0;
     gint x_cur, y_cur;
-    
+
     gint result;
 
     gdouble * points_pairs=NULL;
@@ -1754,19 +1756,17 @@ void
 on_wiechert_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  gint result = gtk_dialog_run (GTK_DIALOG (dlg_wiechert));
-  switch (result)
-    {
-      case GTK_RESPONSE_OK:
-         break;
-      case GTK_RESPONSE_CANCEL:
-      case GTK_RESPONSE_DELETE_EVENT:
-         g_message("Correction done");
-        break;
-      default:
-        break;
-    }
- gtk_widget_hide (dlg_wiechert);
+  gtk_window_present(win_wiechert);
+}
+
+
+
+
+void
+quit_plot (GtkWidget * plot_win)
+{
+	plot_count=0;
+	//teseo_plot=NULL;
 }
 
 
@@ -1798,18 +1798,16 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gdouble ret_errors[n_tries];
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
 
-        GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_time_span", sec);
-        GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_vel", Bg);
-        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_cyl_radius", r);
-        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_arm_lenght", Rg);
-        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_displ", a);
-        //GtkSpinButton *  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "", b);
-        GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xin", Xin);
-        GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yin", Yin);
-        GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xfin", Xfin);
-        GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yfin", Yfin);
-
-	GtkWidget *drawingarea = (GtkDrawingArea *) teseo_lookup_widget(GTK_WIDGET(dlg_plot), "teseo_drawingarea", 0);
+        GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
+        GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
+        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
+        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
+        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
+        //GtkSpinButton *  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "", b);
+        GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xin", Xin);
+        GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
+        GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
+        GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
 
 
 	if(teseo_spbtn_time_span) {
@@ -1847,29 +1845,16 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
 	}
 
-        gtk_window_set_title (GTK_WINDOW (dlg_plot), "Showing results");
-	//g_signal_connect (G_OBJECT (dlg_plot), "delete_event", G_CALLBACK (on_dlg_plot_delete_event), NULL);
-	//gtk_window_set_deletable (win_plot,TRUE);
-	//gtk_window_set_transient_for (win_plot, win_teseo);
-	teseo_plot_new();
-	//gtk_widget_show(drawingarea->window);
-        gtk_window_present (dlg_plot);
+	if (plot_count==0){
 
-	gint result = gtk_dialog_run (GTK_DIALOG (dlg_plot));
-	switch (result)
-	{
-	case GTK_RESPONSE_OK:
-		break;
-	case GTK_RESPONSE_CANCEL:
-	case GTK_RESPONSE_DELETE_EVENT:
-		g_message("Delete event done");
-		break;
-	default:
-		g_message("without response");
-		break;
+		teseo_plot=teseo_plot_new(ret_b, ret_errors);
+		plot_count++;
 	}
-	gtk_widget_hide (dlg_plot);
-
+	else{
+		gtk_widget_destroy(teseo_plot);
+		plot_count=0;
+		teseo_plot=NULL;
+	}
 }
 
 
@@ -1905,24 +1890,24 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	gchar corrected_path[FILENAMELEN];
 	gulong errors=0.0;
 
-        GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_time_span", sec);
-        GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_vel", Bg);
-        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_cyl_radius", r);
-        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_arm_lenght", Rg);
-        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_displ", a);
-        GtkSpinButton *teseo_spbtn_b = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_b", b);
-        GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xin", Xin);
-        GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yin", Yin);
-        GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Xfin", Xfin);
-        GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_Yfin", Yfin);
-	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_angle", rotation_angle);
-	GtkSpinButton *teseo_spbtn_ls = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_spbtn_ls", vshift);
+        GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
+        GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
+        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
+        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
+        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
+        GtkSpinButton *teseo_spbtn_b = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_b", b);
+        GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xin", Xin);
+        GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
+        GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
+        GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
+	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
+	GtkSpinButton *teseo_spbtn_ls = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_ls", vshift);
 
-	GtkCheckButton * teseo_chkbtn_extr = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_extr", use_coord);
-	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_rangle", use_angle);
-	GtkCheckButton * teseo_chkbtn_rot = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_rot", rotate);
-	GtkCheckButton * teseo_chkbtn_span = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_span",use_span );
-	GtkCheckButton * teseo_chkbtn_transl = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_wiechert), "teseo_chkbtn_transl", use_shift );
+	GtkCheckButton * teseo_chkbtn_extr = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_extr", use_coord);
+	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
+	GtkCheckButton * teseo_chkbtn_rot = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rot", rotate);
+	GtkCheckButton * teseo_chkbtn_span = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_span",use_span );
+	GtkCheckButton * teseo_chkbtn_transl = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_transl", use_shift );
 
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);

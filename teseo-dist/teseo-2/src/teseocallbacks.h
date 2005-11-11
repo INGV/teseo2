@@ -39,7 +39,7 @@ extern   GtkWidget * dlg_move_rotation;
 extern   GtkFileChooser * filechooser_import;
 extern   GtkFileChooser * filechooser_export;
 extern   GtkFileChooser * filechooser_session;
-extern   GtkWidget *dlg_wiechert;
+extern   GtkWidget *win_wiechert;
 extern   GtkWidget *dlg_plot;
 
 
