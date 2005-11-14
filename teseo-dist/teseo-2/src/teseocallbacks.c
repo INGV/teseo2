@@ -1874,6 +1874,8 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
 
 	}
+	teseo_ret_b=ret_b;
+	teseo_ret_errors=ret_errors;
 }
 
 
@@ -1895,6 +1897,7 @@ on_teseo_show_graph_clicked            (GtkButton       *button,
 	}
 	*/
 	teseo_plot = teseo_plot_new(teseo_ret_b, teseo_ret_errors, teseo_n_tries);
+
 }
 
 

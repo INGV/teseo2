@@ -1,5 +1,4 @@
 /* Teseo-2 Plug-in
-   }
  * Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
  * All Rights Reserved.
  *
@@ -67,39 +66,11 @@ void
 quit (GtkWidget * win)
 {
 
-g_printf("quit entered\n");
+  g_printf("quit entered\n");
   gtk_main_quit();
-//gtk_widget_hide(win);
-nlayers = 0;
+  //gtk_widget_hide(win);
+  nlayers = 0;
 }
-/*
-gdouble function(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
-{
-
- gdouble y;
- *err = FALSE;
-
- g_printf("function entered\n");
- y = (-.5+.3*sin(3.*x)*sin(50.*x));
-// y = 100*pow(x,2);
-//y = 1./(10*x);
-
-
- return y;
-}
-*/
-
-gdouble gaussian(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
-{
-
- gdouble y;
- *err = FALSE;
- g_printf("gaussian entered\n");
- y = .65*exp(-.5*pow(x-.5,2)/.02);
-
- return y;
-}
-
 
 gint
 move_item(GtkWidget *widget, GtkPlotCanvasChild *item,
@@ -197,21 +168,6 @@ activate_plot(GtkWidget *widget, gpointer data)
   widget_list = buttons;
   active_widget = widget;
 
-/* 141105
-  while(n < nlayers)
-    {
-      g_signal_handlers_block_by_func(GTK_OBJECT(buttons[n]), GTK_SIGNAL_FUNC(activate_plot), data);
-      if(widget_list[n] == active_widget){
-            active_plot = plots[n];
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(buttons[n]), TRUE);
-      }else{
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(buttons[n]), FALSE);
-      }
-      g_signal_handlers_unblock_by_func(GTK_OBJECT(buttons[n]), GTK_SIGNAL_FUNC(activate_plot), data);
-
-      n++;
-    }
-*/
   return FALSE;
 }
 
@@ -262,6 +218,117 @@ my_tick_label(GtkPlotAxis *axis, gdouble *tick_value, gchar *label, gpointer dat
   }
   return return_value;
 }
+
+
+
+void
+build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
+{
+ GdkColor color;
+ GtkPlotAxis *axis;
+
+ static gdouble px1[]={0., 0.2, 0.4, 0.6, 0.8, 1.0};
+ static gdouble py1[]={.2, .4, .5, .35, .30, .40};
+
+/*
+ static gdouble dx1[]={.2, .2, .2, .2, .2, .2};
+ static gdouble dy1[]={.1, .1, .1, .1, .1, .1};
+*/
+ gdouble * dx1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
+ gdouble * dy1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
+
+ gulong i;
+
+ for (i=0;i<ntries; i++){
+  dx1[i]=0.2;
+  dy1[i]=0.1;
+ }
+/*
+ static gdouble px2[]={0., -0.2, -0.4, -0.6, -0.8, -1.0};
+ static gdouble py2[]={.2, .4, .5, .35, .30, .40};
+ static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
+ static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
+*/
+  g_printf("build_data entered\n");
+
+ /* CUSTOM TICK LABELS */
+
+ gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_RIGHT), TRUE);
+ axis = gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_RIGHT);
+ g_signal_connect(GTK_OBJECT(axis), "tick_label",
+                    GTK_SIGNAL_FUNC(my_tick_label), NULL);
+
+ dataset[0] = GTK_PLOT_DATA(gtk_plot_data_new());
+ gtk_plot_add_data(GTK_PLOT(plot), dataset[0]);
+ gtk_widget_show(GTK_WIDGET(dataset[0]));
+
+ //gtk_plot_data_set_points(dataset[0], px1, py1, dx1, dy1, 6);
+ gtk_plot_data_set_points(dataset[0], ret_b, ret_e, dx1, dy1, ntries);
+
+ gtk_plot_data_add_marker(dataset[0], ntries/2);
+
+/*
+ gtk_plot_data_gradient_set_visible(dataset[0], TRUE);
+*/
+
+ gdk_color_parse("red", &color);
+ gdk_color_alloc(gdk_colormap_get_system(), &color);
+
+ gtk_plot_data_set_symbol(dataset[0],
+                          GTK_PLOT_SYMBOL_DIAMOND,
+			  GTK_PLOT_SYMBOL_EMPTY,
+                          10, 2, &color, &color);
+ gtk_plot_data_set_line_attributes(dataset[0],
+                                   GTK_PLOT_LINE_SOLID,
+                                   0, 0, 1, &color);
+
+ gtk_plot_data_set_connector(dataset[0], GTK_PLOT_CONNECT_SPLINE);
+
+ gtk_plot_data_show_yerrbars(dataset[0]);
+ gtk_plot_data_set_legend(dataset[0], "Spline + EY");
+
+/*
+ dataset[3] = GTK_PLOT_DATA(gtk_plot_data_new());
+ gtk_plot_add_data(GTK_PLOT(plot), dataset[3]);
+  gtk_widget_show(GTK_WIDGET(dataset[3]));
+
+ gtk_plot_data_set_points(dataset[3], px2, py2, dx2, dy2, 6);
+ gtk_plot_data_set_symbol(dataset[3],
+                             GTK_PLOT_SYMBOL_SQUARE,
+			     GTK_PLOT_SYMBOL_OPAQUE,
+                             8, 2,
+                             &plot->style->black,
+                             &plot->style->black);
+ gtk_plot_data_set_line_attributes(dataset[3],
+                                   GTK_PLOT_LINE_SOLID,
+                                   0, 0, 4, &color);
+ gtk_plot_data_set_connector(dataset[3], GTK_PLOT_CONNECT_STRAIGHT);
+
+ gtk_plot_data_set_x_attributes(dataset[3],
+                                GTK_PLOT_LINE_SOLID,
+                                0, 0, 0, &plot->style->black);
+ gtk_plot_data_set_y_attributes(dataset[3],
+                                GTK_PLOT_LINE_SOLID,
+                                0, 0, 0, &plot->style->black);
+
+ gtk_plot_data_set_legend(dataset[3], "Line + Symbol");
+
+*/
+
+ gdk_color_parse("blue", &color);
+ gdk_color_alloc(gdk_colormap_get_system(), &color);
+/*
+ dataset[1] = gtk_plot_add_function(GTK_PLOT(plot), (GtkPlotFunc)function);
+ gtk_widget_show(GTK_WIDGET(dataset[1]));
+ gtk_plot_data_set_line_attributes(dataset[1],
+                                   GTK_PLOT_LINE_SOLID,
+                                   0, 0, 0, &color);
+
+ gtk_plot_data_set_legend(dataset[1], "Function Plot");
+ */
+
+}
+
 
 void
 build_example1(GtkWidget *plot)
@@ -473,44 +540,6 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
  GTK_PLOT_CANVAS_PLOT(child)->flags |= GTK_PLOT_CANVAS_PLOT_SELECT_POINT;
  GTK_PLOT_CANVAS_PLOT(child)->flags |= GTK_PLOT_CANVAS_PLOT_DND_POINT;
 
-//00 build_example1(active_plot);
-
-
-/* Only one
- active_plot = new_layer(canvas);
- gdk_color_parse("light yellow", &color);
- gdk_color_alloc(gtk_widget_get_colormap(active_plot), &color);
- gtk_plot_set_background(GTK_PLOT(active_plot), &color);
-
- gdk_color_parse("light blue", &color);
- gdk_color_alloc(gtk_widget_get_colormap(canvas), &color);
- gtk_plot_legends_set_attributes(GTK_PLOT(active_plot),
-                                 NULL, 0,
-				 NULL,
-                                 &color);
- gtk_plot_set_range(GTK_PLOT(active_plot), 0.0 , 1.0, 0.0, 0.85);
- //OG
- //gtk_plot_set_range(GTK_PLOT(active_plot), 0.1 , 100., 0., .85);
- //gtk_plot_set_xscale(GTK_PLOT(active_plot), GTK_PLOT_SCALE_LOG10);
-
- gtk_plot_axis_set_labels_numbers(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_LEFT), GTK_PLOT_LABEL_FLOAT, 2);
- gtk_plot_axis_set_labels_numbers(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_RIGHT), GTK_PLOT_LABEL_FLOAT, 2);
- gtk_plot_axis_set_visible(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP), TRUE);
- gtk_plot_axis_set_visible(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_RIGHT), TRUE);
- gtk_plot_grids_set_visible(GTK_PLOT(active_plot), TRUE, TRUE, TRUE, TRUE);
- gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP));
- gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_RIGHT));
- gtk_plot_set_legends_border(GTK_PLOT(active_plot), 2, 3);
- gtk_plot_legends_move(GTK_PLOT(active_plot), .58, .05);
- gtk_widget_show(active_plot);
-
- child = gtk_plot_canvas_plot_new(GTK_PLOT(active_plot));
- gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .15, .4, .65, .65);
- gtk_widget_show(active_plot);
-
- build_example2(active_plot);
-*/
-
 
  g_signal_connect(GTK_OBJECT(canvas), "select_item",
                     (GtkSignalFunc) select_item, NULL);
@@ -544,10 +573,11 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
  gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), TRUE);
 
- put_child(GTK_PLOT_CANVAS(canvas), .5, .5);
+ //put_child(GTK_PLOT_CANVAS(canvas), .5, .5);
 
 
- build_example1(active_plot);
+ //build_example1(active_plot);
+ build_data(active_plot,ret_b, ret_e, ntries);
  gtk_widget_show_all(window1);
 
  //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
