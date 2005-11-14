@@ -72,7 +72,7 @@ g_printf("quit entered\n");
 //gtk_widget_hide(win);
 nlayers = 0;
 }
-
+/*
 gdouble function(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 {
 
@@ -81,12 +81,13 @@ gdouble function(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 
  g_printf("function entered\n");
  y = (-.5+.3*sin(3.*x)*sin(50.*x));
-/* y = 100*pow(x,2);
- y = 1./(10*x);
-*/
+// y = 100*pow(x,2);
+//y = 1./(10*x);
+
 
  return y;
 }
+*/
 
 gdouble gaussian(GtkPlot *plot, GtkPlotData *data, gdouble x, gboolean *err)
 {
@@ -196,7 +197,7 @@ activate_plot(GtkWidget *widget, gpointer data)
   widget_list = buttons;
   active_widget = widget;
 
-
+/* 141105
   while(n < nlayers)
     {
       g_signal_handlers_block_by_func(GTK_OBJECT(buttons[n]), GTK_SIGNAL_FUNC(activate_plot), data);
@@ -210,7 +211,7 @@ activate_plot(GtkWidget *widget, gpointer data)
 
       n++;
     }
-
+*/
   return FALSE;
 }
 
@@ -340,7 +341,7 @@ build_example1(GtkWidget *plot)
 
  gdk_color_parse("blue", &color);
  gdk_color_alloc(gdk_colormap_get_system(), &color);
-
+/*
  dataset[1] = gtk_plot_add_function(GTK_PLOT(plot), (GtkPlotFunc)function);
  gtk_widget_show(GTK_WIDGET(dataset[1]));
  gtk_plot_data_set_line_attributes(dataset[1],
@@ -348,6 +349,8 @@ build_example1(GtkWidget *plot)
                                    0, 0, 0, &color);
 
  gtk_plot_data_set_legend(dataset[1], "Function Plot");
+ */
+
 }
 
 void
@@ -359,7 +362,7 @@ build_example2(GtkWidget *plot)
  static double dx2[] = {.1, .1, .1, .1, .1, .1, .1, .1};
 
  g_printf("build_example2 entered\n");
-
+/*
  dataset[4] = gtk_plot_add_function(GTK_PLOT(plot), (GtkPlotFunc)gaussian);
  gtk_widget_show(GTK_WIDGET(dataset[4]));
  gdk_color_parse("dark green", &color);
@@ -369,7 +372,7 @@ build_example2(GtkWidget *plot)
                                    0, 0, 2, &color);
 
  gtk_plot_data_set_legend(dataset[4], "Gaussian");
-
+*/
 
  gdk_color_parse("blue", &color);
  gdk_color_alloc(gdk_colormap_get_system(), &color);

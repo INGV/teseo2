@@ -167,10 +167,12 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 {
 
   char old_current_session[FILENAMELEN];
-  char filename[FILENAMELEN];
+  //char filename[FILENAMELEN];
+  gchar * filename =NULL;
   char * path=NULL;
   gchar * tep = NULL;
   gchar filename_session [FILENAMELEN];
+
 
   int ret=0;
   int ls=0;
@@ -186,19 +188,21 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
   switch (result)
     {
-      case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_session)) );
-	 //debug g_message("Opening %s",filename);
-         ret=load_session(filename);
-         break;
-      case GTK_RESPONSE_CANCEL:
-	 ret=2;
-         break;
-      case GTK_RESPONSE_DELETE_EVENT:
-	 ret=2;
-         break;
-      default:
-         break;
+	case GTK_RESPONSE_OK:
+		//strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_session)) );
+		filename =  gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (filechooser_session)) ;
+		//debug g_message("Opening %s",filename);
+		ret=load_session(filename);
+		g_free(filename);
+		break;
+	case GTK_RESPONSE_CANCEL:
+		ret=2;
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
+		ret=2;
+		break;
+	default:
+		break;
     }
 
     gtk_widget_hide ((GtkWidget *) filechooser_session);
@@ -264,7 +268,8 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // Import SVG
-    char filename[FILENAMELEN];
+    //char filename[FILENAMELEN];
+    gchar * filename = NULL;
     char * path=NULL;
 
     path=teseo_get_environment_path( SVGPATH );
@@ -276,19 +281,21 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
 
     switch (result)
     {
-      case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
-	 teseo_import_svg_vectors( teseo_image, filename );
-         teseo_gtk_statusbar_push("SVG file imported in current path.");
-	 break;
-      case GTK_RESPONSE_CANCEL:
+	case GTK_RESPONSE_OK:
+		//strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+		filename =  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) ;
+		teseo_import_svg_vectors( teseo_image, filename );
+		g_free(filename);
+		teseo_gtk_statusbar_push("SVG file imported in current path.");
+		break;
+	case GTK_RESPONSE_CANCEL:
 
-	 break;
-      case GTK_RESPONSE_DELETE_EVENT:
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
 
-	 break;
-      default:
-	 break;
+		break;
+	default:
+		break;
     }
     gtk_widget_hide ((GtkWidget *) filechooser_import);
 
@@ -300,7 +307,8 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
   // Import DXF
-  char filename[FILENAMELEN];
+  //char filename[FILENAMELEN];
+  gchar * filename= NULL;
   char * path=NULL;
 
   path=teseo_get_environment_path( DXFPATH );
@@ -313,8 +321,10 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
   switch (result)
     {
       case GTK_RESPONSE_OK:
-         strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+         //strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+         filename= gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import));
          teseo_import_dxf( teseo_image, filename );
+	 g_free(filename);
          teseo_gtk_statusbar_push("DXF file imported in current path.");
          break;
       case GTK_RESPONSE_CANCEL:
@@ -367,7 +377,8 @@ on_timemark2_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // Import Ascii timemarker path (Teseo 2 format)
-    char filename[FILENAMELEN];
+    //char filename[FILENAMELEN];
+    gchar * filename = NULL;
     char * path=NULL;
 
     path=teseo_get_environment_path( TMARKPATH );
@@ -379,19 +390,21 @@ on_timemark2_activate                  (GtkMenuItem     *menuitem,
 
     switch (result)
     {
-      case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
-	 teseo_import_path_ascii( teseo_image, filename, 1 );
-         teseo_gtk_statusbar_push("ASCII Timemarker file imported in current path.");
-	 break;
-      case GTK_RESPONSE_CANCEL:
-	 //g_message("Cancel pressed: don't do anything.");
-	 break;
-      case GTK_RESPONSE_DELETE_EVENT:
-	 //g_message("Delete event, same as Cancel pressed.");
-	 break;
-      default:
-	 break;
+	case GTK_RESPONSE_OK:
+		//strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import));
+		teseo_import_path_ascii( teseo_image, filename, 1 );
+		g_free(filename);
+		teseo_gtk_statusbar_push("ASCII Timemarker file imported in current path.");
+		break;
+	case GTK_RESPONSE_CANCEL:
+		//g_message("Cancel pressed: don't do anything.");
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
+		//g_message("Delete event, same as Cancel pressed.");
+		break;
+	default:
+		break;
     }
     gtk_widget_hide ((GtkWidget *) filechooser_import);
 
@@ -490,6 +503,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 
                 // TODO check options in session windows before saving
                 teseo_save_path_dxf(teseo_image, filename, scale);
+		g_free(filename);
                 // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
                 teseo_gtk_statusbar_push("Current path exported in DXF format.");
 
@@ -511,7 +525,7 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 
     g_free(dxf_path);
     g_free(image_filename);
-    g_free(filename);
+    //g_free(filename);
 }
 
 
@@ -697,6 +711,7 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
                 // TODO check options in session windows before saving
                 teseo_save_path_ascii(teseo_image, filename);
                 // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+		g_free(filename);
                 teseo_gtk_statusbar_push("Current path exported in TIMEMARK ASCII format.");
 
                 break;
@@ -718,7 +733,7 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
     g_string_free(timemark_path_filename, TRUE);
     g_free(timemark_path);
     g_free(image_filename);
-    g_free(filename);
+
 }
 
 
@@ -1008,7 +1023,8 @@ on_ascii1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // Import Ascii poliline path (Teseo 2 format)
-    char filename[FILENAMELEN];
+    //char filename[FILENAMELEN];
+    gchar* filename = NULL;
     char * path=NULL;
 
     path=teseo_get_environment_path( ASCIIPATH );
@@ -1020,19 +1036,21 @@ on_ascii1_activate                     (GtkMenuItem     *menuitem,
 
     switch (result)
     {
-      case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
-	 teseo_import_path_ascii( teseo_image, filename, 0 );
-         teseo_gtk_statusbar_push("ASCII file imported in current path.");
-	 break;
-      case GTK_RESPONSE_CANCEL:
-	 //g_message("Cancel pressed: don't do anything.");
-	 break;
-      case GTK_RESPONSE_DELETE_EVENT:
-	 //g_message("Delete event, same as Cancel pressed.");
-	 break;
-      default:
-	 break;
+	case GTK_RESPONSE_OK:
+		//strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+		filename =  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import));
+		teseo_import_path_ascii( teseo_image, filename, 0 );
+		g_free(filename);
+		teseo_gtk_statusbar_push("ASCII file imported in current path.");
+		break;
+	case GTK_RESPONSE_CANCEL:
+		//g_message("Cancel pressed: don't do anything.");
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
+		//g_message("Delete event, same as Cancel pressed.");
+		break;
+	default:
+		break;
     }
     gtk_widget_hide ((GtkWidget *) filechooser_import);
 }
@@ -1083,11 +1101,11 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
         {
             case GTK_RESPONSE_OK:
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
-                // TODO check if ascii_path_filename exists
-
+		// TODO check if ascii_path_filename exists
                 // TODO check options in session windows before saving
                 teseo_save_path_ascii(teseo_image, filename);
                 // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+		g_free(filename);
                 teseo_gtk_statusbar_push("Current path exported in ASCII format.");
 
                 break;
@@ -1109,7 +1127,7 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     g_string_free(ascii_path_filename, TRUE);
     g_free(ascii_path);
     g_free(image_filename);
-    g_free(filename);
+
 }
 
 
@@ -1118,7 +1136,8 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     // Import Bezier path (Teseo 1 format)
-    char filename[FILENAMELEN];
+    //char filename[FILENAMELEN];
+    gchar * filename=NULL;
     char * path=NULL;
 
     path=teseo_get_environment_path( BEZIERPATH );
@@ -1131,9 +1150,11 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
     switch (result)
     {
       case GTK_RESPONSE_OK:
-	 strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+	 //strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) );
+	 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import));
 	 teseo_import_bzr( teseo_image, filename );
          teseo_gtk_statusbar_push("Bezier file imported in current path.");
+	 g_free(filename);
 	 break;
       case GTK_RESPONSE_CANCEL:
 	 g_message("Cancel pressed: don't do anything.");
