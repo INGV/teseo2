@@ -353,21 +353,29 @@ gchar test_session(char * filename){
     //g_printf("test_session:: basename noext=%s path=%s\n",basename_noext, p );
 
     if ( dir!=NULL ) {
-      while ( g_dir_read_name (dir)  != NULL ){ //don't free entry
-	myentry=g_strdup(g_dir_read_name (dir));
-	//g_printf("test_session::myentry %s\n",myentry );
-	//First looking for basename
-	if (g_strrstr(myentry,basename_noext)!=NULL)
-	{
-	  //then looking for extension
-	  if(g_strrstr(myentry,SESSION_EXT)!=NULL){
-	     g_free(myentry);
-	     ret=1;
-             break;
-	  }
+      while ( (myentry = g_strdup(g_dir_read_name (dir)) )  != NULL ){ //don't free entry
+
+	if(myentry!=NULL){
+		//g_printf("test_session::myentry %s\n",myentry );
+		//First looking for basename
+		if(myentry!=NULL){
+			if (g_strrstr(myentry,basename_noext)!=NULL)
+			{
+				if(myentry!=NULL){
+					//then looking for extension
+					if(g_strrstr(myentry,SESSION_EXT)!=NULL){
+						g_free(myentry);
+						ret=1;
+						break;
+					}
+				}
+			}
+		}
 	}
-        g_free(myentry);
+
+	g_free(myentry);
       }//while
+
       g_dir_close(dir);
     }
 
