@@ -68,7 +68,7 @@ quit (GtkWidget * win)
 {
 
 g_printf("quit entered\n");
-//  gtk_main_quit();
+  gtk_main_quit();
 //gtk_widget_hide(win);
 nlayers = 0;
 }
@@ -238,13 +238,13 @@ new_layer(GtkWidget *canvas)
  size = MAX(req.width,req.height);
  gtk_widget_set_usize(buttons[nlayers-1], size, size);
  gtk_fixed_put(GTK_FIXED(canvas), buttons[nlayers-1], (nlayers-1)*size, 0);
- gtk_widget_show(buttons[nlayers-1]);
+  gtk_widget_show(buttons[nlayers-1]);
 
  g_signal_connect(GTK_OBJECT(buttons[nlayers-1]), "toggled",
                     (GtkSignalFunc) activate_plot, canvas);
 
  plots[nlayers-1] = gtk_plot_new_with_size(NULL, .5, .25);
- gtk_widget_show(plots[nlayers-1]);
+  gtk_widget_show(plots[nlayers-1]);
 
  activate_plot(buttons[nlayers-1],canvas);
 
@@ -294,6 +294,7 @@ build_example1(GtkWidget *plot)
  gtk_plot_data_set_points(dataset[0], px1, py1, dx1, dy1, 6);
 
  gtk_plot_data_add_marker(dataset[0], 3);
+
 /*
  gtk_plot_data_gradient_set_visible(dataset[0], TRUE);
 */
@@ -316,7 +317,7 @@ build_example1(GtkWidget *plot)
 
  dataset[3] = GTK_PLOT_DATA(gtk_plot_data_new());
  gtk_plot_add_data(GTK_PLOT(plot), dataset[3]);
- gtk_widget_show(GTK_WIDGET(dataset[3]));
+  gtk_widget_show(GTK_WIDGET(dataset[3]));
  gtk_plot_data_set_points(dataset[3], px2, py2, dx2, dy2, 6);
  gtk_plot_data_set_symbol(dataset[3],
                              GTK_PLOT_SYMBOL_SQUARE,
@@ -472,7 +473,7 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
  GTK_PLOT_CANVAS_PLOT(child)->flags |= GTK_PLOT_CANVAS_PLOT_SELECT_POINT;
  GTK_PLOT_CANVAS_PLOT(child)->flags |= GTK_PLOT_CANVAS_PLOT_DND_POINT;
 
- build_example1(active_plot);
+//00 build_example1(active_plot);
 
 
 /* Only one
@@ -545,11 +546,15 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
 
  put_child(GTK_PLOT_CANVAS(canvas), .5, .5);
 
+
+ build_example1(active_plot);
  gtk_widget_show_all(window1);
 
  //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
  //OG
  //gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);
+
+ gtk_main();
 
  return window1;
 }

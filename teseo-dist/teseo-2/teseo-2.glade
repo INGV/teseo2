@@ -6591,7 +6591,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 
 <widget class="GtkWindow" id="win_wiechert">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Plot a diagram</property>
+  <property name="title" translatable="yes">Wiechert correction</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -6602,6 +6602,7 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <signal name="delete_event" handler="on_win_wiechert_delete_event" last_modification_time="Mon, 14 Nov 2005 13:23:46 GMT"/>
 
   <child>
     <widget class="GtkNotebook" id="notebook5">
@@ -7526,25 +7527,46 @@ Via di vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	      <property name="spacing">0</property>
 
 	      <child>
-		<placeholder/>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="teseo_calc_arm_shift">
-		  <property name="border_width">3</property>
+		<widget class="GtkHButtonBox" id="hbuttonbox1">
 		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Calculate</property>
-		  <property name="use_underline">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <property name="focus_on_click">True</property>
-		  <signal name="clicked" handler="on_teseo_calc_arm_shift_clicked" last_modification_time="Mon, 24 Oct 2005 12:34:11 GMT"/>
+		  <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
+		  <property name="spacing">0</property>
+
+		  <child>
+		    <widget class="GtkButton" id="teseo_calc_arm_shift">
+		      <property name="border_width">3</property>
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="label" translatable="yes">Calculate</property>
+		      <property name="use_underline">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_teseo_calc_arm_shift_clicked" last_modification_time="Mon, 24 Oct 2005 12:34:11 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkButton" id="teseo_show_graph">
+		      <property name="visible">True</property>
+		      <property name="can_default">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="label" translatable="yes">Show graph</property>
+		      <property name="use_underline">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="clicked" handler="on_teseo_show_graph_clicked" last_modification_time="Mon, 14 Nov 2005 12:33:01 GMT"/>
+		    </widget>
+		  </child>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
-		  <property name="expand">False</property>
-		  <property name="fill">False</property>
+		  <property name="expand">True</property>
+		  <property name="fill">True</property>
 		</packing>
+	      </child>
+
+	      <child>
+		<placeholder/>
 	      </child>
 
 	      <child>
