@@ -384,3 +384,12 @@ gboolean
 on_win_plot_delete_event               (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
+
+void
+on_teseo_show_graph_clicked            (GtkButton       *button,
+                                        gpointer         user_data);
+
+gboolean
+on_win_wiechert_delete_event           (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
