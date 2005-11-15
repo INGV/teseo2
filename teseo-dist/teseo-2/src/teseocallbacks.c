@@ -60,10 +60,15 @@ GtkWidget * win_wiechert;
 GtkWidget * dlg_plot;
 
 GtkWidget * teseo_plot=NULL;
-gdouble ** teseo_ret_b;
-gdouble ** teseo_ret_errors;
+gdouble * teseo_ret_b;
+gdouble * teseo_ret_errors;
 gulong teseo_n_tries;
 gint plot_count=0;
+#define  n_tries 600
+gdouble ret_b[n_tries];
+gdouble ret_errors[n_tries];
+
+
 
 GtkFileChooser * filechooser_import;
 GtkFileChooser * filechooser_export;
@@ -1818,9 +1823,9 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	GtkObject*  gse=NULL;
 	GtkTable *table=NULL;
 
-	gulong n_tries=600;
-	gdouble ret_b[n_tries];
-	gdouble ret_errors[n_tries];
+//	gulong n_tries=600;
+//	static gdouble ret_b[n_tries];
+//	static gdouble ret_errors[n_tries];
 
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
@@ -1874,8 +1879,9 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
 
 	}
-	teseo_ret_b=ret_b;
-	teseo_ret_errors=ret_errors;
+
+	//teseo_ret_b=ret_b;
+	//teseo_ret_errors=ret_errors;
 }
 
 
@@ -1896,7 +1902,13 @@ on_teseo_show_graph_clicked            (GtkButton       *button,
 		teseo_plot=NULL;
 	}
 	*/
-	teseo_plot = teseo_plot_new(teseo_ret_b, teseo_ret_errors, teseo_n_tries);
+
+	teseo_plot =teseo_plot_new(ret_b, ret_errors, n_tries);
+        //gtk_widget_show (teseo_plot);
+	g_printf ("Passing %f %f %d\n", ret_b[0], ret_b[n_tries-1], n_tries);
+	//gtk_widget_destroy(teseo_plot);
+	gtk_main_quit();
+
 
 }
 

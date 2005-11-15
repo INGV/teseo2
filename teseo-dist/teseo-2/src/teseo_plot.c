@@ -67,8 +67,8 @@ quit (GtkWidget * win)
 {
 
   g_printf("quit entered\n");
-  gtk_main_quit();
-  //gtk_widget_hide(win);
+  //gtk_main_quit();
+  gtk_widget_hide(win);
   nlayers = 0;
 }
 
@@ -227,30 +227,51 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
  GdkColor color;
  GtkPlotAxis *axis;
 
- static gdouble px1[]={0., 0.2, 0.4, 0.6, 0.8, 1.0};
- static gdouble py1[]={.2, .4, .5, .35, .30, .40};
+ //ntries=6;
 
-/*
- static gdouble dx1[]={.2, .2, .2, .2, .2, .2};
- static gdouble dy1[]={.1, .1, .1, .1, .1, .1};
-*/
- gdouble * dx1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
- gdouble * dy1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
+ static gdouble px1[800]={};
+ static gdouble py1[800]={};
+
+
+ static gdouble dx1[800]={};
+ static gdouble dy1[800]={};
+
+
+ //gdouble * dx1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
+ //gdouble * dy1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
 
  gulong i;
 
  for (i=0;i<ntries; i++){
+  px1[i]=ret_b[i];
+  py1[i]=ret_e[i];
+
   dx1[i]=0.2;
   dy1[i]=0.1;
+
  }
+
 /*
  static gdouble px2[]={0., -0.2, -0.4, -0.6, -0.8, -1.0};
  static gdouble py2[]={.2, .4, .5, .35, .30, .40};
  static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
  static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
 */
-  g_printf("build_data entered\n");
 
+ g_printf("build_data entered\n");
+
+ gdouble emin= ret_e[0] ;
+ gdouble emax= ret_e[0] ;
+
+
+ for (i=1; i<ntries;i++){
+      emin = (emin<ret_e[i]) ? emin:ret_e[i];
+      emax = (emax>ret_e[i]) ? emax:ret_e[i];
+ }
+
+ //gtk_plot_set_range(GTK_PLOT(active_plot), px1[0], px1[ntries-1], -3., 2.4);
+ gtk_plot_set_range(GTK_PLOT(active_plot), ret_b[0], ret_b[ntries-1], 0., emax);
+ g_printf("build_data:: set range %f %f %f %f \n", ret_b[0], ret_b[ntries-1], emin, emax);
  /* CUSTOM TICK LABELS */
 
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_RIGHT), TRUE);
@@ -265,7 +286,8 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
  //gtk_plot_data_set_points(dataset[0], px1, py1, dx1, dy1, 6);
  gtk_plot_data_set_points(dataset[0], ret_b, ret_e, dx1, dy1, ntries);
 
- gtk_plot_data_add_marker(dataset[0], ntries/2);
+ g_printf("data set points done: %f %f\n",ret_b[0], ret_b[ntries] );
+ //gtk_plot_data_add_marker(dataset[0], ntries/2);
 
 /*
  gtk_plot_data_gradient_set_visible(dataset[0], TRUE);
@@ -273,11 +295,17 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  gdk_color_parse("red", &color);
  gdk_color_alloc(gdk_colormap_get_system(), &color);
-
+/*
  gtk_plot_data_set_symbol(dataset[0],
                           GTK_PLOT_SYMBOL_DIAMOND,
 			  GTK_PLOT_SYMBOL_EMPTY,
                           10, 2, &color, &color);
+*/
+  gtk_plot_data_set_symbol(dataset[0],
+                          GTK_PLOT_SYMBOL_DIAMOND,
+			  GTK_PLOT_SYMBOL_EMPTY,
+                          4, 2, &color, &color);
+
  gtk_plot_data_set_line_attributes(dataset[0],
                                    GTK_PLOT_LINE_SOLID,
                                    0, 0, 1, &color);
@@ -326,7 +354,7 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  gtk_plot_data_set_legend(dataset[1], "Function Plot");
  */
-
+ //g_printf("data %f %f 2\n",ret_b[0],  ret_b[ntries-1] );
 }
 
 
@@ -346,8 +374,9 @@ build_example1(GtkWidget *plot)
  static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
  static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
 
-  g_printf("build_example1 entered\n");
+ g_printf("build_example1 entered\n");
 
+ gtk_plot_set_range(GTK_PLOT(active_plot), -2., 2., -3., 2.4);
  /* CUSTOM TICK LABELS */
 
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_RIGHT), TRUE);
@@ -467,7 +496,7 @@ build_example2(GtkWidget *plot)
 }
 
 //int main(int argc, char *argv[]){
-GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
+GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
 
  GtkWidget *window1;
  GtkWidget *vbox1;
@@ -521,7 +550,7 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
  //OG
  //gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
 
- gtk_plot_set_range(GTK_PLOT(active_plot), -1.0, 1.0, -1.0, 1.4);
+ //gtk_plot_set_range(GTK_PLOT(active_plot), -1., 1., -1., 1.4);
  gtk_plot_legends_move(GTK_PLOT(active_plot), 0.500, 0.05);
  gtk_plot_set_legends_border(GTK_PLOT(active_plot), 0, 0);
  gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP));
@@ -577,14 +606,16 @@ GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries){
 
 
  //build_example1(active_plot);
- build_data(active_plot,ret_b, ret_e, ntries);
+ build_data(active_plot, ret_b, ret_e, ntries);
+ g_printf("Now show!\n");
+
  gtk_widget_show_all(window1);
+ gtk_main();
+ while (gtk_events_pending())   gtk_main_iteration();
 
  //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
  //OG
  //gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);
-
- gtk_main();
 
  return window1;
 }
