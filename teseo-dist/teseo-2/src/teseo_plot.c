@@ -62,13 +62,14 @@ GtkWidget *active_plot;
 
 static void put_child(GtkPlotCanvas *canvas, gdouble x, gdouble y);
 
-void
+gboolean
 quit (GtkWidget * win)
 {
   //g_printf("quit entered\n");
-  //gtk_main_quit();
-  gtk_widget_hide(win);
+  gtk_main_quit();
+  //gtk_widget_hide(win);
   nlayers = 0;
+  return TRUE;
 }
 
 gint
@@ -250,18 +251,10 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  }
 
-/*
- static gdouble px2[]={0., -0.2, -0.4, -0.6, -0.8, -1.0};
- static gdouble py2[]={.2, .4, .5, .35, .30, .40};
- static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
- static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
-*/
-
  //g_printf("build_data entered\n");
 
  gdouble emin= ret_e[0] ;
  gdouble emax= ret_e[0] ;
-
 
  for (i=1; i<ntries;i++){
       emin = (emin<ret_e[i]) ? emin:ret_e[i];
@@ -270,6 +263,8 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  //gtk_plot_set_range(GTK_PLOT(active_plot), px1[0], px1[ntries-1], -3., 2.4);
  gtk_plot_set_range(GTK_PLOT(active_plot), ret_b[0], ret_b[ntries-1], 0., emax);
+ gtk_plot_axis_set_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_LEFT), "Errors in trace");
+ gtk_plot_axis_set_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), "Arm shift [mm]");
  //g_printf("build_data:: set range %f %f %f %f \n", ret_b[0], ret_b[ntries-1], emin, emax);
  /* CUSTOM TICK LABELS */
 
@@ -309,8 +304,8 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  gtk_plot_data_set_connector(dataset[0], GTK_PLOT_CONNECT_SPLINE);
 
- gtk_plot_data_show_yerrbars(dataset[0]);
- gtk_plot_data_set_legend(dataset[0], "Spline + EY");
+ //gtk_plot_data_show_yerrbars(dataset[0]);
+ gtk_plot_data_set_legend(dataset[0], "Arm shift and error");
 
 /*
  dataset[3] = GTK_PLOT_DATA(gtk_plot_data_new());
@@ -479,14 +474,10 @@ build_example2(GtkWidget *plot)
  gtk_widget_show(GTK_WIDGET(dataset[2]));
  gtk_plot_data_set_points(dataset[2], px2, py2, dx2, NULL, 8);
 
- gtk_plot_data_set_symbol(dataset[2],
-                          GTK_PLOT_SYMBOL_NONE,
-			  GTK_PLOT_SYMBOL_OPAQUE,
-                          10, 2, &color, &color);
+ gtk_plot_data_set_symbol(dataset[2], GTK_PLOT_SYMBOL_NONE, GTK_PLOT_SYMBOL_OPAQUE, 10, 2, &color, &color);
 
- gtk_plot_data_set_line_attributes(dataset[2],
-                                   GTK_PLOT_LINE_NONE,
-                                   0, 0, 1, &color);
+ gtk_plot_data_set_line_attributes(dataset[2],    GTK_PLOT_LINE_NONE,      0, 0, 1, &color);
+
  gtk_plot_data_set_legend(dataset[2], "V Bars");
 
  gtk_plot_set_break(GTK_PLOT(plot), GTK_PLOT_AXIS_Y, 0.7, 0.72, .05, 4, GTK_PLOT_SCALE_LINEAR, .6);
@@ -503,7 +494,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  GdkColor color;
  gint page_width, page_height;
  gfloat scale = 4.;
- gchar *custom_labels[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+ //gchar *custom_labels[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
  GtkPlotArray *array;
 
  //g_printf("teseo_plot_new entered\n");
@@ -593,7 +584,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .765, .0, .0);
  gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
 
- array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 128, G_TYPE_STRING, FALSE));
+ //array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 128, G_TYPE_STRING, FALSE));
  gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
  gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), TRUE);
 

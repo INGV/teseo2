@@ -3935,7 +3935,7 @@ create_win_wiechert (void)
   GtkWidget *label305;
   GtkWidget *vbox88;
   GtkWidget *hbox60;
-  GtkWidget *comboboxentry1;
+  GtkWidget *teseo_arm_shift_entry;
   GtkWidget *label282;
   GtkWidget *hbox67;
   GtkWidget *hbuttonbox1;
@@ -4259,12 +4259,14 @@ create_win_wiechert (void)
   gtk_widget_show (hbox60);
   gtk_box_pack_start (GTK_BOX (vbox88), hbox60, TRUE, TRUE, 0);
 
-  comboboxentry1 = gtk_combo_box_entry_new_text ();
-  gtk_widget_set_name (comboboxentry1, "comboboxentry1");
-  gtk_widget_show (comboboxentry1);
-  gtk_box_pack_start (GTK_BOX (hbox60), comboboxentry1, FALSE, FALSE, 0);
+  teseo_arm_shift_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_arm_shift_entry, "teseo_arm_shift_entry");
+  gtk_widget_show (teseo_arm_shift_entry);
+  gtk_box_pack_start (GTK_BOX (hbox60), teseo_arm_shift_entry, FALSE, FALSE, 0);
+  gtk_editable_set_editable (GTK_EDITABLE (teseo_arm_shift_entry), FALSE);
+  gtk_entry_set_text (GTK_ENTRY (teseo_arm_shift_entry), "Minimum shift");
 
-  label282 = gtk_label_new ("Arm shift first estimate");
+  label282 = gtk_label_new ("Arm shift estimate");
   gtk_widget_set_name (label282, "label282");
   gtk_widget_show (label282);
   gtk_box_pack_start (GTK_BOX (hbox60), label282, FALSE, FALSE, 0);
@@ -4395,7 +4397,7 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, label305, "label305");
   GLADE_HOOKUP_OBJECT (win_wiechert, vbox88, "vbox88");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox60, "hbox60");
-  GLADE_HOOKUP_OBJECT (win_wiechert, comboboxentry1, "comboboxentry1");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_arm_shift_entry, "teseo_arm_shift_entry");
   GLADE_HOOKUP_OBJECT (win_wiechert, label282, "label282");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox67, "hbox67");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbuttonbox1, "hbuttonbox1");

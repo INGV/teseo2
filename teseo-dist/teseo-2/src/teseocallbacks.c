@@ -1830,6 +1830,12 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
 
+	gdouble emin= ret_errors[0] ;
+	gdouble emax= ret_errors[0] ;
+	gulong  imin=0,i;
+
+	gchar b_string[11]="";
+
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
         GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
@@ -1840,7 +1846,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
         GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
-
+	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
 
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
@@ -1873,15 +1879,20 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	b=10;
 
 	if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-
-
-      teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
-					TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
-
+		teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
+							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
 	}
 
-	//teseo_ret_b=ret_b;
-	//teseo_ret_errors=ret_errors;
+	for (i=1; i<n_tries;i++){
+		if (emin>ret_errors[i]){
+			emin = ret_errors[i];
+			imin=i;
+		}
+	}
+
+	g_sprintf(b_string,"%8.3f",ret_b[imin]);
+	gtk_entry_set_text (arm_shift_entry, b_string);
+
 }
 
 
@@ -1889,27 +1900,11 @@ void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
 {
-/*
-	if (plot_count==0){
-
-		//gtk_window_show(GTK_WINDOW(teseo_plot));
-		gtk_widget_show (teseo_plot);
-		plot_count++;
-	}
-	else{
-		gtk_widget_hide(GTK_WIDGET(teseo_plot));
-		plot_count=0;
-		teseo_plot=NULL;
-	}
-	*/
 
 	teseo_plot =teseo_plot_new(ret_b, ret_errors, n_tries);
-        //gtk_widget_show (teseo_plot);
-	g_printf ("Passing %f %f %d\n", ret_b[0], ret_b[n_tries-1], n_tries);
-	//gtk_widget_destroy(teseo_plot);
-	gtk_main_quit();
+	//g_printf ("Passing %f %f %d\n", ret_b[0], ret_b[n_tries-1], n_tries);
 
-
+	//gtk_main_quit();
 }
 
 
