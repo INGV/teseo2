@@ -322,7 +322,7 @@ clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 teseo-2$(EXEEXT): $(teseo_2_OBJECTS) $(teseo_2_DEPENDENCIES)
 	@rm -f teseo-2$(EXEEXT)
-	$(LINK) $(teseo_2_LDFLAGS) $(teseo_2_OBJECTS) $(teseo_2_LDADD) $(LIBS)
+	$(LINK) $(teseo_2_LDFLAGS) $(teseo_2_OBJECTS) $(teseo_2_LDADD) $(LIBS) $(LDFLAGS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core

@@ -53,6 +53,13 @@
 
 #include "teseo_plot.h"
 
+#include <gtk/gtk.h>
+#include <libgimp/gimp.h>
+
+#include <glib.h>
+#include <glib/gprintf.h>
+
+
 GdkPixmap *pixmap;
 GtkWidget **plots;
 //GtkWidget **buttons;
@@ -235,6 +242,7 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
  static gdouble dx1[800]={};
  static gdouble dy1[800]={};
 
+ //g_message("build_data entered");
 
  //gdouble * dx1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
  //gdouble * dy1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
@@ -503,12 +511,14 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  //gchar *custom_labels[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
  GtkPlotArray *array;
 
- //g_printf("teseo_plot_new entered\n");
+ //g_message("teseo_plot_new entered");
 
  page_width = GTK_PLOT_LETTER_W * scale;
  page_height = GTK_PLOT_LETTER_H * scale;
 
  window1=gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
+ //g_message("window created");
 
  gtk_window_set_title(GTK_WINDOW(window1), "Teseo Plot");
  //gtk_widget_set_usize(window1,650,350);
@@ -527,6 +537,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
 
  gtk_box_pack_start(GTK_BOX(vbox1),scrollw1, TRUE, TRUE,0);
  gtk_widget_show(scrollw1);
+ //g_message("scrollwindow showed");
+
 
  canvas = gtk_plot_canvas_new(page_width, page_height, 1.0);
  GTK_PLOT_CANVAS_SET_FLAGS(GTK_PLOT_CANVAS(canvas), GTK_PLOT_CANVAS_DND_FLAGS);
@@ -539,7 +551,11 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
 
  gtk_widget_show(canvas);
 
+ //g_message("before create active plot");
+
  active_plot = new_layer(canvas);
+ //g_message("created active plot");
+
  //OG
  //gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
 
@@ -572,11 +588,13 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
                           GTK_JUSTIFY_CENTER,
                           "DnD titles, legends and plots");
 
+ //g_message("created plot canvas");
+
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
  //child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
  //                         GTK_JUSTIFY_CENTER,
  //                         "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");
-
+   
  child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "You can use subscripts and superscripts");
@@ -587,18 +605,20 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  //                         GTK_JUSTIFY_CENTER,
  //                         "Format text mixing \\Bbold \\N\\i, italics, \\ggreek \\4\\N and \\+different fonts"); */
 
+ //g_message("created plot canvas 2");
+
  gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .765, .0, .0);
  gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
 
  //array = GTK_PLOT_ARRAY(gtk_plot_array_new(NULL, custom_labels, 128, G_TYPE_STRING, FALSE));
- gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
- gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), TRUE);
+ //gtk_plot_axis_set_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), array);
+ // what ? gtk_plot_axis_use_custom_tick_labels(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), TRUE);
 
  //put_child(GTK_PLOT_CANVAS(canvas), .5, .5);
  //build_example1(active_plot);
 
  build_data(active_plot, ret_b, ret_e, ntries);
- //g_printf("Now show!\n");
+ //g_message("Now show!\n");
 /*
  gtk_widget_show_all(window1);
  gtk_main();

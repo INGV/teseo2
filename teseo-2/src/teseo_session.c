@@ -54,7 +54,7 @@ char load_widget(const char * filename, GtkWidget * dlg){
 
     //debug g_message("Loading file %s", filename);
     tep = teseo_get_environment_path(SESSIONPATH);
-    //debug g_message( "Teseo session path %s", tep);
+    //g_message( "Teseo session path %s", tep);
 
     complete_filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
 
@@ -133,6 +133,10 @@ char load_session(char * filename){
 
 
 
+    if (filename==NULL) {
+          g_message("Attempting to load a null filename");
+    }
+    else {
     //debug g_message("Attempting to load %s session",filename);
     if ( teseo_filexist(filename) ){
 
@@ -160,7 +164,7 @@ char load_session(char * filename){
 	      //base_content= g_path_get_basename(app);
               base_content= app;
               strcpy(dlg_session_filename,base_content);
-              //debug g_message("Session dialog file %s",dlg_session_filename);
+              // debugg_message("Session dialog file %s",dlg_session_filename);
 	      rets = load_widget(dlg_session_filename,dlg_session);
 	      if (rets==0) g_message("Corrupted %s",dlg_session_filename);
               //if (base_content) g_free(base_content);
@@ -192,17 +196,19 @@ char load_session(char * filename){
      //debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
     }
 
-    if (gimp_image_parasite_list  (teseo_image, &num_parasites, &parasites)) {
+/*
+    if (gimp_image_parasite_list  (teseo_image, &num_parasites, parasites)) {
     //g_message("loking for %s",*parasites);
     //first_parasite=gimp_image_parasite_find  (teseo_image, *parasites);
-    first_parasite=gimp_image_parasite_find  (teseo_image, "Test");
+    //first_parasite=gimp_image_parasite_find  (teseo_image, "Test");
     g_message("%s",gimp_parasite_data(first_parasite) );
     }
     else
     {
     g_message("No parasites found");
     }
-
+*/
+ }
 
 
     return ret;

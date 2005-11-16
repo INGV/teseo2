@@ -191,7 +191,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
   path=teseo_get_environment_path( SESSIONPATH );
 
   gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_session), path );
-  g_free(path);
+  //g_free(path);
 
   gint result = gtk_dialog_run (GTK_DIALOG (filechooser_session));
 
@@ -199,8 +199,10 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
     {
 	case GTK_RESPONSE_OK:
 		//strcpy( filename,  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_session)) );
+		//g_message("before loading");
+		//ret=load_session(filename);
 		filename =  gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (filechooser_session)) ;
-		//debug g_message("Opening %s",filename);
+		//g_message("Opening %s",filename);
 		ret=load_session(filename);
 		g_free(filename);
 		break;
@@ -244,6 +246,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
     if (ret==0) {
            g_message("Unable to open session.");
     }
+    g_free(path);
     return ret;
 }
 
