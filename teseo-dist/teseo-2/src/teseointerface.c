@@ -728,10 +728,8 @@ create_win_teseo (void)
   gtk_widget_set_name (ghost_radiotoolbutton, "ghost_radiotoolbutton");
   gtk_container_add (GTK_CONTAINER (toolbar2), ghost_radiotoolbutton);
   gtk_widget_set_sensitive (ghost_radiotoolbutton, FALSE);
-  GTK_WIDGET_SET_FLAGS (ghost_radiotoolbutton, GTK_CAN_DEFAULT);
   gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (ghost_radiotoolbutton), alg_wmean_radiotoolbutton_group);
   alg_wmean_radiotoolbutton_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (ghost_radiotoolbutton));
-  gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (ghost_radiotoolbutton), TRUE);
 
   separatortoolitem4 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem4, "separatortoolitem4");

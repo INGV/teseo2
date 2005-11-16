@@ -55,21 +55,20 @@
 
 GdkPixmap *pixmap;
 GtkWidget **plots;
-GtkWidget **buttons;
+//GtkWidget **buttons;
 GtkPlotData *dataset[5];
 gint nlayers = 0;
 GtkWidget *active_plot;
 
 static void put_child(GtkPlotCanvas *canvas, gdouble x, gdouble y);
 
-gboolean
+void
 quit (GtkWidget * win)
 {
   //g_printf("quit entered\n");
-  gtk_main_quit();
-  //gtk_widget_hide(win);
+  //gtk_main_quit();
+  gtk_widget_hide(win);
   nlayers = 0;
-  return TRUE;
 }
 
 gint
@@ -165,7 +164,7 @@ activate_plot(GtkWidget *widget, gpointer data)
   //g_printf("activate_plot entered\n");
 
   canvas = GTK_WIDGET(data);
-  widget_list = buttons;
+  //widget_list = buttons;
   active_widget = widget;
 
   return FALSE;
@@ -176,33 +175,33 @@ GtkWidget *
 new_layer(GtkWidget *canvas)
 {
  gchar label[10];
- GtkRequisition req;
+ //GtkRequisition req;
  gint size;
  //g_printf("new_layer entered\n");
 
  nlayers++;
 
- buttons = (GtkWidget **)g_realloc(buttons, nlayers * sizeof(GtkWidget *));
+ //buttons = (GtkWidget **)g_realloc(buttons, nlayers * sizeof(GtkWidget *));
  plots = (GtkWidget **)g_realloc(plots, nlayers * sizeof(GtkWidget *));
 
  sprintf(label, "%d", nlayers);
 
- buttons[nlayers-1] = gtk_toggle_button_new_with_label(label);
+ //buttons[nlayers-1] = gtk_toggle_button_new_with_label(label);
 /* gtk_button_set_relief(GTK_BUTTON(buttons[nlayers-1]), GTK_RELIEF_NONE);
 */
- gtk_widget_size_request(buttons[nlayers-1], &req);
- size = MAX(req.width,req.height);
- gtk_widget_set_usize(buttons[nlayers-1], size, size);
- gtk_fixed_put(GTK_FIXED(canvas), buttons[nlayers-1], (nlayers-1)*size, 0);
-  gtk_widget_show(buttons[nlayers-1]);
+ //gtk_widget_size_request(buttons[nlayers-1], &req);
+ //size = MAX(req.width,req.height);
+ //gtk_widget_set_usize(buttons[nlayers-1], size, size);
+ //gtk_fixed_put(GTK_FIXED(canvas), buttons[nlayers-1], (nlayers-1)*size, 0);
+  //gtk_widget_show(buttons[nlayers-1]);
 
- g_signal_connect(GTK_OBJECT(buttons[nlayers-1]), "toggled",
-                    (GtkSignalFunc) activate_plot, canvas);
+ //g_signal_connect(GTK_OBJECT(buttons[nlayers-1]), "toggled",
+ //                   (GtkSignalFunc) activate_plot, canvas);
 
  plots[nlayers-1] = gtk_plot_new_with_size(NULL, .5, .25);
   gtk_widget_show(plots[nlayers-1]);
 
- activate_plot(buttons[nlayers-1],canvas);
+ //activate_plot(buttons[nlayers-1],canvas);
 
  return plots[nlayers-1];
 }
@@ -251,10 +250,18 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  }
 
+/*
+ static gdouble px2[]={0., -0.2, -0.4, -0.6, -0.8, -1.0};
+ static gdouble py2[]={.2, .4, .5, .35, .30, .40};
+ static gdouble dx2[]={.2, .2, .2, .2, .2, .2};
+ static gdouble dy2[]={.1, .1, .1, .1, .1, .1};
+*/
+
  //g_printf("build_data entered\n");
 
  gdouble emin= ret_e[0] ;
  gdouble emax= ret_e[0] ;
+
 
  for (i=1; i<ntries;i++){
       emin = (emin<ret_e[i]) ? emin:ret_e[i];
@@ -263,8 +270,6 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  //gtk_plot_set_range(GTK_PLOT(active_plot), px1[0], px1[ntries-1], -3., 2.4);
  gtk_plot_set_range(GTK_PLOT(active_plot), ret_b[0], ret_b[ntries-1], 0., emax);
- gtk_plot_axis_set_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_LEFT), "Errors in trace");
- gtk_plot_axis_set_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), "Arm shift [mm]");
  //g_printf("build_data:: set range %f %f %f %f \n", ret_b[0], ret_b[ntries-1], emin, emax);
  /* CUSTOM TICK LABELS */
 
@@ -304,8 +309,8 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries)
 
  gtk_plot_data_set_connector(dataset[0], GTK_PLOT_CONNECT_SPLINE);
 
- //gtk_plot_data_show_yerrbars(dataset[0]);
- gtk_plot_data_set_legend(dataset[0], "Arm shift and error");
+ gtk_plot_data_show_yerrbars(dataset[0]);
+ gtk_plot_data_set_legend(dataset[0], "Spline + EY");
 
 /*
  dataset[3] = GTK_PLOT_DATA(gtk_plot_data_new());
@@ -476,7 +481,8 @@ build_example2(GtkWidget *plot)
 
  gtk_plot_data_set_symbol(dataset[2], GTK_PLOT_SYMBOL_NONE, GTK_PLOT_SYMBOL_OPAQUE, 10, 2, &color, &color);
 
- gtk_plot_data_set_line_attributes(dataset[2],    GTK_PLOT_LINE_NONE,      0, 0, 1, &color);
+ gtk_plot_data_set_line_attributes(dataset[2],                         GTK_PLOT_LINE_NONE,
+                                   0, 0, 1, &color);
 
  gtk_plot_data_set_legend(dataset[2], "V Bars");
 
@@ -509,7 +515,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  gtk_window_set_default_size(window1,650,350);
  gtk_container_set_border_width(GTK_CONTAINER(window1),0);
 
- g_signal_connect (GTK_OBJECT (window1), "destroy", GTK_SIGNAL_FUNC (quit), window1);
+ //g_signal_connect (GTK_OBJECT (window1), "destroy", GTK_SIGNAL_FUNC (quit), window1);
 
  vbox1=gtk_vbox_new(FALSE,0);
  gtk_container_add(GTK_CONTAINER(window1),vbox1);
@@ -593,11 +599,11 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
 
  build_data(active_plot, ret_b, ret_e, ntries);
  //g_printf("Now show!\n");
-
+/*
  gtk_widget_show_all(window1);
  gtk_main();
  while (gtk_events_pending())   gtk_main_iteration();
-
+*/
  //gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
  //OG
  //gtk_plot_canvas_export_ps_with_size(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, TRUE, GTK_PLOT_PSPOINTS, 300, 400);

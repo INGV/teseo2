@@ -70,9 +70,9 @@ gdouble ret_errors[n_tries];
 
 
 
-GtkFileChooser * filechooser_import;
-GtkFileChooser * filechooser_export;
-GtkFileChooser * filechooser_session;
+GtkFileChooserDialog * filechooser_import;
+GtkFileChooserDialog * filechooser_export;
+GtkFileChooserDialog * filechooser_session;
 
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
@@ -190,7 +190,7 @@ on_open1_activate                      (GtkMenuItem     *menuitem,
 
   path=teseo_get_environment_path( SESSIONPATH );
 
-  gtk_file_chooser_set_current_folder(filechooser_session, path );
+  gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_session), path );
   g_free(path);
 
   gint result = gtk_dialog_run (GTK_DIALOG (filechooser_session));
@@ -283,7 +283,7 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
 
     path=teseo_get_environment_path( SVGPATH );
     gtk_window_set_title (GTK_WINDOW (filechooser_import), "Import bezier path from SVG file");
-    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
     g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
@@ -322,7 +322,7 @@ on_dxf2_activate                       (GtkMenuItem     *menuitem,
 
   path=teseo_get_environment_path( DXFPATH );
   gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open DXF file");
-  gtk_file_chooser_set_current_folder(filechooser_import, path );
+  gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
   g_free(path);
 
   gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
@@ -392,7 +392,7 @@ on_timemark2_activate                  (GtkMenuItem     *menuitem,
 
     path=teseo_get_environment_path( TMARKPATH );
     gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open ASCII Timemarker path");
-    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
     g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
@@ -495,8 +495,8 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
     g_sprintf(dxf_filename, "%s_%s%s",  image_filename, pathname, DXF_EXT);
 
     gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as DXF");
-    gtk_file_chooser_set_current_folder(filechooser_export, dxf_path );
-    gtk_file_chooser_set_current_name (filechooser_export, dxf_filename);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_export), dxf_path );
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(filechooser_export), dxf_filename);
 
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
         result = gtk_dialog_run (GTK_DIALOG (filechooser_export));
@@ -573,8 +573,8 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     // TODO check if sac_path_filename exists
 
     gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as SAC");
-    gtk_file_chooser_set_current_folder(filechooser_export, sac_path );
-    gtk_file_chooser_set_current_name (filechooser_export, sac_path_filename);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_export), sac_path );
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(filechooser_export), sac_path_filename);
 
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 
@@ -705,8 +705,8 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
     // TODO check if timemark_path_filename exists
 
     gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as TIMEMARK ASCII");
-    gtk_file_chooser_set_current_folder(filechooser_export, timemark_path );
-    gtk_file_chooser_set_current_name (filechooser_export, timemark_path_filename->str);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_export), timemark_path );
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(filechooser_export), timemark_path_filename->str);
 
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 
@@ -1038,7 +1038,7 @@ on_ascii1_activate                     (GtkMenuItem     *menuitem,
 
     path=teseo_get_environment_path( ASCIIPATH );
     gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open ASCII Path");
-    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
     g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
@@ -1100,8 +1100,8 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
     // TODO check if ascii_path_filename exists
 
     gtk_window_set_title (GTK_WINDOW (filechooser_export), "Save as ASCII");
-    gtk_file_chooser_set_current_folder(filechooser_export, ascii_path );
-    gtk_file_chooser_set_current_name (filechooser_export, ascii_path_filename->str);
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_export), ascii_path );
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(filechooser_export), ascii_path_filename->str);
 
     if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
 
@@ -1151,7 +1151,7 @@ on_bezier1_activate                    (GtkMenuItem     *menuitem,
 
     path=teseo_get_environment_path( BEZIERPATH );
     gtk_window_set_title (GTK_WINDOW (filechooser_import), "Open Bezier Path");
-    gtk_file_chooser_set_current_folder(filechooser_import, path );
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
     g_free(path);
 
     gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
@@ -1786,10 +1786,8 @@ void
 on_wiechert_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-  gtk_window_present(win_wiechert);
+  gtk_window_present(GTK_WINDOW(win_wiechert));
 }
-
-
 
 
 void
@@ -1900,11 +1898,31 @@ void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
 {
+/*
+	if (plot_count==0){
 
-	teseo_plot =teseo_plot_new(ret_b, ret_errors, n_tries);
+		//gtk_window_show(GTK_WINDOW(teseo_plot));
+		gtk_widget_show (teseo_plot);
+		plot_count++;
+	}
+	else{
+		gtk_widget_hide(GTK_WIDGET(teseo_plot));
+		plot_count=0;
+		teseo_plot=NULL;
+	}
+	*/
+
+	teseo_plot = teseo_plot_new(ret_b, ret_errors, n_tries);
+        gtk_widget_show_all(teseo_plot);
+        gtk_main();
+        while (gtk_events_pending())   gtk_main_iteration();
+
+        //gtk_widget_show (teseo_plot);
 	//g_printf ("Passing %f %f %d\n", ret_b[0], ret_b[n_tries-1], n_tries);
+        //gtk_widget_destroy(teseo_plot);
+	gtk_main_quit();
 
-	//gtk_main_quit();
+
 }
 
 
