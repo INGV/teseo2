@@ -1962,7 +1962,6 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, statusbar, "statusbar");
   GLADE_HOOKUP_OBJECT_NO_REF (win_teseo, tooltips, "tooltips");
 
-  gtk_widget_grab_default (alg_wmean_radiotoolbutton);
   gtk_window_add_accel_group (GTK_WINDOW (win_teseo), accel_group);
 
   return win_teseo;
