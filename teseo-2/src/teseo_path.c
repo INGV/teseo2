@@ -218,10 +218,10 @@ void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scal
 
 	if (!mantain_offset){
 		for(i=0; i<n_points;i++){
-			g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
+			//g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
 			strokes_corr[2*i]  = (strokes_corr[2*i])    * x_scale;
 			strokes_corr[2*i+1]= (strokes_corr[2*i+1] ) * y_scale;
-			g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
+			//g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
 		}
 	} else {
 
@@ -230,10 +230,10 @@ void teseo_strokes_scale(gdouble * strokes_corr, gulong n_points, gdouble x_scal
 		Yorig = scale*strokes_corr[1];
 
 		for(i=1; i<n_points;i++){
-			g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
+			//g_printf("\nscaling %f %f ",strokes_corr[2*i],strokes_corr[2*i+1]);
 			strokes_corr[2*i]  = ( strokes_corr[2*i]   - strokes_corr[0] ) * x_scale + Xorig;
 			strokes_corr[2*i+1]= ( strokes_corr[2*i+1] - strokes_corr[1] ) * y_scale + Yorig;
-			g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
+			//g_printf("become %f %f\n",strokes_corr[2*i],strokes_corr[2*i+1]);
 		}
 		
 		strokes_corr[0] = Xorig;
