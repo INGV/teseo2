@@ -36,9 +36,9 @@ extern   GtkWidget *dlg_preferences;
 extern   GtkWidget *dlg_about;
 extern   GtkWidget * dlg_session;
 extern   GtkWidget * dlg_move_rotation;
-extern   GtkFileChooser * filechooser_import;
-extern   GtkFileChooser * filechooser_export;
-extern   GtkFileChooser * filechooser_session;
+extern   GtkFileChooserDialog * filechooser_import;
+extern   GtkFileChooserDialog * filechooser_export;
+extern   GtkFileChooserDialog * filechooser_session;
 extern   GtkWidget *win_wiechert;
 extern   GtkWidget *dlg_plot;
 

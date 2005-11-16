@@ -166,17 +166,17 @@ dialog (gint32              image_ID,
               dlg_plot = create_dlg_plot();
 
 
-              filechooser_export = (GtkFileChooser *) create_filechooser_export();
-              filechooser_import = (GtkFileChooser *) create_filechooser_import();
-              filechooser_session = (GtkFileChooser *) create_filechooser_session ();
+              filechooser_export = (GtkFileChooserDialog *) create_filechooser_export();
+              filechooser_import = (GtkFileChooserDialog *) create_filechooser_import();
+              filechooser_session = (GtkFileChooserDialog *) create_filechooser_session ();
               gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
 
               filter = gtk_file_filter_new ();
               gtk_file_filter_add_pattern (filter, pattern_session);
               gtk_file_filter_set_name    (filter, "Session");
-              gtk_file_chooser_add_filter (filechooser_session, filter);
+              gtk_file_chooser_add_filter (GTK_FILE_CHOOSER(filechooser_session), filter);
               gtk_widget_show (win_teseo);
-              gtk_main ();
+              //gtk_main ();
           } else {
               lock_dialog = gtk_message_dialog_new_with_markup (NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
                       "Teseo-2 seems to be just running on file <i>%s.xcf</i>,\nor maybe it crashed last time.\n\n<b>Remember</b>: <u>it is possible to load only one Teseo instance for each image file !</u>\n\nDo you want force unlock session for this image file?",
@@ -190,7 +190,7 @@ dialog (gint32              image_ID,
                       check_loop_lock = TRUE;
                       break;
                   case GTK_RESPONSE_NO:
-                      gtk_main_quit();
+                      //gtk_main_quit();
                       break;
                   default:
                       break;
@@ -201,9 +201,10 @@ dialog (gint32              image_ID,
       }
   } else {
 	  g_message("Please, save file in .xcf (.xcf.bz2, xcf.gz) format before to run Teseo-2 !");
-  	  gtk_main_quit();
+  	  //gtk_main_quit();
   }
 
+  gtk_main ();
   /*TODO*/
   //gtk_widget_show (dlg);
 
