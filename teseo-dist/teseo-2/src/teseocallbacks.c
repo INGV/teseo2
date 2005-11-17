@@ -1824,6 +1824,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	GtkObject*  gse=NULL;
 	GtkTable *table=NULL;
 
+	gchar *cur_path=NULL;
 //	gulong n_tries=600;
 //	static gdouble ret_b[n_tries];
 //	static gdouble ret_errors[n_tries];
@@ -1831,9 +1832,8 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
 
-	gdouble emin= ret_errors[0] ;
-	gdouble emax= ret_errors[0] ;
-	gulong  imin=0,i;
+	gdouble emin, emax ;
+	gulong  imin,imax,i;
 
 	gchar b_string[11]="";
 
@@ -1877,12 +1877,24 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
 
-	b=10;
+	b=30;
 
-	if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
-		teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
+
+	cur_path=gimp_path_get_current(teseo_image);
+
+	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
+			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
 							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
-	}
+
+	gint path_closed, num_path_point_details, num_points;
+	gdouble* points_pairs=NULL;
+
+        gimp_path_get_points (teseo_image, cur_path,  &path_closed,  &num_path_point_details, &points_pairs);
+
+	num_points=(num_path_point_details+3)/9;
+
+	emin= emax=  ret_errors[0] ;
+	imin=imax=0;
 
 	for (i=1; i<n_tries;i++){
 		if (emin>ret_errors[i]){
@@ -1891,9 +1903,16 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		}
 	}
 
-	g_sprintf(b_string,"%8.3f",ret_b[imin]);
+	//Scaling errors to 100%
+	for (i=0; i<n_tries;i++){
+		ret_errors[i]=ret_errors[i]*100./num_points;
+	}
+	g_sprintf(b_string,"%f",ret_b[imin]);
 	gtk_entry_set_text (arm_shift_entry, b_string);
-
+        }
+	else{
+		g_message("Current path is not a polyline, nothing to do");
+	}
 }
 
 
@@ -1901,28 +1920,12 @@ void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
 {
-/*
-	if (plot_count==0){
-
-		//gtk_window_show(GTK_WINDOW(teseo_plot));
-		gtk_widget_show (teseo_plot);
-		plot_count++;
-	}
-	else{
-		gtk_widget_hide(GTK_WIDGET(teseo_plot));
-		plot_count=0;
-		teseo_plot=NULL;
-	}
-	*/
 
 	teseo_plot = teseo_plot_new(ret_b, ret_errors, n_tries);
         gtk_widget_show_all(teseo_plot);
-        gtk_main();
-        while (gtk_events_pending())   gtk_main_iteration();
-
-        //gtk_widget_show (teseo_plot);
-	//g_printf ("Passing %f %f %d\n", ret_b[0], ret_b[n_tries-1], n_tries);
-        //gtk_widget_destroy(teseo_plot);
+	gtk_main();
+	//waiting events
+	while (gtk_events_pending())   gtk_main_iteration();
 	gtk_main_quit();
 
 

@@ -732,7 +732,6 @@
 		    <widget class="GtkRadioToolButton" id="alg_wmean_radiotoolbutton">
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Colour weighted mean</property>
-		      <property name="has_default">True</property>
 		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">True</property>
 		      <property name="stock_id">gtk-select-color</property>
@@ -771,14 +770,13 @@
 		  <child>
 		    <widget class="GtkRadioToolButton" id="ghost_radiotoolbutton">
 		      <property name="sensitive">False</property>
-		      <property name="can_default">True</property>
 		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">True</property>
 		      <property name="stock_id">gtk-execute</property>
 		      <property name="visible_horizontal">True</property>
 		      <property name="visible_vertical">True</property>
 		      <property name="is_important">False</property>
-		      <property name="active">True</property>
+		      <property name="active">False</property>
 		      <property name="group">alg_wmean_radiotoolbutton</property>
 		    </widget>
 		    <packing>
