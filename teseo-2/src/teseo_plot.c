@@ -522,6 +522,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
 
  gtk_window_set_title(GTK_WINDOW(window1), "Teseo Plot");
  //gtk_widget_set_usize(window1,650,350);
+ //161105 set modal
+ gtk_window_set_modal(GTK_WINDOW(window1),TRUE);
  gtk_window_set_default_size(window1,650,350);
  gtk_container_set_border_width(GTK_CONTAINER(window1),0);
 
@@ -594,7 +596,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  //child = gtk_plot_canvas_text_new("Times-Roman", 16, 0, NULL, NULL, TRUE,
  //                         GTK_JUSTIFY_CENTER,
  //                         "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");
-   
+
+
  child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "You can use subscripts and superscripts");
