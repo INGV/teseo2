@@ -56,8 +56,10 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 
 /*!
 */
-gboolean teseo_wiech_estimate_b2(gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b);
-
+gboolean teseo_wiech_estimate_b2(	gint32 g_image,
+					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord,
+					gdouble hist_points[]);
 /*!Rotate the strokes of angle radian (clockwise if angle positive) around the first point
 */
 void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle);
