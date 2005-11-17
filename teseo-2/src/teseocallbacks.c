@@ -68,6 +68,7 @@ gint plot_count=0;
 gdouble ret_b[n_tries];
 gdouble ret_errors[n_tries];
 
+gdouble hist_points[30*2*181]={};
 
 
 GtkFileChooserDialog * filechooser_import;
@@ -1916,6 +1917,106 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 }
 
 
+
+void
+on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+	gint column =1;
+	gint row=1;
+	const gchar text[]="testo1";
+	gint scale_width =  100;
+	gint spinbutton_width = 100;
+	gdouble value = 33.0;
+	gdouble lower=-50.0;
+	gdouble upper=50.0;
+	gdouble step_increment=0.1;
+	gdouble page_increment=1.0;
+	guint digits=2;
+	gboolean constrain=TRUE;
+	gdouble unconstrained_lower=-50;
+	gdouble unconstrained_upper=50;
+	const gchar tooltip[]="PROVA tooltip";
+	const gchar *help_id=NULL;
+	GtkObject*  gse=NULL;
+	GtkTable *table=NULL;
+
+	gchar *cur_path=NULL;
+//	gulong n_tries=600;
+//	static gdouble ret_b[n_tries];
+//	static gdouble ret_errors[n_tries];
+
+
+	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
+
+	gdouble emin, emax ;
+	gulong  imin,imax,i;
+
+	gchar b_string[11]="";
+
+        GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
+        GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
+        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
+        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
+        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
+        //GtkSpinButton *  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "", b);
+        GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xin", Xin);
+        GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
+        GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
+        GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
+	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
+
+	if(teseo_spbtn_time_span) {
+		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
+	}
+	if(teseo_spbtn_vel) {
+		Bg = gtk_spin_button_get_value (teseo_spbtn_vel);
+	}
+	if(teseo_spbtn_cyl_radius) {
+		r = gtk_spin_button_get_value (teseo_spbtn_cyl_radius);
+	}
+	if(teseo_spbtn_arm_lenght) {
+		Rg = gtk_spin_button_get_value (teseo_spbtn_arm_lenght);
+	}
+	if(teseo_spbtn_displ) {
+		a = gtk_spin_button_get_value (teseo_spbtn_displ);
+	}
+	if(teseo_Xin) {
+		Xin = gtk_spin_button_get_value (teseo_Xin);
+	}
+	if(teseo_Yin) {
+		Yin = gtk_spin_button_get_value (teseo_Yin);
+	}
+	if(teseo_Xfin) {
+		Xfin = gtk_spin_button_get_value (teseo_Xfin);
+	}
+	if(teseo_Yfin) {
+		Yfin = gtk_spin_button_get_value (teseo_Yfin);
+	}
+
+	b=30;
+
+
+	cur_path=gimp_path_get_current(teseo_image);
+
+	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
+//			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
+//							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
+			teseo_wiech_estimate_b2( teseo_image, sec, Bg, r, Rg, a, b,
+							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, hist_points);
+
+        }
+	else{
+		g_message("Current path is not a polyline, nothing to do");
+	}
+
+
+}
+
+
+
+
 void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
@@ -2218,30 +2319,6 @@ on_remove_all1_activate                (GtkMenuItem     *menuitem,
 
 }
 
-
-
-
-void
-on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
-                                        gpointer         user_data)
-{
-/*
-	gtk_window_set_title (GTK_WINDOW (dlg_plot), "Showing results");
-	gint result = gtk_dialog_run (GTK_DIALOG (dlg_plot));
-	switch (result)
-	{
-	case GTK_RESPONSE_OK:
-		break;
-	case GTK_RESPONSE_CANCEL:
-	case GTK_RESPONSE_DELETE_EVENT:
-		g_message("Correction done");
-		break;
-	default:
-		break;
-	}
-	gtk_widget_hide (dlg_plot);
-*/
-}
 
 
 

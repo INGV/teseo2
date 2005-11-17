@@ -72,8 +72,6 @@ static void put_child(GtkPlotCanvas *canvas, gdouble x, gdouble y);
 void
 quit (GtkWidget * win)
 {
-  //g_printf("quit entered\n");
-  //gtk_main_quit();
   gtk_widget_hide(win);
   nlayers = 0;
 }
@@ -597,8 +595,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries){
  //                         GTK_JUSTIFY_CENTER,
  //                         "You can use \\ssubscripts\\b\\b\\b\\b\\b\\b\\b\\b\\b\\b\\N\\Ssuperscripts");
 
-
- child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
+	//child = gtk_plot_canvas_text_new("Times-Roman", 32, 0, NULL, NULL, TRUE,
+ child = gtk_plot_canvas_text_new("Courier", 16, 0, NULL, NULL, TRUE,
                           GTK_JUSTIFY_CENTER,
                           "You can use subscripts and superscripts");
 
