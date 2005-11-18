@@ -59,16 +59,22 @@ GtkWidget * dlg_move_rotation;
 GtkWidget * win_wiechert;
 GtkWidget * dlg_plot;
 
+
 GtkWidget * teseo_plot=NULL;
+GtkWidget * teseo_plot_slope=NULL;
+//GtkWidget * real_gtk_plot=NULL;
+
+
+
 gdouble * teseo_ret_b;
 gdouble * teseo_ret_errors;
 gulong teseo_n_tries;
 gint plot_count=0;
 #define  n_tries 600
+#define DEFAULT_B 30
 gdouble ret_b[n_tries];
 gdouble ret_errors[n_tries];
-
-gdouble hist_points[30*2*181]={};
+gdouble hist_points[DEFAULT_B*2*181]={};
 
 
 GtkFileChooserDialog * filechooser_import;
@@ -765,7 +771,7 @@ on_resample1_activate                  (GtkMenuItem     *menuitem,
     gint step_bezier = 1;
     // default is TRUE
     gboolean abscissa_asc = TRUE;
-    
+
     GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_bezier);
     GtkCheckButton * teseo_abscissa_asc_checkbutton = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_abscissa_asc_checkbutton", abscissa_asc);
 
@@ -851,7 +857,7 @@ on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
     }
 
     g_free(points_pairs);
-    
+
     gtk_widget_hide (dlg_move_rotation);
 }
 
@@ -1878,7 +1884,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
 
-	b=30;
+	b=DEFAULT_B;
 
 
 	cur_path=gimp_path_get_current(teseo_image);
@@ -1908,7 +1914,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	for (i=0; i<n_tries;i++){
 		ret_errors[i]=ret_errors[i]*100./num_points;
 	}
-	g_sprintf(b_string,"%f",ret_b[imin]);
+	g_sprintf(b_string,"%2.2f",ret_b[imin]);
 	gtk_entry_set_text (arm_shift_entry, b_string);
         }
 	else{
@@ -1995,7 +2001,7 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
 
-	b=30;
+	b=DEFAULT_B;
 
 
 	cur_path=gimp_path_get_current(teseo_image);
@@ -2021,16 +2027,50 @@ void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
 {
-
-	teseo_plot = teseo_plot_new(ret_b, ret_errors, n_tries);
+	teseo_plot = teseo_plot_new(ret_b, ret_errors, n_tries, "Errors estimating arm shift", "Arm shift [mm]", "Errors [%]" );
+	//hist_points
         gtk_widget_show_all(teseo_plot);
 	gtk_main();
 	//waiting events
 	while (gtk_events_pending())   gtk_main_iteration();
 	gtk_main_quit();
+}
 
+
+
+void
+on_plot2btn_clicked                    (GtkButton       *button,
+                                        gpointer         user_data)
+{
+        //teseo_spbtn_armshift2
+	gdouble b;
+        gdouble X_scale[181];
+	gint i;
+
+	for (i=0; i<181;i++){
+		X_scale[i]=i;
+	}
+        GtkSpinButton *teseo_spbtn_armshift2 = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_armshift2", b);
+
+	if(teseo_spbtn_armshift2) {
+		b = gtk_spin_button_get_value (teseo_spbtn_armshift2);
+	}
+
+	//b=DEFAULT_B+b;
+
+	char msg[80];
+        sprintf(msg,"Histogram of slope for shift=%2.2f",b );
+
+	teseo_plot_slope = teseo_plot_new(X_scale, &hist_points[ ((gint) b)+DEFAULT_B*181 ] , 181,  msg, "Slope [deg]" ,"Counts");
+
+        gtk_widget_show_all(teseo_plot_slope);
+	gtk_main();
+	//waiting events
+	while (gtk_events_pending())   gtk_main_iteration();
+	gtk_main_quit();
 
 }
+
 
 
 
@@ -2153,7 +2193,7 @@ on_btn_correct_clicked                 (GtkButton       *button,
 		teseo_strokes_point_pairs(strokes_corr, n_points, &point_pairs, &num_details);
 		sprintf(corrected_path, "R%2.2f_a%2.2f_r%2.2f_b%+2.2f_quality%d", Rg,a,r,b,errors);
 		gimp_path_set_points(teseo_image, corrected_path, 1, num_details, point_pairs);
-		g_message("Points = %d details=%d",n_points,num_details);
+		//g_message("Points = %d details=%d",n_points,num_details);
 	}
 }
 

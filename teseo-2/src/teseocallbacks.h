@@ -393,3 +393,7 @@ gboolean
 on_win_wiechert_delete_event           (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
+
+void
+on_plot2btn_clicked                    (GtkButton       *button,
+                                        gpointer         user_data);
