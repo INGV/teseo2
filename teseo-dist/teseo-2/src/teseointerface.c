@@ -3931,19 +3931,20 @@ create_win_wiechert (void)
   GtkWidget *btn_correct;
   GtkWidget *label305;
   GtkWidget *vbox88;
+  GtkWidget *vbox90;
   GtkWidget *hbox60;
   GtkWidget *teseo_arm_shift_entry;
   GtkWidget *label282;
-  GtkWidget *hbox67;
-  GtkWidget *hbuttonbox1;
   GtkWidget *teseo_calc_arm_shift;
   GtkWidget *teseo_show_graph;
   GtkWidget *label306;
   GtkWidget *vbox89;
   GtkWidget *hbox61;
-  GtkWidget *comboboxentry2;
+  GtkObject *teseo_spbtn_armshift2_adj;
+  GtkWidget *teseo_spbtn_armshift2;
   GtkWidget *label283;
   GtkWidget *teseo_calc_arm_slope;
+  GtkWidget *plot2btn;
   GtkWidget *label307;
   GtkTooltips *tooltips;
 
@@ -4251,44 +4252,40 @@ create_win_wiechert (void)
   gtk_widget_show (vbox88);
   gtk_container_add (GTK_CONTAINER (notebook5), vbox88);
 
+  vbox90 = gtk_vbox_new (TRUE, 0);
+  gtk_widget_set_name (vbox90, "vbox90");
+  gtk_widget_show (vbox90);
+  gtk_box_pack_start (GTK_BOX (vbox88), vbox90, TRUE, TRUE, 0);
+
   hbox60 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox60, "hbox60");
   gtk_widget_show (hbox60);
-  gtk_box_pack_start (GTK_BOX (vbox88), hbox60, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox90), hbox60, FALSE, FALSE, 0);
 
   teseo_arm_shift_entry = gtk_entry_new ();
   gtk_widget_set_name (teseo_arm_shift_entry, "teseo_arm_shift_entry");
   gtk_widget_show (teseo_arm_shift_entry);
   gtk_box_pack_start (GTK_BOX (hbox60), teseo_arm_shift_entry, FALSE, FALSE, 0);
   gtk_editable_set_editable (GTK_EDITABLE (teseo_arm_shift_entry), FALSE);
-  gtk_entry_set_text (GTK_ENTRY (teseo_arm_shift_entry), "Minimum shift");
+  gtk_entry_set_width_chars (GTK_ENTRY (teseo_arm_shift_entry), 5);
 
   label282 = gtk_label_new ("Arm shift estimate");
   gtk_widget_set_name (label282, "label282");
   gtk_widget_show (label282);
   gtk_box_pack_start (GTK_BOX (hbox60), label282, FALSE, FALSE, 0);
 
-  hbox67 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_set_name (hbox67, "hbox67");
-  gtk_widget_show (hbox67);
-  gtk_box_pack_start (GTK_BOX (vbox88), hbox67, TRUE, TRUE, 0);
-
-  hbuttonbox1 = gtk_hbutton_box_new ();
-  gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
-  gtk_widget_show (hbuttonbox1);
-  gtk_box_pack_start (GTK_BOX (hbox67), hbuttonbox1, TRUE, TRUE, 0);
-
   teseo_calc_arm_shift = gtk_button_new_with_mnemonic ("Calculate");
   gtk_widget_set_name (teseo_calc_arm_shift, "teseo_calc_arm_shift");
   gtk_widget_show (teseo_calc_arm_shift);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), teseo_calc_arm_shift);
+  gtk_box_pack_start (GTK_BOX (hbox60), teseo_calc_arm_shift, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_shift), 3);
+  GTK_WIDGET_SET_FLAGS (teseo_calc_arm_shift, GTK_CAN_DEFAULT);
 
   teseo_show_graph = gtk_button_new_with_mnemonic ("Show graph");
   gtk_widget_set_name (teseo_show_graph, "teseo_show_graph");
   gtk_widget_show (teseo_show_graph);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), teseo_show_graph);
-  GTK_WIDGET_SET_FLAGS (teseo_show_graph, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (hbox60), teseo_show_graph, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (teseo_show_graph), 3);
 
   label306 = gtk_label_new ("<b>Errors Estimate</b>");
   gtk_widget_set_name (label306, "label306");
@@ -4296,20 +4293,24 @@ create_win_wiechert (void)
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 1), label306);
   gtk_label_set_use_markup (GTK_LABEL (label306), TRUE);
 
-  vbox89 = gtk_vbox_new (FALSE, 0);
+  vbox89 = gtk_vbox_new (TRUE, 0);
   gtk_widget_set_name (vbox89, "vbox89");
   gtk_widget_show (vbox89);
   gtk_container_add (GTK_CONTAINER (notebook5), vbox89);
+  gtk_notebook_set_tab_label_packing (GTK_NOTEBOOK (notebook5), vbox89,
+                                      FALSE, FALSE, GTK_PACK_START);
 
   hbox61 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox61, "hbox61");
   gtk_widget_show (hbox61);
-  gtk_box_pack_start (GTK_BOX (vbox89), hbox61, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox89), hbox61, FALSE, FALSE, 0);
 
-  comboboxentry2 = gtk_combo_box_entry_new_text ();
-  gtk_widget_set_name (comboboxentry2, "comboboxentry2");
-  gtk_widget_show (comboboxentry2);
-  gtk_box_pack_start (GTK_BOX (hbox61), comboboxentry2, FALSE, FALSE, 0);
+  teseo_spbtn_armshift2_adj = gtk_adjustment_new (1, -30, 30, 1, 10, 10);
+  teseo_spbtn_armshift2 = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_armshift2_adj), 1, 0);
+  gtk_widget_set_name (teseo_spbtn_armshift2, "teseo_spbtn_armshift2");
+  gtk_widget_show (teseo_spbtn_armshift2);
+  gtk_box_pack_start (GTK_BOX (hbox61), teseo_spbtn_armshift2, FALSE, FALSE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_armshift2), TRUE);
 
   label283 = gtk_label_new ("Arm shift second estimate");
   gtk_widget_set_name (label283, "label283");
@@ -4321,11 +4322,19 @@ create_win_wiechert (void)
   gtk_widget_show (teseo_calc_arm_slope);
   gtk_box_pack_start (GTK_BOX (hbox61), teseo_calc_arm_slope, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_slope), 3);
+  GTK_WIDGET_SET_FLAGS (teseo_calc_arm_slope, GTK_CAN_DEFAULT);
+
+  plot2btn = gtk_button_new_with_mnemonic ("Show graph");
+  gtk_widget_set_name (plot2btn, "plot2btn");
+  gtk_widget_show (plot2btn);
+  gtk_box_pack_start (GTK_BOX (hbox61), plot2btn, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (plot2btn), 3);
 
   label307 = gtk_label_new ("<b>Slope Estimate</b>");
   gtk_widget_set_name (label307, "label307");
   gtk_widget_show (label307);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 2), label307);
+  GTK_WIDGET_SET_FLAGS (label307, GTK_CAN_FOCUS);
   gtk_label_set_use_markup (GTK_LABEL (label307), TRUE);
 
   g_signal_connect ((gpointer) win_wiechert, "delete_event",
@@ -4342,6 +4351,9 @@ create_win_wiechert (void)
                     NULL);
   g_signal_connect ((gpointer) teseo_calc_arm_slope, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_slope_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) plot2btn, "clicked",
+                    G_CALLBACK (on_plot2btn_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -4393,22 +4405,24 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, btn_correct, "btn_correct");
   GLADE_HOOKUP_OBJECT (win_wiechert, label305, "label305");
   GLADE_HOOKUP_OBJECT (win_wiechert, vbox88, "vbox88");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox90, "vbox90");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox60, "hbox60");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_arm_shift_entry, "teseo_arm_shift_entry");
   GLADE_HOOKUP_OBJECT (win_wiechert, label282, "label282");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbox67, "hbox67");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbuttonbox1, "hbuttonbox1");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_shift, "teseo_calc_arm_shift");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_show_graph, "teseo_show_graph");
   GLADE_HOOKUP_OBJECT (win_wiechert, label306, "label306");
   GLADE_HOOKUP_OBJECT (win_wiechert, vbox89, "vbox89");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox61, "hbox61");
-  GLADE_HOOKUP_OBJECT (win_wiechert, comboboxentry2, "comboboxentry2");
+  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_armshift2, "teseo_spbtn_armshift2");
   GLADE_HOOKUP_OBJECT (win_wiechert, label283, "label283");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_slope, "teseo_calc_arm_slope");
+  GLADE_HOOKUP_OBJECT (win_wiechert, plot2btn, "plot2btn");
   GLADE_HOOKUP_OBJECT (win_wiechert, label307, "label307");
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");
 
+  gtk_widget_grab_focus (teseo_calc_arm_shift);
+  gtk_widget_grab_default (teseo_calc_arm_shift);
   return win_wiechert;
 }
 

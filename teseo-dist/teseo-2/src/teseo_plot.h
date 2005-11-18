@@ -27,5 +27,5 @@
 
 #ifndef __TESEO_PLOT_H__
 #define __TESEO_PLOT_H__ 1
-GtkWidget * teseo_plot_new(double *ret_b, double *ret_e, gulong ntries);
+GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const gchar * main_title , const gchar * Xtitle, const gchar * Ytitle);
 #endif

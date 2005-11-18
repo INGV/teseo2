@@ -251,7 +251,7 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 return return_code;
 }
 
-/*Dimension of hist_points 181*(2*b+1), */
+/*Dimension of hist_points 181*2*b, */
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord,
@@ -316,7 +316,7 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 
 	b=-b;
 
-	for ( cpt=0; cpt<2*b2; cpt++){
+	for ( cpt=0; cpt<(2*b2+1); cpt++){
 		b++;
 		//working copy
 		strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
@@ -372,10 +372,8 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		}
                 //for a given cpt we now have the slop_hist
 		for(j=-90; j<=90; j++){
-				//hist_points[(j+90)+cpt*181]=slope_hist[j+90];
+				hist_points[(j+90)+cpt*180] = slope_hist[j+90];
 				//g_printf("b=%f j=%d slope=%f   cpt=%d\n",b,j,hist_points[(j+90)+cpt*180], cpt);
-				g_printf("b=%f j=%d slope=%f   cpt=%d\n", b, j, slope_hist[j+90], cpt);
-
 		}
 
 		g_free(strokes_copy);
