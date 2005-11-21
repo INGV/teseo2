@@ -31,6 +31,11 @@
 #include "teseo_wiechert.h"
 
 
+gdouble ret_b[N_TRIES];
+gdouble ret_errors[N_TRIES];
+gdouble hist_points[DEFAULT_B*2*181]={};
+
+
 inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg, double sec, double xfinal, double xinitial, double xi, double yi){
 	double ret=0;
 		ret =	60./Bg * (
@@ -41,104 +46,6 @@ inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg,
 	return ret;
 }
 
-void func(){
-	int nPoints=0;
-	int max_val=15000;
-	double ret_b_e[2][max_val];
-
-	int i,cpt;
-	double yi,yf;
-	double sec,alp,ret ;
-	//real x(nPoints),y(nPoints),xx(nPoints),yy(nPoints)
-	//real xa(nPoints),ya(nPoints)
-	double xa[nPoints];
-	double ya[nPoints];
-	double rX[nPoints];
-	double rY[nPoints];
-
-	double xx[nPoints];
-	double yy[nPoints];
-	double xinitial,xfinal, x1;
-	double Bg,r,Rg,a,b,xtest;
-
-
-        int npt1;
-	npt1 = nPoints;
-
-//	write(*,*) 'Entering sub', npt1
-//	Change the origin of the file to the first point of the base line
-	for( i=1; i<npt1; i++){
-	  xa[i]=rX[i]-xinitial;
-	  ya[i]=rY[i]-yi;
-	}
-
-	/*
-	Calculation of the correction angle of the base line in radian
-	angle positive if the correction to apply is counter clockwise
-	(this is only the correction of an angle due to the digitizing process)
-	*/
-
-	alp=atan((yf-yi)/(xfinal-xinitial));
-
-	b=-40.;
-
-	//do 77 cpt=1,max_val
-        for (cpt=1;cpt<max_val;cpt++){
-	b=b+.1;
-
-	/*
-	Correction of input file of the rotation alpha
-	*/
-	for(i=1; i<npt1; i++) {
-	   xx[i]=+xa[i]*cos(alp)+ya[i]*sin(alp);
-	   yy[i]=-xa[i]*sin(alp)+ya[i]*cos(alp);
-	}
-
-
-	x1 =	60./ Bg * (
-		Bg * sec/ (xfinal-xinitial) /60.*xx[1]
-		- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(xfinal-xinitial)/60.)*yy[1]-b) * ((Bg*sec/(xfinal-xinitial)/60.)*yy[1]-b) )/2./a/r)
-		+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
-		);
-
-	/*
-	Count, after the whole corrections including b, the number of points
-	which has a time younger that the previous point (wrong points)
-	*/
-
-	xtest=x1;
-	ret=0.;
-//	Counting wrong points
-
-	for(i=1;i<npt1;i++){
-		xx[i] =	60./Bg * (
-			Bg*sec/(xfinal-xinitial)/60.*xx[i]
-			- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(xfinal-xinitial)/60.)*yy[i]-b)*((Bg*sec/(xfinal-xinitial)/60.)*yy[i]-b))/2./a/r)
-			+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
-			);
-	//if((xx(i)-xtest).ge.0.001) then
-		if ( (xx[i]-xtest) >= 0.001) {
-			xtest=xx[i];
-		}
-		else {
-			ret=ret+1;
-		}
-	}
-
-	for(i=1;i<nPoints;i++){
-	   xx[i]=0.;
-	   yy[i]=0.;
-	}
-
-	//gulong npt2=i-1;
-//	 write the value b and the number of wrong points cpt is the counter
-
-	ret_b_e[1][cpt] = b;
-	ret_b_e[2][cpt] = ret;
-	}
-//77    continue
-
-}
 
 gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
@@ -152,7 +59,6 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	gdouble alpha,x1,xtest;
 	gdouble ret;
 
-//	gdouble b;
 	gdouble * points_pairs=NULL;
 	gint path_closed, num_path_point_details;
 
@@ -217,7 +123,7 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 		xtest=x1;
 		//g_printf("\nXtest=%f",xtest);
 		ret=0.;
-	//	Counting wrong points
+		//Counting wrong points
 		//g_printf("\nCounting  wrong points\n");
 		for(i=0; i<(n_strokes_in/2); i++){
 			strokes_copy[2*i] =
@@ -236,9 +142,8 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 				ret=ret+1;
 			}
 		}
-		//g_printf("Counting  wrong points done\n");
-	//	 write the value b and the number of wrong points cpt is the counter
 
+		// write the value b and the number of wrong points, cpt is the counter
 		ret_b[cpt] = b;
 		ret_errors[cpt] = ret;
 
@@ -265,7 +170,6 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	gdouble ret;
         gdouble *slope_hist;
 
-//	gdouble b;
 	gdouble * points_pairs=NULL;
 	gint path_closed, num_path_point_details;
 	gulong b2=b;
@@ -331,9 +235,9 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		*/
 
 		xtest=x1;
-		//g_printf("\nXtest=%f",xtest);
+
 		ret=0.;
-	//	Counting wrong points
+		//Counting wrong points
 		//g_printf("\nCounting  wrong points\n");
 		for(i=0; i<(n_strokes_in/2); i++){
 			strokes_copy[2*i] =
@@ -345,7 +249,6 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 
 			if ( strokes_copy[2*i] > xtest ) {
 				xtest=strokes_copy[2*i];
-				//g_printf("\nChanged Xtest=%f",xtest);
 			}
 			else {
 				ret=ret+1;
@@ -387,10 +290,6 @@ return return_code;
 
 
 
-
-
-
-//TODO restituire puntatore e numero di elementi
 gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle, gdouble vshift,
 				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec, gboolean shift,
@@ -401,11 +300,11 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	gdouble *result=NULL;
 	gulong n_strokes_in;
 
-	gulong i,cpt,j;
-	gdouble alpha,x1,y1,xtest,x_i,y_i;
+	gulong i,j;
+	gdouble alpha,x1,y1,xtest,x_i;
 	gdouble ret;
 
-//	gdouble b;
+
 	gdouble * points_pairs=NULL;
 	gint path_closed, num_path_point_details;
 
@@ -424,8 +323,6 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	n_strokes_in =2*( 1 + (num_path_point_details - 6) /9);
 	strokes_in= (gdouble *) g_malloc( n_strokes_in * sizeof (gdouble) );
 
-
-	//g_printf("copying path in strokes of %d points\n", n_strokes_in/2);
 	//translate path in strokes in mm
 	//if (!ignore_sec){
 	if (TRUE){
@@ -498,7 +395,7 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	which has a time younger that the previous point (wrong points)
 	*/
 	xtest=x1;
-	//g_printf("\nXtest=%f",xtest);
+
 	//	Counting wrong points
 	//g_printf("\nCounting  wrong points\n");
 	for(i=1, j=1, ret=0; i<(n_strokes_in/2); i++){
@@ -517,24 +414,17 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 			else{
 				strokes_copy[j*2+1]=factor*strokes_in[2*i+1] - vshift*(x_i-strokes_copy[0]);
 			}
-			//g_printf("\nChanged Xtest=%f",xtest);
 			j++; //count right elements
 		}
 		else {
 			ret=ret+1;
 		}
 	}
-	//g_printf("\nCounting right points done: %d\n",j);
+
 
 	result=teseo_copy_strokes(strokes_copy,2*j);
 	//restore in starting point
 	teseo_translate(result, 2*j, -Xin, -Yin);
-
-	/*
-        for(i=0; i < j ; i++) {
-		g_printf( "\ni=%d X=%f Y=%f", i, result[i*2], result[i*2+1]);
-	}
-        */
 
 	*corr=result;
 	*n_points=j;
@@ -553,29 +443,28 @@ void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle){
 	gdouble cosangle = cos(angle);
 	gdouble sinangle = sin(angle);
 	gdouble x_rot,y_rot;
-	//g_printf("Rotating strokes of angle %f\n", angle);
+
 	gulong i=0;
-	//modifico strokes
+	//modifying strokes
 	for( i=1; i < (n_strokes/2) ; i++) {
 		x_rot =  (cosangle * (strokes[i*2] - offx)) + (sinangle * (strokes[i*2 +1] - offy));
 		y_rot = -(sinangle * (strokes[i*2] - offx)) + (cosangle * (strokes[i*2 +1] - offy));
 		strokes[i*2]    = x_rot+offx;
 		strokes[i*2 +1] = y_rot+offy;
 	}
-	//g_printf("Rotating strokes done\n");
+
 }
 
 /*!translate the strokes at point x,y
 */
 void teseo_translate(gdouble * strokes, gulong n_strokes, gdouble x, gdouble y){
 	gulong i=0;
-	//g_printf("Translating strokes\n");
-	//modifico strokes
+
+	//modifying strokes
 	for( i=0; i < (n_strokes/2) ; i++) {
 		strokes[i*2]    = strokes[i*2]-x;
 		strokes[i*2 +1] = strokes[i*2+1]-y;
 	}
-	//g_printf("Translating strokes done\n");
 }
 
 /*!copy the strokes
@@ -583,16 +472,14 @@ void teseo_translate(gdouble * strokes, gulong n_strokes, gdouble x, gdouble y){
 gdouble * teseo_copy_strokes(gdouble * strokes, gulong n_strokes){
 	gdouble *mystrokes=NULL;
 	gulong i=0;
-	//g_printf("Copying strokes\n");
+
 	mystrokes=(gdouble *) g_malloc( sizeof(gdouble) *n_strokes);
 	if ( mystrokes!=NULL ) {
-		//modifico strokes
+		//modifying strokes
 		for(i=0; i < (n_strokes/2) ; i++) {
 			mystrokes[i*2]    = strokes[i*2];
 			mystrokes[i*2+1]  = strokes[i*2+1];
 		}
 	}
-	//g_printf("Copying strokes done\n");
 	return mystrokes;
-
 }
