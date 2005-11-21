@@ -154,7 +154,6 @@ dialog (gint32              image_ID,
   if(is_xcf) {
       while(check_loop_lock) {
           check_loop_lock = FALSE;
-
           if(teseo_lock(pattern_prefix)) {
               win_teseo = create_win_teseo();
               gtk_window_set_title (GTK_WINDOW (win_teseo), TESEO_CAPTION);
@@ -163,18 +162,18 @@ dialog (gint32              image_ID,
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
               win_wiechert = create_win_wiechert();
-              dlg_plot = create_dlg_plot();
 
+	      filechooser_export = GTK_FILE_CHOOSER_DIALOG(create_filechooser_export());
+              filechooser_import = GTK_FILE_CHOOSER_DIALOG(create_filechooser_import());
+              filechooser_session =  GTK_FILE_CHOOSER_DIALOG(create_filechooser_session ());
 
-              filechooser_export = (GtkFileChooserDialog *) create_filechooser_export();
-              filechooser_import = (GtkFileChooserDialog *) create_filechooser_import();
-              filechooser_session = (GtkFileChooserDialog *) create_filechooser_session ();
-              gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
+	      gtk_window_set_title (GTK_WINDOW (filechooser_session), "Open session file");
 
               filter = gtk_file_filter_new ();
               gtk_file_filter_add_pattern (filter, pattern_session);
               gtk_file_filter_set_name    (filter, "Session");
               gtk_file_chooser_add_filter (GTK_FILE_CHOOSER(filechooser_session), filter);
+
               gtk_widget_show (win_teseo);
               //gtk_main ();
           } else {
@@ -203,21 +202,7 @@ dialog (gint32              image_ID,
 	  g_message("Please, save file in .xcf (.xcf.bz2, xcf.gz) format before to run Teseo-2 !");
   	  //gtk_main_quit();
   }
-
   gtk_main ();
-  /*TODO*/
-  //gtk_widget_show (dlg);
-
-  //run = (gimp_dialog_run (GIMP_DIALOG (dlg)) == GTK_RESPONSE_OK);
-  /*EXP*/
-  //     if (run)
-  //     {
-  //       /*  Save ui values  */
-  // /*      ui_state->chain_active =
-  //         gimp_chain_button_get_active (GIMP_COORDINATES_CHAINBUTTON (coordinates));*/
-  //     }
-  /*EXP*/
-  //gtk_widget_destroy (dlg);
 
   return run;
 }
