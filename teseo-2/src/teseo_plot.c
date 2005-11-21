@@ -57,18 +57,11 @@
 
 #include "teseo_plot.h"
 
-GdkPixmap *pixmap;
-GtkWidget **plots;
-GtkPlotData *dataset[5];
-
-gint nlayers = 0;
-GtkWidget *active_plot;
-
 
 gint select_item(GtkWidget *widget, GdkEvent *event, GtkPlotCanvasChild *child, gpointer data)
 {
-	GtkWidget **widget_list = NULL;
-	GtkWidget *active_widget = NULL;
+	//GtkWidget **widget_list = NULL;
+	//GtkWidget *active_widget = NULL;
 	gint n = 0;
 	gdouble *x = NULL, *y = NULL;
 
@@ -113,27 +106,11 @@ gint select_item(GtkWidget *widget, GdkEvent *event, GtkPlotCanvasChild *child, 
 			default:
 				break;
 		}
-		widget_list = plots;
-		active_widget = GTK_WIDGET(GTK_PLOT_CANVAS_PLOT(child)->plot);
+		//active_widget = GTK_WIDGET(GTK_PLOT_CANVAS_PLOT(child)->plot);
 	}
-
 	return TRUE;
 }
 
-
-GtkWidget * new_layer(GtkWidget *canvas)
-{
-	//gchar label[10];
-	nlayers++;
-
-	plots = (GtkWidget **)g_realloc(plots, nlayers * sizeof(GtkWidget *));
-
-	//sprintf(label, "%d", nlayers);
-	plots[nlayers-1] = gtk_plot_new_with_size(NULL, .5, .25);
-	gtk_widget_show(plots[nlayers-1]);
-
-	return plots[nlayers-1];
-}
 
 
 void
@@ -141,6 +118,7 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 {
 	GdkColor color;
 	GtkPlotAxis *axis;
+	GtkPlotData *dataset;
 
 	static gdouble px1[800]={};
 	static gdouble py1[800]={};
@@ -172,7 +150,7 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 	}
 
 
-	gtk_plot_set_range(GTK_PLOT(active_plot), ret_b[0], ret_b[ntries-1], 0., emax);
+	gtk_plot_set_range(GTK_PLOT(plot), ret_b[0], ret_b[ntries-1], 0., emax);
 
 	axis = gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_TOP);
 	gtk_plot_axis_set_title (axis, Xtitle);
@@ -186,31 +164,32 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 	axis = gtk_plot_get_axis(GTK_PLOT(plot), GTK_PLOT_AXIS_LEFT);
 	gtk_plot_axis_set_title (axis, Ytitle);
 
-	dataset[0] = GTK_PLOT_DATA(gtk_plot_data_new());
-	gtk_plot_add_data(GTK_PLOT(plot), dataset[0]);
-	gtk_widget_show(GTK_WIDGET(dataset[0]));
+	dataset = GTK_PLOT_DATA(gtk_plot_data_new());
+	gtk_plot_add_data(GTK_PLOT(plot), dataset);
+	gtk_widget_show(GTK_WIDGET(dataset));
 
-	gtk_plot_data_set_points(dataset[0], ret_b, ret_e, dx1, dy1, ntries);
+	gtk_plot_data_set_points(dataset, ret_b, ret_e, dx1, dy1, ntries);
 
 	gdk_color_parse("red", &color);
 	//gdk_color_alloc(gdk_colormap_get_system(), &color); Deprecated
 	gdk_colormap_alloc_color(gdk_colormap_get_system(), &color, FALSE, TRUE);
 
-	gtk_plot_data_set_symbol(dataset[0],
+	gtk_plot_data_set_symbol(dataset,
 				GTK_PLOT_SYMBOL_DIAMOND,
 				GTK_PLOT_SYMBOL_EMPTY,
 				4, 2, &color, &color);
 
-	gtk_plot_data_set_line_attributes(dataset[0],
+	gtk_plot_data_set_line_attributes(dataset,
 					GTK_PLOT_LINE_SOLID,
 					0, 0, 1, &color);
 
-	gtk_plot_data_set_connector(dataset[0], GTK_PLOT_CONNECT_STRAIGHT);
+	gtk_plot_data_set_connector(dataset, GTK_PLOT_CONNECT_STRAIGHT);
 
 	gdk_color_parse("blue", &color);
 	gdk_colormap_alloc_color(gdk_colormap_get_system(), &color, FALSE, TRUE);
 
 }
+
 
 
 GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const gchar * main_title , const gchar * Xtitle, const gchar * Ytitle){
@@ -220,6 +199,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	GtkWidget *scrollw1;
 	GtkWidget *canvas;
 	GtkPlotCanvasChild *child;
+
+	GtkWidget *active_plot=NULL;
 
 	gint page_width, page_height;
 	gfloat scale = 4.;
@@ -256,8 +237,8 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	//gtk_plot_canvas_set_background(GTK_PLOT_CANVAS(canvas), &color);
 
 	gtk_widget_show(canvas);
-	active_plot = new_layer(canvas);
-
+	active_plot=gtk_plot_new_with_size(NULL, .5, .25);
+	gtk_widget_show(active_plot);
 	//gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
 	//gtk_plot_set_range(GTK_PLOT(active_plot), -1., 1., -1., 1.4);
 	//gtk_plot_legends_move(GTK_PLOT(active_plot), 0.500, 0.05);
@@ -291,7 +272,6 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
 
 	gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
-
 
 	build_data(active_plot, ret_b, ret_e, ntries, Xtitle, Ytitle);
 

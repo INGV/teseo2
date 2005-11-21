@@ -1976,7 +1976,7 @@ create_filechooser_import (void)
   GtkWidget *button16;
   GtkWidget *button17;
 
-  filechooser_import = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  filechooser_import = gtk_file_chooser_dialog_new ("Import", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
   gtk_widget_set_name (filechooser_import, "filechooser_import");
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_import), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -1993,7 +1993,6 @@ create_filechooser_import (void)
   gtk_widget_set_name (button16, "button16");
   gtk_widget_show (button16);
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_import), button16, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (button16, GTK_CAN_DEFAULT);
 
   button17 = gtk_button_new_from_stock ("gtk-open");
   gtk_widget_set_name (button17, "button17");
@@ -3497,11 +3496,6 @@ create_filechooser_session (void)
 
   filechooser_session = gtk_file_chooser_dialog_new ("Session", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
   gtk_widget_set_name (filechooser_session, "filechooser_session");
-  g_object_set (filechooser_session,
-                "show-hidden", TRUE,
-                NULL);
-  gtk_window_set_position (GTK_WINDOW (filechooser_session), GTK_WIN_POS_MOUSE);
-  gtk_window_set_modal (GTK_WINDOW (filechooser_session), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (filechooser_session), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_session), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -3518,7 +3512,6 @@ create_filechooser_session (void)
   gtk_widget_set_name (button25, "button25");
   gtk_widget_show (button25);
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_session), button25, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (button25, GTK_CAN_DEFAULT);
 
   button26 = gtk_button_new_from_stock ("gtk-open");
   gtk_widget_set_name (button26, "button26");
@@ -3787,9 +3780,8 @@ create_filechooser_export (void)
   GtkWidget *button27;
   GtkWidget *button28;
 
-  filechooser_export = gtk_file_chooser_dialog_new ("", NULL, GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
+  filechooser_export = gtk_file_chooser_dialog_new ("Export", NULL, GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
   gtk_widget_set_name (filechooser_export, "filechooser_export");
-  gtk_window_set_modal (GTK_WINDOW (filechooser_export), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_export), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   dialog_vbox11 = GTK_DIALOG (filechooser_export)->vbox;
@@ -3805,7 +3797,6 @@ create_filechooser_export (void)
   gtk_widget_set_name (button27, "button27");
   gtk_widget_show (button27);
   gtk_dialog_add_action_widget (GTK_DIALOG (filechooser_export), button27, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (button27, GTK_CAN_DEFAULT);
 
   button28 = gtk_button_new_from_stock ("gtk-save");
   gtk_widget_set_name (button28, "button28");
@@ -3822,50 +3813,6 @@ create_filechooser_export (void)
 
   gtk_widget_grab_default (button28);
   return filechooser_export;
-}
-
-GtkWidget*
-create_dlg_histo (void)
-{
-  GtkWidget *dlg_histo;
-  GtkWidget *dialog_vbox13;
-  GtkWidget *histogram_table;
-  GtkWidget *dialog_action_area14;
-  GtkWidget *closebutton2;
-
-  dlg_histo = gtk_dialog_new ();
-  gtk_widget_set_name (dlg_histo, "dlg_histo");
-  gtk_window_set_title (GTK_WINDOW (dlg_histo), "Results histogram ");
-  gtk_window_set_type_hint (GTK_WINDOW (dlg_histo), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox13 = GTK_DIALOG (dlg_histo)->vbox;
-  gtk_widget_set_name (dialog_vbox13, "dialog_vbox13");
-  gtk_widget_show (dialog_vbox13);
-
-  histogram_table = gtk_table_new (3, 3, FALSE);
-  gtk_widget_set_name (histogram_table, "histogram_table");
-  gtk_widget_show (histogram_table);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox13), histogram_table, TRUE, TRUE, 0);
-
-  dialog_action_area14 = GTK_DIALOG (dlg_histo)->action_area;
-  gtk_widget_set_name (dialog_action_area14, "dialog_action_area14");
-  gtk_widget_show (dialog_action_area14);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area14), GTK_BUTTONBOX_END);
-
-  closebutton2 = gtk_button_new_from_stock ("gtk-close");
-  gtk_widget_set_name (closebutton2, "closebutton2");
-  gtk_widget_show (closebutton2);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_histo), closebutton2, GTK_RESPONSE_CLOSE);
-  GTK_WIDGET_SET_FLAGS (closebutton2, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dlg_histo, "dlg_histo");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_vbox13, "dialog_vbox13");
-  GLADE_HOOKUP_OBJECT (dlg_histo, histogram_table, "histogram_table");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_histo, dialog_action_area14, "dialog_action_area14");
-  GLADE_HOOKUP_OBJECT (dlg_histo, closebutton2, "closebutton2");
-
-  return dlg_histo;
 }
 
 GtkWidget*
@@ -4425,50 +4372,5 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");
 
   return win_wiechert;
-}
-
-GtkWidget*
-create_dlg_plot (void)
-{
-  GtkWidget *dlg_plot;
-  GtkWidget *dialog_vbox14;
-  GtkWidget *teseo_drawingarea;
-  GtkWidget *dialog_action_area15;
-  GtkWidget *closebutton3;
-
-  dlg_plot = gtk_dialog_new ();
-  gtk_widget_set_name (dlg_plot, "dlg_plot");
-  gtk_window_set_title (GTK_WINDOW (dlg_plot), "Show a plot");
-  gtk_window_set_type_hint (GTK_WINDOW (dlg_plot), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox14 = GTK_DIALOG (dlg_plot)->vbox;
-  gtk_widget_set_name (dialog_vbox14, "dialog_vbox14");
-  gtk_widget_show (dialog_vbox14);
-
-  teseo_drawingarea = gtk_drawing_area_new ();
-  gtk_widget_set_name (teseo_drawingarea, "teseo_drawingarea");
-  gtk_widget_show (teseo_drawingarea);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox14), teseo_drawingarea, FALSE, FALSE, 0);
-  GTK_WIDGET_SET_FLAGS (teseo_drawingarea, GTK_CAN_FOCUS);
-
-  dialog_action_area15 = GTK_DIALOG (dlg_plot)->action_area;
-  gtk_widget_set_name (dialog_action_area15, "dialog_action_area15");
-  gtk_widget_show (dialog_action_area15);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area15), GTK_BUTTONBOX_END);
-
-  closebutton3 = gtk_button_new_from_stock ("gtk-close");
-  gtk_widget_set_name (closebutton3, "closebutton3");
-  gtk_widget_show (closebutton3);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_plot), closebutton3, GTK_RESPONSE_CLOSE);
-  GTK_WIDGET_SET_FLAGS (closebutton3, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dlg_plot, "dlg_plot");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dialog_vbox14, "dialog_vbox14");
-  GLADE_HOOKUP_OBJECT (dlg_plot, teseo_drawingarea, "teseo_drawingarea");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_plot, dialog_action_area15, "dialog_action_area15");
-  GLADE_HOOKUP_OBJECT (dlg_plot, closebutton3, "closebutton3");
-
-  return dlg_plot;
 }
 

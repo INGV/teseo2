@@ -40,7 +40,7 @@ extern   GtkFileChooserDialog * filechooser_import;
 extern   GtkFileChooserDialog * filechooser_export;
 extern   GtkFileChooserDialog * filechooser_session;
 extern   GtkWidget *win_wiechert;
-extern   GtkWidget *dlg_plot;
+
 
 
 extern   GimpDrawable *private_drawable ;

@@ -77,13 +77,11 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	strokes_in= (gdouble *) g_malloc( n_strokes_in * sizeof (gdouble) );
 
 	//translate path in strokes in mm
-	//g_printf("copying path in strokes\n");
 	for ( i=0; i<n_strokes_in/2; i++ ) {
 		strokes_in[2*i]    = points_pairs[i*9]   / xfract ;
 		strokes_in[2*i+1]  = points_pairs[i*9+1] / yfract ;
 		//g_printf("\nX=%f Y=%f",strokes_in[2*i],strokes_in[2*i+1]);
 	}
-
 	g_free(points_pairs);
 
         //Take XinYin, XfinYfin from the path
@@ -142,18 +140,13 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 				ret=ret+1;
 			}
 		}
-
 		// write the value b and the number of wrong points, cpt is the counter
 		ret_b[cpt] = b;
 		ret_errors[cpt] = ret;
-
-	        //	printf("b=%f\t\t\tret=%f\n", b ,ret);
 		g_free(strokes_copy);
 	}
-
 	g_free(strokes_in);
-
-return return_code;
+	return return_code;
 }
 
 /*Dimension of hist_points 181*2*b, */
@@ -164,11 +157,13 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	gboolean return_code=TRUE;
 	gdouble *strokes_in=NULL;
 	gdouble *strokes_copy=NULL;
+        gdouble *slope_hist=NULL;
+
 	gulong n_strokes_in;
 	gulong i,cpt;
 	gdouble alpha,x1,xtest;
 	gdouble ret;
-        gdouble *slope_hist;
+
 
 	gdouble * points_pairs=NULL;
 	gint path_closed, num_path_point_details;
@@ -282,6 +277,7 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		g_free(strokes_copy);
 	}
 
+	g_free(slope_hist);
 	g_free(strokes_in);
 
 return return_code;
@@ -303,7 +299,6 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	gulong i,j;
 	gdouble alpha,x1,y1,xtest,x_i;
 	gdouble ret;
-
 
 	gdouble * points_pairs=NULL;
 	gint path_closed, num_path_point_details;
@@ -339,7 +334,6 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 			//g_printf("\nX=%f pix Y=%f pix",strokes_in[2*i],strokes_in[2*i+1]);
 		}
 	}
-
 	g_free(points_pairs);
 
         //Take XinYin, XfinYfin from the path if needed
@@ -421,7 +415,6 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 		}
 	}
 
-
 	result=teseo_copy_strokes(strokes_copy,2*j);
 	//restore in starting point
 	teseo_translate(result, 2*j, -Xin, -Yin);
@@ -443,8 +436,8 @@ void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle){
 	gdouble cosangle = cos(angle);
 	gdouble sinangle = sin(angle);
 	gdouble x_rot,y_rot;
-
 	gulong i=0;
+
 	//modifying strokes
 	for( i=1; i < (n_strokes/2) ; i++) {
 		x_rot =  (cosangle * (strokes[i*2] - offx)) + (sinangle * (strokes[i*2 +1] - offy));
@@ -452,7 +445,6 @@ void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle){
 		strokes[i*2]    = x_rot+offx;
 		strokes[i*2 +1] = y_rot+offy;
 	}
-
 }
 
 /*!translate the strokes at point x,y

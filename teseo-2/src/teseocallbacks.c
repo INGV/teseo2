@@ -58,7 +58,7 @@ GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
 GtkWidget * win_wiechert;
-GtkWidget * dlg_plot;
+
 
 
 GtkWidget * teseo_plot=NULL;
@@ -1366,13 +1366,14 @@ on_win_teseo_show                (GtkWidget       *widget,
     GtkMenuItem     *menu_open1 = (GtkMenuItem *)   teseo_lookup_widget(GTK_WIDGET(win_teseo), "open1", 0);
     GtkMenuItem     *menu_new1 = (GtkMenuItem *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "new1", 0);
     gchar *name_image=NULL;
-    GString *string_name_image;
-    GtkLabel     *label_image = (GtkLabel *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "label_image", 0);
+    GString  *string_name_image=NULL;
+    GtkLabel *label_image = (GtkLabel *)    teseo_lookup_widget(GTK_WIDGET(win_teseo), "label_image", 0);
 
     //Test if there are available sessions
     gchar * image_filename = gimp_image_get_filename(teseo_image);
 
     if (test_session(image_filename)){
+      
       if (on_open1_activate (menu_open1, NULL) != 1)
       {
           //g_message("Open canceled");
@@ -1817,10 +1818,6 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	GtkTable *table=NULL;
 
 	gchar *cur_path=NULL;
-//	gulong N_TRIES=600;
-//	static gdouble ret_b[N_TRIES];
-//	static gdouble ret_errors[N_TRIES];
-
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
 
@@ -1828,6 +1825,10 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gulong  imin,imax,i;
 
 	gchar b_string[11]="";
+
+	gint path_closed, num_path_point_details, num_points;
+	gdouble* points_pairs=NULL;
+
 
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
@@ -1875,32 +1876,30 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	cur_path=gimp_path_get_current(teseo_image);
 
 	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
-			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
+		teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
 							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, N_TRIES);
 
-	gint path_closed, num_path_point_details, num_points;
-	gdouble* points_pairs=NULL;
+		gimp_path_get_points (teseo_image, cur_path,  &path_closed,  &num_path_point_details, &points_pairs);
+		g_free(points_pairs);
 
-        gimp_path_get_points (teseo_image, cur_path,  &path_closed,  &num_path_point_details, &points_pairs);
+		num_points=(num_path_point_details+3)/9;
 
-	num_points=(num_path_point_details+3)/9;
+		emin= emax=  ret_errors[0] ;
+		imin=imax=0;
 
-	emin= emax=  ret_errors[0] ;
-	imin=imax=0;
-
-	for (i=1; i<N_TRIES;i++){
-		if (emin>ret_errors[i]){
-			emin = ret_errors[i];
-			imin=i;
+		for (i=1; i<N_TRIES;i++){
+			if (emin>ret_errors[i]){
+				emin = ret_errors[i];
+				imin=i;
+			}
 		}
-	}
 
-	//Scaling errors to 100%
-	for (i=0; i<N_TRIES;i++){
-		ret_errors[i]=ret_errors[i]*100./num_points;
-	}
-	g_sprintf(b_string,"%2.2f",ret_b[imin]);
-	gtk_entry_set_text (arm_shift_entry, b_string);
+		//Scaling errors to 100%
+		for (i=0; i<N_TRIES;i++){
+			ret_errors[i]=ret_errors[i]*100./num_points;
+		}
+		g_sprintf(b_string,"%2.2f",ret_b[imin]);
+		gtk_entry_set_text (arm_shift_entry, b_string);
         }
 	else{
 		g_message("Current path is not a polyline, nothing to do");
@@ -2053,7 +2052,6 @@ on_plot2btn_clicked                    (GtkButton       *button,
 	//waiting events
 	while (gtk_events_pending())   gtk_main_iteration();
 	gtk_main_quit();
-
 }
 
 
