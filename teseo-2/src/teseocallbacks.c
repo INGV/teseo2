@@ -50,6 +50,7 @@
 #include "teseo_sac.h"
 #include "teseo_timemark.h"
 #include "teseo_filters.h"
+#include "teseo_wiechert.h"
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -62,19 +63,12 @@ GtkWidget * dlg_plot;
 
 GtkWidget * teseo_plot=NULL;
 GtkWidget * teseo_plot_slope=NULL;
+
+extern gdouble ret_b[N_TRIES];
+extern gdouble ret_errors[N_TRIES];
+extern gdouble hist_points[DEFAULT_B*2*181];
+
 //GtkWidget * real_gtk_plot=NULL;
-
-
-
-gdouble * teseo_ret_b;
-gdouble * teseo_ret_errors;
-gulong teseo_n_tries;
-gint plot_count=0;
-#define  n_tries 600
-#define DEFAULT_B 30
-gdouble ret_b[n_tries];
-gdouble ret_errors[n_tries];
-gdouble hist_points[DEFAULT_B*2*181]={};
 
 
 GtkFileChooserDialog * filechooser_import;
@@ -1799,15 +1793,6 @@ on_wiechert_activate                   (GtkMenuItem     *menuitem,
   gtk_window_present(GTK_WINDOW(win_wiechert));
 }
 
-
-void
-quit_plot (GtkWidget * plot_win)
-{
-	plot_count=0;
-	//teseo_plot=NULL;
-}
-
-
 void
 on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data)
@@ -1832,9 +1817,9 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	GtkTable *table=NULL;
 
 	gchar *cur_path=NULL;
-//	gulong n_tries=600;
-//	static gdouble ret_b[n_tries];
-//	static gdouble ret_errors[n_tries];
+//	gulong N_TRIES=600;
+//	static gdouble ret_b[N_TRIES];
+//	static gdouble ret_errors[N_TRIES];
 
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
@@ -1891,7 +1876,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
 			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
-							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
+							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, N_TRIES);
 
 	gint path_closed, num_path_point_details, num_points;
 	gdouble* points_pairs=NULL;
@@ -1903,7 +1888,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	emin= emax=  ret_errors[0] ;
 	imin=imax=0;
 
-	for (i=1; i<n_tries;i++){
+	for (i=1; i<N_TRIES;i++){
 		if (emin>ret_errors[i]){
 			emin = ret_errors[i];
 			imin=i;
@@ -1911,7 +1896,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	}
 
 	//Scaling errors to 100%
-	for (i=0; i<n_tries;i++){
+	for (i=0; i<N_TRIES;i++){
 		ret_errors[i]=ret_errors[i]*100./num_points;
 	}
 	g_sprintf(b_string,"%2.2f",ret_b[imin]);
@@ -1949,9 +1934,9 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	GtkTable *table=NULL;
 
 	gchar *cur_path=NULL;
-//	gulong n_tries=600;
-//	static gdouble ret_b[n_tries];
-//	static gdouble ret_errors[n_tries];
+//	gulong N_TRIES=600;
+//	static gdouble ret_b[N_TRIES];
+//	static gdouble ret_errors[N_TRIES];
 
 
 	gdouble sec, Bg, r, Rg, a, b,Xin, Yin, Xfin, Yfin;
@@ -2008,7 +1993,7 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 
 	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
 //			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
-//							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, n_tries);
+//							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, N_TRIES);
 			teseo_wiech_estimate_b2( teseo_image, sec, Bg, r, Rg, a, b,
 							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, hist_points);
 
@@ -2027,7 +2012,7 @@ void
 on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data)
 {
-	teseo_plot = teseo_plot_new(ret_b, ret_errors, n_tries, "Errors estimating arm shift", "Arm shift [mm]", "Errors [%]" );
+	teseo_plot = teseo_plot_new(ret_b, ret_errors, N_TRIES, "Errors estimating arm shift", "Arm shift [mm]", "Errors [%]" );
 	//hist_points
         gtk_widget_show_all(teseo_plot);
 	gtk_main();

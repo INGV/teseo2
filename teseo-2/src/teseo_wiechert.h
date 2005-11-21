@@ -40,21 +40,27 @@
 #define TESEO_WIECHERT
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <libgimp/gimp.h>
+#include "teseo_gimp_extends.h"
 
-/*!
+#define  N_TRIES 600
+#define DEFAULT_B 30
+
+
+/*!Parametric Cadeck correction
 */
 gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 				gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle, gdouble vshift,
 				gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec, gboolean shift,
 				gdouble **corr, gulong* n_points);
-/*!
+/*!Estimate of arm shift based on errors in corrected trace
 */
 gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore,
 					gdouble ret_b[], gdouble ret_errors[], gulong n_tries);
 
-/*!
+/*!Estimate of arm shift based on histogram of slope
 */
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
@@ -63,7 +69,6 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 /*!Rotate the strokes of angle radian (clockwise if angle positive) around the first point
 */
 void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle);
-
 
 /*!translate the strokes at point x,y
 */
