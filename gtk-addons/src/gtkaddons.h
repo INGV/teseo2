@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 
 #ifndef _GTKADDONS_RC_H
 #define _GTKADDONS_RC_H
@@ -23,6 +23,13 @@
 #endif
 
 #include <gtk/gtk.h>
+
+
+#define P_NAME_LENGTH 40
+#define P_VALUE_LENGTH 40
+#define P_MAX_NUM 400
+
+
 
 /*!
 struct mydata:w_name is the widget name, w_content_to is the line content to setup widget
@@ -34,9 +41,16 @@ struct mydata{
 
 
 
+struct param_struct{
+	gchar* name[P_MAX_NUM];
+	gchar* value[P_MAX_NUM];
+	gulong current;
+};
+
+
 /*!
 init_store_widget initialize the library token string
-	\param const char * mytoken 
+	\param const char * mytoken
 */
 int init_store_widget(const char * mytoken);
 
@@ -57,7 +71,7 @@ is_teseo_widget return 1 if widget name contain 'teseo', else it returns 0
 int is_teseo_widget(GtkWidget * widget);
 
 /*!
-iface_save_rc write in a file the widget values of a container 
+iface_save_rc write in a file the widget values of a container
 	it calls iface_save_rc_recursive
 	\param file_rc file name
 	\param parent_widget pointer widget where starting
@@ -100,5 +114,22 @@ load the widget value.
 	\param user_data  mydata structure
 */
 void iface_load_rc_recursive(gpointer data, gpointer user_data);
+
+/*!
+list_iface write in two arraty of string the widget values of a container
+	it calls iface_list_recursive
+	\param parent_widget pointer widget where starting
+	\param
+*/
+void iface_list(GtkWidget * parent_widget , struct param_struct ** params );
+
+/*!
+iface_list_recursive browses recursively in a container and save in param_name the teseo widget name and in param_value its value
+	it is called by iface_list
+	\param
+*/
+//void iface_list_recursive( GtkWidget * data, struct param_struct *ps);
+void iface_list_recursive( gpointer data, gpointer ps);
+
 
 #endif /* _MGLADE_RC_H */
