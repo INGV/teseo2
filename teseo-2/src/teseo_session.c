@@ -209,7 +209,7 @@ char load_session(char * filename){
 		//g_message("loking for %s",*parasites);
 		//first_parasite=gimp_image_parasite_find  (teseo_image, *parasites);
 		if ((first_parasite=gimp_image_parasite_find  (teseo_image, "Test"))!=NULL);
-			g_message("Found the parasite Test=%s", (gchar *) gimp_parasite_data(first_parasite) );
+			//g_message("Found the parasite Test=%s", (gchar *) gimp_parasite_data(first_parasite) );
 		}
 		else
 		{
