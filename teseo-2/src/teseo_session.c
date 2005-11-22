@@ -78,6 +78,9 @@ char save_widget(const char * filename, GtkWidget * dlg){
 	gchar * tep = NULL;
 	gchar * complete_filename=NULL;
 
+	gulong i=0;
+	struct param_struct * params;
+
 	tep = teseo_get_environment_path(SESSIONPATH);
 	//debug g_message( "Teseo session path %s", tep);
 
@@ -88,10 +91,16 @@ char save_widget(const char * filename, GtkWidget * dlg){
 		strcat(complete_filename,filename);
 		//debug g_message("Saving file %s", complete_filename);
 		ret = iface_save_rc( complete_filename, dlg );
+		//g_printf("iface_list\n");
+		iface_list(dlg , &params );
+                for(i=0;i<(*params).current;i++){
+			g_printf(" %s %s \n", (*params).name[i], (*params).value[i]);
+		}
 	}
 
 	g_free(tep);
 	g_free(complete_filename);
+	g_free(params);
 
 	return ret;
 }
@@ -286,7 +295,6 @@ char new_session(char * filename, char * main_window_filename){
 	g_free(bsession_filename);
 	g_free(bdlg_session_filename);
 	g_free(bdlg_preferences_filename);
-
 
 	if (session_filename) g_free(session_filename);
 	if (dlg_session_filename) g_free(dlg_session_filename);
