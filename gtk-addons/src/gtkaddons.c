@@ -188,7 +188,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.11 2005-11-22 14:33:07 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.12 2005-11-22 14:45:49 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -438,20 +438,20 @@ void iface_list_recursive( gpointer data, gpointer ps){
 			(*lps).current=(*lps).current+1;
 		}
 	}
-	else{
-		if(GTK_IS_CONTAINER (data)) {
-			// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
-			l = gtk_container_get_children(data);
-			n = g_list_length(l);
-			// fprintf(f, " - nchildren = %d\n", n);
-			if(l > 0) {
-				//g_printf("%s the %d\n",gtk_widget_get_name(data),(unsigned int)(*lps).current );
-				g_list_foreach(l, iface_list_recursive , lps);
-			}
-		} else {
-			//fprintf(f, "\n");
+
+	if(GTK_IS_CONTAINER (data)) {
+		// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
+		l = gtk_container_get_children(data);
+		n = g_list_length(l);
+		// fprintf(f, " - nchildren = %d\n", n);
+		if(l > 0) {
+			//g_printf("%s the %d\n",gtk_widget_get_name(data),(unsigned int)(*lps).current );
+			g_list_foreach(l, iface_list_recursive , lps);
 		}
+	} else {
+		//fprintf(f, "\n");
 	}
+
 
 }
 
