@@ -79,10 +79,10 @@ char save_widget(const char * filename, GtkWidget * dlg){
 	gchar * complete_filename=NULL;
 
 	gulong i=0;
-	struct param_struct * params;
+	struct param_struct * params=NULL;
 
 	tep = teseo_get_environment_path(SESSIONPATH);
-	//debug g_message( "Teseo session path %s", tep);
+	g_printf( "saving widget %s\n", gtk_widget_get_name(dlg) );
 
 	complete_filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
 	if ( filename != NULL) {
@@ -93,14 +93,16 @@ char save_widget(const char * filename, GtkWidget * dlg){
 		ret = iface_save_rc( complete_filename, dlg );
 		//g_printf("iface_list\n");
 		iface_list(dlg , &params );
-                for(i=0;i<(*params).current;i++){
-			g_printf(" %s %s \n", (*params).name[i], (*params).value[i]);
+		if(params!=NULL){
+			for(i=0;i<(*params).current;i++){
+				g_printf(" %s %s \n", (*params).name[i], (*params).value[i]);
+			}
+			g_free(params);
 		}
 	}
 
 	g_free(tep);
 	g_free(complete_filename);
-	g_free(params);
 
 	return ret;
 }
