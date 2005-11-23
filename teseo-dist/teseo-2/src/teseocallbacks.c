@@ -1704,15 +1704,18 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     GtkRadioButton * teseo_clean_greather = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_greater_radiobutton", 0);
     GtkSpinButton *teseo_clean_length = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_length_spinbutton", clean_length);
     GtkRadioButton * teseo_clean_horizontal = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_horizontal_radiobutton", 0);
-    GtkRadioButton * teseo_clean_newlayer = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_clean_newlayer", 0);
+    GtkRadioButton * teseo_clean_newlayer = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_newlayer_checkbutton", 0);
     GtkCheckButton * teseo_clean_transparent = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_clean_transparent_checkbutton", 0);
 
     GtkAdjustment*  teseo_base_gse       = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "base_gse", 0);
     GtkAdjustment*  teseo_thr_gse        = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "thr_gse", 0);
     GtkAdjustment*  teseo_fill_gse       = (GtkAdjustment *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "fill_gse", 0);
 
+    GtkScale* teseo_bc_hscale = (GtkScale *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_bc_hscale", 0);
+    GtkScale* teseo_th_hscale = (GtkScale *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_th_hscale", 0);
+    GtkScale* teseo_fc_hscale = (GtkScale *) teseo_lookup_widget(GTK_WIDGET(win_teseo), "teseo_fc_hscale", 0);
 
-    if(teseo_clean_colour) {
+/*    if(teseo_clean_colour) {
         gtk_spin_button_set_adjustment (teseo_clean_colour,teseo_base_gse);
         clean_colour = gtk_spin_button_get_value (teseo_clean_colour);
     }
@@ -1725,7 +1728,22 @@ on_clean1_activate                     (GtkMenuItem     *menuitem,
     if(teseo_clean_fill_colour) {
         gtk_spin_button_set_adjustment (teseo_clean_fill_colour, teseo_fill_gse);
         clean_fill_colour = gtk_spin_button_get_value (teseo_clean_fill_colour);
-    }
+    }*/
+
+	if(teseo_bc_hscale) {
+		//gtk_spin_button_set_adjustment (teseo_clean_colour,teseo_base_gse);
+		clean_colour = gtk_range_get_value( (GtkRange *) teseo_bc_hscale);
+	}
+
+	if(teseo_th_hscale) {
+		//gtk_spin_button_set_adjustment (teseo_clean_threshold,teseo_thr_gse);
+		clean_colour = gtk_range_get_value( (GtkRange *) teseo_th_hscale);
+	}
+
+	if(teseo_fc_hscale) {
+		//gtk_spin_button_set_adjustment (teseo_clean_fill_colour, teseo_fill_gse);
+		clean_colour = gtk_range_get_value( (GtkRange *) teseo_fc_hscale);
+	}
 
     clean_greater = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_clean_greather));
 
@@ -2189,10 +2207,6 @@ on_btn_correct_clicked                 (GtkButton       *button,
 
 
 
-
-
-
-
 void
 on_notebook2_switch_page               (GtkNotebook     *notebook,
                                         GtkNotebookPage *page,
@@ -2323,7 +2337,8 @@ void
 on_import2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	load_parasite_session();
+	g_message("Parasites imported from current image.\nRemember to save your session to apply changes");
 }
 
 
@@ -2332,6 +2347,9 @@ on_export2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+	//saving in the image
+	save_session_parasite();
+	g_message("Parasites exported in your image.\nRemember to save your image to apply changes");
 }
 
 
@@ -2339,7 +2357,7 @@ void
 on_remove_all1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+	g_message("Remember to save your image to apply changes");
 }
 
 

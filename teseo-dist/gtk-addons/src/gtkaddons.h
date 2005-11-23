@@ -25,8 +25,8 @@
 #include <gtk/gtk.h>
 
 
-#define P_NAME_LENGTH 40
-#define P_VALUE_LENGTH 40
+#define P_NAME_LENGTH 160
+#define P_VALUE_LENGTH 80
 #define P_MAX_NUM 400
 
 
@@ -55,7 +55,7 @@ init_store_widget initialize the library token string
 int init_store_widget(const char * mytoken);
 
 
-
+int is_marked_name(gchar * widget_name);
 
 /*!
 is_token_widget return 1 if widget name contain token value, else it returns 0
@@ -116,6 +116,13 @@ load the widget value.
 void iface_load_rc_recursive(gpointer data, gpointer user_data);
 
 /*!
+iface_load_list read in the params the widget values of a container it calls iface_load_rc_recursive
+	\param params
+	\param  parent_widget
+*/
+char iface_load_list( struct param_struct * params,  GtkWidget * parent_widget );
+
+/*!
 list_iface write in two arraty of string the widget values of a container
 	it calls iface_list_recursive
 	\param parent_widget pointer widget where starting
@@ -128,8 +135,22 @@ iface_list_recursive browses recursively in a container and save in param_name t
 	it is called by iface_list
 	\param
 */
-//void iface_list_recursive( GtkWidget * data, struct param_struct *ps);
+
 void iface_list_recursive( gpointer data, gpointer ps);
+
+/*!
+iface_list_delete destructor for param_struct
+	\param
+*/
+void iface_list_delete(struct param_struct ** params );
+
+/*!
+iface_list_print print param_struct containt on stdout
+	\param
+*/
+void iface_list_print(struct param_struct * params );
+
+
 
 
 #endif /* _MGLADE_RC_H */

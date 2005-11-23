@@ -52,6 +52,13 @@ int is_marked_widget(GtkWidget * widget) {
 	return ret;
 }
 
+int is_marked_name(gchar * widget_name) {
+	int ret=0;
+	if ( strstr(widget_name,token) != NULL)
+		ret=1;
+	return ret;
+}
+
 
 int is_teseo_widget(GtkWidget * widget) {
 	static const char token []="teseo" ;
@@ -63,13 +70,11 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 	GList *l;
 	struct mydata *tmp=user_data;
 	GtkTextBuffer* gtb;
-	GtkTextIter start, stop;
+
 	double s_value;
 	//g_printf("looking for %s in container %s \n", (*tmp).w_name ,  gtk_widget_get_name(data) ) ;
-
 	if ( strcmp( (*tmp).w_name,  gtk_widget_get_name(data)) ==0){
-
-		//		strcpy( user_data.w_content_to);
+		//strcpy( user_data.w_content_to);
 		if (GTK_IS_TOGGLE_BUTTON(data) ){
 			// Contents of radiobuttons and togglebuttons
 			if ( (GTK_IS_TOGGLE_BUTTON(data)) ) {
@@ -90,6 +95,10 @@ void iface_load_rc_recursive(gpointer data, gpointer user_data){
 		if (GTK_IS_SPIN_BUTTON (data)  ){
 			s_value=strtod ((*tmp).w_content_to,NULL);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON(data), s_value);
+		}
+		if (GTK_IS_RANGE (data)  ){
+			s_value=strtod ((*tmp).w_content_to,NULL);
+			gtk_range_set_value (GTK_RANGE(data), s_value);
 		}
                 if (GTK_IS_TEXT_VIEW(data)){
 			//g_printf("found %s  content buffer set to %s\n",(*tmp).w_name, (*tmp).w_content_to);
@@ -181,6 +190,67 @@ char iface_load_rc(const char * file_rc,  GtkWidget * parent_widget ){
 	return ret;
 }
 
+
+char iface_load_list( struct param_struct * params,  GtkWidget * parent_widget ){
+	/*
+	look for widgets in params,
+	if found in parent_widget set the widget value.
+	*/
+
+	char ret=1;
+
+	char widget_name[P_NAME_LENGTH];
+	char widget_content[P_VALUE_LENGTH];
+
+
+	guint n;
+	gulong i=0;
+	GList *l=NULL;
+
+	struct mydata tmp;
+
+	//g_printf("iface_load_list:: started\n ");
+
+	for (i=0;i<(*params).current;i++){
+
+			strcpy(widget_name, (*params).name[i]);
+			strcpy(widget_content,(*params).value[i]);
+			//g_printf("%s %s\n", widget_name,widget_content);
+			if(GTK_IS_CONTAINER (parent_widget) ){
+				l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
+				n = g_list_length(l);
+			}
+			tmp.w_name=widget_name;
+			tmp.w_content_to=widget_content;
+			//g_printf("%s %s \n", tmp.w_name, tmp.w_content_to);
+			g_list_foreach( l, iface_load_rc_recursive , &tmp);
+
+	}
+
+// 		for (i=0;i<(*params).current;i++){
+// 		if (    strstr((*params).name[i], "GtkWindow") == NULL ) {
+// 			sscanf((*params).name[i],"%s$$%s", widget_type, widget_name);
+//
+// 			g_printf("%s %s\n", widget_type, widget_name);
+// 			strcpy(widget_content,(*params).value[i]);
+// 			g_printf("%s %s %s\n", widget_type, widget_name,widget_content);
+// 			if(GTK_IS_CONTAINER (parent_widget) ){
+// 			// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
+// 				l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
+// 				n = g_list_length(l);
+// 			}
+// 			tmp.w_name=widget_name;
+// 			tmp.w_content_to=widget_content;
+// 			g_printf("%s %s %s \n", widget_type, widget_name, widget_content);
+// 			g_list_foreach( l, iface_load_rc_recursive , &tmp);
+// 		}
+// 	}
+
+	return ret;
+}
+
+
+
 char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	FILE *f=NULL;
 	char ret=1;
@@ -188,7 +258,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.12 2005-11-22 14:45:49 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.13 2005-11-23 14:58:31 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -212,13 +282,13 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 	if ( !is_marked_widget (data) ){
 			// The line is commented
 			fprintf(f, "# ");
-    }
+	}
     //don't save two time parent window
 	if ( strcmp(GTK_OBJECT_TYPE_NAME(data),"GtkWindow")!=0 ) {
 		// fprintf(f, "\nname = %s", gtk_widget_get_name(data));
 		fprintf(f, "%s %s ", GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
 
-		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ||GTK_IS_TEXT_VIEW(data) ){
+		if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ||GTK_IS_TEXT_VIEW(data) || GTK_IS_RANGE (data)){
 			// Contents of radiobuttons and togglebuttons
 			if ( GTK_IS_TOGGLE_BUTTON(data) ) {
 				if ( gtk_toggle_button_get_active(data) ) {
@@ -239,6 +309,11 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 				g_free(edits);
 			}
 
+			//Contents of ranges
+			if ( GTK_IS_RANGE (data) ) {
+				fprintf (f, "%2.2f\n",gtk_range_get_value ( GTK_RANGE(data)));
+			}
+
 			//contens of textview
 			if (GTK_IS_TEXT_VIEW(data)){
 			  gtb = gtk_text_view_get_buffer((GtkTextView *) data);
@@ -248,7 +323,7 @@ void iface_save_rc_recursive(gpointer data, gpointer user_data) {
 		} else {
 			// Other widgets
 			// fprintf(f, "\n%s", gtk_widget_get_name(data));
-			fprintf(f, "##Need catch widget value##\n");
+			fprintf(f, "##UNKNOWN  value##\n");
 		}
 	}
 	if(GTK_IS_CONTAINER (data)) {
@@ -360,14 +435,36 @@ void print_iface(gpointer data, gpointer user_data) {
 	}
 }
 
+void iface_list_delete(struct param_struct ** params ){
 
+	gulong i=0;
+	if((*params)!=NULL){
+		for(i=0;i<(**params).current;i++){
+			g_free((**params).name[i]);
+			g_free((**params).value[i]);
+		}
+		g_free(*params);
+	}
+	*params=NULL;
+}
+
+void iface_list_print(struct param_struct * params ){
+
+	gulong i=0;
+	if( params!=NULL ){
+		for(i=0;i<(*params).current;i++){
+			g_printf(" %s %s \n", (*params).name[i], (*params).value[i]);
+		}
+	}
+	else {
+		g_printf("Warning:: params is Null\n");
+	}
+}
 
 void iface_list(GtkWidget * parent_widget , struct param_struct ** params ){
 
 	struct param_struct * lp = (struct param_struct*) g_malloc(sizeof(struct param_struct));
-	//debug g_printf("iface_save_rc::saving file %s\n", file_rc);
-	//g_printf("iface_list\n");
-	//struct param_struct lp={};
+	g_printf("iface_list:: widget %s\n", gtk_widget_get_name(parent_widget));
         (*lp).current=0;
 	iface_list_recursive( parent_widget, lp);
         *params=lp;
@@ -390,7 +487,7 @@ void iface_list_recursive( gpointer data, gpointer ps){
 //	FILE *f = user_data;
 	GtkTextBuffer* gtb;
 	GtkTextIter start, stop;
-	//g_printf("iface_list_recursive\n");
+	//g_printf("iface_list_recursive:: widget %s\n", gtk_widget_get_name(data));
 	struct param_struct *lps = (struct param_struct *) ps;
 
 	if ( is_marked_widget (data) ){
@@ -402,9 +499,10 @@ void iface_list_recursive( gpointer data, gpointer ps){
 			//debug g_printf("%s\n",gtk_widget_get_name(data));
 			(*lps).name[(*lps).current]  = (gchar *) g_malloc(sizeof(gchar)*(1+P_NAME_LENGTH));
 			(*lps).value[(*lps).current] = (gchar *) g_malloc(sizeof(gchar)*(1+P_VALUE_LENGTH));
+			//ATTENTION
+			//sprintf((*lps).name[(*lps).current], "%s$$%s", GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
 			sprintf((*lps).name[(*lps).current], "%s", gtk_widget_get_name(data));
-
-			if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ||GTK_IS_TEXT_VIEW(data) ){
+			if (GTK_IS_TOGGLE_BUTTON(data) || GTK_IS_EDITABLE (data) ||GTK_IS_TEXT_VIEW(data) || GTK_IS_RANGE (data)){
 				// Contents of radiobuttons and togglebuttons
 				if ( GTK_IS_TOGGLE_BUTTON(data) ) {
 					if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data)) ) {
@@ -419,6 +517,11 @@ void iface_list_recursive( gpointer data, gpointer ps){
 					edits=gtk_editable_get_chars ( (GtkEditable *) data, 0, -1);
 					g_snprintf ((*lps).value[(*lps).current], P_VALUE_LENGTH,"%s", edits);
 					g_free(edits);
+				}
+
+				//Contents of ranges
+				if ( GTK_IS_RANGE (data) ) {
+					g_snprintf ((*lps).value[(*lps).current],  P_VALUE_LENGTH, "%2.2f\n",gtk_range_get_value ( GTK_RANGE(data)));
 				}
 
 				//contens of textview
