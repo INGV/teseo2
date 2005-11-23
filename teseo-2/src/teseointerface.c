@@ -242,6 +242,13 @@ create_win_teseo (void)
   GtkWidget *vbox84;
   GtkWidget *vbox85;
   GtkWidget *vbox81;
+  GtkWidget *table27;
+  GtkWidget *teseo_bc_hscale;
+  GtkWidget *teseo_fc_hscale;
+  GtkWidget *label313;
+  GtkWidget *label314;
+  GtkWidget *label315;
+  GtkWidget *teseo_th_hscale;
   GtkWidget *fp_table;
   GtkWidget *teseo_clean_newlayer_checkbutton;
   GtkWidget *teseo_clean_vertical_radiobutton;
@@ -1488,6 +1495,65 @@ create_win_teseo (void)
   gtk_widget_show (vbox81);
   gtk_box_pack_start (GTK_BOX (vbox84), vbox81, TRUE, TRUE, 0);
 
+  table27 = gtk_table_new (3, 3, FALSE);
+  gtk_widget_set_name (table27, "table27");
+  gtk_widget_show (table27);
+  gtk_box_pack_start (GTK_BOX (vbox83), table27, TRUE, TRUE, 0);
+
+  teseo_bc_hscale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 255, -1, -10, 1)));
+  gtk_widget_set_name (teseo_bc_hscale, "teseo_bc_hscale");
+  gtk_widget_show (teseo_bc_hscale);
+  gtk_table_attach (GTK_TABLE (table27), teseo_bc_hscale, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+  gtk_scale_set_value_pos (GTK_SCALE (teseo_bc_hscale), GTK_POS_RIGHT);
+  gtk_scale_set_digits (GTK_SCALE (teseo_bc_hscale), 0);
+
+  teseo_fc_hscale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (255, 0, 255, 1, -10, 1)));
+  gtk_widget_set_name (teseo_fc_hscale, "teseo_fc_hscale");
+  gtk_widget_show (teseo_fc_hscale);
+  gtk_table_attach (GTK_TABLE (table27), teseo_fc_hscale, 1, 2, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+  gtk_scale_set_value_pos (GTK_SCALE (teseo_fc_hscale), GTK_POS_RIGHT);
+  gtk_scale_set_digits (GTK_SCALE (teseo_fc_hscale), 0);
+
+  label313 = gtk_label_new ("Base colour");
+  gtk_widget_set_name (label313, "label313");
+  gtk_widget_show (label313);
+  gtk_table_attach (GTK_TABLE (table27), label313, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label313), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label313), 10, 0);
+
+  label314 = gtk_label_new ("Threshold");
+  gtk_widget_set_name (label314, "label314");
+  gtk_widget_show (label314);
+  gtk_table_attach (GTK_TABLE (table27), label314, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label314), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label314), 10, 0);
+
+  label315 = gtk_label_new ("Fill Colour");
+  gtk_widget_set_name (label315, "label315");
+  gtk_widget_show (label315);
+  gtk_table_attach (GTK_TABLE (table27), label315, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (label315), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (label315), 10, 0);
+
+  teseo_th_hscale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (128, 0, 255, 1, -10, 1)));
+  gtk_widget_set_name (teseo_th_hscale, "teseo_th_hscale");
+  gtk_widget_show (teseo_th_hscale);
+  gtk_table_attach (GTK_TABLE (table27), teseo_th_hscale, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+  gtk_scale_set_value_pos (GTK_SCALE (teseo_th_hscale), GTK_POS_RIGHT);
+  gtk_scale_set_digits (GTK_SCALE (teseo_th_hscale), 0);
+
   fp_table = gtk_table_new (6, 3, FALSE);
   gtk_widget_set_name (fp_table, "fp_table");
   gtk_widget_show (fp_table);
@@ -1945,6 +2011,13 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, vbox84, "vbox84");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox85, "vbox85");
   GLADE_HOOKUP_OBJECT (win_teseo, vbox81, "vbox81");
+  GLADE_HOOKUP_OBJECT (win_teseo, table27, "table27");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_bc_hscale, "teseo_bc_hscale");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_fc_hscale, "teseo_fc_hscale");
+  GLADE_HOOKUP_OBJECT (win_teseo, label313, "label313");
+  GLADE_HOOKUP_OBJECT (win_teseo, label314, "label314");
+  GLADE_HOOKUP_OBJECT (win_teseo, label315, "label315");
+  GLADE_HOOKUP_OBJECT (win_teseo, teseo_th_hscale, "teseo_th_hscale");
   GLADE_HOOKUP_OBJECT (win_teseo, fp_table, "fp_table");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_newlayer_checkbutton, "teseo_clean_newlayer_checkbutton");
   GLADE_HOOKUP_OBJECT (win_teseo, teseo_clean_vertical_radiobutton, "teseo_clean_vertical_radiobutton");
@@ -3882,15 +3955,15 @@ create_win_wiechert (void)
   GtkWidget *hbox60;
   GtkWidget *teseo_arm_shift_entry;
   GtkWidget *label282;
-  GtkWidget *teseo_calc_arm_shift;
-  GtkWidget *teseo_show_graph;
+  GtkWidget *calc_arm_shift;
+  GtkWidget *show_graph;
   GtkWidget *label306;
   GtkWidget *vbox89;
   GtkWidget *hbox61;
   GtkObject *teseo_spbtn_armshift2_adj;
   GtkWidget *teseo_spbtn_armshift2;
   GtkWidget *label312;
-  GtkWidget *teseo_calc_arm_slope;
+  GtkWidget *calc_arm_slope;
   GtkWidget *plot2btn;
   GtkWidget *label307;
   GtkTooltips *tooltips;
@@ -4221,19 +4294,19 @@ create_win_wiechert (void)
   gtk_widget_show (label282);
   gtk_box_pack_start (GTK_BOX (hbox60), label282, FALSE, FALSE, 0);
 
-  teseo_calc_arm_shift = gtk_button_new_with_mnemonic ("Calculate");
-  gtk_widget_set_name (teseo_calc_arm_shift, "teseo_calc_arm_shift");
-  gtk_widget_show (teseo_calc_arm_shift);
-  gtk_box_pack_start (GTK_BOX (hbox60), teseo_calc_arm_shift, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_shift), 3);
-  gtk_tooltips_set_tip (tooltips, teseo_calc_arm_shift, "Calculate the errors with the Correction parameters ", NULL);
+  calc_arm_shift = gtk_button_new_with_mnemonic ("Calculate");
+  gtk_widget_set_name (calc_arm_shift, "calc_arm_shift");
+  gtk_widget_show (calc_arm_shift);
+  gtk_box_pack_start (GTK_BOX (hbox60), calc_arm_shift, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (calc_arm_shift), 3);
+  gtk_tooltips_set_tip (tooltips, calc_arm_shift, "Calculate the errors with the Correction parameters ", NULL);
 
-  teseo_show_graph = gtk_button_new_with_mnemonic ("Show graph");
-  gtk_widget_set_name (teseo_show_graph, "teseo_show_graph");
-  gtk_widget_show (teseo_show_graph);
-  gtk_box_pack_start (GTK_BOX (hbox60), teseo_show_graph, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (teseo_show_graph), 3);
-  gtk_tooltips_set_tip (tooltips, teseo_show_graph, "Plot Errors - Arm shift diagram", NULL);
+  show_graph = gtk_button_new_with_mnemonic ("Show graph");
+  gtk_widget_set_name (show_graph, "show_graph");
+  gtk_widget_show (show_graph);
+  gtk_box_pack_start (GTK_BOX (hbox60), show_graph, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (show_graph), 3);
+  gtk_tooltips_set_tip (tooltips, show_graph, "Plot Errors - Arm shift diagram", NULL);
 
   label306 = gtk_label_new ("<b>Errors Estimate</b>");
   gtk_widget_set_name (label306, "label306");
@@ -4266,12 +4339,12 @@ create_win_wiechert (void)
   gtk_widget_show (label312);
   gtk_box_pack_start (GTK_BOX (hbox61), label312, FALSE, FALSE, 0);
 
-  teseo_calc_arm_slope = gtk_button_new_with_mnemonic ("Calculate");
-  gtk_widget_set_name (teseo_calc_arm_slope, "teseo_calc_arm_slope");
-  gtk_widget_show (teseo_calc_arm_slope);
-  gtk_box_pack_start (GTK_BOX (hbox61), teseo_calc_arm_slope, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (teseo_calc_arm_slope), 3);
-  gtk_tooltips_set_tip (tooltips, teseo_calc_arm_slope, "Calculate the slope histograms with Correction parameters", NULL);
+  calc_arm_slope = gtk_button_new_with_mnemonic ("Calculate");
+  gtk_widget_set_name (calc_arm_slope, "calc_arm_slope");
+  gtk_widget_show (calc_arm_slope);
+  gtk_box_pack_start (GTK_BOX (hbox61), calc_arm_slope, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (calc_arm_slope), 3);
+  gtk_tooltips_set_tip (tooltips, calc_arm_slope, "Calculate the slope histograms with Correction parameters", NULL);
 
   plot2btn = gtk_button_new_with_mnemonic ("Show graph");
   gtk_widget_set_name (plot2btn, "plot2btn");
@@ -4293,13 +4366,13 @@ create_win_wiechert (void)
   g_signal_connect ((gpointer) btn_correct, "clicked",
                     G_CALLBACK (on_btn_correct_clicked),
                     NULL);
-  g_signal_connect ((gpointer) teseo_calc_arm_shift, "clicked",
+  g_signal_connect ((gpointer) calc_arm_shift, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_shift_clicked),
                     NULL);
-  g_signal_connect ((gpointer) teseo_show_graph, "clicked",
+  g_signal_connect ((gpointer) show_graph, "clicked",
                     G_CALLBACK (on_teseo_show_graph_clicked),
                     NULL);
-  g_signal_connect ((gpointer) teseo_calc_arm_slope, "clicked",
+  g_signal_connect ((gpointer) calc_arm_slope, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_slope_clicked),
                     NULL);
   g_signal_connect ((gpointer) plot2btn, "clicked",
@@ -4359,14 +4432,14 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox60, "hbox60");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_arm_shift_entry, "teseo_arm_shift_entry");
   GLADE_HOOKUP_OBJECT (win_wiechert, label282, "label282");
-  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_shift, "teseo_calc_arm_shift");
-  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_show_graph, "teseo_show_graph");
+  GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_shift, "calc_arm_shift");
+  GLADE_HOOKUP_OBJECT (win_wiechert, show_graph, "show_graph");
   GLADE_HOOKUP_OBJECT (win_wiechert, label306, "label306");
   GLADE_HOOKUP_OBJECT (win_wiechert, vbox89, "vbox89");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox61, "hbox61");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_armshift2, "teseo_spbtn_armshift2");
   GLADE_HOOKUP_OBJECT (win_wiechert, label312, "label312");
-  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_calc_arm_slope, "teseo_calc_arm_slope");
+  GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_slope, "calc_arm_slope");
   GLADE_HOOKUP_OBJECT (win_wiechert, plot2btn, "plot2btn");
   GLADE_HOOKUP_OBJECT (win_wiechert, label307, "label307");
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");

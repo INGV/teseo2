@@ -73,16 +73,14 @@ char load_widget(const char * filename, GtkWidget * dlg){
 }
 
 
+
 char save_widget(const char * filename, GtkWidget * dlg){
 	char ret=0;
 	gchar * tep = NULL;
 	gchar * complete_filename=NULL;
 
-	gulong i=0;
-	struct param_struct * params=NULL;
-
 	tep = teseo_get_environment_path(SESSIONPATH);
-	g_printf( "saving widget %s\n", gtk_widget_get_name(dlg) );
+
 
 	complete_filename = (gchar * ) g_malloc(sizeof(char)*FILENAMELEN);
 	if ( filename != NULL) {
@@ -91,18 +89,10 @@ char save_widget(const char * filename, GtkWidget * dlg){
 		strcat(complete_filename,filename);
 		//debug g_message("Saving file %s", complete_filename);
 		ret = iface_save_rc( complete_filename, dlg );
-		//g_printf("iface_list\n");
-		iface_list(dlg , &params );
-		if(params!=NULL){
-			for(i=0;i<(*params).current;i++){
-				g_printf(" %s %s \n", (*params).name[i], (*params).value[i]);
-			}
-			g_free(params);
-		}
 	}
-
 	g_free(tep);
 	g_free(complete_filename);
+
 
 	return ret;
 }
@@ -110,26 +100,9 @@ char save_widget(const char * filename, GtkWidget * dlg){
 char save_session(char * filename){
 
 	char ret=0;
-	GimpParasite* first_parasite = NULL;
+
 	ret=      save_widget(current_dlg_session, dlg_session);
 	ret=ret * save_widget(current_main_window, win_teseo);
-
-	char str[]="Parassita !";
-
-	if(gimp_image_parasite_find(teseo_image,"Test")!=NULL){
-		//remove old parasite
-		gimp_image_parasite_detach  (teseo_image, "Test");
-		g_message("Removed old parasite");
-	}
-	else {
-		g_message("There wasn't parasite Test");
-	}
-	//create parasite
-	first_parasite = gimp_parasite_new ("Test",   GIMP_PARASITE_PERSISTENT,  strlen(str)+1,  str);
-
-	//attach parasite
-	gimp_image_parasite_attach  (teseo_image,  first_parasite);
-	gimp_parasite_free (first_parasite);
 
 	return ret;
 }
@@ -150,82 +123,69 @@ char load_session(char * filename){
 	char var[80]="";
 	gchar * base_content=NULL;
 
-	GimpParasite* first_parasite = NULL;
-	gint num_parasites;
-	gchar **parasites=NULL;
 
 	if (filename==NULL) {
 		g_message("Attempting to load a null filename");
 	}
 	else {
-	//debug g_message("Attempting to load %s session",filename);
-	if ( teseo_filexist(filename) ){
+		//debug g_message("Attempting to load %s session",filename);
+		if ( teseo_filexist(filename) ){
 
-	f = fopen(filename,"r");
-	if ( f != NULL ){
-		while(fgets (line, 1024,  f)){
-			if ( strstr(line, "#") == NULL ) {
-				sscanf(line,"%s ", var);
-				if (strcmp("SessionFile",var) == 0)  {
-					/*TODO consistency check*/
-					//strcpy(session_filename,content);
-					app = (line + strlen("SessionFile") + 3);
-					g_strdelimit  (app, "\n",0x00);
-					//base_content= g_path_get_basename(app);
-					base_content= app;
-					strcpy(session_filename,base_content);
-					//debug g_message("SessionFile %s",session_filename);
-					strcpy(current_session,session_filename);
-					//if (base_content) g_free(base_content);
+		f = fopen(filename,"r");
+		if ( f != NULL ){
+			while(fgets (line, 1024,  f)){
+				if ( strstr(line, "#") == NULL ) {
+					sscanf(line,"%s ", var);
+					if (strcmp("SessionFile",var) == 0)  {
+						/*TODO consistency check*/
+						//strcpy(session_filename,content);
+						app = (line + strlen("SessionFile") + 3);
+						g_strdelimit  (app, "\n",0x00);
+						//base_content= g_path_get_basename(app);
+						base_content= app;
+						strcpy(session_filename,base_content);
+						//debug g_message("SessionFile %s",session_filename);
+						strcpy(current_session,session_filename);
+						//if (base_content) g_free(base_content);
+					}
+					if ( strcmp("SessionDialogFile",var) == 0 ) {
+						//strcpy(dlg_session_filename,content);
+						app = (line + strlen("SessionDialogFile") + 3);
+						g_strdelimit  (app, "\n",0x00);
+						//base_content= g_path_get_basename(app);
+						base_content= app;
+						strcpy(dlg_session_filename,base_content);
+						// debugg_message("Session dialog file %s",dlg_session_filename);
+						rets = load_widget(dlg_session_filename,dlg_session);
+						if (rets==0) g_message("Corrupted %s",dlg_session_filename);
+						//if (base_content) g_free(base_content);
+					}
+					if ( strcmp("MainWindowFile",var) == 0) {
+						//strcpy(main_window_filename,content);
+						app = (line + strlen("MainWindowFile") + 3);
+						g_strdelimit  (app, "\n",0x00);
+						base_content= app;
+						strcpy(main_window_filename,base_content);
+						//debug g_message("MainWindow file %s",main_window_filename);
+						retp = load_widget(main_window_filename,win_teseo);
+						if (retp==0) g_message("Corrupted %s",main_window_filename);
+					}
 				}
-				if ( strcmp("SessionDialogFile",var) == 0 ) {
-					//strcpy(dlg_session_filename,content);
-					app = (line + strlen("SessionDialogFile") + 3);
-					g_strdelimit  (app, "\n",0x00);
-					//base_content= g_path_get_basename(app);
-					base_content= app;
-					strcpy(dlg_session_filename,base_content);
-					// debugg_message("Session dialog file %s",dlg_session_filename);
-					rets = load_widget(dlg_session_filename,dlg_session);
-					if (rets==0) g_message("Corrupted %s",dlg_session_filename);
-					//if (base_content) g_free(base_content);
-				}
-				if ( strcmp("MainWindowFile",var) == 0) {
-					//strcpy(main_window_filename,content);
-					app = (line + strlen("MainWindowFile") + 3);
-					g_strdelimit  (app, "\n",0x00);
-					base_content= app;
-					strcpy(main_window_filename,base_content);
-					//debug g_message("MainWindow file %s",main_window_filename);
-					retp = load_widget(main_window_filename,win_teseo);
-					if (retp==0) g_message("Corrupted %s",main_window_filename);
-				}
-			}
-		}//while
-		ret=rets*retp;
-	}
-	}
-	else {
-		g_warning("load_session: File %s not found",filename);
-	}
-	//Registering current session
-	if(ret==1){
-		strcpy(current_session,session_filename);
-		strcpy(current_dlg_session,dlg_session_filename);
-		strcpy(current_main_window,main_window_filename);
-		//debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
-	}
+			}//while
+			ret=rets*retp;
+		}
+		}
+		else {
+			g_warning("load_session: File %s not found",filename);
+		}
+		//Registering current session
+		if(ret==1){
+			strcpy(current_session,session_filename);
+			strcpy(current_dlg_session,dlg_session_filename);
+			strcpy(current_main_window,main_window_filename);
+			//debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
+		}
 
-	if (gimp_image_parasite_list  (teseo_image, &num_parasites, &parasites)) {
-		//g_message("loking for %s",*parasites);
-		//first_parasite=gimp_image_parasite_find  (teseo_image, *parasites);
-		if ((first_parasite=gimp_image_parasite_find  (teseo_image, "Test"))!=NULL);
-			//g_message("Found the parasite Test=%s", (gchar *) gimp_parasite_data(first_parasite) );
-		}
-		else
-		{
-			g_message("No parasites found");
-		}
 	}
 
 	return ret;
@@ -394,5 +354,88 @@ gchar test_session(char * filename){
 	g_free(basename_noext);
 	g_free(p);
 	//g_printf("test_session::stop exiting %d\n", ret);
+	return ret;
+}
+
+
+char save_widget_parasite(GtkWidget * dlg){
+	char ret=1;
+	struct param_struct * params=NULL;
+	GimpParasite* tmp_parasite;
+	gulong i=0;
+
+	//create a list of named widgets in params
+	iface_list(dlg , &params );
+	iface_list_print( params );
+	//attach corresponding newly created parasites
+	for (i=0; i<(*params).current;i++){
+		tmp_parasite=gimp_parasite_new ( (*params).name[i] ,   GIMP_PARASITE_PERSISTENT,  strlen( (gchar*)(*params).value[i]) +1,  (*params).value[i]);
+		gimp_image_parasite_attach  (teseo_image,  tmp_parasite);
+		gimp_parasite_free (tmp_parasite);
+	}
+
+	iface_list_delete( &params );
+
+	return ret;
+}
+
+
+char load_widget_parasite(GtkWidget * dlg){
+	char ret=1;
+	GimpParasite* tmp_parasite;
+
+
+	gulong j=0;
+
+	struct param_struct * params=NULL;
+	//creating the list of the marked widgets in dlg
+	iface_list(dlg , &params );
+	//debug
+	iface_list_print( params );
+	//modifying list with parasite values
+	for(j=0;j<(*params).current;j++){
+		if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, (*params).name[j] ))!=NULL){
+			//debug g_printf("Found %s = %s value %s\n", (*params).name[j],(*tmp_parasite).name, (*tmp_parasite).data);
+			(*params).value[j] = g_realloc( (*params).value[j], (sizeof(char))*(strlen((*tmp_parasite).data )+1 )) ;
+
+			strcpy( (*params).value[j], (gchar*) (*tmp_parasite).data );
+			gimp_parasite_free (tmp_parasite);
+		}
+	}
+
+	//loading in dialog the modified values
+	iface_load_list( params,  dlg );
+	//debug
+	iface_list_print( params );
+	iface_list_delete( &params );
+
+	return ret;
+}
+
+char save_session_parasite(){
+
+	char ret=0;
+
+	ret=      save_widget_parasite(dlg_session);
+	ret= ret * save_widget_parasite(win_teseo);
+	ret= ret * save_widget_parasite(win_wiechert);
+
+	return ret;
+}
+
+
+char load_parasite_session(){
+
+	char ret =0;
+	char retp=0;
+	char rets=0;
+	char retq=0;
+
+
+	rets = load_widget_parasite(dlg_session);
+	retp = load_widget_parasite(win_teseo);
+	retq = load_widget_parasite(win_wiechert);
+	ret=rets*retp*retq;
+
 	return ret;
 }
