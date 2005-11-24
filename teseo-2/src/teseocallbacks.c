@@ -1805,6 +1805,11 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gboolean constrain=TRUE;
 	gdouble unconstrained_lower=-50;
 	gdouble unconstrained_upper=50;
+
+	gboolean use_angle=FALSE;
+	gdouble rotation_angle;
+
+
 	const gchar tooltip[]="PROVA tooltip";
 	const gchar *help_id=NULL;
 	GtkObject*  gse=NULL;
@@ -1823,6 +1828,10 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gdouble* points_pairs=NULL;
 
 
+	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
+	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
+
+
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
         GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
@@ -1835,6 +1844,13 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
 	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
 
+	if(teseo_spbtn_angle) {
+		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
+		rotation_angle = atan(1.0)*rotation_angle/45.0;
+	}
+	if(teseo_chkbtn_rangle) {
+		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
+	}
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
 	}
@@ -1863,6 +1879,8 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
 
+
+
 	b=DEFAULT_B;
 
 
@@ -1870,7 +1888,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
 		teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
-							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, N_TRIES);
+							TRUE, TRUE, Xin, Yin, Xfin, Yfin, rotation_angle, use_angle, TRUE, ret_b, ret_errors, N_TRIES);
 
 		gimp_path_get_points (teseo_image, cur_path,  &path_closed,  &num_path_point_details, &points_pairs);
 		g_free(points_pairs);
@@ -1925,6 +1943,10 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	GtkObject*  gse=NULL;
 	GtkTable *table=NULL;
 
+	gboolean use_angle=FALSE;
+	gdouble rotation_angle;
+
+
 	gchar *cur_path=NULL;
 //	gulong N_TRIES=600;
 //	static gdouble ret_b[N_TRIES];
@@ -1938,6 +1960,9 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 
 	gchar b_string[11]="";
 
+	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
+	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
+
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
         GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
@@ -1950,6 +1975,13 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
 	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
 
+	if(teseo_spbtn_angle) {
+		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
+		rotation_angle = atan(1.0)*rotation_angle/45.0;
+	}
+	if(teseo_chkbtn_rangle) {
+		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
+	}
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
 	}
@@ -1987,7 +2019,7 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 //			teseo_wiech_estimate_b1( teseo_image, sec, Bg, r, Rg, a, b,
 //							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, ret_b, ret_errors, N_TRIES);
 			teseo_wiech_estimate_b2( teseo_image, sec, Bg, r, Rg, a, b,
-							TRUE, TRUE, Xin, Yin, Xfin, Yfin, TRUE, hist_points);
+							TRUE, TRUE, Xin, Yin, Xfin, Yfin, rotation_angle, use_angle, TRUE, hist_points);
 
         }
 	else{
@@ -2137,6 +2169,7 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	}
 	if(teseo_spbtn_angle) {
 		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
+		rotation_angle = atan(1.0)*rotation_angle/45.0;
 	}
 
 	if(teseo_chkbtn_extr) {
@@ -2248,6 +2281,25 @@ void
 on_calc_dist_btn_clicked               (GtkButton       *button,
                                         gpointer         user_data)
 {
+
+	gdouble r, Rg, a;
+
+        GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
+        GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
+        GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
+
+	if(teseo_spbtn_cyl_radius) {
+		r = gtk_spin_button_get_value (teseo_spbtn_cyl_radius);
+	}
+	if(teseo_spbtn_arm_lenght) {
+		Rg = gtk_spin_button_get_value (teseo_spbtn_arm_lenght);
+	}
+	//Calculate displacement given R and r
+	a = sqrt(Rg*Rg+r*r);
+
+	if(teseo_spbtn_displ) {
+		 gtk_spin_button_set_value (teseo_spbtn_displ,a);
+	}
 
 }
 

@@ -49,7 +49,8 @@ inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg,
 
 gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin,  gdouble angle,
+					gboolean use_angle, gboolean ignore_coord,
 					gdouble ret_b[], gdouble ret_errors[], gulong n_tries){
 	gboolean return_code=TRUE;
 	gdouble *strokes_in=NULL;
@@ -99,7 +100,13 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	//rotate considering Xin, Yin, Xfin, Yfin,
 	//if rotate==false suppose eventually rotated before calling this function
 	if(rotate){
-		alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		if(use_angle){
+			alpha=angle;
+		}
+		else{
+			alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		}
+		//alpha=atan((Yfin-Yin)/(Xfin-Xin));
 		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
 	}
 
@@ -152,7 +159,8 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 /*Dimension of hist_points 181*2*b, */
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gboolean ignore_coord,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
+					gboolean use_angle, gboolean ignore_coord,
 					gdouble hist_points[]){
 	gboolean return_code=TRUE;
 	gdouble *strokes_in=NULL;
@@ -209,7 +217,13 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	//rotate considering Xin, Yin, Xfin, Yfin,
 	//if rotate==false suppose eventually rotated before calling this function
 	if(rotate){
-		alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		if(use_angle){
+			alpha=angle;
+		}
+		else{
+			alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		}
+		//alpha=atan((Yfin-Yin)/(Xfin-Xin));
 		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
 	}
 
