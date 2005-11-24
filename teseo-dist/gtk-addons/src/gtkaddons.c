@@ -210,7 +210,6 @@ char iface_load_list( struct param_struct * params,  GtkWidget * parent_widget )
 	struct mydata tmp;
 
 	//g_printf("iface_load_list:: started\n ");
-
 	for (i=0;i<(*params).current;i++){
 
 			strcpy(widget_name, (*params).name[i]);
@@ -226,26 +225,6 @@ char iface_load_list( struct param_struct * params,  GtkWidget * parent_widget )
 			g_list_foreach( l, iface_load_rc_recursive , &tmp);
 
 	}
-
-// 		for (i=0;i<(*params).current;i++){
-// 		if (    strstr((*params).name[i], "GtkWindow") == NULL ) {
-// 			sscanf((*params).name[i],"%s$$%s", widget_type, widget_name);
-//
-// 			g_printf("%s %s\n", widget_type, widget_name);
-// 			strcpy(widget_content,(*params).value[i]);
-// 			g_printf("%s %s %s\n", widget_type, widget_name,widget_content);
-// 			if(GTK_IS_CONTAINER (parent_widget) ){
-// 			// fprintf(f, " - type = %s",  g_type_name(gtk_container_child_type(data)));
-// 				l = gtk_container_get_children(GTK_CONTAINER (parent_widget));
-// 				n = g_list_length(l);
-// 			}
-// 			tmp.w_name=widget_name;
-// 			tmp.w_content_to=widget_content;
-// 			g_printf("%s %s %s \n", widget_type, widget_name, widget_content);
-// 			g_list_foreach( l, iface_load_rc_recursive , &tmp);
-// 		}
-// 	}
-
 	return ret;
 }
 
@@ -258,7 +237,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.13 2005-11-23 14:58:31 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.14 2005-11-24 11:56:47 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -521,7 +500,7 @@ void iface_list_recursive( gpointer data, gpointer ps){
 
 				//Contents of ranges
 				if ( GTK_IS_RANGE (data) ) {
-					g_snprintf ((*lps).value[(*lps).current],  P_VALUE_LENGTH, "%2.2f\n",gtk_range_get_value ( GTK_RANGE(data)));
+					g_snprintf ((*lps).value[(*lps).current],  P_VALUE_LENGTH, "%2.2f",gtk_range_get_value ( GTK_RANGE(data)));
 				}
 
 				//contens of textview
