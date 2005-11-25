@@ -64,6 +64,8 @@ Notes: User notes
 #define MAIN_WIN_EXT ".tmw"
 #define WIE_DLG_EXT  ".tww"
 //#define NOTES_EXT    ".txt"
+#define EV_PREF_LEN 3
+
 struct TeseoDate{
 	long year;
 	int month;
@@ -202,8 +204,11 @@ char load_preferences(char * filename, struct Session *s);
 
 char load_widget(const char * filename, GtkWidget * dlg);
 
-char save_session_parasite();
 
-char load_parasite_session();
+char save_session_parasite(gint event);
+char load_parasite_session(gint event);
+
+char save_widget_parasite(GtkWidget * dlg, gint evid);
+char load_widget_parasite(GtkWidget * dlg, gint evid);
 
 #endif

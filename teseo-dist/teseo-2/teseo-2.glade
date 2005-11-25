@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image807">
+			    <widget class="GtkImage" id="image817">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -92,7 +92,7 @@
 				  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image808">
+				    <widget class="GtkImage" id="image818">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image809">
+			    <widget class="GtkImage" id="image819">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image810">
+				    <widget class="GtkImage" id="image820">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -239,7 +239,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image811">
+				    <widget class="GtkImage" id="image821">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -335,7 +335,7 @@
 			  <signal name="activate" handler="on_parasites1_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image812">
+			    <widget class="GtkImage" id="image822">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-find</property>
 			      <property name="icon_size">1</property>
@@ -352,12 +352,13 @@
 			      <child>
 				<widget class="GtkImageMenuItem" id="import2">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">Import session parasites in current image</property>
 				  <property name="label" translatable="yes">_Import...</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_import2_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image813">
+				    <widget class="GtkImage" id="image823">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -373,12 +374,13 @@
 			      <child>
 				<widget class="GtkImageMenuItem" id="export2">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">Export session parasites in current image</property>
 				  <property name="label" translatable="yes">_Export...</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_export2_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image814">
+				    <widget class="GtkImage" id="image824">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -394,12 +396,13 @@
 			      <child>
 				<widget class="GtkImageMenuItem" id="remove_all1">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">Beware, all parasites in image will be removed</property>
 				  <property name="label" translatable="yes">_Remove all</property>
 				  <property name="use_underline">True</property>
 				  <signal name="activate" handler="on_remove_all1_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image815">
+				    <widget class="GtkImage" id="image825">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-delete</property>
 				      <property name="icon_size">1</property>
@@ -668,7 +671,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image816">
+			    <widget class="GtkImage" id="image826">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -689,7 +692,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image817">
+			    <widget class="GtkImage" id="image827">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-home</property>
 			      <property name="icon_size">1</property>
