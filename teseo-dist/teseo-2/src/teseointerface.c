@@ -3892,15 +3892,13 @@ GtkWidget*
 create_win_wiechert (void)
 {
   GtkWidget *win_wiechert;
-  GtkWidget *notebook5;
-  GtkWidget *vbox87;
+  GtkWidget *vbox88;
   GtkWidget *frame79;
   GtkWidget *alignment33;
   GtkWidget *table29;
   GtkWidget *label285;
   GtkWidget *calc_dist_btn;
   GtkWidget *label288;
-  GtkWidget *label294;
   GtkWidget *label289;
   GtkWidget *label287;
   GtkObject *teseo_spbtn_arm_lenght_adj;
@@ -3921,9 +3919,11 @@ create_win_wiechert (void)
   GtkWidget *teseo_spbtn_b;
   GtkObject *teseo_spbtn_vel_adj;
   GtkWidget *teseo_spbtn_vel;
+  GtkWidget *calc_arm_shift;
   GtkWidget *label317;
   GtkWidget *frame76;
   GtkWidget *alignment31;
+  GtkWidget *vbox87;
   GtkWidget *table26;
   GtkWidget *label308;
   GtkWidget *label292;
@@ -3947,30 +3947,9 @@ create_win_wiechert (void)
   GtkWidget *teseo_chkbtn_rot;
   GtkWidget *teseo_chkbtn_transl;
   GtkWidget *label316;
-  GtkWidget *hbox65;
-  GtkWidget *btn_correct;
-  GtkWidget *label305;
-  GtkWidget *vbox88;
-  GtkWidget *frame85;
-  GtkWidget *alignment34;
-  GtkWidget *hbox72;
-  GtkWidget *teseo_arm_shift_entry;
-  GtkWidget *label325;
-  GtkWidget *hbuttonbox1;
-  GtkWidget *calc_arm_shift;
-  GtkWidget *show_graph;
-  GtkWidget *label324;
-  GtkWidget *frame86;
-  GtkWidget *alignment35;
-  GtkWidget *hbox73;
-  GtkObject *teseo_spbtn_armshift2_adj;
-  GtkWidget *teseo_spbtn_armshift2;
-  GtkWidget *label327;
-  GtkWidget *hbuttonbox2;
+  GtkWidget *hbox74;
   GtkWidget *calc_arm_slope;
-  GtkWidget *plot2btn;
-  GtkWidget *label326;
-  GtkWidget *label306;
+  GtkWidget *btn_correct;
   GtkTooltips *tooltips;
 
   tooltips = gtk_tooltips_new ();
@@ -3978,24 +3957,17 @@ create_win_wiechert (void)
   win_wiechert = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_name (win_wiechert, "win_wiechert");
   gtk_window_set_title (GTK_WINDOW (win_wiechert), "Wiechert correction");
-  gtk_window_set_resizable (GTK_WINDOW (win_wiechert), FALSE);
   gtk_window_set_type_hint (GTK_WINDOW (win_wiechert), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  notebook5 = gtk_notebook_new ();
-  gtk_widget_set_name (notebook5, "notebook5");
-  gtk_widget_show (notebook5);
-  gtk_container_add (GTK_CONTAINER (win_wiechert), notebook5);
-
-  vbox87 = gtk_vbox_new (FALSE, 3);
-  gtk_widget_set_name (vbox87, "vbox87");
-  gtk_widget_show (vbox87);
-  gtk_container_add (GTK_CONTAINER (notebook5), vbox87);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox87), 5);
+  vbox88 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (vbox88, "vbox88");
+  gtk_widget_show (vbox88);
+  gtk_container_add (GTK_CONTAINER (win_wiechert), vbox88);
 
   frame79 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame79, "frame79");
   gtk_widget_show (frame79);
-  gtk_box_pack_start (GTK_BOX (vbox87), frame79, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox88), frame79, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame79), 3);
 
   alignment33 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -4032,13 +4004,6 @@ create_win_wiechert (void)
   gtk_widget_set_name (label288, "label288");
   gtk_widget_show (label288);
   gtk_table_attach (GTK_TABLE (table29), label288, 1, 2, 2, 3,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-
-  label294 = gtk_label_new ("Needle displ.");
-  gtk_widget_set_name (label294, "label294");
-  gtk_widget_show (label294);
-  gtk_table_attach (GTK_TABLE (table29), label294, 1, 2, 3, 4,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
@@ -4152,6 +4117,15 @@ create_win_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_vel, "Paper velocity, in mm/min", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_vel), TRUE);
 
+  calc_arm_shift = gtk_button_new_with_mnemonic ("Needle");
+  gtk_widget_set_name (calc_arm_shift, "calc_arm_shift");
+  gtk_widget_show (calc_arm_shift);
+  gtk_table_attach (GTK_TABLE (table29), calc_arm_shift, 1, 2, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  GTK_WIDGET_SET_FLAGS (calc_arm_shift, GTK_CAN_DEFAULT);
+  gtk_tooltips_set_tip (tooltips, calc_arm_shift, "Calculate minimum arm shift and show errors curve", NULL);
+
   label317 = gtk_label_new ("<b>Parameters</b>");
   gtk_widget_set_name (label317, "label317");
   gtk_widget_show (label317);
@@ -4161,7 +4135,7 @@ create_win_wiechert (void)
   frame76 = gtk_frame_new (NULL);
   gtk_widget_set_name (frame76, "frame76");
   gtk_widget_show (frame76);
-  gtk_box_pack_start (GTK_BOX (vbox87), frame76, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox88), frame76, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame76), 3);
 
   alignment31 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -4169,10 +4143,16 @@ create_win_wiechert (void)
   gtk_widget_show (alignment31);
   gtk_container_add (GTK_CONTAINER (frame76), alignment31);
 
+  vbox87 = gtk_vbox_new (FALSE, 3);
+  gtk_widget_set_name (vbox87, "vbox87");
+  gtk_widget_show (vbox87);
+  gtk_container_add (GTK_CONTAINER (alignment31), vbox87);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox87), 5);
+
   table26 = gtk_table_new (2, 4, TRUE);
   gtk_widget_set_name (table26, "table26");
   gtk_widget_show (table26);
-  gtk_container_add (GTK_CONTAINER (alignment31), table26);
+  gtk_box_pack_start (GTK_BOX (vbox87), table26, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (table26), 5);
   gtk_table_set_row_spacings (GTK_TABLE (table26), 5);
 
@@ -4253,7 +4233,7 @@ create_win_wiechert (void)
   Frame78 = gtk_frame_new (NULL);
   gtk_widget_set_name (Frame78, "Frame78");
   gtk_widget_show (Frame78);
-  gtk_box_pack_start (GTK_BOX (vbox87), Frame78, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox88), Frame78, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (Frame78), 3);
 
   alignment32 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -4315,146 +4295,26 @@ create_win_wiechert (void)
   gtk_frame_set_label_widget (GTK_FRAME (Frame78), label316);
   gtk_label_set_use_markup (GTK_LABEL (label316), TRUE);
 
-  hbox65 = gtk_hbox_new (TRUE, 0);
-  gtk_widget_set_name (hbox65, "hbox65");
-  gtk_widget_show (hbox65);
-  gtk_box_pack_start (GTK_BOX (vbox87), hbox65, FALSE, FALSE, 0);
+  hbox74 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_set_name (hbox74, "hbox74");
+  gtk_widget_show (hbox74);
+  gtk_box_pack_start (GTK_BOX (vbox88), hbox74, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox74), 3);
+
+  calc_arm_slope = gtk_button_new_with_mnemonic ("Slopes");
+  gtk_widget_set_name (calc_arm_slope, "calc_arm_slope");
+  gtk_widget_show (calc_arm_slope);
+  gtk_box_pack_start (GTK_BOX (hbox74), calc_arm_slope, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (calc_arm_slope), 3);
+  GTK_WIDGET_SET_FLAGS (calc_arm_slope, GTK_CAN_DEFAULT);
+  gtk_tooltips_set_tip (tooltips, calc_arm_slope, "Show the slope histograms for current parameters", NULL);
 
   btn_correct = gtk_button_new_with_mnemonic ("Correct");
   gtk_widget_set_name (btn_correct, "btn_correct");
   gtk_widget_show (btn_correct);
-  gtk_box_pack_start (GTK_BOX (hbox65), btn_correct, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox74), btn_correct, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (btn_correct), 3);
-
-  label305 = gtk_label_new ("<b>Correction</b>");
-  gtk_widget_set_name (label305, "label305");
-  gtk_widget_show (label305);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 0), label305);
-  gtk_label_set_use_markup (GTK_LABEL (label305), TRUE);
-
-  vbox88 = gtk_vbox_new (FALSE, 3);
-  gtk_widget_set_name (vbox88, "vbox88");
-  gtk_widget_show (vbox88);
-  gtk_container_add (GTK_CONTAINER (notebook5), vbox88);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox88), 3);
-
-  frame85 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame85, "frame85");
-  gtk_widget_show (frame85);
-  gtk_box_pack_start (GTK_BOX (vbox88), frame85, FALSE, TRUE, 0);
-
-  alignment34 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment34, "alignment34");
-  gtk_widget_show (alignment34);
-  gtk_container_add (GTK_CONTAINER (frame85), alignment34);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment34), 0, 0, 12, 0);
-
-  hbox72 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_set_name (hbox72, "hbox72");
-  gtk_widget_show (hbox72);
-  gtk_container_add (GTK_CONTAINER (alignment34), hbox72);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox72), 5);
-
-  teseo_arm_shift_entry = gtk_entry_new ();
-  gtk_widget_set_name (teseo_arm_shift_entry, "teseo_arm_shift_entry");
-  gtk_widget_show (teseo_arm_shift_entry);
-  gtk_box_pack_start (GTK_BOX (hbox72), teseo_arm_shift_entry, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_arm_shift_entry, "Arm shift evaluation", NULL);
-  gtk_entry_set_max_length (GTK_ENTRY (teseo_arm_shift_entry), 5);
-  gtk_editable_set_editable (GTK_EDITABLE (teseo_arm_shift_entry), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (teseo_arm_shift_entry), FALSE);
-  gtk_entry_set_width_chars (GTK_ENTRY (teseo_arm_shift_entry), 5);
-
-  label325 = gtk_label_new ("Arm shift");
-  gtk_widget_set_name (label325, "label325");
-  gtk_widget_show (label325);
-  gtk_box_pack_start (GTK_BOX (hbox72), label325, TRUE, FALSE, 3);
-
-  hbuttonbox1 = gtk_hbutton_box_new ();
-  gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
-  gtk_widget_show (hbuttonbox1);
-  gtk_box_pack_start (GTK_BOX (hbox72), hbuttonbox1, FALSE, FALSE, 0);
-
-  calc_arm_shift = gtk_button_new_with_mnemonic ("Calculate");
-  gtk_widget_set_name (calc_arm_shift, "calc_arm_shift");
-  gtk_widget_show (calc_arm_shift);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), calc_arm_shift);
-  GTK_WIDGET_SET_FLAGS (calc_arm_shift, GTK_CAN_DEFAULT);
-  gtk_tooltips_set_tip (tooltips, calc_arm_shift, "Calculate the errors with the Correction parameters ", NULL);
-
-  show_graph = gtk_button_new_with_mnemonic ("Plot");
-  gtk_widget_set_name (show_graph, "show_graph");
-  gtk_widget_show (show_graph);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox1), show_graph);
-  GTK_WIDGET_SET_FLAGS (show_graph, GTK_CAN_DEFAULT);
-  gtk_tooltips_set_tip (tooltips, show_graph, "Plot Errors - Arm shift diagram", NULL);
-
-  label324 = gtk_label_new ("<b>Time errors estimate</b>");
-  gtk_widget_set_name (label324, "label324");
-  gtk_widget_show (label324);
-  gtk_frame_set_label_widget (GTK_FRAME (frame85), label324);
-  gtk_label_set_use_markup (GTK_LABEL (label324), TRUE);
-
-  frame86 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame86, "frame86");
-  gtk_widget_show (frame86);
-  gtk_box_pack_start (GTK_BOX (vbox88), frame86, FALSE, TRUE, 0);
-
-  alignment35 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment35, "alignment35");
-  gtk_widget_show (alignment35);
-  gtk_container_add (GTK_CONTAINER (frame86), alignment35);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment35), 0, 0, 12, 0);
-
-  hbox73 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_set_name (hbox73, "hbox73");
-  gtk_widget_show (hbox73);
-  gtk_container_add (GTK_CONTAINER (alignment35), hbox73);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox73), 5);
-
-  teseo_spbtn_armshift2_adj = gtk_adjustment_new (1, -30, 30, 1, 10, 10);
-  teseo_spbtn_armshift2 = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_armshift2_adj), 1, 0);
-  gtk_widget_set_name (teseo_spbtn_armshift2, "teseo_spbtn_armshift2");
-  gtk_widget_show (teseo_spbtn_armshift2);
-  gtk_box_pack_start (GTK_BOX (hbox73), teseo_spbtn_armshift2, FALSE, TRUE, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_spbtn_armshift2, "Histogram arm shift to be plotted", NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_armshift2), TRUE);
-
-  label327 = gtk_label_new ("Arm shift");
-  gtk_widget_set_name (label327, "label327");
-  gtk_widget_show (label327);
-  gtk_box_pack_start (GTK_BOX (hbox73), label327, TRUE, FALSE, 3);
-
-  hbuttonbox2 = gtk_hbutton_box_new ();
-  gtk_widget_set_name (hbuttonbox2, "hbuttonbox2");
-  gtk_widget_show (hbuttonbox2);
-  gtk_box_pack_start (GTK_BOX (hbox73), hbuttonbox2, FALSE, FALSE, 0);
-
-  calc_arm_slope = gtk_button_new_with_mnemonic ("Calculate");
-  gtk_widget_set_name (calc_arm_slope, "calc_arm_slope");
-  gtk_widget_show (calc_arm_slope);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox2), calc_arm_slope);
-  GTK_WIDGET_SET_FLAGS (calc_arm_slope, GTK_CAN_DEFAULT);
-  gtk_tooltips_set_tip (tooltips, calc_arm_slope, "Calculate the slope histograms with Correction parameters", NULL);
-
-  plot2btn = gtk_button_new_with_mnemonic ("Plot");
-  gtk_widget_set_name (plot2btn, "plot2btn");
-  gtk_widget_show (plot2btn);
-  gtk_container_add (GTK_CONTAINER (hbuttonbox2), plot2btn);
-  GTK_WIDGET_SET_FLAGS (plot2btn, GTK_CAN_DEFAULT);
-  gtk_tooltips_set_tip (tooltips, plot2btn, "Plot slope histogram for the selected arm shift", NULL);
-
-  label326 = gtk_label_new ("<b>Slope estimate</b>");
-  gtk_widget_set_name (label326, "label326");
-  gtk_widget_show (label326);
-  gtk_frame_set_label_widget (GTK_FRAME (frame86), label326);
-  gtk_label_set_use_markup (GTK_LABEL (label326), TRUE);
-
-  label306 = gtk_label_new ("<b>Arm shift estimate</b>");
-  gtk_widget_set_name (label306, "label306");
-  gtk_widget_show (label306);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook5), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook5), 1), label306);
-  gtk_label_set_use_markup (GTK_LABEL (label306), TRUE);
+  gtk_tooltips_set_tip (tooltips, btn_correct, "Correct current path", NULL);
 
   g_signal_connect ((gpointer) win_wiechert, "delete_event",
                     G_CALLBACK (on_win_wiechert_delete_event),
@@ -4462,33 +4322,25 @@ create_win_wiechert (void)
   g_signal_connect ((gpointer) calc_dist_btn, "clicked",
                     G_CALLBACK (on_calc_dist_btn_clicked),
                     NULL);
-  g_signal_connect ((gpointer) btn_correct, "clicked",
-                    G_CALLBACK (on_btn_correct_clicked),
-                    NULL);
   g_signal_connect ((gpointer) calc_arm_shift, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_shift_clicked),
-                    NULL);
-  g_signal_connect ((gpointer) show_graph, "clicked",
-                    G_CALLBACK (on_teseo_show_graph_clicked),
                     NULL);
   g_signal_connect ((gpointer) calc_arm_slope, "clicked",
                     G_CALLBACK (on_teseo_calc_arm_slope_clicked),
                     NULL);
-  g_signal_connect ((gpointer) plot2btn, "clicked",
-                    G_CALLBACK (on_plot2btn_clicked),
+  g_signal_connect ((gpointer) btn_correct, "clicked",
+                    G_CALLBACK (on_btn_correct_clicked),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, win_wiechert, "win_wiechert");
-  GLADE_HOOKUP_OBJECT (win_wiechert, notebook5, "notebook5");
-  GLADE_HOOKUP_OBJECT (win_wiechert, vbox87, "vbox87");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox88, "vbox88");
   GLADE_HOOKUP_OBJECT (win_wiechert, frame79, "frame79");
   GLADE_HOOKUP_OBJECT (win_wiechert, alignment33, "alignment33");
   GLADE_HOOKUP_OBJECT (win_wiechert, table29, "table29");
   GLADE_HOOKUP_OBJECT (win_wiechert, label285, "label285");
   GLADE_HOOKUP_OBJECT (win_wiechert, calc_dist_btn, "calc_dist_btn");
   GLADE_HOOKUP_OBJECT (win_wiechert, label288, "label288");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label294, "label294");
   GLADE_HOOKUP_OBJECT (win_wiechert, label289, "label289");
   GLADE_HOOKUP_OBJECT (win_wiechert, label287, "label287");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
@@ -4501,9 +4353,11 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, label304, "label304");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_b, "teseo_spbtn_b");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
+  GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_shift, "calc_arm_shift");
   GLADE_HOOKUP_OBJECT (win_wiechert, label317, "label317");
   GLADE_HOOKUP_OBJECT (win_wiechert, frame76, "frame76");
   GLADE_HOOKUP_OBJECT (win_wiechert, alignment31, "alignment31");
+  GLADE_HOOKUP_OBJECT (win_wiechert, vbox87, "vbox87");
   GLADE_HOOKUP_OBJECT (win_wiechert, table26, "table26");
   GLADE_HOOKUP_OBJECT (win_wiechert, label308, "label308");
   GLADE_HOOKUP_OBJECT (win_wiechert, label292, "label292");
@@ -4523,29 +4377,9 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_rot, "teseo_chkbtn_rot");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_transl, "teseo_chkbtn_transl");
   GLADE_HOOKUP_OBJECT (win_wiechert, label316, "label316");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbox65, "hbox65");
-  GLADE_HOOKUP_OBJECT (win_wiechert, btn_correct, "btn_correct");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label305, "label305");
-  GLADE_HOOKUP_OBJECT (win_wiechert, vbox88, "vbox88");
-  GLADE_HOOKUP_OBJECT (win_wiechert, frame85, "frame85");
-  GLADE_HOOKUP_OBJECT (win_wiechert, alignment34, "alignment34");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbox72, "hbox72");
-  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_arm_shift_entry, "teseo_arm_shift_entry");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label325, "label325");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbuttonbox1, "hbuttonbox1");
-  GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_shift, "calc_arm_shift");
-  GLADE_HOOKUP_OBJECT (win_wiechert, show_graph, "show_graph");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label324, "label324");
-  GLADE_HOOKUP_OBJECT (win_wiechert, frame86, "frame86");
-  GLADE_HOOKUP_OBJECT (win_wiechert, alignment35, "alignment35");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbox73, "hbox73");
-  GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_armshift2, "teseo_spbtn_armshift2");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label327, "label327");
-  GLADE_HOOKUP_OBJECT (win_wiechert, hbuttonbox2, "hbuttonbox2");
+  GLADE_HOOKUP_OBJECT (win_wiechert, hbox74, "hbox74");
   GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_slope, "calc_arm_slope");
-  GLADE_HOOKUP_OBJECT (win_wiechert, plot2btn, "plot2btn");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label326, "label326");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label306, "label306");
+  GLADE_HOOKUP_OBJECT (win_wiechert, btn_correct, "btn_correct");
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");
 
   return win_wiechert;
