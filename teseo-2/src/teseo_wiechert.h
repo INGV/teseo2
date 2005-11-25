@@ -58,14 +58,15 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin,  gdouble angle,
-					gboolean use_angle, gboolean ignore_coord,
+					gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 					gdouble ret_b[], gdouble ret_errors[], gulong n_tries);
 /*!Estimate of arm shift based on histogram of slope
 */
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
-					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
-					gboolean use_angle, gboolean ignore_coord,
+					gboolean rotate, gboolean translate,
+					gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin,
+					gdouble angle, gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 					gdouble hist_points[]);
 /*!Rotate the strokes of angle radian (clockwise if angle positive) around the first point
 */

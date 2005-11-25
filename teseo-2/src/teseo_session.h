@@ -202,5 +202,8 @@ char load_preferences(char * filename, struct Session *s);
 
 char load_widget(const char * filename, GtkWidget * dlg);
 
+char save_session_parasite();
+
+char load_parasite_session();
 
 #endif
