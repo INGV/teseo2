@@ -68,6 +68,14 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin,
 					gdouble angle, gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 					gdouble hist_points[]);
+/*!Calculate histogram of slope for a given arm shift
+*/
+gboolean teseo_wiech_slope_hist(	gint32 g_image,
+					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
+					gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
+					gdouble hist_points[]);
+
 /*!Rotate the strokes of angle radian (clockwise if angle positive) around the first point
 */
 void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle);
