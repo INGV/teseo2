@@ -34,7 +34,7 @@
 gdouble ret_b[N_TRIES];
 gdouble ret_errors[N_TRIES];
 gdouble hist_points[DEFAULT_B*2*181]={};
-
+gdouble histogram[181]={};
 
 inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg, double sec, double xfinal, double xinitial, double xi, double yi){
 	double ret=0;
@@ -315,6 +315,157 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 return return_code;
 
 }
+
+
+
+
+
+/*Dimension of hist_points 181, */
+gboolean teseo_wiech_slope_hist(	gint32 g_image,
+					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
+					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
+					gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
+					gdouble hist_points[]){
+	gboolean return_code=TRUE;
+	gdouble *strokes_in=NULL;
+	gdouble *strokes_copy=NULL;
+        gdouble *slope_hist=NULL;
+
+	gulong n_strokes_in;
+	gulong i;
+	gdouble alpha,x1,xtest;
+	gdouble ret;
+
+
+	gdouble * points_pairs=NULL;
+	gint path_closed, num_path_point_details;
+
+
+	gdouble xfract=0.,yfract=0.;
+	gdouble factor;
+
+	gimp_image_get_resolution (g_image,  &xfract,  &yfract);
+
+	//TODO take the points in the current path, the caller must insure that is a PATH_SEMANTIC_POLYLINE
+        teseo_gimp_path_get_points (g_image, gimp_path_get_current(g_image), &path_closed, &num_path_point_details, &points_pairs);
+
+	xfract= xfract/25.4;
+	yfract= yfract/25.4;
+
+	slope_hist=(gdouble*) g_malloc(181*sizeof(gdouble));
+
+	//allocate space for strokes 2*number_of_points
+	n_strokes_in =2*( 1 + (num_path_point_details - 6) /9);
+	strokes_in= (gdouble *) g_malloc( n_strokes_in * sizeof (gdouble) );
+
+	//translate path in strokes in mm
+	//g_printf("copying path in strokes\n");
+	for ( i=0; i<n_strokes_in/2; i++ ) {
+		strokes_in[2*i]    = points_pairs[i*9]   / xfract ;
+		strokes_in[2*i+1]  = points_pairs[i*9+1] / yfract ;
+		//g_printf("\nX=%f Y=%f",strokes_in[2*i],strokes_in[2*i+1]);
+	}
+
+	g_free(points_pairs);
+
+        //Take XinYin, XfinYfin from the path
+	if(ignore_coord){
+		Xin=strokes_in[0];
+		Yin=strokes_in[1];
+		Xfin=strokes_in[n_strokes_in/2-2];
+		Yfin=strokes_in[n_strokes_in/2-1];
+	}
+
+	//translate in Xin,Yin origin
+	if(translate){
+		teseo_translate(strokes_in, n_strokes_in, Xin, Yin);
+	}
+	//rotate considering Xin, Yin, Xfin, Yfin,
+	//if rotate==false suppose eventually rotated before calling this function
+	if(rotate){
+		if(use_angle){
+			alpha=angle;
+		}
+		else{
+			alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		}
+		//alpha=atan((Yfin-Yin)/(Xfin-Xin));
+		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
+	}
+
+	if(ignore_sec){
+		factor=1.0;
+	}
+	else {
+		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
+	}
+
+	//working copy
+	strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
+	x1 =	60./ Bg * (
+		+ factor *strokes_copy[0]
+		- r*asin( ( r*r+a*a-Rg*Rg + ((factor)*strokes_copy[1]-b) * ((factor)*strokes_copy[1]-b) )/2./a/r)
+		+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
+		);
+
+	/*
+	Count, after the whole corrections including b, the number of points
+	which has a time younger that the previous point (wrong points)
+	*/
+
+	xtest=x1;
+
+	ret=0.;
+	//Counting wrong points
+	//g_printf("\nCounting  wrong points\n");
+	for(i=0; i<(n_strokes_in/2); i++){
+		strokes_copy[2*i] =
+			60./Bg * (
+			+ factor *strokes_copy[2*i]
+			- r*asin( ( r*r+a*a-Rg*Rg + (factor*strokes_copy[2*i+1]-b)*(factor*strokes_copy[2*i+1]-b) )/2./a/r)
+			+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
+			);
+		if ( strokes_copy[2*i] > xtest ) {
+			xtest=strokes_copy[2*i];
+		}
+		else {
+			ret=ret+1;
+		}
+	}
+
+	//Zeroing
+	gint j;
+	gdouble pir;
+	for(j=-90; j<90; j++){
+		slope_hist[j+90]=0.;
+	}
+
+	pir=asin(0.5);
+
+	for (i=0; i<(n_strokes_in/2); i++){
+
+		alpha = (30/pir) * atan( (strokes_copy[2*(i+1)]-strokes_copy[2*i] )/( strokes_copy[2*(i+1)+1]-strokes_copy[2*i+1]));
+		for(j=-90; j<90; j++){
+			if ( (alpha<=(j+1)) && (alpha>(j-1)) ) {
+				slope_hist[j+90]=slope_hist[j+90]+1;
+			}
+		}
+	}
+	//we now have the slop_hist, copying out
+	for(j=-90; j<=90; j++){
+			hist_points[j+90] = slope_hist[j+90];
+			//debug g_printf("slope_hist[%d] = %f\n",j+90, slope_hist[j+90]);
+	}
+
+	g_free(strokes_copy);
+	g_free(slope_hist);
+	g_free(strokes_in);
+
+return return_code;
+
+}
+
+
 
 
 
