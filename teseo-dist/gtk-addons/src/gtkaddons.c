@@ -237,7 +237,7 @@ char iface_save_rc(const char * file_rc,  GtkWidget * parent_widget) {
 	f = fopen(file_rc, "wt");
 	if(f) {
 		fprintf(f, "# File created by iface_save_rc()\n");
-		fprintf(f, "# $Id: gtkaddons.c,v 1.14 2005-11-24 11:56:47 ilpint Exp $\n");
+		fprintf(f, "# $Id: gtkaddons.c,v 1.15 2005-11-25 11:29:48 ilpint Exp $\n");
 		fprintf(f, "#\n");
 		fprintf(f, "%s %s %s\n", GTK_OBJECT_TYPE_NAME(parent_widget), gtk_widget_get_name(parent_widget), gtk_widget_get_name(parent_widget));
 		iface_save_rc_recursive(parent_widget, f);
@@ -443,7 +443,7 @@ void iface_list_print(struct param_struct * params ){
 void iface_list(GtkWidget * parent_widget , struct param_struct ** params ){
 
 	struct param_struct * lp = (struct param_struct*) g_malloc(sizeof(struct param_struct));
-	g_printf("iface_list:: widget %s\n", gtk_widget_get_name(parent_widget));
+	//g_printf("iface_list:: widget %s\n", gtk_widget_get_name(parent_widget));
         (*lp).current=0;
 	iface_list_recursive( parent_widget, lp);
         *params=lp;
@@ -472,9 +472,6 @@ void iface_list_recursive( gpointer data, gpointer ps){
 	if ( is_marked_widget (data) ){
 		//don't save two time parent window
 		if ( strcmp(GTK_OBJECT_TYPE_NAME(data),"GtkWindow")!=0 ) {
-			// fprintf(f, "\nname = %s", gtk_widget_get_name(data));
-			//fprintf(f, "%s %s ", GTK_OBJECT_TYPE_NAME(data), gtk_widget_get_name(data));
-			//
 			//debug g_printf("%s\n",gtk_widget_get_name(data));
 			(*lps).name[(*lps).current]  = (gchar *) g_malloc(sizeof(gchar)*(1+P_NAME_LENGTH));
 			(*lps).value[(*lps).current] = (gchar *) g_malloc(sizeof(gchar)*(1+P_VALUE_LENGTH));
