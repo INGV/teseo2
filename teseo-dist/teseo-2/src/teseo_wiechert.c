@@ -50,7 +50,7 @@ inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg,
 gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin,  gdouble angle,
-					gboolean use_angle, gboolean ignore_coord,
+					gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 					gdouble ret_b[], gdouble ret_errors[], gulong n_tries){
 	gboolean return_code=TRUE;
 	gdouble *strokes_in=NULL;
@@ -64,6 +64,7 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	gint path_closed, num_path_point_details;
 
 	gdouble xfract=0.,yfract=0.;
+	gdouble factor;
 
 	gimp_image_get_resolution (g_image,  &xfract,  &yfract);
 
@@ -110,14 +111,22 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
 	}
 
+	if(ignore_sec){
+		factor=1.0;
+	}
+	else {
+		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
+	}
+
+
 	b=-b;
 	for (cpt=0;cpt<n_tries;cpt++){
 		b=b+.1;
 		//working copy
 		strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
 		x1 =	60./ Bg * (
-			+ Bg * sec/ (Xfin-Xin) /60.*strokes_copy[0]
-			- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[1]-b) * ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[1]-b) )/2./a/r)
+			+ factor *strokes_copy[0]
+			- r*asin( ( r*r+a*a-Rg*Rg + ((factor)*strokes_copy[1]-b) * ((factor)*strokes_copy[1]-b) )/2./a/r)
 			+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
 			);
 		/*
@@ -133,12 +142,10 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 		for(i=0; i<(n_strokes_in/2); i++){
 			strokes_copy[2*i] =
 				60./Bg * (
-				+ Bg*sec/(Xfin-Xin)/60.*strokes_copy[2*i]
-				- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[2*i+1]-b)*((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[2*i+1]-b))/2./a/r)
+				+ factor *strokes_copy[2*i]
+				- r*asin( ( r*r+a*a-Rg*Rg + (factor*strokes_copy[2*i+1]-b)*(factor*strokes_copy[2*i+1]-b) )/2./a/r)
 				+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
 				);
-		//if((xx(i)-xtest).ge.0.001) then
-			//if ( (strokes_copy[2*i]-xtest) >= 0.00001) {
 			if ( strokes_copy[2*i] > xtest ) {
 				xtest=strokes_copy[2*i];
 				//g_printf("\nChanged Xtest=%f",xtest);
@@ -160,7 +167,7 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
-					gboolean use_angle, gboolean ignore_coord,
+					gboolean use_angle, gboolean ignore_coord, gboolean ignore_sec,
 					gdouble hist_points[]){
 	gboolean return_code=TRUE;
 	gdouble *strokes_in=NULL;
@@ -178,6 +185,8 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	gulong b2=b;
 
 	gdouble xfract=0.,yfract=0.;
+	gdouble factor;
+
 	gimp_image_get_resolution (g_image,  &xfract,  &yfract);
 
 	//TODO take the points in the current path, the caller must insure that is a PATH_SEMANTIC_POLYLINE
@@ -227,6 +236,15 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		teseo_rotate_clockwise(strokes_in, n_strokes_in, alpha);
 	}
 
+	if(ignore_sec){
+		factor=1.0;
+	}
+	else {
+		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
+	}
+
+
+
 	b=-b;
 
 	for ( cpt=0; cpt<(2*b2+1); cpt++){
@@ -234,10 +252,11 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		//working copy
 		strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
 		x1 =	60./ Bg * (
-			+ Bg * sec/ (Xfin-Xin) /60.*strokes_copy[0]
-			- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[1]-b) * ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[1]-b) )/2./a/r)
+			+ factor *strokes_copy[0]
+			- r*asin( ( r*r+a*a-Rg*Rg + ((factor)*strokes_copy[1]-b) * ((factor)*strokes_copy[1]-b) )/2./a/r)
 			+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
 			);
+
 		/*
 		Count, after the whole corrections including b, the number of points
 		which has a time younger that the previous point (wrong points)
@@ -251,11 +270,10 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 		for(i=0; i<(n_strokes_in/2); i++){
 			strokes_copy[2*i] =
 				60./Bg * (
-				+ Bg*sec/(Xfin-Xin)/60.*strokes_copy[2*i]
-				- r*asin( ( r*r+a*a-Rg*Rg + ((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[2*i+1]-b)*((Bg*sec/(Xfin-Xin)/60.)*strokes_copy[2*i+1]-b))/2./a/r)
+				+ factor *strokes_copy[2*i]
+				- r*asin( ( r*r+a*a-Rg*Rg + (factor*strokes_copy[2*i+1]-b)*(factor*strokes_copy[2*i+1]-b) )/2./a/r)
 				+ r*asin( ( r*r+a*a-Rg*Rg+b*b)/2./a/r)
 				);
-
 			if ( strokes_copy[2*i] > xtest ) {
 				xtest=strokes_copy[2*i];
 			}
@@ -382,9 +400,9 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 		factor=1.0;
 	}
 	else {
-		//factor= Bg * sec/ sqrt((Xfin-Xin)*(Xfin-Xin) + (Yfin-Yin)*(Yfin-Yin)  ) /60.;
 		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
 	}
+
 	//working copy
 	strokes_copy=teseo_copy_strokes(strokes_in,n_strokes_in);
 
