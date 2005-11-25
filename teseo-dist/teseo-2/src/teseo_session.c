@@ -43,7 +43,7 @@ struct Session this_session;
 char current_session[FILENAMELEN];
 char current_dlg_session[FILENAMELEN];
 char current_main_window[FILENAMELEN];
-
+char current_wiechert_window[FILENAMELEN];
 
 
 char load_widget(const char * filename, GtkWidget * dlg){
@@ -103,6 +103,7 @@ char save_session(char * filename){
 
 	ret=      save_widget(current_dlg_session, dlg_session);
 	ret=ret * save_widget(current_main_window, win_teseo);
+	ret=ret * save_widget(current_wiechert_window, win_wiechert);
 
 	return ret;
 }
@@ -116,6 +117,7 @@ char load_session(char * filename){
 	gchar session_filename[FILENAMELEN]="aaa";
 	gchar dlg_session_filename[FILENAMELEN]="bbb";
 	gchar main_window_filename[FILENAMELEN]="ccc";
+	gchar wiechert_window_filename[FILENAMELEN]="ccc";
 
 	FILE * f=NULL;
 	gchar line[1024];
@@ -170,6 +172,15 @@ char load_session(char * filename){
 						retp = load_widget(main_window_filename,win_teseo);
 						if (retp==0) g_message("Corrupted %s",main_window_filename);
 					}
+					if ( strcmp("WiechertWindowFile",var) == 0) {
+						app = (line + strlen("WiechertWindowFile") + 3);
+						g_strdelimit  (app, "\n",0x00);
+						base_content= app;
+						strcpy(wiechert_window_filename,base_content);
+						//debug g_message("WiechertWindow file %s", wiechert_window_filename);
+						retp = load_widget(wiechert_window_filename,win_wiechert);
+						if (retp==0) g_message("Corrupted %s",wiechert_window_filename);
+					}
 				}
 			}//while
 			ret=rets*retp;
@@ -183,6 +194,7 @@ char load_session(char * filename){
 			strcpy(current_session,session_filename);
 			strcpy(current_dlg_session,dlg_session_filename);
 			strcpy(current_main_window,main_window_filename);
+			strcpy(current_wiechert_window,wiechert_window_filename);
 			//debug g_message("Session %s %s %s", current_session,current_dlg_session,current_main_window);
 		}
 
@@ -197,9 +209,11 @@ char new_session(char * filename, char * main_window_filename){
 
 	gchar * session_filename=NULL;
 	gchar * dlg_session_filename=NULL;
+	gchar * dlg_wiechert_filename=NULL;
 	gchar * bsession_filename=NULL;
 	gchar * bdlg_session_filename=NULL;
 	gchar * bdlg_preferences_filename=NULL;
+	gchar * bdlg_wiechert_filename=NULL;
 
 	FILE * f=NULL;
 	gchar order[] = "100";
@@ -216,21 +230,25 @@ char new_session(char * filename, char * main_window_filename){
 
 		session_filename         = create_name(filename,order,SESSION_EXT);
 		dlg_session_filename     = create_name(filename,order,SES_DLG_EXT);
+		dlg_wiechert_filename    = create_name(filename,order,WIE_DLG_EXT);
 
 		if (external_preferences==FALSE)
 			main_window_filename = create_name(filename,order,MAIN_WIN_EXT);
 
 		if ( ! teseo_filexist(session_filename)){
 			f = fopen(session_filename,"wt");
-			if ( (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) && ( main_window_filename != NULL) ) {
+			if (    (f != NULL) && (session_filename != NULL) && (dlg_session_filename != NULL) &&
+				( dlg_wiechert_filename != NULL)  && ( main_window_filename != NULL)  ) {
 				ret=1;
 				bsession_filename=g_path_get_basename(session_filename);
 				bdlg_session_filename=g_path_get_basename(dlg_session_filename);
 				bdlg_preferences_filename=g_path_get_basename(main_window_filename);
+				bdlg_wiechert_filename=g_path_get_basename(dlg_wiechert_filename);
 				fprintf(f,"#Created by ...\n");
 				fprintf(f,"SessionFile = %s\n",bsession_filename);
 				fprintf(f,"SessionDialogFile = %s\n",bdlg_session_filename);
 				fprintf(f,"MainWindowFile = %s\n",bdlg_preferences_filename);
+				fprintf(f,"WiechertWindowFile = %s\n",bdlg_wiechert_filename);
 				fclose(f);
 			}
 			else {
@@ -252,11 +270,13 @@ char new_session(char * filename, char * main_window_filename){
 		strcpy(current_session,bsession_filename);
 		strcpy(current_dlg_session,bdlg_session_filename);
 		strcpy(current_main_window,bdlg_preferences_filename);
+		strcpy(current_wiechert_window,bdlg_wiechert_filename);
 	}
 
 	g_free(bsession_filename);
 	g_free(bdlg_session_filename);
 	g_free(bdlg_preferences_filename);
+	g_free(bdlg_wiechert_filename);
 
 	if (session_filename) g_free(session_filename);
 	if (dlg_session_filename) g_free(dlg_session_filename);
