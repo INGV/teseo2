@@ -386,7 +386,7 @@ char save_widget_parasite(GtkWidget * dlg){
 
 	//create a list of named widgets in params
 	iface_list(dlg , &params );
-	iface_list_print( params );
+	//iface_list_print( params );
 	//attach corresponding newly created parasites
 	for (i=0; i<(*params).current;i++){
 		tmp_parasite=gimp_parasite_new ( (*params).name[i] ,   GIMP_PARASITE_PERSISTENT,  strlen( (gchar*)(*params).value[i]) +1,  (*params).value[i]);
@@ -411,7 +411,7 @@ char load_widget_parasite(GtkWidget * dlg){
 	//creating the list of the marked widgets in dlg
 	iface_list(dlg , &params );
 	//debug
-	iface_list_print( params );
+	//iface_list_print( params );
 	//modifying list with parasite values
 	for(j=0;j<(*params).current;j++){
 		if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, (*params).name[j] ))!=NULL){
@@ -426,7 +426,7 @@ char load_widget_parasite(GtkWidget * dlg){
 	//loading in dialog the modified values
 	iface_load_list( params,  dlg );
 	//debug
-	iface_list_print( params );
+	//iface_list_print( params );
 	iface_list_delete( &params );
 
 	return ret;

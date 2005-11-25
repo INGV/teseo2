@@ -395,23 +395,11 @@ on_win_wiechert_delete_event           (GtkWidget       *widget,
                                         gpointer         user_data);
 
 void
-on_plot2btn_clicked                    (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_teseo_show_graph_clicked            (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_plot2btn_clicked                    (GtkButton       *button,
                                         gpointer         user_data);
 
 void

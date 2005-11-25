@@ -68,6 +68,7 @@ GtkWidget * teseo_plot_slope=NULL;
 extern gdouble ret_b[N_TRIES];
 extern gdouble ret_errors[N_TRIES];
 extern gdouble hist_points[DEFAULT_B*2*181];
+extern gdouble histogram[181];
 
 //GtkWidget * real_gtk_plot=NULL;
 
@@ -1807,59 +1808,11 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	gulong  imin,imax,i;
 
 	gchar b_string[11]="";
+		char msg[80];
 
 	gint path_closed, num_path_point_details, num_points;
 	gdouble* points_pairs=NULL;
 
-
-// 	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
-// 	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
-//         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
-//         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
-//         GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
-//         GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
-//         GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
-//         //GtkSpinButton *  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "", b);
-//         GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xin", Xin);
-//         GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
-//         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
-//         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
-// 	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
-//
-// 	if(teseo_spbtn_angle) {
-// 		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
-// 		rotation_angle = atan(1.0)*rotation_angle/45.0;
-// 	}
-// 	if(teseo_chkbtn_rangle) {
-// 		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
-// 	}
-// 	if(teseo_spbtn_time_span) {
-// 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
-// 	}
-// 	if(teseo_spbtn_vel) {
-// 		Bg = gtk_spin_button_get_value (teseo_spbtn_vel);
-// 	}
-// 	if(teseo_spbtn_cyl_radius) {
-// 		r = gtk_spin_button_get_value (teseo_spbtn_cyl_radius);
-// 	}
-// 	if(teseo_spbtn_arm_lenght) {
-// 		Rg = gtk_spin_button_get_value (teseo_spbtn_arm_lenght);
-// 	}
-// 	if(teseo_spbtn_displ) {
-// 		a = gtk_spin_button_get_value (teseo_spbtn_displ);
-// 	}
-// 	if(teseo_Xin) {
-// 		Xin = gtk_spin_button_get_value (teseo_Xin);
-// 	}
-// 	if(teseo_Yin) {
-// 		Yin = gtk_spin_button_get_value (teseo_Yin);
-// 	}
-// 	if(teseo_Xfin) {
-// 		Xfin = gtk_spin_button_get_value (teseo_Xfin);
-// 	}
-// 	if(teseo_Yfin) {
-// 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
-// 	}
 
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
@@ -1876,7 +1829,6 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
 	GtkCheckButton * teseo_chkbtn_rot = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rot", rotate);
 	GtkCheckButton * teseo_chkbtn_span = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_span",use_span );
- 	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
 
 	if(teseo_spbtn_time_span) {
 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
@@ -1960,7 +1912,19 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 			ret_errors[i]=ret_errors[i]*100./num_points;
 		}
 		g_sprintf(b_string,"%2.2f",ret_b[imin]);
-		gtk_entry_set_text (arm_shift_entry, b_string);
+		gtk_spin_button_set_value (teseo_spbtn_b,ret_b[imin]);
+
+		sprintf(msg,"Minimum arm shift %2.2f",ret_b[imin] );
+		teseo_plot = teseo_plot_new(ret_b, ret_errors, N_TRIES, msg, "Arm shift", "Errors [%]" );
+		//hist_points
+		gtk_widget_show_all(teseo_plot);
+		gtk_main();
+		//waiting events
+		while (gtk_events_pending())   gtk_main_iteration();
+		gtk_main_quit();
+
+
+
         }
 	else{
 		g_message("Current path is not a polyline, nothing to do");
@@ -1973,77 +1937,24 @@ void
 on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
-
 	gboolean use_span=TRUE;
 	gboolean use_coord=FALSE;
 	gboolean rotate=TRUE;
 	gboolean use_angle=FALSE;
-
-
 	gdouble rotation_angle=0.;
 
-
 	gchar *cur_path=NULL;
-
 	gdouble sec=0., Bg=0., r=0., Rg=0., a=0., b=0., Xin=0., Yin=0., Xfin=0., Yfin=0.;
+
+        gdouble X_scale[181]={};
+	gint i;
+	char msg[80];
+
 
 	//TODO use it ?
 	//gdouble emin, emax ;
 	//gulong  imin,imax,i;
 	//gchar b_string[11]="";
-
-// 	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
-// 	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
-//         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
-//         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
-//         GtkSpinButton *teseo_spbtn_cyl_radius = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_cyl_radius", r);
-//         GtkSpinButton *teseo_spbtn_arm_lenght = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_arm_lenght", Rg);
-//         GtkSpinButton *teseo_spbtn_displ = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_displ", a);
-//         //GtkSpinButton *  = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "", b);
-//         GtkSpinButton *teseo_Xin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xin", Xin);
-//         GtkSpinButton *teseo_Yin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yin", Yin);
-//         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
-//         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
-// 	GtkEntry * arm_shift_entry =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_arm_shift_entry", 0);
-//
-// 	if(teseo_spbtn_angle) {
-// 		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
-// 		rotation_angle = atan(1.0)*rotation_angle/45.0;
-// 	}
-// 	if(teseo_chkbtn_rangle) {
-// 		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
-// 	}
-// 	if(teseo_chkbtn_extr) {
-// 		use_coord = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_extr);
-// 	}
-// 	if(teseo_spbtn_time_span) {
-// 		sec = gtk_spin_button_get_value (teseo_spbtn_time_span);
-// 	}
-// 	if(teseo_spbtn_vel) {
-// 		Bg = gtk_spin_button_get_value (teseo_spbtn_vel);
-// 	}
-// 	if(teseo_spbtn_cyl_radius) {
-// 		r = gtk_spin_button_get_value (teseo_spbtn_cyl_radius);
-// 	}
-// 	if(teseo_spbtn_arm_lenght) {
-// 		Rg = gtk_spin_button_get_value (teseo_spbtn_arm_lenght);
-// 	}
-// 	if(teseo_spbtn_displ) {
-// 		a = gtk_spin_button_get_value (teseo_spbtn_displ);
-// 	}
-// 	if(teseo_Xin) {
-// 		Xin = gtk_spin_button_get_value (teseo_Xin);
-// 	}
-// 	if(teseo_Yin) {
-// 		Yin = gtk_spin_button_get_value (teseo_Yin);
-// 	}
-// 	if(teseo_Xfin) {
-// 		Xfin = gtk_spin_button_get_value (teseo_Xfin);
-// 	}
-// 	if(teseo_Yfin) {
-// 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
-// 	}
-
 
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
@@ -2056,8 +1967,6 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
         GtkSpinButton *teseo_Xfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Xfin", Xfin);
         GtkSpinButton *teseo_Yfin = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_Yfin", Yfin);
 	GtkSpinButton *teseo_spbtn_angle = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_angle", rotation_angle);
-
-
 	GtkCheckButton * teseo_chkbtn_extr = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_extr", use_coord);
 	GtkCheckButton * teseo_chkbtn_rangle = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rangle", use_angle);
 	GtkCheckButton * teseo_chkbtn_rot = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_chkbtn_rot", rotate);
@@ -2112,19 +2021,26 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 		use_span = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_span);
 	}
 
-
-	b=DEFAULT_B;
-
-
 	cur_path=gimp_path_get_current(teseo_image);
 
 	if(teseo_path_semantic_type(teseo_image, cur_path) == PATH_SEMANTIC_POLYLINE) {
-			teseo_wiech_estimate_b2( teseo_image, sec, Bg, r, Rg, a, b,
+			teseo_wiech_slope_hist( teseo_image, sec, Bg, r, Rg, a, b,
 							rotate, TRUE,
 							Xin, Yin, Xfin, Yfin,
 							rotation_angle, use_angle,
 							!use_coord, !use_span,
-							hist_points);
+							histogram);
+
+			for (i=0; i<181;i++){
+				X_scale[i]=i;
+			}
+			sprintf(msg,"Histogram of slope for shift=%2.2f",b );
+			teseo_plot_slope = teseo_plot_new(X_scale, histogram , 181,  msg, "Slope [deg]" ,"Counts");
+			gtk_widget_show_all(teseo_plot_slope);
+			gtk_main();
+			//waiting events
+			while (gtk_events_pending())   gtk_main_iteration();
+			gtk_main_quit();
 
         }
 	else{
@@ -2132,72 +2048,6 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	}
 
 }
-
-
-
-
-void
-on_teseo_show_graph_clicked            (GtkButton       *button,
-                                        gpointer         user_data)
-{
-	teseo_plot = teseo_plot_new(ret_b, ret_errors, N_TRIES, "Errors estimating arm shift", "Arm shift [mm]", "Errors [%]" );
-	//hist_points
-        gtk_widget_show_all(teseo_plot);
-	gtk_main();
-	//waiting events
-	while (gtk_events_pending())   gtk_main_iteration();
-	gtk_main_quit();
-}
-
-
-
-void
-on_plot2btn_clicked                    (GtkButton       *button,
-                                        gpointer         user_data)
-{
-        //teseo_spbtn_armshift2
-	gdouble b=0.;
-        gdouble X_scale[181]={};
-	gint i;
-
-	for (i=0; i<181;i++){
-		X_scale[i]=i;
-	}
-        GtkSpinButton *teseo_spbtn_armshift2 = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_armshift2", b);
-
-	if(teseo_spbtn_armshift2) {
-		b = gtk_spin_button_get_value (teseo_spbtn_armshift2);
-	}
-
-	//b=DEFAULT_B+b;
-
-	char msg[80];
-        sprintf(msg,"Histogram of slope for shift=%2.2f",b );
-
-	teseo_plot_slope = teseo_plot_new(X_scale, &hist_points[ ((gint) b)+DEFAULT_B*181 ] , 181,  msg, "Slope [deg]" ,"Counts");
-
-        gtk_widget_show_all(teseo_plot_slope);
-	gtk_main();
-	//waiting events
-	while (gtk_events_pending())   gtk_main_iteration();
-	gtk_main_quit();
-}
-
-
-
-
-
-/*
-gboolean
-on_win_plot_delete_event               (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-	gtk_widget_hide(dlg_plot);
-	g_message("Hidden");
-	return TRUE;
-}
-*/
 
 
 void
