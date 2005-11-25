@@ -378,18 +378,23 @@ gchar test_session(char * filename){
 }
 
 
-char save_widget_parasite(GtkWidget * dlg){
+char save_widget_parasite(GtkWidget * dlg, gint evid){
 	char ret=1;
 	struct param_struct * params=NULL;
 	GimpParasite* tmp_parasite;
 	gulong i=0;
+        gchar real_name[EV_PREF_LEN+P_NAME_LENGTH];
 
 	//create a list of named widgets in params
 	iface_list(dlg , &params );
 	//iface_list_print( params );
 	//attach corresponding newly created parasites
 	for (i=0; i<(*params).current;i++){
-		tmp_parasite=gimp_parasite_new ( (*params).name[i] ,   GIMP_PARASITE_PERSISTENT,  strlen( (gchar*)(*params).value[i]) +1,  (*params).value[i]);
+		//sprintf(comp_name(*params).event;
+		sprintf(real_name,"%d%s",evid,(*params).name[i]);
+		g_printf("Saving parasite %s\n",real_name);
+		//tmp_parasite=gimp_parasite_new ( (*params).name[i] ,   GIMP_PARASITE_PERSISTENT,  strlen( (gchar*)(*params).value[i]) +1,  (*params).value[i]);
+		tmp_parasite=gimp_parasite_new ( real_name ,   GIMP_PARASITE_PERSISTENT,  strlen( (gchar*)(*params).value[i]) +1,  (*params).value[i]);
 		gimp_image_parasite_attach  (teseo_image,  tmp_parasite);
 		gimp_parasite_free (tmp_parasite);
 	}
@@ -400,10 +405,10 @@ char save_widget_parasite(GtkWidget * dlg){
 }
 
 
-char load_widget_parasite(GtkWidget * dlg){
-	char ret=1;
+char load_widget_parasite(GtkWidget * dlg, gint evid){
+	char ret=0;
 	GimpParasite* tmp_parasite;
-
+        gchar real_name[EV_PREF_LEN+P_NAME_LENGTH];
 
 	gulong j=0;
 
@@ -414,12 +419,14 @@ char load_widget_parasite(GtkWidget * dlg){
 	//iface_list_print( params );
 	//modifying list with parasite values
 	for(j=0;j<(*params).current;j++){
-		if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, (*params).name[j] ))!=NULL){
-			//debug g_printf("Found %s = %s value %s\n", (*params).name[j],(*tmp_parasite).name, (*tmp_parasite).data);
+		sprintf(real_name,"%d%s",evid,(*params).name[j]);
+		//if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, (*params).name[j] ))!=NULL){
+		if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, real_name ))!=NULL){
+			//g_printf("Found %s = %s value %s\n", real_name,(*tmp_parasite).name, (*tmp_parasite).data);
 			(*params).value[j] = g_realloc( (*params).value[j], (sizeof(char))*(strlen((*tmp_parasite).data )+1 )) ;
-
 			strcpy( (*params).value[j], (gchar*) (*tmp_parasite).data );
 			gimp_parasite_free (tmp_parasite);
+			ret=1;
 		}
 	}
 
@@ -432,29 +439,28 @@ char load_widget_parasite(GtkWidget * dlg){
 	return ret;
 }
 
-char save_session_parasite(){
+char save_session_parasite(gint event){
 
 	char ret=0;
 
-	ret=      save_widget_parasite(dlg_session);
-	ret= ret * save_widget_parasite(win_teseo);
-	ret= ret * save_widget_parasite(win_wiechert);
+	ret=      save_widget_parasite(dlg_session, event);
+	ret= ret * save_widget_parasite(win_teseo, event );
+	ret= ret * save_widget_parasite(win_wiechert, event);
 
 	return ret;
 }
 
 
-char load_parasite_session(){
+char load_parasite_session(gint event){
 
 	char ret =0;
 	char retp=0;
 	char rets=0;
 	char retq=0;
 
-
-	rets = load_widget_parasite(dlg_session);
-	retp = load_widget_parasite(win_teseo);
-	retq = load_widget_parasite(win_wiechert);
+	rets = load_widget_parasite(dlg_session,event);
+	retp = load_widget_parasite(win_teseo,event);
+	retq = load_widget_parasite(win_wiechert,event);
 	ret=rets*retp*retq;
 
 	return ret;

@@ -2194,8 +2194,20 @@ void
 on_import2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	load_parasite_session();
-	g_message("Session Parasites imported from current image.\nRemember to save your session to apply changes");
+        char lps=0;
+	gint event=0;
+	GtkSpinButton *teseo_event_number_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_number_spinbutton", event);
+	if(teseo_event_number_spinbutton) {
+		event = gtk_spin_button_get_value (teseo_event_number_spinbutton);
+	}
+	lps=load_parasite_session(event);
+
+	if(lps){
+		g_message("Session Parasites for event %d imported from current image.\nRemember to save your session to apply changes",event);
+	}
+	else {
+		g_message("An error occurred while loading parasites for event %d",event);
+	}
 }
 
 
@@ -2204,9 +2216,14 @@ on_export2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
 
+	gint event=0;
+	GtkSpinButton *teseo_event_number_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_number_spinbutton", event);
+	if(teseo_event_number_spinbutton) {
+		event = gtk_spin_button_get_value (teseo_event_number_spinbutton);
+	}
 	//saving in the image
-	save_session_parasite();
-	g_message("Session Parasites exported in current image.\nRemember to save your image to apply changes");
+	save_session_parasite(event);
+	g_message("Session Parasites  for event %d exported in current image.\nRemember to save your image to apply changes",event);
 }
 
 
@@ -2214,6 +2231,14 @@ void
 on_remove_all1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
+	gchar **parasites;
+	gint num_parasites;
+	gint i=0
+	;
+	gimp_image_parasite_list (teseo_image, &num_parasites, &parasites);
+	for(i=0;i<num_parasites;i++){
+		gimp_image_parasite_detach (teseo_image, parasites[i]);
+	}
 	g_message("Session Parasites removed from current image.\nRemember to save your image to apply changes");
 }
 
