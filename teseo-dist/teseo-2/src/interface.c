@@ -160,7 +160,8 @@ dialog (gint32              image_ID,
               dlg_about = create_dlg_about ();
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
-              win_wiechert = create_win_wiechert();
+	      dlg_parasites = create_dlg_parasites();
+	      win_wiechert = create_win_wiechert();
 
 	      filechooser_export = GTK_FILE_CHOOSER_DIALOG(create_filechooser_export());
               filechooser_import = GTK_FILE_CHOOSER_DIALOG(create_filechooser_import());

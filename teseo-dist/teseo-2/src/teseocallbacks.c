@@ -32,6 +32,8 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <libgimp/gimp.h>
+#include <libgimp/gimpui.h>
 
 #include "teseocallbacks.h"
 #include "teseointerface.h"
@@ -58,8 +60,8 @@ GtkWidget * dlg_preferences;
 GtkWidget * dlg_about;
 GtkWidget * dlg_session;
 GtkWidget * dlg_move_rotation;
+GtkWidget * dlg_parasites;
 GtkWidget * win_wiechert;
-
 
 
 GtkWidget * teseo_plot=NULL;
@@ -2189,25 +2191,93 @@ on_parasites1_activate                 (GtkMenuItem     *menuitem,
 
 }
 
+#define MAX_EVENT 20
 
 void
 on_import2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
         char lps=0;
-	gint event=0;
+	gint i,j=0,event=0,count=0;
+	gint selected_id;
+        gchar event_str[3]="0";
+
+	//GtkComboBox *  parasite_cbox = (GtkComboBox *) teseo_lookup_widget(GTK_WIDGET(dlg_parasites), "parasite_cbox", 0 );
+	GtkHBox *  parasite_hbox = (GtkHBox *) teseo_lookup_widget(GTK_WIDGET(dlg_parasites), "parasite_hbox", 0 );
+	GtkComboBox *  parasite_cbox;
+	GtkTreeIter *iter;
+        gchar * events[MAX_EVENT];
+
+
+	//gtk_widget_show();
+	//parasite_cbox = gtk_combo_box_new_text ();
+/*	parasite_cbox = gimp_int_combo_box_new ("",0 );
+	//gtk_widget_set_name (parasite_cbox, "parasite_cbox");
+	gtk_widget_show (parasite_cbox);
+	gtk_box_pack_start (GTK_BOX (parasite_hbox), parasite_cbox, FALSE, FALSE, 0);*/
+
+	for(i=0;i<MAX_EVENT;i++){
+			if(test_session_parasite(i)) {
+			events[i]=g_malloc(sizeof(gchar)*3);
+			sprintf(events[i],"%d",i);
+			j++;
+			count=j+1;
+		}
+	}
+
+	if (count==0) {
+		parasite_cbox = (GtkComboBox *) gimp_int_combo_box_new ("None",0 );
+		//gtk_widget_set_name (parasite_cbox, "parasite_cbox");
+		gtk_widget_show (GTK_WIDGET(parasite_cbox));
+		gtk_box_pack_start (GTK_BOX (parasite_hbox), GTK_WIDGET(parasite_cbox), TRUE, FALSE, 1);
+	}
+	else {
+		parasite_cbox = gimp_int_combo_box_new_array (count, events);//??
+		gtk_widget_show (GTK_WIDGET(parasite_cbox));
+		gtk_box_pack_start (GTK_BOX (parasite_hbox),  GTK_WIDGET(parasite_cbox), TRUE, FALSE, 1);
+	}
+
+	gint result = gtk_dialog_run (GTK_DIALOG (dlg_parasites));
+
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+		if (gimp_int_combo_box_get_active   ( (GimpIntComboBox*) parasite_cbox,&selected_id) ){
+			if(selected_id!=0){
+				lps=load_parasite_session(selected_id);
+				if(lps){
+					g_message("Session Parasites for event %d imported from current image.\nRemember to save your session to apply changes",selected_id);
+				}
+				else {
+					g_message("An error occurred while loading parasites for event %d",selected_id);
+				}
+			}
+			else {
+				g_message("No parasites selected");
+			}
+		}
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
+		break;
+	default:
+		break;
+	}
+
+	for(i=0;i<count;i++){
+		g_free(events[i]);
+	}
+
+	gtk_widget_destroy (parasite_cbox);
+//	g_object_unref (parasite_cbox);
+	gtk_widget_hide (dlg_parasites);
+/*
 	GtkSpinButton *teseo_event_number_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_number_spinbutton", event);
 	if(teseo_event_number_spinbutton) {
 		event = gtk_spin_button_get_value (teseo_event_number_spinbutton);
 	}
-	lps=load_parasite_session(event);
+*/
+//	lps=load_parasite_session(event);
 
-	if(lps){
-		g_message("Session Parasites for event %d imported from current image.\nRemember to save your session to apply changes",event);
-	}
-	else {
-		g_message("An error occurred while loading parasites for event %d",event);
-	}
 }
 
 
@@ -2280,6 +2350,14 @@ on_calc_dist_btn_clicked               (GtkButton       *button,
 	if(teseo_spbtn_displ) {
 		 gtk_spin_button_set_value (teseo_spbtn_displ,a);
 	}
+
+}
+
+
+void
+on_parasite_cbentry_changed            (GtkComboBox     *combobox,
+                                        gpointer         user_data)
+{
 
 }
 

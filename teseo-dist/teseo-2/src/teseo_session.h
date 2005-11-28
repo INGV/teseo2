@@ -211,4 +211,6 @@ char load_parasite_session(gint event);
 char save_widget_parasite(GtkWidget * dlg, gint evid);
 char load_widget_parasite(GtkWidget * dlg, gint evid);
 
+char test_session_parasite(gint event);
+
 #endif
