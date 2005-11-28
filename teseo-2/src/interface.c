@@ -157,7 +157,6 @@ dialog (gint32              image_ID,
           if(teseo_lock(pattern_prefix)) {
               win_teseo = create_win_teseo();
               gtk_window_set_title (GTK_WINDOW (win_teseo), TESEO_CAPTION);
-              dlg_preferences = create_dlg_preferences ();
               dlg_about = create_dlg_about ();
               dlg_session = create_dlg_session();
               dlg_move_rotation = create_dlg_move_rotation();
