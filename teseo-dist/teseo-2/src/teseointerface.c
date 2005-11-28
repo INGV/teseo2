@@ -3607,128 +3607,6 @@ create_filechooser_session (void)
 }
 
 GtkWidget*
-create_dlg_preferences (void)
-{
-  GtkWidget *dlg_preferences;
-  GtkWidget *dialog_vbox9;
-  GtkWidget *notebook3;
-  GtkWidget *vbox55;
-  GtkWidget *frame44;
-  GtkWidget *vbox56;
-  GtkWidget *label147;
-  GtkWidget *frame45;
-  GtkWidget *vbox57;
-  GtkWidget *teseo_show_advices_checkbutton;
-  GtkWidget *label148;
-  GtkWidget *label150;
-  GtkWidget *dialog_action_area10;
-  GtkWidget *cancelbutton5;
-  GtkWidget *okbutton6;
-
-  dlg_preferences = gtk_dialog_new ();
-  gtk_widget_set_name (dlg_preferences, "dlg_preferences");
-  gtk_window_set_title (GTK_WINDOW (dlg_preferences), "Preferences");
-  gtk_window_set_modal (GTK_WINDOW (dlg_preferences), TRUE);
-  gtk_window_set_resizable (GTK_WINDOW (dlg_preferences), FALSE);
-  gtk_window_set_type_hint (GTK_WINDOW (dlg_preferences), GDK_WINDOW_TYPE_HINT_DIALOG);
-
-  dialog_vbox9 = GTK_DIALOG (dlg_preferences)->vbox;
-  gtk_widget_set_name (dialog_vbox9, "dialog_vbox9");
-  gtk_widget_show (dialog_vbox9);
-
-  notebook3 = gtk_notebook_new ();
-  gtk_widget_set_name (notebook3, "notebook3");
-  gtk_widget_show (notebook3);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox9), notebook3, TRUE, TRUE, 0);
-  gtk_widget_set_size_request (notebook3, 508, 356);
-  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook3), TRUE);
-
-  vbox55 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox55, "vbox55");
-  gtk_container_add (GTK_CONTAINER (notebook3), vbox55);
-  gtk_widget_set_sensitive (vbox55, FALSE);
-
-  frame44 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame44, "frame44");
-  gtk_widget_show (frame44);
-  gtk_box_pack_start (GTK_BOX (vbox55), frame44, TRUE, TRUE, 0);
-
-  vbox56 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox56, "vbox56");
-  gtk_widget_show (vbox56);
-  gtk_container_add (GTK_CONTAINER (frame44), vbox56);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox56), 4);
-
-  label147 = gtk_label_new ("Environment");
-  gtk_widget_set_name (label147, "label147");
-  gtk_widget_show (label147);
-  gtk_frame_set_label_widget (GTK_FRAME (frame44), label147);
-
-  frame45 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame45, "frame45");
-  gtk_widget_show (frame45);
-  gtk_box_pack_start (GTK_BOX (vbox55), frame45, TRUE, TRUE, 0);
-
-  vbox57 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox57, "vbox57");
-  gtk_widget_show (vbox57);
-  gtk_container_add (GTK_CONTAINER (frame45), vbox57);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox57), 4);
-
-  teseo_show_advices_checkbutton = gtk_check_button_new_with_mnemonic ("Show advices");
-  gtk_widget_set_name (teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
-  gtk_widget_show (teseo_show_advices_checkbutton);
-  gtk_box_pack_start (GTK_BOX (vbox57), teseo_show_advices_checkbutton, FALSE, FALSE, 0);
-
-  label148 = gtk_label_new ("Miscellaneous");
-  gtk_widget_set_name (label148, "label148");
-  gtk_widget_show (label148);
-  gtk_frame_set_label_widget (GTK_FRAME (frame45), label148);
-
-  label150 = gtk_label_new ("<b>General</b>");
-  gtk_widget_set_name (label150, "label150");
-  gtk_widget_show (label150);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook3), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook3), 0), label150);
-  gtk_label_set_use_markup (GTK_LABEL (label150), TRUE);
-
-  dialog_action_area10 = GTK_DIALOG (dlg_preferences)->action_area;
-  gtk_widget_set_name (dialog_action_area10, "dialog_action_area10");
-  gtk_widget_show (dialog_action_area10);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area10), GTK_BUTTONBOX_END);
-
-  cancelbutton5 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_set_name (cancelbutton5, "cancelbutton5");
-  gtk_widget_show (cancelbutton5);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_preferences), cancelbutton5, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (cancelbutton5, GTK_CAN_DEFAULT);
-
-  okbutton6 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_set_name (okbutton6, "okbutton6");
-  gtk_widget_show (okbutton6);
-  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_preferences), okbutton6, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (okbutton6, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dlg_preferences, "dlg_preferences");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dialog_vbox9, "dialog_vbox9");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, notebook3, "notebook3");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox55, "vbox55");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, frame44, "frame44");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox56, "vbox56");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, label147, "label147");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, frame45, "frame45");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, vbox57, "vbox57");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, teseo_show_advices_checkbutton, "teseo_show_advices_checkbutton");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, label148, "label148");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, label150, "label150");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_preferences, dialog_action_area10, "dialog_action_area10");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, cancelbutton5, "cancelbutton5");
-  GLADE_HOOKUP_OBJECT (dlg_preferences, okbutton6, "okbutton6");
-
-  return dlg_preferences;
-}
-
-GtkWidget*
 create_dlg_move_rotation (void)
 {
   GtkWidget *dlg_move_rotation;
@@ -3924,12 +3802,8 @@ create_win_wiechert (void)
   GtkWidget *teseo_spbtn_vel;
   GtkWidget *calc_arm_shift;
   GtkWidget *label317;
-  GtkWidget *frame76;
-  GtkWidget *alignment31;
-  GtkWidget *vbox87;
+  GtkWidget *expander1;
   GtkWidget *table26;
-  GtkWidget *label308;
-  GtkWidget *label292;
   GtkWidget *label293;
   GtkWidget *label291;
   GtkObject *teseo_Xin_adj;
@@ -3940,16 +3814,17 @@ create_win_wiechert (void)
   GtkWidget *teseo_Yfin;
   GtkObject *teseo_Yin_adj;
   GtkWidget *teseo_Yin;
-  GtkWidget *label309;
-  GtkWidget *Frame78;
-  GtkWidget *alignment32;
+  GtkWidget *label308;
+  GtkWidget *label292;
+  GtkWidget *label318;
+  GtkWidget *expander2;
   GtkWidget *table28;
   GtkWidget *teseo_chkbtn_rangle;
   GtkWidget *teseo_chkbtn_extr;
   GtkWidget *teseo_chkbtn_span;
   GtkWidget *teseo_chkbtn_rot;
   GtkWidget *teseo_chkbtn_transl;
-  GtkWidget *label316;
+  GtkWidget *label319;
   GtkWidget *hbox74;
   GtkWidget *calc_arm_slope;
   GtkWidget *btn_correct;
@@ -3960,6 +3835,7 @@ create_win_wiechert (void)
   win_wiechert = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_name (win_wiechert, "win_wiechert");
   gtk_window_set_title (GTK_WINDOW (win_wiechert), "Wiechert correction");
+  gtk_window_set_resizable (GTK_WINDOW (win_wiechert), FALSE);
   gtk_window_set_type_hint (GTK_WINDOW (win_wiechert), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   vbox88 = gtk_vbox_new (FALSE, 0);
@@ -3972,6 +3848,7 @@ create_win_wiechert (void)
   gtk_widget_show (frame79);
   gtk_box_pack_start (GTK_BOX (vbox88), frame79, TRUE, TRUE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (frame79), 3);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame79), GTK_SHADOW_NONE);
 
   alignment33 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_set_name (alignment33, "alignment33");
@@ -4024,7 +3901,7 @@ create_win_wiechert (void)
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
-  teseo_spbtn_arm_lenght_adj = gtk_adjustment_new (100, 0, 1000, 1, 10, 10);
+  teseo_spbtn_arm_lenght_adj = gtk_adjustment_new (400, 0, 1000, 1, 10, 10);
   teseo_spbtn_arm_lenght = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_arm_lenght_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_arm_lenght, "teseo_spbtn_arm_lenght");
   gtk_widget_show (teseo_spbtn_arm_lenght);
@@ -4034,7 +3911,7 @@ create_win_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_spbtn_arm_lenght, "Arm lenght, in mm", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_spbtn_arm_lenght), TRUE);
 
-  teseo_spbtn_displ_adj = gtk_adjustment_new (116.599998474, 0, 1000, 1, 10, 10);
+  teseo_spbtn_displ_adj = gtk_adjustment_new (404.47, 0, 1000, 1, 10, 10);
   teseo_spbtn_displ = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_displ_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_displ, "teseo_spbtn_displ");
   gtk_widget_show (teseo_spbtn_displ);
@@ -4100,7 +3977,7 @@ create_win_wiechert (void)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
 
-  teseo_spbtn_b_adj = gtk_adjustment_new (1, -100, 100, 1, 10, 10);
+  teseo_spbtn_b_adj = gtk_adjustment_new (0, -100, 100, 1, 10, 10);
   teseo_spbtn_b = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_spbtn_b_adj), 1, 2);
   gtk_widget_set_name (teseo_spbtn_b, "teseo_spbtn_b");
   gtk_widget_show (teseo_spbtn_b);
@@ -4135,43 +4012,18 @@ create_win_wiechert (void)
   gtk_frame_set_label_widget (GTK_FRAME (frame79), label317);
   gtk_label_set_use_markup (GTK_LABEL (label317), TRUE);
 
-  frame76 = gtk_frame_new (NULL);
-  gtk_widget_set_name (frame76, "frame76");
-  gtk_widget_show (frame76);
-  gtk_box_pack_start (GTK_BOX (vbox88), frame76, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (frame76), 3);
-
-  alignment31 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment31, "alignment31");
-  gtk_widget_show (alignment31);
-  gtk_container_add (GTK_CONTAINER (frame76), alignment31);
-
-  vbox87 = gtk_vbox_new (FALSE, 3);
-  gtk_widget_set_name (vbox87, "vbox87");
-  gtk_widget_show (vbox87);
-  gtk_container_add (GTK_CONTAINER (alignment31), vbox87);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox87), 5);
+  expander1 = gtk_expander_new (NULL);
+  gtk_widget_set_name (expander1, "expander1");
+  gtk_widget_show (expander1);
+  gtk_box_pack_start (GTK_BOX (vbox88), expander1, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (expander1), 3);
 
   table26 = gtk_table_new (2, 4, TRUE);
   gtk_widget_set_name (table26, "table26");
   gtk_widget_show (table26);
-  gtk_box_pack_start (GTK_BOX (vbox87), table26, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (expander1), table26);
   gtk_container_set_border_width (GTK_CONTAINER (table26), 5);
   gtk_table_set_row_spacings (GTK_TABLE (table26), 5);
-
-  label308 = gtk_label_new ("Starting X");
-  gtk_widget_set_name (label308, "label308");
-  gtk_widget_show (label308);
-  gtk_table_attach (GTK_TABLE (table26), label308, 1, 2, 0, 1,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-
-  label292 = gtk_label_new ("Final X");
-  gtk_widget_set_name (label292, "label292");
-  gtk_widget_show (label292);
-  gtk_table_attach (GTK_TABLE (table26), label292, 3, 4, 0, 1,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
 
   label293 = gtk_label_new ("Final Y");
   gtk_widget_set_name (label293, "label293");
@@ -4227,28 +4079,36 @@ create_win_wiechert (void)
   gtk_tooltips_set_tip (tooltips, teseo_Yin, "Starting point ordinate, in pixels", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_Yin), TRUE);
 
-  label309 = gtk_label_new ("<b>Correction extrema</b>");
-  gtk_widget_set_name (label309, "label309");
-  gtk_widget_show (label309);
-  gtk_frame_set_label_widget (GTK_FRAME (frame76), label309);
-  gtk_label_set_use_markup (GTK_LABEL (label309), TRUE);
+  label308 = gtk_label_new ("Starting X");
+  gtk_widget_set_name (label308, "label308");
+  gtk_widget_show (label308);
+  gtk_table_attach (GTK_TABLE (table26), label308, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
 
-  Frame78 = gtk_frame_new (NULL);
-  gtk_widget_set_name (Frame78, "Frame78");
-  gtk_widget_show (Frame78);
-  gtk_box_pack_start (GTK_BOX (vbox88), Frame78, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (Frame78), 3);
+  label292 = gtk_label_new ("Final X");
+  gtk_widget_set_name (label292, "label292");
+  gtk_widget_show (label292);
+  gtk_table_attach (GTK_TABLE (table26), label292, 3, 4, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
 
-  alignment32 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_set_name (alignment32, "alignment32");
-  gtk_widget_show (alignment32);
-  gtk_container_add (GTK_CONTAINER (Frame78), alignment32);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment32), 0, 0, 12, 0);
+  label318 = gtk_label_new ("<b>Correction extrema</b>");
+  gtk_widget_set_name (label318, "label318");
+  gtk_widget_show (label318);
+  gtk_expander_set_label_widget (GTK_EXPANDER (expander1), label318);
+  gtk_label_set_use_markup (GTK_LABEL (label318), TRUE);
+
+  expander2 = gtk_expander_new (NULL);
+  gtk_widget_set_name (expander2, "expander2");
+  gtk_widget_show (expander2);
+  gtk_box_pack_start (GTK_BOX (vbox88), expander2, FALSE, FALSE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (expander2), 3);
 
   table28 = gtk_table_new (2, 3, TRUE);
   gtk_widget_set_name (table28, "table28");
   gtk_widget_show (table28);
-  gtk_container_add (GTK_CONTAINER (alignment32), table28);
+  gtk_container_add (GTK_CONTAINER (expander2), table28);
   gtk_container_set_border_width (GTK_CONTAINER (table28), 5);
   gtk_table_set_col_spacings (GTK_TABLE (table28), 3);
 
@@ -4292,16 +4152,16 @@ create_win_wiechert (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_tooltips_set_tip (tooltips, teseo_chkbtn_transl, "Correction for lateral speed ", NULL);
 
-  label316 = gtk_label_new ("<b>Options</b>");
-  gtk_widget_set_name (label316, "label316");
-  gtk_widget_show (label316);
-  gtk_frame_set_label_widget (GTK_FRAME (Frame78), label316);
-  gtk_label_set_use_markup (GTK_LABEL (label316), TRUE);
+  label319 = gtk_label_new ("<b>Options</b>");
+  gtk_widget_set_name (label319, "label319");
+  gtk_widget_show (label319);
+  gtk_expander_set_label_widget (GTK_EXPANDER (expander2), label319);
+  gtk_label_set_use_markup (GTK_LABEL (label319), TRUE);
 
   hbox74 = gtk_hbox_new (TRUE, 0);
   gtk_widget_set_name (hbox74, "hbox74");
   gtk_widget_show (hbox74);
-  gtk_box_pack_start (GTK_BOX (vbox88), hbox74, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox88), hbox74, FALSE, FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (hbox74), 3);
 
   calc_arm_slope = gtk_button_new_with_mnemonic ("Slopes");
@@ -4358,33 +4218,82 @@ create_win_wiechert (void)
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_spbtn_vel, "teseo_spbtn_vel");
   GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_shift, "calc_arm_shift");
   GLADE_HOOKUP_OBJECT (win_wiechert, label317, "label317");
-  GLADE_HOOKUP_OBJECT (win_wiechert, frame76, "frame76");
-  GLADE_HOOKUP_OBJECT (win_wiechert, alignment31, "alignment31");
-  GLADE_HOOKUP_OBJECT (win_wiechert, vbox87, "vbox87");
+  GLADE_HOOKUP_OBJECT (win_wiechert, expander1, "expander1");
   GLADE_HOOKUP_OBJECT (win_wiechert, table26, "table26");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label308, "label308");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label292, "label292");
   GLADE_HOOKUP_OBJECT (win_wiechert, label293, "label293");
   GLADE_HOOKUP_OBJECT (win_wiechert, label291, "label291");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Xin, "teseo_Xin");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Xfin, "teseo_Xfin");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Yfin, "teseo_Yfin");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_Yin, "teseo_Yin");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label309, "label309");
-  GLADE_HOOKUP_OBJECT (win_wiechert, Frame78, "Frame78");
-  GLADE_HOOKUP_OBJECT (win_wiechert, alignment32, "alignment32");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label308, "label308");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label292, "label292");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label318, "label318");
+  GLADE_HOOKUP_OBJECT (win_wiechert, expander2, "expander2");
   GLADE_HOOKUP_OBJECT (win_wiechert, table28, "table28");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_rangle, "teseo_chkbtn_rangle");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_extr, "teseo_chkbtn_extr");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_span, "teseo_chkbtn_span");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_rot, "teseo_chkbtn_rot");
   GLADE_HOOKUP_OBJECT (win_wiechert, teseo_chkbtn_transl, "teseo_chkbtn_transl");
-  GLADE_HOOKUP_OBJECT (win_wiechert, label316, "label316");
+  GLADE_HOOKUP_OBJECT (win_wiechert, label319, "label319");
   GLADE_HOOKUP_OBJECT (win_wiechert, hbox74, "hbox74");
   GLADE_HOOKUP_OBJECT (win_wiechert, calc_arm_slope, "calc_arm_slope");
   GLADE_HOOKUP_OBJECT (win_wiechert, btn_correct, "btn_correct");
   GLADE_HOOKUP_OBJECT_NO_REF (win_wiechert, tooltips, "tooltips");
 
   return win_wiechert;
+}
+
+GtkWidget*
+create_dlg_parasites (void)
+{
+  GtkWidget *dlg_parasites;
+  GtkWidget *dialog_vbox12;
+  GtkWidget *vbox89;
+  GtkWidget *dialog_action_area13;
+  GtkWidget *cancelbutton7;
+  GtkWidget *okbutton8;
+
+  dlg_parasites = gtk_dialog_new ();
+  gtk_widget_set_name (dlg_parasites, "dlg_parasites");
+  gtk_window_set_title (GTK_WINDOW (dlg_parasites), "Load session parasites");
+  gtk_window_set_type_hint (GTK_WINDOW (dlg_parasites), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  dialog_vbox12 = GTK_DIALOG (dlg_parasites)->vbox;
+  gtk_widget_set_name (dialog_vbox12, "dialog_vbox12");
+  gtk_widget_show (dialog_vbox12);
+
+  vbox89 = gtk_vbox_new (TRUE, 0);
+  gtk_widget_set_name (vbox89, "vbox89");
+  gtk_widget_show (vbox89);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox12), vbox89, TRUE, TRUE, 0);
+
+  dialog_action_area13 = GTK_DIALOG (dlg_parasites)->action_area;
+  gtk_widget_set_name (dialog_action_area13, "dialog_action_area13");
+  gtk_widget_show (dialog_action_area13);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area13), GTK_BUTTONBOX_END);
+
+  cancelbutton7 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_set_name (cancelbutton7, "cancelbutton7");
+  gtk_widget_show (cancelbutton7);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_parasites), cancelbutton7, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton7, GTK_CAN_DEFAULT);
+
+  okbutton8 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_set_name (okbutton8, "okbutton8");
+  gtk_widget_show (okbutton8);
+  gtk_dialog_add_action_widget (GTK_DIALOG (dlg_parasites), okbutton8, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton8, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dlg_parasites, "dlg_parasites");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dialog_vbox12, "dialog_vbox12");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, vbox89, "vbox89");
+  GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dialog_action_area13, "dialog_action_area13");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, cancelbutton7, "cancelbutton7");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, okbutton8, "okbutton8");
+
+  return dlg_parasites;
 }
 
