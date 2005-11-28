@@ -40,7 +40,7 @@ extern   GtkFileChooserDialog * filechooser_import;
 extern   GtkFileChooserDialog * filechooser_export;
 extern   GtkFileChooserDialog * filechooser_session;
 extern   GtkWidget *win_wiechert;
-
+extern   GtkWidget * dlg_parasites;
 
 
 extern   GimpDrawable *private_drawable ;
@@ -404,4 +404,8 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 
 void
 on_calc_dist_btn_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_parasite_cbentry_changed            (GtkComboBox     *combobox,
                                         gpointer         user_data);

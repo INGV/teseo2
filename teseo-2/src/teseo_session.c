@@ -465,3 +465,39 @@ char load_parasite_session(gint event){
 
 	return ret;
 }
+
+
+char test_widget_parasite(GtkWidget * dlg, gint evid){
+	char ret=0;
+	GimpParasite* tmp_parasite;
+        gchar real_name[EV_PREF_LEN+P_NAME_LENGTH];
+	gulong j=0;
+
+	struct param_struct * params=NULL;
+	//creating the list of the marked widgets in dlg
+	iface_list(dlg , &params );
+	//debug
+	for(j=0;j<(*params).current;j++){
+		sprintf(real_name,"%d%s",evid,(*params).name[j]);
+		//if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, (*params).name[j] ))!=NULL){
+		if ((tmp_parasite=gimp_image_parasite_find  (teseo_image, real_name ))!=NULL){
+			gimp_parasite_free (tmp_parasite);
+			ret=1;
+		}
+	}
+	//loading in dialog the modified values
+	iface_list_delete( &params );
+	return ret;
+}
+
+char test_session_parasite(gint event){
+
+	char ret=1;
+
+	ret= ret * test_widget_parasite(dlg_session, event);
+	ret= ret * test_widget_parasite(win_teseo, event );
+	ret= ret * test_widget_parasite(win_wiechert, event);
+
+	return ret;
+}
+

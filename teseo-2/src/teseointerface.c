@@ -4250,7 +4250,9 @@ create_dlg_parasites (void)
 {
   GtkWidget *dlg_parasites;
   GtkWidget *dialog_vbox12;
-  GtkWidget *vbox89;
+  GtkWidget *parasites_vbox;
+  GtkWidget *label320;
+  GtkWidget *parasite_hbox;
   GtkWidget *dialog_action_area13;
   GtkWidget *cancelbutton7;
   GtkWidget *okbutton8;
@@ -4264,10 +4266,20 @@ create_dlg_parasites (void)
   gtk_widget_set_name (dialog_vbox12, "dialog_vbox12");
   gtk_widget_show (dialog_vbox12);
 
-  vbox89 = gtk_vbox_new (TRUE, 0);
-  gtk_widget_set_name (vbox89, "vbox89");
-  gtk_widget_show (vbox89);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox12), vbox89, TRUE, TRUE, 0);
+  parasites_vbox = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_name (parasites_vbox, "parasites_vbox");
+  gtk_widget_show (parasites_vbox);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox12), parasites_vbox, FALSE, FALSE, 0);
+
+  label320 = gtk_label_new ("Select a session parasite to load");
+  gtk_widget_set_name (label320, "label320");
+  gtk_widget_show (label320);
+  gtk_box_pack_start (GTK_BOX (parasites_vbox), label320, FALSE, FALSE, 0);
+
+  parasite_hbox = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (parasite_hbox, "parasite_hbox");
+  gtk_widget_show (parasite_hbox);
+  gtk_box_pack_start (GTK_BOX (parasites_vbox), parasite_hbox, FALSE, FALSE, 0);
 
   dialog_action_area13 = GTK_DIALOG (dlg_parasites)->action_area;
   gtk_widget_set_name (dialog_action_area13, "dialog_action_area13");
@@ -4289,7 +4301,9 @@ create_dlg_parasites (void)
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dlg_parasites, "dlg_parasites");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dialog_vbox12, "dialog_vbox12");
-  GLADE_HOOKUP_OBJECT (dlg_parasites, vbox89, "vbox89");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, parasites_vbox, "parasites_vbox");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, label320, "label320");
+  GLADE_HOOKUP_OBJECT (dlg_parasites, parasite_hbox, "parasite_hbox");
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_parasites, dialog_action_area13, "dialog_action_area13");
   GLADE_HOOKUP_OBJECT (dlg_parasites, cancelbutton7, "cancelbutton7");
   GLADE_HOOKUP_OBJECT (dlg_parasites, okbutton8, "okbutton8");
