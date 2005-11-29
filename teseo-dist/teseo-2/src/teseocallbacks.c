@@ -2198,45 +2198,34 @@ on_import2_activate                    (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
         char lps=0;
-	gint i,j=0,event=0,count=0;
+	gint i,j=0,count=0;
 	gint selected_id;
-        gchar event_str[3]="0";
+
 
 	//GtkComboBox *  parasite_cbox = (GtkComboBox *) teseo_lookup_widget(GTK_WIDGET(dlg_parasites), "parasite_cbox", 0 );
 	GtkHBox *  parasite_hbox = (GtkHBox *) teseo_lookup_widget(GTK_WIDGET(dlg_parasites), "parasite_hbox", 0 );
-	GtkComboBox *  parasite_cbox;
-	GtkTreeIter *iter;
+	GimpIntComboBox *  parasite_cbox;
+
         gchar * events[MAX_EVENT];
 
-
-	//gtk_widget_show();
-	//parasite_cbox = gtk_combo_box_new_text ();
-/*	parasite_cbox = gimp_int_combo_box_new ("",0 );
-	//gtk_widget_set_name (parasite_cbox, "parasite_cbox");
-	gtk_widget_show (parasite_cbox);
-	gtk_box_pack_start (GTK_BOX (parasite_hbox), parasite_cbox, FALSE, FALSE, 0);*/
+	events[0]=g_malloc(sizeof(gchar)*5);
+	sprintf(events[0],"None");
+	j=1;
+	count=2;
 
 	for(i=0;i<MAX_EVENT;i++){
-			if(test_session_parasite(i)) {
-			events[i]=g_malloc(sizeof(gchar)*3);
-			sprintf(events[i],"%d",i);
+		if(test_session_parasite(i)) {
+			events[j]=g_malloc(sizeof(gchar)*3);
+			sprintf(events[j],"%d",i);
 			j++;
-			count=j+1;
+			count=j;
 		}
 	}
 
-	if (count==0) {
-		parasite_cbox = (GtkComboBox *) gimp_int_combo_box_new ("None",0 );
-		//gtk_widget_set_name (parasite_cbox, "parasite_cbox");
-		gtk_widget_show (GTK_WIDGET(parasite_cbox));
-		gtk_box_pack_start (GTK_BOX (parasite_hbox), GTK_WIDGET(parasite_cbox), TRUE, FALSE, 1);
-	}
-	else {
-		parasite_cbox = gimp_int_combo_box_new_array (count, events);//??
-		gtk_widget_show (GTK_WIDGET(parasite_cbox));
-		gtk_box_pack_start (GTK_BOX (parasite_hbox),  GTK_WIDGET(parasite_cbox), TRUE, FALSE, 1);
-	}
+	parasite_cbox = (GimpIntComboBox *) gimp_int_combo_box_new_array ( count, events );//??
+	gtk_box_pack_start (GTK_BOX (parasite_hbox),  GTK_WIDGET(parasite_cbox), TRUE, FALSE, 1);
 
+	gtk_widget_show (GTK_WIDGET(parasite_cbox));
 	gint result = gtk_dialog_run (GTK_DIALOG (dlg_parasites));
 
 	switch (result)
@@ -2244,12 +2233,13 @@ on_import2_activate                    (GtkMenuItem     *menuitem,
 	case GTK_RESPONSE_OK:
 		if (gimp_int_combo_box_get_active   ( (GimpIntComboBox*) parasite_cbox,&selected_id) ){
 			if(selected_id!=0){
-				lps=load_parasite_session(selected_id);
+				lps=load_parasite_session(strtol(events[selected_id],NULL,0));
 				if(lps){
-					g_message("Session Parasites for event %d imported from current image.\nRemember to save your session to apply changes",selected_id);
+					g_message("Session Parasites for event %ld imported from current image. \nRemember to save your session to apply changes",
+					strtol(events[selected_id],NULL,0));
 				}
 				else {
-					g_message("An error occurred while loading parasites for event %d",selected_id);
+					g_message("An error occurred while loading parasites for event %ld",strtol(events[selected_id],NULL,0));
 				}
 			}
 			else {
@@ -2267,16 +2257,9 @@ on_import2_activate                    (GtkMenuItem     *menuitem,
 		g_free(events[i]);
 	}
 
-	gtk_widget_destroy (parasite_cbox);
+	gtk_widget_destroy (GTK_WIDGET(parasite_cbox));
 //	g_object_unref (parasite_cbox);
 	gtk_widget_hide (dlg_parasites);
-/*
-	GtkSpinButton *teseo_event_number_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_number_spinbutton", event);
-	if(teseo_event_number_spinbutton) {
-		event = gtk_spin_button_get_value (teseo_event_number_spinbutton);
-	}
-*/
-//	lps=load_parasite_session(event);
 
 }
 
