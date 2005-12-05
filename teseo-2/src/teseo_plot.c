@@ -198,8 +198,9 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 
 
 
-GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const gchar * main_title , const gchar * Xtitle, const gchar * Ytitle){
+/*GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const gchar * main_title , const gchar * Xtitle, const gchar * Ytitle,GtkWidget **new_plot){*/
 
+GtkWidget * teseo_plot_new( GtkWidget **new_plot ){
 	GtkWidget *window1;
 	GtkWidget *vbox1;
 	GtkWidget *scrollw1;
@@ -216,7 +217,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 
 	window1=gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	gtk_window_set_title(GTK_WINDOW(window1), main_title);
+	//gtk_window_set_title(GTK_WINDOW(window1), main_title);
 	//gtk_widget_set_usize(window1,650,350); deprecated
 	//set modal
 	gtk_window_set_modal(GTK_WINDOW(window1),TRUE);
@@ -271,6 +272,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	g_signal_connect(GTK_OBJECT(canvas), "select_item",
 			(GtkSignalFunc) select_item, NULL);
 
+/*
 	child = gtk_plot_canvas_text_new("Times-BoldItalic", 16, 0, NULL, NULL, TRUE,
 				GTK_JUSTIFY_CENTER,
 				main_title);
@@ -278,8 +280,10 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
 
 	gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
+*/
 
-	build_data(active_plot, ret_b, ret_e, ntries, Xtitle, Ytitle);
+        *new_plot = active_plot;
+	//build_data(active_plot, ret_b, ret_e, ntries, Xtitle, Ytitle);
 
 	//gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
 	//OG

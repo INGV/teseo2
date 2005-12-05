@@ -62,9 +62,8 @@ GtkWidget * dlg_session;
 GtkWidget * dlg_parasites;
 GtkWidget * win_wiechert;
 
-
-GtkWidget * teseo_plot=NULL;
-GtkWidget * teseo_plot_slope=NULL;
+GtkWidget * teseo_plot_window=NULL;
+GtkWidget * teseo_plot_slope_window=NULL;
 
 extern gdouble ret_b[N_TRIES];
 extern gdouble ret_errors[N_TRIES];
@@ -1872,15 +1871,20 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		gtk_spin_button_set_value (teseo_spbtn_b,ret_b[imin]);
 
 		sprintf(msg,"Minimum arm shift %2.2f",ret_b[imin] );
-		teseo_plot = teseo_plot_new(ret_b, ret_errors, N_TRIES, msg, "Arm shift", "Errors [%]" );
-		//hist_points
-		gtk_widget_show_all(teseo_plot);
+
+		GtkWidget *active_plot=NULL;
+		teseo_plot_window = teseo_plot_new( &active_plot );
+		gtk_window_set_title(GTK_WINDOW(teseo_plot_window), msg);
+		build_data(active_plot, ret_b, ret_errors, N_TRIES, "Arm shift", "Errors [%]");
+
+		gtk_widget_show_all(teseo_plot_window);
 		gtk_main();
 		//waiting events
 		while (gtk_events_pending())   gtk_main_iteration();
 		gtk_main_quit();
 
-
+		g_free(active_plot);
+		g_free(teseo_plot_window);
 
         }
 	else{
@@ -1992,13 +1996,20 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 				X_scale[i]=i;
 			}
 			sprintf(msg,"Histogram of slope for shift=%2.2f",b );
-			teseo_plot_slope = teseo_plot_new(X_scale, histogram , 181,  msg, "Slope [deg]" ,"Counts");
-			gtk_widget_show_all(teseo_plot_slope);
+//			teseo_plot_slope_window = teseo_plot_new(X_scale, histogram , 181,  msg, "Slope [deg]" ,"Counts");
+
+			GtkWidget *active_slope_plot=NULL;
+			teseo_plot_slope_window = teseo_plot_new( &active_slope_plot );
+			gtk_window_set_title(GTK_WINDOW(teseo_plot_slope_window), msg);
+			build_data(active_slope_plot, X_scale, histogram , 181, "Slope [deg]" ,"Counts");
+
+			gtk_widget_show_all(teseo_plot_slope_window);
 			gtk_main();
 			//waiting events
 			while (gtk_events_pending())   gtk_main_iteration();
 			gtk_main_quit();
-
+			g_free(active_slope_plot);
+			g_free(teseo_plot_slope_window);
         }
 	else{
 		g_message("Current path is not a polyline, nothing to do");
