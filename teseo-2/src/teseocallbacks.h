@@ -35,7 +35,6 @@ extern   GtkWidget *win_teseo;
 extern   GtkWidget *dlg_preferences;
 extern   GtkWidget *dlg_about;
 extern   GtkWidget * dlg_session;
-extern   GtkWidget * dlg_move_rotation;
 extern   GtkFileChooserDialog * filechooser_import;
 extern   GtkFileChooserDialog * filechooser_export;
 extern   GtkFileChooserDialog * filechooser_session;
@@ -132,10 +131,6 @@ on_align_all1_activate                 (GtkMenuItem     *menuitem,
 
 void
 on_link_all1_activate                  (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void

@@ -90,8 +90,16 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	if(ignore_coord){
 		Xin=strokes_in[0];
 		Yin=strokes_in[1];
-		Xfin=strokes_in[n_strokes_in/2-2];
-		Yfin=strokes_in[n_strokes_in/2-1];
+		Xfin=strokes_in[n_strokes_in-2];
+		Yfin=strokes_in[n_strokes_in-1];
+		//g_printf("\nFrom path Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+	}//or from input
+	else {
+		Xin=Xin / xfract;
+		Yin=Yin / yfract;
+		Xfin=Xfin / xfract;
+		Yfin=Yfin / yfract;
+		//g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -215,8 +223,16 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	if(ignore_coord){
 		Xin=strokes_in[0];
 		Yin=strokes_in[1];
-		Xfin=strokes_in[n_strokes_in/2-2];
-		Yfin=strokes_in[n_strokes_in/2-1];
+		Xfin=strokes_in[n_strokes_in-2];
+		Yfin=strokes_in[n_strokes_in-1];
+		//g_printf("\nFrom path Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+	}//or from input
+	else {
+		Xin=Xin / xfract;
+		Yin=Yin / yfract;
+		Xfin=Xfin / xfract;
+		Yfin=Yfin / yfract;
+		//g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -242,8 +258,6 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	else {
 		factor= Bg * sec/ ( (Xfin-Xin) * 60.);
 	}
-
-
 
 	b=-b;
 
@@ -372,8 +386,16 @@ gboolean teseo_wiech_slope_hist(	gint32 g_image,
 	if(ignore_coord){
 		Xin=strokes_in[0];
 		Yin=strokes_in[1];
-		Xfin=strokes_in[n_strokes_in/2-2];
-		Yfin=strokes_in[n_strokes_in/2-1];
+		Xfin=strokes_in[n_strokes_in-2];
+		Yfin=strokes_in[n_strokes_in-1];
+		//g_printf("\nFrom path Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+	}//or from input
+	else {
+		Xin=Xin / xfract;
+		Yin=Yin / yfract;
+		Xfin=Xfin / xfract;
+		Yfin=Yfin / yfract;
+		g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -502,21 +524,12 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 	strokes_in= (gdouble *) g_malloc( n_strokes_in * sizeof (gdouble) );
 
 	//translate path in strokes in mm
-	//if (!ignore_sec){
-	if (TRUE){
-		for ( i=0; i<n_strokes_in/2; i++ ) {
+	for ( i=0; i<n_strokes_in/2; i++ ) {
 			strokes_in[2*i]    = points_pairs[i*9]   / xfract ;
 			strokes_in[2*i+1]  = points_pairs[i*9+1] / yfract ;
 			//g_printf("\nX=%f mm Y=%f mm",strokes_in[2*i],strokes_in[2*i+1]);
-		}
 	}
-	else {
-		for ( i=0; i<n_strokes_in/2; i++ ) {
-			strokes_in[2*i]    = points_pairs[i*9]   ;
-			strokes_in[2*i+1]  = points_pairs[i*9+1] ;
-			//g_printf("\nX=%f pix Y=%f pix",strokes_in[2*i],strokes_in[2*i+1]);
-		}
-	}
+
 	g_free(points_pairs);
 
         //Take XinYin, XfinYfin from the path if needed
@@ -528,7 +541,11 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 		//g_printf("\nFrom path Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 	else {
-		//g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+		Xin=Xin / xfract;
+		Yin=Yin / yfract;
+		Xfin=Xfin / xfract;
+		Yfin=Yfin / yfract;
+		g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -620,7 +637,7 @@ void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle){
 	gdouble sinangle = sin(angle);
 	gdouble x_rot,y_rot;
 	gulong i=0;
-
+        g_printf("Rotating of alpha %f radians = %f degree\n",angle,angle/atan(1.0)*45.0);
 	//modifying strokes
 	for( i=1; i < (n_strokes/2) ; i++) {
 		x_rot =  (cosangle * (strokes[i*2] - offx)) + (sinangle * (strokes[i*2 +1] - offy));
