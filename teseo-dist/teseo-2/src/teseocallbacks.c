@@ -59,7 +59,6 @@ GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
 GtkWidget * dlg_about;
 GtkWidget * dlg_session;
-GtkWidget * dlg_move_rotation;
 GtkWidget * dlg_parasites;
 GtkWidget * win_wiechert;
 
@@ -813,50 +812,6 @@ on_link_unlocked_paths1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
     teseo_link_all_path_unlocked(teseo_image, FALSE);
-}
-
-
-void
-on_move_and_rotation1_activate         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-    // TODO catch x, y, rotate value
-    gint x=0, y=0;
-    gdouble rotation = 0.0;
-    gint x_cur, y_cur;
-
-    gint result;
-
-    gdouble * points_pairs=NULL;
-    gint path_closed, num_path_point_details;
-
-    teseo_gimp_path_get_points (teseo_image, gimp_path_get_current(teseo_image), &path_closed, &num_path_point_details, &points_pairs);
-
-    if(num_path_point_details < 1) {
-	g_message("Path is empty !");
-    }
-
-    x_cur = (gint) points_pairs[0];
-    y_cur = (gint) points_pairs[1];
-
-    result = gtk_dialog_run (GTK_DIALOG (dlg_move_rotation));
-    switch (result)
-    {
-	case GTK_RESPONSE_OK:
-	    g_message(TODO_str);
-	    teseo_path_move(teseo_image, x, y, rotation);
-	    break;
-	case GTK_RESPONSE_CANCEL:
-	    break;
-	case GTK_RESPONSE_DELETE_EVENT:
-	    break;
-	default:
-	    break;
-    }
-
-    g_free(points_pairs);
-
-    gtk_widget_hide (dlg_move_rotation);
 }
 
 
@@ -2126,6 +2081,7 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	}
 	if(teseo_spbtn_angle) {
 		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
+		//rotation angle become radians
 		rotation_angle = atan(1.0)*rotation_angle/45.0;
 	}
 

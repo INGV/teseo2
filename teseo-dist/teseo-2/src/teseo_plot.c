@@ -24,6 +24,12 @@
  * sale, use or other dealings in this Software without prior written
  * authorization from the Authors.
  */
+/*
+GLib-ERROR **: gmem.c:173: failed to allocate 2281697280 bytes
+aborting...
+
+(gimp-2.2:5722): Gimp-Plug-In-WARNING **: gimp-2.2: plug_in_flush(): error: Broken pipe
+*/
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -185,8 +191,8 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 
 	gtk_plot_data_set_connector(dataset, GTK_PLOT_CONNECT_STRAIGHT);
 
-	gdk_color_parse("blue", &color);
-	gdk_colormap_alloc_color(gdk_colormap_get_system(), &color, FALSE, TRUE);
+	//gdk_color_parse("blue", &color);
+	//gdk_colormap_alloc_color(gdk_colormap_get_system(), &color, FALSE, TRUE);
 
 }
 
@@ -203,7 +209,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	GtkWidget *active_plot=NULL;
 
 	gint page_width, page_height;
-	gfloat scale = 4.;
+	gfloat scale = 3.;
 
 	page_width = GTK_PLOT_LETTER_W * scale;
 	page_height = GTK_PLOT_LETTER_H * scale;
@@ -214,15 +220,15 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	//gtk_widget_set_usize(window1,650,350); deprecated
 	//set modal
 	gtk_window_set_modal(GTK_WINDOW(window1),TRUE);
-	gtk_window_set_default_size(GTK_WINDOW(window1),550,300);
-	gtk_container_set_border_width(GTK_CONTAINER(window1),0);
+	gtk_window_set_default_size(GTK_WINDOW(window1),400,300);
+	gtk_container_set_border_width(GTK_CONTAINER(window1),3);
 
 	vbox1=gtk_vbox_new(FALSE,0);
 	gtk_container_add(GTK_CONTAINER(window1),vbox1);
 	gtk_widget_show(vbox1);
 
 	scrollw1=gtk_scrolled_window_new(NULL, NULL);
-	gtk_container_set_border_width(GTK_CONTAINER(scrollw1),0);
+	gtk_container_set_border_width(GTK_CONTAINER(scrollw1),3);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollw1), GTK_POLICY_ALWAYS,GTK_POLICY_ALWAYS);
 
 	gtk_box_pack_start(GTK_BOX(vbox1),scrollw1, TRUE, TRUE,0);
@@ -247,7 +253,7 @@ GtkWidget * teseo_plot_new(gdouble *ret_b, gdouble *ret_e, gulong ntries, const 
 	gtk_plot_hide_legends(GTK_PLOT(active_plot));
 	gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP));
 	gtk_plot_axis_show_ticks(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_BOTTOM), 15, 3);
-	gtk_plot_set_ticks(GTK_PLOT(active_plot), GTK_PLOT_AXIS_X, 5., 1);
+	gtk_plot_set_ticks(GTK_PLOT(active_plot), GTK_PLOT_AXIS_X, 10., 1);
 	gtk_plot_set_ticks(GTK_PLOT(active_plot), GTK_PLOT_AXIS_Y, 20., 1);
 	gtk_plot_axis_set_visible(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP), FALSE);
 	gtk_plot_axis_set_visible(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_RIGHT), FALSE);
