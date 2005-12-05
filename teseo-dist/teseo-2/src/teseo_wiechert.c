@@ -395,7 +395,7 @@ gboolean teseo_wiech_slope_hist(	gint32 g_image,
 		Yin=Yin / yfract;
 		Xfin=Xfin / xfract;
 		Yfin=Yfin / yfract;
-		g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+		//g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -545,7 +545,7 @@ gulong teseo_wiech_corr(	gint32 g_image, gdouble sec, gdouble Bg, gdouble r, gdo
 		Yin=Yin / yfract;
 		Xfin=Xfin / xfract;
 		Yfin=Yfin / yfract;
-		g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
+		//g_printf("\nFrom input Xin=%f Yin=%f Xfin=%f Yfin=%f",Xin, Yin, Xfin, Yfin);
 	}
 
 	//translate in Xin,Yin origin
@@ -637,7 +637,7 @@ void teseo_rotate_clockwise(gdouble * strokes, gulong n_strokes, gdouble angle){
 	gdouble sinangle = sin(angle);
 	gdouble x_rot,y_rot;
 	gulong i=0;
-        g_printf("Rotating of alpha %f radians = %f degree\n",angle,angle/atan(1.0)*45.0);
+        //g_printf("Rotating of alpha %f radians = %f degree\n",angle,angle/atan(1.0)*45.0);
 	//modifying strokes
 	for( i=1; i < (n_strokes/2) ; i++) {
 		x_rot =  (cosangle * (strokes[i*2] - offx)) + (sinangle * (strokes[i*2 +1] - offy));
