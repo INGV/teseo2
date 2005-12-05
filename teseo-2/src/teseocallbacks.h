@@ -41,8 +41,6 @@ extern   GtkFileChooserDialog * filechooser_session;
 extern   GtkWidget *win_wiechert;
 extern   GtkWidget * dlg_parasites;
 
-extern   GtkWidget * teseo_plot_window;
-extern   GtkWidget * teseo_plot_slope_window;
 
 extern   GimpDrawable *private_drawable ;
 extern   gint32  teseo_image ;

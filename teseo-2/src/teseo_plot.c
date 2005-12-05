@@ -120,28 +120,15 @@ gint select_item(GtkWidget *widget, GdkEvent *event, GtkPlotCanvasChild *child, 
 
 
 void
-build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const gchar * Xtitle, const gchar * Ytitle )
+build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gdouble *dx1, gdouble *dy1, gulong ntries, const gchar * Xtitle, const gchar * Ytitle )
 {
 	GdkColor color;
 	GtkPlotAxis *axis;
 	GtkPlotData *dataset;
 
-	static gdouble px1[800]={};
-	static gdouble py1[800]={};
-
-
-	static gdouble dx1[800]={};
-	static gdouble dy1[800]={};
-
-	//TODO
-	//gdouble * dx1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
-	//gdouble * dy1= (gdouble *) g_malloc(sizeof (gdouble) * ntries );
-
 	gulong i;
 
 	for (i=0;i<ntries; i++){
-		px1[i]=ret_b[i];
-		py1[i]=ret_e[i];
 
 		dx1[i]=0.2;
 		dy1[i]=0.1;
@@ -154,7 +141,6 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 		emin = (emin<ret_e[i]) ? emin:ret_e[i];
 		emax = (emax>ret_e[i]) ? emax:ret_e[i];
 	}
-
 
 	gtk_plot_set_range(GTK_PLOT(plot), ret_b[0], ret_b[ntries-1], 0., emax);
 
@@ -191,9 +177,6 @@ build_data(GtkWidget *plot, gdouble *ret_b, gdouble *ret_e, gulong ntries, const
 
 	gtk_plot_data_set_connector(dataset, GTK_PLOT_CONNECT_STRAIGHT);
 
-	//gdk_color_parse("blue", &color);
-	//gdk_colormap_alloc_color(gdk_colormap_get_system(), &color, FALSE, TRUE);
-
 }
 
 
@@ -210,27 +193,28 @@ GtkWidget * teseo_plot_new( GtkWidget **new_plot ){
 	GtkWidget *active_plot=NULL;
 
 	gint page_width, page_height;
-	gfloat scale = 3.;
+	gfloat scale = 2.;
 
-	page_width = GTK_PLOT_LETTER_W * scale;
-	page_height = GTK_PLOT_LETTER_H * scale;
+/*	page_width = GTK_PLOT_LETTER_W * scale;
+	page_height = GTK_PLOT_LETTER_H * scale;*/
+	page_width = GTK_PLOT_A4_W * scale;
+	page_height = GTK_PLOT_A4_H * scale;
 
 	window1=gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	//gtk_window_set_title(GTK_WINDOW(window1), main_title);
 	//gtk_widget_set_usize(window1,650,350); deprecated
 	//set modal
 	gtk_window_set_modal(GTK_WINDOW(window1),TRUE);
-	gtk_window_set_default_size(GTK_WINDOW(window1),400,300);
-	gtk_container_set_border_width(GTK_CONTAINER(window1),3);
+	gtk_window_set_default_size(GTK_WINDOW(window1),600,500);
+	gtk_container_set_border_width(GTK_CONTAINER(window1),0);
 
 	vbox1=gtk_vbox_new(FALSE,0);
 	gtk_container_add(GTK_CONTAINER(window1),vbox1);
 	gtk_widget_show(vbox1);
 
 	scrollw1=gtk_scrolled_window_new(NULL, NULL);
-	gtk_container_set_border_width(GTK_CONTAINER(scrollw1),3);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollw1), GTK_POLICY_ALWAYS,GTK_POLICY_ALWAYS);
+	gtk_container_set_border_width(GTK_CONTAINER(scrollw1),0);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollw1), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
 	gtk_box_pack_start(GTK_BOX(vbox1),scrollw1, TRUE, TRUE,0);
 	gtk_widget_show(scrollw1);
@@ -239,17 +223,9 @@ GtkWidget * teseo_plot_new( GtkWidget **new_plot ){
 	GTK_PLOT_CANVAS_SET_FLAGS(GTK_PLOT_CANVAS(canvas), GTK_PLOT_CANVAS_DND_FLAGS);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollw1), canvas);
 
-	//gdk_color_parse("light blue", &color);
-	//gdk_color_alloc(gtk_widget_get_colormap(canvas), &color);
-	//gtk_plot_canvas_set_background(GTK_PLOT_CANVAS(canvas), &color);
-
 	gtk_widget_show(canvas);
 	active_plot=gtk_plot_new_with_size(NULL, .5, .25);
 	gtk_widget_show(active_plot);
-	//gtk_plot_clip_data(GTK_PLOT(active_plot), TRUE);
-	//gtk_plot_set_range(GTK_PLOT(active_plot), -1., 1., -1., 1.4);
-	//gtk_plot_legends_move(GTK_PLOT(active_plot), 0.500, 0.05);
-	//gtk_plot_set_legends_border(GTK_PLOT(active_plot), 0, 0);
 
 	gtk_plot_hide_legends(GTK_PLOT(active_plot));
 	gtk_plot_axis_hide_title(gtk_plot_get_axis(GTK_PLOT(active_plot), GTK_PLOT_AXIS_TOP));
@@ -272,18 +248,8 @@ GtkWidget * teseo_plot_new( GtkWidget **new_plot ){
 	g_signal_connect(GTK_OBJECT(canvas), "select_item",
 			(GtkSignalFunc) select_item, NULL);
 
-/*
-	child = gtk_plot_canvas_text_new("Times-BoldItalic", 16, 0, NULL, NULL, TRUE,
-				GTK_JUSTIFY_CENTER,
-				main_title);
-
-	gtk_plot_canvas_put_child(GTK_PLOT_CANVAS(canvas), child, .40, .020, .0, .0);
-
-	gtk_plot_text_set_border(&GTK_PLOT_CANVAS_TEXT(child)->text, GTK_PLOT_BORDER_SHADOW, 2, 0, 2);
-*/
 
         *new_plot = active_plot;
-	//build_data(active_plot, ret_b, ret_e, ntries, Xtitle, Ytitle);
 
 	//gtk_plot_canvas_export_ps(GTK_PLOT_CANVAS(canvas), "demoplot.ps", GTK_PLOT_PORTRAIT, FALSE, GTK_PLOT_LETTER);
 	//OG

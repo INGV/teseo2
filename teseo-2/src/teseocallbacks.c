@@ -35,6 +35,8 @@
 #include <libgimp/gimp.h>
 #include <libgimp/gimpui.h>
 
+#include <gtkextra/gtkplot.h>
+
 #include "teseocallbacks.h"
 #include "teseointerface.h"
 #include "teseosupport.h"
@@ -64,11 +66,15 @@ GtkWidget * win_wiechert;
 
 GtkWidget * teseo_plot_window=NULL;
 GtkWidget * teseo_plot_slope_window=NULL;
+GtkWidget *active_plot=NULL;
+GtkWidget *active_slope_plot=NULL;
 
 extern gdouble ret_b[N_TRIES];
 extern gdouble ret_errors[N_TRIES];
-extern gdouble hist_points[DEFAULT_B*2*181];
-extern gdouble histogram[181];
+extern gdouble hist_points[DEFAULT_B*2*180];
+extern gdouble histogram[180];
+gdouble dx1[800]={};
+gdouble dy1[800]={};
 
 //GtkWidget * real_gtk_plot=NULL;
 
@@ -1872,10 +1878,12 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 		sprintf(msg,"Minimum arm shift %2.2f",ret_b[imin] );
 
-		GtkWidget *active_plot=NULL;
+		//GtkWidget *active_plot=NULL;
 		teseo_plot_window = teseo_plot_new( &active_plot );
+
 		gtk_window_set_title(GTK_WINDOW(teseo_plot_window), msg);
-		build_data(active_plot, ret_b, ret_errors, N_TRIES, "Arm shift", "Errors [%]");
+		build_data(active_plot, ret_b,  ret_errors, dx1, dy1, N_TRIES, "Arm shift", "Errors [%]");
+	        gtk_plot_set_ticks(GTK_PLOT(active_plot), GTK_PLOT_AXIS_Y, 1., 1);
 
 		gtk_widget_show_all(teseo_plot_window);
 		gtk_main();
@@ -1907,7 +1915,7 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	gchar *cur_path=NULL;
 	gdouble sec=0., Bg=0., r=0., Rg=0., a=0., b=0., Xin=0., Yin=0., Xfin=0., Yfin=0.;
 
-        gdouble X_scale[181]={};
+        gdouble X_scale[180]={};
 	gint i;
 	char msg[80];
 
@@ -1992,16 +2000,17 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 							!use_coord, !use_span,
 							histogram);
 
-			for (i=0; i<181;i++){
+			for (i=0; i<180;i++){
 				X_scale[i]=i;
 			}
 			sprintf(msg,"Histogram of slope for shift=%2.2f",b );
-//			teseo_plot_slope_window = teseo_plot_new(X_scale, histogram , 181,  msg, "Slope [deg]" ,"Counts");
+//			teseo_plot_slope_window = teseo_plot_new(X_scale, histogram , 180,  msg, "Slope [deg]" ,"Counts");
 
-			GtkWidget *active_slope_plot=NULL;
+			//GtkWidget *active_slope_plot=NULL;
+
 			teseo_plot_slope_window = teseo_plot_new( &active_slope_plot );
 			gtk_window_set_title(GTK_WINDOW(teseo_plot_slope_window), msg);
-			build_data(active_slope_plot, X_scale, histogram , 181, "Slope [deg]" ,"Counts");
+			build_data(active_slope_plot, X_scale, histogram, dx1, dy1, 180, "Slope [deg]" ,"Counts");
 
 			gtk_widget_show_all(teseo_plot_slope_window);
 			gtk_main();
