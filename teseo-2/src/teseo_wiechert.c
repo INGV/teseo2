@@ -31,10 +31,10 @@
 #include "teseo_wiechert.h"
 
 
-gdouble ret_b[N_TRIES];
-gdouble ret_errors[N_TRIES];
-gdouble hist_points[DEFAULT_B*2*181]={};
-gdouble histogram[181]={};
+gdouble ret_b[N_TRIES]={};
+gdouble ret_errors[N_TRIES]={};
+gdouble hist_points[DEFAULT_B*2*180]={};
+gdouble histogram[180]={};
 
 inline double teseo_cadeck( double Rg, double  a, double r, double b, double Bg, double sec, double xfinal, double xinitial, double xi, double yi){
 	double ret=0;
@@ -171,7 +171,7 @@ gboolean teseo_wiech_estimate_b1(	gint32 g_image,
 	return return_code;
 }
 
-/*Dimension of hist_points 181*2*b, */
+/*Dimension of hist_points 180*2*b, */
 gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
@@ -203,7 +203,7 @@ gboolean teseo_wiech_estimate_b2(	gint32 g_image,
 	xfract= xfract/25.4;
 	yfract= yfract/25.4;
 
-	slope_hist=(gdouble*) g_malloc(181*sizeof(gdouble));
+	slope_hist=(gdouble*) g_malloc(180*sizeof(gdouble));
 
 	//allocate space for strokes 2*number_of_points
 	n_strokes_in =2*( 1 + (num_path_point_details - 6) /9);
@@ -334,7 +334,7 @@ return return_code;
 
 
 
-/*Dimension of hist_points 181, */
+/*Dimension of hist_points 180, */
 gboolean teseo_wiech_slope_hist(	gint32 g_image,
 					gdouble sec, gdouble Bg, gdouble r, gdouble Rg, gdouble a, gdouble b,
 					gboolean rotate, gboolean translate, gdouble Xin, gdouble Yin, gdouble Xfin, gdouble Yfin, gdouble angle,
@@ -366,7 +366,7 @@ gboolean teseo_wiech_slope_hist(	gint32 g_image,
 	xfract= xfract/25.4;
 	yfract= yfract/25.4;
 
-	slope_hist=(gdouble*) g_malloc(181*sizeof(gdouble));
+	slope_hist=(gdouble*) g_malloc(180*sizeof(gdouble));
 
 	//allocate space for strokes 2*number_of_points
 	n_strokes_in =2*( 1 + (num_path_point_details - 6) /9);
@@ -474,9 +474,9 @@ gboolean teseo_wiech_slope_hist(	gint32 g_image,
 		}
 	}
 	//we now have the slop_hist, copying out
-	for(j=-90; j<=90; j++){
+	for(j=-90; j<90; j++){
 			hist_points[j+90] = slope_hist[j+90];
-			//debug g_printf("slope_hist[%d] = %f\n",j+90, slope_hist[j+90]);
+			//g_printf("slope_hist[%d] = %f\n",j+90, slope_hist[j+90]);
 	}
 
 	g_free(strokes_copy);
