@@ -4009,7 +4009,7 @@ create_win_wiechert (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_tooltips_set_tip (tooltips, teseo_chkbtn_rangle, "Use explicit raster angle in rotation", NULL);
 
-  teseo_chkbtn_extr = gtk_check_button_new_with_mnemonic ("Use Extrema");
+  teseo_chkbtn_extr = gtk_check_button_new_with_mnemonic ("Use extrema");
   gtk_widget_set_name (teseo_chkbtn_extr, "teseo_chkbtn_extr");
   gtk_widget_show (teseo_chkbtn_extr);
   gtk_table_attach (GTK_TABLE (table28), teseo_chkbtn_extr, 0, 1, 0, 1,
