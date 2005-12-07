@@ -2044,8 +2044,14 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	gboolean use_shift=TRUE;
 
 	gdouble rotation_angle=0.;
-	gchar corrected_path[FILENAMELEN];
+	gchar current_path[FILENAMELEN]="";
+	gchar corrected_path[FILENAMELEN]="";
+	gchar *start_pathname=NULL;
 	gulong errors=0.0;
+	gchar options_str[80]="";
+	gchar app[6]="";
+
+
 
         GtkSpinButton *teseo_spbtn_time_span = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_time_span", sec);
         GtkSpinButton *teseo_spbtn_vel = (GtkSpinButton *) teseo_lookup_widget(GTK_WIDGET(win_wiechert), "teseo_spbtn_vel", Bg);
@@ -2099,17 +2105,16 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	if(teseo_Yfin) {
 		Yfin = gtk_spin_button_get_value (teseo_Yfin);
 	}
+	if(teseo_chkbtn_rangle) {
+		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
+	}
 	if(teseo_spbtn_angle) {
 		rotation_angle = gtk_spin_button_get_value (teseo_spbtn_angle);
 		//rotation angle become radians
 		rotation_angle = atan(1.0)*rotation_angle/45.0;
 	}
-
 	if(teseo_chkbtn_extr) {
 		use_coord = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_extr);
-	}
-	if(teseo_chkbtn_rangle) {
-		use_angle = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rangle);
 	}
 	if(teseo_chkbtn_rot) {
 		rotate = gtk_toggle_button_get_active((GtkToggleButton *) teseo_chkbtn_rot);
@@ -2125,15 +2130,54 @@ on_btn_correct_clicked                 (GtkButton       *button,
 	gimp_image_get_resolution (teseo_image,  &xfract,  &yfract);
 	xfract= xfract/25.4;
 	yfract= yfract/25.4;
+	sprintf(current_path,"%s",gimp_path_get_current(teseo_image));
 
-	if(teseo_path_semantic_type(teseo_image, gimp_path_get_current(teseo_image)) == PATH_SEMANTIC_POLYLINE) {
+	if(teseo_path_semantic_type(teseo_image, current_path) == PATH_SEMANTIC_POLYLINE) {
 		errors=teseo_wiech_corr( teseo_image, sec, Bg, r, Rg, a, b,
 					rotate, TRUE,
 					Xin, Yin, Xfin, Yfin,
 					rotation_angle, vshift/3600, use_angle, !use_coord, !use_span, use_shift, &strokes_corr, &n_points);
 		teseo_strokes_scale( strokes_corr, n_points, xfract*Bg/60.0, yfract, TRUE);
 		teseo_strokes_point_pairs(strokes_corr, n_points, &point_pairs, &num_details);
-		sprintf(corrected_path, "R%2.2f_a%2.2f_r%2.2f_b%+2.2f_quality%d", Rg,a,r,b,(gint) errors);
+
+                sprintf(options_str,"%s",(rotate)?"rotate_":"");
+		if(rotate && use_angle) {
+			sprintf(app,"%s%2.2f_",(use_angle)?"r_angle":"",gtk_spin_button_get_value (teseo_spbtn_angle));
+			strcat(options_str,app);
+		}
+		if(use_coord) {
+			strcat(options_str,"_Use_extrema");
+		}
+		if(use_span) {
+			strcat(options_str,"_Use_timespan");
+		}
+		if(use_shift) {
+			strcat(options_str,"_Shifting");
+		}
+
+		if(strlen(current_path) < (FILENAMELEN-40)) {
+			gint len;
+                        if( g_strstr_len (current_path, 20, "**" ) != NULL ) {
+				len=strlen(g_strstr_len (current_path, 20, "**" ));
+			} else{
+				len=0;
+			}
+
+			len = strlen(current_path) - len;
+			start_pathname = g_strndup ( current_path, len);
+
+			if(start_pathname){
+				sprintf(corrected_path, "%s**R%2.2f_a%2.2f_r%2.2f_b%+2.2f%s_Q%d", start_pathname, Rg,a,r,b,options_str, (gint) errors);
+				g_free(start_pathname);
+			}
+			else{
+				sprintf(corrected_path, "%s**R%2.2f_a%2.2f_r%2.2f_b%+2.2f%s_Q%d", current_path, Rg,a,r,b,options_str, (gint) errors);
+			}
+		}
+		else{
+			sprintf(corrected_path, "%s**R%2.2f_a%2.2f_r%2.2f_b%+2.2f%s_Q%d", "toolong",Rg,a,r,b,options_str, (gint) errors);
+		}
+
 		gimp_path_set_points(teseo_image, corrected_path, 1, num_details, point_pairs);
 		//g_message("Points = %d details=%d",n_points,num_details);
 	}
