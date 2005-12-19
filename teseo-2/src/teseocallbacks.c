@@ -1922,7 +1922,15 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                 color.red = 65535;
                 color.green = 1035;
                 color.blue = 1050;
-                teseo_create_databox (N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]" );
+		GtkWidget * databox_plot=
+			teseo_create_databox (N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]" );
+		gtk_widget_show_all(databox_plot);
+		gtk_main();
+		//waiting events
+		while (gtk_events_pending())   gtk_main_iteration();
+		gtk_main_quit();
+		g_free(databox_plot);
+
 	}
 	else{
 		g_message("Current path is not a polyline, nothing to do");
@@ -2035,9 +2043,9 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 			sprintf(msg,"Histogram of slope for shift=%2.2f",b );
 //			teseo_plot_slope_window = teseo_plot_new(X_scale, histogram , 180,  msg, "Slope [deg]" ,"Counts");
 
-       
-			//GtkWidget *active_slope_plot=NULL;
 
+			//GtkWidget *active_slope_plot=NULL;
+/*
 			teseo_plot_slope_window = teseo_plot_new( &active_slope_plot );
 			gtk_window_set_title(GTK_WINDOW(teseo_plot_slope_window), msg);
 			build_data(active_slope_plot, X_scale, histogram, dx1, dy1, 180, "Slope [deg]" ,"Counts");
@@ -2049,7 +2057,36 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 			gtk_main_quit();
 			g_free(active_slope_plot);
 			g_free(teseo_plot_slope_window);
-        
+*/
+
+                // Alternative display using gtkdatabox
+                gint num_points = 5000;
+                gfloat *X, *Y;  // don't use g_free if they have been passed to teseo_create_databox()
+                GdkColor color;
+
+                X = g_new0 (gfloat, num_points);
+                Y = g_new0 (gfloat, num_points);
+
+                for (i = 0; i < 180; i++)
+                {
+                    X[i] = i;
+                    Y[i] = histogram[i];
+                }
+
+                color.red = 65535;
+                color.green = 1035;
+                color.blue = 1050;
+
+		GtkWidget * databox_plot=teseo_create_databox (180, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: histogram", msg, "Counts", "Slope [deg]");
+		gtk_widget_show_all(databox_plot);
+		gtk_main();
+		//waiting events
+		while (gtk_events_pending())   gtk_main_iteration();
+		gtk_main_quit();
+		g_free(databox_plot);
+
+
+
 
         }
 	else{

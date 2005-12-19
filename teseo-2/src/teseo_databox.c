@@ -365,11 +365,11 @@ void setT (GtkDataboxText *text, GtkWidget *box,
 }
 
 
-void teseo_create_databox (
+ GtkWidget* teseo_create_databox (
 		gint num_points, gfloat *X, gfloat *Y,
 		GdkColor color, guint type, guint size,
 		const gchar *title, const gchar *description,
-		const gchar * labelX , const gchar *labelY)
+		const gchar * labelX , const gchar *labelY )
 {
    GtkWidget *window = NULL;
    GtkWidget *box1;
@@ -397,15 +397,18 @@ void teseo_create_databox (
    entries=g_new0(GtkWidget *, SHOW_NUM_ENTRIES);
 
    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-   gtk_widget_set_size_request (window, 500, 500);
+   //gtk_widget_set_size_request (window, 500, 500);
 
-   /*
+
    g_signal_connect (GTK_OBJECT (window), "destroy",
-		     GTK_SIGNAL_FUNC (gtk_main_quit), NULL);
-                     */
+		     GTK_SIGNAL_FUNC (gtk_true), NULL);
 
    // gtk_window_set_title (GTK_WINDOW (window), "GtkDatabox: Signals Examples");
    gtk_window_set_title (GTK_WINDOW (window), (title == NULL)? "" : title);
+
+   gtk_window_set_modal(GTK_WINDOW(window),TRUE);
+   gtk_window_set_default_size(GTK_WINDOW(window),500,500);
+
    gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 
    box1 = gtk_vbox_new (FALSE, 0);
@@ -443,9 +446,9 @@ void teseo_create_databox (
 //   gtk_databox_grid_set_config (GTK_DATABOX (box), index, 0, 5);
 
    /*setting the axis*/
-   index = gtk_databox_data_add (GTK_DATABOX (box), POINTS,
+   index = gtk_databox_data_add (GTK_DATABOX (box), num_points,
                                 X, Y, axis_color,
-                                 GTK_DATABOX_CROSS_SIMPLE, 2);
+                                 GTK_DATABOX_CROSS_SIMPLE, 1);
 
 
  /*setting the axis labels*/
@@ -455,8 +458,9 @@ void teseo_create_databox (
    Xlab = g_new0 (gfloat, 2);
    Ylab = g_new0 (gfloat, 2);
 
+   /*Position of labels*/
    Xlab [0] = +10.; Ylab [0] = - 5.;
-   Xlab [1] = -10.; Ylab [1] = + 20.;
+   Xlab [1] = -12.; Ylab [1] = + 25.;
    index = gtk_databox_data_add (GTK_DATABOX (box), 2,
                          Xlab, Ylab, color, GTK_DATABOX_TEXT, 5);
 
@@ -473,11 +477,11 @@ void teseo_create_databox (
    gtk_container_set_border_width (GTK_CONTAINER (box2), 10);
    gtk_box_pack_end (GTK_BOX (box1), box2, FALSE, TRUE, 0);
    close_button = gtk_button_new_with_label ("close");
-   /*
+
    g_signal_connect_swapped (GTK_OBJECT (close_button), "clicked",
-			     GTK_SIGNAL_FUNC (gtk_main_quit),
+			     GTK_SIGNAL_FUNC (gtk_true),
 			     GTK_OBJECT (box));
-                             */
+
    gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
    GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
    gtk_widget_grab_default (close_button);
@@ -505,7 +509,9 @@ void teseo_create_databox (
                             GTK_SIGNAL_FUNC (show_changed_cb),
                             entries);
 
-   gtk_widget_show_all (window);
+
+  return window;
+   //gtk_widget_show_all (window);
 
 }
 
