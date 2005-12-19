@@ -43,6 +43,9 @@ void create_signals (void);
   \param gchar *title Title of the windows.
   \param gchar *description Description.
   */
-void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color, guint type, guint size, const gchar *title, const gchar *description);
+void teseo_create_databox (		gint num_points, gfloat *X, gfloat *Y,
+		GdkColor color, guint type, guint size,
+		const gchar *title, const gchar *description,
+		const gchar * labelX , const gchar *LabelY);
 
 #endif

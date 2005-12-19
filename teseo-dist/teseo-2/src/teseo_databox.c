@@ -5,12 +5,12 @@
  * modify it under the terms of the GNU Lesser General Public License
  * as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -20,10 +20,6 @@
 #include <gtk/gtk.h>
 #include <gtkdatabox.h>
 #include <math.h>
-/* Some versions of math.h have a PI problem... */
-#ifndef PI
-#define PI 3.14159265358979323846
-#endif
 
 #define POINTS 2000
 
@@ -31,8 +27,8 @@
  *  databox signals
  *----------------------------------------------------------------*/
 
-/* 
- * Signal handlers 
+/*
+ * Signal handlers
  */
 static gint
 handle_signal_zoomed (GtkDatabox * box,
@@ -290,7 +286,8 @@ create_signals (void)
    for (i = 0; i < POINTS; i++)
    {
       X[i] = i;
-      Y[i] = 100. * sin (i * 2 * PI / POINTS);
+      //Y[i] = 100. * sin (i * 2 * PI / POINTS);
+      Y[i] = 2*i;
    }
    color.red = 0;
    color.green = 65535;
@@ -302,7 +299,7 @@ create_signals (void)
 
    for (i = 0; i < POINTS; i++)
    {
-      Y[i] = 100. * cos (i * 2 * PI / POINTS);
+      Y[i] = 100. * cos (i * 2 * 3.14 / POINTS);
    }
    color.red = 65535;
    color.green = 0;
@@ -331,15 +328,15 @@ create_signals (void)
    gtk_widget_grab_default (close_button);
 
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_zoomed",
-		     GTK_SIGNAL_FUNC (handle_signal_zoomed), 
+		     GTK_SIGNAL_FUNC (handle_signal_zoomed),
                      NULL);
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_stopped",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped), 
+		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped),
                      NULL);
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_cancelled",
 		     GTK_SIGNAL_FUNC (handle_signal_selection_cancelled),
 		     NULL);
-   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw), 
+   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw),
                      "motion_notify_event",
                      GTK_SIGNAL_FUNC (show_motion_notify_cb),
                      entries);
@@ -357,8 +354,22 @@ create_signals (void)
 
 }
 
+void setT (GtkDataboxText *text, GtkWidget *box,
+           GtkDataboxTextPosition position,
+           gchar *label,
+           gboolean boxed)
+{
+   text->position = position;
+   text->text = gtk_widget_create_pango_layout (box, label);
+   text->boxed = boxed;
+}
 
-void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color, guint type, guint size, const gchar *title, const gchar *description)
+
+void teseo_create_databox (
+		gint num_points, gfloat *X, gfloat *Y,
+		GdkColor color, guint type, guint size,
+		const gchar *title, const gchar *description,
+		const gchar * labelX , const gchar *labelY)
 {
    GtkWidget *window = NULL;
    GtkWidget *box1;
@@ -370,6 +381,18 @@ void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color
    gint index;
    GtkWidget **entries;
    GtkWidget *hbox;
+
+   GtkDataboxText *AxisLabels;
+   gfloat *Xlab;
+   gfloat *Ylab;
+
+   GdkColor bg_color;
+   GdkColor grid_color;
+   GdkColor axis_color;
+
+   gdk_color_parse("white", &bg_color);
+   gdk_color_parse("light blue", &grid_color);
+   gdk_color_parse("black", &axis_color);
 
    entries=g_new0(GtkWidget *, SHOW_NUM_ENTRIES);
 
@@ -409,8 +432,35 @@ void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color
    box = gtk_databox_new ();
    entries[SHOW_BOX]  = box;
 
+   /*setting the background color*/
+   gtk_databox_set_background_color (GTK_DATABOX (box), bg_color);
+
    index = gtk_databox_data_add (GTK_DATABOX (box), num_points,
 				 X, Y, color, type, size);
+//   /*setting the grid*/
+//   index = gtk_databox_data_add (GTK_DATABOX (box), POINTS,
+//                                 X, Y, grid_color, GTK_DATABOX_GRID, 2);
+//   gtk_databox_grid_set_config (GTK_DATABOX (box), index, 0, 5);
+
+   /*setting the axis*/
+   index = gtk_databox_data_add (GTK_DATABOX (box), POINTS,
+                                X, Y, axis_color,
+                                 GTK_DATABOX_CROSS_SIMPLE, 2);
+
+
+ /*setting the axis labels*/
+   AxisLabels = g_new0 (GtkDataboxText, 2);
+   setT (&AxisLabels[0], box, GTK_DATABOX_TEXT_E, labelX, FALSE);
+   setT (&AxisLabels[1], box, GTK_DATABOX_TEXT_N, labelY, FALSE);
+   Xlab = g_new0 (gfloat, 2);
+   Ylab = g_new0 (gfloat, 2);
+
+   Xlab [0] = +10.; Ylab [0] = - 5.;
+   Xlab [1] = -10.; Ylab [1] = + 20.;
+   index = gtk_databox_data_add (GTK_DATABOX (box), 2,
+                         Xlab, Ylab, color, GTK_DATABOX_TEXT, 5);
+
+   gtk_databox_text_set_texts (GTK_DATABOX (box), index, AxisLabels, 2);
 
    gtk_databox_rescale (GTK_DATABOX (box));
 
@@ -433,15 +483,15 @@ void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color
    gtk_widget_grab_default (close_button);
 
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_zoomed",
-		     GTK_SIGNAL_FUNC (handle_signal_zoomed), 
+		     GTK_SIGNAL_FUNC (handle_signal_zoomed),
                      NULL);
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_stopped",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped), 
+		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped),
                      NULL);
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_cancelled",
 		     GTK_SIGNAL_FUNC (handle_signal_selection_cancelled),
 		     NULL);
-   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw), 
+   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw),
                      "motion_notify_event",
                      GTK_SIGNAL_FUNC (show_motion_notify_cb),
                      entries);
@@ -459,15 +509,3 @@ void teseo_create_databox (gint num_points, gfloat *X, gfloat *Y, GdkColor color
 
 }
 
-/*
-gint
-main (gint argc, char *argv[])
-{
-   gtk_init (&argc, &argv);
-
-   create_signals ();
-   gtk_main ();
-
-   return 0;
-}
-*/

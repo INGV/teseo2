@@ -1907,21 +1907,23 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                 X = g_new0 (gfloat, num_points);
                 Y = g_new0 (gfloat, num_points);
 
-#ifndef PI
-#define PI 3.14159265358979323846
-#endif
-                for (i = 0; i < num_points; i++)
+/*                for (i = 0; i < num_points; i++)
                 {
                     X[i] = i;
                     Y[i] = 100. * sin (i * 2 * PI / num_points);
+                }*/
+
+                for (i = 0; i < N_TRIES; i++)
+                {
+                    X[i] = ret_b[i];
+                    Y[i] = ret_errors[i];
                 }
-                color.red = 0;
-                color.green = 65535;
-                color.blue = 0;
 
-                teseo_create_databox (num_points, X, Y, color, GTK_DATABOX_POINTS, 1, "Teseo: arm shift", "What's arm shift?");
-
-        }
+                color.red = 65535;
+                color.green = 1035;
+                color.blue = 1050;
+                teseo_create_databox (N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]" );
+	}
 	else{
 		g_message("Current path is not a polyline, nothing to do");
 	}
