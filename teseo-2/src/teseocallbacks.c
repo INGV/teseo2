@@ -57,6 +57,9 @@
 #include "teseo_wiechert.h"
 #include "teseo_plot.h"
 
+#include <gtkdatabox.h>
+#include "teseo_databox.h"
+
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
 GtkWidget * dlg_about;
@@ -1878,6 +1881,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 		sprintf(msg,"Minimum arm shift %2.2f",ret_b[imin] );
 
+                /*
 		//GtkWidget *active_plot=NULL;
 		teseo_plot_window = teseo_plot_new( &active_plot );
 
@@ -1893,6 +1897,29 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 
 		g_free(active_plot);
 		g_free(teseo_plot_window);
+                */
+
+                // Alternative display using gtkdatabox
+                gint num_points = 5000;
+                gfloat *X, *Y;  // don't use g_free if they have been passed to teseo_create_databox()
+                GdkColor color;
+
+                X = g_new0 (gfloat, num_points);
+                Y = g_new0 (gfloat, num_points);
+
+#ifndef PI
+#define PI 3.14159265358979323846
+#endif
+                for (i = 0; i < num_points; i++)
+                {
+                    X[i] = i;
+                    Y[i] = 100. * sin (i * 2 * PI / num_points);
+                }
+                color.red = 0;
+                color.green = 65535;
+                color.blue = 0;
+
+                teseo_create_databox (num_points, X, Y, color, GTK_DATABOX_POINTS, 1, "Teseo: arm shift", "What's arm shift?");
 
         }
 	else{
@@ -2006,6 +2033,7 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 			sprintf(msg,"Histogram of slope for shift=%2.2f",b );
 //			teseo_plot_slope_window = teseo_plot_new(X_scale, histogram , 180,  msg, "Slope [deg]" ,"Counts");
 
+       
 			//GtkWidget *active_slope_plot=NULL;
 
 			teseo_plot_slope_window = teseo_plot_new( &active_slope_plot );
@@ -2019,6 +2047,8 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 			gtk_main_quit();
 			g_free(active_slope_plot);
 			g_free(teseo_plot_slope_window);
+        
+
         }
 	else{
 		g_message("Current path is not a polyline, nothing to do");
