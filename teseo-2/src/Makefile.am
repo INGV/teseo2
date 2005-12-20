@@ -54,8 +54,6 @@ teseo_2_SOURCES = \
 	teseo_filters.h	\
 	teseo_wiechert.c	\
 	teseo_wiechert.h	\
-	teseo_plot.c	\
-	teseo_plot.h	\
 	teseo_databox.c	\
 	teseo_databox.h
 
@@ -67,14 +65,12 @@ INCLUDES =\
 	-I$(top_srcdir)		\
 	@GIMP_CFLAGS@		\
 	@GTKADDONS_CFLAGS@		\
-	@GTKEXTRA_CFLAGS@		\
 	@GTKDATABOX_CFLAGS@		\
 	@NEWUOA_CFLAGS@		\
 	-I$(includedir)
 
 LDADD = $(GIMP_LIBS) \
 	$(GTKADDONS_LIBS) \
-	$(GTKEXTRA_LIBS) \
 	$(GTKDATABOX_LIBS) \
 	$(NEWUOA_LIBS)
 
