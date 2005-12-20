@@ -49,6 +49,7 @@ teseo_create_databox (
 		gint num_points, gfloat *X, gfloat *Y,
 		GdkColor color, guint type, guint size,
 		const gchar *title, const gchar *description,
-		const gchar * labelX , const gchar *labelY);
+		const gchar * labelX , const gchar *labelY,
+		gboolean showbutton);
 
 #endif
