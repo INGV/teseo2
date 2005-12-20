@@ -23,6 +23,8 @@
 
 #define POINTS 2000
 
+extern GtkSpinButton * teseo_spbtn_arm_shift;
+
 /*----------------------------------------------------------------
  *  databox signals
  *----------------------------------------------------------------*/
@@ -120,6 +122,27 @@ handle_signal_selection_stopped (GtkDatabox * box,
 
    return 0;
 }
+
+
+
+static gint
+handle_signal_clicked (GtkDatabox * box, GtkWidget *entry)
+{
+
+   printf ("The button was clicked\n");
+   //printf ("Get the values if want %s\n" ,gtk_entry_get_text(GTK_ENTRY(entry)));
+
+   //gchar NUMSTRING[20];
+   //sprintf(NUMSTRING,"%s",gtk_entry_get_text(GTK_ENTRY(entry)));
+   gchar * NUMSTRING= g_strdup (gtk_entry_get_text(GTK_ENTRY(entry)));
+   gdouble num = g_strtod(NUMSTRING,NULL);
+   printf ("Get the values if want %s = %f\n", NUMSTRING, num );
+
+   gtk_spin_button_set_value (teseo_spbtn_arm_shift,num );
+
+   return 0;
+}
+
 
 static gint
 handle_signal_selection_cancelled (GtkDatabox * box, void *unused)
@@ -349,9 +372,7 @@ create_signals (void)
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_changed",
                             GTK_SIGNAL_FUNC (show_changed_cb),
                             entries);
-
    gtk_widget_show_all (window);
-
 }
 
 void setT (GtkDataboxText *text, GtkWidget *box,
@@ -369,7 +390,8 @@ void setT (GtkDataboxText *text, GtkWidget *box,
 		gint num_points, gfloat *X, gfloat *Y,
 		GdkColor color, guint type, guint size,
 		const gchar *title, const gchar *description,
-		const gchar * labelX , const gchar *labelY )
+		const gchar * labelX , const gchar *labelY,
+		gboolean showbutton)
 {
    GtkWidget *window = NULL;
    GtkWidget *box1;
@@ -476,16 +498,21 @@ void setT (GtkDataboxText *text, GtkWidget *box,
    box2 = gtk_vbox_new (FALSE, 10);
    gtk_container_set_border_width (GTK_CONTAINER (box2), 10);
    gtk_box_pack_end (GTK_BOX (box1), box2, FALSE, TRUE, 0);
-   close_button = gtk_button_new_with_label ("close");
 
-   g_signal_connect_swapped (GTK_OBJECT (close_button), "clicked",
-			     GTK_SIGNAL_FUNC (gtk_true),
-			     GTK_OBJECT (box));
+   if(showbutton){
+	close_button = gtk_button_new_with_label ("Choose");
+	g_signal_connect (GTK_OBJECT (close_button), "clicked",
+				GTK_SIGNAL_FUNC (handle_signal_clicked),
+				GTK_OBJECT (   entries[SHOW_MARKED_X] ));
 
-   gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
-   GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
-   gtk_widget_grab_default (close_button);
-
+	/*g_signal_connect_swapped (GTK_OBJECT (close_button), "clicked",
+				GTK_SIGNAL_FUNC (gtk_true),
+				GTK_OBJECT (box));
+	*/
+	gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
+	GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
+	gtk_widget_grab_default (close_button);
+   }
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_zoomed",
 		     GTK_SIGNAL_FUNC (handle_signal_zoomed),
                      NULL);
@@ -508,10 +535,7 @@ void setT (GtkDataboxText *text, GtkWidget *box,
    g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_changed",
                             GTK_SIGNAL_FUNC (show_changed_cb),
                             entries);
-
-
   return window;
    //gtk_widget_show_all (window);
-
 }
 

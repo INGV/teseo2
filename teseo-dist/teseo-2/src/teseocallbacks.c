@@ -86,6 +86,14 @@ GtkFileChooserDialog * filechooser_import;
 GtkFileChooserDialog * filechooser_export;
 GtkFileChooserDialog * filechooser_session;
 
+
+
+
+/*Exception a global widget*/
+GtkSpinButton * teseo_spbtn_arm_shift;
+
+
+
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
 
@@ -1812,6 +1820,7 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	}
 	if(teseo_spbtn_b) {
 		b = gtk_spin_button_get_value (teseo_spbtn_b);
+		teseo_spbtn_arm_shift=teseo_spbtn_b;
 	}
 	if(teseo_Xin) {
 		Xin = gtk_spin_button_get_value (teseo_Xin);
@@ -1923,7 +1932,10 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                 color.green = 1035;
                 color.blue = 1050;
 		GtkWidget * databox_plot=
-			teseo_create_databox (N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]" );
+			teseo_create_databox (
+			N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1,
+			"Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]",
+			TRUE );
 		gtk_widget_show_all(databox_plot);
 		gtk_main();
 		//waiting events
@@ -1996,6 +2008,8 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	}
 	if(teseo_spbtn_b) {
 		b = gtk_spin_button_get_value (teseo_spbtn_b);
+                //TODO it is a BUG
+		//teseo_spbtn_arm_shift=teseo_spbtn_b;
 	}
 	if(teseo_Xin) {
 		Xin = gtk_spin_button_get_value (teseo_Xin);
@@ -2077,15 +2091,13 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
                 color.green = 1035;
                 color.blue = 1050;
 
-		GtkWidget * databox_plot=teseo_create_databox (180, X, Y, color, GTK_DATABOX_LINES, 1, "Teseo: histogram", msg, "Counts", "Slope [deg]");
+		GtkWidget * databox_plot=teseo_create_databox (180, X, Y, color, GTK_DATABOX_BARS, 1, "Teseo: histogram", msg, "Slope [deg]", "Counts",FALSE);
 		gtk_widget_show_all(databox_plot);
 		gtk_main();
 		//waiting events
 		while (gtk_events_pending())   gtk_main_iteration();
 		gtk_main_quit();
 		g_free(databox_plot);
-
-
 
 
         }
