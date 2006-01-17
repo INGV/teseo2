@@ -38,7 +38,7 @@ extern   GtkWidget * dlg_session;
 extern   GtkFileChooserDialog * filechooser_import;
 extern   GtkFileChooserDialog * filechooser_export;
 extern   GtkFileChooserDialog * filechooser_session;
-extern   GtkWidget *win_wiechert;
+extern   GtkWidget *win_curvature;
 extern   GtkWidget * dlg_parasites;
 
 
@@ -334,7 +334,7 @@ on_post_analisys_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_wiechert_activate                   (GtkMenuItem     *menuitem,
+on_curvature_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
@@ -385,7 +385,7 @@ on_teseo_show_graph_clicked            (GtkButton       *button,
                                         gpointer         user_data);
 
 gboolean
-on_win_wiechert_delete_event           (GtkWidget       *widget,
+on_win_curvature_delete_event           (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
 
@@ -404,3 +404,4 @@ on_calc_dist_btn_clicked               (GtkButton       *button,
 void
 on_parasite_cbentry_changed            (GtkComboBox     *combobox,
                                         gpointer         user_data);
+

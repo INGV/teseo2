@@ -8,5 +8,5 @@ GtkWidget* create_dlg_about (void);
 GtkWidget* create_dlg_session (void);
 GtkWidget* create_filechooser_session (void);
 GtkWidget* create_filechooser_export (void);
-GtkWidget* create_win_wiechert (void);
+GtkWidget* create_win_curvature (void);
 GtkWidget* create_dlg_parasites (void);

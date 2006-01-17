@@ -103,7 +103,7 @@ char save_session(char * filename){
 
 	ret=      save_widget(current_dlg_session, dlg_session);
 	ret=ret * save_widget(current_main_window, win_teseo);
-	ret=ret * save_widget(current_wiechert_window, win_wiechert);
+	ret=ret * save_widget(current_wiechert_window, win_curvature);
 
 	return ret;
 }
@@ -178,7 +178,7 @@ char load_session(char * filename){
 						base_content= app;
 						strcpy(wiechert_window_filename,base_content);
 						//debug g_message("WiechertWindow file %s", wiechert_window_filename);
-						retp = load_widget(wiechert_window_filename,win_wiechert);
+						retp = load_widget(wiechert_window_filename,win_curvature);
 						if (retp==0) g_message("Corrupted %s",wiechert_window_filename);
 					}
 				}
@@ -445,7 +445,7 @@ char save_session_parasite(gint event){
 
 	ret=      save_widget_parasite(dlg_session, event);
 	ret= ret * save_widget_parasite(win_teseo, event );
-	ret= ret * save_widget_parasite(win_wiechert, event);
+	ret= ret * save_widget_parasite(win_curvature, event);
 
 	return ret;
 }
@@ -460,7 +460,7 @@ char load_parasite_session(gint event){
 
 	rets = load_widget_parasite(dlg_session,event);
 	retp = load_widget_parasite(win_teseo,event);
-	retq = load_widget_parasite(win_wiechert,event);
+	retq = load_widget_parasite(win_curvature,event);
 	ret=rets*retp*retq;
 
 	return ret;
@@ -496,7 +496,7 @@ char test_session_parasite(gint event){
 
 	ret= ret * test_widget_parasite(dlg_session, event);
 	ret= ret * test_widget_parasite(win_teseo, event );
-	ret= ret * test_widget_parasite(win_wiechert, event);
+	ret= ret * test_widget_parasite(win_curvature, event);
 
 	return ret;
 }
