@@ -51,7 +51,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image837">
+			    <widget class="GtkImage" id="image857">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-execute</property>
 			      <property name="icon_size">1</property>
@@ -92,7 +92,7 @@
 				  <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image838">
+				    <widget class="GtkImage" id="image858">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-properties</property>
 				      <property name="icon_size">1</property>
@@ -125,7 +125,7 @@
 			  <property name="use_underline">True</property>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image839">
+			    <widget class="GtkImage" id="image859">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-harddisk</property>
 			      <property name="icon_size">1</property>
@@ -146,7 +146,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image840">
+				    <widget class="GtkImage" id="image860">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -239,7 +239,7 @@
 				  <property name="use_underline">True</property>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image841">
+				    <widget class="GtkImage" id="image861">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -335,7 +335,7 @@
 			  <signal name="activate" handler="on_parasites1_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image842">
+			    <widget class="GtkImage" id="image862">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-find</property>
 			      <property name="icon_size">1</property>
@@ -358,7 +358,7 @@
 				  <signal name="activate" handler="on_import2_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image843">
+				    <widget class="GtkImage" id="image863">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-back</property>
 				      <property name="icon_size">1</property>
@@ -380,7 +380,7 @@
 				  <signal name="activate" handler="on_export2_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image844">
+				    <widget class="GtkImage" id="image864">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-go-forward</property>
 				      <property name="icon_size">1</property>
@@ -402,7 +402,7 @@
 				  <signal name="activate" handler="on_remove_all1_activate" last_modification_time="Fri, 28 Oct 2005 10:00:08 GMT"/>
 
 				  <child internal-child="image">
-				    <widget class="GtkImage" id="image845">
+				    <widget class="GtkImage" id="image865">
 				      <property name="visible">True</property>
 				      <property name="stock">gtk-delete</property>
 				      <property name="icon_size">1</property>
@@ -636,9 +636,9 @@
 		      <child>
 			<widget class="GtkMenuItem" id="wiechert">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Wiechert correction</property>
+			  <property name="label" translatable="yes">Curvature correction</property>
 			  <property name="use_underline">True</property>
-			  <signal name="activate" handler="on_wiechert_activate" last_modification_time="Mon, 24 Oct 2005 10:21:33 GMT"/>
+			  <signal name="activate" handler="on_curvature_activate" last_modification_time="Tue, 17 Jan 2006 09:04:53 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -663,7 +663,7 @@
 			  <signal name="activate" handler="on_help1_activate" last_modification_time="Wed, 19 Nov 2003 16:57:22 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image846">
+			    <widget class="GtkImage" id="image866">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-help</property>
 			      <property name="icon_size">1</property>
@@ -684,7 +684,7 @@
 			  <signal name="activate" handler="on_about1_activate" last_modification_time="Wed, 19 Nov 2003 16:44:41 GMT"/>
 
 			  <child internal-child="image">
-			    <widget class="GtkImage" id="image847">
+			    <widget class="GtkImage" id="image867">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-home</property>
 			      <property name="icon_size">1</property>
@@ -6212,9 +6212,9 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   </child>
 </widget>
 
-<widget class="GtkWindow" id="win_wiechert">
+<widget class="GtkWindow" id="win_curvature">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Wiechert correction</property>
+  <property name="title" translatable="yes">Curvature correction</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -6692,7 +6692,7 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 	  <property name="border_width">3</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
-	  <property name="expanded">False</property>
+	  <property name="expanded">True</property>
 	  <property name="spacing">0</property>
 
 	  <child>
