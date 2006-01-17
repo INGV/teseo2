@@ -29,17 +29,23 @@ Sun Aug 21 10:46:44 CEST 2005
         Instead, libraries should use g_log(), or the convenience functions g_message(), g_warning() and g_error().
 
 Fri Sep  2 08:30:36 CEST 2005
-- logo Wilber Seismologists mtheo
+- logo Wilber Seismologists: mtheo
 - Improve SAC export
 
 
 Mon Sep 12 10:53:44 CEST 2005
 - TODO and ChangeLog in distribution
-- Export by FileDialog
-	Check if file exists
+- Trace Export by FileDialog Check if file exists: ilpint
 
 
 Fri Oct 21 11:32:08 CEST 2005
-- Post-analysis, curvature correction. Antoine Schlupp
 - Tutorial and movie
-- Update Web pages
+- Update Web pages: mtheo
+
+
+Tue Jan 17 09:55:22 CET 2006
+- Revised Interface
+- Documentation
+	Snapshots: mtheo
+	Description for curvature correction: ilpint
+
