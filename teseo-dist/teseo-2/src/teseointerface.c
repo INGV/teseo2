@@ -2142,7 +2142,7 @@ create_dlg_about (void)
   gtk_widget_show (image275);
   gtk_box_pack_start (GTK_BOX (hbox46), image275, TRUE, TRUE, 0);
 
-  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urns <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismogram <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O</b></span></big>riginal <big><span color=\"brown\"><b>O</b></span></big>ne");
+  label216 = gtk_label_new ("<big><span color=\"brown\"><b>T</b></span></big>urn <small>the</small>\n<big><span color=\"brown\"><b>E</b></span></big>ldest\n<big><span color=\"brown\"><b>S</b></span></big>eismograms <small>in the</small>\n<big><span color=\"brown\"><b>E</b></span></big>lectronic\n<big><span color=\"brown\"><b>O</b></span></big>riginal <big><span color=\"brown\"><b>O</b></span></big>nes");
   gtk_widget_set_name (label216, "label216");
   gtk_widget_show (label216);
   gtk_box_pack_end (GTK_BOX (hbox46), label216, TRUE, TRUE, 0);
@@ -4070,7 +4070,7 @@ create_win_curvature (void)
   gtk_tooltips_set_tip (tooltips, btn_correct, "Correct current path", NULL);
 
   g_signal_connect ((gpointer) win_curvature, "delete_event",
-                    G_CALLBACK (on_win_curvature_delete_event),
+                    G_CALLBACK (on_win_wiechert_delete_event),
                     NULL);
   g_signal_connect ((gpointer) calc_dist_btn, "clicked",
                     G_CALLBACK (on_calc_dist_btn_clicked),
