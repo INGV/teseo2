@@ -1,3 +1,297 @@
+2006-01-17 09:56  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: interface.c (1.38), teseocallbacks.c (1.135),
+	  teseocallbacks.h (1.61), teseointerface.c (1.109),
+	  teseointerface.h (1.27), teseo_session.c (1.44): Revised
+	  Interface
+
+2005-12-20 14:03  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.134): Removed gtkextra
+
+2005-12-20 12:09  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.133), teseo_databox.c (1.4),
+	  teseo_databox.h (1.4): Choose button become optional, user can
+	  choose b on plot
+
+2005-12-19 15:04  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.132), teseo_databox.c (1.3),
+	  teseo_databox.h (1.3): Modal dataplot window, trying to delete
+	  widgets when finished
+
+2005-12-19 10:49  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.131), teseo_databox.c (1.2),
+	  teseo_databox.h (1.2): Added axe, labels and foreground color
+
+2005-12-19 06:48  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.130), teseo_databox.c (1.1),
+	  teseo_databox.h (1.1): Added gtkdatabox package Added function
+	  void teseo_create_databox ()
+
+2005-12-07 11:25  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.129): Modified pathname construction in
+	  btn_correct
+
+2005-12-05 14:47  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseointerface.c (1.108): Label correctin
+
+2005-12-05 12:49  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseointerface.c (1.107), teseointerface.h (1.26): Removed
+	  useless window1
+
+2005-12-05 12:48  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.128), teseocallbacks.h (1.60): Moved
+	  dx1 from build_data into teseocallbacks.c
+
+2005-12-05 12:46  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_wiechert.c (1.15): Histogram from 0 to 179
+
+2005-12-05 11:11  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.127), teseocallbacks.h (1.59),
+	  teseo_wiechert.c (1.14): Modified teseo_plot attempting to reduce
+	  memory leakage
+
+2005-12-05 09:58  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.37), teseocallbacks.c (1.126),
+	  teseocallbacks.h (1.58), teseointerface.c (1.106),
+	  teseointerface.h (1.25), teseo_wiechert.c (1.13): Some fix,
+	  changed dimension of plot, a border to plot window, rearrangement
+	  in wiechert interface
+
+2005-11-29 14:58  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.125): Bug fixes in parasite combobox
+	  manag.
+
+2005-11-28 15:41  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.36), teseocallbacks.c (1.124),
+	  teseocallbacks.h (1.57), teseointerface.c (1.105),
+	  teseo_session.c (1.43), teseo_session.h (1.16): Basic parasite
+	  import dialog, TODO check run-time Warnings
+
+2005-11-28 10:12  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.35), teseointerface.c (1.104),
+	  teseointerface.h (1.24): Slight interface changes
+
+2005-11-25 14:37  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.123), teseointerface.c (1.103),
+	  teseo_session.c (1.42), teseo_session.h (1.15): Event id in
+	  parasites, remove all
+
+2005-11-25 12:33  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.122), teseocallbacks.h (1.56),
+	  teseointerface.c (1.102), teseo_session.c (1.41): Reduced
+	  interface using the new histogram function
+
+2005-11-25 12:32  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_wiechert.c (1.12), teseo_wiechert.h (1.9): Added a
+	  function to have slope histogram for a given b
+
+2005-11-25 10:38  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_session.c (1.40), teseo_session.h (1.14): Added
+	  wiechert window in  sessions file
+
+2005-11-25 09:53  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.121), teseo_session.h (1.13),
+	  teseo_wiechert.c (1.11), teseo_wiechert.h (1.8): Taken care of
+	  options in b shift evaluations
+
+2005-11-24 15:47  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.120), teseointerface.c (1.101),
+	  teseo_wiechert.c (1.10), teseo_wiechert.h (1.7): Use angle in b
+	  estimates
+
+2005-11-24 12:57  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.119), teseocallbacks.h (1.55),
+	  teseointerface.c (1.100): Interface upgrade
+
+2005-11-23 15:58  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.118), teseointerface.c (1.99),
+	  teseo_session.c (1.39): Parasites and Hscales
+
+2005-11-22 15:44  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.38): minor changes
+
+2005-11-22 15:33  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.37): Added the call to ifasce_lst for test
+
+2005-11-22 08:42  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.36): Gimp2.2.9+win32 tested
+
+2005-11-22 08:33  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.35): Testing parasites
+
+2005-11-21 15:36  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.34), teseocallbacks.c (1.117),
+	  teseocallbacks.h (1.54), teseointerface.c (1.98),
+	  teseointerface.h (1.23), teseo_wiechert.c (1.9): More code
+	  cleaning
+
+2005-11-21 11:45  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.116), teseointerface.c (1.97),
+	  teseo_wiechert.c (1.8), teseo_wiechert.h (1.6): Interface
+	  cleaning, source cleaning
+
+2005-11-18 15:16  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.115), teseocallbacks.h (1.53),
+	  teseointerface.c (1.96), teseo_wiechert.c (1.7): Added plot for
+	  second estimate,some cleaning
+
+2005-11-17 15:12  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.114), teseo_wiechert.c (1.6),
+	  teseo_wiechert.h (1.5): Inserted second method to calculate b
+
+2005-11-17 08:30  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.113): Plotting errors %
+
+2005-11-16 14:47  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_path.c (1.38): Removed debug output
+
+2005-11-16 14:32  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_wiechert.c (1.5): Removed debug output
+
+2005-11-16 13:01  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.112), teseo_session.c (1.34): parasite
+	  commented windows debugging done
+
+2005-11-16 10:50  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseointerface.c (1.95): Removed grab_default if unnecessary
+	  hoing to solve windows gtk-critical
+
+2005-11-16 10:34  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.33), teseocallbacks.c (1.111),
+	  teseocallbacks.h (1.52), teseointerface.c (1.94): Reducing
+	  gtk_main_quit calls
+
+2005-11-15 15:48  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.110), teseointerface.c (1.93): Added
+	  minimum display
+
+2005-11-15 10:06  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.109): stable linux graphs
+
+2005-11-14 15:52  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.108): Create build_data
+
+2005-11-14 14:29  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.107), teseocallbacks.h (1.51),
+	  teseointerface.c (1.92): added a gtk_main for teseo_plot
+
+2005-11-14 11:56  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.33): Fixed bug on first session not found
+	  opening teseo the second time
+
+2005-11-14 10:33  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.106): Corrected calls to
+	  gtk_file_chooser_get_filename
+
+2005-11-11 15:02  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseocallbacks.c (1.105): Silly file
+
+2005-11-11 14:37  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.32), teseocallbacks.c (1.104),
+	  teseocallbacks.h (1.50), teseointerface.c (1.91),
+	  teseointerface.h (1.22): stable graph creation and show
+
+2005-11-10 10:17  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.31), teseocallbacks.c (1.103),
+	  teseocallbacks.h (1.49), teseointerface.c (1.90),
+	  teseointerface.h (1.21): Introduced first plot\!
+
+2005-11-08 11:47  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.102), teseointerface.c (1.89),
+	  teseo_wiechert.c (1.4), teseo_wiechert.h (1.4): Added option
+	  translate
+
+2005-11-07 15:53  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.101), teseointerface.c (1.88),
+	  teseo_path.c (1.37), teseo_path.h (1.15), teseo_wiechert.c (1.3),
+	  teseo_wiechert.h (1.3): A lot of options in correction execution,
+	  new path starting in the same place
+
+2005-11-04 15:52  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.100), teseocallbacks.h (1.48),
+	  teseointerface.c (1.87), teseo_path.c (1.36), teseo_path.h
+	  (1.14), teseo_wiechert.c (1.2), teseo_wiechert.h (1.2): first b
+	  evaluation + curvature correction
+
+2005-11-02 08:02  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseo_wiechert.c (1.1), teseo_wiechert.h (1.1): Added
+	  teseo_wiechert
+
+2005-10-28 12:12  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.99), teseocallbacks.h (1.47),
+	  teseointerface.c (1.86): * added Parasites menu
+
+2005-10-26 11:10  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.85): Added event number
+
+2005-10-26 09:46  Stefano Pintore  <pintore@ingv.it>
+
+	* src/teseo_session.c (1.32): Parasite
+
+2005-10-25 15:08  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.98), teseocallbacks.h (1.46),
+	  teseointerface.c (1.84): Added gimp_scale_entry_new, mantainig
+	  compatibility with session files
+
+2005-10-25 10:25  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: interface.c (1.30), teseocallbacks.c (1.97),
+	  teseocallbacks.h (1.45), teseointerface.c (1.83),
+	  teseointerface.h (1.20): Parameters for curvature correction
+
 2005-10-12 10:39  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: interface.c (1.29), teseocallbacks.c (1.96),
@@ -13,16 +307,16 @@
 2005-10-11 12:43  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: interface.c (1.27), main.c (1.16), teseo_bezier_pfit.c
-	  (1.14), teseo_bezier_pfit.h (1.6), teseo_env.c (1.17), teseo_io.c
-	  (1.26), teseo_main.c (1.16), teseo_path.c (1.35),
-	  teseo_resample.c (1.11), teseo_session.c (1.31), teseo_wmean.c
-	  (1.13), teseocallbacks.c (1.94), teseocallbacks.h (1.42),
-	  teseointerface.c (1.80): Cleaned compiling warnings
+	  (1.14), teseo_bezier_pfit.h (1.6), teseocallbacks.c (1.94),
+	  teseocallbacks.h (1.42), teseo_env.c (1.17), teseointerface.c
+	  (1.80), teseo_io.c (1.26), teseo_main.c (1.16), teseo_path.c
+	  (1.35), teseo_resample.c (1.11), teseo_session.c (1.31),
+	  teseo_wmean.c (1.13): Cleaned compiling warnings
 
 2005-10-10 12:05  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_filters.c (1.8), teseo_filters.h (1.6),
-	  teseocallbacks.c (1.93): Added transparent parameter in Clean
+	* src/: teseocallbacks.c (1.93), teseo_filters.c (1.8),
+	  teseo_filters.h (1.6): Added transparent parameter in Clean
 	  filter
 
 2005-10-10 12:03  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -36,9 +330,9 @@
 
 2005-10-10 08:41  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: main.c (1.15), teseo_filters.c (1.7), teseo_filters.h
-	  (1.5), teseocallbacks.c (1.92), teseointerface.c (1.77):
-	  Optimized Filter Clean and function Split
+	* src/: main.c (1.15), teseocallbacks.c (1.92), teseo_filters.c
+	  (1.7), teseo_filters.h (1.5), teseointerface.c (1.77): Optimized
+	  Filter Clean and function Split
 
 2005-10-07 15:54  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -48,9 +342,9 @@
 
 2005-10-07 12:33  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_path.c (1.34), teseo_path.h (1.13), teseocallbacks.c
-	  (1.91), teseocallbacks.h (1.41), teseointerface.c (1.76):
-	  Enhanced path split functions
+	* src/: teseocallbacks.c (1.91), teseocallbacks.h (1.41),
+	  teseointerface.c (1.76), teseo_path.c (1.34), teseo_path.h
+	  (1.13): Enhanced path split functions
 
 2005-10-07 11:59  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -137,7 +431,7 @@
 
 2005-10-05 09:57  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_session.c (1.28), teseocallbacks.c (1.89): Fixed
+	* src/: teseocallbacks.c (1.89), teseo_session.c (1.28): Fixed
 	  session management
 
 2005-10-05 08:58  Stefano Pintore  <pintore@ingv.it>
@@ -147,7 +441,7 @@
 
 2005-10-05 08:36  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_io.c (1.24), teseointerface.c (1.72): Re-enabled dxf
+	* src/: teseointerface.c (1.72), teseo_io.c (1.24): Re-enabled dxf
 	  import
 
 2005-10-05 08:11  Stefano Pintore  <pintore@ingv.it>
@@ -160,8 +454,8 @@
 
 2005-10-04 16:07  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_io.c (1.21), teseo_io.h (1.10), teseocallbacks.c
-	  (1.87): Ascii import
+	* src/: teseocallbacks.c (1.87), teseo_io.c (1.21), teseo_io.h
+	  (1.10): Ascii import
 
 2005-10-04 11:58  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -180,8 +474,8 @@
 2005-10-04 10:22  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: teseo_bezier_pfit.c (1.12), teseo_bezier_pfit.h (1.4),
-	  teseo_main.c (1.15), teseo_timemark.c (1.8), teseocallbacks.c
-	  (1.84), teseointerface.c (1.69): Replaced path fitting by Powell
+	  teseocallbacks.c (1.84), teseointerface.c (1.69), teseo_main.c
+	  (1.15), teseo_timemark.c (1.8): Replaced path fitting by Powell
 	  open source
 
 2005-10-04 10:03  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -244,13 +538,13 @@
 
 2005-09-27 08:03  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_filters.c (1.4), teseo_filters.h (1.3),
-	  teseocallbacks.c (1.82), teseocallbacks.h (1.37),
-	  teseointerface.c (1.67): Improved
-	  teseo_filter_fill_continuous_segment() that fills continuous line
-	  or non continuous lines that contain pixel with colour
-	  trace_colour and threshol trace_colour Added parameters in
-	  win_teseo window for teseo_filter_fill_continuous_segment()
+	* src/: teseocallbacks.c (1.82), teseocallbacks.h (1.37),
+	  teseo_filters.c (1.4), teseo_filters.h (1.3), teseointerface.c
+	  (1.67): Improved teseo_filter_fill_continuous_segment() that
+	  fills continuous line or non continuous lines that contain pixel
+	  with colour trace_colour and threshol trace_colour Added
+	  parameters in win_teseo window for
+	  teseo_filter_fill_continuous_segment()
 
 2005-09-26 13:44  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -264,16 +558,15 @@
 
 2005-09-26 10:03  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_filters.c (1.2), teseo_filters.h (1.2),
-	  teseocallbacks.c (1.80): Improved
+	* src/: teseocallbacks.c (1.80), teseo_filters.c (1.2),
+	  teseo_filters.h (1.2): Improved
 	  teseo_filter_fill_continuous_segment()
 
 2005-09-26 08:49  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_filters.c (1.1), teseo_filters.h (1.1),
-	  teseocallbacks.c (1.79), teseocallbacks.h (1.35),
-	  teseointerface.c (1.65): Added Filters menu and first 'clean'
-	  filter
+	* src/: teseocallbacks.c (1.79), teseocallbacks.h (1.35),
+	  teseo_filters.c (1.1), teseo_filters.h (1.1), teseointerface.c
+	  (1.65): Added Filters menu and first 'clean' filter
 
 2005-09-19 11:36  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -293,7 +586,7 @@
 
 2005-09-15 15:47  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_sac.c (1.5), teseocallbacks.c (1.77): Fixed bug in
+	* src/: teseocallbacks.c (1.77), teseo_sac.c (1.5): Fixed bug in
 	  SAC export
 
 2005-09-15 15:32  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -348,8 +641,8 @@
 
 2005-09-15 12:12  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.13), teseo_main.h (1.8), teseocallbacks.c
-	  (1.74): Direct bezier first steps
+	* src/: teseocallbacks.c (1.74), teseo_main.c (1.13), teseo_main.h
+	  (1.8): Direct bezier first steps
 
 2005-09-15 11:15  Stefano Pintore  <pintore@ingv.it>
 
@@ -383,7 +676,7 @@
 
 2005-09-15 09:13  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_sac.c (1.3), teseocallbacks.c (1.71): Added
+	* src/: teseocallbacks.c (1.71), teseo_sac.c (1.3): Added
 	  filechooser dialog for SAC and ASCII export Improved messages in
 	  sac export Minor adjustments
 
@@ -424,7 +717,7 @@
 
 2005-09-14 11:42  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_wmean.c (1.12), teseointerface.c (1.55): Minor
+	* src/: teseointerface.c (1.55), teseo_wmean.c (1.12): Minor
 	  revision
 
 2005-09-14 11:05  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -434,8 +727,8 @@
 
 2005-09-14 08:08  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_wmean.c (1.11), teseo_wmean.h (1.9), teseocallbacks.c
-	  (1.67): up and down in wmean algorithm
+	* src/: teseocallbacks.c (1.67), teseo_wmean.c (1.11),
+	  teseo_wmean.h (1.9): up and down in wmean algorithm
 
 2005-09-14 07:36  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -444,9 +737,9 @@
 
 2005-09-14 07:35  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_path.c (1.21), teseo_path.h (1.10), teseocallbacks.c
-	  (1.66), teseocallbacks.h (1.31), teseointerface.c (1.53): Added
-	  teseo_path_force_polyline() function
+	* src/: teseocallbacks.c (1.66), teseocallbacks.h (1.31),
+	  teseointerface.c (1.53), teseo_path.c (1.21), teseo_path.h
+	  (1.10): Added teseo_path_force_polyline() function
 
 2005-09-13 15:44  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -455,15 +748,15 @@
 
 2005-09-13 15:40  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_timemark.c (1.2), teseo_timemark.h (1.2),
-	  teseocallbacks.c (1.65), teseocallbacks.h (1.30),
-	  teseointerface.c (1.52): Added teseo_timemark_add_from_guides()
-	  function	teseo_timemark_add_from_guides() needs testing
+	* src/: teseocallbacks.c (1.65), teseocallbacks.h (1.30),
+	  teseointerface.c (1.52), teseo_timemark.c (1.2), teseo_timemark.h
+	  (1.2): Added teseo_timemark_add_from_guides() function
+	  teseo_timemark_add_from_guides() needs testing
 
 2005-09-13 14:46  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_timemark.c (1.1), teseo_timemark.h (1.1),
-	  teseocallbacks.c (1.64): Added evaluate middle timemark function
+	* src/: teseocallbacks.c (1.64), teseo_timemark.c (1.1),
+	  teseo_timemark.h (1.1): Added evaluate middle timemark function
 
 2005-09-12 15:55  Stefano Pintore  <pintore@ingv.it>
 
@@ -477,7 +770,7 @@
 
 2005-09-06 13:14  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.12), teseocallbacks.c (1.62): Now BACK
+	* src/: teseocallbacks.c (1.62), teseo_main.c (1.12): Now BACK
 	  delete paths like GO button.	Corrected stop to the guide
 	  abscissa.
 
@@ -487,16 +780,15 @@
 
 2005-09-05 13:56  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.11), teseo_main.h (1.7), teseo_wmean.c
-	  (1.10), teseo_wmean.h (1.8), teseocallbacks.c (1.60): Save
-	  session in menu file->session->save.	Implemented stop to the
-	  first guide.
+	* src/: teseocallbacks.c (1.60), teseo_main.c (1.11), teseo_main.h
+	  (1.7), teseo_wmean.c (1.10), teseo_wmean.h (1.8): Save session in
+	  menu file->session->save.  Implemented stop to the first guide.
 
 2005-09-05 11:14  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_session.c (1.21), teseo_session.h (1.12),
-	  teseocallbacks.c (1.59): New function to test if a session for
-	  the image exist.  Applied to change teseo starting behaviouri in
+	* src/: teseocallbacks.c (1.59), teseo_session.c (1.21),
+	  teseo_session.h (1.12): New function to test if a session for the
+	  image exist.	Applied to change teseo starting behaviouri in
 	  callbacks.
 
 2005-09-02 15:17  Stefano Pintore  <pintore@ingv.it>
@@ -534,8 +826,8 @@
 
 2005-09-02 08:23  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_io.h (1.9), teseo_path.c (1.20), teseo_resample.c
-	  (1.10), teseo_snap.c (1.2), teseocallbacks.c (1.56): Abbreviation
+	* src/: teseocallbacks.c (1.56), teseo_io.h (1.9), teseo_path.c
+	  (1.20), teseo_resample.c (1.10), teseo_snap.c (1.2): Abbreviation
 	  for path names
 
 2005-09-02 07:43  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -585,8 +877,8 @@
 
 2005-08-31 15:28  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: sac.h (1.1), teseo_sac.c (1.1), teseo_sac.h (1.1),
-	  teseocallbacks.c (1.54): Added source to export SAC binary
+	* src/: sac.h (1.1), teseocallbacks.c (1.54), teseo_sac.c (1.1),
+	  teseo_sac.h (1.1): Added source to export SAC binary
 
 2005-08-31 10:13  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -626,8 +918,8 @@
 
 2005-08-26 11:06  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_io.c (1.17), teseo_io.h (1.8), teseocallbacks.c
-	  (1.51): Added teseo_save_path_ascii() function
+	* src/: teseocallbacks.c (1.51), teseo_io.c (1.17), teseo_io.h
+	  (1.8): Added teseo_save_path_ascii() function
 
 2005-08-26 08:54  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -679,23 +971,23 @@
 
 2005-08-18 16:03  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_bezier_point.c (1.4), teseo_env.c (1.12), teseo_io.c
-	  (1.14), teseo_resample.c (1.8), teseo_session.c (1.18),
-	  teseocallbacks.c (1.48): Omologated some 'printf', 'sprintf',
-	  ecc. function with 'g_printf', 'g_sprintf', ecc.
+	* src/: teseo_bezier_point.c (1.4), teseocallbacks.c (1.48),
+	  teseo_env.c (1.12), teseo_io.c (1.14), teseo_resample.c (1.8),
+	  teseo_session.c (1.18): Omologated some 'printf', 'sprintf', ecc.
+	  function with 'g_printf', 'g_sprintf', ecc.
 
 2005-08-18 14:43  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_gimp_extends.c (1.3), teseo_io.c (1.13), teseo_path.c
-	  (1.15), teseo_resample.c (1.7), teseocallbacks.c (1.47): Added
-	  g_free for vector allocated with gimp_path_get_points() or
+	* src/: teseocallbacks.c (1.47), teseo_gimp_extends.c (1.3),
+	  teseo_io.c (1.13), teseo_path.c (1.15), teseo_resample.c (1.7):
+	  Added g_free for vector allocated with gimp_path_get_points() or
 	  teseo_gimp_path_get_points()
 
 2005-08-17 12:28  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_gimp_extends.c (1.2), teseo_gimp_extends.h (1.2),
-	  teseo_io.c (1.12), teseo_path.c (1.14), teseo_resample.c (1.6),
-	  teseocallbacks.c (1.46): Added wrapper function for
+	* src/: teseocallbacks.c (1.46), teseo_gimp_extends.c (1.2),
+	  teseo_gimp_extends.h (1.2), teseo_io.c (1.12), teseo_path.c
+	  (1.14), teseo_resample.c (1.6): Added wrapper function for
 	  gimp_path_get_points	      - display error/message by
 	  g_message()
 
@@ -746,9 +1038,9 @@
 
 2005-08-10 22:16  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseointerface.c (1.43), teseo_path.c (1.11), teseo_path.h
-	  (1.6), teseocallbacks.c (1.44), teseocallbacks.h (1.25): Added
-	  Link locked path with option to delete old path Added Align
+	* src/: teseointerface.c (1.43), teseocallbacks.c (1.44),
+	  teseocallbacks.h (1.25), teseo_path.c (1.11), teseo_path.h (1.6):
+	  Added Link locked path with option to delete old path Added Align
 	  locked path with option to delete old path
 
 2005-08-10 18:56  Matteo Quintiliani  <quintiliani@ingv.it>
@@ -914,10 +1206,10 @@
 
 2005-08-05 08:36  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: interface.c (1.19), teseo_session.c (1.13), teseo_session.h
-	  (1.9), teseocallbacks.c (1.36), teseocallbacks.h (1.22),
-	  teseointerface.c (1.36), teseointerface.h (1.17): Set homogenic
-	  widget name.
+	* src/: interface.c (1.19), teseocallbacks.c (1.36),
+	  teseocallbacks.h (1.22), teseointerface.c (1.36),
+	  teseointerface.h (1.17), teseo_session.c (1.13), teseo_session.h
+	  (1.9): Set homogenic widget name.
 
 2005-08-04 16:33  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -1014,15 +1306,15 @@
 
 2005-07-28 12:49  Matteo Quintiliani  <quintiliani@ingv.it>
 
-	* src/: teseo_session.c (1.11), teseocallbacks.c (1.30),
-	  teseocallbacks.h (1.19), teseointerface.c (1.28),
-	  teseointerface.h (1.12): Session management GUI Improvements
+	* src/: teseocallbacks.c (1.30), teseocallbacks.h (1.19),
+	  teseointerface.c (1.28), teseo_session.c (1.11), teseointerface.h
+	  (1.12): Session management GUI Improvements
 
 2005-07-28 11:03  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: interface.c (1.15), interface.h (1.4), main.c (1.8), main.h
-	  (1.4), render.c (1.3), render.h (1.4), teseo_wmean.h (1.6),
-	  teseointerface.c (1.27): Modify a little
+	  (1.4), render.c (1.3), render.h (1.4), teseointerface.c (1.27),
+	  teseo_wmean.h (1.6): Modify a little
 
 2005-07-28 10:45  Stefano Pintore  <pintore@ingv.it>
 
@@ -1051,13 +1343,13 @@
 
 2005-07-27 11:31  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_path.c (1.7), teseo_wmean.c (1.6), teseointerface.c
-	  (1.22): Gui improvements
+	* src/: teseointerface.c (1.22), teseo_path.c (1.7), teseo_wmean.c
+	  (1.6): Gui improvements
 
 2005-07-26 14:57  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.6), teseo_path.c (1.6), teseocallbacks.c
-	  (1.29): Modified cat_path_strokes to have path stay visible.
+	* src/: teseocallbacks.c (1.29), teseo_main.c (1.6), teseo_path.c
+	  (1.6): Modified cat_path_strokes to have path stay visible.
 
 2005-07-26 09:54  Stefano Pintore  <pintore@ingv.it>
 
@@ -1074,32 +1366,31 @@
 
 2005-07-25 14:38  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.5), teseo_main.h (1.4), teseo_wmean.c
-	  (1.5), teseo_wmean.h (1.4), teseocallbacks.c (1.26): Corretta la
+	* src/: teseocallbacks.c (1.26), teseo_main.c (1.5), teseo_main.h
+	  (1.4), teseo_wmean.c (1.5), teseo_wmean.h (1.4): Corretta la
 	  wmean_new_is, scritta e usata la wmean_release.  Cambiato nome:
 	  init_wmean->wmean_init, aggiunti commenti.
 
 2005-07-25 11:58  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.4), teseo_session.c (1.10), teseo_wmean.c
-	  (1.4), teseo_wmean.h (1.3), teseocallbacks.c (1.25),
-	  teseointerface.c (1.19): Aggiunta abilitazione pulsanti go-back
-	  in seguito a scelta dell'algoritmo.
+	* src/: teseocallbacks.c (1.25), teseointerface.c (1.19),
+	  teseo_main.c (1.4), teseo_session.c (1.10), teseo_wmean.c (1.4),
+	  teseo_wmean.h (1.3): Aggiunta abilitazione pulsanti go-back in
+	  seguito a scelta dell'algoritmo.
 
 2005-07-22 15:24  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.3), teseo_main.h (1.3), teseo_path.c (1.5),
-	  teseo_wmean.c (1.3), teseo_wmean.h (1.2), teseocallbacks.c
-	  (1.24), teseointerface.c (1.18): Gestiti parametri algoritmo
-	  nell'interfaccia.  Gestito inseguimento su layers multipli
-	  (canale alpha).  TODO: inizializzare comunque l'algoritmo anche
-	  se non viene premuto il pulsante di scelta.
+	* src/: teseocallbacks.c (1.24), teseointerface.c (1.18),
+	  teseo_main.c (1.3), teseo_main.h (1.3), teseo_path.c (1.5),
+	  teseo_wmean.c (1.3), teseo_wmean.h (1.2): Gestiti parametri
+	  algoritmo nell'interfaccia.  Gestito inseguimento su layers
+	  multipli (canale alpha).  TODO: inizializzare comunque
+	  l'algoritmo anche se non viene premuto il pulsante di scelta.
 
 2005-07-21 15:53  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.2), teseo_main.h (1.2), teseo_wmean.c
-	  (1.2), teseocallbacks.c (1.23): Corretta wmean_accumulate..
-	  Insegue!
+	* src/: teseocallbacks.c (1.23), teseo_main.c (1.2), teseo_main.h
+	  (1.2), teseo_wmean.c (1.2): Corretta wmean_accumulate.. Insegue!
 
 2005-07-20 17:21  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -1113,27 +1404,27 @@
 
 2005-07-20 15:30  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_main.c (1.1), teseo_main.h (1.1), teseo_path.c (1.4),
-	  teseo_path.h (1.3), teseo_wmean.c (1.1), teseo_wmean.h (1.1),
-	  teseocallbacks.c (1.22), teseocallbacks.h (1.16),
-	  teseointerface.c (1.17): Aggiunta struttura per esecuzione di
+	* src/: teseocallbacks.c (1.22), teseocallbacks.h (1.16),
+	  teseointerface.c (1.17), teseo_main.c (1.1), teseo_main.h (1.1),
+	  teseo_path.c (1.4), teseo_path.h (1.3), teseo_wmean.c (1.1),
+	  teseo_wmean.h (1.1): Aggiunta struttura per esecuzione di
 	  algoritmo generico teseo_main Vedi teseo_wmean per esempio di
 	  algoritmo TODO: eliminare teseo_prototype, debugging.. probabile
 	  errore nella chiamata cat _path_strokes
 
 2005-07-18 14:46  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: interface.c (1.12), teseo_session.c (1.9), teseocallbacks.c
-	  (1.21), teseointerface.c (1.16), teseointerface.h (1.11):
-	  Riportata in interface.c la gestione del pattern per
+	* src/: interface.c (1.12), teseocallbacks.c (1.21),
+	  teseointerface.c (1.16), teseo_session.c (1.9), teseointerface.h
+	  (1.11): Riportata in interface.c la gestione del pattern per
 	  teseosessionfilechooser
 
 2005-07-18 11:04  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: interface.c (1.11), teseo_session.c (1.8), teseocallbacks.c
-	  (1.20), teseocallbacks.h (1.15), teseointerface.c (1.15),
-	  teseointerface.h (1.10): Cambiato posiszione e significato del
-	  filtro su file chooser di sessione
+	* src/: interface.c (1.11), teseocallbacks.c (1.20),
+	  teseocallbacks.h (1.15), teseointerface.c (1.15), teseo_session.c
+	  (1.8), teseointerface.h (1.10): Cambiato posiszione e significato
+	  del filtro su file chooser di sessione
 
 2005-07-16 14:57  Matteo Quintiliani  <quintiliani@ingv.it>
 
@@ -1148,17 +1439,18 @@
 
 2005-07-15 14:09  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: interface.c (1.10), teseo_session.c (1.7), teseo_session.h
-	  (1.7), teseocallbacks.c (1.17), teseocallbacks.h (1.12),
-	  teseointerface.c (1.13), teseointerface.h (1.9): Continua
-	  modifiche alla gestione della sessione, new-open-save Legge e
-	  salva le interfacce di preferenze e sessione.
+	* src/: interface.c (1.10), teseocallbacks.c (1.17),
+	  teseocallbacks.h (1.12), teseointerface.c (1.13),
+	  teseointerface.h (1.9), teseo_session.c (1.7), teseo_session.h
+	  (1.7): Continua modifiche alla gestione della sessione,
+	  new-open-save Legge e salva le interfacce di preferenze e
+	  sessione.
 
 2005-07-14 14:25  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: main.c (1.7), teseo_env.c (1.4), teseo_session.c (1.6),
-	  teseo_session.h (1.6), teseocallbacks.c (1.16), teseocallbacks.h
-	  (1.11): Gestione salvataggio sessione e preferenze: da rivedere
+	* src/: main.c (1.7), teseocallbacks.c (1.16), teseocallbacks.h
+	  (1.11), teseo_env.c (1.4), teseo_session.c (1.6), teseo_session.h
+	  (1.6): Gestione salvataggio sessione e preferenze: da rivedere
 
 2005-07-12 15:31  Stefano Pintore  <pintore@ingv.it>
 
@@ -1168,10 +1460,11 @@
 
 2005-07-12 14:54  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: interface.c (1.9), teseo_session.c (1.5), teseo_session.h
-	  (1.5), teseocallbacks.c (1.15), teseocallbacks.h (1.10),
-	  teseointerface.c (1.11), teseointerface.h (1.7): Aggiunta
-	  finestra per creazione e visualizzazione dati di sessione
+	* src/: interface.c (1.9), teseocallbacks.c (1.15),
+	  teseocallbacks.h (1.10), teseointerface.c (1.11),
+	  teseointerface.h (1.7), teseo_session.c (1.5), teseo_session.h
+	  (1.5): Aggiunta finestra per creazione e visualizzazione dati di
+	  sessione
 
 2005-07-12 10:25  Stefano Pintore  <pintore@ingv.it>
 
@@ -1182,10 +1475,11 @@
 
 2005-07-11 15:18  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: main.c (1.5), teseo_session.c (1.3), teseo_session.h (1.3),
-	  teseocallbacks.c (1.13), teseointerface.c (1.10): Per salvare le
-	  preferenze e le sessioni in $HOME/gimp-2.2/teseo-2.  Modificati i
-	  nomi nella finestra preferenze dei widget da salvare.
+	* src/: main.c (1.5), teseocallbacks.c (1.13), teseointerface.c
+	  (1.10), teseo_session.c (1.3), teseo_session.h (1.3): Per salvare
+	  le preferenze e le sessioni in $HOME/gimp-2.2/teseo-2.
+	  Modificati i nomi nella finestra preferenze dei widget da
+	  salvare.
 
 2005-07-11 12:11  Stefano Pintore  <pintore@ingv.it>
 
@@ -1215,16 +1509,15 @@
 	* src/: interface.c (1.7), main.c (1.3), main.h (1.3), render.h
 	  (1.3), teseo_bezier_point.c (1.2), teseo_bezier_point.h (1.2),
 	  teseo_env.c (1.2), teseo_env.h (1.2), teseo_io.c (1.7),
-	  teseo_io.h (1.5), teseo_path.c (1.3), teseo_path.h (1.2),
-	  teseo_resample.c (1.2), teseo_resample.h (1.2), teseo_types.h
-	  (1.2), teseocallbacks.c (1.11), teseocallbacks.h (1.7): Ammesse
-	  solo immagini in grayscale. Aggiunto copyright nei file in cui
-	  mancava
+	  teseocallbacks.c (1.11), teseocallbacks.h (1.7), teseo_io.h
+	  (1.5), teseo_path.c (1.3), teseo_path.h (1.2), teseo_resample.c
+	  (1.2), teseo_resample.h (1.2), teseo_types.h (1.2): Ammesse solo
+	  immagini in grayscale. Aggiunto copyright nei file in cui mancava
 
 2005-06-14 11:28  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_io.c (1.6), teseo_io.h (1.4), teseocallbacks.c
-	  (1.10): Aggiunto import dei file SVG
+	* src/: teseocallbacks.c (1.10), teseo_io.c (1.6), teseo_io.h
+	  (1.4): Aggiunto import dei file SVG
 
 2005-06-06 11:18  Stefano Pintore  <pintore@ingv.it>
 
@@ -1237,7 +1530,7 @@
 
 2005-06-01 15:33  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: teseo_io.c (1.4), teseocallbacks.c (1.9): Correggo
+	* src/: teseocallbacks.c (1.9), teseo_io.c (1.4): Correggo
 
 2005-06-01 15:16  Stefano Pintore  <pintore@ingv.it>
 
@@ -1260,9 +1553,9 @@
 
 2005-06-01 10:02  Stefano Pintore  <pintore@ingv.it>
 
-	* src/: interface.c (1.6), teseo_io.c (1.2), teseo_io.h (1.2),
-	  teseo_path.c (1.2), teseocallbacks.c (1.6), teseocallbacks.h
-	  (1.5): Inserito import dxf, con setlocale "C"
+	* src/: interface.c (1.6), teseocallbacks.c (1.6), teseocallbacks.h
+	  (1.5), teseo_io.c (1.2), teseo_io.h (1.2), teseo_path.c (1.2):
+	  Inserito import dxf, con setlocale "C"
 
 2005-05-31 17:20  Matteo Quintiliani  <quintiliani@ingv.it>
 
