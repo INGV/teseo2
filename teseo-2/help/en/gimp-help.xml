@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <gimp-help xmlns:teseo-2="http://sismos.ingv.it/teseo/docs">
-  <help-item teseo-2:id="teseo" ref="index.html" />
+  <help-item teseo-2:id="teseo-2" ref="index.html" />
 </gimp-help>
