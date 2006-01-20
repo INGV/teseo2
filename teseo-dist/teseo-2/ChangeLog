@@ -1,3 +1,12 @@
+2006-01-20 07:37  Stefano Pintore  <pintore@ingv.it>
+
+	* src/: teseocallbacks.c (1.136), teseointerface.c (1.111): Removed
+	  bogus reference to wiechert in callbacks and interface
+
+2006-01-19 15:26  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/teseointerface.c (1.110): Changed the acronymous
+
 2006-01-17 09:56  Matteo Quintiliani  <quintiliani@ingv.it>
 
 	* src/: interface.c (1.38), teseocallbacks.c (1.135),
