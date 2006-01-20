@@ -6225,7 +6225,7 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <signal name="delete_event" handler="on_win_wiechert_delete_event" last_modification_time="Mon, 14 Nov 2005 13:23:46 GMT"/>
+  <signal name="delete_event" handler="on_win_curvature_delete_event" last_modification_time="Fri, 20 Jan 2006 07:53:17 GMT"/>
 
   <child>
     <widget class="GtkVBox" id="vbox88">
