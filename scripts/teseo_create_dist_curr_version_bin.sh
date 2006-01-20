@@ -44,9 +44,15 @@ DISTDIR=$CVSWORKTESEO2/$MODULENAME
 SUBDIRTESEO2=$DISTDIR/teseo-2
 SUBDIRGTKADDONS=$DISTDIR/gtk-addons
 
+if [ -z $OSTYPE ]; then
+	echo ""
+	echo "Variable OSTYPE is not defined. Please, define it before launch this script!"
+	echo ""
+	exit
+fi
 # Following variables determine file name distribution and tag for CVS repository
 SOFTNAME=teseo
-TESEODISTNAME=${SOFTNAME}-${DISTNAME}
+TESEODISTNAME=${SOFTNAME}-${DISTNAME}-bin-${OSTYPE}
 
 
 ##################
