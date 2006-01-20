@@ -4070,7 +4070,7 @@ create_win_curvature (void)
   gtk_tooltips_set_tip (tooltips, btn_correct, "Correct current path", NULL);
 
   g_signal_connect ((gpointer) win_curvature, "delete_event",
-                    G_CALLBACK (on_win_wiechert_delete_event),
+                    G_CALLBACK (on_win_curvature_delete_event),
                     NULL);
   g_signal_connect ((gpointer) calc_dist_btn, "clicked",
                     G_CALLBACK (on_calc_dist_btn_clicked),
