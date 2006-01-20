@@ -744,7 +744,7 @@
 
 		  <child>
 		    <widget class="GtkRadioToolButton" id="teseo_alg2_radiotoolbutton">
-		      <property name="visible">True</property>
+		      <property name="sensitive">False</property>
 		      <property name="tooltip" translatable="yes">Algorithm 2</property>
 		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">True</property>
