@@ -6,10 +6,11 @@ helpdata_DATA = \
 	gimp-help.xml	\
 	index.html \
 	teseo2_user_manual.html \
-	teseo2_user_manual.css \
-	img1.gif \
-	snapshot1.tiff.eps.gif  snapshot2.tiff.eps.gif  snapshot5.tiff.eps.gif  snapshot8.tiff.eps.gif \
-	snapshot10.tiff.eps.gif snapshot3.tiff.eps.gif  snapshot6.tiff.eps.gif  snapshot9.tiff.eps.gif \
-	snapshot11.tiff.eps.gif snapshot4.tiff.eps.gif  snapshot7.tiff.eps.gif
+	teseo2_user_manual_personal.css \
+	img1.png \
+	snapshot1.png  snapshot2.png  snapshot5.png  snapshot8.png \
+	snapshot10.png snapshot3.png  snapshot6.png  snapshot9.png \
+	snapshot11.png snapshot4.png  snapshot7.png \
+	snapshot12.png
 
 EXTRA_DIST = $(helpdata_DATA)
