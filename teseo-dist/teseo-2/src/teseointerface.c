@@ -719,8 +719,8 @@ create_win_teseo (void)
   gtk_widget_show (tmp_image);
   gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (teseo_alg2_radiotoolbutton), tmp_image);
   gtk_widget_set_name (teseo_alg2_radiotoolbutton, "teseo_alg2_radiotoolbutton");
-  gtk_widget_show (teseo_alg2_radiotoolbutton);
   gtk_container_add (GTK_CONTAINER (toolbar2), teseo_alg2_radiotoolbutton);
+  gtk_widget_set_sensitive (teseo_alg2_radiotoolbutton, FALSE);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (teseo_alg2_radiotoolbutton), tooltips, "Algorithm 2", NULL);
   gtk_radio_tool_button_set_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton), alg_wmean_radiotoolbutton_group);
   alg_wmean_radiotoolbutton_group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (teseo_alg2_radiotoolbutton));
