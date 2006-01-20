@@ -1,3 +1,8 @@
+2006-01-20 10:28  Matteo Quintiliani  <quintiliani@ingv.it>
+
+	* src/: teseocallbacks.c (1.137), teseocallbacks.h (1.62),
+	  teseointerface.c (1.112): Disabled algo2 button
+
 2006-01-20 07:37  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: teseocallbacks.c (1.136), teseointerface.c (1.111): Removed
