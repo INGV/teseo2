@@ -71,13 +71,41 @@ int my_system(char * command, char * const argv[200], char * const env[]  ){
 
 
 
-gint teseo_filexist( char * filename)
+gint teseo_filexist(const char * filename)
 {
  gint ret=0;  
    if (g_file_test(filename,G_FILE_TEST_EXISTS)){
     ret=1;
    }
   return ret;
+}
+
+
+gboolean teseo_if_file_exists_overwrite_dialog(const gchar *filename) {
+    gboolean flag_save_file = TRUE;
+    if(teseo_filexist(filename)) {
+
+        GtkWidget *dialog_save = gtk_message_dialog_new_with_markup (
+                NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+                "File <i>%s</i> exists.\n\nDo you want overwrite it?",
+                filename);
+
+        switch (gtk_dialog_run (GTK_DIALOG (dialog_save)))
+        {
+            case GTK_RESPONSE_YES:
+                flag_save_file = TRUE;
+                break;
+            case GTK_RESPONSE_NO:
+                flag_save_file = FALSE;
+                break;
+            default:
+                break;
+        }
+        gtk_widget_hide (dialog_save);
+        gtk_widget_destroy(dialog_save);
+
+    }
+    return flag_save_file;
 }
 
 
