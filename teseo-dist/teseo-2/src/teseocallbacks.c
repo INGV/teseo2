@@ -488,6 +488,7 @@ TODO correct gtk_file_chooser_get_filename lines gfree the result!!!!
 
 */
 
+
 void
 on_dxf1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
@@ -529,12 +530,16 @@ on_dxf1_activate                       (GtkMenuItem     *menuitem,
 
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
                 //g_sprintf(dxf_path_filename, "%s%s%s", dxf_path, G_DIR_SEPARATOR_S, filename);
+                g_printf("\ndxf filename: %s\n", filename);
 
                 // TODO check if dxf_path_filename exists
+                if(teseo_if_file_exists_overwrite_dialog(filename)) {
+                    // TODO check options in session windows before saving
+                    teseo_save_path_dxf(teseo_image, filename, scale);
+                }
 
-                // TODO check options in session windows before saving
-                teseo_save_path_dxf(teseo_image, filename, scale);
 		g_free(filename);
+
                 // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
                 teseo_gtk_statusbar_push("Current path exported in DXF format.");
 
@@ -653,11 +658,14 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                     STEL = gtk_spin_button_get_value (teseo_stel_spinbutton);
                 }
 
-                if(teseo_sac_path_export(teseo_image, filename, paper_velocity, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL)) {
-                    // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
-                    teseo_gtk_statusbar_push("Current path exported in SAC format.");
-                } else {
-                    g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
+
+                if(teseo_if_file_exists_overwrite_dialog(filename)) {
+                    if(teseo_sac_path_export(teseo_image, filename, paper_velocity, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL)) {
+                        // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                        teseo_gtk_statusbar_push("Current path exported in SAC format.");
+                    } else {
+                        g_message("Teseo2-CRITICAL: an error occurred saving path \n\"%s\"\n in file \"%s\".\nAre you sure path is evenly spaced?", pathname, filename);
+                    }
                 }
 
                 break;
@@ -737,11 +745,13 @@ on_timemark1_activate                  (GtkMenuItem     *menuitem,
         {
             case GTK_RESPONSE_OK:
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
-                // TODO check if timemark_path_filename exists
 
-                // TODO check options in session windows before saving
-                teseo_save_path_ascii(teseo_image, filename);
-                // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                // TODO check if timemark_path_filename exists
+                if(teseo_if_file_exists_overwrite_dialog(filename)) {
+                    // TODO check options in session windows before saving
+                    teseo_save_path_ascii(teseo_image, filename);
+                    // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                }
 		g_free(filename);
                 teseo_gtk_statusbar_push("Current path exported in TIMEMARK ASCII format.");
 
@@ -1089,9 +1099,11 @@ on_ascii2_activate                     (GtkMenuItem     *menuitem,
             case GTK_RESPONSE_OK:
                 filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_export)) ;
 		// TODO check if ascii_path_filename exists
-                // TODO check options in session windows before saving
-                teseo_save_path_ascii(teseo_image, filename);
-                // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                if(teseo_if_file_exists_overwrite_dialog(filename)) {
+                    // TODO check options in session windows before saving
+                    teseo_save_path_ascii(teseo_image, filename);
+                    // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
+                }
 		g_free(filename);
                 teseo_gtk_statusbar_push("Current path exported in ASCII format.");
 

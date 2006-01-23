@@ -53,7 +53,12 @@
     /*!
       TODO
       */
-    gint teseo_filexist( char *nome_file);
+    gint teseo_filexist(const char *nome_file);
+
+    /*!
+      TODO
+      */
+    gboolean teseo_if_file_exists_overwrite_dialog(const gchar *filename);
 
 
 /* *****************
