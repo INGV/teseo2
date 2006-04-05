@@ -36,18 +36,18 @@ create_win_teseo (void)
   GtkWidget *menuitem4;
   GtkWidget *menuitem4_menu;
   GtkWidget *session1;
-  GtkWidget *image857;
+  GtkWidget *image877;
   GtkWidget *session1_menu;
   GtkWidget *new1;
   GtkWidget *open1;
   GtkWidget *properties1;
-  GtkWidget *image858;
+  GtkWidget *image878;
   GtkWidget *salva1;
   GtkWidget *path4;
-  GtkWidget *image859;
+  GtkWidget *image879;
   GtkWidget *path4_menu;
   GtkWidget *import1;
-  GtkWidget *image860;
+  GtkWidget *image880;
   GtkWidget *import1_menu;
   GtkWidget *dxf2;
   GtkWidget *ascii1;
@@ -58,7 +58,7 @@ create_win_teseo (void)
   GtkWidget *separator6;
   GtkWidget *bezier1;
   GtkWidget *export1;
-  GtkWidget *image861;
+  GtkWidget *image881;
   GtkWidget *export1_menu;
   GtkWidget *dxf1;
   GtkWidget *ascii2;
@@ -69,14 +69,14 @@ create_win_teseo (void)
   GtkWidget *separator5;
   GtkWidget *examples2;
   GtkWidget *parasites1;
-  GtkWidget *image862;
+  GtkWidget *image882;
   GtkWidget *parasites1_menu;
   GtkWidget *import2;
-  GtkWidget *image863;
+  GtkWidget *image883;
   GtkWidget *export2;
-  GtkWidget *image864;
+  GtkWidget *image884;
   GtkWidget *remove_all1;
-  GtkWidget *image865;
+  GtkWidget *image885;
   GtkWidget *separatormenuitem1;
   GtkWidget *quit1;
   GtkWidget *path3;
@@ -108,9 +108,9 @@ create_win_teseo (void)
   GtkWidget *menuitem7;
   GtkWidget *menuitem7_menu;
   GtkWidget *help1;
-  GtkWidget *image866;
+  GtkWidget *image886;
   GtkWidget *about1;
-  GtkWidget *image867;
+  GtkWidget *image887;
   GtkWidget *handlebox3;
   GtkWidget *toolbar2;
   GtkIconSize tmp_toolbar_icon_size;
@@ -308,10 +308,10 @@ create_win_teseo (void)
   gtk_widget_show (session1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), session1);
 
-  image857 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image857, "image857");
-  gtk_widget_show (image857);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (session1), image857);
+  image877 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image877, "image877");
+  gtk_widget_show (image877);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (session1), image877);
 
   session1_menu = gtk_menu_new ();
   gtk_widget_set_name (session1_menu, "session1_menu");
@@ -335,10 +335,10 @@ create_win_teseo (void)
                               GDK_P, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  image858 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image858, "image858");
-  gtk_widget_show (image858);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image858);
+  image878 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image878, "image878");
+  gtk_widget_show (image878);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties1), image878);
 
   salva1 = gtk_image_menu_item_new_from_stock ("gtk-save", accel_group);
   gtk_widget_set_name (salva1, "salva1");
@@ -350,10 +350,10 @@ create_win_teseo (void)
   gtk_widget_show (path4);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), path4);
 
-  image859 = gtk_image_new_from_stock ("gtk-harddisk", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image859, "image859");
-  gtk_widget_show (image859);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (path4), image859);
+  image879 = gtk_image_new_from_stock ("gtk-harddisk", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image879, "image879");
+  gtk_widget_show (image879);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (path4), image879);
 
   path4_menu = gtk_menu_new ();
   gtk_widget_set_name (path4_menu, "path4_menu");
@@ -364,10 +364,10 @@ create_win_teseo (void)
   gtk_widget_show (import1);
   gtk_container_add (GTK_CONTAINER (path4_menu), import1);
 
-  image860 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image860, "image860");
-  gtk_widget_show (image860);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image860);
+  image880 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image880, "image880");
+  gtk_widget_show (image880);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import1), image880);
 
   import1_menu = gtk_menu_new ();
   gtk_widget_set_name (import1_menu, "import1_menu");
@@ -422,10 +422,10 @@ create_win_teseo (void)
   gtk_widget_show (export1);
   gtk_container_add (GTK_CONTAINER (path4_menu), export1);
 
-  image861 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image861, "image861");
-  gtk_widget_show (image861);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image861);
+  image881 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image881, "image881");
+  gtk_widget_show (image881);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export1), image881);
 
   export1_menu = gtk_menu_new ();
   gtk_widget_set_name (export1_menu, "export1_menu");
@@ -479,10 +479,10 @@ create_win_teseo (void)
   gtk_widget_show (parasites1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), parasites1);
 
-  image862 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image862, "image862");
-  gtk_widget_show (image862);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (parasites1), image862);
+  image882 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image882, "image882");
+  gtk_widget_show (image882);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (parasites1), image882);
 
   parasites1_menu = gtk_menu_new ();
   gtk_widget_set_name (parasites1_menu, "parasites1_menu");
@@ -494,10 +494,10 @@ create_win_teseo (void)
   gtk_container_add (GTK_CONTAINER (parasites1_menu), import2);
   gtk_tooltips_set_tip (tooltips, import2, "Import session parasites in current image", NULL);
 
-  image863 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image863, "image863");
-  gtk_widget_show (image863);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import2), image863);
+  image883 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image883, "image883");
+  gtk_widget_show (image883);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (import2), image883);
 
   export2 = gtk_image_menu_item_new_with_mnemonic ("_Export...");
   gtk_widget_set_name (export2, "export2");
@@ -505,10 +505,10 @@ create_win_teseo (void)
   gtk_container_add (GTK_CONTAINER (parasites1_menu), export2);
   gtk_tooltips_set_tip (tooltips, export2, "Export session parasites in current image", NULL);
 
-  image864 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image864, "image864");
-  gtk_widget_show (image864);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export2), image864);
+  image884 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image884, "image884");
+  gtk_widget_show (image884);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (export2), image884);
 
   remove_all1 = gtk_image_menu_item_new_with_mnemonic ("_Remove all");
   gtk_widget_set_name (remove_all1, "remove_all1");
@@ -516,10 +516,10 @@ create_win_teseo (void)
   gtk_container_add (GTK_CONTAINER (parasites1_menu), remove_all1);
   gtk_tooltips_set_tip (tooltips, remove_all1, "Beware, all parasites in image will be removed", NULL);
 
-  image865 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image865, "image865");
-  gtk_widget_show (image865);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (remove_all1), image865);
+  image885 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image885, "image885");
+  gtk_widget_show (image885);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (remove_all1), image885);
 
   separatormenuitem1 = gtk_separator_menu_item_new ();
   gtk_widget_set_name (separatormenuitem1, "separatormenuitem1");
@@ -605,7 +605,7 @@ create_win_teseo (void)
   gtk_widget_set_name (timemark3_menu, "timemark3_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (timemark3), timemark3_menu);
 
-  evaluate_middle_tms1 = gtk_menu_item_new_with_mnemonic ("_Evaluate middle TMs");
+  evaluate_middle_tms1 = gtk_menu_item_new_with_mnemonic ("_Evaluate missing TMs");
   gtk_widget_set_name (evaluate_middle_tms1, "evaluate_middle_tms1");
   gtk_widget_show (evaluate_middle_tms1);
   gtk_container_add (GTK_CONTAINER (timemark3_menu), evaluate_middle_tms1);
@@ -673,20 +673,20 @@ create_win_teseo (void)
   gtk_widget_show (help1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), help1);
 
-  image866 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image866, "image866");
-  gtk_widget_show (image866);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image866);
+  image886 = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image886, "image886");
+  gtk_widget_show (image886);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), image886);
 
   about1 = gtk_image_menu_item_new_with_mnemonic ("_About ...");
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem7_menu), about1);
 
-  image867 = gtk_image_new_from_stock ("gtk-home", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image867, "image867");
-  gtk_widget_show (image867);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image867);
+  image887 = gtk_image_new_from_stock ("gtk-home", GTK_ICON_SIZE_MENU);
+  gtk_widget_set_name (image887, "image887");
+  gtk_widget_show (image887);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (about1), image887);
 
   handlebox3 = gtk_handle_box_new ();
   gtk_widget_set_name (handlebox3, "handlebox3");
@@ -1817,18 +1817,18 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem4, "menuitem4");
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem4_menu, "menuitem4_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, session1, "session1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image857, "image857");
+  GLADE_HOOKUP_OBJECT (win_teseo, image877, "image877");
   GLADE_HOOKUP_OBJECT (win_teseo, session1_menu, "session1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, new1, "new1");
   GLADE_HOOKUP_OBJECT (win_teseo, open1, "open1");
   GLADE_HOOKUP_OBJECT (win_teseo, properties1, "properties1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image858, "image858");
+  GLADE_HOOKUP_OBJECT (win_teseo, image878, "image878");
   GLADE_HOOKUP_OBJECT (win_teseo, salva1, "salva1");
   GLADE_HOOKUP_OBJECT (win_teseo, path4, "path4");
-  GLADE_HOOKUP_OBJECT (win_teseo, image859, "image859");
+  GLADE_HOOKUP_OBJECT (win_teseo, image879, "image879");
   GLADE_HOOKUP_OBJECT (win_teseo, path4_menu, "path4_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, import1, "import1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image860, "image860");
+  GLADE_HOOKUP_OBJECT (win_teseo, image880, "image880");
   GLADE_HOOKUP_OBJECT (win_teseo, import1_menu, "import1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, dxf2, "dxf2");
   GLADE_HOOKUP_OBJECT (win_teseo, ascii1, "ascii1");
@@ -1839,7 +1839,7 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, separator6, "separator6");
   GLADE_HOOKUP_OBJECT (win_teseo, bezier1, "bezier1");
   GLADE_HOOKUP_OBJECT (win_teseo, export1, "export1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image861, "image861");
+  GLADE_HOOKUP_OBJECT (win_teseo, image881, "image881");
   GLADE_HOOKUP_OBJECT (win_teseo, export1_menu, "export1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, dxf1, "dxf1");
   GLADE_HOOKUP_OBJECT (win_teseo, ascii2, "ascii2");
@@ -1850,14 +1850,14 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, separator5, "separator5");
   GLADE_HOOKUP_OBJECT (win_teseo, examples2, "examples2");
   GLADE_HOOKUP_OBJECT (win_teseo, parasites1, "parasites1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image862, "image862");
+  GLADE_HOOKUP_OBJECT (win_teseo, image882, "image882");
   GLADE_HOOKUP_OBJECT (win_teseo, parasites1_menu, "parasites1_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, import2, "import2");
-  GLADE_HOOKUP_OBJECT (win_teseo, image863, "image863");
+  GLADE_HOOKUP_OBJECT (win_teseo, image883, "image883");
   GLADE_HOOKUP_OBJECT (win_teseo, export2, "export2");
-  GLADE_HOOKUP_OBJECT (win_teseo, image864, "image864");
+  GLADE_HOOKUP_OBJECT (win_teseo, image884, "image884");
   GLADE_HOOKUP_OBJECT (win_teseo, remove_all1, "remove_all1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image865, "image865");
+  GLADE_HOOKUP_OBJECT (win_teseo, image885, "image885");
   GLADE_HOOKUP_OBJECT (win_teseo, separatormenuitem1, "separatormenuitem1");
   GLADE_HOOKUP_OBJECT (win_teseo, quit1, "quit1");
   GLADE_HOOKUP_OBJECT (win_teseo, path3, "path3");
@@ -1889,9 +1889,9 @@ create_win_teseo (void)
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem7, "menuitem7");
   GLADE_HOOKUP_OBJECT (win_teseo, menuitem7_menu, "menuitem7_menu");
   GLADE_HOOKUP_OBJECT (win_teseo, help1, "help1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image866, "image866");
+  GLADE_HOOKUP_OBJECT (win_teseo, image886, "image886");
   GLADE_HOOKUP_OBJECT (win_teseo, about1, "about1");
-  GLADE_HOOKUP_OBJECT (win_teseo, image867, "image867");
+  GLADE_HOOKUP_OBJECT (win_teseo, image887, "image887");
   GLADE_HOOKUP_OBJECT (win_teseo, handlebox3, "handlebox3");
   GLADE_HOOKUP_OBJECT (win_teseo, toolbar2, "toolbar2");
   GLADE_HOOKUP_OBJECT (win_teseo, alg_wmean_radiotoolbutton, "alg_wmean_radiotoolbutton");
@@ -2628,7 +2628,7 @@ create_dlg_session (void)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_stel_spinbutton), TRUE);
 
-  label195 = gtk_label_new ("Quote");
+  label195 = gtk_label_new ("Elevation");
   gtk_widget_set_name (label195, "label195");
   gtk_widget_show (label195);
   gtk_table_attach (GTK_TABLE (table18), label195, 5, 6, 0, 1,
