@@ -160,12 +160,12 @@ helpdata_DATA = \
 	index.html \
 	teseo2_user_manual.html \
 	teseo2_user_manual_personal.css \
-	img1.png img2.png img3.png img4.png \
-	snapshot1.png  snapshot2.png  snapshot5.png  snapshot8.png \
-	snapshot10.png snapshot3.png  snapshot6.png  snapshot9.png \
-	snapshot11.png snapshot4.png  snapshot7.png \
-	snapshot12.png snapshot14.png snapshot16.png \
-	figure_III.2.png figure_III.3.png  
+	img1.jpg img2.jpg img3.jpg img4.jpg \
+	snapshot1.jpg  snapshot2.jpg  snapshot5.jpg  snapshot8.jpg \
+	snapshot10.jpg snapshot3.jpg  snapshot6.jpg  snapshot9.jpg \
+	snapshot11.jpg snapshot4.jpg  snapshot7.jpg \
+	snapshot12.jpg snapshot14.jpg snapshot16.jpg \
+	figure_III.2.jpg figure_III.3.jpg  
 
 
 EXTRA_DIST = $(helpdata_DATA)
