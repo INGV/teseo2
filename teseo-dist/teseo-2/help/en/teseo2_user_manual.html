@@ -1,0 +1,2101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.70)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Teseo2 User Manual Turn the Eldest Seismograms into the Electronic Original Ones - 2.0.9
+</TITLE>
+<META NAME="description" CONTENT="Teseo2 User Manual Turn the Eldest Seismograms into the Electronic Original Ones - 2.0.9
+">
+<META NAME="keywords" CONTENT="teseo2_user_manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="teseo2_user_manual_personal.css">
+
+</HEAD>
+
+<BODY >
+
+<P>
+<H1 ALIGN="CENTER">
+  <B>Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> User Manual</B> 
+<BR>  <FONT SIZE="-1"><B>T</B>urn the <B>E</B>ldest <B>S</B>eismograms into the <B>E</B>lectronic <B>O</B>riginal <B>O</B>nes - 2.0.9</FONT>
+</H1><DIV>
+
+<P ALIGN="CENTER"><STRONG><B>Stefano Pintore, Matteo Quintiliani</B></STRONG></P>
+<P ALIGN="CENTER"><I>  <FONT SIZE="-1"><I>Istituto Nazionale di Geofisica e Vulcanologia, Roma, Italy</I></FONT>
+</I></P>
+</DIV>
+
+<P>
+<DIV ALIGN="CENTER">
+* * * 
+<BR>This documentation needs further updates. 
+<BR><I>Revision: 1.56 -  Date: 2006-04-06 07:49:17 </I> 
+<BR>Please, check last revision at <TT><A NAME="tex2html1"
+  HREF="http://sismos.ingv.it/teseo/">http://sismos.ingv.it/teseo/</A></TT> 
+<BR>
+</DIV>
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html67"
+  HREF="teseo2_user_manual.html#SECTION00020000000000000000">1 Introduction</A>
+<LI><A NAME="tex2html68"
+  HREF="teseo2_user_manual.html#SECTION00030000000000000000">2 Installing Teseo</A>
+<UL>
+<LI><A NAME="tex2html69"
+  HREF="teseo2_user_manual.html#SECTION00031000000000000000">2.1 Teseo from Source</A>
+<LI><A NAME="tex2html70"
+  HREF="teseo2_user_manual.html#SECTION00032000000000000000">2.2 Teseo for Linux</A>
+<LI><A NAME="tex2html71"
+  HREF="teseo2_user_manual.html#SECTION00033000000000000000">2.3 Teseo for Windows</A>
+<LI><A NAME="tex2html72"
+  HREF="teseo2_user_manual.html#SECTION00034000000000000000">2.4 Teseo for Mac OS X</A>
+</UL><BR>
+<LI><A NAME="tex2html73"
+  HREF="teseo2_user_manual.html#SECTION00040000000000000000">3 Getting started with Teseo</A>
+<UL>
+<LI><A NAME="tex2html74"
+  HREF="teseo2_user_manual.html#SECTION00041000000000000000">3.1 Session</A>
+<LI><A NAME="tex2html75"
+  HREF="teseo2_user_manual.html#SECTION00042000000000000000">3.2 Teseo parasites</A>
+</UL><BR>
+<LI><A NAME="tex2html76"
+  HREF="teseo2_user_manual.html#SECTION00050000000000000000">4 Vectorization</A>
+<UL>
+<LI><A NAME="tex2html77"
+  HREF="teseo2_user_manual.html#SECTION00051000000000000000">4.1 Manual</A>
+<LI><A NAME="tex2html78"
+  HREF="teseo2_user_manual.html#SECTION00052000000000000000">4.2 Automatic</A>
+<LI><A NAME="tex2html79"
+  HREF="teseo2_user_manual.html#SECTION00053000000000000000">4.3 Path manipulation</A>
+<LI><A NAME="tex2html80"
+  HREF="teseo2_user_manual.html#SECTION00054000000000000000">4.4 Trace import/export</A>
+<LI><A NAME="tex2html81"
+  HREF="teseo2_user_manual.html#SECTION00055000000000000000">4.5 Filters</A>
+</UL><BR>
+<LI><A NAME="tex2html82"
+  HREF="teseo2_user_manual.html#SECTION00060000000000000000">5 Analysis after trace vectorization</A>
+<UL>
+<LI><A NAME="tex2html83"
+  HREF="teseo2_user_manual.html#SECTION00061000000000000000">5.1 Curvature correction</A>
+</UL><BR>
+<LI><A NAME="tex2html84"
+  HREF="teseo2_user_manual.html#SECTION00070000000000000000">6 Before leaving Teseo</A>
+<LI><A NAME="tex2html85"
+  HREF="teseo2_user_manual.html#SECTION00080000000000000000">7 Mailing list and bug report</A>
+<UL>
+<LI><A NAME="tex2html86"
+  HREF="teseo2_user_manual.html#SECTION00081000000000000000">7.1 Bug report</A>
+</UL><BR>
+<LI><A NAME="tex2html87"
+  HREF="teseo2_user_manual.html#SECTION00090000000000000000">8 Credits</A>
+<LI><A NAME="tex2html88"
+  HREF="teseo2_user_manual.html#SECTION000100000000000000000">9 Acknowledgements</A>
+<LI><A NAME="tex2html89"
+  HREF="teseo2_user_manual.html#SECTION000110000000000000000">10 Warnings</A>
+<LI><A NAME="tex2html90"
+  HREF="teseo2_user_manual.html#SECTION000120000000000000000">List of Figures</A>
+<LI><A NAME="tex2html91"
+  HREF="teseo2_user_manual.html#SECTION000130000000000000000">Bibliography</A>
+<LI><A NAME="tex2html92"
+  HREF="teseo2_user_manual.html#SECTION000140000000000000000">Index</A>
+</UL>
+<!--End of Table of Contents-->
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+1 Introduction</A>
+</H1>
+
+<P>
+This document is the user manual of Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> software - <I>Copyright &#169; 2005</I> - Stefano Pintore, Matteo Quintiliani.
+<I>Revision: 1.56 -  Date: 2006-04-06 07:49:17 .</I>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is a software tool for seismogram digitization/vectorization and it is developed in the framework of the Sismos project [<A
+ HREF="teseo2_user_manual.html#sismoseos">Michelini and the Sismos Team, 2005</A>] at Istituto Nazionale di Geofisica e Vulcanologia (Italy).
+This name was inspired by the myth of Theseus and it is also an acronym for <I><B>T</B>urn the <B>E</B>ldest <B>S</B>eismograms into the <B>E</B>lectronic <B>O</B>riginal <B>O</B>nes</I>.
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is a plug-in for GIMP - GNU Image Manipulation Program - that extends its functionalities for seismological studies.  The GIMP<A NAME="790"></A> is a multiplatform photo manipulation tool freely distributed. It works on many operating systems, in many languages.
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> allows primarily for: 
+
+<P>
+
+<UL>
+<LI>additional operations on the vectorized trace (i.e. resampling and alignment) 
+</LI>
+<LI>supervised vectorization algorithms (colour weighted mean) 
+</LI>
+<LI>analysis after trace vectorization, such as curvature correction and time realignment 
+</LI>
+<LI>trace import/export in several formats (such as <I>SAC</I><A NAME="793"></A>, <I>SVG</I><A NAME="795"></A>, <I>DXF</I><A NAME="797"></A>, <I>ASCII</I><A NAME="799"></A>, Timemarks distances). 
+</LI>
+</UL>
+
+<P>
+In order to keep track of the stages and parameters of a seismogram vectorization, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is able to write this information into the image saved in <I>xcf</I><A NAME="802"></A> format. 
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is developed following the ''Open-Source'' philosophy and it is freely distributed under GPL license. It is cross-platform and the sources, the binaries for Linux, Windows and Mac OS X, are periodically updated on the Sismos web site. 
+
+<P>
+Official web site: <I><TT><A NAME="tex2html2"
+  HREF="http://sismos.ingv.it/teseo/">http://sismos.ingv.it/teseo/</A></TT></I>
+
+<P>
+Developer e-mail: <I><TT><A NAME="tex2html3"
+  HREF="mailto:teseo@ingv.it">teseo@ingv.it</A></TT></I>
+
+<P>
+User mailing-list: <I><TT><A NAME="tex2html4"
+  HREF="mailto:teseo-user@yahoogroups.com">teseo-user@yahoogroups.com</A></TT></I>
+
+<P>
+ML archive: <I><TT><A NAME="tex2html5"
+  HREF="http://groups.yahoo.com/group/teseo-user/">http://groups.yahoo.com/group/teseo-user/</A></TT></I>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 Installing Teseo</A>
+</H1>
+
+<P>
+Before installing Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> you need to install GIMP<A NAME="806"></A> 2.2. Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> has never been tested on GIMP<A NAME="809"></A> 2.0.
+
+<P>
+Please refer to the official website at <TT><A NAME="tex2html6"
+  HREF="http://www.gimp.org/">http://www.gimp.org/</A></TT>, user manual [<A
+ HREF="teseo2_user_manual.html#gimphelp">Gimp, 2005</A>] and books [<A
+ HREF="teseo2_user_manual.html#bunks">Bunks, 2000</A>], [<A
+ HREF="teseo2_user_manual.html#kylander">Kylander and Kylander, 1999</A>], for any information about it.
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is developed on Linux but binaries are also available for other platforms such as Windows and Mac OS X.
+You can be able to compile Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> on every system where GIMP<A NAME="813"></A> has been successfully installed.
+Sources and some binary distributions can be downloaded at the official web site, <TT><A NAME="tex2html7"
+  HREF="http://sismos.ingv.it/teseo/">http://sismos.ingv.it/teseo/</A></TT>
+<P>
+In this manual we provide basic information to install Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> plug-in. For specific information, please follow instructions contained in the INSTALL file for your distribution.
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 Teseo from Source</A>
+</H2>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is mostly developed in C language, one library is written in Fortran. In order to compile Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> you need <I>gcc</I><A NAME="818"></A>, <I>g77</I><A NAME="820"></A> and <I>libg2c</I><A NAME="822"></A>.
+
+<P>
+In general, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> works with GIMP<A NAME="825"></A> 2.2, although version 2.2.6 or newer is recommended.
+We develop Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> using <I>GTK+</I><A NAME="828"></A><A NAME="829"></A> and <I>GLib</I><A NAME="831"></A><A NAME="832"></A>.
+<I>GTK+</I><A NAME="834"></A><A NAME="835"></A> is a library for creating graphical user interfaces.
+<I>GLib</I><A NAME="837"></A><A NAME="838"></A> is a general-purpose utility library, which provides many useful data types, macros, type conversions, string utilities, file utilities, a main loop abstraction, and so on. The versions of <I>GTK+</I><A NAME="840"></A><A NAME="841"></A> and <I>GLib</I><A NAME="843"></A><A NAME="844"></A> are the same used by GIMP<A NAME="846"></A>.
+
+<P>
+Moreover, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> use a <I>GTK+</I><A NAME="849"></A><A NAME="850"></A> widget called <I>GtkDataBox</I><A NAME="852"></A> which has been designed to display large amounts of numerical data fast and easy.
+Version greater than 0.4.0 is required.
+Please, refer to the section <A HREF="#sec:credits">8</A> for downloading and documentation about <I>GtkDataBox</I><A NAME="854"></A>.
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> sources are subdivided into three separate modules: two libraries (<I>gtk-addons</I><A NAME="857"></A>, <I>newuoa</I><A NAME="859"></A>) and the GIMP<A NAME="861"></A> plug-in (<I>teseo-2</I><A NAME="863"></A>).
+Unpack the file teseo-2.x.x.tar.gz and compile the source modules following this order: <I>gtk-addons</I><A NAME="865"></A>, <I>newuoa</I><A NAME="867"></A> and <I>teseo-2</I><A NAME="869"></A>.
+You can use the stardard command sequence:
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+./configure </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+make </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+make install
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+For <I>teseo-2</I><A NAME="871"></A>, you should launch the configure script with the same <I>prefix</I> of gimp-2.2 and, optionally, set the <I>datadir</I>. For example, if gimp-2.2 is configured with <I>--prefix=/mydir</I>, you have to  use:
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+./configure --prefix=/mydir --datadir=/mydir/share/gimp/2.0
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Teseo for Linux</A>
+</H2>
+
+<P>
+First of all, install GIMP<A NAME="873"></A>. Version 2.2.6 or newer is recommended.
+
+<P>
+Unpack the binary distribution from teseo-2.x.x-bin-linux.tar.gz and run these commands to install Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>:
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+cd teseo-2.x.x-bin-linux </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+./setup.sh linux
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+setup.sh needs gimptool-2.0 included in GIMP<A NAME="876"></A> distributions.
+
+<P>
+To uninstall run:
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+cd teseo-2.x.x-bin-linux </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+./setup.sh linuxuninstall
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+2.3 Teseo for Windows</A>
+</H2>
+
+<P>
+
+<UL>
+<LI><B>Pre-requisite</B>
+	
+<OL>
+<LI>Install gimp-2.2.6 or newer : files and instructions at <TT><A NAME="tex2html8"
+  HREF="http://gimp-win.sourceforge.net/">http://gimp-win.sourceforge.net/</A></TT> 
+</LI>
+<LI>(Optional) Install gimp-help
+	
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI><B>Install teseo-2</B>
+	
+<OL>
+<LI>Close GIMP<A NAME="878"></A>
+</LI>
+<LI>Extract teseo-2.x.x-setup.exe from the distributed teseo-2.x.x-setup.zip
+</LI>
+<LI>Run teseo-2.x.x-setup.exe
+</LI>
+<LI>Start GIMP<A NAME="880"></A>
+	
+</LI>
+</OL>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00034000000000000000">
+2.4 Teseo for Mac OS X</A>
+</H2>
+
+<P>
+To install Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> on Mac OS X you have 2 possibilities.
+
+<P>
+
+<OL>
+<LI>Download DMG image that contains Gimp.app with teseo-2 bundled 
+<BR>        (DMG image is about 72 MB)
+
+<P>
+</LI>
+<LI>Download binary distribution pack and use shell script configuration: 
+<BR>        (Distribution is about 1 MB)
+
+<P>
+First of all, install GIMP<A NAME="883"></A>. Version 2.2.6 or newer is recommended.
+
+<P>
+Unpack binary distribution teseo-2.x.x-bin-macosx.tar.gz
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+cd teseo-2.x.x-bin-macosx </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+./setup.sh macosx /Applications/Gimp.App
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+To uninstall run:
+
+<P><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+cd teseo-2.x.x-bin-macosx </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+./setup.sh macosxuninstall /Applications/Gimp.App
+</I></TD>
+</TR>
+</TABLE>
+
+<P>
+If <I>Gimp.app</I> doesn't reside in <I>Applications</I> folder, change it with the correct path.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+3 Getting started with Teseo</A>
+</H1>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> works only on grayscale images and it could work on any image format manageable by GIMP<A NAME="886"></A>.
+We prefer working only on <I>xcf</I><A NAME="888"></A> format, the GIMP<A NAME="890"></A> proprietary format, for several reasons:
+
+<P>
+
+<UL>
+<LI><I>xcf</I><A NAME="892"></A> can save layers, channels and paths.
+</LI>
+<LI><I>xcf</I><A NAME="894"></A> can put up ''<B><I>parasites</I></B><A NAME="897"></A>''  arbitrary pieces of data which can be attached to various GIMP objects. Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is able to import/export all information about seismogram and vectorization within the <I>xcf</I><A NAME="900"></A> file.
+</LI>
+<LI><I>xcf</I><A NAME="902"></A> natively supports gzip and bzip2 compression.
+</LI>
+</UL>
+
+<P>
+To start Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> you have to:
+
+<P>
+
+<OL>
+<LI>Start GIMP<A NAME="905"></A>.
+</LI>
+<LI>Open seismogram image. The image must be converted in grayscale (Image<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> Mode<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> Grayscale in GIMP<A NAME="907"></A> context) and then saved in <I>xcf</I><A NAME="909"></A> format.
+</LI>
+<LI>Select <I><B>Teseo-2</B></I><A NAME="911"></A> from <I><B>Teseo</B></I><A NAME="913"></A> menu
+(figure <A HREF="#fig:teseomenu">1</A>). Alternatively, you can use the context menu on the image (right-clicking) or by a customized shortcut.
+</LI>
+</OL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseomenu"></A><A NAME="222"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Teseo menu</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="744" HEIGHT="554" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot1.jpg"
+ ALT="Image snapshot1"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: When Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is launched, it is automatically ''linked'' to the image by the GIMP<A NAME="932"></A>. We suggest to vectorize one image at a time and to respect the following order using Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>: open image, open Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>, close Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>, close image. The name of the image is visible in the main window of Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>.
+If you close the image before Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>, then close Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> before reopening the image. Moreover, if you rename the image, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> work well but the references to the correct session are lost. In this case, we strongly recommend to open Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> only after renaming the image. 
+
+<P>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: If Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> crashes or GIMP<A NAME="960"></A> is closed before Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>, the session linked to the image remains locked. Next time you open Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> on the same image, a warning message will be shown asking for forcing the session unlock. This mechanism is useful to prevent multiple instances of Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> for the same image: only one instance for each image is allowed for a correct vectorization. 
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+3.1 Session</A>
+</H2>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> associates to the image some information related to seismogram paper, seismic event, station data and vectorization parameters. This information is saved in a <B><I>session</I></B><A NAME="972"></A> and it is referred to a single <B><I>seismic event</I></B><A NAME="974"></A>.
+
+<P>
+When you start  Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> for the first time on an image, you are required to create a new session. Fill the fields shown in the figures <A HREF="#fig:sessionrecord">2</A>, <A HREF="#fig:sessiontraces">3</A>, <A HREF="#fig:sessionpath">4</A>, and click <I>OK</I><A NAME="977"></A>.
+
+<P>
+Session properties can be modified at any time selecting File<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> Session<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> Properties (Ctrl+P in Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> context). New sessions related to other events in the same image can be created selecting File<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> Session<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> New (Ctrl+N in Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> context). The user can not change session file name because Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> uses a fixed session naming convention.
+
+<P>
+Files related to the session are stored in <I>gimp_directory</I>/<I>teseo-2</I>, where <I>gimp_directory</I> is the user-specific GIMP<A NAME="982"></A> settings directory. Usually, it is the subdirectory <I>.gimp-2.2</I> in the user home directory.
+
+<P>
+When Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is started on an image associated to more sessions, the user can choose the preferred one.
+All the parameters described below are saved in the <B><I>session</I></B><A NAME="985"></A> file and, on demand, they can be imported or exported in Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> <B><I>parasites</I></B><A NAME="988"></A> (section <A HREF="#sec:teseoparasites">3.2</A>) and saved in the <I>xcf</I><A NAME="990"></A> image.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:sessionrecord"></A><A NAME="246"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Session window - Record tab</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="513" HEIGHT="449" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot2.jpg"
+ ALT="Image snapshot2"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+In figure <A HREF="#fig:sessionrecord">2</A> are shown the parameters associated to the seismic record.
+
+<P>
+
+<UL>
+<LI><I>Date</I><A NAME="993"></A>: date of recording.
+</LI>
+<LI><A NAME="item:eventnumber"></A> <I>Event number</I><A NAME="995"></A>: arbitrary ordinal number which identifies the event contained in the image. Use it to distinguish several events on the same image or date.
+</LI>
+<LI><I>Station data</I><A NAME="997"></A>: the following parameters will be saved in <I>SAC</I><A NAME="999"></A> files.
+	
+<UL>
+<LI><I>Name</I><A NAME="1001"></A>: station code.
+</LI>
+<LI><I>Azimuth</I><A NAME="1003"></A>: component azimuth (degrees clockwise from north).
+</LI>
+<LI><I>Incident angle</I><A NAME="1005"></A>: component incident angle (degrees from vertical).
+</LI>
+<LI><I>Latitude</I><A NAME="1007"></A>: station latitude (degrees, north positive).
+</LI>
+<LI><I>Longitude</I><A NAME="1009"></A>: station longitude (degrees, east positive).
+</LI>
+<LI><I>Elevation</I><A NAME="1011"></A>: station elevation (meters).
+	
+</LI>
+</UL>
+</LI>
+<LI><I>Paper speed</I><A NAME="1013"></A>: linear velocity of the paper [mm/sec].
+</LI>
+<LI><I>Image file</I><A NAME="1015"></A>: name of the current image (<I>read-only</I>).
+</LI>
+<LI><I>Resolution</I><A NAME="1017"></A>: image resolution (<I>read-only</I>).
+</LI>
+</UL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:sessiontraces"></A><A NAME="275"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Session window - Traces tab</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="513" HEIGHT="449" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot3.jpg"
+ ALT="Image snapshot3"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+In figure <A HREF="#fig:sessiontraces">3</A> are shown the parameters associated to the traces.
+
+<P>
+
+<UL>
+<LI><I>Event first sample time</I><A NAME="1020"></A>: time of the first sample of the trace, this value will be saved in <I>SAC</I><A NAME="1022"></A> files.
+</LI>
+<LI><I>Time mark first sample time</I><A NAME="1024"></A>:  time of the first sample of the trace that represents the time mark.
+</LI>
+</UL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:sessionpath"></A><A NAME="289"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Session window - Path tab </CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="513" HEIGHT="449" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot4.jpg"
+ ALT="Image snapshot4"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+In figure <A HREF="#fig:sessionpath">4</A> are shown the parameters associated to the path manipulation.
+
+<P>
+
+<UL>
+<LI><I>Return directly B&#233;zier path</I><A NAME="1027"></A>: if checked, when you use automatic vectorization methods, <I>Path Fit</I><A NAME="1029"></A> is executed after every group of iterations.
+</LI>
+<LI><I>Resampling step</I><A NAME="1031"></A>: samples are always evenly spaced with this distance in pixel.
+</LI>
+<LI><I>Constant abscissa ascendent</I><A NAME="1033"></A>: if checked, X-values of the returned samples are strictly increasing, else X-values are evenly spaced regardless direction.
+</LI>
+<LI><I>Export DXF path relocated in origin</I><A NAME="1035"></A>: if checked, <I>DXF</I><A NAME="1037"></A> export will translate the path starting a the coordinate (0, 0). This option is needed only for <B>Sismos</B> procedures.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000"></A>
+<A NAME="sec:teseoparasites"></A><BR>
+3.2 Teseo parasites
+</H2>
+
+<P>
+In order to share and distribute results about the vectorization of a seismogram, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> includes all information related to the seismogram and his vectorization within a single file. This can be made using GIMP<A NAME="1041"></A> proprietary image format: the <I>xcf</I><A NAME="1043"></A> format.
+In fact, <I>xcf</I><A NAME="1045"></A> format stores paths, layers, channels and ''<B><I>parasites</I></B><A NAME="1048"></A>'',
+a mechanism provided by GIMP<A NAME="1050"></A> for attaching arbitrary pieces of data to an image.
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> parasites contain all parameter values for the current session. When you import or export a session as parasites you have to consider the <I>Event number</I><A NAME="1053"></A> (see figure <A HREF="#fig:sessionrecord">2</A>). Remember that <I>Event number</I><A NAME="1055"></A> is arbitrary and it could be thinked as the ordinal number associated to the sequence of the events occurred in the same <I>Date</I><A NAME="1057"></A>. You can export only one set of the parameters for each single event.
+
+<P>
+Parasite operations are shown in figure <A HREF="#fig:teseoparasites">5</A>.
+
+<P>
+
+<UL>
+<LI><I>Parasite Import</I><A NAME="1059"></A>: import the n-th event contained in the <I>xcf</I><A NAME="1061"></A> image into the current <B><I>session</I></B><A NAME="1063"></A>.
+</LI>
+<LI><I>Parasite Export</I><A NAME="1065"></A>: export all parameters of the current <B><I>session</I></B><A NAME="1067"></A> into the <I>xcf</I><A NAME="1069"></A> image as parasite.
+</LI>
+<LI><I>Parasite Remove all</I><A NAME="1071"></A>: remove all Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> <B><I>parasites</I></B><A NAME="1074"></A> contained in the <I>xcf</I><A NAME="1076"></A> file.
+</LI>
+</UL>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: When <B><I>parasites</I></B><A NAME="1093"></A> related to an image are modified, remember to save the image before closing it. GIMP<A NAME="1095"></A> won't give you any advice before leaving the image. 
+
+<P>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseoparasites"></A><A NAME="323"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Teseo Parasites</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="307" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot5.jpg"
+ ALT="Image snapshot5"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+4 Vectorization</A>
+</H1>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> trace vectorization completely relies on GIMP<A NAME="1103"></A> <I>Path</I><A NAME="1105"></A> tool, which permits to create piecewise cubic B&#233;zier curves and polygonals. Please, see [<A
+ HREF="teseo2_user_manual.html#gimphelp">Gimp, 2005</A>] for basic usage.
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> does not support closed paths. 
+
+<P>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: Unfortunately, GIMP<A NAME="1130"></A> plug-in developers do not have yet available procedures (API) to handle paths with two or more components. <B>User must not create multiple components in a single path.</B> 
+
+<P>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: Seismogram must be oriented from left to right and top to bottom. If necessary you can use GIMP<A NAME="1152"></A> tools such as <I>Flip</I><A NAME="1154"></A> or <I>Rotate</I><A NAME="1156"></A> to modify the image ;-) 
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+4.1 Manual</A>
+</H2>
+
+<P>
+You can manually vectorize the traces by GIMP<A NAME="1164"></A> <I>Path</I><A NAME="1166"></A> tool creating several piecewise cubic B&#233;zier curves or polylines.
+
+<P>
+You should improve your manual dexterity before facing up to a complicated seismogram. Inside the distribution you find a very simple piece of seismogram to test your skill, the file name is <I>example.xcf.gz</I>. Keep in mind that the whole vectorization is based on GIMP<A NAME="1168"></A> <I>Path</I><A NAME="1170"></A> tool and it is wise to learn as much as possible about it.
+
+<P>
+<I>example.xcf.gz</I> contains a few paths manually made and others made by the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> colour weighted mean algorithm, which will be described in the next section <A HREF="#subsec:automatic">4.2</A>.
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000"></A>
+<A NAME="subsec:automatic"></A><BR>
+4.2 Automatic
+</H2>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is designed to easily add algorithms for automatic seismogram vectorization.
+An iterative procedure takes place whereby at each step the
+algorithm is executed providing it with:
+
+<UL>
+<LI>a rectangular portion of the image centred at the last point of the current path;
+</LI>
+<LI>information regarding the closest previous points;
+</LI>
+</UL>
+
+<P>
+in order to find the next point.
+
+<P>
+Presently, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> uses an algorithm based 
+on a weighted mean of the trace colour (see subsection <A HREF="#sec:cwm">4.2.1</A>)
+
+<P>
+In future versions of Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> more algorithms should be available (neural network approach too) and will be associated to other buttons beside <B><I>CWM</I></B><A NAME="1176"></A> one.
+
+<P>
+In figure <A HREF="#fig:teseogeneral">6</A> the main parameters of Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> automatic path vectorization tool are shown:
+
+<P>
+
+<UL>
+<LI><I>Forward</I><A NAME="1179"></A>: algorithm stop condition, maximum iteration number.
+</LI>
+<LI><I>Back</I><A NAME="1181"></A>: number of points to delete from the current path.
+</LI>
+<LI><I>Stop to the first guide</I><A NAME="1183"></A>: alternative stop condition, the iterations stop when the abscissa is greater than first vertical guide position.
+</LI>
+<LI><I>Trace colour</I><A NAME="1185"></A>: base trace colour (black or white).
+</LI>
+<LI><I>Trace thickness</I><A NAME="1187"></A>: thickness average in pixels.
+</LI>
+</UL>
+
+<P>
+The arrow buttons on the main window become sensitive when the user chooses an algorithm to execute.
+To calculate the next point, the algorithm can use the additional information provided by the user who suggests a direction clicking on arrow buttons.
+
+<P>
+
+<H3><A NAME="SECTION00052100000000000000"></A>
+<A NAME="sec:cwm"></A><BR>
+4.2.1 Colour Weighted Mean
+</H3>
+
+<P>
+For detailed information about this algorithm read [<A
+ HREF="teseo2_user_manual.html#pintore">Pintore et&nbsp;al., 2005</A>].
+
+<P>
+The colour weighted mean algorithm takes a rectangular region of the image having width and height specified in tab shown in figure <A HREF="#fig:teseocwm">7</A> and centered into the last point of the current path.
+This algorithm is activated clicking on the colour weighted mean button on the toolbar in figure <A HREF="#fig:teseogeneral">6</A>.
+
+<P>
+The arrow buttons are available to suggest the direction.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseogeneral"></A><A NAME="363"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Teseo window - General tab</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="282" HEIGHT="305" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot6.jpg"
+ ALT="Image snapshot6"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseocwm"></A><A NAME="371"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Teseo window - Colour weighted mean tab</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="282" HEIGHT="305" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot7.jpg"
+ ALT="Image snapshot7"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+4.3 Path manipulation</A>
+</H2>
+
+<P>
+Besides GIMP<A NAME="1191"></A> <I>Path</I><A NAME="1193"></A> manipulation, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> adds some useful operations in seismogram vectorization.
+In figure <A HREF="#fig:teseopath">8</A> is shown the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> Path menu. The operations are subdivided in three groups: operations on the current path, operations on all unlocked paths and operations on path that represent Timemark.
+Some operations rely on GIMP<A NAME="1197"></A> vertical guides tool: you can place a vertical guide clicking on the ruler on the left of the image window and
+dragging it onto the image at the desired place.
+
+<UL>
+<LI>Current path operations
+
+<UL>
+<LI><I>Path Resample</I><A NAME="1199"></A>: resample path with parameter defined in figure <A HREF="#fig:sessionpath">4</A>.
+</LI>
+<LI><I>Path Fit</I><A NAME="1201"></A>: fit path with a piecewise cubic B&#233;zier curve.
+</LI>
+<LI><I>Path Split</I><A NAME="1203"></A>:  split path at points defined by intersection beetwen path and GIMP<A NAME="1205"></A> vertical guides.
+</LI>
+<LI><I>Path Force Polyline</I><A NAME="1207"></A>: transform a path in a polyline. All the control points will be ignored.
+</LI>
+<LI><I>Path Snap</I><A NAME="1209"></A>: for each point compute a colour weighted mean in a thickness width square (figure <A HREF="#fig:teseogeneral">6</A>).
+</LI>
+</UL>
+</LI>
+<LI>Unlocked only paths operations
+
+<UL>
+<LI><I>Align unlocked paths</I><A NAME="1211"></A>: align paths overlapping the first point of the next path to the last of the previous one.
+This is the case when
+the event is recorded over the paper margin and the trace lies on different lines.
+This operation must be used before exporting the whole trace.
+</LI>
+<LI><I>Link unlocked paths</I><A NAME="1213"></A>: link paths with a straight line from the last point of the previous path to the first point of the next one. Useful to join several paths of the same event.
+</LI>
+</UL>
+</LI>
+<LI>TimeMark
+
+<UL>
+<LI><I>Timemark - Evaluate intermediate TMs</I><A NAME="1215"></A>: evaluate missing intermediate timemark of the current path and return vertical guides where they should be.
+</LI>
+<LI><I>Timemark - Add TMs from guides</I><A NAME="1217"></A>: add points where the guides intersect the current path.
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopath"></A><A NAME="401"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+Teseo window - Path menu</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="329" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot8.jpg"
+ ALT="Image snapshot8"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: Order in operations on multiple paths respects order of the GIMP<A NAME="1238"></A> <I>Path</I><A NAME="1240"></A> tool, that is from bottom to top.
+For example, executing a link on paths shown in figure <A HREF="#fig:gimppathtool">9</A> results in a new path concatenating paths a, b and c in this order. 
+
+<P>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:gimppathtool"></A><A NAME="411"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
+GIMP<A NAME="1247"></A> Path Tool - Path order</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="258" HEIGHT="268" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot9.jpg"
+ ALT="Image snapshot9"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<BR>
+<BR>
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+4.4 Trace import/export</A>
+</H2>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> imports and exports several file formats as shown in figures <A HREF="#fig:teseopathimport">10</A>-<A HREF="#fig:teseopathexport">11</A>:
+
+<P>
+
+<UL>
+<LI><I>SVG</I><A NAME="1250"></A>: Scalable Vector Graphics [<A
+ HREF="teseo2_user_manual.html#svg-spec">SVG Working Group, 2003</A>].
+</LI>
+<LI><I>DXF</I><A NAME="1252"></A>: Drawing Interchange File Format [<A
+ HREF="teseo2_user_manual.html#adobe-dxf">Autodesk, 1992</A>].
+</LI>
+<LI><I>Trace</I><A NAME="1254"></A>: Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> proprietary ascii format. It contains image reference and coordinate in pixels. Only polylines.
+</LI>
+<LI><I>ASCII</I><A NAME="1257"></A>: plain text file that contains the coordinates <I>(x,y)</I> sequence in millimeters. Only polylines.
+</LI>
+<LI><I>SAC</I><A NAME="1259"></A>: Seismic Analysis Code [<A
+ HREF="teseo2_user_manual.html#goldstein">Goldstein et&nbsp;al., 2003</A>]. Evenly spaced binary SAC. Only polylines.
+</LI>
+<LI><I>SISMA</I><A NAME="1261"></A>: plain text file ''Sismogrammi Storici'' software compliant.
+</LI>
+<LI><I>Timemark</I><A NAME="1263"></A>: plain text file that contains coordinates <I>(x,y)</I> sequence identifying timemarks.
+</LI>
+<LI><I>B&#233;zier</I><A NAME="1265"></A>: GIMP<A NAME="1267"></A> 1.0 B&#233;zier path format. For downward compatibility.
+</LI>
+<LI><I>Examples</I><A NAME="1269"></A>: binary format that contains information for neural networks learning. Not available yet.
+</LI>
+</UL>
+
+<P>
+Up to now, <I>SVG</I><A NAME="1271"></A> export is possible only by GIMP<A NAME="1273"></A> <I>Path</I><A NAME="1275"></A> tool, <I>DXF</I><A NAME="1277"></A> import is possible only on Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> exported paths, <I>SAC</I><A NAME="1280"></A> import is not implemented yet.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopathimport"></A><A NAME="444"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
+Teseo Path Import</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="455" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot10.jpg"
+ ALT="Image snapshot10"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseopathexport"></A><A NAME="452"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
+Teseo Path Export</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="420" HEIGHT="306" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot11.jpg"
+ ALT="Image snapshot11"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000">
+4.5 Filters</A>
+</H2>
+
+<P>
+GIMP<A NAME="1284"></A> offers a variety of filters and instruments to manipulate images. We strongly recommend to enhance the ''readability'' of your seismogram before vectorize. For example you could increase the contrast of the image.
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: If you want save the history of the changes applied to the image, you may apply the filters on copies of the ''Background Layer''. Remember that all operations usually work on the current layer which could not necessarily be the visible one. 
+
+<P>
+
+<P>
+At the moment, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> provides a graphical filter useful to <I>clean</I><A NAME="1302"></A> a seismogram.
+What do we intend to clean a seismogram? Often, before vectorizing, it is advantageous to remove horizontal traces
+crossing it while mantaining trace continuity. 
+The main idea is to fill unwanted horizontal or vertical segments with the background color of the seismogram.
+
+<P>
+
+<P>
+<B><I>
+<FONT COLOR="#ff0000">Warning</FONT></I></B>: Good results are obtained when the noisy lines are perfectly horizontal. You can estimate required rotation using GIMP<A NAME="1322"></A> <I>Measure</I><A NAME="1324"></A> tool and then using GIMP<A NAME="1326"></A> <I>Rotate</I><A NAME="1328"></A> trasformation tool to rotate effectively. See GIMP<A NAME="1330"></A> help. 
+
+<P>
+
+<P>
+In figure <A HREF="#fig:teseofilterclean">12</A> it is possible to see the parameters related to the <I>clean</I><A NAME="1342"></A> filter.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseofilterclean"></A><A NAME="468"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
+Teseo Filter Clean</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="282" HEIGHT="305" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot12.jpg"
+ ALT="Image snapshot12"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><I>Base colour</I><A NAME="1345"></A>: is the base colour of the trace. Value from 0 (black) to 255 (white).
+</LI>
+<LI><I>Threshold</I><A NAME="1347"></A>: is the maximum value of tolerance on base colour.
+</LI>
+<LI><I>Fill colour</I><A NAME="1349"></A>: is the colour used to fill contiguous lines belonging to the colour condition.
+</LI>
+<LI><I>New layer</I><A NAME="1351"></A>: if checked, the current layer will be copied and the filters will be run on the copy.
+</LI>
+<LI><I>Transparent</I><A NAME="1353"></A>: if checked, only the filled lines will be displayed, rest of the image will be transparent. This works only on layer with alpha channel.
+</LI>
+<LI><I>Horizontal</I><A NAME="1355"></A>/<I>Vertical</I><A NAME="1357"></A>: choose one to fill horizontal or vertical line.
+</LI>
+<LI><I>Greater</I><A NAME="1359"></A>/<I>Less</I><A NAME="1361"></A>: choose one to fill lines longer or shorter than length.
+</LI>
+<LI><I>Length</I><A NAME="1363"></A>: length of a single line on the image.
+</LI>
+</UL>
+
+<P>
+If you've never used this filter you should try it on the example image contained in your Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> distribution.
+Follow these steps:
+
+<P>
+
+<OL>
+<LI>Open <I>example.xcf.gz</I>
+</LI>
+<LI>Select the ''Background'' layer inside the GIMP<A NAME="1366"></A> Layer Dialog and apply the filter using the following parameters:
+	
+<UL>
+<LI><I>Base Colour</I><A NAME="1368"></A> = 0
+</LI>
+<LI><I>Threshold</I><A NAME="1370"></A> = 128
+</LI>
+<LI><I>Fill Colour</I><A NAME="1372"></A> = 255
+</LI>
+<LI><I>New layer</I><A NAME="1374"></A> checked 
+</LI>
+<LI><I>Transparent</I><A NAME="1376"></A> uncheked 
+</LI>
+<LI><I>Vertical</I><A NAME="1378"></A> checked
+</LI>
+<LI><I>Less</I><A NAME="1380"></A> checked 
+</LI>
+<LI><I>Length</I><A NAME="1382"></A> = 9 
+	
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>A layer named ''Background copy'' will be created.
+
+<P>
+</LI>
+<LI>Select the ''Background'' layer and apply the filter using the following parameters:
+	
+<UL>
+<LI><I>Base Colour</I><A NAME="1384"></A> = 0
+</LI>
+<LI><I>Threshold</I><A NAME="1386"></A> = 200
+</LI>
+<LI><I>Fill Colour</I><A NAME="1388"></A> = 255
+</LI>
+<LI><I>New layer</I><A NAME="1390"></A> checked 
+</LI>
+<LI><I>Transparent</I><A NAME="1392"></A> uncheked
+</LI>
+<LI><I>Horizontal</I><A NAME="1394"></A> checked
+</LI>
+<LI><I>Greater</I><A NAME="1396"></A> checked 
+</LI>
+<LI><I>Length</I><A NAME="1398"></A> = 28 
+	
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>A layer named ''Background copy #1'' will be created.
+
+<P>
+</LI>
+<LI>Select the layer named ''Background copy'' and set the layer parameter <I>Mode</I><A NAME="1400"></A> to Multiply.
+</LI>
+</OL>
+
+<P>
+Nice! Isn't it?
+
+<P>
+An animation of this operation is available on <TT><A NAME="tex2html21"
+  HREF="http://sismos.ingv.it/teseo/filters/">http://sismos.ingv.it/teseo/filters/</A></TT>.
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+5 Analysis after trace vectorization</A>
+</H1>
+
+<P>
+The seismogram curve on the image has to be corrected to become a seismic data with right amplitude and time.
+There are many errors that could be introduced during the digitization procedure that must be taken into account.
+
+<P>
+
+<UL>
+<LI>Rotation of the sheet during image scanning is a first error that can be easily removed using Gimp Rotation tool with the correct angle. 
+</LI>
+<LI>To obtain data as a sequence of samples and corresponding time a scaling related to the paper speed is always needed.
+</LI>
+</UL>
+
+<P>
+Several different corrections have to be applied too in order to eliminate errors due to the recording system of the seismograph. 
+
+<P>
+
+<UL>
+<LI>Instruments with photographic recording suffer from a trace distortion due to the spiral trend on the seismogram paper. This trend is further removable with other analysis instruments like SAC2000 [<A
+ HREF="teseo2_user_manual.html#goldstein">Goldstein et&nbsp;al., 2003</A>]. This distorsion applies to all-mechanical recording systems too, like the Wiechert seismographs.
+</LI>
+<LI>Mechanical recording systems suffer from a curvature of the seismic trace, worst in case of great amplitude signal, due to the finite arm lenght and finite radius of the cylinder bearing the smoked paper. To correct this kind of distortion, Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> offers an instrument able to create a new path starting from a curved one. The algorithm used by Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is taken from Cadek [<A
+ HREF="teseo2_user_manual.html#cadek">Cadek, 1987</A>] , while the code we use was originally written in Fortran by A. Schlupp. The algorithm needs some parameters, for a few of them Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> offers some other instruments to evaluate. 
+These instruments are derived from a personal comunication provided by [<A
+ HREF="teseo2_user_manual.html#Schlupp">Schlupp, 2006</A>] which is going to be published.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+5.1 Curvature correction</A>
+</H2>
+
+<P>
+For semplicity we suppose that speed is a constant for the path segment we consider, otherwise we can subdivide path in segments at constant speed, for example from a time marker to the subsequent. Then we can correct the resulting paths one by one. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseomrschema1"></A><A NAME="741"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
+Mechanical recording schema.
+<I>Figure provided by A. Schlupp.</I>
+</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="552" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
+ SRC="./figure_III.2.jpg"
+ ALT="Image figure_III.2">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The formula for correction of the deformation due to the geometry of the recorder, as well as coordinate conversion (x,y) in time and amplitude, are given by Cadeck:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+t(i)= \frac{60}{d} \{ x(i) -r \frac{ arcsin \{ r^2+a^2 -R^2 +[y(i)-b]^2 \}}{ 2 a r } + r \frac{ arcsin ( r^2+a^2 -R^2 +b^2 )}{2 a r} \}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="623" HEIGHT="45" BORDER="0"
+ SRC="img2.jpg"
+ ALT="\begin{displaymath}
+t(i)= \frac{60}{d} \{ x(i) -r \frac{ arcsin \{ r^2+a^2 -R^2 ...
+...}}{ 2 a r } + r \frac{ arcsin ( r^2+a^2 -R^2 +b^2 )}{2 a r} \}
+\end{displaymath}">
+</DIV><BR CLEAR="ALL">
+<P></P>
+
+<P>
+where:
+<BR>
+<BR><I>R</I><A NAME="1405"></A> = length of the writing arm, from its rotating axis to the tip of the needle 
+<BR><I>r</I><A NAME="1407"></A> = radius of the drive cylinder bearing the smoked paper
+<BR><I>a</I><A NAME="1409"></A> = distance from the rotating arm axis to the driving cylinder axis 
+<BR><I>b</I><A NAME="1411"></A> = shift of the arm axis, in millimeters, to the base line on the smoked paper 
+<BR><I>d</I><A NAME="1413"></A> = minute length on the original record in millimeters 
+<BR><I>x(i)</I><A NAME="1415"></A> = coordinate to transform in seconds for time axis 
+<BR><I>y(i)</I><A NAME="1417"></A> = coordinate to transform in millimeters for amplitude axis 
+<BR>
+<P>
+This formula applies to intruments modeled as in the schema shown in figure <A HREF="#fig:teseomrschema1">13</A>.
+To use this formula, it is necessary to get information about the seismogram.  For well known machinery, <I>r</I><A NAME="1419"></A>, <I>R</I><A NAME="1421"></A> and <I>a</I><A NAME="1423"></A> can be retrieved from manufactory papers (figure <A HREF="#fig:teseomrschema1">13</A>). Otherwise it is possible to adjust these parameters to reasonable values by trial and error. The <I>d</I><A NAME="1425"></A> value is proportional to speed and resolution.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseomrschema2"></A><A NAME="743"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
+Mechanical recording schema, details on b.
+<I>Figure provided by A. Schlupp.</I>
+</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="552" HEIGHT="421" ALIGN="BOTTOM" BORDER="0"
+ SRC="./figure_III.3.jpg"
+ ALT="Image figure_III.3">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The <I>b</I><A NAME="1427"></A> value is the most difficult to determine and must be deduced directly from records, see figure <A HREF="#fig:teseomrschema2">14</A>. A detailed description of the method to evaluate <I>b</I><A NAME="1429"></A> is available in [<A
+ HREF="teseo2_user_manual.html#Schlupp">Schlupp, 2006</A>].
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseocurvaturecorrection"></A><A NAME="564"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
+Curvature Correction window</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="391" HEIGHT="388" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot16.jpg"
+ ALT="Image snapshot16"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Look at figure <A HREF="#fig:teseocurvaturecorrection">15</A>, showing the  <I><B>Curvature Correction</B></I><A NAME="1432"></A> window. You obtain this window clicking on <I><B>Curvature Correction</B></I><A NAME="1434"></A> from <I><B>Post Analysis</B></I><A NAME="1436"></A>. 
+<BR>
+<P>
+
+<UL>
+<LI><B>Recorder geometry</B>
+	
+<UL>
+<LI><I>Arm length entry</I><A NAME="1438"></A>: Enter the arm length value here.
+</LI>
+<LI><I>Cylinder radius entry</I><A NAME="1440"></A>: Enter the cylinder radius value here.
+</LI>
+<LI><I>Axial distance entry</I><A NAME="1442"></A>: Enter the axial distance value here.
+</LI>
+<LI><I>Axial distance button</I><A NAME="1444"></A>: Clicking on <I>Axial distance</I><A NAME="1446"></A> button you obtain a calculation of <I>a</I><A NAME="1448"></A> according to <I>r</I><A NAME="1450"></A> and <I>R</I><A NAME="1452"></A>, useful when <I>a</I><A NAME="1454"></A> is unknown.
+</LI>
+<LI><I>Arm shift entry</I><A NAME="1456"></A>: Enter the arm shift value here.
+</LI>
+<LI><I>Arm shift button</I><A NAME="1458"></A>: Clicking on the <I>Arm Shift</I><A NAME="1460"></A> button a "best" value of <I>b</I><A NAME="1462"></A> will be calculated and showed in the <I>Arm shift entry</I><A NAME="1464"></A>.
+A plot of the error function calculated in a reasonable range of <I>b</I><A NAME="1466"></A> will be shown: see figure <A HREF="#fig:teseoberrors">16</A>.
+	 You can choose an alternative <I>b</I><A NAME="1468"></A> value, presumably around the minimum of the function. The plot is interactive: you can zoom in selecting an area and then clicking the central mouse button. Right click to zoom out. Click on a point in the plot to select the abscissa, the value is displayed in the Marked point field. Click on <I>Choose</I><A NAME="1470"></A> to save it in the Arm shift entry.
+	
+</LI>
+</UL>
+</LI>
+<LI><B>Record info</B>
+	
+<UL>
+<LI><I>Time span entry</I><A NAME="1472"></A>: Time span from first to last point of the current path. Not required unless you select <I>Use time span</I><A NAME="1474"></A>.
+</LI>
+<LI><I>Paper velocity velocity</I><A NAME="1476"></A>: Average speed of the paper for the current path. Required unless you select use <I>Time span</I><A NAME="1478"></A>.
+</LI>
+<LI><I>Lateral velocity</I><A NAME="1480"></A>: Average lateral speed of the paper for the current path. Not required unless you select <I>Shift</I><A NAME="1482"></A>
+</LI>
+<LI><I>Scan rotation</I><A NAME="1484"></A>: use it to compensate for a rotation introduced during the scanning phase - angles are positive clockwise.  The correction is applied at the beginning of calculations. Not required unless you select <I>Rotate</I><A NAME="1486"></A>
+	
+</LI>
+</UL>
+</LI>
+<LI><B>Correction extrema</B> 
+	
+<UL>
+<LI><I>Starting X</I><A NAME="1488"></A>: First point abscissa, not required unless you select <I>Use extrema</I><A NAME="1490"></A>.
+</LI>
+<LI><I>Starting Y</I><A NAME="1492"></A>: First point ordinate, not required unless you select <I>Use extrema</I><A NAME="1494"></A>.
+</LI>
+<LI><I>Final X</I><A NAME="1496"></A>: Last point abscissa, not required unless you select <I>Use extrema</I><A NAME="1498"></A>.
+</LI>
+<LI><I>Final Y</I><A NAME="1500"></A>: Last point ordinate, not required unless you select <I>Use extrema</I><A NAME="1502"></A>.
+	
+</LI>
+</UL>
+</LI>
+<LI><B>Options</B>
+	
+<UL>
+<LI><I>Use extrema</I><A NAME="1504"></A>: To use the user provided coordinates of the first and last point of the path. Useful for images with unknown  scale.
+</LI>
+<LI><I>Use time span</I><A NAME="1506"></A>: If you know exactly this time you can provide it to the algorithm. It will be used to calculate the speed.
+</LI>
+<LI><I>Use raster angle</I><A NAME="1508"></A>: To use the user provided error angle in scanning. If not checked the possible rotation angle will be calculated from the path.
+</LI>
+<LI><I>Rotate</I><A NAME="1510"></A>: Check to apply the rotation correction.
+</LI>
+<LI><I>Shift</I><A NAME="1512"></A>: Check to apply the lateral speed distortion correction.
+	
+</LI>
+</UL>
+</LI>
+<LI><I>Slopes</I><A NAME="1514"></A> button: Click on <I>Slopes</I><A NAME="1516"></A> button to plot the histogram of the slopes for the given <I>b</I><A NAME="1518"></A>. According to [<A
+ HREF="teseo2_user_manual.html#Schlupp">Schlupp, 2006</A>] the slope should be <IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.jpg"
+ ALT="$0$"> or at his minimum at <IMG
+ WIDTH="22" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.jpg"
+ ALT="$90$"> degree for the correct Arm shift.
+</LI>
+<LI><I>Correct</I><A NAME="1520"></A> button: Click on <I>Correct</I><A NAME="1522"></A> button to obtain a new path corrected applying the Cadeck formula with the parameters selected for the current path.
+</LI>
+</UL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:teseoberrors"></A><A NAME="744"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 16:</STRONG>
+Plot of the function Error(<I>b</I><A NAME="1525"></A>)</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="507" HEIGHT="500" ALIGN="BOTTOM" BORDER="0"
+ SRC="./snapshot14.jpg"
+ ALT="Image snapshot14"> 
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+6 Before leaving Teseo</A>
+</H1>
+
+<P>
+Before closing GIMP<A NAME="1527"></A> is a very good practice to:
+
+<P>
+
+<OL>
+<LI>Save session (Ctrl+S in Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> context)
+</LI>
+<LI>Close Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>.
+</LI>
+<LI>Save <I>xcf</I><A NAME="1531"></A> file, it contains all your paths, layers and Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> <B><I>parasites</I></B><A NAME="1534"></A>. <I>xcf</I><A NAME="1536"></A> is your friend and gzip or bzip2 too.
+</LI>
+<LI>Close GIMP<A NAME="1538"></A>.
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+7 Mailing list and bug report</A>
+</H1>
+
+<P>
+If you would like to:
+
+<P>
+
+<UL>
+<LI>know news about Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>
+</LI>
+<LI>suggest further improvements
+</LI>
+<LI>exchange experiences with others Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> users
+</LI>
+<LI>help the developers to improve Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> and make it more stable
+</LI>
+</UL>
+
+<P>
+at the moment, the best way is subscribing the mailing list devoted to the Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> users: feel free to send an e-mail to  <TT><A NAME="tex2html26"
+  HREF="mailto:teseo-user-subscribe@yahoogroups.com">teseo-user-subscribe@yahoogroups.com</A></TT> . However, the archive of the messages is open to everybody at <TT><A NAME="tex2html27"
+  HREF="http://groups.yahoo.com/group/teseo-user/">http://groups.yahoo.com/group/teseo-user/</A></TT>
+<P>
+
+<H2><A NAME="SECTION00081000000000000000">
+7.1 Bug report</A>
+</H2>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> is not a bug-free application, so if you find a bug, please report it sending an e-mail to <TT><A NAME="tex2html28"
+  HREF="mailto:teseo@ingv.it">teseo@ingv.it</A></TT> 
+
+<P>
+Please, remember to specify:
+
+<UL>
+<LI>Operating system
+	
+<UL>
+<LI><FONT SIZE="-1">i.e.: Windows XP, Linux Distribution, Mac OS X version, ...</FONT>
+	
+</LI>
+</UL>
+</LI>
+<LI>Teseo version
+	
+<UL>
+<LI><FONT SIZE="-1">Teseo version looks like 2.x.x
+<BR>	You find it in About window following Help<IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.jpg"
+ ALT="$\rightarrow$"> About in Teseo menu.</FONT>
+	
+</LI>
+</UL>
+</LI>
+<LI>Kind of Teseo distribution
+	
+<UL>
+<LI><FONT SIZE="-1">Source code, zip or tarball binaries, dmg image, ...</FONT>
+	
+</LI>
+</UL>
+</LI>
+<LI>GIMP<A NAME="1545"></A>-2.2 version
+	
+<UL>
+<LI><FONT SIZE="-1">GIMP<A NAME="1547"></A> version looks like 2.2.x</FONT>
+	
+</LI>
+</UL>
+</LI>
+<LI>A detailed bug description
+</LI>
+</UL>
+
+<P>
+We will provide a bug tracking system if necessary.
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000"></A>
+<A NAME="sec:credits"></A><BR>
+8 Credits
+</H1>
+
+<P>
+Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> source distribution contains code developed by other authors
+and distributed respecting their copyright or license:
+
+<P>
+
+<UL>
+<LI><B>Curvature correction</B> - Curvature correction of Wiechert records is based on studies and Fortran routines developed by Antoine Schlupp. Within Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT>, Fortran routines have been ported in C.
+<BR>	Author: <I>Antoine Schlupp</I> (<TT><A NAME="tex2html29"
+  HREF="mailto:antoine.schlupp@eost.u-strasbg.fr">antoine.schlupp@eost.u-strasbg.fr</A></TT>)
+</LI>
+<LI><B>NEWUOA</B> - NEWUOA is a software developed by M.J.D. Powell for unconstrained optimization without derivatives.
+<BR>	Author:  <I>M.J.D. Powell</I> (<TT><A NAME="tex2html30"
+  HREF="mailto:mjdp@cam.ac.uk">mjdp@cam.ac.uk</A></TT>)
+</LI>
+<LI><B>cfortran.h</B> - cfortran.h is an easy-to-use powerful bridge between C and FORTRAN. It provides a transparent, machine independent interface between C and FORTRAN routines and global data. <TT><A NAME="tex2html31"
+  HREF="http://www-zeus.desy.de/~burow/cfortran/">http://www-zeus.desy.de/~burow/cfortran/</A></TT>
+<BR>	Author: <I>Burkhard Burow</I> (<TT><A NAME="tex2html32"
+  HREF="mailto:burow@desy.de">burow@desy.de</A></TT>)
+</LI>
+</UL>
+
+<P>
+Main package dependencies are:
+
+<P>
+
+<UL>
+<LI><B>GIMP</B> - GNU Image Manipulation Program. 
+<BR>	<TT><A NAME="tex2html33"
+  HREF="http://www.gimp.org/">http://www.gimp.org/</A></TT>
+</LI>
+<LI><B>GtkDatabox</B> - A Gtk+-Widget for Fast Data Display. <TT><A NAME="tex2html34"
+  HREF="http://www.eudoxos.de/">http://www.eudoxos.de/</A></TT>
+<BR>	Author:  <I>Roland Bock</I> (<TT><A NAME="tex2html35"
+  HREF="mailto:rbock@eudoxos.de">rbock@eudoxos.de</A></TT>)
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000">
+9 Acknowledgements</A>
+</H1>
+
+<P>
+We would like to thank A. Schlupp for his contribution
+in the Curvature Correction development.
+We are also grateful to A. Michelini for his continuous encouragement
+and to S. Mazza for his useful and constructive suggestions.
+
+<P>
+
+<H1><A NAME="SECTION000110000000000000000">
+10 Warnings</A>
+</H1>
+
+<P>
+In this section are resumed all warnings contained in the manual.
+
+<P>
+<BR>
+<BR>
+starttoclow
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION000120000000000000000">
+List of Figures</A>
+</H2><UL>
+<LI>1. <A NAME="tex2html9"
+  HREF="teseo2_user_manual.html#222">Teseo menu</A>
+<LI>2. <A NAME="tex2html10"
+  HREF="teseo2_user_manual.html#246">Session window - Record tab</A>
+<LI>3. <A NAME="tex2html11"
+  HREF="teseo2_user_manual.html#275">Session window - Traces tab</A>
+<LI>4. <A NAME="tex2html12"
+  HREF="teseo2_user_manual.html#289">Session window - Path tab </A>
+<LI>5. <A NAME="tex2html13"
+  HREF="teseo2_user_manual.html#323">Teseo Parasites</A>
+<LI>6. <A NAME="tex2html14"
+  HREF="teseo2_user_manual.html#363">Teseo window - General tab</A>
+<LI>7. <A NAME="tex2html15"
+  HREF="teseo2_user_manual.html#371">Teseo window - Colour weighted mean tab</A>
+<LI>8. <A NAME="tex2html16"
+  HREF="teseo2_user_manual.html#401">Teseo window - Path menu</A>
+<LI>9. <A NAME="tex2html17"
+  HREF="teseo2_user_manual.html#411">GIMP</A><A NAME="1247"></A> Path Tool - Path order
+<LI>10. <A NAME="tex2html18"
+  HREF="teseo2_user_manual.html#444">Teseo Path Import</A>
+<LI>11. <A NAME="tex2html19"
+  HREF="teseo2_user_manual.html#452">Teseo Path Export</A>
+<LI>12. <A NAME="tex2html20"
+  HREF="teseo2_user_manual.html#468">Teseo Filter Clean</A>
+<LI>13. <A NAME="tex2html22"
+  HREF="teseo2_user_manual.html#741">Mechanical recording schema.
+<I>Figure provided by A. Schlupp.</I>
+</A>
+<LI>14. <A NAME="tex2html23"
+  HREF="teseo2_user_manual.html#743">Mechanical recording schema, details on b.
+<I>Figure provided by A. Schlupp.</I>
+</A>
+<LI>15. <A NAME="tex2html24"
+  HREF="teseo2_user_manual.html#564">Curvature Correction window</A>
+<LI>16. <A NAME="tex2html25"
+  HREF="teseo2_user_manual.html#744">Plot of the function Error(<I>b</I></A><A NAME="1525"></A>)</UL>
+<P>
+
+<H2><A NAME="SECTION000130000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="adobe-dxf">Autodesk, 1992</A>
+<DD>
+Autodesk (1992).
+<BR><EM>AutoCAD Release 12 DXF Format</EM>.
+<BR>Adobe Systems Incorporated - 1585 Charleston Road - P.O. Box 7900 -
+  Mountain View, CA 94039-7900.
+<BR>Drawing Interchange and File Formats Release 12.
+
+<P></P><DT><A NAME="bunks">Bunks, 2000</A>
+<DD>
+Bunks, C. (2000).
+<BR><EM>Grokking the GIMP</EM>.
+<BR>New Riders Publishing, Thousand Oaks, CA.
+<BR>352pp.
+
+<P></P><DT><A NAME="cadek">Cadek, 1987</A>
+<DD>
+Cadek, O. (1987).
+<BR>Studying earthquake ground motion in prague from wiechert seismograph
+  records.
+<BR><EM>Gerl. Beitr. Geoph.</EM>, 96:438-447.
+
+<P></P><DT><A NAME="gimphelp">Gimp, 2005</A>
+<DD>
+Gimp (2005).
+<BR><EM>GNU Image Manipulation Program User Manual</EM>.
+<BR>The GIMP Documentation Team.
+<BR>URL <TT><A NAME="tex2html36"
+  HREF="http://docs.gimp.org/">http://docs.gimp.org/</A></TT>.
+
+<P></P><DT><A NAME="goldstein">Goldstein et&nbsp;al., 2003</A>
+<DD>
+Goldstein, P., Dodge, D., and Firpo, M. (2003).
+<BR>SAC2000: Signal processing and analysis tools for seismologists and
+  engineers.
+<BR>In Lee, W., Kanamori, H., Jennings, P., and Kisslinger, C., editors,
+  <EM>International Handbook of Earthquake &amp; Engineering Seismology, Part B</EM>,
+  pages 1613-1614, New York. Academic Press.
+
+<P></P><DT><A NAME="kylander">Kylander and Kylander, 1999</A>
+<DD>
+Kylander, O. and Kylander, K. (1999).
+<BR><EM>Gimp the Official Handbook with Cdrom</EM>.
+<BR>Coriolis Value.
+<BR>895pp.
+
+<P></P><DT><A NAME="sismoseos">Michelini and the Sismos Team, 2005</A>
+<DD>
+Michelini, A. and the Sismos Team (2005).
+<BR>Collection, digitization and distribution of historical seismological
+  data at ingv.
+<BR><EM>EOS</EM>, 86(28).
+
+<P></P><DT><A NAME="pintore">Pintore et&nbsp;al., 2005</A>
+<DD>
+Pintore, S., Quintiliani, M., and Franceschi, D. (2005).
+<BR>Teseo: a vectoriser of historical seismograms.
+<BR><EM>Computers &amp; Geosciences</EM>, 31(10):1277-1285.
+
+<P></P><DT><A NAME="Schlupp">Schlupp, 2006</A>
+<DD>
+Schlupp, A. (2006).
+<BR>Personal communication.
+
+<P></P><DT><A NAME="svg-spec">SVG Working Group, 2003</A>
+<DD>
+SVG Working Group (2003).
+<BR><EM>Scalable Vector Graphics (SVG) 1.1 Specification</EM>.
+<BR>URL <TT><A NAME="tex2html37"
+  HREF="http://www.w3.org/TR/2003/REC-SVG11-20030114/">http://www.w3.org/TR/2003/REC-SVG11-20030114/</A></TT>.
+</DL>
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION000140000000000000000">
+Index</A>
+</H2><DL COMPACT>
+<DT><STRONG>Buttons</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>Arm Shift</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1460">5.1</A>
+<DT><STRONG>Arm shift button</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1458">5.1</A>
+<DT><STRONG>Axial distance</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1446">5.1</A>
+<DT><STRONG>Axial distance button</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1444">5.1</A>
+<DT><STRONG>Correct</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1520">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1522">5.1</A>
+<DT><STRONG>OK</STRONG>
+<DD><A HREF="teseo2_user_manual.html#977">3.1</A>
+<DT><STRONG>Slopes</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1514">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1516">5.1</A>
+</DL>
+<DT><STRONG>File formats</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>ASCII</STRONG>
+<DD><A HREF="teseo2_user_manual.html#799">1</A>
+ | <A HREF="teseo2_user_manual.html#1257">4.4</A>
+<DT><STRONG>B&#233;zier</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1265">4.4</A>
+<DT><STRONG>DXF</STRONG>
+<DD><A HREF="teseo2_user_manual.html#797">1</A>
+ | <A HREF="teseo2_user_manual.html#1037">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1252">4.4</A>
+ | <A HREF="teseo2_user_manual.html#1277">4.4</A>
+<DT><STRONG>Examples</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1269">4.4</A>
+<DT><STRONG>SAC</STRONG>
+<DD><A HREF="teseo2_user_manual.html#793">1</A>
+ | <A HREF="teseo2_user_manual.html#999">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1022">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1259">4.4</A>
+ | <A HREF="teseo2_user_manual.html#1280">4.4</A>
+<DT><STRONG>SISMA</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1261">4.4</A>
+<DT><STRONG>SVG</STRONG>
+<DD><A HREF="teseo2_user_manual.html#795">1</A>
+ | <A HREF="teseo2_user_manual.html#1250">4.4</A>
+ | <A HREF="teseo2_user_manual.html#1271">4.4</A>
+<DT><STRONG>Timemark</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1263">4.4</A>
+<DT><STRONG>Trace</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1254">4.4</A>
+<DT><STRONG>xcf</STRONG>
+<DD><A HREF="teseo2_user_manual.html#802">1</A>
+ | <A HREF="teseo2_user_manual.html#888">3</A>
+ | <A HREF="teseo2_user_manual.html#892">3</A>
+ | <A HREF="teseo2_user_manual.html#894">3</A>
+ | <A HREF="teseo2_user_manual.html#900">3</A>
+ | <A HREF="teseo2_user_manual.html#902">3</A>
+ | <A HREF="teseo2_user_manual.html#909">3</A>
+ | <A HREF="teseo2_user_manual.html#990">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1043">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1045">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1061">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1069">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1076">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1531">6</A>
+ | <A HREF="teseo2_user_manual.html#1536">6</A>
+</DL>
+<DT><STRONG>Filters</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>clean</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1302">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1342">4.5</A>
+</DL>
+<DT><STRONG>GIMP</STRONG>
+<DD><A HREF="teseo2_user_manual.html#790">1</A>
+ | <A HREF="teseo2_user_manual.html#806">2</A>
+ | <A HREF="teseo2_user_manual.html#809">2</A>
+ | <A HREF="teseo2_user_manual.html#813">2</A>
+ | <A HREF="teseo2_user_manual.html#825">2.1</A>
+ | <A HREF="teseo2_user_manual.html#846">2.1</A>
+ | <A HREF="teseo2_user_manual.html#861">2.1</A>
+ | <A HREF="teseo2_user_manual.html#873">2.2</A>
+ | <A HREF="teseo2_user_manual.html#876">2.2</A>
+ | <A HREF="teseo2_user_manual.html#878">2.3</A>
+ | <A HREF="teseo2_user_manual.html#880">2.3</A>
+ | <A HREF="teseo2_user_manual.html#883">2.4</A>
+ | <A HREF="teseo2_user_manual.html#943">3</A>
+ | <A HREF="teseo2_user_manual.html#966">3</A>
+ | <A HREF="teseo2_user_manual.html#886">3</A>
+ | <A HREF="teseo2_user_manual.html#890">3</A>
+ | <A HREF="teseo2_user_manual.html#905">3</A>
+ | <A HREF="teseo2_user_manual.html#907">3</A>
+ | <A HREF="teseo2_user_manual.html#932">3</A>
+ | <A HREF="teseo2_user_manual.html#960">3</A>
+ | <A HREF="teseo2_user_manual.html#982">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1099">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1041">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1050">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1095">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1132">4</A>
+ | <A HREF="teseo2_user_manual.html#1158">4</A>
+ | <A HREF="teseo2_user_manual.html#1103">4</A>
+ | <A HREF="teseo2_user_manual.html#1130">4</A>
+ | <A HREF="teseo2_user_manual.html#1152">4</A>
+ | <A HREF="teseo2_user_manual.html#1164">4.1</A>
+ | <A HREF="teseo2_user_manual.html#1168">4.1</A>
+ | <A HREF="teseo2_user_manual.html#1242">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1247">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1247">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1191">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1197">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1205">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1238">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1267">4.4</A>
+ | <A HREF="teseo2_user_manual.html#1273">4.4</A>
+ | <A HREF="teseo2_user_manual.html#1332">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1336">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1340">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1284">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1322">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1326">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1330">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1366">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1527">6</A>
+ | <A HREF="teseo2_user_manual.html#1538">6</A>
+ | <A HREF="teseo2_user_manual.html#1547">7.1</A>
+ | <A HREF="teseo2_user_manual.html#1545">7.1</A>
+<DT><STRONG>GIMP tools</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>Flip</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1160">4</A>
+ | <A HREF="teseo2_user_manual.html#1154">4</A>
+<DT><STRONG>Measure</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1334">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1324">4.5</A>
+<DT><STRONG>Path</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1105">4</A>
+ | <A HREF="teseo2_user_manual.html#1166">4.1</A>
+ | <A HREF="teseo2_user_manual.html#1170">4.1</A>
+ | <A HREF="teseo2_user_manual.html#1244">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1193">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1240">4.3</A>
+ | <A HREF="teseo2_user_manual.html#1275">4.4</A>
+<DT><STRONG>Rotate</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1162">4</A>
+ | <A HREF="teseo2_user_manual.html#1156">4</A>
+ | <A HREF="teseo2_user_manual.html#1338">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1328">4.5</A>
+</DL>
+<DT><STRONG>GLib</STRONG>
+<DD><A HREF="teseo2_user_manual.html#832">2.1</A>
+ | <A HREF="teseo2_user_manual.html#838">2.1</A>
+ | <A HREF="teseo2_user_manual.html#844">2.1</A>
+<DT><STRONG>GTK+</STRONG>
+<DD><A HREF="teseo2_user_manual.html#829">2.1</A>
+ | <A HREF="teseo2_user_manual.html#835">2.1</A>
+ | <A HREF="teseo2_user_manual.html#841">2.1</A>
+ | <A HREF="teseo2_user_manual.html#850">2.1</A>
+<DT><STRONG>Keywords</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>CWM</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1176">4.2</A>
+<DT><STRONG>parasites</STRONG>
+<DD><A HREF="teseo2_user_manual.html#897">3</A>
+ | <A HREF="teseo2_user_manual.html#988">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1097">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1048">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1074">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1093">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1534">6</A>
+<DT><STRONG>seismic event</STRONG>
+<DD><A HREF="teseo2_user_manual.html#974">3.1</A>
+<DT><STRONG>session</STRONG>
+<DD><A HREF="teseo2_user_manual.html#972">3.1</A>
+ | <A HREF="teseo2_user_manual.html#985">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1063">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1067">3.2</A>
+</DL>
+<DT><STRONG>Menu</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>Curvature Correction</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1432">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1434">5.1</A>
+<DT><STRONG>Post Analysis</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1436">5.1</A>
+<DT><STRONG>Teseo</STRONG>
+<DD><A HREF="teseo2_user_manual.html#913">3</A>
+<DT><STRONG>Teseo-2</STRONG>
+<DD><A HREF="teseo2_user_manual.html#911">3</A>
+</DL>
+<DT><STRONG>Parameters</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>a</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1409">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1423">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1448">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1454">5.1</A>
+<DT><STRONG>Arm length entry</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1438">5.1</A>
+<DT><STRONG>Arm shift entry</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1456">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1464">5.1</A>
+<DT><STRONG>Axial distance entry</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1442">5.1</A>
+<DT><STRONG>Azimuth</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1003">3.1</A>
+<DT><STRONG>b</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1525">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1525">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1411">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1427">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1429">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1462">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1466">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1468">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1518">5.1</A>
+<DT><STRONG>Back</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1181">4.2</A>
+<DT><STRONG>Base colour</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1345">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1368">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1384">4.5</A>
+<DT><STRONG>Choose</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1470">5.1</A>
+<DT><STRONG>Constant abscissa ascendent</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1033">3.1</A>
+<DT><STRONG>Cylinder radius entry</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1440">5.1</A>
+<DT><STRONG>d</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1413">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1425">5.1</A>
+<DT><STRONG>Date</STRONG>
+<DD><A HREF="teseo2_user_manual.html#993">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1057">3.2</A>
+<DT><STRONG>Elevation</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1011">3.1</A>
+<DT><STRONG>Event first sample time</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1020">3.1</A>
+<DT><STRONG>Event number</STRONG>
+<DD><A HREF="teseo2_user_manual.html#995">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1053">3.2</A>
+ | <A HREF="teseo2_user_manual.html#1055">3.2</A>
+<DT><STRONG>Export DXF path relocated in origin</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1035">3.1</A>
+<DT><STRONG>Fill colour</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1349">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1372">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1388">4.5</A>
+<DT><STRONG>Final X</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1496">5.1</A>
+<DT><STRONG>Final Y</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1500">5.1</A>
+<DT><STRONG>Forward</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1179">4.2</A>
+<DT><STRONG>Greater</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1359">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1396">4.5</A>
+<DT><STRONG>Horizontal</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1355">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1394">4.5</A>
+<DT><STRONG>Image file</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1015">3.1</A>
+<DT><STRONG>Incident angle</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1005">3.1</A>
+<DT><STRONG>Lateral velocity</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1480">5.1</A>
+<DT><STRONG>Latitude</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1007">3.1</A>
+<DT><STRONG>Length</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1363">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1382">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1398">4.5</A>
+<DT><STRONG>Less</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1361">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1380">4.5</A>
+<DT><STRONG>Longitude</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1009">3.1</A>
+<DT><STRONG>Mode</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1400">4.5</A>
+<DT><STRONG>Name</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1001">3.1</A>
+<DT><STRONG>New layer</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1351">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1374">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1390">4.5</A>
+<DT><STRONG>Paper speed</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1013">3.1</A>
+<DT><STRONG>Paper velocity velocity</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1476">5.1</A>
+<DT><STRONG>R</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1405">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1407">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1419">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1421">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1450">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1452">5.1</A>
+<DT><STRONG>Resampling step</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1031">3.1</A>
+<DT><STRONG>Resolution</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1017">3.1</A>
+<DT><STRONG>Return directly B&#233;zier path</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1027">3.1</A>
+<DT><STRONG>Rotate</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1486">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1510">5.1</A>
+<DT><STRONG>Scan rotation</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1484">5.1</A>
+<DT><STRONG>Shift</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1482">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1512">5.1</A>
+<DT><STRONG>Starting X</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1488">5.1</A>
+<DT><STRONG>Starting Y</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1492">5.1</A>
+<DT><STRONG>Station data</STRONG>
+<DD><A HREF="teseo2_user_manual.html#997">3.1</A>
+<DT><STRONG>Stop to the first guide</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1183">4.2</A>
+<DT><STRONG>Threshold</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1347">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1370">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1386">4.5</A>
+<DT><STRONG>Time mark first sample time</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1024">3.1</A>
+<DT><STRONG>Time span</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1478">5.1</A>
+<DT><STRONG>Time span entry</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1472">5.1</A>
+<DT><STRONG>Trace colour</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1185">4.2</A>
+<DT><STRONG>Trace thickness</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1187">4.2</A>
+<DT><STRONG>Transparent</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1353">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1376">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1392">4.5</A>
+<DT><STRONG>Use extrema</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1490">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1494">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1498">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1502">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1504">5.1</A>
+<DT><STRONG>Use raster angle</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1508">5.1</A>
+<DT><STRONG>Use time span</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1474">5.1</A>
+ | <A HREF="teseo2_user_manual.html#1506">5.1</A>
+<DT><STRONG>Vertical</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1357">4.5</A>
+ | <A HREF="teseo2_user_manual.html#1378">4.5</A>
+<DT><STRONG>x(i)</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1415">5.1</A>
+<DT><STRONG>y(i)</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1417">5.1</A>
+</DL>
+<DT><STRONG>Software development</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>g77</STRONG>
+<DD><A HREF="teseo2_user_manual.html#820">2.1</A>
+<DT><STRONG>gcc</STRONG>
+<DD><A HREF="teseo2_user_manual.html#818">2.1</A>
+<DT><STRONG>GLib</STRONG>
+<DD><A HREF="teseo2_user_manual.html#831">2.1</A>
+ | <A HREF="teseo2_user_manual.html#837">2.1</A>
+ | <A HREF="teseo2_user_manual.html#843">2.1</A>
+<DT><STRONG>GTK+</STRONG>
+<DD><A HREF="teseo2_user_manual.html#828">2.1</A>
+ | <A HREF="teseo2_user_manual.html#834">2.1</A>
+ | <A HREF="teseo2_user_manual.html#840">2.1</A>
+ | <A HREF="teseo2_user_manual.html#849">2.1</A>
+<DT><STRONG>GtkDataBox</STRONG>
+<DD><A HREF="teseo2_user_manual.html#852">2.1</A>
+ | <A HREF="teseo2_user_manual.html#854">2.1</A>
+<DT><STRONG>libg2c</STRONG>
+<DD><A HREF="teseo2_user_manual.html#822">2.1</A>
+</DL>
+<DT><STRONG>Teseo modules</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>gtk-addons</STRONG>
+<DD><A HREF="teseo2_user_manual.html#857">2.1</A>
+ | <A HREF="teseo2_user_manual.html#865">2.1</A>
+<DT><STRONG>newuoa</STRONG>
+<DD><A HREF="teseo2_user_manual.html#859">2.1</A>
+ | <A HREF="teseo2_user_manual.html#867">2.1</A>
+<DT><STRONG>teseo-2</STRONG>
+<DD><A HREF="teseo2_user_manual.html#863">2.1</A>
+ | <A HREF="teseo2_user_manual.html#869">2.1</A>
+ | <A HREF="teseo2_user_manual.html#871">2.1</A>
+</DL>
+<DT><STRONG>Teseo operations</STRONG>
+<DD><DL COMPACT>
+<DT><STRONG>Align unlocked paths</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1211">4.3</A>
+<DT><STRONG>Link unlocked paths</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1213">4.3</A>
+<DT><STRONG>Parasite Export</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1065">3.2</A>
+<DT><STRONG>Parasite Import</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1059">3.2</A>
+<DT><STRONG>Parasite Remove all</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1071">3.2</A>
+<DT><STRONG>Path Fit</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1029">3.1</A>
+ | <A HREF="teseo2_user_manual.html#1201">4.3</A>
+<DT><STRONG>Path Force Polyline</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1207">4.3</A>
+<DT><STRONG>Path Resample</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1199">4.3</A>
+<DT><STRONG>Path Snap</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1209">4.3</A>
+<DT><STRONG>Path Split</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1203">4.3</A>
+<DT><STRONG>Timemark - Add TMs from guides</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1217">4.3</A>
+<DT><STRONG>Timemark - Evaluate intermediate TMs</STRONG>
+<DD><A HREF="teseo2_user_manual.html#1215">4.3</A>
+</DL>
+
+</DL>
+
+<H1><A NAME="SECTION000150000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>
+  <B>Teseo<FONT SIZE="-1"><SUP>2</SUP></FONT> User Manual</B> 
+<BR>  <FONT SIZE="-1"><B>T</B>urn the <B>E</B>ldest <B>S</B>eismograms into the <B>E</B>lectronic <B>O</B>riginal <B>O</B>nes - 2.0.9</FONT>
+</STRONG><P>
+This document was generated using the
+<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2002-2-1 (1.70)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-style teseo2_user_manual_personal.css -image_type png -show_section_numbers -no_navigation -split 0 -address 'Matteo Quintiliani, Stefano Pintore - <a href="mailto:teseo@ingv.it">teseo@ingv.it</a>' teseo2_user_manual</TT>
+<P>
+The translation was initiated by mtheo on 2006-04-11<BR><HR>
+<ADDRESS>
+Matteo Quintiliani, Stefano Pintore - <a href="mailto:teseo@ingv.it">teseo@ingv.it</a>
+</ADDRESS>
+</BODY>
+</HTML>
