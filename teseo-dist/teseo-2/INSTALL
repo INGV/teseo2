@@ -11,6 +11,9 @@ Teseo-2 INSTALL Contents
         * SOURCE INSTALLATION
 
 
+Teseo WebSite http://sismos.ingv.it/teseo/
+
+
 ***************************************************
 *** WINDOWS BINARIES INSTALLATION
 ***************************************************
@@ -25,7 +28,7 @@ Teseo-2 is a gimp-2.2 plugin so you need gimp-2.2 to use it.
 Pre-requisite
 =============
 
-1 - Install gimp-2.2.8 : files and instructions at http://gimp-win.sourceforge.net
+1 - Install gimp-2.2.9 or newer : files and instructions at http://gimp-win.sourceforge.net
 
 2 - (Optional) Install gimp-help.
 
@@ -46,9 +49,8 @@ Restart Gimp if it was opened.
 
 You have 2 possibilities to install teseo-2 on Mac Os X.
 
-1- Download DMG or ISO image that contain Gimp.app with teseo-2 bundled
-	(DMG image is about 50 MB)
-	(ISO image is about 100 MB)
+1- Download DMG image that contain Gimp.app with teseo-2 bundled
+	(DMG image is about 90 MB)
 
 2- Download binary distribution pack and use shell script configuration:
 	(distribution is about 1 MB)

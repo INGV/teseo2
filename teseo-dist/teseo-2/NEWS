@@ -5,10 +5,8 @@ Copyright (C) 2000-2005
 Stefano Pintore & Matteo Quintiliani
 Istituto Nazionale di Geofisica e Vulcanologia
 
-New version of Teseo will be released on September 19th, 2005.
-
-Web page: http://sismos.ingv.it/
+Web page: http://sismos.ingv.it/teseo/
 e-mail:   teseo@ingv.it
 
-This package is a plug-in for GIMP 2.0. capable of vectorize seismic trace from 
+This package is a plug-in for GIMP 2.2. capable of vectorize seismic trace from 
 historical seismogram acquired in raster format.
