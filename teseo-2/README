@@ -1,15 +1,16 @@
 GIMP Plug-In Teseo-2
 =====================
 
-Copyright (C) 2000-2005
+Copyright (C) 2000-2006
 Stefano Pintore & Matteo Quintiliani
 Istituto Nazionale di Geofisica e Vulcanologia
 
-Web page: http://sismos.ingv.it/
+Web page: http://sismos.ingv.it/teseo/
 e-mail:   teseo@ingv.it
 
 This package is a plug-in for GIMP 2 capable of vectorize seismic trace from
 historical seismogram acquired in raster format.
+
 
 - SOURCE CODE DISTRIBUTION
 To build and install it:
@@ -31,21 +32,30 @@ To install it:
 - MACOSX BINARY DISTRIBUTION
 To install it:
 	- refer to the file INSTALL
-	- download DMG or ISO image that contain Gimp.app with teseo-2 bundled
+	- download DMG image that contain Gimp.app with teseo-2 bundled
+
 
 - EXAMPLES FILES:
 	docs/example.xcf.gz contains a seismogram portion and some vectorised path example
 
+
 - CONTRIBUTIONS:
-In teseo-2 sources has been integrated some other authors work, that are distributed respecting
-their copyright or license:
+Teseo2 source distribution contains code developed by other authors
+and distributed respecting their copyright or license:
 
-NEWUOA     - Author:  M.J.D. Powell (mjdp@cam.ac.uk)
+NEWUOA - NEWUOA is a software developed by M.J.D.
+	Powell for unconstrained optimization without derivatives. 
+	Author: M.J.D. Powell (mjdp@cam.ac.uk)
+cfortran.h - cfortran.h is an easy-to-use powerful bridge between C and FORTRAN.
+	It provides a transparent, machine independent interface between C and FORTRAN routines and global data.
+	http://www-zeus.desy.de/~burow/cfortran/ 
+	Author: Burkhard Burow (burow@desy.de)
+Curvature correction - Curvature correction of Wiechert records is based on studies and
+	Fortran routines developed by Antoine Schlupp. Within Teseo2, Fortran routines have been ported in C. 
+	Author: Antoine Schlupp (antoine.schlupp@eost.u-strasbg.fr)
 
-CFORTRAN.h - Author: Burkhard Burow (burow@desy.de)  www: www-zeus.desy.de/~burow/cfortran
 
 - NEWUOA
-
 Teseo-2 use a library created from the original NEWUOA Fortran files with little changes to permit
 call of the routines from C code.
 
@@ -68,6 +78,7 @@ publication in the proceedings of the 40th Workshop on Large Scale Nonlinear
 Optimization (Erice, Italy, 2004).
 
 See the README file in NEWUOA Directory for other details.
+
 
 - CFORTRAN.H
 Teseo-2 use cfortran.h to call newuoa routines.
