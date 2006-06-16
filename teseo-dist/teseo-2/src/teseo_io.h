@@ -198,5 +198,11 @@
       */
     gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGFile  );
 
+/*!
+  teseo_import_svg_vectors_combining_more_components() is a wrapper for teseo_import_svg_vectors(),
+  it combines more components in a path e return a single path.
+  */
+void teseo_import_svg_vectors_combining_more_components(gint32 image_ID, const gchar *filename);
+
 
 #endif

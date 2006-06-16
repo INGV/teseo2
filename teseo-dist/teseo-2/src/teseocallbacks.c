@@ -333,6 +333,45 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
 }
 
 
+
+void
+on_svg_combine1_activate               (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    // Import SVG combining more components
+    //char filename[FILENAMELEN];
+    gchar * filename = NULL;
+    char * path=NULL;
+
+    path=teseo_get_environment_path( SVGPATH );
+    gtk_window_set_title (GTK_WINDOW (filechooser_import), "Import bezier path from SVG file combining more components");
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser_import), path );
+    g_free(path);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (filechooser_import));
+
+    switch (result)
+    {
+	case GTK_RESPONSE_OK:
+		filename =  gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser_import)) ;
+		teseo_import_svg_vectors_combining_more_components(teseo_image, filename );
+		g_free(filename);
+		teseo_gtk_statusbar_push("SVG file imported in current path combining more components.");
+		break;
+	case GTK_RESPONSE_CANCEL:
+
+		break;
+	case GTK_RESPONSE_DELETE_EVENT:
+
+		break;
+	default:
+		break;
+    }
+    gtk_widget_hide ((GtkWidget *) filechooser_import);
+
+}
+
+
 void
 on_dxf2_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
@@ -2421,7 +2460,6 @@ on_parasite_cbentry_changed            (GtkComboBox     *combobox,
 {
 
 }
-
 
 
 

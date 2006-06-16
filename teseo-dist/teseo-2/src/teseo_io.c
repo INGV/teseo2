@@ -1122,3 +1122,51 @@ gboolean teseo_export_svg_vectors ( gint32 g_image, char * SVGfile  )
     // TODO
     return TRUE;
 }
+
+
+void teseo_import_svg_vectors_combining_more_components(gint32 image_ID, const gchar *filename) {
+#define SIZELINE 1024
+#define  POS_C  11
+#define  POS_M  60
+	FILE *f;
+	FILE *fout;
+	gchar line[SIZELINE];
+	const gchar firstline[POS_C+2] = "           C";
+	gboolean after_first_line = FALSE;
+	gchar filenameout[SIZELINE];
+	g_snprintf(filenameout, SIZELINE-1, "%s.teseo2.tmp", filename);
+	
+	f = fopen(filename, "rt");
+	if(f) {
+		fout = fopen(filenameout, "wt");
+		if(fout) {
+			while(fgets (line, SIZELINE,  f)) {
+				if(after_first_line) {
+					if( g_strncasecmp(line, firstline, POS_C + 1) == 0 ) {
+						line[POS_C] = ' ';
+					}
+					if(line[POS_M] == 'M') {
+						line[POS_M] = '\n';
+						line[POS_M + 1] = 0;
+					}
+				} else {
+					if( g_strncasecmp(line, firstline, POS_C + 1) == 0 ) {
+						after_first_line = TRUE;
+						if(line[POS_M] == 'M') {
+							line[POS_M] = '\n';
+							line[POS_M + 1] = 0;
+						}
+					}
+				}
+				g_fprintf(fout, "%s", line);
+			}
+			fclose(fout);
+			teseo_import_svg_vectors(image_ID, filenameout );
+		} else {
+			g_message("teseo_path_import_combining_more_components(): %s can not be created!", filenameout);
+		}
+		fclose(f);
+	} else {
+		g_message("teseo_path_import_combining_more_components(): %s does not exist!", filename);
+	}
+}

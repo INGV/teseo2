@@ -196,6 +196,9 @@ on_svg1_activate                       (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_svg_combine1_activate               (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+void
 on_ascii1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -404,5 +407,4 @@ on_calc_dist_btn_clicked               (GtkButton       *button,
 void
 on_parasite_cbentry_changed            (GtkComboBox     *combobox,
                                         gpointer         user_data);
-
 
