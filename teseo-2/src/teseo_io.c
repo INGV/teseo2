@@ -288,10 +288,10 @@ strcpy(pathname,app);
 
 //Test to exclude path with same name
 
-fscanf(fp,"#POINTS: %d\n" , &num_points);
-fscanf(fp,"CLOSED: %d\n" , &closed);
-fscanf(fp,"DRAW: %d\n", &draw);
-fscanf(fp,"STATE:%d\n", &state);
+fscanf(fp,"#POINTS: %ld\n" , &num_points);
+fscanf(fp,"CLOSED: %ld\n" , &closed);
+fscanf(fp,"DRAW: %ld\n", &draw);
+fscanf(fp,"STATE:%ld\n", &state);
 //g_message("nome=%s num_points=%d closed=%d draw=%d state=%d", pathname, num_points, closed, draw, state);
 
 if ( closed==0 && draw==0 && state==2 )
@@ -367,9 +367,9 @@ s_tmp_app[len]='\0';
      if(fp){
 //      fprintf(fp,"Name: %s\n", nome_path);
       fprintf(fp,"Name: %s\n", s_tmp_app);
-      fprintf(fp,"#POINTS: %d\nCLOSED: 0\nDRAW: 0\nSTATE:2\n",num_righe);
+      fprintf(fp,"#POINTS: %ld\nCLOSED: 0\nDRAW: 0\nSTATE:2\n",num_righe);
      	for (i=0; i<num_righe; i++)    {
-         fprintf(fp,"TYPE: %d X: %d Y: %d\n",(glong) floor(points_pairs[i*3+2]), (glong) floor(points_pairs[i*3]),(glong)   floor(points_pairs[i*3+1]));
+         fprintf(fp,"TYPE: %ld X: %ld Y: %ld\n",(glong) floor(points_pairs[i*3+2]), (glong) floor(points_pairs[i*3]),(glong)   floor(points_pairs[i*3+1]));
      	}
       fclose(fp);
      }
@@ -937,7 +937,7 @@ y=(height - vet_punti[i*2+1] - 1 - y_zero) * 2.54/dpi;
 fprintf(fp,
 "LINE\n\
 5\n\
-%d\n\
+%ld\n\
 6\n\
 Continuous\n\
 62\n\
@@ -1112,7 +1112,8 @@ gboolean teseo_import_svg_vectors ( gint32 g_image, char * SVGfile  )
     if (ok == FALSE)
     {
       /* Report error to user*/
-      fprintf (stderr, "Unable to write file: \n");
+      // fprintf (stderr, "Unable to write file: \n");
+      g_message("teseo_import_svg_vectors(): unable to import file \"%s\". SVG format is not correct.", SVGfile);
     }
     return ok;
 }
@@ -1134,7 +1135,7 @@ void teseo_import_svg_vectors_combining_more_components(gint32 image_ID, const g
 	const gchar firstline[POS_C+2] = "           C";
 	gboolean after_first_line = FALSE;
 	gchar filenameout[SIZELINE];
-	g_snprintf(filenameout, SIZELINE-1, "%s.teseo2.tmp", filename);
+	g_snprintf(filenameout, SIZELINE-1, "%s.combined.by.teseo2.svg", filename);
 	
 	f = fopen(filename, "rt");
 	if(f) {
