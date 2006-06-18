@@ -115,7 +115,8 @@ gint teseo_gimp_path_get_points (gint32           image_ID,
     }
 
     if( (!ret) && (*path_closed != 0) &&  (*num_path_point_details < 1) ) {
-	    g_message("TESEO-CRITICAL: Path contains more than one component !\nReading path \"%s\", gimp_path_get_points() maybe has printed: \"%s\"\nTake a look in gimp-2.2.6/app/vectors/gimpvectors-compat.c line 164 of 281\nTESEO OPERATION FAILED !!!", name, message_gimp_vector_warning);
+	    // g_message("TESEO-CRITICAL: Path contains more than one component !\nReading path \"%s\", gimp_path_get_points() maybe has printed: \"%s\"\nTake a look in gimp-2.2.6/app/vectors/gimpvectors-compat.c line 164 of 281\nTESEO OPERATION FAILED !!!", name, message_gimp_vector_warning);
+	    g_message("TESEO-IMPORTANT-ADVICE: Path \"%s\" contains more than one component !\n\nIn order to combine multiple components within a path, Teseo2 offers a special SVG Import.\n1) In GIMP Paths Dialog, export in a file the path that contains more components.\n2) In Teseo menu follow \"File-->Path-->Import-->SVG_Combine\" and choose the file exported previously.", name);
     }
 
     return ret;
