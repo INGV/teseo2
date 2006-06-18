@@ -87,12 +87,12 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
     gchar newpathname [255] ;
     gint32 path_closed, num_elementi_bezier, n;  
     int bezier_n_strokes;
-    double *bezier_strokes;
+    double *bezier_strokes = NULL;
     int i, kk;
     int max_n_strokes = 1024;
     glong n_strokes;
-    gdouble *strokes;
-    gdouble *punti_bezier;
+    gdouble *strokes = NULL;
+    gdouble *punti_bezier = NULL;
     double Px[4], Py[4];
 
     // class Bezier bezier = Bezier(3);
@@ -203,7 +203,6 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 			}
 		    }
 		}           	
-		if(bezier_strokes)
 		g_free(bezier_strokes);
 		gimp_progress_update((gdouble) (num_elementi_bezier) / (gdouble) (n*3));
 	    }
@@ -236,11 +235,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 	    // g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");
 	}
 
-	if(strokes) {
-	    g_free(strokes);
-	} else {
-	    // g_message("Strano! strokes doveva essere diverso da NULL! sig ?!?");
-	}
+	g_free(strokes);
 
     } else {
 	g_message("No selected path!");
