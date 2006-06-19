@@ -164,4 +164,10 @@ void teseo_path_add_points_pairs(gint32 g_image, gint new_num_path_point_details
   */
 void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides);
 
+/*!
+  teseo_path_import_combining_more_components() is a wrapper for gimp_path_import(),
+  it combines more components in a path e return a single path.
+  */
+void teseo_path_import_combining_more_components(gint32 image_ID, const gchar *filename, gboolean merge, gboolean scale);
+
 #endif
