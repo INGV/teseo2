@@ -57,7 +57,7 @@ void teseo_path_rotation(glong num_strokes, gdouble* strokes, gdouble** pstrokes
   Semantic type for a path. When the two control points have the same coordinate the related anchor point,
   the path is PATH_SEMANTIC_POLYLINE, else is a PATH_SEMANTIC_BEZIER.
   */
-typedef enum { PATH_SEMANTIC_POLYLINE, PATH_SEMANTIC_BEZIER } path_semantic_type;
+typedef enum { PATH_SEMANTIC_POLYLINE, PATH_SEMANTIC_BEZIER, PATH_SEMANTIC_MORE_COMPONENTS } path_semantic_type;
 
 
 /*!
