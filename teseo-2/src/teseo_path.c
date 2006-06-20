@@ -33,6 +33,7 @@
 #include "teseo_bezier_point.h"
 #include "teseo_gimp_extends.h"
 #include "teseo_bezier_pfit.h"
+#include "teseo_io.h"
 
 
 // Crea nuovi strokes ruotati di un certo angolo espresso in radianti, attenzione, modifica strokes
