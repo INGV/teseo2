@@ -905,16 +905,20 @@ on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
             // convert path in strokes
             strokes = teseo_open_path_to_strokes(teseo_image, &num_strokes,  pathname);
 
-            // fitting strokes with bezier curves
-            teseo_p_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
+	    if(strokes) {
+		    // fitting strokes with bezier curves
+		    teseo_p_fitting_bezier(num_strokes, strokes, &num_path, &path_inter);
 
-            g_sprintf(newpathname, "%s_F", pathname);
+		    g_sprintf(newpathname, "%s_F", pathname);
 
-            // create new path
-            gimp_path_set_points(teseo_image, newpathname, 1, num_path, path_inter);
+		    // create new path
+		    gimp_path_set_points(teseo_image, newpathname, 1, num_path, path_inter);
 
-            g_free(path_inter);
-            g_free(strokes);
+		    g_free(path_inter);
+		    g_free(strokes);
+	    } else {
+		    g_message("Teseo2: Path fitting has not been executed!!");
+	    }
 
         } else {
             g_message("Teseo2: Path fitting is enabled only on polylines!");
