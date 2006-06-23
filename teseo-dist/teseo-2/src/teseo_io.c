@@ -1129,9 +1129,11 @@ void teseo_import_svg_vectors_combining_more_components(gint32 image_ID, const g
 #define SIZELINE 1024
 #define  POS_C  11
 #define  POS_M  60
+#define  PATHIDLEN  12
 	FILE *f;
 	FILE *fout;
 	gchar line[SIZELINE];
+	const gchar pathidline[PATHIDLEN] = "  <path id=";
 	const gchar firstline[POS_C+2] = "           C";
 	gboolean after_first_line = FALSE;
 	gchar filenameout[SIZELINE];
@@ -1151,7 +1153,27 @@ void teseo_import_svg_vectors_combining_more_components(gint32 image_ID, const g
 						line[POS_M + 1] = 0;
 					}
 				} else {
-					if( g_strncasecmp(line, firstline, POS_C + 1) == 0 ) {
+					// check for path id
+					if( g_strncasecmp(line, pathidline, PATHIDLEN-1) == 0 ) {
+						// remove last character '"'
+						gint line_length=strlen(line);
+						line[line_length-2] = '_';
+						line[line_length-1] = 'c';
+						line[line_length+0] = 'o';
+						line[line_length+1] = 'm';
+						line[line_length+2] = 'b';
+						line[line_length+3] = '_';
+						line[line_length+4] = 't';
+						line[line_length+5] = 'e';
+						line[line_length+6] = 's';
+						line[line_length+7] = 'e';
+						line[line_length+8] = 'o';
+						line[line_length+9] = '"';
+						line[line_length+10] = '\n';
+						line[line_length+11] = 0;
+
+					// check for first coordinate
+					} else if( g_strncasecmp(line, firstline, POS_C + 1) == 0 ) {
 						after_first_line = TRUE;
 						if(line[POS_M] == 'M') {
 							line[POS_M] = '\n';
