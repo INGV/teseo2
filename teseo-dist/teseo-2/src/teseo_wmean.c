@@ -373,7 +373,8 @@ int teseo_wmean_getinput( wm_is * is, const wm_os * previous_os, gint32 drawable
 
     ((*is).LastCentre).x=(*previous_os).x;
     ((*is).LastCentre).y=(*previous_os).y;
-
+    gimp_drawable_flush (drawable);
+    gimp_drawable_detach(drawable);
     ret=1;
   }
   else
@@ -402,8 +403,9 @@ int teseo_wmean_terminate(wm_os * os, wm_is * is, gint32 drawable_ID){
     xmax = drawable->width  - xmin;
     ymax = drawable->height - ymin;
 
-    if ( (((*os).x) > xmin ) && (((*os).x) < xmax ) && ( ((*os).y) > ymin ) && (((*os).y) < ymax ) )
-      ret = 0;
+    if ( (((*os).x) > xmin ) && (((*os).x) < xmax ) && ( ((*os).y) > ymin ) && (((*os).y) < ymax ) ) ret = 0;
+    gimp_drawable_flush (drawable);
+    gimp_drawable_detach(drawable);
   }
 
   return ret;
@@ -497,6 +499,8 @@ int teseo_wmean_new_is( wm_is ** is, gint32 drawable_ID){
       (*r_is).bufin=bufin;
       *is=r_is;
       ret=1;
+      gimp_drawable_flush (drawable);
+      gimp_drawable_detach(drawable);
   }
   else
       g_message("NULL pointers");

@@ -123,7 +123,7 @@ void teseo_filter_fill_continuous_segment(gint32 g_image, gint32 trace_colour, g
     gimp_drawable_flush (drawable);
     gimp_drawable_merge_shadow (drawable->drawable_id, TRUE);
     gimp_drawable_update (drawable->drawable_id, x1, y1, regionwidth, regionheight);
-
+    gimp_drawable_detach(drawable);
     gimp_displays_flush ();
 }
 

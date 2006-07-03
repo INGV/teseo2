@@ -261,7 +261,7 @@ run (const gchar      *name,
 	  //gimp_set_data (DATA_KEY_VALS,    &vals,    sizeof (vals));
 	  gimp_set_data (DATA_KEY_UI_VALS, &ui_vals, sizeof (ui_vals));
 	}
-
+      gimp_drawable_flush (drawable);
       gimp_drawable_detach (drawable);
     }
 
