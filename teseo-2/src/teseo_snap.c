@@ -91,7 +91,8 @@ inline void teseo_snap_point(gint32 g_image, gint32 trace_colour, gint32 thickne
         teseo_snap_masscenter(bufin, width, height, trace_colour, &new_x, &new_y);
         new_x += x_rgn;
         new_y += y_rgn;
-
+        gimp_drawable_flush (drawable);
+        gimp_drawable_detach(drawable);
     }
     g_free(bufin);
     *snap_x = new_x;
