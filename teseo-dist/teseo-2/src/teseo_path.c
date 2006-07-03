@@ -843,7 +843,8 @@ void teseo_cat_path_strokes(gint32 g_image, glong num_strokes, gdouble *strokes)
 
 	    //qui dentro copio tutto , da fuori gli passo sempre lo strokes corretto
 	    for( i=0; i < num_path_point_details; i++){
-		path_strokes[i] = round(old_path[i]); //round
+		//path_strokes[i] = round(old_path[i]); //TODO Eliminare
+                path_strokes[i] = old_path[i]; //TODO Eliminare
 	    }
 	    k=i/3;    //poi riparto a scrivere nel vettore da k*3
 	    // printf("\nk= %d; i= %d\n", k,i);
