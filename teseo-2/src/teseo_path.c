@@ -817,7 +817,7 @@ void teseo_path_flip(gint32 g_image) {
    //prendo il nome del path corrente
    strcpy(pathname, gimp_path_get_current(g_image));
    
-   if (teseo_path_semantic_type(gint32 g_image, gchar *path_name) != PATH_SEMANTIC_MORE_COMPONENTS){
+   if (teseo_path_semantic_type(g_image, pathname) != PATH_SEMANTIC_MORE_COMPONENTS){
     //g_message(pathname);
     //traduco il path in array dello stesso formato di gimp
     path_src = teseo_open_path_to_array(g_image, &n_details,  pathname);
