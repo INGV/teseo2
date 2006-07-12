@@ -2467,5 +2467,11 @@ on_parasite_cbentry_changed            (GtkComboBox     *combobox,
 
 
 
+void                                        
+on_flip1_activate                      (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+teseo_path_flip(teseo_image);
+}
 
 

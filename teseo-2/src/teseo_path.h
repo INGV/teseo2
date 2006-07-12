@@ -170,4 +170,9 @@ void teseo_path_split_at_xs(gint32 g_image, gint32 *guides, gint32 n_guides);
   */
 void teseo_path_import_combining_more_components(gint32 image_ID, const gchar *filename, gboolean merge, gboolean scale);
 
+/*!
+  teseo_path_flip change the order in points of a path
+  */
+void teseo_path_flip(gint32 g_image);
+
 #endif
