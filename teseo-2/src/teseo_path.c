@@ -816,35 +816,41 @@ void teseo_path_flip(gint32 g_image) {
  if (num_paths>0){
    //prendo il nome del path corrente
    strcpy(pathname, gimp_path_get_current(g_image));
-   //g_message(pathname);
-   //traduco il path in array dello stesso formato di gimp
-   path_src = teseo_open_path_to_array(g_image, &n_details,  pathname);
    
-   if (path_src != NULL) {
-    array_size=n_details;
-    path_dest = (gdouble *) g_malloc( sizeof(gdouble)*array_size);
-
-    //change elements
-    for (i=0; i<=(array_size-6)/3; i++) {
-      path_dest[i*3]   = path_src[ array_size - (i+2)*3    ];
-      path_dest[i*3+1] = path_src[ array_size - (i+2)*3 +1 ];
-      path_dest[i*3+2] = path_src[ array_size - (i+2)*3 +2 ];
-    }
+   if (teseo_path_semantic_type(gint32 g_image, gchar *path_name) != PATH_SEMANTIC_MORE_COMPONENTS){
+    //g_message(pathname);
+    //traduco il path in array dello stesso formato di gimp
+    path_src = teseo_open_path_to_array(g_image, &n_details,  pathname);
     
-    //copy the last anchor x, y ,t in the last control
-    path_dest[i*3]   = path_dest[(i-1)*3];
-    path_dest[i*3+1] = path_dest[(i-1)*3+1];
-    path_dest[i*3+2] = 2.0; //BEZIER_CONTROL
-
-    strcat(pathname," flip");
-    gimp_path_set_points(g_image, pathname, 1, array_size, path_dest);
-    //gimp_path_delete(g_image,pathname);
-    //g_message("Canceled");
-
+    if (path_src != NULL) {
+      array_size=n_details;
+      path_dest = (gdouble *) g_malloc( sizeof(gdouble)*array_size);
+  
+      //change elements
+      for (i=0; i<=(array_size-6)/3; i++) {
+        path_dest[i*3]   = path_src[ array_size - (i+2)*3    ];
+        path_dest[i*3+1] = path_src[ array_size - (i+2)*3 +1 ];
+        path_dest[i*3+2] = path_src[ array_size - (i+2)*3 +2 ];
+      }
+      
+      //copy the last anchor x, y ,t in the last control
+      path_dest[i*3]   = path_dest[(i-1)*3];
+      path_dest[i*3+1] = path_dest[(i-1)*3+1];
+      path_dest[i*3+2] = 2.0; //BEZIER_CONTROL
+  
+      strcat(pathname," flip");
+      gimp_path_set_points(g_image, pathname, 1, array_size, path_dest);
+      //gimp_path_delete(g_image,pathname);
+      //g_message("Canceled");
+  
+    }
   }
+  
+  g_free(path_dest);
  }
-
-   g_free(path_dest);
+ else {
+  g_message("teseo_path_flip(): %s can not be treated!", pathname);
+ }  
 
 }
 
