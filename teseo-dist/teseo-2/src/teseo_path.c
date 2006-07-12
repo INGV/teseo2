@@ -743,7 +743,7 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
  gdouble *strokes_ruotato=NULL;
  gdouble * path_array=NULL;
  glong n_strokes, n_details;
- gint num_paths;
+ gint num_paths=0;
  gchar pathname [80];
  register int i;
  gdouble angolo_rad,PI_GRECO = acos(-1);
@@ -800,6 +800,58 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
   if(path_array)
    g_free(path_array);
 }
+
+
+void teseo_path_flip(gint32 g_image) {
+ gdouble * path_src=NULL;
+ gdouble * path_dest=NULL;
+ glong n_strokes, n_details, n_elements,array_size ;
+ gint num_paths=0;
+ gchar pathname [PATHNAMELEN];
+ register int i;
+ 
+
+ gimp_path_list (g_image, &num_paths);
+
+ if (num_paths>0){
+   //prendo il nome del path corrente
+   strcpy(pathname, gimp_path_get_current(g_image));
+   //g_message(pathname);
+   //traduco il path in array dello stesso formato di gimp
+   path_src = teseo_open_path_to_array(g_image, &n_details,  pathname);
+   
+   if (path_src != NULL) {
+    array_size=n_details;
+    path_dest = (gdouble *) g_malloc( sizeof(gdouble)*array_size);
+
+    n_elements=n_details;    
+        
+    //change elements
+    for (i=0; i<=(array_size-6)/3; i++) {
+      path_dest[i*3]   = path_src[ array_size - (i+2)*3    ];
+      path_dest[i*3+1] = path_src[ array_size - (i+2)*3 +1 ];
+      path_dest[i*3+2] = path_src[ array_size - (i+2)*3 +2 ];
+    }
+    
+    //copy the last anchor x, y ,t in the last control
+    path_dest[i*3]   = path_dest[(i-1)*3];
+    path_dest[i*3+1] = path_dest[(i-1)*3+1];
+    path_dest[i*3+2] = 2.0; //BEZIER_CONTROL
+
+    strcat(pathname," flip");
+    gimp_path_set_points(g_image, pathname, 1, array_size, path_dest);
+    //gimp_path_delete(g_image,pathname);
+    //g_message("Canceled");
+
+  }
+ }
+
+   g_free(path_dest);
+
+}
+
+
+
 
 //Modifica al 11/01/2002 Prevede che dall'esterno lo strokes passat sia consecutivo al path chiamante
 //Non si controlla all'interno che il path e lo strokes non siano sovrapposti

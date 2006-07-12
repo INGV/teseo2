@@ -137,6 +137,10 @@ void
 on_fitting_bezier1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
+void                                        
+on_flip1_activate                      (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+                      
 void
 on_recover_last2_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
