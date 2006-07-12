@@ -806,23 +806,21 @@ void teseo_path_flip(gint32 g_image) {
  gdouble * path_src=NULL;
  gdouble * path_dest=NULL;
  glong n_strokes, n_details, array_size ;
- gint num_paths=0;
+ gint num_paths=0, path_closed,path_type ;
  gchar pathname [PATHNAMELEN];
  register int i;
- 
-
+  
  gimp_path_list (g_image, &num_paths);
 
  if (num_paths>0){
    //prendo il nome del path corrente
    strcpy(pathname, gimp_path_get_current(g_image));
+
+   //if (teseo_path_semantic_type(g_image, pathname) != PATH_SEMANTIC_MORE_COMPONENTS){
+   path_type = teseo_gimp_path_get_points (g_image, pathname, &path_closed, &n_details, &path_src); 
    
-   if (teseo_path_semantic_type(g_image, pathname) != PATH_SEMANTIC_MORE_COMPONENTS){
-    //g_message(pathname);
-    //traduco il path in array dello stesso formato di gimp
-    path_src = teseo_open_path_to_array(g_image, &n_details,  pathname);
+   if ( !path_closed && n_details != 1 && path_type == 1 && path_src != NULL) {
     
-    if (path_src != NULL) {
       array_size=n_details;
       path_dest = (gdouble *) g_malloc( sizeof(gdouble)*array_size);
   
@@ -841,9 +839,8 @@ void teseo_path_flip(gint32 g_image) {
       strcat(pathname," flip");
       gimp_path_set_points(g_image, pathname, 1, array_size, path_dest);
       //gimp_path_delete(g_image,pathname);
-      //g_message("Canceled");
   
-    }
+    
   }
   
   g_free(path_dest);
