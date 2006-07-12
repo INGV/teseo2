@@ -805,7 +805,7 @@ void teseo_path_move(gint32 g_image, gint x, gint y, gdouble rotate) {
 void teseo_path_flip(gint32 g_image) {
  gdouble * path_src=NULL;
  gdouble * path_dest=NULL;
- glong n_strokes, n_details, n_elements,array_size ;
+ glong n_strokes, n_details, array_size ;
  gint num_paths=0;
  gchar pathname [PATHNAMELEN];
  register int i;
@@ -824,8 +824,6 @@ void teseo_path_flip(gint32 g_image) {
     array_size=n_details;
     path_dest = (gdouble *) g_malloc( sizeof(gdouble)*array_size);
 
-    n_elements=n_details;    
-        
     //change elements
     for (i=0; i<=(array_size-6)/3; i++) {
       path_dest[i*3]   = path_src[ array_size - (i+2)*3    ];
