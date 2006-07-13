@@ -2698,7 +2698,7 @@ create_dlg_session (void)
   gtk_widget_show (hbox43);
   gtk_container_add (GTK_CONTAINER (alignment22), hbox43);
 
-  label211 = gtk_label_new ("mm/sec");
+  label211 = gtk_label_new ("mm/min");
   gtk_widget_set_name (label211, "label211");
   gtk_widget_show (label211);
   gtk_box_pack_start (GTK_BOX (hbox43), label211, FALSE, FALSE, 0);

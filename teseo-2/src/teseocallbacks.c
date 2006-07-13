@@ -667,7 +667,7 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 GtkSpinButton *teseo_stel_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stel_spinbutton", STEL);
 
                 if(teseo_paper_speed_spinbutton) {
-                    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton);
+                    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60; //Obtaining mm/sec
                 }
 
                 if(teseo_kstnm_entry) {
