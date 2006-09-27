@@ -1333,7 +1333,7 @@ _ACEOF
 
 
 cat >>confdefs.h <<\_ACEOF
-#define PLUGIN_MICRO_VERSION 12
+#define PLUGIN_MICRO_VERSION 13
 _ACEOF
 
 
