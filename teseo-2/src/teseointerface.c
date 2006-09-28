@@ -2703,7 +2703,7 @@ create_dlg_session (void)
   gtk_widget_show (label211);
   gtk_box_pack_start (GTK_BOX (hbox43), label211, FALSE, FALSE, 0);
 
-  teseo_paper_speed_spinbutton_adj = gtk_adjustment_new (1, 0.00999999977648, 120, 0.00999999977648, 10, 10);
+  teseo_paper_speed_spinbutton_adj = gtk_adjustment_new (1, 0.00999999977648, 1000, 0.00999999977648, 10, 10);
   teseo_paper_speed_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_paper_speed_spinbutton_adj), 1, 2);
   gtk_widget_set_name (teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
   gtk_widget_show (teseo_paper_speed_spinbutton);
