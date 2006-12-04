@@ -85,6 +85,18 @@ void teseo_sac_station_header(struct SAChead *header, char *KSTNM, float CMPAZ, 
 }
 
 
+void teseo_sac_gdate_header(struct SAChead *header,long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC) {
+
+    header->nzyear = NZYEAR;
+    header->nzjday = NZJDAY;
+    header->nzhour = NZHOUR ;
+    header->nzmin  = NZMIN;
+    header->nzsec  = NZSEC;
+    header->nzmsec = NZMSEC;
+
+}
+
+
 gboolean teseo_sac_read(gchar *filename, struct SAChead *header, float *data) {
     gboolean ret = FALSE;
     FILE *f = fopen(filename, "rb");
@@ -122,7 +134,7 @@ gboolean teseo_sac_write(gchar *filename, struct SAChead *header, float *data) {
     return ret;
 }
 
-gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL) {
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC) {
     gboolean ret = TRUE;
     struct SAChead header;
     float *data = NULL;
@@ -137,6 +149,7 @@ gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_veloc
 
     teseo_sac_init_header(&header);
     teseo_sac_station_header(&header, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL);
+    teseo_sac_gdate_header(&header,NZYEAR, NZJDAY, NZHOUR, NZMIN, NZSEC, NZMSEC);
 
     g_printf("End Init sac header\n");
 
