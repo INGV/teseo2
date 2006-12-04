@@ -626,6 +626,10 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     float paper_velocity = 1;
     gchar * filename = NULL;
     gint result;
+    long NZYEAR=1968, NZJDAY=338, NZHOUR=12, NZMIN=0, NZSEC=0, NZMSEC=0;
+    long MONTH=0, DAY=0;
+    GDate* jdate;
+
     // TODO catch scale value
 
     sac_path = teseo_get_environment_path( SACPATH );
@@ -656,6 +660,8 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
 
                 gchar KSTNM[8] = SACSTRUNDEF;
                 float CMPAZ=0.0, CMPINC=0.0, STLA=0.0, STLO=0.0, STEL=0.0;
+      
+ 
 
                 GtkEntry *teseo_kstnm_entry      =  (GtkEntry *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_kstnm_entry", 0);
 
@@ -665,6 +671,16 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                 GtkSpinButton *teseo_stla_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stla_spinbutton", STLA);
                 GtkSpinButton *teseo_stlo_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stlo_spinbutton", STLO);
                 GtkSpinButton *teseo_stel_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_stel_spinbutton", STEL);
+
+                GtkSpinButton *teseo_event_year_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_year_spinbutton", NZYEAR);
+                GtkSpinButton *teseo_event_month_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_month_spinbutton", MONTH);
+                GtkSpinButton *teseo_event_day_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_day_spinbutton", DAY);
+                GtkSpinButton *teseo_event_hour_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_hour_spinbutton", NZHOUR);
+                GtkSpinButton *teseo_event_minute_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_minute_spinbutton", NZMIN);
+                GtkSpinButton *teseo_event_second_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_event_second_spinbutton", NZSEC);
+
+
+
 
                 if(teseo_paper_speed_spinbutton) {
                     paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60; //Obtaining mm/sec
@@ -697,9 +713,42 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
                     STEL = gtk_spin_button_get_value (teseo_stel_spinbutton);
                 }
 
+                if(teseo_event_year_spinbutton) {
+                    NZYEAR = gtk_spin_button_get_value (teseo_event_year_spinbutton);
+                }
+
+                if(teseo_event_month_spinbutton) {
+                    MONTH = gtk_spin_button_get_value (teseo_event_month_spinbutton);
+                }
+
+                if(teseo_event_day_spinbutton) {
+                    DAY = gtk_spin_button_get_value (teseo_event_day_spinbutton);
+                }
+
+                if(teseo_event_hour_spinbutton) {
+                    NZHOUR = gtk_spin_button_get_value (teseo_event_hour_spinbutton);
+                }
+
+                if(teseo_event_minute_spinbutton) {
+                    NZMIN = gtk_spin_button_get_value (teseo_event_minute_spinbutton);
+                }
+
+                if(teseo_event_second_spinbutton) {
+                    NZSEC = gtk_spin_button_get_value (teseo_event_second_spinbutton);
+                }
+
+
+
+
+                jdate  = g_date_new_dmy (DAY,MONTH,NZYEAR);
+                NZJDAY = g_date_get_day_of_year (jdate); //BEWARE in glib 2.12.3 (in successive g_get_day_of_year)
+
+
 
                 if(teseo_if_file_exists_overwrite_dialog(filename)) {
-                    if(teseo_sac_path_export(teseo_image, filename, paper_velocity, KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL)) {
+                    if(teseo_sac_path_export(teseo_image, filename, paper_velocity, 
+                                              KSTNM, CMPAZ, CMPINC, STLA, STLO, STEL, 
+                                              NZYEAR, NZJDAY, NZHOUR, NZMIN, NZSEC, NZMSEC )) {
                         // g_message("Path \n\"%s\"\n saved in file \"%s\".", pathname, filename);
                         teseo_gtk_statusbar_push("Current path exported in SAC format.");
                     } else {

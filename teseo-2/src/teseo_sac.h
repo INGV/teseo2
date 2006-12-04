@@ -43,7 +43,10 @@
       TODO
       */
     void teseo_sac_station_header(struct SAChead *header, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL);
-
+    /*!
+      TODO
+      */
+    void teseo_sac_gdate_header(struct SAChead *header,long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC);
     /*!
       TODO
       */
@@ -57,6 +60,6 @@
     /*!
       TODO
       */
-gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL);
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC);
 
 #endif
