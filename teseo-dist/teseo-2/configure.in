@@ -8,7 +8,7 @@ m4_define([plugin_name], [teseo-2])
 dnl These three define the plug-in version number
 m4_define([plugin_major_version], [2])
 m4_define([plugin_minor_version], [0])
-m4_define([plugin_micro_version], [13])
+m4_define([plugin_micro_version], [14])
 
 m4_define([plugin_version],
           [plugin_major_version.plugin_minor_version.plugin_micro_version])
@@ -63,7 +63,7 @@ AC_SUBST(GIMP_LIBDIR)
 
 dnl i18n stuff
 
-GETTEXT_PACKAGE=teseo-2.0.13
+GETTEXT_PACKAGE=teseo-2.0.14
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
 				    [The gettext translation domain.])
