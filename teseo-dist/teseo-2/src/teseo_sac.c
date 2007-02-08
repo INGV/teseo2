@@ -25,6 +25,13 @@
  * authorization from the Authors.
  */
 
+
+/*
+64 bits architecture patch 1: 
+long->gint32
+unsigned long -> guint32
+*/
+
 #include <unistd.h>
 // windows compile patch #include <sys/types.h>
 // windows compile patch #include <sys/wait.h>
@@ -85,7 +92,7 @@ void teseo_sac_station_header(struct SAChead *header, char *KSTNM, float CMPAZ, 
 }
 
 
-void teseo_sac_gdate_header(struct SAChead *header,long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC) {
+void teseo_sac_gdate_header(struct SAChead *header,gint32 NZYEAR, gint32 NZJDAY, gint32 NZHOUR, gint32 NZMIN, gint32 NZSEC, gint32 NZMSEC) {
 
     header->nzyear = NZYEAR;
     header->nzjday = NZJDAY;
@@ -134,7 +141,7 @@ gboolean teseo_sac_write(gchar *filename, struct SAChead *header, float *data) {
     return ret;
 }
 
-gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC) {
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, gint32 NZYEAR, gint32 NZJDAY, gint32 NZHOUR, gint32 NZMIN, gint32 NZSEC, gint32 NZMSEC) {
     gboolean ret = TRUE;
     struct SAChead header;
     float *data = NULL;

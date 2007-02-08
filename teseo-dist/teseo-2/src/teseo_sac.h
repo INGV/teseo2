@@ -32,6 +32,11 @@
 #include <libgimp/gimp.h>
 #include "sac.h"
 
+/*
+64 bits architecture patch 1: 
+long->gint32
+unsigned long -> guint32
+*/
 #define SAC_EXT ".sac"
 
     /*!
@@ -46,7 +51,7 @@
     /*!
       TODO
       */
-    void teseo_sac_gdate_header(struct SAChead *header,long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC);
+    void teseo_sac_gdate_header(struct SAChead *header,gint32 NZYEAR, gint32 NZJDAY, gint32 NZHOUR, gint32 NZMIN, gint32 NZSEC, gint32 NZMSEC);
     /*!
       TODO
       */
@@ -60,6 +65,6 @@
     /*!
       TODO
       */
-gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, long NZYEAR, long NZJDAY, long NZHOUR, long NZMIN, long NZSEC, long NZMSEC);
+gboolean teseo_sac_path_export(gint32 g_image, char* filename, float paper_velocity, gchar *KSTNM, float CMPAZ, float CMPINC, float STLA, float STLO, float STEL, gint32 NZYEAR, gint32 NZJDAY, gint32 NZHOUR, gint32 NZMIN, gint32 NZSEC, gint32 NZMSEC);
 
 #endif
