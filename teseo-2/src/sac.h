@@ -8,9 +8,16 @@
 *	Values of `-12345' are used for any varriable which is UNKNOWN.
 
 */
+
+/*
+64 bits architecture patch 1: 
+long->gint32
+unsigned long -> guint32
+*/
+
 #ifndef __TESEO_SACHEADER_H__
 #define __TESEO_SACHEADER_H__ 1
-
+#include <glib.h>
 
 
 
@@ -106,38 +113,38 @@ struct SAChead {
 	float depmen;
 	float cmpaz;		/* component azimuth (deg) */
 	float cmpinc;		/* component inclination (deg) */
-float blank4[SACTEMP4];
+        float blank4[SACTEMP4];
 
 	/* integer fields */
-	long nzyear;		/* Trace beginning time (year) */
-	long nzjday;		/*  (julian day) */
-	long nzhour;		/*  (hour) */
-	long nzmin;		/*  (minute) */
-	long nzsec;		/*  (second) */
-	long nzmsec;		/*  (millisecond) */
-	long nvhdr;		/* header version number */
-	long internal5;
-	long internal6;
-	long npts;		/* number of points in trace */
-	long internal7;
-	long internal8;
-long blank6[SACTEMP6];
-	long iftype;		/* Type of data  =1 for time series */
-	long idep;		/* Type of dependent data =UNKNOWN */
-	long iztype;		/* zero time equivalence  =1 for beginning */
-	long iblank6a;
-	long iinst;
-	long istreg;
-	long ievreg;
-	long ievtyp;
-	long iqual;
-	long isynth;
-long blank7[SACTEMP7];
-	unsigned long leven;	/* =1 for evenly spaced data */
-	unsigned long lpspol;	/* =1 for correct polarity, 0 for reversed */
-	unsigned long lovrok;
-	unsigned long lcalda;
-	unsigned long lblank1;
+	gint32 nzyear;		/* Trace beginning time (year) */
+	gint32 nzjday;		/*  (julian day) */
+	gint32 nzhour;		/*  (hour) */
+	gint32 nzmin;		/*  (minute) */
+	gint32 nzsec;		/*  (second) */
+	gint32 nzmsec;		/*  (millisecond) */
+	gint32 nvhdr;		/* header version number */
+	gint32 internal5;
+	gint32 internal6;
+	gint32 npts;		/* number of points in trace */
+	gint32 internal7;
+	gint32 internal8;
+        gint32 blank6[SACTEMP6];
+	gint32 iftype;		/* Type of data  =1 for time series */
+	gint32 idep;		/* Type of dependent data =UNKNOWN */
+	gint32 iztype;		/* zero time equivalence  =1 for beginning */
+	gint32 iblank6a;
+	gint32 iinst;
+	gint32 istreg;
+	gint32 ievreg;
+	gint32 ievtyp;
+	gint32 iqual;
+	gint32 isynth;
+        gint32 blank7[SACTEMP7];
+	guint32 leven;	/* =1 for evenly spaced data */
+	guint32 lpspol;	/* =1 for correct polarity, 0 for reversed */
+	guint32 lovrok;
+	guint32 lcalda;
+	guint32 lblank1;
 
 	/* character string fields */
 	char kstnm[K_LEN];	/* station name (blank padded) */
@@ -175,8 +182,8 @@ long blank7[SACTEMP7];
 
 struct SAChead2 {
 	float SACfloat[NUM_FLOAT];
-	long SACint[MAXINT];
-	unsigned long SACun[5];
+	gint32 SACint[MAXINT];
+	guint32 SACun[5];
 	char SACstring[MAXSTRING][K_LEN];
 };
 

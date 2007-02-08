@@ -626,8 +626,8 @@ on_sac1_activate                       (GtkMenuItem     *menuitem,
     float paper_velocity = 1;
     gchar * filename = NULL;
     gint result;
-    long NZYEAR=1968, NZJDAY=338, NZHOUR=12, NZMIN=0, NZSEC=0, NZMSEC=0;
-    long MONTH=0, DAY=0;
+    gint32 NZYEAR=1968, NZJDAY=338, NZHOUR=12, NZMIN=0, NZSEC=0, NZMSEC=0;
+    gint32 MONTH=0, DAY=0;
     GDate* jdate;
 
     // TODO catch scale value
