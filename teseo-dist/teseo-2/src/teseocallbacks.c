@@ -57,6 +57,7 @@
 #include "teseo_wiechert.h"
 
 #include <gtkdatabox.h>
+#include <gtkdatabox_lines.h>
 #include "teseo_databox.h"
 
 GtkWidget * win_teseo;
@@ -877,23 +878,23 @@ void
 on_resample1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-    // default is 1
-    gint step_bezier = 1;
+    // default is 1.0
+    gdouble points_per_pixel = 0.5;
     // default is TRUE
     gboolean abscissa_asc = TRUE;
 
-    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_bezier);
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", points_per_pixel);
     GtkCheckButton * teseo_abscissa_asc_checkbutton = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_abscissa_asc_checkbutton", abscissa_asc);
 
     if(teseo_step_spinbutton) {
-	step_bezier = gtk_spin_button_get_value_as_int (teseo_step_spinbutton) ;
+	points_per_pixel = gtk_spin_button_get_value_as_float(teseo_step_spinbutton) ;
     }
 
     if(teseo_abscissa_asc_checkbutton) {
 	abscissa_asc = gtk_toggle_button_get_active((GtkToggleButton *) teseo_abscissa_asc_checkbutton);
     }
 
-    teseo_resampling_bezier(teseo_image, abscissa_asc, step_bezier);
+    teseo_resampling_bezier(teseo_image, abscissa_asc, points_per_pixel);
 }
 
 
