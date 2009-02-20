@@ -104,6 +104,10 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
     gdouble * points_pairs=NULL;
     gint path_closed, num_path_point_details;
     gint typeofpath;
+    float cur_delta_pix = 0.0;
+    float sum_delta_pix = 0.0;
+    gint n_delta_pix = 0;
+    float precision = 1.0 / 100.0;
 
     typeofpath = teseo_gimp_path_get_points (g_image, path_name, &path_closed, &num_path_point_details, &points_pairs);
 
@@ -117,6 +121,8 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 	    // Compute first delta_pix
 	    if(num_path_point_details >= 18 ) {
 		    *delta_pix = points_pairs[9] - points_pairs[3];
+		    sum_delta_pix += *delta_pix;
+		    n_delta_pix++;
 		    if(*delta_pix < 0.0) {
 			    *delta_pix = 0.0;
 		    }
@@ -144,8 +150,14 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 	    while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
 
 		    // Update delta_pix
-		    if( (points_pairs[i+3] - points_pairs[i-6]) != *delta_pix ) {
+		    // if( (points_pairs[i+3] - points_pairs[i-6]) != *delta_pix )
+		    cur_delta_pix = (points_pairs[i+3] - points_pairs[i-6]);
+		    if( fabs ( cur_delta_pix - *delta_pix ) > precision ) {
 			    *delta_pix = 0.0;
+		    } else {
+			sum_delta_pix += cur_delta_pix;
+			n_delta_pix++;
+			*delta_pix = (sum_delta_pix / (float) n_delta_pix);
 		    }
 
 		    // Compare coordinate
