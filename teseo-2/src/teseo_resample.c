@@ -79,7 +79,7 @@ void teseo_progressive_resampling_strokes(double *strokes, glong *pn_strokes) {
 }
 
 
-void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressivo, gint passo_bezier)
+void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressivo, gdouble points_per_pixel)
 {
     FILE *ftmp;
     FILE *fbezier;
@@ -99,7 +99,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
     struct teseo_bezier_point tbp;
     teseo_bezier_point_init(&tbp, 3, NULL, NULL);
 
-    int sw_cast_int = 1;
+    const int sw_cast_int = 0;
     // char filetmp[] = "/tmp/last.bezier.strokes.txt";
     gchar filetmp[255];
     // char filebezier[] = "/tmp/last.bezier.txt";
@@ -175,11 +175,14 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 		// dopo dovrò ricampionare strokes con passo pivals.passo_bezier
 
 		// bezier_n_strokes = bezier.getStrokes(1, &bezier_strokes, sw_cast_int);
-		bezier_n_strokes = teseo_bezier_point_getStrokes(&tbp, 1, &bezier_strokes, sw_cast_int);
+		bezier_n_strokes = teseo_bezier_point_getStrokes(&tbp, points_per_pixel, &bezier_strokes, sw_cast_int);
 
 		// devo aggiungere bezier_strokes a strokes
 		if((n_strokes + bezier_n_strokes) >= max_n_strokes) {
-		    max_n_strokes += 2048;
+		    while(max_n_strokes < (n_strokes + bezier_n_strokes) ) {
+			max_n_strokes += 2048;
+		    }
+
 		    strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((max_n_strokes+2) * 2)));
 		    if(!strokes) {
 			g_message("teseo_resampling_bezier(): not enough free memory for strokes!");
@@ -197,8 +200,10 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 			fprintf(ftmp, "%f %f\n", bezier_strokes[i*2], bezier_strokes[(i*2) +1]);
 		    }
 		    if(n_strokes>=2) {
-			if(strokes[(n_strokes-1)*2] == strokes[(n_strokes-2)*2]) {
+			/* if(strokes[(n_strokes-1)*2] == strokes[(n_strokes-2)*2]) { */
+			if(fabs(strokes[(n_strokes-1)*2] - strokes[(n_strokes-2)*2]) < (points_per_pixel/2.0) ) {
 			// g_printf("Resolution Bug Leo: Duplicazione coordinata in X = %d (Y = %d). Action: Scartata.\n", (int) bezier_strokes[i*2], (int) bezier_strokes[i*2 +1]);
+			g_message("Coordinates duplicated in X = %f (Y = %f). Action: discarded.\n", bezier_strokes[i*2], bezier_strokes[i*2 +1]);
 			n_strokes--;
 			}
 		    }
@@ -222,14 +227,16 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 	    teseo_progressive_resampling_strokes(strokes, &n_strokes);
 	}		
 
+	/*
 	if(passo_bezier > 1) {
 	    // teseo_subsampling_strokes(strokes, &n_strokes, pivals.passo_bezier);
 	    teseo_subsampling_strokes(strokes, &n_strokes, passo_bezier);
 	}
+	*/
 
 	// scrivo il path calcolato
 	if(n_strokes > 0  && strokes) {
-	    g_sprintf(newpathname, "%s_R%d", pathname, passo_bezier);
+	    g_sprintf(newpathname, "%s_R%.1f", pathname, points_per_pixel);
 	    teseo_strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
 	} else {
 	    // g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");
