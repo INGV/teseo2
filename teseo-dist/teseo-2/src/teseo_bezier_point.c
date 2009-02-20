@@ -93,13 +93,14 @@ void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, g
 }
 
 // int Bezier::getStrokes(int freq_c, double **astrokes, int sw_cast_int) {
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, double **astrokes, int sw_cast_int) {
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, int sw_cast_int) {
     const int STROKES_MAX = 1024;
     int n_punti_strokes_max = STROKES_MAX;
     int n_punti_strokes;
     double *strokes;
     int k, p, j, i, l;
     double X, Y;
+    double X_expected;
     double *Pxi = NULL, *Pyi = NULL;
     // N.B: width_max è la distanza in pixel, fra i punti più lontani in x dei punti di bezier
     // l'ho scritto male ma è più semplici di quanto possa sembrare
@@ -107,6 +108,14 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
     double step;
     double t;
     int imax, imin;
+
+    double precision = 1000.0;
+    
+    /* precision = 100.0 and points_per_pixel = 0.1; */
+    // double tolerable_err_points_per_pixel = points_per_pixel /  precision;
+    // int fract_pixel_precision = (int) (precision / points_per_pixel);
+    double tolerable_err_points_per_pixel = (1.0 / precision);
+    int fract_pixel_precision = (int) (precision / 1.0);
 
     strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
     if(!strokes) {
@@ -138,12 +147,13 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
             imax = l;
     }
 
-    width_max = 4 * ((int) (tbp->Px[imax] - tbp->Px[imin]) + 1);
-    step =  1./ (double) width_max;
+    /* per ogni pixel ho un dettaglio massimo di 100 punti per pixel */
+    width_max = fract_pixel_precision * ((int) (tbp->Px[imax] - tbp->Px[imin]) + 1);
+    step =  1.0 / (double) width_max;
     t = step;
     // printf("\nwidth_max = %d, step = %f\n", width_max, step);
 
-    for (k=1; k < width_max; k++){
+    for (k=1; k < width_max; k++) {
 
         for(p=0; p<tbp->n_punti; p++) {
             Pxi[p] = tbp->Px[p];
@@ -158,16 +168,6 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
             }
         }
 
-        if(n_punti_strokes >= n_punti_strokes_max) {
-            n_punti_strokes_max += STROKES_MAX;
-            strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes_max+2) * 2 )));
-            if(!strokes) {
-                *astrokes = NULL;
-                g_message("teseo_bezier_point_getStrokes(): I can't reallocate strokes !");
-                return 0;
-            }
-        }
-
         if(sw_cast_int) {
             X = (int) (Pxi[0] + 0.5);
             Y = (int) (Pyi[0] + 0.5);
@@ -178,11 +178,26 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, int freq_c, do
         t += step;
 
         // posso decidere di aggiungere le coordinate con diversi criteri
-        if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) freq_c)) {
-            strokes[n_punti_strokes*2     ] = X;
-            strokes[(n_punti_strokes*2) +1] = Y;
-            n_punti_strokes++;
-        }
+        // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
+	X_expected = ( strokes[0] + ( ((double) n_punti_strokes) * points_per_pixel) );
+	if(
+		fabs(X - X_expected) < points_per_pixel + tolerable_err_points_per_pixel
+	  ) {
+
+	    if(n_punti_strokes >= n_punti_strokes_max - 2) {
+		n_punti_strokes_max += STROKES_MAX;
+		strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes_max+2) * 2 )));
+		if(!strokes) {
+		    *astrokes = NULL;
+		    g_message("teseo_bezier_point_getStrokes(): I can't reallocate strokes !");
+		    return 0;
+		}
+	    }
+
+	    strokes[n_punti_strokes*2     ] = X;
+	    strokes[(n_punti_strokes*2) +1] = Y;
+	    n_punti_strokes++;
+	}
 
     }
 
