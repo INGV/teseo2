@@ -177,6 +177,8 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 		// bezier_n_strokes = bezier.getStrokes(1, &bezier_strokes, sw_cast_int);
 		bezier_n_strokes = teseo_bezier_point_getStrokes(&tbp, points_per_pixel, &bezier_strokes, (n_strokes > 0)? strokes[(n_strokes-1)*2] : Px[0] - points_per_pixel, sw_cast_int);
 
+		// g_printf("(%f,%f) %d points from teseo_bezier_point_getStrokes()\n", Px[0], Py[0], bezier_n_strokes);
+
 		// devo aggiungere bezier_strokes a strokes
 		if((n_strokes + bezier_n_strokes) >= max_n_strokes) {
 		    while(max_n_strokes < (n_strokes + bezier_n_strokes) ) {
