@@ -61,7 +61,7 @@ void teseo_bezier_point_setPointsZero(struct teseo_bezier_point *tbp);
   i tipi garantiscono compatibità con i costruttori di neuronpunti
   si può scegliere se gli strokes ritornati abbiano un casting (int), per default è double
 */
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double point_per_pixel, double **astrokes, int sw_cast_int);
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double point_per_pixel, double **astrokes, double X_previous, int sw_cast_int);
 
 int teseo_bezier_point_Grado(struct teseo_bezier_point *tbp);
 
