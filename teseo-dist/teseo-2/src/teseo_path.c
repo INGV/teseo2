@@ -123,6 +123,7 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 		    *delta_pix = points_pairs[9] - points_pairs[3];
 		    sum_delta_pix += *delta_pix;
 		    n_delta_pix++;
+		    g_printf("First delta_pix %f\n", *delta_pix);
 		    if(*delta_pix < 0.0) {
 			    *delta_pix = 0.0;
 		    }
@@ -154,6 +155,7 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 		    cur_delta_pix = (points_pairs[i+3] - points_pairs[i-6]);
 		    if( fabs ( cur_delta_pix - *delta_pix ) > precision ) {
 			    *delta_pix = 0.0;
+			    g_printf("Path is not evenly spaced between %f %f\n", points_pairs[i-6], points_pairs[i+3]);
 		    } else {
 			sum_delta_pix += cur_delta_pix;
 			n_delta_pix++;
