@@ -114,7 +114,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     /* precision = 100.0 and points_per_pixel = 0.1; */
     // double tolerable_err_points_per_pixel = points_per_pixel /  precision;
     // int fract_pixel_precision = (int) (precision / points_per_pixel);
-    double tolerable_err_points_per_pixel = (1.0 / precision);
+    double tolerable_err_points_per_pixel = (10.0 / precision);
     int fract_pixel_precision = (int) (precision / 1.0);
 
     strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
@@ -188,7 +188,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		fabs(X - X_expected) < tolerable_err_points_per_pixel
 	  ) {
 
-	    g_printf("Added %f + %f (%f, %f) %d!\n", X_previous, X_expected, X, Y, n_punti_strokes);
+	    // g_printf("Added %f + %f (%f, %f) %d!\n", X_previous, X_expected, X, Y, n_punti_strokes);
 
 	    if(n_punti_strokes >= n_punti_strokes_max - 2) {
 		n_punti_strokes_max += STROKES_MAX;
