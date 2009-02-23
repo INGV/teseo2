@@ -146,6 +146,21 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 		    g_message("teseo_path_semantic_type(): error in function at line %d.", __LINE__);
 	    }
 
+	    if(*delta_pix != 0.0) {
+		// Compute average delta_pix
+		i=6;
+		while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
+
+		    cur_delta_pix = (points_pairs[i+3] - points_pairs[i-6]);
+		    sum_delta_pix += cur_delta_pix;
+		    n_delta_pix++;
+
+		    // Next 3 points
+		    i+=9;
+		}
+		*delta_pix = (sum_delta_pix / (float) n_delta_pix);
+	    }
+
 	    // Compare the rest of the path
 	    i=6;
 	    while (i<num_path_point_details && ret==PATH_SEMANTIC_POLYLINE) {
@@ -156,10 +171,6 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 		    if( fabs ( cur_delta_pix - *delta_pix ) > precision ) {
 			    *delta_pix = 0.0;
 			    g_printf("Path is not evenly spaced between %f %f\n", points_pairs[i-6], points_pairs[i+3]);
-		    } else {
-			sum_delta_pix += cur_delta_pix;
-			n_delta_pix++;
-			*delta_pix = (sum_delta_pix / (float) n_delta_pix);
 		    }
 
 		    // Compare coordinate
