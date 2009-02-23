@@ -93,7 +93,7 @@ void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, g
 }
 
 // int Bezier::getStrokes(int freq_c, double **astrokes, int sw_cast_int) {
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, int sw_cast_int) {
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, double X_previous, int sw_cast_int) {
     const int STROKES_MAX = 1024;
     int n_punti_strokes_max = STROKES_MAX;
     int n_punti_strokes;
@@ -124,8 +124,10 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
         return 0;
     }
 
+    // non devo aggiungere il primo punto ma utilizzare X_previous e Y_previous
     // aggiungo il primo punto
     n_punti_strokes = 0;
+    /*
     if(sw_cast_int) {
         strokes[n_punti_strokes*2   ] = (int) tbp->Px[0];
         strokes[n_punti_strokes*2 +1] = (int) tbp->Py[0];
@@ -134,6 +136,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
         strokes[n_punti_strokes*2 +1] = tbp->Py[0];
     }
     n_punti_strokes++;
+    */
 
     Pxi = (double *) g_malloc(tbp->n_punti * sizeof(double));
     Pyi = (double *) g_malloc(tbp->n_punti * sizeof(double));
@@ -150,10 +153,11 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     /* per ogni pixel ho un dettaglio massimo di 100 punti per pixel */
     width_max = fract_pixel_precision * ((int) (tbp->Px[imax] - tbp->Px[imin]) + 1);
     step =  1.0 / (double) width_max;
-    t = step;
+    // t = step;
+    t = 0.0;
     // printf("\nwidth_max = %d, step = %f\n", width_max, step);
 
-    for (k=1; k < width_max; k++) {
+    for (k=0; k < width_max; k++) {
 
         for(p=0; p<tbp->n_punti; p++) {
             Pxi[p] = tbp->Px[p];
@@ -179,10 +183,12 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 
         // posso decidere di aggiungere le coordinate con diversi criteri
         // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
-	X_expected = ( strokes[0] + ( ((double) n_punti_strokes) * points_per_pixel) );
+	X_expected = ( X_previous  + ( ((double) (n_punti_strokes + 1) ) * points_per_pixel) );
 	if(
-		fabs(X - X_expected) < points_per_pixel + tolerable_err_points_per_pixel
+		fabs(X - X_expected) < tolerable_err_points_per_pixel
 	  ) {
+
+	    g_printf("Added %f + %f (%f, %f) %d!\n", X_previous, X_expected, X, Y, n_punti_strokes);
 
 	    if(n_punti_strokes >= n_punti_strokes_max - 2) {
 		n_punti_strokes_max += STROKES_MAX;
