@@ -92,8 +92,7 @@ void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, g
     teseo_bezier_point_setPoints(tbp, Px, Py);
 }
 
-// int Bezier::getStrokes(int freq_c, double **astrokes, int sw_cast_int) {
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, double X_previous, int sw_cast_int) {
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, double X_previous, gboolean sw_abscissa_ascendent) {
     const int STROKES_MAX = 1024;
     int n_punti_strokes_max = STROKES_MAX;
     int n_punti_strokes;
@@ -101,6 +100,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     int k, p, j, i, l;
     double X, Y;
     double X_expected;
+    double X_expected_back;
     double *Pxi = NULL, *Pyi = NULL;
     // N.B: width_max è la distanza in pixel, fra i punti più lontani in x dei punti di bezier
     // l'ho scritto male ma è più semplici di quanto possa sembrare
@@ -128,13 +128,8 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     // aggiungo il primo punto
     n_punti_strokes = 0;
     /*
-    if(sw_cast_int) {
-        strokes[n_punti_strokes*2   ] = (int) tbp->Px[0];
-        strokes[n_punti_strokes*2 +1] = (int) tbp->Py[0];
-    } else {
-        strokes[n_punti_strokes*2   ] = tbp->Px[0];
-        strokes[n_punti_strokes*2 +1] = tbp->Py[0];
-    }
+    strokes[n_punti_strokes*2   ] = tbp->Px[0];
+    strokes[n_punti_strokes*2 +1] = tbp->Py[0];
     n_punti_strokes++;
     */
 
@@ -172,20 +167,19 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
             }
         }
 
-        if(sw_cast_int) {
-            X = (int) (Pxi[0] + 0.5);
-            Y = (int) (Pyi[0] + 0.5);
-        } else {
-            X = Pxi[0];
-            Y = Pyi[0];
-        }
+	X = Pxi[0];
+	Y = Pyi[0];
         t += step;
 
         // posso decidere di aggiungere le coordinate con diversi criteri
         // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
-	X_expected = ( X_previous  + ( ((double) (n_punti_strokes + 1) ) * points_per_pixel) );
+	// X_expected = ( X_previous  + ( ((double) (n_punti_strokes + 1) ) * points_per_pixel) );
+	X_expected = ( X_previous  +  points_per_pixel);
+	X_expected_back = ( X_previous  -  points_per_pixel);
 	if(
 		fabs(X - X_expected) < tolerable_err_points_per_pixel
+		||
+		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < tolerable_err_points_per_pixel) )
 	  ) {
 
 	    // g_printf("Added %f + %f (%f, %f) %d!\n", X_previous, X_expected, X, Y, n_punti_strokes);
@@ -200,6 +194,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		}
 	    }
 
+	    X_previous = X;
 	    strokes[n_punti_strokes*2     ] = X;
 	    strokes[(n_punti_strokes*2) +1] = Y;
 	    n_punti_strokes++;
