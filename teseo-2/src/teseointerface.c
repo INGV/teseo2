@@ -334,7 +334,7 @@ create_win_teseo (void)
   gtk_widget_show (properties1);
   gtk_container_add (GTK_CONTAINER (session1_menu), properties1);
   gtk_widget_add_accelerator (properties1, "activate", accel_group,
-                              GDK_P, GDK_CONTROL_MASK,
+                              GDK_P, (GdkModifierType) GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
   image958 = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
@@ -764,7 +764,7 @@ create_win_teseo (void)
   gtk_container_add (GTK_CONTAINER (toolitem8), teseo_alg_undo_toolbutton);
   gtk_tooltips_set_tip (tooltips, teseo_alg_undo_toolbutton, "Undo", NULL);
   gtk_widget_add_accelerator (teseo_alg_undo_toolbutton, "clicked", accel_group,
-                              GDK_x, 0,
+                              GDK_x, (GdkModifierType) 0,
                               GTK_ACCEL_VISIBLE);
 
   image542 = gtk_image_new_from_stock ("gtk-undo", GTK_ICON_SIZE_BUTTON);
@@ -798,7 +798,7 @@ create_win_teseo (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_back_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_back_toolbutton, "Left", NULL);
   gtk_widget_add_accelerator (teseo_alg_back_toolbutton, "clicked", accel_group,
-                              GDK_h, 0,
+                              GDK_h, (GdkModifierType) 0,
                               GTK_ACCEL_VISIBLE);
 
   image143 = gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_BUTTON);
@@ -819,7 +819,7 @@ create_win_teseo (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_down_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_down_toolbutton, "Down", NULL);
   gtk_widget_add_accelerator (teseo_alg_down_toolbutton, "clicked", accel_group,
-                              GDK_j, 0,
+                              GDK_j, (GdkModifierType) 0,
                               GTK_ACCEL_VISIBLE);
 
   image516 = gtk_image_new_from_stock ("gtk-go-down", GTK_ICON_SIZE_BUTTON);
@@ -840,7 +840,7 @@ create_win_teseo (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_up_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_up_toolbutton, "Up", NULL);
   gtk_widget_add_accelerator (teseo_alg_up_toolbutton, "clicked", accel_group,
-                              GDK_k, 0,
+                              GDK_k, (GdkModifierType) 0,
                               GTK_ACCEL_VISIBLE);
 
   image515 = gtk_image_new_from_stock ("gtk-go-up", GTK_ICON_SIZE_BUTTON);
@@ -861,7 +861,7 @@ create_win_teseo (void)
   GTK_WIDGET_UNSET_FLAGS (teseo_alg_go_toolbutton, GTK_CAN_FOCUS);
   gtk_tooltips_set_tip (tooltips, teseo_alg_go_toolbutton, "Right", NULL);
   gtk_widget_add_accelerator (teseo_alg_go_toolbutton, "clicked", accel_group,
-                              GDK_l, 0,
+                              GDK_l, (GdkModifierType) 0,
                               GTK_ACCEL_VISIBLE);
 
   image142 = gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_BUTTON);
@@ -2065,6 +2065,7 @@ create_filechooser_import (void)
 
   filechooser_import = gtk_file_chooser_dialog_new ("Import", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
   gtk_widget_set_name (filechooser_import, "filechooser_import");
+  gtk_container_set_border_width (GTK_CONTAINER (filechooser_import), 5);
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_import), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   dialog_vbox4 = GTK_DIALOG (filechooser_import)->vbox;
@@ -3276,8 +3277,8 @@ create_dlg_session (void)
   gtk_widget_show (label152);
   gtk_box_pack_start (GTK_BOX (hbox23), label152, FALSE, FALSE, 0);
 
-  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
-  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
+  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 0.10000000149, 1, 1);
+  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 1);
   gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
   gtk_widget_show (teseo_step_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox23), teseo_step_spinbutton, FALSE, FALSE, 0);
@@ -3583,6 +3584,7 @@ create_filechooser_session (void)
 
   filechooser_session = gtk_file_chooser_dialog_new ("Session", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
   gtk_widget_set_name (filechooser_session, "filechooser_session");
+  gtk_container_set_border_width (GTK_CONTAINER (filechooser_session), 5);
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_session), GDK_WINDOW_TYPE_HINT_DIALOG);
 
   dialog_vbox8 = GTK_DIALOG (filechooser_session)->vbox;
@@ -3627,6 +3629,7 @@ create_filechooser_export (void)
 
   filechooser_export = gtk_file_chooser_dialog_new ("Export", NULL, GTK_FILE_CHOOSER_ACTION_SAVE, NULL);
   gtk_widget_set_name (filechooser_export, "filechooser_export");
+  gtk_container_set_border_width (GTK_CONTAINER (filechooser_export), 5);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (filechooser_export), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (filechooser_export), GDK_WINDOW_TYPE_HINT_DIALOG);
 
