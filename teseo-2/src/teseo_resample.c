@@ -79,7 +79,7 @@ void teseo_progressive_resampling_strokes(double *strokes, glong *pn_strokes) {
 }
 
 
-void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressivo, gdouble points_per_pixel)
+void teseo_resampling_bezier(gint32 g_image, gboolean sw_abscissa_ascendent, gdouble points_per_pixel)
 {
     FILE *ftmp;
     FILE *fbezier;
@@ -175,7 +175,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 		// dopo dovrò ricampionare strokes con passo pivals.passo_bezier
 
 		// bezier_n_strokes = bezier.getStrokes(1, &bezier_strokes, sw_cast_int);
-		bezier_n_strokes = teseo_bezier_point_getStrokes(&tbp, points_per_pixel, &bezier_strokes, (n_strokes > 0)? strokes[(n_strokes-1)*2] : Px[0] - points_per_pixel, sw_cast_int);
+		bezier_n_strokes = teseo_bezier_point_getStrokes(&tbp, points_per_pixel, &bezier_strokes, (n_strokes > 0)? strokes[(n_strokes-1)*2] : Px[0] - points_per_pixel, sw_abscissa_ascendent);
 
 		// g_printf("(%f,%f) %d points from teseo_bezier_point_getStrokes()\n", Px[0], Py[0], bezier_n_strokes);
 
@@ -225,9 +225,11 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_campionamento_progressi
 
 	// g_message("Fine del calcolo di Bezier.");
 
-	if(sw_campionamento_progressivo) {
+	/*
+	if(sw_abscissa_ascendent) {
 	    teseo_progressive_resampling_strokes(strokes, &n_strokes);
 	}		
+	*/
 
 	/*
 	if(passo_bezier > 1) {
