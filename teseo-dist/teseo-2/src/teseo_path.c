@@ -170,7 +170,7 @@ path_semantic_type teseo_path_semantic_type_even(gint32 g_image, gchar *path_nam
 		    cur_delta_pix = (points_pairs[i+3] - points_pairs[i-6]);
 		    if( fabs ( cur_delta_pix - *delta_pix ) > precision ) {
 			    *delta_pix = 0.0;
-			    g_printf("Path is not evenly spaced between %f %f\n", points_pairs[i-6], points_pairs[i+3]);
+			    // g_printf("Path is not evenly spaced between %f %f\n", points_pairs[i-6], points_pairs[i+3]);
 		    }
 
 		    // Compare coordinate
