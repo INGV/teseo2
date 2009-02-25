@@ -99,8 +99,10 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     double *strokes;
     int k, p, j, i, l;
     double X, Y;
+    double X_old, Y_old;
     double X_expected;
     double X_expected_back;
+    double err_X_forw, err_X_back;
     double *Pxi = NULL, *Pyi = NULL;
     // N.B: width_max è la distanza in pixel, fra i punti più lontani in x dei punti di bezier
     // l'ho scritto male ma è più semplici di quanto possa sembrare
@@ -108,13 +110,15 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     double step;
     double t;
     int imax, imin;
+    double t_bef, t_aft, t_cur;
+    gint iterations = 0;
 
     double precision = 1000.0;
     
     /* precision = 100.0 and points_per_pixel = 0.1; */
     // double tolerable_err_points_per_pixel = points_per_pixel /  precision;
     // int fract_pixel_precision = (int) (precision / points_per_pixel);
-    double tolerable_err_points_per_pixel = (10.0 / precision);
+    double tolerable_err_points_per_pixel = (1.0 / precision);
     int fract_pixel_precision = (int) (precision / 1.0);
 
     strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
@@ -162,14 +166,13 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
         // calcolo le coordinate X, Y a distanza t sulla curva
         for (j=tbp->grado; j > 0; j--) {
             for (i=0; i < j; i++) {
-                Pxi[i] = (1-t)*Pxi[i] + t*Pxi[i+1];
-                Pyi[i] = (1-t)*Pyi[i] + t*Pyi[i+1];
+                Pxi[i] = (1.0-t)*Pxi[i] + t*Pxi[i+1];
+                Pyi[i] = (1.0-t)*Pyi[i] + t*Pyi[i+1];
             }
         }
 
 	X = Pxi[0];
 	Y = Pyi[0];
-        t += step;
 
         // posso decidere di aggiungere le coordinate con diversi criteri
         // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
@@ -177,12 +180,15 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 	X_expected = ( X_previous  +  points_per_pixel);
 	X_expected_back = ( X_previous  -  points_per_pixel);
 	if(
-		fabs(X - X_expected) < tolerable_err_points_per_pixel
+		fabs(X - X_expected) < (10.0 * tolerable_err_points_per_pixel)
 		||
-		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < tolerable_err_points_per_pixel) )
+		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < (10.0 * tolerable_err_points_per_pixel) ) )
 	  ) {
 
-	    // g_printf("Added %f + %f (%f, %f) %d!\n", X_previous, X_expected, X, Y, n_punti_strokes);
+	    err_X_forw = X - X_expected;
+	    err_X_back = X - X_expected_back;
+
+	    // g_printf("Added (%f, %f) xpctd: %f  err:%f  %d!\n", X, Y, X_expected, err_X_forw, n_punti_strokes);
 
 	    if(n_punti_strokes >= n_punti_strokes_max - 2) {
 		n_punti_strokes_max += STROKES_MAX;
@@ -194,12 +200,100 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		}
 	    }
 
+	    X_old = X;
+	    Y_old = Y;
+
+	    /* BEGIN improve X  */
+	    t_cur = t;
+	    t_bef = t_cur - (9.0 * step);
+	    t_aft = t_cur + (9.0 * step);
+	    iterations = 0;
+	    while(
+		    (
+		    fabs(X - X_expected) > (tolerable_err_points_per_pixel / 10.0)
+		    ||
+		    ( !sw_abscissa_ascendent && fabs(X_expected_back - X) > (tolerable_err_points_per_pixel / 10.0) )
+		    )
+		    &&  iterations < 5) {
+
+		iterations++;
+
+		if( sw_abscissa_ascendent  &&  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
+		    if(X < X_expected) {
+			t_bef = t_cur;
+		    } else {
+			t_aft = t_cur;
+		    }
+		    t_cur = t_bef + ((t_aft - t_bef) / 2.0);
+		} else {
+		    /* sto tornando indietro sulle X allora inverto il ragionamento */
+		    if(X < X_expected_back) {
+			t_aft = t_cur;
+		    } else {
+			t_bef = t_cur;
+		    }
+		    t_cur = t_aft + ((t_bef - t_aft) / 2.0);
+		}
+
+		for(p=0; p<tbp->n_punti; p++) {
+		    Pxi[p] = tbp->Px[p];
+		    Pyi[p] = tbp->Py[p];
+		}
+
+		// calcolo le coordinate X, Y a distanza t_cur sulla curva
+		for (j=tbp->grado; j > 0; j--) {
+		    for (i=0; i < j; i++) {
+			Pxi[i] = (1.0-t_cur)*Pxi[i] + t_cur*Pxi[i+1];
+			Pyi[i] = (1.0-t_cur)*Pyi[i] + t_cur*Pyi[i+1];
+		    }
+		}
+
+		X = Pxi[0];
+		Y = Pyi[0];
+
+		/* debugging */
+		/*
+		g_printf("i%2d (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f (%f) (%f, %f, %f) %4d\n",
+			iterations, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back, t, t_bef, t_cur, t_aft, n_punti_strokes);
+			*/
+	    }
+
+	    if( sw_abscissa_ascendent  ||  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
+		if(fabs(err_X_forw) <  fabs(X-X_expected)) {
+		    g_message("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
+			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
+		    g_printf("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
+			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
+		    /* Rollback set X,Y to X_old,Y_old */
+		    X = X_old;
+		    Y = Y_old;
+		}
+	    } else {
+		if(fabs(err_X_back) < fabs(X-X_expected_back)) {
+		    g_message("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
+			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
+		    g_printf("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
+			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
+		    /* Rollback set X,Y to X_old,Y_old */
+		    X = X_old;
+		    Y = Y_old;
+		}
+	    }
+
+	    /* debugging */
+	    /*
+	    g_printf("i%2d (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f (%f) (%f, %f, %f) %4d\n",
+		    iterations, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back, t, t_bef, t_cur, t_aft, n_punti_strokes);
+		    */
+	    /* END improve X  */
+
 	    X_previous = X;
 	    strokes[n_punti_strokes*2     ] = X;
 	    strokes[(n_punti_strokes*2) +1] = Y;
 	    n_punti_strokes++;
 	}
 
+	t += step;
     }
 
     g_free(Pxi);
