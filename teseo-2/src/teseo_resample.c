@@ -240,7 +240,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_abscissa_ascendent, gdo
 
 	// scrivo il path calcolato
 	if(n_strokes > 0  && strokes) {
-	    g_sprintf(newpathname, "%s_R%.1f", pathname, points_per_pixel);
+	    g_sprintf(newpathname, "%s_%cR%.1f", pathname, (sw_abscissa_ascendent)? 'a' : 'b', points_per_pixel);
 	    teseo_strokes_to_open_path(g_image, n_strokes, strokes, newpathname );
 	} else {
 	    // g_message("Strano: Il campionamento ha dato un risultato vuoto! sig ?!?");
