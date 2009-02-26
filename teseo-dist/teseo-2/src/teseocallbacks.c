@@ -887,7 +887,7 @@ on_resample1_activate                  (GtkMenuItem     *menuitem,
     GtkCheckButton * teseo_abscissa_asc_checkbutton = (GtkCheckButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_abscissa_asc_checkbutton", abscissa_asc);
 
     if(teseo_step_spinbutton) {
-	points_per_pixel = gtk_spin_button_get_value_as_float(teseo_step_spinbutton) ;
+	points_per_pixel = gtk_spin_button_get_value(teseo_step_spinbutton) ;
     }
 
     if(teseo_abscissa_asc_checkbutton) {
