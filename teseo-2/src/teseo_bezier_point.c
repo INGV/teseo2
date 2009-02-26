@@ -112,6 +112,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     int imax, imin;
     double t_bef, t_aft, t_cur;
     gint iterations = 0;
+    double err_margin = 10.0;
 
     double precision = 1000.0;
     
@@ -180,9 +181,9 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 	X_expected = ( X_previous  +  points_per_pixel);
 	X_expected_back = ( X_previous  -  points_per_pixel);
 	if(
-		fabs(X - X_expected) < (10.0 * tolerable_err_points_per_pixel)
+		fabs(X - X_expected) < (err_margin * tolerable_err_points_per_pixel)
 		||
-		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < (10.0 * tolerable_err_points_per_pixel) ) )
+		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < (err_margin * tolerable_err_points_per_pixel) ) )
 	  ) {
 
 	    err_X_forw = X - X_expected;
@@ -205,14 +206,14 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 
 	    /* BEGIN improve X  */
 	    t_cur = t;
-	    t_bef = t_cur - (9.0 * step);
-	    t_aft = t_cur + (9.0 * step);
+	    t_bef = t_cur - ((err_margin * 0.75) * step);
+	    t_aft = t_cur + ((err_margin * 0.75) * step);
 	    iterations = 0;
 	    while(
 		    (
-		    fabs(X - X_expected) > (tolerable_err_points_per_pixel / 10.0)
+		    fabs(X - X_expected) > tolerable_err_points_per_pixel 
 		    ||
-		    ( !sw_abscissa_ascendent && fabs(X_expected_back - X) > (tolerable_err_points_per_pixel / 10.0) )
+		    ( !sw_abscissa_ascendent && fabs(X_expected_back - X) > tolerable_err_points_per_pixel )
 		    )
 		    &&  iterations < 5) {
 
