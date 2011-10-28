@@ -113,6 +113,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
     double t_bef, t_aft, t_cur;
     gint iterations = 0;
     double err_margin = 10.0;
+    gdouble X_previous_ideal = X_previous;
 
     double precision = 1000.0;
     
@@ -178,8 +179,10 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
         // posso decidere di aggiungere le coordinate con diversi criteri
         // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
 	// X_expected = ( X_previous  + ( ((double) (n_punti_strokes + 1) ) * points_per_pixel) );
-	X_expected = ( X_previous  +  points_per_pixel);
-	X_expected_back = ( X_previous  -  points_per_pixel);
+
+	X_expected = ( X_previous_ideal  +  points_per_pixel);
+	X_expected_back = ( X_previous_ideal  -  points_per_pixel);
+
 	if(
 		fabs(X - X_expected) < (err_margin * tolerable_err_points_per_pixel)
 		||
@@ -292,6 +295,12 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 	    strokes[n_punti_strokes*2     ] = X;
 	    strokes[(n_punti_strokes*2) +1] = Y;
 	    n_punti_strokes++;
+
+	    if( fabs(X_previous - X_expected) <= fabs(X_previous - X_expected_back) ) {
+		X_previous_ideal = X_expected;
+	    } else {
+		X_previous_ideal = X_expected_back;
+	    }
 	}
 
 	t += step;
