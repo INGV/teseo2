@@ -56,9 +56,13 @@
 #include "teseo_filters.h"
 #include "teseo_wiechert.h"
 
+#ifdef GTKDATABOX_OLD0401
 #include <gtkdatabox.h>
 #include <gtkdatabox_lines.h>
 #include "teseo_databox.h"
+#else
+const char gtkdatabox_message[] = "Graphical display has been removed since gtkdatabox-0.4.0.1 is no longer compatible with the current version of GTK.";
+#endif
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -1870,6 +1874,8 @@ void
 on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
+
+#ifdef GTKDATABOX_OLD0401
 	gboolean use_span=TRUE;
 	gboolean use_coord=FALSE;
 	gboolean rotate=TRUE;
@@ -2034,6 +2040,11 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 	else{
 		g_message("Current path is not a polyline, nothing to do");
 	}
+
+#else
+    g_message(gtkdatabox_message);
+#endif
+
 }
 
 
@@ -2042,6 +2053,8 @@ void
 on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
+
+#ifdef GTKDATABOX_OLD0401
 	gboolean use_span=TRUE;
 	gboolean use_coord=FALSE;
 	gboolean rotate=TRUE;
@@ -2174,6 +2187,10 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	else{
 		g_message("Current path is not a polyline, nothing to do");
 	}
+
+#else
+    g_message(gtkdatabox_message);
+#endif
 
 }
 
@@ -2524,4 +2541,188 @@ on_flip1_activate                      (GtkMenuItem     *menuitem,
 teseo_path_flip(teseo_image);
 }
 
+
+void teseo_set_min_max_frequency_from_step_min_max() {
+    gdouble xresolution,yresolution;
+    gdouble min_step, max_step;
+    gdouble min_freq, max_freq;
+    gdouble paper_velocity = 1.0;
+    char *image_file = NULL;
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+
+    /* get range teseo_step_spinbutton */
+    gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
+
+    /* get value teseo_paper_speed_spinbutton */
+    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60.0; //Obtaining mm/sec
+
+    /* get value image_resolution */
+    image_file = gimp_image_get_filename(teseo_image);
+    gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+
+    /* compute min and max frequency */
+    min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
+    max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
+
+    /* set range teseo_freq_spinbutton */
+    gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq);
+}
+
+void teseo_set_min_max_step_from_frequency_min_max() {
+    gdouble xresolution,yresolution;
+    gdouble min_step, max_step;
+    gdouble min_freq, max_freq;
+    gdouble paper_velocity = 1.0;
+    char *image_file = NULL;
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+
+    /* get range teseo_step_spinbutton */
+    gtk_spin_button_get_range (teseo_freq_spinbutton, &min_freq, &max_freq);
+
+    /* get value teseo_paper_speed_spinbutton */
+    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60.0; //Obtaining mm/sec
+
+    /* get value image_resolution */
+    image_file = gimp_image_get_filename(teseo_image);
+    gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+
+    /* compute min and max frequency */
+    min_step = ( ( xresolution / 25.4 ) * paper_velocity ) / max_freq;
+    max_step = ( ( xresolution / 25.4 ) * paper_velocity ) / min_freq;
+
+    /* set range teseo_freq_spinbutton */
+    gtk_spin_button_set_range(teseo_step_spinbutton, min_step, max_step);
+}
+
+void teseo_update_min_max_frequency_and_step() {
+    gdouble new_step_pixel = 1.0;
+    gdouble frequency = 1.0;
+    gdouble new_frequency = 1.0;
+    gdouble xresolution,yresolution;
+    gdouble min_step, max_step;
+    gdouble min_freq, max_freq;
+    gdouble paper_velocity = 1.0;
+    char *image_file = NULL;
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+
+    /* get range teseo_step_spinbutton */
+    gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
+
+    /* get value teseo_paper_speed_spinbutton */
+    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60.0; //Obtaining mm/sec
+
+    /* get value image_resolution */
+    image_file = gimp_image_get_filename(teseo_image);
+    gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+
+    /* get current frequency */
+    frequency = gtk_spin_button_get_value(teseo_freq_spinbutton) ;
+
+    /* compute step from frequency */
+    new_step_pixel = ( ( xresolution / 25.4 ) * paper_velocity ) / frequency;
+
+    if(new_step_pixel >= min_step && new_step_pixel <= max_step) {
+	gtk_spin_button_set_value(teseo_step_spinbutton, new_step_pixel);
+    } else {
+	/* update frequency */
+	new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / new_step_pixel;
+	gtk_spin_button_set_value(teseo_freq_spinbutton, new_frequency);
+
+	/* warning message your frequency has been changed */
+	g_message("Warning: the frequency has been changed and set to %.2f", new_frequency);
+    }
+
+    /* compute min and max frequency */
+    min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
+    max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
+
+    /* set range teseo_freq_spinbutton */
+    gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq);
+}
+
+void teseo_set_frequency_from_step() {
+    gdouble step_pixel = 1.0;
+    gdouble frequency = 1.0;
+    gdouble new_frequency = 1.0;
+    gdouble paper_velocity = 1.0;
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_pixel);
+    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", frequency);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
+    char *image_file = NULL;
+    gdouble xresolution,yresolution;
+
+    if(teseo_step_spinbutton && teseo_freq_spinbutton && teseo_paper_speed_spinbutton) {
+	image_file = gimp_image_get_filename(teseo_image);
+	gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+	paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60.0; //Obtaining mm/sec
+	step_pixel = gtk_spin_button_get_value(teseo_step_spinbutton) ;
+
+	new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / step_pixel;
+
+	gtk_spin_button_set_value(teseo_freq_spinbutton, new_frequency);
+    }
+
+}
+
+void teseo_set_step_from_frequency() {
+    gdouble step_pixel = 1.0;
+    gdouble new_step_pixel = 1.0;
+    gdouble frequency = 1.0;
+    gdouble paper_velocity = 1.0;
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_pixel);
+    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", frequency);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
+    char *image_file = NULL;
+    gdouble xresolution,yresolution;
+
+    if(teseo_step_spinbutton && teseo_freq_spinbutton && teseo_paper_speed_spinbutton) {
+	image_file = gimp_image_get_filename(teseo_image);
+	gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+	paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton)/60.0; //Obtaining mm/sec
+	frequency = gtk_spin_button_get_value(teseo_freq_spinbutton) ;
+
+	new_step_pixel = ( ( xresolution / 25.4 ) * paper_velocity ) / frequency;
+
+	gtk_spin_button_set_value(teseo_step_spinbutton, new_step_pixel);
+    }
+}
+
+void
+on_teseo_freq_spinbutton_changed       (GtkEditable     *editable,
+                                        gpointer         user_data)
+{
+    teseo_set_step_from_frequency();
+}
+
+
+void
+on_teseo_step_spinbutton_changed       (GtkEditable     *editable,
+                                        gpointer         user_data)
+{
+    teseo_set_frequency_from_step();
+}
+
+
+void
+on_seisan1_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+    /* TODO */
+}
+
+
+void
+on_teseo_paper_speed_spinbutton_changed
+                                        (GtkEditable     *editable,
+                                        gpointer         user_data)
+{
+    teseo_update_min_max_frequency_and_step();
+    teseo_set_frequency_from_step();
+}
 
