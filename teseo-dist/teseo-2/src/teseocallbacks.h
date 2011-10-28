@@ -412,3 +412,21 @@ void
 on_parasite_cbentry_changed            (GtkComboBox     *combobox,
                                         gpointer         user_data);
 
+
+void
+on_teseo_freq_spinbutton_changed       (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_teseo_step_spinbutton_changed       (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_seisan1_activate                    (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
+on_teseo_paper_speed_spinbutton_changed
+                                        (GtkEditable     *editable,
+                                        gpointer         user_data);
+
