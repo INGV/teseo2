@@ -5,7 +5,7 @@ Copyright (C) 2000-2006
 Stefano Pintore & Matteo Quintiliani
 Istituto Nazionale di Geofisica e Vulcanologia
 
-Web page: http://sismos.ingv.it/teseo/
+Web page: http://teseo.rm.ingv.it/
 e-mail:   teseo@ingv.it
 
 This package is a plug-in for GIMP 2 capable of vectorize seismic trace from
@@ -15,7 +15,6 @@ historical seismogram acquired in raster format.
 - SOURCE CODE DISTRIBUTION
 To build and install it:
 	- refer to the file INSTALL
-	- requires build and install gtkaddons library, it is distributed with Teseo-2
 
 - STATIC UNIX-LIKE BINARY DISTRIBUTION (linux, darwin, ...)
 To install it:
