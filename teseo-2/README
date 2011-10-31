@@ -15,6 +15,8 @@ historical seismogram acquired in raster format.
 - SOURCE CODE DISTRIBUTION
 To build and install it:
 	- refer to the file INSTALL
+	- requires build and install gtkaddons library, it is distributed with Teseo-2
+	- requires build and install newuoa library, it is distributed with Teseo-2
 
 - STATIC UNIX-LIKE BINARY DISTRIBUTION (linux, darwin, ...)
 To install it:
