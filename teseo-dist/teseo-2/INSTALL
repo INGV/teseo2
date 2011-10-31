@@ -11,7 +11,7 @@ Teseo-2 INSTALL Contents
         * SOURCE INSTALLATION
 
 
-Teseo WebSite http://sismos.ingv.it/teseo/
+Teseo WebSite http://teseo.rm.ingv.it/
 
 
 ***************************************************
@@ -23,6 +23,7 @@ Basic Installation
 
 These are basic installation instructions for Teseo-2 on WIN32 platforms.
 Teseo-2 is a gimp-2.2 plugin so you need gimp-2.2 to use it.
+To compile and link with gtkdatabox-0.4.0.1 declare -DGTKDATABOX_OLD0401 within CFLAGS
 
 
 Pre-requisite
