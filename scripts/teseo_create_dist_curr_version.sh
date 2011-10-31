@@ -108,7 +108,7 @@ cvs tag $TESEODISTNAMETAG
 cd $DIRLOCALARCHIVE
 cvs export -r $TESEODISTNAMETAG $MODULENAME
 mv $MODULENAME $TESEODISTNAME
-tar cvfz $TESEODISTNAME.tar.gz $TESEODISTNAME
+tar cvfz $TESEODISTNAME.tar.gz --exclude='*/wiechert*' --exclude='*/script-fu*' $TESEODISTNAME
 md5sum $TESEODISTNAME.tar.gz > $TESEODISTNAME.tar.gz.md5
 rm -fr $TESEODISTNAME
 
