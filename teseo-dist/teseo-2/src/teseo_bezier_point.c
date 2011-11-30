@@ -92,7 +92,7 @@ void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, g
     teseo_bezier_point_setPoints(tbp, Px, Py);
 }
 
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, double X_previous, gboolean sw_abscissa_ascendent) {
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points_per_pixel, double **astrokes, double X_previous, gboolean sw_abscissa_ascendent) {
     const int STROKES_MAX = 1024;
     int n_punti_strokes_max = STROKES_MAX;
     int n_punti_strokes;
@@ -207,6 +207,16 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 	    X_old = X;
 	    Y_old = Y;
 
+	    /* check if they are almost really zero ;-) */
+	    if( fabs(err_X_forw) < 0.00000001  || fabs(err_X_back) < 0.00000001  ) {
+		  /* Does not improve ! */
+		    /* debugging */
+		    g_message("Not improve following point (%11.6f, %11.6f) eXf=%+10.6f eXb=%+10.6f\n",
+			     X, Y, err_X_forw, err_X_back);
+		    g_printf("Not improve following point (%11.6f, %11.6f) eXf=%+10.6f eXb=%+10.6f\n",
+			     X, Y, err_X_forw, err_X_back);
+	    } else {
+
 	    /* BEGIN improve X  */
 	    t_cur = t;
 	    t_bef = t_cur - ((err_margin * 0.75) * step);
@@ -252,6 +262,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		    }
 		}
 
+		/* Set new X and Y which it tried to improve */
 		X = Pxi[0];
 		Y = Pyi[0];
 
@@ -263,7 +274,9 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 	    }
 
 	    if( sw_abscissa_ascendent  ||  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
+		/* check if it was able to improve X approsimation */
 		if(fabs(err_X_forw) <  fabs(X-X_expected)) {
+		    /* debugging */
 		    g_message("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
 			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
 		    g_printf("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
@@ -273,7 +286,9 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		    Y = Y_old;
 		}
 	    } else {
+		/* check if it was able to improve X approsimation */
 		if(fabs(err_X_back) < fabs(X-X_expected_back)) {
+		    /* debugging */
 		    g_message("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
 			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
 		    g_printf("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
@@ -290,6 +305,8 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_
 		    iterations, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back, t, t_bef, t_cur, t_aft, n_punti_strokes);
 		    */
 	    /* END improve X  */
+
+	    }
 
 	    X_previous = X;
 	    strokes[n_punti_strokes*2     ] = X;

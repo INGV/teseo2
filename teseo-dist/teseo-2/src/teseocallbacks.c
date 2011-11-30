@@ -1440,7 +1440,7 @@ on_dlg_session_show                    (GtkWidget       *widget,
   gtk_window_set_title (GTK_WINDOW (dlg_session), session_name);
  }
  teseo_update_min_max_frequency_and_step();
- teseo_set_frequency_from_step();
+ teseo_set_step_from_frequency();
 }
 
 
@@ -2725,6 +2725,6 @@ on_teseo_paper_speed_spinbutton_changed
                                         gpointer         user_data)
 {
     teseo_update_min_max_frequency_and_step();
-    teseo_set_frequency_from_step();
+    teseo_set_step_from_frequency();
 }
 
