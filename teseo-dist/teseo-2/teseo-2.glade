@@ -6090,7 +6090,7 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">1 0.00999999977648 200 0.10000000149 1 1</property>
+				  <property name="adjustment">1 0.00999999977648 200 0.00999999977648 0.10000000149 1</property>
 				  <signal name="changed" handler="on_teseo_freq_spinbutton_changed" last_modification_time="Tue, 11 Oct 2011 14:48:59 GMT"/>
 				</widget>
 				<packing>
@@ -6160,7 +6160,7 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">1 0.10000000149 100 0.10000000149 1 1</property>
+				  <property name="adjustment">1 0.10000000149 100 0.00999999977648 0.10000000149 1</property>
 				  <signal name="changed" handler="on_teseo_step_spinbutton_changed" last_modification_time="Wed, 12 Oct 2011 08:15:20 GMT"/>
 				</widget>
 				<packing>

@@ -1439,6 +1439,8 @@ on_dlg_session_show                    (GtkWidget       *widget,
  if(strcmp(gtk_window_get_title (GTK_WINDOW (dlg_session)), new_session_name) != 0) {
   gtk_window_set_title (GTK_WINDOW (dlg_session), session_name);
  }
+ teseo_update_min_max_frequency_and_step();
+ teseo_set_frequency_from_step();
 }
 
 
