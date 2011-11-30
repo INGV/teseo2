@@ -93,7 +93,7 @@ void teseo_resampling_bezier(gint32 g_image, gboolean sw_abscissa_ascendent, gdo
     glong n_strokes;
     gdouble *strokes = NULL;
     gdouble *punti_bezier = NULL;
-    double Px[4], Py[4];
+    gdouble Px[4], Py[4];
 
     // class Bezier bezier = Bezier(3);
     struct teseo_bezier_point tbp;
