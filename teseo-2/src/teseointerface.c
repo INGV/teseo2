@@ -3451,6 +3451,9 @@ create_dlg_session (void)
   g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "changed",
                     G_CALLBACK (on_teseo_paper_speed_spinbutton_changed),
                     NULL);
+  g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "focus_out_event",
+                    G_CALLBACK (on_teseo_paper_speed_spinbutton_focus_out_event),
+                    NULL);
   g_signal_connect ((gpointer) teseo_freq_spinbutton, "changed",
                     G_CALLBACK (on_teseo_freq_spinbutton_changed),
                     NULL);

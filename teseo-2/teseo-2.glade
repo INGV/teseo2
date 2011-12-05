@@ -4435,6 +4435,7 @@ Via di Vigna Murata, 605 - 00143 - Roma&lt;/small&gt;</property>
 			      <property name="wrap">False</property>
 			      <property name="adjustment">1 0.00999999977648 1000 0.00999999977648 10 10</property>
 			      <signal name="changed" handler="on_teseo_paper_speed_spinbutton_changed" last_modification_time="Wed, 12 Oct 2011 11:35:34 GMT"/>
+			      <signal name="focus_out_event" handler="on_teseo_paper_speed_spinbutton_focus_out_event" last_modification_time="Mon, 05 Dec 2011 11:15:04 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
