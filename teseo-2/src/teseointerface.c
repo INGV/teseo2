@@ -3292,7 +3292,7 @@ create_dlg_session (void)
   gtk_widget_show (label323);
   gtk_box_pack_start (GTK_BOX (hbox75), label323, FALSE, FALSE, 0);
 
-  teseo_freq_spinbutton_adj = gtk_adjustment_new (1, 0.00999999977648, 200, 0.00999999977648, 0.10000000149, 1);
+  teseo_freq_spinbutton_adj = gtk_adjustment_new (1, 0, 1000, 0.00999999977648, 0.10000000149, 1);
   teseo_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_freq_spinbutton_adj), 1, 2);
   gtk_widget_set_name (teseo_freq_spinbutton, "teseo_freq_spinbutton");
   gtk_widget_show (teseo_freq_spinbutton);
