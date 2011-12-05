@@ -430,3 +430,9 @@ on_teseo_paper_speed_spinbutton_changed
                                         (GtkEditable     *editable,
                                         gpointer         user_data);
 
+
+gboolean
+on_teseo_paper_speed_spinbutton_focus_out_event
+                                        (GtkWidget       *widget,
+                                        GdkEventFocus   *event,
+                                        gpointer         user_data);
