@@ -431,8 +431,8 @@ on_teseo_paper_speed_spinbutton_changed
                                         gpointer         user_data);
 
 
-gboolean
-on_teseo_paper_speed_spinbutton_focus_out_event
-                                        (GtkWidget       *widget,
-                                        GdkEventFocus   *event,
+
+void
+on_teseo_radiobutton_step_resample_toggled   (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
+
