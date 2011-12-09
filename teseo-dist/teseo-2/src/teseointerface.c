@@ -2380,13 +2380,11 @@ create_dlg_session (void)
   GtkWidget *alignment28;
   GtkWidget *vbox61;
   GtkWidget *table32;
-  GtkWidget *teseo_radiobutton_freq_resample;
-  GSList *teseo_radiobutton_freq_resample_group = NULL;
-  GtkWidget *teseo_radiobutton_step_resample;
+  GtkWidget *label323;
+  GtkWidget *label324;
+  GtkWidget *teseo_entry_frequency;
   GtkObject *teseo_step_spinbutton_adj;
   GtkWidget *teseo_step_spinbutton;
-  GtkObject *teseo_freq_spinbutton_adj;
-  GtkWidget *teseo_freq_spinbutton;
   GtkWidget *teseo_abscissa_asc_checkbutton;
   GtkWidget *label153;
   GtkWidget *frame46;
@@ -3286,7 +3284,7 @@ create_dlg_session (void)
   gtk_widget_show (vbox61);
   gtk_container_add (GTK_CONTAINER (alignment28), vbox61);
 
-  table32 = gtk_table_new (2, 2, FALSE);
+  table32 = gtk_table_new (2, 3, FALSE);
   gtk_widget_set_name (table32, "table32");
   gtk_widget_show (table32);
   gtk_box_pack_start (GTK_BOX (vbox61), table32, FALSE, FALSE, 0);
@@ -3294,43 +3292,42 @@ create_dlg_session (void)
   gtk_table_set_row_spacings (GTK_TABLE (table32), 4);
   gtk_table_set_col_spacings (GTK_TABLE (table32), 4);
 
-  teseo_radiobutton_freq_resample = gtk_radio_button_new_with_mnemonic (NULL, "Frequency (Hz)");
-  gtk_widget_set_name (teseo_radiobutton_freq_resample, "teseo_radiobutton_freq_resample");
-  gtk_widget_show (teseo_radiobutton_freq_resample);
-  gtk_table_attach (GTK_TABLE (table32), teseo_radiobutton_freq_resample, 0, 1, 1, 2,
+  label323 = gtk_label_new ("Frequency (Hz)");
+  gtk_widget_set_name (label323, "label323");
+  gtk_widget_show (label323);
+  gtk_table_attach (GTK_TABLE (table32), label323, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_radiobutton_freq_resample), teseo_radiobutton_freq_resample_group);
-  teseo_radiobutton_freq_resample_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_radiobutton_freq_resample));
+  gtk_misc_set_alignment (GTK_MISC (label323), 0, 0.5);
 
-  teseo_radiobutton_step_resample = gtk_radio_button_new_with_mnemonic (NULL, "Step (pixel)");
-  gtk_widget_set_name (teseo_radiobutton_step_resample, "teseo_radiobutton_step_resample");
-  gtk_widget_show (teseo_radiobutton_step_resample);
-  gtk_table_attach (GTK_TABLE (table32), teseo_radiobutton_step_resample, 0, 1, 0, 1,
+  label324 = gtk_label_new ("Step (pixel)");
+  gtk_widget_set_name (label324, "label324");
+  gtk_widget_show (label324);
+  gtk_table_attach (GTK_TABLE (table32), label324, 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (teseo_radiobutton_step_resample), teseo_radiobutton_freq_resample_group);
-  teseo_radiobutton_freq_resample_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (teseo_radiobutton_step_resample));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (teseo_radiobutton_step_resample), TRUE);
+  gtk_misc_set_alignment (GTK_MISC (label324), 0, 0.5);
 
-  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 0.00999999977648, 0.10000000149, 1);
-  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
+  teseo_entry_frequency = gtk_entry_new ();
+  gtk_widget_set_name (teseo_entry_frequency, "teseo_entry_frequency");
+  gtk_widget_show (teseo_entry_frequency);
+  gtk_table_attach (GTK_TABLE (table32), teseo_entry_frequency, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_widget_set_sensitive (teseo_entry_frequency, FALSE);
+  GTK_WIDGET_UNSET_FLAGS (teseo_entry_frequency, GTK_CAN_FOCUS);
+  gtk_tooltips_set_tip (tooltips, teseo_entry_frequency, "Estimated Frequency (Hz)", NULL);
+  gtk_editable_set_editable (GTK_EDITABLE (teseo_entry_frequency), FALSE);
+  gtk_entry_set_width_chars (GTK_ENTRY (teseo_entry_frequency), 5);
+
+  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 9.99999974738e-05, 0.10000000149, 1);
+  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 4);
   gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
   gtk_widget_show (teseo_step_spinbutton);
   gtk_table_attach (GTK_TABLE (table32), teseo_step_spinbutton, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_step_spinbutton), TRUE);
-
-  teseo_freq_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 0.00999999977648, 0.10000000149, 1);
-  teseo_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_freq_spinbutton_adj), 1, 2);
-  gtk_widget_set_name (teseo_freq_spinbutton, "teseo_freq_spinbutton");
-  gtk_widget_show (teseo_freq_spinbutton);
-  gtk_table_attach (GTK_TABLE (table32), teseo_freq_spinbutton, 1, 2, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_freq_spinbutton, "BEWARE: Frequency is estimated. It depends on Paper speed and Image resolution.", NULL);
-  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_freq_spinbutton), TRUE);
 
   teseo_abscissa_asc_checkbutton = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
   gtk_widget_set_name (teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
@@ -3467,15 +3464,15 @@ create_dlg_session (void)
   g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "changed",
                     G_CALLBACK (on_teseo_paper_speed_spinbutton_changed),
                     NULL);
-  g_signal_connect ((gpointer) teseo_radiobutton_step_resample, "toggled",
-                    G_CALLBACK (on_teseo_radiobutton_step_resample_toggled),
+  g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "focus_out_event",
+                    G_CALLBACK (on_teseo_paper_speed_spinbutton_focus_out_event),
                     NULL);
   g_signal_connect ((gpointer) teseo_step_spinbutton, "changed",
                     G_CALLBACK (on_teseo_step_spinbutton_changed),
                     NULL);
-  g_signal_connect ((gpointer) teseo_freq_spinbutton, "changed",
-                    G_CALLBACK (on_teseo_freq_spinbutton_changed),
-                    NULL);
+  g_signal_connect_after ((gpointer) teseo_step_spinbutton, "focus_out_event",
+                          G_CALLBACK (on_teseo_step_spinbutton_focus_out_event),
+                          NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dlg_session, "dlg_session");
@@ -3604,10 +3601,10 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, alignment28, "alignment28");
   GLADE_HOOKUP_OBJECT (dlg_session, vbox61, "vbox61");
   GLADE_HOOKUP_OBJECT (dlg_session, table32, "table32");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_radiobutton_freq_resample, "teseo_radiobutton_freq_resample");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_radiobutton_step_resample, "teseo_radiobutton_step_resample");
+  GLADE_HOOKUP_OBJECT (dlg_session, label323, "label323");
+  GLADE_HOOKUP_OBJECT (dlg_session, label324, "label324");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_entry_frequency, "teseo_entry_frequency");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_step_spinbutton, "teseo_step_spinbutton");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_freq_spinbutton, "teseo_freq_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label153, "label153");
   GLADE_HOOKUP_OBJECT (dlg_session, frame46, "frame46");

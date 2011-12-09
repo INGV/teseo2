@@ -100,7 +100,7 @@ GtkSpinButton * teseo_spbtn_arm_shift;
 
 GimpDrawable * private_drawable ;
 gint32  teseo_image ;
-
+            
 char TODO_str[] = "Sorry, this function is not implemented yet!";
 char new_session_name[] = "New session ...";
 
@@ -175,7 +175,7 @@ on_properties1_activate                   (GtkMenuItem     *menuitem,
 	strcat(filename_session,G_DIR_SEPARATOR_S);
 	strcat(filename_session,current_session);
 	g_free(tep);
-	load_session(filename_session);
+	load_session(filename_session);                
         break;
       default:
         break;
@@ -1418,24 +1418,24 @@ on_teseo_wm_width_spinbutton_input     (GtkSpinButton   *spinbutton,
 }
 
 /* Enable/Disable Frequency or Step SpinButtons */
-void update_sensitive_step_freq_spinbuttons_from_radiobutton() {
-  GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
-  GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
-  GtkRadioButton *teseo_radiobutton_step_resample = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_radiobutton_step_resample", 0);
-
-  if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_radiobutton_step_resample))  == TRUE ){
-    gtk_widget_set_sensitive ((GtkWidget *) teseo_step_spinbutton, TRUE);
-    GTK_WIDGET_SET_FLAGS (teseo_step_spinbutton, GTK_CAN_FOCUS);
-    gtk_widget_set_sensitive ((GtkWidget *) teseo_freq_spinbutton, FALSE);
-    GTK_WIDGET_UNSET_FLAGS (teseo_freq_spinbutton, GTK_CAN_FOCUS);
-  }
-  else {
-    gtk_widget_set_sensitive ((GtkWidget *) teseo_freq_spinbutton, TRUE);
-    GTK_WIDGET_SET_FLAGS (teseo_freq_spinbutton, GTK_CAN_FOCUS);
-    gtk_widget_set_sensitive ((GtkWidget *) teseo_step_spinbutton, FALSE);
-    GTK_WIDGET_UNSET_FLAGS (teseo_step_spinbutton, GTK_CAN_FOCUS);
-  }
-}
+// void update_sensitive_step_freq_spinbuttons_from_radiobutton() {
+//   GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+//   GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+//   GtkRadioButton *teseo_radiobutton_step_resample = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_radiobutton_step_resample", 0);
+// 
+//   if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_radiobutton_step_resample))  == TRUE ){
+//     gtk_widget_set_sensitive ((GtkWidget *) teseo_step_spinbutton, TRUE);
+//     GTK_WIDGET_SET_FLAGS (teseo_step_spinbutton, GTK_CAN_FOCUS);
+//     gtk_widget_set_sensitive ((GtkWidget *) teseo_freq_spinbutton, FALSE);
+//     GTK_WIDGET_UNSET_FLAGS (teseo_freq_spinbutton, GTK_CAN_FOCUS);
+//   }
+//   else {
+//     gtk_widget_set_sensitive ((GtkWidget *) teseo_freq_spinbutton, TRUE);
+//     GTK_WIDGET_SET_FLAGS (teseo_freq_spinbutton, GTK_CAN_FOCUS);
+//     gtk_widget_set_sensitive ((GtkWidget *) teseo_step_spinbutton, FALSE);
+//     GTK_WIDGET_UNSET_FLAGS (teseo_step_spinbutton, GTK_CAN_FOCUS);
+//   }
+// }
 
 
 
@@ -1461,7 +1461,8 @@ on_dlg_session_show                    (GtkWidget       *widget,
  strcat(str_res," dpi");
  gtk_entry_set_text (imageresolution_entry, str_res);
 
- update_sensitive_step_freq_spinbuttons_from_radiobutton();
+//  update_sensitive_step_freq_spinbuttons_from_radiobutton();
+//  on_teseo_paper_speed_spinbutton_focus_out_event (NULL, NULL, NULL ); 
 
 }
 
@@ -2587,168 +2588,137 @@ gdouble my_round(gdouble val, int n_decimal) {
 
 
 /* call when change paper_velocity */
-void teseo_update_min_max_frequency() {
-    static flag_first_time = 1;
+// void teseo_update_min_max_frequency() {
+//     static int flag_first_time = 1;
+//     gdouble step_pixel = 1.0;
+//     gdouble new_frequency = 1.0;
+//     gdouble xresolution,yresolution;
+//     gdouble min_step, max_step;
+//     gdouble min_freq = 0.0, max_freq = 0.0;
+//     gdouble paper_velocity = 1.0;
+//     char *image_file = NULL;
+//     GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+//     GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+//     GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+// //     g_message("Called teseo_update_min_max_frequency");
+//     if(flag_first_time) {
+//       flag_first_time = 0;  g_message("Called teseo_update_min_max_frequency first time");
+//     } else {
+//       /* get range teseo_step_spinbutton */
+//       gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
+// 
+//       /* get value teseo_paper_speed_spinbutton */
+//       paper_velocity =  gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0; //Obtaining mm/sec
+// 
+//       /* get value image_resolution */
+//       image_file = gimp_image_get_filename(teseo_image);
+//       gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+// 
+//       /* compute min and max frequency */
+//       min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
+//       max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
+// 
+//       /* set range teseo_freq_spinbutton */
+//       gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq );
+//     }
+// 
+// }
+
+// void teseo_update_min_max_frequency_and_change_step() {
+//     gdouble new_step_pixel = 1.0;
+//     gdouble frequency = 1.0;
+//     gdouble new_frequency = 1.0;
+//     gdouble xresolution,yresolution;
+//     gdouble min_step, max_step;
+//     gdouble min_freq, max_freq;
+//     gdouble paper_velocity = 1.0;
+//     char *image_file = NULL;
+//     GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
+//     GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
+//     GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+// 
+//     /* get range teseo_step_spinbutton */
+//     gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
+// 
+//     /* get value teseo_paper_speed_spinbutton */
+//     paper_velocity =  gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0; //Obtaining mm/sec
+// 
+//     /* get value image_resolution */
+//     image_file = gimp_image_get_filename(teseo_image);
+//     gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+// 
+//     /* compute min and max frequency */
+//     min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
+//     max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
+// 
+//     /* set range teseo_freq_spinbutton */
+//     gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq );
+// 
+//     /* get current frequency */
+//     frequency = gtk_spin_button_get_value(teseo_freq_spinbutton) ;
+// 
+//     /* compute step from frequency */
+//     new_step_pixel = ( ( xresolution / 25.4 ) * paper_velocity ) / frequency;
+// 
+//     if(new_step_pixel >= min_step && new_step_pixel <= max_step) {
+// 	gtk_spin_button_set_value(teseo_step_spinbutton, my_round(new_step_pixel, my_round_default_decimal));
+//     } else {
+// 	/* update frequency */
+// 	new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / new_step_pixel;
+// 	gtk_spin_button_set_value(teseo_freq_spinbutton, my_round(new_frequency, my_round_default_decimal));
+// 
+// 	/* warning message your frequency has been changed */
+// 	g_message("Warning: the frequency has been changed and set to %.2f", new_frequency);
+//     }
+// }
+
+
+
+void teseo_set_frequency_label_from_step() {
     gdouble step_pixel = 1.0;
-    gdouble new_frequency = 1.0;
-    gdouble xresolution,yresolution;
-    gdouble min_step, max_step;
-    gdouble min_freq = 0.0, max_freq = 0.0;
-    gdouble paper_velocity = 1.0;
-    char *image_file = NULL;
-    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
-    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
-    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
-
-    if(flag_first_time) {
-      flag_first_time = 0;
-    } else {
-      /* get range teseo_step_spinbutton */
-      gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
-
-      /* get value teseo_paper_speed_spinbutton */
-      paper_velocity =  gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0; //Obtaining mm/sec
-
-      /* get value image_resolution */
-      image_file = gimp_image_get_filename(teseo_image);
-      gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
-
-      /* compute min and max frequency */
-      min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
-      max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
-
-      /* set range teseo_freq_spinbutton */
-      gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq );
-    }
-
-}
-
-void teseo_update_min_max_frequency_and_change_step() {
-    gdouble new_step_pixel = 1.0;
     gdouble frequency = 1.0;
     gdouble new_frequency = 1.0;
-    gdouble xresolution,yresolution;
+    gdouble paper_velocity = 1.0;
     gdouble min_step, max_step;
     gdouble min_freq, max_freq;
-    gdouble paper_velocity = 1.0;
+    gchar new_frequency_str[10] = "";
+    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_pixel);
+    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
+    GtkEntry *teseo_entry_frequency = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_entry_frequency", frequency);
+
     char *image_file = NULL;
-    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", 1.0);
-    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", 1.0);
-    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", 1.0);
+    gdouble xresolution,yresolution;
 
-    /* get range teseo_step_spinbutton */
-    gtk_spin_button_get_range (teseo_step_spinbutton, &min_step, &max_step);
-
-    /* get value teseo_paper_speed_spinbutton */
-    paper_velocity =  gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0; //Obtaining mm/sec
-
-    /* get value image_resolution */
+    if(teseo_step_spinbutton && teseo_entry_frequency && teseo_paper_speed_spinbutton) {
     image_file = gimp_image_get_filename(teseo_image);
     gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
+    paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0 ; //Obtaining mm/sec
+    step_pixel = gtk_spin_button_get_value(teseo_step_spinbutton);
 
-    /* compute min and max frequency */
-    min_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / max_step;
-    max_freq = ( ( xresolution / 25.4 ) * paper_velocity ) / min_step;
+    /* compute frequency from step */
+    new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / step_pixel;
+    sprintf(new_frequency_str,"%.4f",new_frequency);
+    gtk_entry_set_text (teseo_entry_frequency,new_frequency_str);
 
-    /* set range teseo_freq_spinbutton */
-    gtk_spin_button_set_range(teseo_freq_spinbutton, min_freq, max_freq );
-
-    /* get current frequency */
-    frequency = gtk_spin_button_get_value(teseo_freq_spinbutton) ;
-
-    /* compute step from frequency */
-    new_step_pixel = ( ( xresolution / 25.4 ) * paper_velocity ) / frequency;
-
-    if(new_step_pixel >= min_step && new_step_pixel <= max_step) {
-	gtk_spin_button_set_value(teseo_step_spinbutton, my_round(new_step_pixel, my_round_default_decimal));
-    } else {
-	/* update frequency */
-	new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / new_step_pixel;
-	gtk_spin_button_set_value(teseo_freq_spinbutton, my_round(new_frequency, my_round_default_decimal));
-
-	/* warning message your frequency has been changed */
-	g_message("Warning: the frequency has been changed and set to %.2f", new_frequency);
-    }
-}
-
-void teseo_set_frequency_from_step() {
-    gdouble step_pixel = 1.0;
-    gdouble frequency = 1.0;
-    gdouble new_frequency = 1.0;
-    gdouble paper_velocity = 1.0;
-    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_pixel);
-    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", frequency);
-    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
-    char *image_file = NULL;
-    gdouble xresolution,yresolution;
-
-    if(teseo_step_spinbutton && teseo_freq_spinbutton && teseo_paper_speed_spinbutton) {
-	image_file = gimp_image_get_filename(teseo_image);
-	gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
-	paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0 ; //Obtaining mm/sec
-	step_pixel = gtk_spin_button_get_value(teseo_step_spinbutton);
-
-	/* compute frequency from step */
-	new_frequency = ( ( xresolution / 25.4 ) * paper_velocity ) / step_pixel;
-
-	gtk_spin_button_set_value(teseo_freq_spinbutton, my_round(new_frequency, my_round_default_decimal) );
     }
 
 }
-
-void teseo_set_step_from_frequency() {
-    gdouble step_pixel = 1.0;
-    gdouble new_step_pixel = 1.0;
-    gdouble frequency = 1.0;
-    gdouble paper_velocity = 1.0;
-    GtkSpinButton * teseo_step_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_step_spinbutton", step_pixel);
-    GtkSpinButton * teseo_freq_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_freq_spinbutton", frequency);
-    GtkSpinButton *teseo_paper_speed_spinbutton = (GtkSpinButton *)   teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_paper_speed_spinbutton", paper_velocity);
-    char *image_file = NULL;
-    gdouble xresolution,yresolution;
-
-    if(teseo_step_spinbutton && teseo_freq_spinbutton && teseo_paper_speed_spinbutton) {
-	image_file = gimp_image_get_filename(teseo_image);
-	gimp_image_get_resolution (teseo_image,  &xresolution,  &yresolution);
-	paper_velocity = gtk_spin_button_get_value (teseo_paper_speed_spinbutton) / 60.0; //Obtaining mm/sec
-	frequency = gtk_spin_button_get_value(teseo_freq_spinbutton) ;
-
-	/* compute step from frequency */
-	new_step_pixel = ( ( xresolution / 25.4 ) * paper_velocity ) / frequency;
-
-	gtk_spin_button_set_value(teseo_step_spinbutton, my_round(new_step_pixel, my_round_default_decimal) );
-    }
-}
-
-void
-on_teseo_freq_spinbutton_changed       (GtkEditable     *editable,
-                                        gpointer         user_data)
-{
-  static flag_first_time = 1;
-  GtkRadioButton *teseo_radiobutton_step_resample = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_radiobutton_step_resample", 0);
-
-  if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_radiobutton_step_resample))  == FALSE  &&  !flag_first_time){
-    teseo_set_step_from_frequency();
-  }
-  if(flag_first_time) {
-    flag_first_time = 0;
-  }
-}
-
 
 void
 on_teseo_step_spinbutton_changed       (GtkEditable     *editable,
                                         gpointer         user_data)
 {
-  static flag_first_time = 1;
-  GtkRadioButton *teseo_radiobutton_step_resample = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_radiobutton_step_resample", 0);
+  teseo_set_frequency_label_from_step();
+}
 
-  if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_radiobutton_step_resample))  == TRUE  &&  !flag_first_time){
-    teseo_set_frequency_from_step();
-  }
-  if(flag_first_time) {
-    flag_first_time = 0;
-  }
+gboolean
+on_teseo_step_spinbutton_focus_out_event
+                                        (GtkWidget       *widget,
+                                        GdkEventFocus   *event,
+                                        gpointer         user_data)
+{
+  teseo_set_frequency_label_from_step();
+  return FALSE;
 }
 
 
@@ -2757,22 +2727,23 @@ on_teseo_paper_speed_spinbutton_changed
                                         (GtkEditable     *editable,
                                         gpointer         user_data)
 {
-  GtkRadioButton *teseo_radiobutton_step_resample = (GtkRadioButton *) teseo_lookup_widget(GTK_WIDGET(dlg_session), "teseo_radiobutton_step_resample", 0);
-  teseo_update_min_max_frequency();
-  if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(teseo_radiobutton_step_resample))  == TRUE ){
-    teseo_set_frequency_from_step();
-  } else {
-    teseo_set_step_from_frequency();
-  }
+  teseo_set_frequency_label_from_step();
 }
 
 
-void
-on_teseo_radiobutton_step_resample_toggled   (GtkToggleButton *togglebutton,
+
+gboolean
+on_teseo_paper_speed_spinbutton_focus_out_event
+                                        (GtkWidget       *widget,
+                                        GdkEventFocus   *event,
                                         gpointer         user_data)
 {
-  update_sensitive_step_freq_spinbuttons_from_radiobutton();
+  teseo_set_frequency_label_from_step();
+  return FALSE;
 }
+
+
+
 
 
 void
@@ -2781,6 +2752,5 @@ on_seisan1_activate                    (GtkMenuItem     *menuitem,
 {
     /* TODO */
 }
-
 
 
