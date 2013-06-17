@@ -1,16 +1,17 @@
+/* $Id: teseo_databox.c,v 1.5 2013/06/17 12:22:55 ilpint Exp $ */
 /* GtkDatabox - An extension to the gtk+ library
- * Copyright (C) 1998 - 2005  Dr. Roland Bock
+ * Copyright (C) 1998 - 2008  Dr. Roland Bock
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
  * as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -19,235 +20,195 @@
 
 #include <gtk/gtk.h>
 #include <gtkdatabox.h>
+#include <gtkdatabox_points.h>
 #include <math.h>
+#include "teseo_databox.h"
 
 #define POINTS 2000
-
 extern GtkSpinButton * teseo_spbtn_arm_shift;
 
 /*----------------------------------------------------------------
  *  databox signals
  *----------------------------------------------------------------*/
 
-/*
- * Signal handlers
+const gchar *
+get_name_of_current_signal (gpointer instance)
+{
+   GSignalInvocationHint *ihint;
+
+   ihint = g_signal_get_invocation_hint (instance);
+
+   return g_signal_name (ihint->signal_id);
+}
+
+/* 
+ * Signal handlers 
  */
 static gint
-handle_signal_zoomed (GtkDatabox * box,
-		      GtkDataboxValue * top_left,
-		      GtkDataboxValue * bottom_right, void *unused)
+handle_signal_zoomed (GtkDatabox * box)
 {
-   printf ("Name of the signal: gtk_databox_zoomed\n");
-   printf ("It tells you that the GtkDatabox has zoomed to the following\n");
-   printf
-      ("rectangle (data coordindates only, pixels don't make sense here):\n");
-   printf ("top_left (X,Y)=(%g, %g), bottom_right (X,Y)=(%g, %g)\n",
-	   top_left->x, top_left->y, bottom_right->x, bottom_right->y);
+   gfloat left, right, top, bottom;
 
-   return 0;
-}
-
-/*static gint
-handle_signal_marked (GtkDatabox * box,
-		      GtkDataboxCoord * marked, void *unused)
-{
-   GtkDataboxValue value;
-
-   gtk_databox_data_get_value (box, *marked, &value);
-
-   printf ("Name of the signal: gtk_databox_marked\n");
-   printf
-      ("It tells you that someone has clicked at the following coordinates:\n");
-   printf ("Pixel: (X,Y)=(%d, %d)\n", marked->x, marked->y);
-   printf ("Data: (X,Y)=(%g, %g)\n", value.x, value.y);
+   gtk_databox_get_visible_limits (box, &left, &right, &top, &bottom);
+//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+//    printf ("It tells you that the GtkDatabox has zoomed to the following\n");
+//    printf
+//       ("rectangle (data coordindates only, pixels don't make sense here):\n");
+//    printf ("top_left (X,Y)=(%g, %g), bottom_right (X,Y)=(%g, %g)\n",
+// 	   left, top, right, bottom);
 
    return 0;
 }
 
 static gint
-handle_signal_selection_started (GtkDatabox * box,
-				 GtkDataboxCoord * marked, void *unused)
+handle_signal_selection_finalized (GtkDatabox * box,
+				 GtkDataboxValueRectangle * selectionValues
+				 /*, void *unused */ )
 {
-   GtkDataboxValue value;
+//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+//    printf ("It tells you that the user has stopped changing the selection\n");
+//    printf ("box, i.e. the mouse button is released now.\n");
+//    printf ("Data: corner1 (X,Y)=(%g, %g), corner2 (X,Y)=(%g, %g)\n",
+// 	   selectionValues->x1, selectionValues->y1, selectionValues->x2,
+// 	   selectionValues->y2);
 
-   gtk_databox_data_get_value (box, *marked, &value);
-
-   printf ("Name of the signal: gtk_databox_selection_started\n");
-   printf ("It tells you that someone has started a selection at\n");
-   printf ("the following coordinates:\n");
-   printf ("Pixel: (X,Y)=(%d, %d)\n", marked->x, marked->y);
-   printf ("Data: (X,Y)=(%g, %g)\n", value.x, value.y);
    return 0;
 }
 
 static gint
-handle_signal_selection_changed (GtkDatabox * box,
-				 GtkDataboxCoord * marked,
-				 GtkDataboxCoord * select, void *unused)
+handle_signal_selection_started (GtkDatabox * box /*, void *unused */ )
 {
-   GtkDataboxValue value1;
-   GtkDataboxValue value2;
-
-   gtk_databox_data_get_value (box, *marked, &value1);
-   gtk_databox_data_get_value (box, *select, &value2);
-
-   printf ("Name of the signal: gtk_databox_selection_changed\n");
-   printf ("It tells you that a user has changed the selection box.\n");
-   printf ("Pixel: corner1 (X,Y)=(%d, %d), corner2 (X,Y)=(%d, %d)\n",
-	   marked->x, marked->y, select->x, select->y);
-   printf ("Data: corner1 (X,Y)=(%g, %g), corner2 (X,Y)=(%g, %g)\n",
-	   value1.x, value1.y, value2.x, value2.y);
-
-   return 0;
-}*/
-
-static gint
-handle_signal_selection_stopped (GtkDatabox * box,
-				 GtkDataboxCoord * marked,
-				 GtkDataboxCoord * select, void *unused)
-{
-   GtkDataboxValue value1;
-   GtkDataboxValue value2;
-
-   gtk_databox_data_get_value (box, *marked, &value1);
-   gtk_databox_data_get_value (box, *select, &value2);
-
-   printf ("Name of the signal: gtk_databox_selection_stopped\n");
-   printf ("It tells you that the user has stopped changing the selection\n");
-   printf ("box, i.e. the mouse button is released now.\n");
-   printf ("Pixel: corner1 (X,Y)=(%d, %d), corner2 (X,Y)=(%d, %d)\n",
-	   marked->x, marked->y, select->x, select->y);
-   printf ("Data: corner1 (X,Y)=(%g, %g), corner2 (X,Y)=(%g, %g)\n",
-	   value1.x, value1.y, value2.x, value2.y);
+//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+//    printf ("It tells you that the user has started a the selection box\n");
 
    return 0;
 }
 
+static gint
+handle_signal_selection_canceled (GtkDatabox * box /*, void *unused */ )
+{
+//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+//    printf ("It tells you that the user has dismissed the selection box\n");
+
+   return 0;
+}
 
 
 static gint
 handle_signal_clicked (GtkDatabox * box, GtkWidget *entry)
 {
 
-   printf ("The button was clicked\n");
+//    printf ("The button was clicked\n");
    //printf ("Get the values if want %s\n" ,gtk_entry_get_text(GTK_ENTRY(entry)));
 
    //gchar NUMSTRING[20];
-   //sprintf(NUMSTRING,"%s",gtk_entry_get_text(GTK_ENTRY(entry)));
+   
    gchar * NUMSTRING= g_strdup (gtk_entry_get_text(GTK_ENTRY(entry)));
    gdouble num = g_strtod(NUMSTRING,NULL);
-   printf ("Get the values if want %s = %f\n", NUMSTRING, num );
+//    printf ("Get the values if want %s = %f\n", NUMSTRING, num );
 
    gtk_spin_button_set_value (teseo_spbtn_arm_shift,num );
 
    return 0;
 }
 
-
-static gint
-handle_signal_selection_cancelled (GtkDatabox * box, void *unused)
+enum
 {
-   printf ("Name of the signal: gtk_databox_selection_cancelled\n");
-   printf ("It tells you that the user has dismissed the selection box\n");
-
-   return 0;
-}
-
-enum {
-  SHOW_BOX,
-  SHOW_ACTUAL_X,
-  SHOW_ACTUAL_Y,
-  SHOW_MARKED_X,
-  SHOW_MARKED_Y,
-  SHOW_DELTA_X,
-  SHOW_DELTA_Y,
-  SHOW_NUM_ENTRIES
+   SHOW_BOX,
+   SHOW_ACTUAL_X,
+   SHOW_ACTUAL_Y,
+   SHOW_MARKED_X,
+   SHOW_MARKED_Y,
+   SHOW_DELTA_X,
+   SHOW_DELTA_Y,
+   SHOW_NUM_ENTRIES
 };
 
 
 static GtkWidget *
-show_entry (GtkWidget *hbox, gchar *text)
+show_entry (GtkWidget * hbox, gchar * text)
 {
-  GtkWidget *frame;
-  GtkWidget *entry;
+   GtkWidget *frame;
+   GtkWidget *entry;
 
-  frame = gtk_frame_new (text);
-  gtk_container_add (GTK_CONTAINER(hbox), frame);
-  entry = gtk_entry_new ();
-  gtk_widget_set_size_request (entry, 20, -1);
-  gtk_editable_set_editable (GTK_EDITABLE(entry), FALSE);
-  gtk_container_add (GTK_CONTAINER(frame), entry);
+   frame = gtk_frame_new (text);
+   gtk_container_add (GTK_CONTAINER (hbox), frame);
+   entry = gtk_entry_new ();
+   gtk_widget_set_size_request (entry, 20, -1);
+   gtk_editable_set_editable (GTK_EDITABLE (entry), FALSE);
+   gtk_container_add (GTK_CONTAINER (frame), entry);
 
-  return entry;
+   return entry;
+}
+
+static gint
+show_motion_notify_cb (GtkWidget ** entries, GdkEventMotion * event
+		       /*, GtkWidget *widget */ )
+{
+   gfloat x, y;
+   gchar *text;
+   GtkDatabox *box = GTK_DATABOX (entries[SHOW_BOX]);
+
+   x = gtk_databox_pixel_to_value_x (box, event->x);
+   y = gtk_databox_pixel_to_value_y (box, event->y);
+
+   text = g_strdup_printf ("%g", x);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_ACTUAL_X]), text);
+   g_free ((gpointer) text);
+   text = g_strdup_printf ("%g", y);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_ACTUAL_Y]), text);
+   g_free ((gpointer) text);
+
+   return FALSE;
+}
+
+static gint
+show_button_press_cb (GtkDatabox * box, GdkEventButton * event,
+		      GtkWidget ** entries)
+{
+   gfloat x, y;
+   gchar *text;
+
+   if (!(event->button == 1 || event->button == 2))
+      return FALSE;
+
+   x = gtk_databox_pixel_to_value_x (box, event->x);
+   y = gtk_databox_pixel_to_value_y (box, event->y);
+
+   text = g_strdup_printf ("%g", x);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_MARKED_X]), text);
+   g_free ((gpointer) text);
+   text = g_strdup_printf ("%g", y);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_MARKED_Y]), text);
+   g_free ((gpointer) text);
+
+   return FALSE;
 }
 
 static void
-show_motion_notify_cb(GtkWidget *widget, GdkEventMotion *event, GtkWidget **entries)
+show_changed_cb (GtkDatabox * box,
+		 GtkDataboxValueRectangle * selectionValues,
+		 GtkWidget ** entries)
 {
-  GtkDataboxCoord coord;
-  GtkDataboxValue value;
-  GdkModifierType state;
-  gchar *text;
-  GtkDatabox *box = GTK_DATABOX (entries [SHOW_BOX] );
+   gchar *text;
 
-  coord.x = event->x;
-  coord.y = event->y;
-  state = event->state;
+   text = g_strdup_printf ("%g", selectionValues->x2 - selectionValues->x1);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_DELTA_X]), text);
+   g_free ((gpointer) text);
+   text = g_strdup_printf ("%g", selectionValues->y2 - selectionValues->y1);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_DELTA_Y]), text);
+   g_free ((gpointer) text);
 
-  gtk_databox_data_get_value(box, coord, &value);
-
-  text=g_strdup_printf("%g", value.x);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_ACTUAL_X]), text);
-  g_free((gpointer) text);
-  text=g_strdup_printf("%g", value.y);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_ACTUAL_Y]), text);
-  g_free((gpointer) text);
-}
-
-static void
-show_marked_cb(GtkDatabox *box, GtkDataboxCoord *marked, GtkWidget **entries)
-{
-  GtkDataboxValue value;
-  gchar *text;
-
-  gtk_databox_data_get_value(box, *marked, &value);
-
-  text=g_strdup_printf("%g", value.x);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_MARKED_X]), text);
-  g_free((gpointer) text);
-  text=g_strdup_printf("%g", value.y);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_MARKED_Y]), text);
-  g_free((gpointer) text);
-}
-
-static void
-show_changed_cb(GtkDatabox *box, GtkDataboxCoord *marked, GtkDataboxCoord *select, GtkWidget **entries)
-{
-  GtkDataboxValue value1;
-  GtkDataboxValue value2;
-  gchar *text;
-
-  gtk_databox_data_get_value(box, *marked, &value1);
-  gtk_databox_data_get_value(box, *select, &value2);
-
-  text=g_strdup_printf("%g", value2.x-value1.x);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_DELTA_X]), text);
-  g_free((gpointer) text);
-  text=g_strdup_printf("%g", value2.y-value1.y);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_DELTA_Y]), text);
-  g_free((gpointer) text);
-
-  text=g_strdup_printf("%g", value2.x);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_ACTUAL_X]), text);
-  g_free((gpointer) text);
-  text=g_strdup_printf("%g", value2.y);
-  gtk_entry_set_text(GTK_ENTRY(entries[SHOW_ACTUAL_Y]), text);
-  g_free((gpointer) text);
+   text = g_strdup_printf ("%g", selectionValues->x2);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_ACTUAL_X]), text);
+   g_free ((gpointer) text);
+   text = g_strdup_printf ("%g", selectionValues->y2);
+   gtk_entry_set_text (GTK_ENTRY (entries[SHOW_ACTUAL_Y]), text);
+   g_free ((gpointer) text);
 }
 
 
 
-// static void
 void
 create_signals (void)
 {
@@ -256,25 +217,24 @@ create_signals (void)
    GtkWidget *box2;
    GtkWidget *close_button;
    GtkWidget *box;
+   GtkWidget *table;
    GtkWidget *label;
    GtkWidget *separator;
-   gint index;
    gfloat *X;
    gfloat *Y;
+   GtkDataboxGraph *graph;
    GdkColor color;
    gint i;
    GtkWidget **entries;
    GtkWidget *hbox;
 
-   entries=g_new0(GtkWidget *, SHOW_NUM_ENTRIES);
+   entries = g_new0 (GtkWidget *, SHOW_NUM_ENTRIES);
 
    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
    gtk_widget_set_size_request (window, 500, 500);
 
-   /*
-   g_signal_connect (GTK_OBJECT (window), "destroy",
-		     GTK_SIGNAL_FUNC (gtk_main_quit), NULL);
-                     */
+   g_signal_connect (G_OBJECT (window), "destroy",
+		     G_CALLBACK (gtk_main_quit), NULL);
 
    gtk_window_set_title (GTK_WINDOW (window), "GtkDatabox: Signals Examples");
    gtk_container_set_border_width (GTK_CONTAINER (window), 0);
@@ -284,55 +244,59 @@ create_signals (void)
 
    label =
       gtk_label_new
-      ("The output on the shell shows you the information that\nyou can get by using signals.\n\nSee basics for a usage of this window...");
+      ("The output on the shell and in the text boxes below\nshow you the information that you can get\n by using signals.\n\nSee basics for a usage of this window...");
 
    gtk_box_pack_start (GTK_BOX (box1), label, FALSE, FALSE, 0);
    separator = gtk_hseparator_new ();
    gtk_box_pack_start (GTK_BOX (box1), separator, FALSE, FALSE, 0);
 
-   hbox=gtk_hbox_new(TRUE,3);
-   gtk_box_pack_start(GTK_BOX(box1), hbox, FALSE, TRUE, 0);
+   hbox = gtk_hbox_new (TRUE, 3);
+   gtk_box_pack_start (GTK_BOX (box1), hbox, FALSE, TRUE, 0);
 
    entries[SHOW_ACTUAL_X] = show_entry (hbox, "Actual X");
    entries[SHOW_ACTUAL_Y] = show_entry (hbox, "Actual Y");
    entries[SHOW_MARKED_X] = show_entry (hbox, "Marked X");
    entries[SHOW_MARKED_Y] = show_entry (hbox, "Marked Y");
-   entries[SHOW_DELTA_X]  = show_entry (hbox, "Delta X");
-   entries[SHOW_DELTA_Y]  = show_entry (hbox, "Delta Y");
+   entries[SHOW_DELTA_X] = show_entry (hbox, "Delta X");
+   entries[SHOW_DELTA_Y] = show_entry (hbox, "Delta Y");
 
-   box = gtk_databox_new ();
-   entries[SHOW_BOX]  = box;
+   /* Create a GtkDatabox widget along with scrollbars and rulers */
+   gtk_databox_create_box_with_scrollbars_and_rulers (&box, &table,
+						      TRUE, TRUE, TRUE, TRUE);
+
+   gtk_box_pack_start (GTK_BOX (box1), table, TRUE, TRUE, 0);
+
+   entries[SHOW_BOX] = box;
 
    X = g_new0 (gfloat, POINTS);
    Y = g_new0 (gfloat, POINTS);
 
    for (i = 0; i < POINTS; i++)
    {
-      X[i] = i;
-      //Y[i] = 100. * sin (i * 2 * PI / POINTS);
-      Y[i] = 2*i;
+      X[i] = i+100.;
+      Y[i] = 100. * sin (i * 2 * G_PI / POINTS);
    }
    color.red = 0;
    color.green = 65535;
    color.blue = 0;
 
-   index = gtk_databox_data_add (GTK_DATABOX (box), POINTS,
-				 X, Y, color, GTK_DATABOX_POINTS, 1);
+   graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
+   gtk_databox_graph_add (GTK_DATABOX (box), graph);
+
    Y = g_new0 (gfloat, POINTS);
 
    for (i = 0; i < POINTS; i++)
    {
-      Y[i] = 100. * cos (i * 2 * 3.14 / POINTS);
+      Y[i] = 100. * cos (i * 2 * G_PI / POINTS);
    }
    color.red = 65535;
    color.green = 0;
    color.blue = 0;
 
-   gtk_databox_data_add (GTK_DATABOX (box), POINTS,
-			 X,Y, color, GTK_DATABOX_POINTS, 1);
-   gtk_databox_rescale (GTK_DATABOX (box));
+   graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
+   gtk_databox_graph_add (GTK_DATABOX (box), graph);
 
-   gtk_box_pack_start (GTK_BOX (box1), box, TRUE, TRUE, 0);
+   gtk_databox_auto_rescale (GTK_DATABOX (box), 0.00);
 
    separator = gtk_hseparator_new ();
    gtk_box_pack_start (GTK_BOX (box1), separator, FALSE, TRUE, 0);
@@ -341,50 +305,31 @@ create_signals (void)
    gtk_container_set_border_width (GTK_CONTAINER (box2), 10);
    gtk_box_pack_end (GTK_BOX (box1), box2, FALSE, TRUE, 0);
    close_button = gtk_button_new_with_label ("close");
-   /*
-   g_signal_connect_swapped (GTK_OBJECT (close_button), "clicked",
-			     GTK_SIGNAL_FUNC (gtk_main_quit),
-			     GTK_OBJECT (box));
-                             */
+   g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+			     G_CALLBACK (gtk_main_quit), G_OBJECT (box));
    gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
-   GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
+   gtk_widget_set_can_default(close_button, GTK_CAN_DEFAULT);
    gtk_widget_grab_default (close_button);
 
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_zoomed",
-		     GTK_SIGNAL_FUNC (handle_signal_zoomed),
-                     NULL);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_stopped",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped),
-                     NULL);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_cancelled",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_cancelled),
-		     NULL);
-   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw),
-                     "motion_notify_event",
-                     GTK_SIGNAL_FUNC (show_motion_notify_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_marked",
-                     GTK_SIGNAL_FUNC (show_marked_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_started",
-                     GTK_SIGNAL_FUNC (show_marked_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_changed",
-                            GTK_SIGNAL_FUNC (show_changed_cb),
-                            entries);
+   g_signal_connect (G_OBJECT (box), "zoomed",
+		     G_CALLBACK (handle_signal_zoomed), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-started",
+		     G_CALLBACK (handle_signal_selection_started), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-finalized",
+		     G_CALLBACK (handle_signal_selection_finalized), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-canceled",
+		     G_CALLBACK (handle_signal_selection_canceled), NULL);
+   g_signal_connect_swapped (G_OBJECT (box),
+			     "motion_notify_event",
+			     G_CALLBACK (show_motion_notify_cb), entries);
+   g_signal_connect (G_OBJECT (box), "button_press_event",
+		     G_CALLBACK (show_button_press_cb), entries);
+   g_signal_connect (G_OBJECT (box), "selection-changed",
+		     G_CALLBACK (show_changed_cb), entries);
+
    gtk_widget_show_all (window);
-}
 
-void setT (GtkDataboxText *text, GtkWidget *box,
-           GtkDataboxTextPosition position,
-           gchar *label,
-           gboolean boxed)
-{
-   text->position = position;
-   text->text = gtk_widget_create_pango_layout (box, label);
-   text->boxed = boxed;
 }
-
 
  GtkWidget* teseo_create_databox (
 		gint num_points, gfloat *X, gfloat *Y,
@@ -392,105 +337,116 @@ void setT (GtkDataboxText *text, GtkWidget *box,
 		const gchar *title, const gchar *description,
 		const gchar * labelX , const gchar *labelY,
 		gboolean showbutton)
-{
+ {
    GtkWidget *window = NULL;
    GtkWidget *box1;
    GtkWidget *box2;
    GtkWidget *close_button;
    GtkWidget *box;
+   GtkWidget *table;
    GtkWidget *label;
    GtkWidget *separator;
-   gint index;
+// Now they are passed as parameters
+//   gfloat *X;
+//   gfloat *Y;
+   GtkDataboxGraph *graph;
+// Now they are passed as parameters   
+//   GdkColor color;
+   gint i;
    GtkWidget **entries;
    GtkWidget *hbox;
 
-   GtkDataboxText *AxisLabels;
-   gfloat *Xlab;
-   gfloat *Ylab;
-
-   GdkColor bg_color;
-   GdkColor grid_color;
-   GdkColor axis_color;
-
-   gdk_color_parse("white", &bg_color);
-   gdk_color_parse("light blue", &grid_color);
-   gdk_color_parse("black", &axis_color);
-
-   entries=g_new0(GtkWidget *, SHOW_NUM_ENTRIES);
+   entries = g_new0 (GtkWidget *, SHOW_NUM_ENTRIES);
 
    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-   //gtk_widget_set_size_request (window, 500, 500);
+   gtk_widget_set_size_request (window, 500, 500);
 
-
+//    g_signal_connect (G_OBJECT (window), "destroy",
+// 		     G_CALLBACK (gtk_main_quit), NULL);
+// Don't kill gimp please
    g_signal_connect (GTK_OBJECT (window), "destroy",
 		     GTK_SIGNAL_FUNC (gtk_true), NULL);
+   
 
-   // gtk_window_set_title (GTK_WINDOW (window), "GtkDatabox: Signals Examples");
+//   gtk_window_set_title (GTK_WINDOW (window), "GtkDatabox: Signals Examples");
+// chenge title it si no more an example   
    gtk_window_set_title (GTK_WINDOW (window), (title == NULL)? "" : title);
-
-   gtk_window_set_modal(GTK_WINDOW(window),TRUE);
-   gtk_window_set_default_size(GTK_WINDOW(window),500,500);
-
    gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-
+// now is modal do not come back to teseo other than closing
+   gtk_window_set_modal(GTK_WINDOW(window),TRUE);
+   
    box1 = gtk_vbox_new (FALSE, 0);
    gtk_container_add (GTK_CONTAINER (window), box1);
 
+//    label =
+//       gtk_label_new
+//       ("The output on the shell and in the text boxes below\nshow you the information that you can get\n by using signals.\n\nSee basics for a usage of this window...");
+   //Set label from parameter description
    label =
       gtk_label_new((description == NULL)? "" : description);
-      // ("The output on the shell shows you the information that\nyou can get by using signals.\n\nSee basics for a usage of this window...");
-
+      
    gtk_box_pack_start (GTK_BOX (box1), label, FALSE, FALSE, 0);
    separator = gtk_hseparator_new ();
    gtk_box_pack_start (GTK_BOX (box1), separator, FALSE, FALSE, 0);
 
-   hbox=gtk_hbox_new(TRUE,3);
-   gtk_box_pack_start(GTK_BOX(box1), hbox, FALSE, TRUE, 0);
+   hbox = gtk_hbox_new (TRUE, 3);
+   gtk_box_pack_start (GTK_BOX (box1), hbox, FALSE, TRUE, 0);
 
    entries[SHOW_ACTUAL_X] = show_entry (hbox, "Actual X");
    entries[SHOW_ACTUAL_Y] = show_entry (hbox, "Actual Y");
    entries[SHOW_MARKED_X] = show_entry (hbox, "Marked X");
    entries[SHOW_MARKED_Y] = show_entry (hbox, "Marked Y");
-   entries[SHOW_DELTA_X]  = show_entry (hbox, "Delta X");
-   entries[SHOW_DELTA_Y]  = show_entry (hbox, "Delta Y");
+   entries[SHOW_DELTA_X] = show_entry (hbox, "Delta X");
+   entries[SHOW_DELTA_Y] = show_entry (hbox, "Delta Y");
 
-   box = gtk_databox_new ();
-   entries[SHOW_BOX]  = box;
+   /* Create a GtkDatabox widget along with scrollbars and rulers */
+   gtk_databox_create_box_with_scrollbars_and_rulers (&box, &table,
+						      TRUE, TRUE, TRUE, TRUE);
+   //TODO see howto change aspect of the GtkDatabox widget
+   
+   
+   gtk_box_pack_start (GTK_BOX (box1), table, TRUE, TRUE, 0);
 
-   /*setting the background color*/
-   gtk_databox_set_background_color (GTK_DATABOX (box), bg_color);
+   entries[SHOW_BOX] = box;
 
-   index = gtk_databox_data_add (GTK_DATABOX (box), num_points,
-				 X, Y, color, type, size);
-//   /*setting the grid*/
-//   index = gtk_databox_data_add (GTK_DATABOX (box), POINTS,
-//                                 X, Y, grid_color, GTK_DATABOX_GRID, 2);
-//   gtk_databox_grid_set_config (GTK_DATABOX (box), index, 0, 5);
+// X and Y are the two vectors to display   
+//    X = g_new0 (gfloat, POINTS);
+//    Y = g_new0 (gfloat, POINTS);
+// 
+//    for (i = 0; i < POINTS; i++)
+//    {
+//       X[i] = i+100.;
+//       Y[i] = 100. * sin (i * 2 * G_PI / POINTS);
+//    }
+//    color.red = 0;
+//    color.green = 65535;
+//    color.blue = 0;
+   if (type==TESEO_DATABOX_LINES){
+   graph = gtk_databox_lines_new (num_points, X, Y, &color, size);
+   gtk_databox_graph_add (GTK_DATABOX (box), graph);
+   }
+   if (type==TESEO_DATABOX_BARS){
+   //graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
+   graph = gtk_databox_bars_new	( num_points, X, Y, &color, size );
+   gtk_databox_graph_add (GTK_DATABOX (box), graph);
+   }
+   
+   
+// 
+//    Y = g_new0 (gfloat, POINTS);
+// 
+//    for (i = 0; i < POINTS; i++)
+//    {
+//       Y[i] = 100. * cos (i * 2 * G_PI / POINTS);
+//    }
+//    color.red = 65535;
+//    color.green = 0;
+//    color.blue = 0;
+// 
+//    graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
+//   gtk_databox_graph_add (GTK_DATABOX (box), graph);
 
-   /*setting the axis*/
-   index = gtk_databox_data_add (GTK_DATABOX (box), num_points,
-                                X, Y, axis_color,
-                                 GTK_DATABOX_CROSS_SIMPLE, 1);
-
-
- /*setting the axis labels*/
-   AxisLabels = g_new0 (GtkDataboxText, 2);
-   setT (&AxisLabels[0], box, GTK_DATABOX_TEXT_E, labelX, FALSE);
-   setT (&AxisLabels[1], box, GTK_DATABOX_TEXT_N, labelY, FALSE);
-   Xlab = g_new0 (gfloat, 2);
-   Ylab = g_new0 (gfloat, 2);
-
-   /*Position of labels*/
-   Xlab [0] = +10.; Ylab [0] = - 5.;
-   Xlab [1] = -12.; Ylab [1] = + 25.;
-   index = gtk_databox_data_add (GTK_DATABOX (box), 2,
-                         Xlab, Ylab, color, GTK_DATABOX_TEXT, 5);
-
-   gtk_databox_text_set_texts (GTK_DATABOX (box), index, AxisLabels, 2);
-
-   gtk_databox_rescale (GTK_DATABOX (box));
-
-   gtk_box_pack_start (GTK_BOX (box1), box, TRUE, TRUE, 0);
+   gtk_databox_auto_rescale (GTK_DATABOX (box), 0.00);
 
    separator = gtk_hseparator_new ();
    gtk_box_pack_start (GTK_BOX (box1), separator, FALSE, TRUE, 0);
@@ -498,44 +454,43 @@ void setT (GtkDataboxText *text, GtkWidget *box,
    box2 = gtk_vbox_new (FALSE, 10);
    gtk_container_set_border_width (GTK_CONTAINER (box2), 10);
    gtk_box_pack_end (GTK_BOX (box1), box2, FALSE, TRUE, 0);
+   if(showbutton){   
+//   close_button = gtk_button_new_with_label ("close");
+// Change label to the button   
+    close_button = gtk_button_new_with_label ("Choose");
+//     g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+// 			      G_CALLBACK (gtk_main_quit), G_OBJECT (box));
 
-   if(showbutton){
-	close_button = gtk_button_new_with_label ("Choose");
-	g_signal_connect (GTK_OBJECT (close_button), "clicked",
-				GTK_SIGNAL_FUNC (handle_signal_clicked),
-				GTK_OBJECT (   entries[SHOW_MARKED_X] ));
+    g_signal_connect (GTK_OBJECT (close_button), "clicked",
+			    GTK_SIGNAL_FUNC (handle_signal_clicked),
+			    GTK_OBJECT (   entries[SHOW_MARKED_X] ));
+    
+    
+    gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default(close_button, GTK_CAN_DEFAULT);
+    gtk_widget_grab_default (close_button);
 
-	/*g_signal_connect_swapped (GTK_OBJECT (close_button), "clicked",
-				GTK_SIGNAL_FUNC (gtk_true),
-				GTK_OBJECT (box));
-	*/
-	gtk_box_pack_start (GTK_BOX (box2), close_button, TRUE, TRUE, 0);
-	GTK_WIDGET_SET_FLAGS (close_button, GTK_CAN_DEFAULT);
-	gtk_widget_grab_default (close_button);
    }
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_zoomed",
-		     GTK_SIGNAL_FUNC (handle_signal_zoomed),
-                     NULL);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_stopped",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_stopped),
-                     NULL);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_cancelled",
-		     GTK_SIGNAL_FUNC (handle_signal_selection_cancelled),
-		     NULL);
-   g_signal_connect (GTK_OBJECT (GTK_DATABOX (box)->draw),
-                     "motion_notify_event",
-                     GTK_SIGNAL_FUNC (show_motion_notify_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_marked",
-                     GTK_SIGNAL_FUNC (show_marked_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_started",
-                     GTK_SIGNAL_FUNC (show_marked_cb),
-                     entries);
-   g_signal_connect (GTK_OBJECT (box), "gtk_databox_selection_changed",
-                            GTK_SIGNAL_FUNC (show_changed_cb),
-                            entries);
-  return window;
-   //gtk_widget_show_all (window);
+   g_signal_connect (G_OBJECT (box), "zoomed",
+		     G_CALLBACK (handle_signal_zoomed), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-started",
+		     G_CALLBACK (handle_signal_selection_started), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-finalized",
+		     G_CALLBACK (handle_signal_selection_finalized), NULL);
+   g_signal_connect (G_OBJECT (box), "selection-canceled",
+		     G_CALLBACK (handle_signal_selection_canceled), NULL);
+   g_signal_connect_swapped (G_OBJECT (box),
+			     "motion_notify_event",
+			     G_CALLBACK (show_motion_notify_cb), entries);
+   g_signal_connect (G_OBJECT (box), "button_press_event",
+		     G_CALLBACK (show_button_press_cb), entries);
+   g_signal_connect (G_OBJECT (box), "selection-changed",
+		     G_CALLBACK (show_changed_cb), entries);
+
+//Pass to caller    
+//   gtk_widget_show_all (window);
+   return window;
 }
+
+
 
