@@ -55,14 +55,13 @@
 #include "teseo_timemark.h"
 #include "teseo_filters.h"
 #include "teseo_wiechert.h"
-
-#ifdef GTKDATABOX_OLD0401
+#include <gtk/gtk.h>
 #include <gtkdatabox.h>
+#include <gtkdatabox_bars.h>
 #include <gtkdatabox_lines.h>
+#include <math.h>
+#include <gtkdatabox_points.h>
 #include "teseo_databox.h"
-#else
-const char gtkdatabox_message[] = "Graphical display has been removed since gtkdatabox-0.4.0.1 is no longer compatible with the current version of GTK.";
-#endif
 
 GtkWidget * win_teseo;
 GtkWidget * dlg_preferences;
@@ -1900,7 +1899,6 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
 
-#ifdef GTKDATABOX_OLD0401
 	gboolean use_span=TRUE;
 	gboolean use_coord=FALSE;
 	gboolean rotate=TRUE;
@@ -2051,9 +2049,10 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
                 color.blue = 1050;
 		GtkWidget * databox_plot=
 			teseo_create_databox (
-			N_TRIES, X, Y, color, GTK_DATABOX_LINES, 1,
+			N_TRIES, X, Y, color, TESEO_DATABOX_LINES, 1,
 			"Teseo: arm shift", "Errors versus arm shift", "Arm shift [mm]", "Errors [counts]",
 			TRUE );
+			
 		gtk_widget_show_all(databox_plot);
 		gtk_main();
 		//waiting events
@@ -2066,9 +2065,6 @@ on_teseo_calc_arm_shift_clicked        (GtkButton       *button,
 		g_message("Current path is not a polyline, nothing to do");
 	}
 
-#else
-    g_message(gtkdatabox_message);
-#endif
 
 }
 
@@ -2079,7 +2075,6 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
 
-#ifdef GTKDATABOX_OLD0401
 	gboolean use_span=TRUE;
 	gboolean use_coord=FALSE;
 	gboolean rotate=TRUE;
@@ -2199,7 +2194,8 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
                 color.green = 1035;
                 color.blue = 1050;
 
-		GtkWidget * databox_plot=teseo_create_databox (180, X, Y, color, GTK_DATABOX_BARS, 1, "Teseo: histogram", msg, "Slope [deg]", "Counts",FALSE);
+		GtkWidget * databox_plot=teseo_create_databox (180, X, Y, color, TESEO_DATABOX_BARS, 1, "Teseo: histogram", msg, "Slope [deg]", "Counts",FALSE);
+		
 		gtk_widget_show_all(databox_plot);
 		gtk_main();
 		//waiting events
@@ -2212,10 +2208,6 @@ on_teseo_calc_arm_slope_clicked        (GtkButton       *button,
 	else{
 		g_message("Current path is not a polyline, nothing to do");
 	}
-
-#else
-    g_message(gtkdatabox_message);
-#endif
 
 }
 
