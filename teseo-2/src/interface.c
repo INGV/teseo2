@@ -88,7 +88,7 @@ dialog (gint32              image_ID,
 
   ui_state = ui_vals;
 
-  gimp_ui_init (PLUGIN_NAME, TRUE);
+  gimp_ui_init (PACKAGE_NAME, TRUE);
 
   /*
   dlg = gimp_dialog_new (_("teseo-2 Plug-In"), PLUGIN_NAME,

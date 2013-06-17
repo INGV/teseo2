@@ -2,21 +2,25 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.54)
 
+AC_CONFIG_MACRO_DIR([m4])
+
 dnl Name your plug-in here
-m4_define([plugin_name], [gimp-plugin-template])
+m4_define([plugin_name], [teseo-2])
 
 dnl These three define the plug-in version number
 m4_define([plugin_major_version], [2])
-m4_define([plugin_minor_version], [2])
+m4_define([plugin_minor_version], [1])
 m4_define([plugin_micro_version], [0])
 
 m4_define([plugin_version],
           [plugin_major_version.plugin_minor_version.plugin_micro_version])
 
-AC_INIT([plugin_name], [plugin_version])
+m4_define([bug_report_address], [matteo.quintiliani@ingv.it])
 
-AC_DEFINE(PLUGIN_NAME, PACKAGE_NAME, [Plug-In name])
-AC_DEFINE(PLUGIN_VERSION, PACKAGE_VERSION, [Plug-In version])
+AC_INIT([plugin_name], [plugin_version], [bug_report_address])
+
+AC_DEFINE(PLUGIN_NAME, plugin_name, [Plug-In name])
+AC_DEFINE(PLUGIN_VERSION, plugin_version, [Plug-In version])
 
 AC_DEFINE(PLUGIN_MAJOR_VERSION, plugin_major_version, [Plug-In major version])
 AC_DEFINE(PLUGIN_MINOR_VERSION, plugin_minor_version, [Plug-In minor version])
@@ -25,13 +29,12 @@ AC_DEFINE(PLUGIN_MICRO_VERSION, plugin_micro_version, [Plug-In micro version])
 AC_CONFIG_SRCDIR([src/main.c])
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(no-define)
+AM_INIT_AUTOMAKE([plugin_name], [version])
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
-
 
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 
@@ -105,8 +108,10 @@ AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_FUNCS(bind_textdomain_codeset)
 
-LOCALEDIR='${datadir}/locale'
-DATADIR='${datadir}/plugin_name'
+# TODO datadir should be required
+
+LOCALEDIR="${datadir}/locale"
+DATADIR="${datadir}/plugin_name"
 
 AC_SUBST(LOCALEDIR)
 AC_SUBST(DATADIR)
@@ -138,8 +143,6 @@ if test "x$have_gimp_2_3" != "xyes"; then
 fi
 
 
-
-
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
@@ -150,3 +153,9 @@ help/images/Makefile
 ])
 
 AC_OUTPUT
+
+
+# AC_MSG_NOTICE([
+	       # datadir: $datadir
+	       # datadir: $DATADIR
+	       # ])

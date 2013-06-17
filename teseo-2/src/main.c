@@ -125,7 +125,7 @@ query (void)
     { GIMP_PDB_DRAWABLE, "drawable",   "Input drawable"                  }//,
   };
 
-  gimp_plugin_domain_register (PLUGIN_NAME, LOCALEDIR);
+  gimp_plugin_domain_register (PACKAGE_NAME, LOCALEDIR);
 
   help_path = g_build_filename (gimp_data_directory (), PACKAGE, "help", NULL);
   // g_printf("Debug : run time help_path %s\n",help_path);

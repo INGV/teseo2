@@ -1,5 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
+# mtheo
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = po src help
 
 EXTRA_DIST = \
