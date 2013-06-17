@@ -3,5 +3,5 @@
 # glibtoolize --force --copy && autoheader && aclocal && autoconf && automake -a -c
 # glibtoolize --copy && intltoolize --force && autoheader && aclocal && autoconf && automake -a
 
-intltoolize --force && autoheader && aclocal && autoconf && automake -a
+aclocal && intltoolize --force && autoheader && autoconf && automake -a
 
