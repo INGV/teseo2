@@ -50,13 +50,14 @@ handle_signal_zoomed (GtkDatabox * box)
    gfloat left, right, top, bottom;
 
    gtk_databox_get_visible_limits (box, &left, &right, &top, &bottom);
-//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
-//    printf ("It tells you that the GtkDatabox has zoomed to the following\n");
-//    printf
-//       ("rectangle (data coordindates only, pixels don't make sense here):\n");
-//    printf ("top_left (X,Y)=(%g, %g), bottom_right (X,Y)=(%g, %g)\n",
-// 	   left, top, right, bottom);
-
+/*   
+   printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+   printf ("It tells you that the GtkDatabox has zoomed to the following\n");
+   printf
+      ("rectangle (data coordindates only, pixels don't make sense here):\n");
+   printf ("top_left (X,Y)=(%g, %g), bottom_right (X,Y)=(%g, %g)\n",
+	   left, top, right, bottom);
+*/
    return 0;
 }
 
@@ -65,31 +66,34 @@ handle_signal_selection_finalized (GtkDatabox * box,
 				 GtkDataboxValueRectangle * selectionValues
 				 /*, void *unused */ )
 {
-//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
-//    printf ("It tells you that the user has stopped changing the selection\n");
-//    printf ("box, i.e. the mouse button is released now.\n");
-//    printf ("Data: corner1 (X,Y)=(%g, %g), corner2 (X,Y)=(%g, %g)\n",
-// 	   selectionValues->x1, selectionValues->y1, selectionValues->x2,
-// 	   selectionValues->y2);
-
+/*  
+   printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+   printf ("It tells you that the user has stopped changing the selection\n");
+   printf ("box, i.e. the mouse button is released now.\n");
+   printf ("Data: corner1 (X,Y)=(%g, %g), corner2 (X,Y)=(%g, %g)\n",
+	   selectionValues->x1, selectionValues->y1, selectionValues->x2,
+	   selectionValues->y2);
+*/
    return 0;
 }
 
 static gint
 handle_signal_selection_started (GtkDatabox * box /*, void *unused */ )
 {
-//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
-//    printf ("It tells you that the user has started a the selection box\n");
-
+/*  
+   printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+   printf ("It tells you that the user has started a the selection box\n");
+*/
    return 0;
 }
 
 static gint
 handle_signal_selection_canceled (GtkDatabox * box /*, void *unused */ )
 {
-//    printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
-//    printf ("It tells you that the user has dismissed the selection box\n");
-
+/*  
+   printf ("Name of the signal: %s\n", get_name_of_current_signal (box));
+   printf ("It tells you that the user has dismissed the selection box\n");
+*/
    return 0;
 }
 
@@ -97,15 +101,15 @@ handle_signal_selection_canceled (GtkDatabox * box /*, void *unused */ )
 static gint
 handle_signal_clicked (GtkDatabox * box, GtkWidget *entry)
 {
+/*
+   printf ("The button was clicked\n");
+   printf ("Get the values if want %s\n" ,gtk_entry_get_text(GTK_ENTRY(entry)));
 
-//    printf ("The button was clicked\n");
-   //printf ("Get the values if want %s\n" ,gtk_entry_get_text(GTK_ENTRY(entry)));
-
-   //gchar NUMSTRING[20];
-   
+   gchar NUMSTRING[20];
+*/   
    gchar * NUMSTRING= g_strdup (gtk_entry_get_text(GTK_ENTRY(entry)));
    gdouble num = g_strtod(NUMSTRING,NULL);
-//    printf ("Get the values if want %s = %f\n", NUMSTRING, num );
+/*    printf ("Get the values if want %s = %f\n", NUMSTRING, num );*/
 
    gtk_spin_button_set_value (teseo_spbtn_arm_shift,num );
 
@@ -346,12 +350,7 @@ create_signals (void)
    GtkWidget *table;
    GtkWidget *label;
    GtkWidget *separator;
-// Now they are passed as parameters
-//   gfloat *X;
-//   gfloat *Y;
    GtkDataboxGraph *graph;
-// Now they are passed as parameters   
-//   GdkColor color;
    gint i;
    GtkWidget **entries;
    GtkWidget *hbox;
@@ -361,26 +360,24 @@ create_signals (void)
    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
    gtk_widget_set_size_request (window, 500, 500);
 
-//    g_signal_connect (G_OBJECT (window), "destroy",
-// 		     G_CALLBACK (gtk_main_quit), NULL);
-// Don't kill gimp please
+/* Don't kill gimp please */   
+/*   
+    g_signal_connect (G_OBJECT (window), "destroy",
+ 		     G_CALLBACK (gtk_main_quit), NULL);
+ */ 		     
+
    g_signal_connect (GTK_OBJECT (window), "destroy",
 		     GTK_SIGNAL_FUNC (gtk_true), NULL);
    
 
-//   gtk_window_set_title (GTK_WINDOW (window), "GtkDatabox: Signals Examples");
-// chenge title it si no more an example   
    gtk_window_set_title (GTK_WINDOW (window), (title == NULL)? "" : title);
    gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-// now is modal do not come back to teseo other than closing
+
    gtk_window_set_modal(GTK_WINDOW(window),TRUE);
    
    box1 = gtk_vbox_new (FALSE, 0);
    gtk_container_add (GTK_CONTAINER (window), box1);
 
-//    label =
-//       gtk_label_new
-//       ("The output on the shell and in the text boxes below\nshow you the information that you can get\n by using signals.\n\nSee basics for a usage of this window...");
    //Set label from parameter description
    label =
       gtk_label_new((description == NULL)? "" : description);
@@ -402,25 +399,14 @@ create_signals (void)
    /* Create a GtkDatabox widget along with scrollbars and rulers */
    gtk_databox_create_box_with_scrollbars_and_rulers (&box, &table,
 						      TRUE, TRUE, TRUE, TRUE);
-   //TODO see howto change aspect of the GtkDatabox widget
+   /*TODO see howto change aspect of the GtkDatabox widget*/
    
    
    gtk_box_pack_start (GTK_BOX (box1), table, TRUE, TRUE, 0);
 
    entries[SHOW_BOX] = box;
 
-// X and Y are the two vectors to display   
-//    X = g_new0 (gfloat, POINTS);
-//    Y = g_new0 (gfloat, POINTS);
-// 
-//    for (i = 0; i < POINTS; i++)
-//    {
-//       X[i] = i+100.;
-//       Y[i] = 100. * sin (i * 2 * G_PI / POINTS);
-//    }
-//    color.red = 0;
-//    color.green = 65535;
-//    color.blue = 0;
+   
    if (type==TESEO_DATABOX_LINES){
    graph = gtk_databox_lines_new (num_points, X, Y, &color, size);
    gtk_databox_graph_add (GTK_DATABOX (box), graph);
@@ -432,20 +418,6 @@ create_signals (void)
    }
    
    
-// 
-//    Y = g_new0 (gfloat, POINTS);
-// 
-//    for (i = 0; i < POINTS; i++)
-//    {
-//       Y[i] = 100. * cos (i * 2 * G_PI / POINTS);
-//    }
-//    color.red = 65535;
-//    color.green = 0;
-//    color.blue = 0;
-// 
-//    graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
-//   gtk_databox_graph_add (GTK_DATABOX (box), graph);
-
    gtk_databox_auto_rescale (GTK_DATABOX (box), 0.00);
 
    separator = gtk_hseparator_new ();
@@ -455,12 +427,11 @@ create_signals (void)
    gtk_container_set_border_width (GTK_CONTAINER (box2), 10);
    gtk_box_pack_end (GTK_BOX (box1), box2, FALSE, TRUE, 0);
    if(showbutton){   
-//   close_button = gtk_button_new_with_label ("close");
-// Change label to the button   
     close_button = gtk_button_new_with_label ("Choose");
-//     g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
-// 			      G_CALLBACK (gtk_main_quit), G_OBJECT (box));
-
+/*
+    g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+			      G_CALLBACK (gtk_main_quit), G_OBJECT (box));
+*/
     g_signal_connect (GTK_OBJECT (close_button), "clicked",
 			    GTK_SIGNAL_FUNC (handle_signal_clicked),
 			    GTK_OBJECT (   entries[SHOW_MARKED_X] ));
@@ -487,8 +458,6 @@ create_signals (void)
    g_signal_connect (G_OBJECT (box), "selection-changed",
 		     G_CALLBACK (show_changed_cb), entries);
 
-//Pass to caller    
-//   gtk_widget_show_all (window);
    return window;
 }
 
