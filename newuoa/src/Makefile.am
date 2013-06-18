@@ -4,8 +4,6 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-INCLUDES =
-
 AM_CFLAGS =\
 	 -Wall\
 	 -g

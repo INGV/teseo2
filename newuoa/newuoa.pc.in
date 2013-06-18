@@ -8,5 +8,5 @@ Name: newuoa
 Description:A library created from  M.J.D. Powell (mjdp@cam.ac.uk) newuoa code
 Version: @VERSION@
 Requires:
-Libs: -L${libdir} -lnewuoa -lg2c
+Libs: -L${libdir} -lnewuoa @FLIBS@
 Cflags: -I${includedir}/newuoa

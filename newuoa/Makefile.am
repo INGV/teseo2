@@ -3,6 +3,9 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
+# mtheo
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = src
 
 libnewuoadocdir = ${prefix}/doc/newuoa
