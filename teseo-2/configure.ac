@@ -26,15 +26,36 @@ AC_DEFINE(PLUGIN_MAJOR_VERSION, plugin_major_version, [Plug-In major version])
 AC_DEFINE(PLUGIN_MINOR_VERSION, plugin_minor_version, [Plug-In minor version])
 AC_DEFINE(PLUGIN_MICRO_VERSION, plugin_micro_version, [Plug-In micro version])
 
-AC_CONFIG_SRCDIR([src/main.c])
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE([plugin_name], [version])
+AM_INIT_AUTOMAKE
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_AWK
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
+# Checks for header files.
+AC_CHECK_HEADERS([libintl.h locale.h malloc.h stddef.h stdlib.h string.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([floor memchr memset mkdir setlocale sqrt strpbrk strstr strtol bind_textdomain_codeset])
+
 
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 
@@ -105,8 +126,6 @@ ALL_LINGUAS="az de fr sk sv zh_TW"
 
 AC_PROG_INTLTOOL
 AM_GLIB_GNU_GETTEXT
-
-AC_CHECK_FUNCS(bind_textdomain_codeset)
 
 # TODO datadir should be required
 
