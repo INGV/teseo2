@@ -408,13 +408,13 @@ create_signals (void)
 
    
    if (type==TESEO_DATABOX_LINES){
-   graph = gtk_databox_lines_new (num_points, X, Y, &color, size);
-   gtk_databox_graph_add (GTK_DATABOX (box), graph);
+     graph = gtk_databox_lines_new (num_points, X, Y, &color, size);
+     gtk_databox_graph_add (GTK_DATABOX (box), graph);
    }
    if (type==TESEO_DATABOX_BARS){
-   //graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);
-   graph = gtk_databox_bars_new	( num_points, X, Y, &color, size );
-   gtk_databox_graph_add (GTK_DATABOX (box), graph);
+     /*graph = gtk_databox_points_new (POINTS, X, Y, &color, 1);*/
+     graph = gtk_databox_bars_new	( num_points, X, Y, &color, size );
+     gtk_databox_graph_add (GTK_DATABOX (box), graph);
    }
    
    
