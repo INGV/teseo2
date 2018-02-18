@@ -17,13 +17,10 @@ In order to keep track of the stages and parameters of a seismogram vectorizatio
 
 Teseo2 is developed following the "Open-Source" philosophy and it is freely distributed under GPL license. It is cross-platform and the sources, the binaries for Linux, Windows and Mac OS X, are periodically updated on the Sismos web site.
 
-Official Website: [http://teseo.rm.ingv.it/](http://teseo.rm.ingv.it/)
-
-Developer e-mail: teseo [at] ingv.it
-
-User mailing-list: teseo-user [at] yahoogroups.com
-
-ML archive: http://groups.yahoo.com/group/teseo-user/ 
+- Website: [http://teseo.rm.ingv.it/](http://teseo.rm.ingv.it/)
+- Developer e-mail: *teseo [at] ingv.it*
+- User mailing list: *teseo-user [at] yahoogroups.com*
+- Mailing list archive: http://groups.yahoo.com/group/teseo-user/ 
 
 ### Authors
 
