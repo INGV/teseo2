@@ -39,4 +39,6 @@ Michelini, A. and the Sismos Team (2005). *Collection, digitization and distribu
 
 Pintore S., Quintiliani M., Franceschi D. (2005) *Teseo: a vectoriser of historical seismograms.* Computers & Geosciences, Volume 31, Issue 10, 2005, Pages 1277-1285, ISSN 0098-3004, [http://dx.doi.org/10.1016/j.cageo.2005.04.001](http://dx.doi.org/10.1016/j.cageo.2005.04.001)
 
+Schlupp, Antoine & Cisternas, Armando. (2007). **Source history of the 1905 great Mongolian earthquakes (Tsetserleg, Bolnay).** Geophysical Journal International. 169. 1115 - 1131. 10.1111/j.1365-246X.2007.03323.x. 
+
 Cadek, O. (1987). *Studying earthquake ground motion in prague from wiechert seismograph records.* Gerl. Beitr. Geoph., 96:438-447.
