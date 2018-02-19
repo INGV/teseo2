@@ -24,12 +24,13 @@ Teseo2 is developed following the "Open-Source" philosophy and it is freely dist
 
 ### Build
 
-Pre-requisite:
+#### Requirements
 
-  - gimp-2.2.9 or newer.
-  - (Optional) Install gimp-help.
+  - gimp-2.2.9 or newer
 
-Quick installation:
+The configure scripts might fail asking you the dependency libraries you have to install or to specify into PKG\_CONFIG\_PATH.
+
+#### Quick installation
 
 ```
 $ tar xzvf teseo*.tar.gz
@@ -42,9 +43,7 @@ $ cd ../teseo-2
 $ ./configure && make && sudo make install
 ```
 
-NOTE: The configure script might fail asking you the dependency libraries you have to install or to specify into PKG\_CONFIG\_PATH.
-
-Details in file teseo-dist/teseo-2/INSTALL
+Details in file ./teseo-2/INSTALL
 
 ### Authors
 
