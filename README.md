@@ -22,6 +22,30 @@ Teseo2 is developed following the "Open-Source" philosophy and it is freely dist
 - User mailing list: *teseo-user [at] yahoogroups.com*
 - Mailing list archive: http://groups.yahoo.com/group/teseo-user/ 
 
+### Build
+
+Pre-requisite:
+
+  - gimp-2.2.9 or newer.
+  - (Optional) Install gimp-help.
+
+Quick installation:
+
+```
+$ tar xzvf teseo*.tar.gz
+$ cd teseo2/
+$ cd gtk-addons
+$ ./configure && make && sudo make install
+$ cd ../newuoa
+$ ./configure F77=<fortran-path> && make && sudo make install
+$ cd ../teseo-2
+$ ./configure && make && sudo make install
+```
+
+NOTE: The configure script might fail asking you the dependency libraries you have to install or to specify into PKG\_CONFIG\_PATH.
+
+Details in file teseo-dist/teseo-2/INSTALL
+
 ### Authors
 
 Stefano Pintore and Matteo Quintiliani.
