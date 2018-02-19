@@ -22,14 +22,13 @@ Basic Installation
 ==================
 
 These are basic installation instructions for Teseo-2 on WIN32 platforms.
-Teseo-2 is a gimp-2.2 plugin so you need gimp-2.2 to use it.
-To compile and link with gtkdatabox-0.4.0.1 declare -DGTKDATABOX_OLD0401 within CFLAGS
+Teseo-2 is a gimp-2.8 plugin so you need gimp-2.8.x to use it.
 
 
 Pre-requisite
 =============
 
-1 - Install gimp-2.2.9 or newer : files and instructions at http://gimp-win.sourceforge.net
+1 - Install gimp-2.8.x or maybe newer : files and instructions at https://www.gimp.org/downloads/
 
 2 - (Optional) Install gimp-help.
 
@@ -83,6 +82,68 @@ You have 2 possibilities to install teseo-2 on Mac Os X.
 ***************************************************
 *** SOURCE INSTALLATION
 ***************************************************
+
+
+Mac OS X Source Installation
+============================
+
+Here, are steps to follow for installing necessary dependencies, compile and install teseo on Mac OS X.
+
+- Install MacPorts package manager following the guide at https://www.macports.org/install.php
+
+- Install GIMP and gtk2 with the MacPorts from a terminal, executing the command:
+	$ port install gimp-app +no_x11 +quartz
+
+- Install gtkdatabox library package:
+	$ port install gtkdatabox
+
+- Install gcc48 (including gfortran) or a greater version:
+	$ port install gcc48
+
+- Create helpful symbolic links for gfortran:
+	$ sudo ln -s /opt/local/bin/gfortran-mp-4.8 /opt/local/bin/gfortran
+	$ sudo ln -s /opt/local/lib/libgcc/libgfortran.4.dylib /opt/local/lib/libgfortran.dylib
+
+- Unarchive teseo*tar.gz and enter the directory:
+	$ tar xzvf teseo*.tar.gz
+	$ cd teseo*/
+
+- Build and install gtk-addons:
+	$ cd gtk-addons
+	$ ./configure --prefix=/opt/local
+	$ make
+	$ sudo make install
+	$ cd ..
+
+- Build and install newuoa:
+	$ cd newuoa
+	$ ./configure --prefix=/opt/local F77=gfortran
+	$ make
+	$ sudo make install
+	$ cd ..
+
+- Build and install the teseo plug-in:
+	$ cd teseo-2
+	$ ./configure --prefix=/opt/local LDFLAGS="-L/opt/local/lib"
+	$ make && sudo make install
+	$ cd ..
+
+Linux Source Installation
+=========================
+
+If dependencies are properly installed it's rather straight forward.
+
+        $ tar xzvf teseo*.tar.gz
+        $ cd teseo*/
+        $ cd gtk-addons
+        $ ./configure && make && sudo make install
+	$ cd ../newuoa
+	$ ./configure && make && sudo make install
+	$ cd ../teseo-2
+	$ ./configure && make && sudo make install
+
+
+NOTE: The configure script might fail asking you the dependency libraries you have to install or to specify into PKG_CONFIG_PATH.
 
 Basic Installation
 ==================

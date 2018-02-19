@@ -92,33 +92,36 @@ void teseo_bezier_point_setPoints_points_pairs(struct teseo_bezier_point *tbp, g
     teseo_bezier_point_setPoints(tbp, Px, Py);
 }
 
-int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points_per_pixel, double **astrokes, double X_previous, gboolean sw_abscissa_ascendent) {
+int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, double points_per_pixel, double **astrokes, double X_previous, gboolean sw_abscissa_ascendent) {
     const int STROKES_MAX = 1024;
     int n_punti_strokes_max = STROKES_MAX;
     int n_punti_strokes;
     double *strokes;
-    int p, j, i, l;
+    int k, p, j, i, l;
     double X, Y;
     double X_old, Y_old;
     double X_expected;
     double X_expected_back;
     double err_X_forw, err_X_back;
+    double *Pxi = NULL, *Pyi = NULL;
+    // N.B: width_max è la distanza in pixel, fra i punti più lontani in x dei punti di bezier
+    // l'ho scritto male ma è più semplici di quanto possa sembrare
+    int width_max;
     double step;
     double t;
-    int ixmax, ixmin;
-    int iymax, iymin;
+    int imax, imin;
     double t_bef, t_aft, t_cur;
     gint iterations = 0;
-    gint max_iterations = 0;
+    double err_margin = 10.0;
     gdouble X_previous_ideal = X_previous;
 
-    double W, H;
-    double err_margin = 10.0;
-    const double precision = 1000.0;
-    const double step_precision = precision / err_margin;
-    double tolerable_err_points_per_pixel = points_per_pixel /  precision;
-    double points_per_pixel_step_precision = points_per_pixel / step_precision;
-    double perimeter = 0.0;
+    double precision = 1000.0;
+    
+    /* precision = 100.0 and points_per_pixel = 0.1; */
+    // double tolerable_err_points_per_pixel = points_per_pixel /  precision;
+    // int fract_pixel_precision = (int) (precision / points_per_pixel);
+    double tolerable_err_points_per_pixel = (1.0 / precision);
+    int fract_pixel_precision = (int) (precision / 1.0);
 
     strokes = (double *) g_malloc(sizeof(double) * ((n_punti_strokes_max+2) * 2));
     if(!strokes) {
@@ -127,45 +130,69 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
         return 0;
     }
 
+    // non devo aggiungere il primo punto ma utilizzare X_previous e Y_previous
+    // aggiungo il primo punto
     n_punti_strokes = 0;
+    /*
+    strokes[n_punti_strokes*2   ] = tbp->Px[0];
+    strokes[n_punti_strokes*2 +1] = tbp->Py[0];
+    n_punti_strokes++;
+    */
 
-    ixmin = 0; ixmax = 0;
-    iymin = 0; iymax = 0;
+    Pxi = (double *) g_malloc(tbp->n_punti * sizeof(double));
+    Pyi = (double *) g_malloc(tbp->n_punti * sizeof(double));
+
+    imin = 0;
+    imax = 0;
     for(l=0; l<tbp->n_punti; l++) {
-        if(tbp->Px[l] < tbp->Px[ixmin])
-            ixmin = l;
-        if(tbp->Px[l] > tbp->Px[ixmax])
-            ixmax = l;
-        if(tbp->Py[l] < tbp->Py[iymin])
-            iymin = l;
-        if(tbp->Py[l] > tbp->Py[iymax])
-            iymax = l;
+        if(tbp->Px[l] < tbp->Px[imin])
+            imin = l;
+        if(tbp->Px[l] > tbp->Px[imax])
+            imax = l;
     }
 
-    W = tbp->Px[ixmax] - tbp->Px[ixmin];
-    H = tbp->Py[iymax] - tbp->Py[iymin];
+    /* per ogni pixel ho un dettaglio massimo di 100 punti per pixel */
+    width_max = fract_pixel_precision * ((int) (tbp->Px[imax] - tbp->Px[imin]) + 1);
+    step =  1.0 / (double) width_max;
+    // t = step;
+    t = 0.0;
+    // printf("\nwidth_max = %d, step = %f\n", width_max, step);
 
-    /* uno su perimetro */
-    perimeter = 2.0 * ( W + H );
-    step = 1.0 / perimeter;
-    step = step * points_per_pixel_step_precision;
+    for (k=0; k < width_max; k++) {
 
-    g_printf("\nstep = %f; points_per_pixel = %f;  tolerable_err_points_per_pixel = %f; points_per_pixel_step_precision = %f; perimeter = %f;\n",
-	step, points_per_pixel, tolerable_err_points_per_pixel, points_per_pixel_step_precision, perimeter);
+        for(p=0; p<tbp->n_punti; p++) {
+            Pxi[p] = tbp->Px[p];
+            Pyi[p] = tbp->Py[p];
+        }
 
-    for (t=0.0; t <= 1.0; t+=step) {
+        // calcolo le coordinate X, Y a distanza t sulla curva
+        for (j=tbp->grado; j > 0; j--) {
+            for (i=0; i < j; i++) {
+                Pxi[i] = (1.0-t)*Pxi[i] + t*Pxi[i+1];
+                Pyi[i] = (1.0-t)*Pyi[i] + t*Pyi[i+1];
+            }
+        }
 
-	// calcolo le coordinate X, Y a distanza t sulla curva
-	teseo_bezier_point_get_xy_from_t(tbp, t, &X, &Y);
+	X = Pxi[0];
+	Y = Pyi[0];
+
+        // posso decidere di aggiungere le coordinate con diversi criteri
+        // old condition if(fabs(X - (strokes[(n_punti_strokes-1)*2])) == ((double) points_per_pixel)) 
+	// X_expected = ( X_previous  + ( ((double) (n_punti_strokes + 1) ) * points_per_pixel) );
 
 	X_expected = ( X_previous_ideal  +  points_per_pixel);
 	X_expected_back = ( X_previous_ideal  -  points_per_pixel);
 
 	if(
-		fabs(X - X_expected) < points_per_pixel_step_precision
+		fabs(X - X_expected) < (err_margin * tolerable_err_points_per_pixel)
 		||
-		( !sw_abscissa_ascendent && ( fabs(X_expected_back - X) < points_per_pixel_step_precision ) )
+		( !sw_abscissa_ascendent && (fabs(X_expected_back - X) < (err_margin * tolerable_err_points_per_pixel) ) )
 	  ) {
+
+	    err_X_forw = X - X_expected;
+	    err_X_back = X - X_expected_back;
+
+	    // g_printf("Added (%f, %f) xpctd: %f  err:%f  %d!\n", X, Y, X_expected, err_X_forw, n_punti_strokes);
 
 	    if(n_punti_strokes >= n_punti_strokes_max - 2) {
 		n_punti_strokes_max += STROKES_MAX;
@@ -180,38 +207,22 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 	    X_old = X;
 	    Y_old = Y;
 
-	    err_X_forw = X - X_expected;
-	    err_X_back = X - X_expected_back;
-
-	    // g_printf("Added (%f, %f) xpctd: %f  err:%f  %d!\n", X, Y, X_expected, err_X_forw, n_punti_strokes);
-
-	    /* check if they are almost really zero ;-) */
-	    if( fabs(err_X_forw) < 0.00000001  || fabs(err_X_back) < 0.00000001  ) {
-		  /* Does not improve ! */
-		    /* debugging */
-		    g_message("Not improve following point (%11.6f, %11.6f) eXf=%+10.6f eXb=%+10.6f\n",
-			     X, Y, err_X_forw, err_X_back);
-		    g_printf("Not improve following point (%11.6f, %11.6f) eXf=%+10.6f eXb=%+10.6f\n",
-			     X, Y, err_X_forw, err_X_back);
-	    } else {
-
 	    /* BEGIN improve X  */
 	    t_cur = t;
-	    t_bef = t_cur - (err_margin * step);
-	    t_aft = t_cur + (err_margin * step);
-	    iterations = 1;
-	    max_iterations = 100;
+	    t_bef = t_cur - ((err_margin * 0.75) * step);
+	    t_aft = t_cur + ((err_margin * 0.75) * step);
+	    iterations = 0;
 	    while(
 		    (
 		    fabs(X - X_expected) > tolerable_err_points_per_pixel 
 		    ||
 		    ( !sw_abscissa_ascendent && fabs(X_expected_back - X) > tolerable_err_points_per_pixel )
 		    )
-		    &&  iterations <= max_iterations) {
+		    &&  iterations < 5) {
 
 		iterations++;
 
-		if( sw_abscissa_ascendent  ||  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
+		if( sw_abscissa_ascendent  &&  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
 		    if(X < X_expected) {
 			t_bef = t_cur;
 		    } else {
@@ -228,8 +239,21 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 		    t_cur = t_aft + ((t_bef - t_aft) / 2.0);
 		}
 
+		for(p=0; p<tbp->n_punti; p++) {
+		    Pxi[p] = tbp->Px[p];
+		    Pyi[p] = tbp->Py[p];
+		}
+
 		// calcolo le coordinate X, Y a distanza t_cur sulla curva
-		teseo_bezier_point_get_xy_from_t(tbp, t_cur, &X, &Y);
+		for (j=tbp->grado; j > 0; j--) {
+		    for (i=0; i < j; i++) {
+			Pxi[i] = (1.0-t_cur)*Pxi[i] + t_cur*Pxi[i+1];
+			Pyi[i] = (1.0-t_cur)*Pyi[i] + t_cur*Pyi[i+1];
+		    }
+		}
+
+		X = Pxi[0];
+		Y = Pyi[0];
 
 		/* debugging */
 		/*
@@ -238,16 +262,8 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 			*/
 	    }
 
-	    if(iterations >= max_iterations) {
-	      g_printf("iterations >= max_iterations (%d)\n", max_iterations);
-	    } else {
-	      g_printf("iterations (%d)\n", iterations);
-	    }
-
 	    if( sw_abscissa_ascendent  ||  ( fabs(X - X_expected) < fabs(X_expected_back - X) ) ) {
-		/* check if it has been able to improve X approsimation */
 		if(fabs(err_X_forw) <  fabs(X-X_expected)) {
-		    /* debugging */
 		    g_message("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
 			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
 		    g_printf("RBf (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
@@ -257,9 +273,7 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 		    Y = Y_old;
 		}
 	    } else {
-		/* check if it has been able to improve X approsimation */
 		if(fabs(err_X_back) < fabs(X-X_expected_back)) {
-		    /* debugging */
 		    g_message("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
 			    X_old, Y_old, X, Y, err_X_forw, X-X_expected, err_X_back, X-X_expected_back);
 		    g_printf("RBb (%11.6f, %11.6f) (%11.6f, %11.6f) eXf=%+10.6f eXff=%+10.6f eXb=%+10.6f eXfb=%+10.6f\n",
@@ -277,8 +291,6 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 		    */
 	    /* END improve X  */
 
-	    }
-
 	    X_previous = X;
 	    strokes[n_punti_strokes*2     ] = X;
 	    strokes[(n_punti_strokes*2) +1] = Y;
@@ -293,6 +305,9 @@ int teseo_bezier_point_getStrokes(struct teseo_bezier_point *tbp, gdouble points
 
 	t += step;
     }
+
+    g_free(Pxi);
+    g_free(Pyi);
 
     strokes = (double *) g_realloc((void *) strokes, (sizeof(double) * ((n_punti_strokes+2) * 2)));
     if(!(strokes)) {
@@ -421,14 +436,11 @@ int teseo_bezier_point_split_points_pairs(const gdouble *points_pairs, gdouble *
 }
 
 void teseo_bezier_point_get_xy_from_t(struct teseo_bezier_point *tbp, gdouble t, gdouble *x, gdouble *y) {
-#define MAX_BEZ_N_PUNTI 512
     gint j, i, p;
-    gdouble Pxi[MAX_BEZ_N_PUNTI], Pyi[MAX_BEZ_N_PUNTI];
+    gdouble *Pxi = NULL, *Pyi = NULL;
     
-    if(tbp->n_punti > MAX_BEZ_N_PUNTI) {
-      g_message("Error in teseo_bezier_point_get_xy_from_t.");
-      return ;
-    }
+    Pxi = (gdouble *) g_malloc(tbp->n_punti * sizeof(gdouble));
+    Pyi = (gdouble *) g_malloc(tbp->n_punti * sizeof(gdouble));
 
     for(p=0; p<tbp->n_punti; p++) {
         Pxi[p] = tbp->Px[p];
@@ -447,6 +459,9 @@ void teseo_bezier_point_get_xy_from_t(struct teseo_bezier_point *tbp, gdouble t,
     *y = Pyi[0];
 
     // g_printf("teseo_bezier_point_get_xy_from_t() t %f, x %f, y %f\n", t, *x, *y);
+
+    g_free(Pxi);
+    g_free(Pyi);
 }
 
 gboolean teseo_bezier_point_get_t_from_x(struct teseo_bezier_point *tbp, gdouble x, gdouble *t) {
