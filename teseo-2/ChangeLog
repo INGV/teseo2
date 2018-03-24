@@ -1,3 +1,9 @@
+2017-09	h2d <h2d-teseo@programmer.net>
+
+	* Updated to make it work with newer versions of Gimp (2.8.x) 
+	and gtkdatabox (0.9.1.1 and further, tested against 0.9.2.0
+	version on Linux and 0.9.1.1 on Mac OS X).
+
 2006-12-04 17:32  Stefano Pintore  <pintore@ingv.it>
 
 	* src/: teseo_sac.c (1.6), teseo_sac.h (1.5), teseocallbacks.c

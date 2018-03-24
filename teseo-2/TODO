@@ -1,6 +1,11 @@
 This is your plugin's TODO list.
 
-Thu Aug  4 17:16:58 CEST 2005
+Wed Sep  6 10:06:04 CEST 2017
+- configure.in/ac: enable again gtk and glib deprecated symbol forbidding 
+	* After getting rid of deprecated symbols: g_memmove() to be replaced by memmove() for glib and other symbols to be replaced for gtk...). 
+	* To enable forbidding, symbols GTK_DISABLE_DEPRECATED and G_DISABLE_DEPRECATED must be defined (see comments in configure.in/ac).
+
+Th Aug  4 17:16:58 CEST 2005
 - Improve management of the lock mechanism:
 	* when the program crash and does not remove the file lock
 	* when quit gimp and the plug-in has not been closed before

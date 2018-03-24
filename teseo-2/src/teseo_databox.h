@@ -29,9 +29,6 @@
 #define __TESEO_DATABOX_H__ 1
 
 
-
-enum { TESEO_DATABOX_LINES, TESEO_DATABOX_BARS};
-
 void create_signals (void);
 
 /*!

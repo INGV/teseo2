@@ -2124,6 +2124,7 @@ create_dlg_about (void)
   GtkWidget *label216;
   GtkWidget *label_authors;
   GtkWidget *label_institution;
+  GtkWidget *label_h2d;
   GtkWidget *dialog_action_area7;
   GtkWidget *okbutton4;
 
@@ -2194,6 +2195,12 @@ create_dlg_about (void)
   gtk_box_pack_start (GTK_BOX (vbox63), label_institution, FALSE, FALSE, 0);
   gtk_label_set_use_markup (GTK_LABEL (label_institution), TRUE);
   gtk_label_set_justify (GTK_LABEL (label_institution), GTK_JUSTIFY_CENTER);
+
+  label_h2d = gtk_label_new("<small>Teseo 2.2.0 (2017) based on Teseo 2.1.0 and\nreleased by h2d at https://github.com/teseo-h2d/teseo.</small>");
+  gtk_widget_show(label_h2d);
+  gtk_box_pack_start (GTK_BOX (vbox63), label_h2d, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label_h2d), TRUE);
+  gtk_label_set_justify (GTK_LABEL (label_h2d), GTK_JUSTIFY_CENTER);
 
   dialog_action_area7 = GTK_DIALOG (dlg_about)->action_area;
   gtk_widget_set_name (dialog_action_area7, "dialog_action_area7");
@@ -2292,7 +2299,7 @@ create_dlg_session (void)
   GtkWidget *label183;
   GtkWidget *frame67;
   GtkWidget *alignment19;
-  GtkWidget *imageresolution_entry;
+  GtkWidget *teseo_imageresolution_entry;
   GtkWidget *label184;
   GtkWidget *recordinfo;
   GtkWidget *vbox68;
@@ -2379,10 +2386,12 @@ create_dlg_session (void)
   GtkWidget *frame48;
   GtkWidget *alignment28;
   GtkWidget *vbox61;
-  GtkWidget *table32;
+  GtkWidget *hbox75;
   GtkWidget *label323;
+  GtkObject *teseo_freq_spinbutton_adj;
+  GtkWidget *teseo_freq_spinbutton;
   GtkWidget *label324;
-  GtkWidget *teseo_entry_frequency;
+  GtkWidget *label152;
   GtkObject *teseo_step_spinbutton_adj;
   GtkWidget *teseo_step_spinbutton;
   GtkWidget *teseo_abscissa_asc_checkbutton;
@@ -2407,9 +2416,6 @@ create_dlg_session (void)
   GtkWidget *dialog_action_area8;
   GtkWidget *cancelbutton4;
   GtkWidget *okbutton5;
-  GtkTooltips *tooltips;
-
-  tooltips = gtk_tooltips_new ();
 
   dlg_session = gtk_dialog_new ();
   gtk_widget_set_name (dlg_session, "dlg_session");
@@ -2725,7 +2731,6 @@ create_dlg_session (void)
   gtk_widget_set_name (teseo_paper_speed_spinbutton, "teseo_paper_speed_spinbutton");
   gtk_widget_show (teseo_paper_speed_spinbutton);
   gtk_box_pack_start (GTK_BOX (hbox43), teseo_paper_speed_spinbutton, FALSE, FALSE, 0);
-  gtk_tooltips_set_tip (tooltips, teseo_paper_speed_spinbutton, "BEWARE: Changing Paper speed affects Resampling Frequency.", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_paper_speed_spinbutton), TRUE);
 
   label210 = gtk_label_new ("<b>Paper Speed</b>");
@@ -2776,13 +2781,13 @@ create_dlg_session (void)
   gtk_container_set_border_width (GTK_CONTAINER (alignment19), 3);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment19), 8, 0, 14, 0);
 
-  imageresolution_entry = gtk_entry_new ();
-  gtk_widget_set_name (imageresolution_entry, "imageresolution_entry");
-  gtk_widget_show (imageresolution_entry);
-  gtk_container_add (GTK_CONTAINER (alignment19), imageresolution_entry);
-  GTK_WIDGET_UNSET_FLAGS (imageresolution_entry, GTK_CAN_FOCUS);
-  gtk_editable_set_editable (GTK_EDITABLE (imageresolution_entry), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (imageresolution_entry), FALSE);
+  teseo_imageresolution_entry = gtk_entry_new ();
+  gtk_widget_set_name (teseo_imageresolution_entry, "teseo_imageresolution_entry");
+  gtk_widget_show (teseo_imageresolution_entry);
+  gtk_container_add (GTK_CONTAINER (alignment19), teseo_imageresolution_entry);
+  GTK_WIDGET_UNSET_FLAGS (teseo_imageresolution_entry, GTK_CAN_FOCUS);
+  gtk_editable_set_editable (GTK_EDITABLE (teseo_imageresolution_entry), FALSE);
+  gtk_entry_set_has_frame (GTK_ENTRY (teseo_imageresolution_entry), FALSE);
 
   label184 = gtk_label_new ("<b>Resolution</b>");
   gtk_widget_set_name (label184, "label184");
@@ -3235,7 +3240,7 @@ create_dlg_session (void)
   gtk_container_add (GTK_CONTAINER (frame47), alignment26);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment26), 8, 0, 14, 0);
 
-  vbox86 = gtk_vbox_new (FALSE, 4);
+  vbox86 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox86, "vbox86");
   gtk_widget_show (vbox86);
   gtk_container_add (GTK_CONTAINER (alignment26), vbox86);
@@ -3279,54 +3284,43 @@ create_dlg_session (void)
   gtk_container_add (GTK_CONTAINER (frame48), alignment28);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment28), 8, 0, 14, 0);
 
-  vbox61 = gtk_vbox_new (FALSE, 4);
+  vbox61 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox61, "vbox61");
   gtk_widget_show (vbox61);
   gtk_container_add (GTK_CONTAINER (alignment28), vbox61);
 
-  table32 = gtk_table_new (2, 3, FALSE);
-  gtk_widget_set_name (table32, "table32");
-  gtk_widget_show (table32);
-  gtk_box_pack_start (GTK_BOX (vbox61), table32, FALSE, FALSE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (table32), 4);
-  gtk_table_set_row_spacings (GTK_TABLE (table32), 4);
-  gtk_table_set_col_spacings (GTK_TABLE (table32), 4);
+  hbox75 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_set_name (hbox75, "hbox75");
+  gtk_widget_show (hbox75);
+  gtk_box_pack_start (GTK_BOX (vbox61), hbox75, FALSE, FALSE, 0);
 
-  label323 = gtk_label_new ("Frequency (Hz)");
+  label323 = gtk_label_new ("Frequency (Hz) ");
   gtk_widget_set_name (label323, "label323");
   gtk_widget_show (label323);
-  gtk_table_attach (GTK_TABLE (table32), label323, 0, 1, 1, 2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label323), 0, 0.5);
+  gtk_box_pack_start (GTK_BOX (hbox75), label323, FALSE, FALSE, 0);
 
-  label324 = gtk_label_new ("Step (pixel)");
+  teseo_freq_spinbutton_adj = gtk_adjustment_new (1, 0.00999999977648, 200, 0.10000000149, 1, 1);
+  teseo_freq_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_freq_spinbutton_adj), 1, 2);
+  gtk_widget_set_name (teseo_freq_spinbutton, "teseo_freq_spinbutton");
+  gtk_widget_show (teseo_freq_spinbutton);
+  gtk_box_pack_start (GTK_BOX (hbox75), teseo_freq_spinbutton, FALSE, TRUE, 0);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_freq_spinbutton), TRUE);
+
+  label324 = gtk_label_new ("or");
   gtk_widget_set_name (label324, "label324");
   gtk_widget_show (label324);
-  gtk_table_attach (GTK_TABLE (table32), label324, 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (label324), 0, 0.5);
+  gtk_box_pack_start (GTK_BOX (hbox75), label324, TRUE, FALSE, 0);
 
-  teseo_entry_frequency = gtk_entry_new ();
-  gtk_widget_set_name (teseo_entry_frequency, "teseo_entry_frequency");
-  gtk_widget_show (teseo_entry_frequency);
-  gtk_table_attach (GTK_TABLE (table32), teseo_entry_frequency, 1, 2, 1, 2,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_sensitive (teseo_entry_frequency, FALSE);
-  GTK_WIDGET_UNSET_FLAGS (teseo_entry_frequency, GTK_CAN_FOCUS);
-  gtk_tooltips_set_tip (tooltips, teseo_entry_frequency, "Estimated Frequency (Hz)", NULL);
-  gtk_editable_set_editable (GTK_EDITABLE (teseo_entry_frequency), FALSE);
-  gtk_entry_set_width_chars (GTK_ENTRY (teseo_entry_frequency), 5);
+  label152 = gtk_label_new ("Step (pix) ");
+  gtk_widget_set_name (label152, "label152");
+  gtk_widget_show (label152);
+  gtk_box_pack_start (GTK_BOX (hbox75), label152, FALSE, FALSE, 0);
 
-  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 9.99999974738e-05, 0.10000000149, 1);
-  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 4);
+  teseo_step_spinbutton_adj = gtk_adjustment_new (1, 0.10000000149, 100, 0.10000000149, 1, 1);
+  teseo_step_spinbutton = gtk_spin_button_new (GTK_ADJUSTMENT (teseo_step_spinbutton_adj), 1, 2);
   gtk_widget_set_name (teseo_step_spinbutton, "teseo_step_spinbutton");
   gtk_widget_show (teseo_step_spinbutton);
-  gtk_table_attach (GTK_TABLE (table32), teseo_step_spinbutton, 1, 2, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
+  gtk_box_pack_start (GTK_BOX (hbox75), teseo_step_spinbutton, FALSE, TRUE, 0);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (teseo_step_spinbutton), TRUE);
 
   teseo_abscissa_asc_checkbutton = gtk_check_button_new_with_mnemonic ("Constant abscissa ascendent");
@@ -3352,7 +3346,7 @@ create_dlg_session (void)
   gtk_container_add (GTK_CONTAINER (frame46), alignment29);
   gtk_alignment_set_padding (GTK_ALIGNMENT (alignment29), 8, 0, 14, 0);
 
-  vbox58 = gtk_vbox_new (FALSE, 4);
+  vbox58 = gtk_vbox_new (FALSE, 0);
   gtk_widget_set_name (vbox58, "vbox58");
   gtk_widget_show (vbox58);
   gtk_container_add (GTK_CONTAINER (alignment29), vbox58);
@@ -3464,15 +3458,12 @@ create_dlg_session (void)
   g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "changed",
                     G_CALLBACK (on_teseo_paper_speed_spinbutton_changed),
                     NULL);
-  g_signal_connect ((gpointer) teseo_paper_speed_spinbutton, "focus_out_event",
-                    G_CALLBACK (on_teseo_paper_speed_spinbutton_focus_out_event),
+  g_signal_connect ((gpointer) teseo_freq_spinbutton, "changed",
+                    G_CALLBACK (on_teseo_freq_spinbutton_changed),
                     NULL);
   g_signal_connect ((gpointer) teseo_step_spinbutton, "changed",
                     G_CALLBACK (on_teseo_step_spinbutton_changed),
                     NULL);
-  g_signal_connect_after ((gpointer) teseo_step_spinbutton, "focus_out_event",
-                          G_CALLBACK (on_teseo_step_spinbutton_focus_out_event),
-                          NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dlg_session, "dlg_session");
@@ -3526,7 +3517,7 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, label183, "label183");
   GLADE_HOOKUP_OBJECT (dlg_session, frame67, "frame67");
   GLADE_HOOKUP_OBJECT (dlg_session, alignment19, "alignment19");
-  GLADE_HOOKUP_OBJECT (dlg_session, imageresolution_entry, "imageresolution_entry");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_imageresolution_entry, "teseo_imageresolution_entry");
   GLADE_HOOKUP_OBJECT (dlg_session, label184, "label184");
   GLADE_HOOKUP_OBJECT (dlg_session, recordinfo, "recordinfo");
   GLADE_HOOKUP_OBJECT (dlg_session, vbox68, "vbox68");
@@ -3600,10 +3591,11 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT (dlg_session, frame48, "frame48");
   GLADE_HOOKUP_OBJECT (dlg_session, alignment28, "alignment28");
   GLADE_HOOKUP_OBJECT (dlg_session, vbox61, "vbox61");
-  GLADE_HOOKUP_OBJECT (dlg_session, table32, "table32");
+  GLADE_HOOKUP_OBJECT (dlg_session, hbox75, "hbox75");
   GLADE_HOOKUP_OBJECT (dlg_session, label323, "label323");
+  GLADE_HOOKUP_OBJECT (dlg_session, teseo_freq_spinbutton, "teseo_freq_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label324, "label324");
-  GLADE_HOOKUP_OBJECT (dlg_session, teseo_entry_frequency, "teseo_entry_frequency");
+  GLADE_HOOKUP_OBJECT (dlg_session, label152, "label152");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_step_spinbutton, "teseo_step_spinbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, teseo_abscissa_asc_checkbutton, "teseo_abscissa_asc_checkbutton");
   GLADE_HOOKUP_OBJECT (dlg_session, label153, "label153");
@@ -3627,7 +3619,6 @@ create_dlg_session (void)
   GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, dialog_action_area8, "dialog_action_area8");
   GLADE_HOOKUP_OBJECT (dlg_session, cancelbutton4, "cancelbutton4");
   GLADE_HOOKUP_OBJECT (dlg_session, okbutton5, "okbutton5");
-  GLADE_HOOKUP_OBJECT_NO_REF (dlg_session, tooltips, "tooltips");
 
   gtk_widget_grab_default (okbutton5);
   return dlg_session;
