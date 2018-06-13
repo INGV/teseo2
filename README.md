@@ -45,6 +45,22 @@ $ ./configure && make && sudo make install
 
 Details in file ./teseo-2/INSTALL
 
+### Docker
+
+#### Build Docker Image
+
+```
+make -f DockerMakefile build
+```
+
+#### Run Docker Image
+
+Docker image is based on *xhost*, then you need to enable *xhost* for your local IP. For connecting from any client run `xhost +`.
+
+```
+make -f DockerMakefile run
+```
+
 ### Authors
 
 Stefano Pintore and Matteo Quintiliani.
