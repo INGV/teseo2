@@ -55,10 +55,18 @@ make -f DockerMakefile build
 
 #### Run Docker Image
 
-Docker image is based on *xhost*, then you need to enable *xhost* for your local IP. For connecting from any client run `xhost +`.
+Teseo Docker Image is based on X11 environment.
 
+You can run Teseo Docker Image by one of the following option:
+
+  1. Using X11 local socket. It works on Linux but it does not work on Mac OS X.
 ```
-make -f DockerMakefile run
+make -f DockerMakefile run_xlocal
+```
+
+  1. Based on *xhost*. But you need to set up a X11 server and enable *xhost* for your local IP or for connecting from any client running `xhost +`. It is not possible running when you are offline.
+```
+make -f DockerMakefile run_xhost
 ```
 
 ### Authors
