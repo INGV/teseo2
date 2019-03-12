@@ -28,7 +28,20 @@ shell-arm:
 	docker run --rm --name rpi-$(CONTAINER_NAME)-$(CONTAINER_INSTANCE) -i -t $(PORTS) $(VOLUMES) $(ENV) $(NS)/rpi-$(IMAGE_NAME):$(VERSION) /bin/bash
 
 run:
-	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION)
+	@echo "You can launch one of the following option:"
+	@echo ""
+	@echo "	make -f DockerMakefile run_xlocal"
+	@echo "		(It does not work on Mac OS X)"
+	@echo "or"
+	@echo "	make -f DockerMakefile run_xhost"
+	@echo "		(You need to set up an X11 server and launch xhost+ before running the docker image)"
+	@echo ""
+
+run_xlocal:
+	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_LOCALSOCKET) $(NS)/$(IMAGE_NAME):$(VERSION)
+
+run_xhost:
+	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_HOST) $(NS)/$(IMAGE_NAME):$(VERSION)
 
 run-arm:
 	docker run --rm --name rpi-$(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(NS)/rpi-$(IMAGE_NAME):$(VERSION)
