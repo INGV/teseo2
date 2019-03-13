@@ -1,5 +1,6 @@
 # Docker for GIMP Development Environment based on alpine
-FROM alpine
+# To guarantee gimp-2.8.x use alpine 3.8.4
+FROM alpine:3.8.4
 
 LABEL maintainer="Matteo Quintiliani <matteo.quintiliani@ingv.it>"
 
