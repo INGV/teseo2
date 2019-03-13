@@ -1,5 +1,6 @@
 # Docker for GIMP Development Environment based on alpine
-FROM alpine
+# To guarantee gimp-2.8.x use alpine 3.8.4
+FROM alpine:3.8.4
 
 LABEL maintainer="Matteo Quintiliani <matteo.quintiliani@ingv.it>"
 
@@ -52,7 +53,7 @@ WORKDIR ${SOFTDIR_USER}
 # wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.3.0/gtkdatabox-0.9.3.0.tar.gz
 # wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.1.1/gtkdatabox-0.9.1.1.tar.gz
 # wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.1.3/gtkdatabox-0.9.1.3.tar.gz
-ENV GTKDATABOX_VERSION=0.9.3.0
+ENV GTKDATABOX_VERSION=0.9.3.1
 RUN wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/${GTKDATABOX_VERSION}/gtkdatabox-${GTKDATABOX_VERSION}.tar.gz \
 		&& tar xvfz gtkdatabox-${GTKDATABOX_VERSION}.tar.gz \
 		&& cd gtkdatabox-${GTKDATABOX_VERSION} \
