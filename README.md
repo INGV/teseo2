@@ -25,71 +25,120 @@ Teseo2 is developed following the "Open-Source" philosophy and it is freely dist
 - Mailing list archive: [http://groups.yahoo.com/group/teseo-user/](http://groups.yahoo.com/group/teseo-user/)
 - GIMP: [https://www.gimp.org/](https://www.gimp.org/)
 
-### Documentation links
+## Documentation links
   - Teseo User Manual: [http://teseo.rm.ingv.it/docs/en/](http://teseo.rm.ingv.it/docs/en/)
   - Teseo and Seismogram Digitization Workflow: [http://teseo.rm.ingv.it/docs/posters/poster_ssa.pdf](http://teseo.rm.ingv.it/docs/posters/poster_ssa.pdf)
   - Teseo for Dummies: [http://teseo.rm.ingv.it/pub/teseo/doc/teseo2_for_dummies.pdf](http://teseo.rm.ingv.it/pub/teseo/doc/teseo2_for_dummies.pdf)
 
-### Using Teseo by Docker (recommended)
+## Using Teseo by Docker (recommended)
 
 We recommend to run Teseo by Docker in a Unix-like environment (Linux or Mac OS X).
 
-#### Installation and use Teseo by Docker
+### Installation and use Teseo by Docker
 
-##### Requirements
+#### Requirements
 
   - **Docker** (Linux, Mac OS X, Windows)
     - [https://docs.docker.com/install/](https://docs.docker.com/install/)
   - **X11 server**
     - Mac OS X: Xquartz - [https://www.xquartz.org/](https://www.xquartz.org/)
+    - **Important note for XQuartz**: in *XQuartz* Preferences, within *"Security"* tab, you have to check the option *"Allow connections from network clients"*.
   - **git**
     - Mac OS X: Xcode - `xcode-select --install`
   - **make**
     - Mac OS X: Xcode - `xcode-select --install`
 
 
-##### Download teseo2 repository
+#### Download teseo2 repository
  
 ```
 git clone https://github.com/INGV/teseo2.git
 cd teseo2
 ```
 
-##### Build Docker Image
+#### Build Docker Image
+
+Edit the file `Makefile.Docker.env` and set properly the following custom variables:
+
+```sh
+######################################
+# Custom variables
+######################################
+
+# Set path where searching xhost command
+XHOST_PATH = /usr/X11R6/bin:/usr/bin/X11:/opt/X11/bin
+
+# Custom SSH port used to access to docker container
+SSH_CONTAINER_PORT = 10022
+
+# This is the X11 port, default 6000
+X11_PORT = 6000
+```
+
+Then run:
 
 ```
-make -f DockerMakefile build
+make -f Makefile.Docker build
 ```
 
-##### Run Docker Image
+#### Run Docker Image
 
-Teseo Docker Image is based on X11 environment.
+Teseo Docker Image is based on X11 environment. You need to set up an X11 server on your computer.
 
 You can run Teseo Docker Image by one of the following option:
 
-1) Using X11 local socket. It works on Linux but it does not work on Mac OS X.
+##### 1) Based on X11 local socket.
+
+**WARNING: It works only on Linux**. It does not work on Mac OS X!
 
 ```
-make -f DockerMakefile run_xlocal
+make -f Makefile.Docker run_xlocal
 ```
 
-2) Based on *xhost*.
+##### 2) Based on *xhost*.
 
-It is not possible running in this mode when you are offline.
+**WARNING: Not when the machine is offline.**
 
-You need to set up a X11 server and enable *xhost* for your local IP or for connecting from any client running:
+It is not possible running in this mode when you are offline (that is when your Docker host does not have any visible IP from docker container).
+
+When you run this mode, you disable the access control to your X11 server, clients can connect from any host. (`xhost +`)
+
+Run:
 
 ```
-xhost +
-``` 
-  
-```
-make -f DockerMakefile run_xhost
+make -f Makefile.Docker run_xhost
 ```
 
-*Note for Mac OS X*: in *Xquartz* Preferences, within *"Security"* tab, you have to check the option *"Allow connections from network clients"*.
+##### 3) Based on *ssh* and *xhost*.
 
-##### Update Docker Image
+**NOTE: This is the general solution.**
+
+This solution should work on all cases:
+
+  - it is more general than previous based on *xhost*
+  - it is safer because enable access control only to the localhost machine (`xhost +localhost`)
+  - and you can run also when your machine is offline.
+
+Before you start, you have to run the docker container as an SSH server service by:
+
+```
+make -f Makefile.Docker start
+```
+
+Then run:
+
+```
+make -f Makefile.Docker run_ssh_xhost
+```
+
+Note: when you finished to use the docker container remember to stop it by:
+
+```
+make -f Makefile.Docker stop
+```
+
+
+#### Update Docker Image
 
 To update your Teseo Docker Image pull the changes from `git` repository and rebuild by `make`.
 
@@ -101,19 +150,19 @@ git pull
 Rebuild
 
 ```
-make -f DockerMakefile build
+make -f Makefile.Docker build
 ```
 
 
-### General Build from scratch
+## General Build from scratch
 
-#### Requirements
+### Requirements
 
   - gimp-2.2.9 up to gimp-2.8.x
 
 The configure scripts might fail asking you the dependency libraries you have to install or to specify into PKG\_CONFIG\_PATH.
 
-#### Quick installation
+### Quick installation
 
 ```
 $ tar xzvf teseo*.tar.gz
@@ -129,15 +178,15 @@ $ ./configure && make && sudo make install
 Details in file ./teseo-2/INSTALL
 
 
-### Authors
+## Authors
 
 Stefano Pintore and Matteo Quintiliani.
 
-### Contributors
+## Contributors
 
 Diego Franceschi, Antoine Schlupp, Daniel Amorese.
 
-### References
+## References
 
 Michelini, A. and the Sismos Team (2005). *Collection, digitization and distribution of historical seismological data at INGV.* EOS, 86(28). 
 

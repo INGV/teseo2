@@ -1,0 +1,67 @@
+include Makefile.Docker.env
+
+NS ?= me
+VERSION ?= latest
+
+IMAGE_NAME ?= mx-fs
+CONTAINER_NAME ?= mx-fs
+CONTAINER_INSTANCE ?= default
+
+# Set complete path to xhost command
+export PATH := $(XHOST_PATH):$(PATH)
+XHOST = `which xhost`
+
+.PHONY: build push shell run run_xlocal run_xhost run_ssh_xhost start stop rm release
+
+build: Dockerfile
+	docker build -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
+
+push:
+	docker push $(NS)/$(IMAGE_NAME):$(VERSION)
+
+shell:
+	docker run --rm --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) -i -t $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION) /bin/bash
+
+run:
+	@echo "You can launch one of the following option:"
+	@echo ""
+	@echo "	make -f Makefile.Docker run_xlocal"
+	@echo "		(It does not work on Mac OS X)"
+	@echo "or"
+	@echo "	make -f Makefile.Docker run_xhost"
+	@echo "		(You need to set up an X11 server and launch 'xhost+' before running the docker image)"
+	@echo ""
+	@echo "or"
+	@echo "	make -f Makefile.Docker run_ssh_xhost"
+	@echo "		(You need to set up an X11 server, running the docker image as service by 'make -f Makefile.Docker start', and launch 'xhost +localhost')"
+	@echo ""
+
+run_xlocal:
+	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_LOCALSOCKET) $(NS)/$(IMAGE_NAME):$(VERSION)
+
+run_xhost:
+	# WARNING: access control disabled, clients can connect from any host
+	$(XHOST) +
+	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_HOST) $(NS)/$(IMAGE_NAME):$(VERSION)
+
+run_ssh_xhost:
+	# NOTICE: only localhost being added to access control list
+	$(XHOST) +localhost
+	ssh-keygen -R [localhost]:$(SSH_CONTAINER_PORT)
+	ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -R $(X11_PORT):localhost:$(X11_PORT) -p $(SSH_CONTAINER_PORT) teseo@localhost -C "export DISPLAY=localhost:0 && gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
+
+start:
+	# Start docker container as SSH service
+	docker run --rm -d --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(IMAGE_NAME):$(VERSION) 'sudo /usr/sbin/sshd -D'
+
+stop:
+	docker stop $(CONTAINER_NAME)-$(CONTAINER_INSTANCE)
+
+rm:
+	docker rm $(CONTAINER_NAME)-$(CONTAINER_INSTANCE)
+
+release: build
+	make push -e VERSION=$(VERSION)
+
+default: build
+
