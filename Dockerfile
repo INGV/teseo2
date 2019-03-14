@@ -21,6 +21,8 @@ RUN apk add --no-cache \
 		procps \
 		bash \
 		openssh-client \
+		openssh \
+		openrc \
 		git \
 		procps \
 		sudo \
@@ -39,6 +41,17 @@ RUN apk add --no-cache \
 		screen \
 		glade3 \
 		gimp-dev
+
+##################################
+# Configure SSH server
+##################################
+RUN rc-update add sshd boot
+RUN rc-status
+RUN touch /run/openrc/softlevel
+RUN \
+		ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
+		&& ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa \
+		&& mkdir -p /var/run/sshd
 
 ##################################
 # Create and set SOFTDIR_USER
@@ -126,6 +139,9 @@ RUN echo 'export PATH=/usr/local/bin:${PATH}' >> ${BASHRC_USER} \
 		&& echo "alias ll='ls -l --color'" >> ${BASHRC_USER} \
 		&&  echo ". ${BASHRC_USER}" >> ${HOMEDIR_USER}/.bashrc
 
+# Copy SSH public key in authorized_keys
+COPY ./DockerResources/id_rsa.pub ${HOMEDIR_USER}/.ssh/authorized_keys
+
 # Test .dockerignore
 RUN echo "Test" >> ${DOCKERIGNORED_DIR}/test
 
@@ -136,4 +152,7 @@ RUN mkdir -p ${DATADIR_USER}
 USER ${USER_NAME}
 WORKDIR ${HOMEDIR_USER}
 COPY ./DockerResources/entrypoint.sh /opt/docker/entrypoint.sh
+
+EXPOSE 22
 ENTRYPOINT ["/opt/docker/entrypoint.sh"]
+# CMD ["/usr/sbin/sshd","-D"]
