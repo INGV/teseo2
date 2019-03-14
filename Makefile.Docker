@@ -11,7 +11,7 @@ CONTAINER_INSTANCE ?= default
 export PATH := $(XHOST_PATH):$(PATH)
 XHOST = `which xhost`
 
-.PHONY: build push shell run run_xlocal run_xhost run_ssh_xhost start stop rm release
+.PHONY: build push shell run run_xlocal run_xhost run_ssh_xhost xhost_disable_control xhost_enable_control xhost_add_localhost start stop rm release
 
 build: Dockerfile
 	docker build -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
@@ -40,15 +40,23 @@ run_xlocal:
 	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_LOCALSOCKET) $(NS)/$(IMAGE_NAME):$(VERSION)
 
 run_xhost:
-	# WARNING: access control disabled, clients can connect from any host
-	$(XHOST) +
 	docker run --rm -it --privileged --name $(CONTAINER_NAME)-$(CONTAINER_INSTANCE) $(PORTS) $(VOLUMES) $(ENV) $(ENV_X_HOST) $(NS)/$(IMAGE_NAME):$(VERSION)
 
 run_ssh_xhost:
-	# NOTICE: only localhost being added to access control list
-	$(XHOST) +localhost
 	ssh-keygen -R [localhost]:$(SSH_CONTAINER_PORT)
 	ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -R $(X11_PORT):localhost:$(X11_PORT) -p $(SSH_CONTAINER_PORT) teseo@localhost -C "export DISPLAY=localhost:0 && gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
+
+xhost_disable_control:
+	# WARNING: access control disabled, clients can connect from any host
+	$(XHOST) +
+
+xhost_enable_control:
+	# access control enabled, only authorized clients can connect
+	$(XHOST) -
+
+xhost_add_localhost:
+	# NOTICE: only localhost being added to access control list
+	$(XHOST) +localhost
 
 start:
 	# Start docker container as SSH service
