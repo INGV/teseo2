@@ -101,11 +101,15 @@ make -f Makefile.Docker run_xlocal
 
 It is not possible running in this mode when you are offline (that is when your Docker host does not have any visible IP from docker container).
 
-When you run this mode, you disable the access control to your X11 server, clients can connect from any host. (`xhost +`)
+When you run this mode, you have to disable the access control to your X11 server, clients can connect from any host. Run `xhost +` or `make -f Makefile.Docker xhost_disable_control`.
 
 Run:
 
 ```
+# OPTIONAL:
+#    xhost +
+#    make -f Makefile.Docker xhost_disable_control
+
 make -f Makefile.Docker run_xhost
 ```
 
@@ -116,12 +120,16 @@ make -f Makefile.Docker run_xhost
 This solution should work on all cases:
 
   - it is more general than previous based on *xhost*
-  - it is safer because enable access control only to the localhost machine (`xhost +localhost`)
+  - it is safer because enable access control only to the localhost machine. Run `xhost +localhost` or `make -f Makefile.Docker xhost_add_localhost`
   - and you can run also when your machine is offline.
 
 Before you start, you have to run the docker container as an SSH server service by:
 
 ```
+# OPTIONAL:
+#    xhost +localhost
+#    make -f Makefile.Docker xhost_add_localhost
+
 make -f Makefile.Docker start
 ```
 
