@@ -39,6 +39,7 @@ RUN apk add --no-cache \
 		ttf-dejavu \
 		vim \
 		screen \
+		xauth \
 		glade3 \
 		gimp-dev
 
@@ -52,6 +53,13 @@ RUN \
 		ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 		&& ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa \
 		&& mkdir -p /var/run/sshd
+
+# Set SSH server X11Forwarding and X11Forwarding options
+# Require package 'xauth'
+RUN \
+		sed -i'.bak' -e 's/^\(.*X11Forwarding.*\)$/#mq \1/' -e 's/^\(.*X11UseLocalhost.*\)$/#mq \1/'  /etc/ssh/sshd_config \
+		&& echo "X11Forwarding yes" >> /etc/ssh/sshd_config \
+		&& echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 ##################################
 # Create and set SOFTDIR_USER

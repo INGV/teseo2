@@ -65,14 +65,8 @@ Edit the file `Makefile.Docker.env` and set properly the following custom variab
 # Custom variables
 ######################################
 
-# Set path where searching xhost command
-XHOST_PATH = /usr/X11R6/bin:/usr/bin/X11:/opt/X11/bin
-
 # Custom SSH port used to access to docker container
 SSH_CONTAINER_PORT = 10022
-
-# This is the X11 port, default 6000
-X11_PORT = 6000
 
 # User ID and Group ID for teseo user and group.
 # WARNING: On Linux, if you run docker image by different UID or GID
@@ -91,6 +85,9 @@ BASEMOUNTDIR = `pwd`/DockerMount
 MYIP = `ifconfig | grep -w inet | egrep -v -w "127.0.0.1" | awk '{print $$2}' | head -n 1`
 # You can manually set
 # MYIP = X11_server_hostname_or_IP
+
+# Set path where searching xhost command
+XHOST_PATH = /usr/X11R6/bin:/usr/bin/X11:/opt/X11/bin
 ```
 
 Then run:
