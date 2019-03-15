@@ -102,8 +102,64 @@ RUN cd ./teseo-dist/teseo-2 \
 ##################################
 # Create user and add to sudo users
 ##################################
-RUN addgroup -S ${GROUP_NAME} \
-		&& adduser -S -h ${HOMEDIR_USER} -G ${GROUP_NAME} -s /bin/bash ${USER_NAME}
+# Add package 'shadow' only for usermod and groupmod
+# then remove it because it installs a different version of chpasswd
+RUN apk --no-cache add shadow
+
+# Required arguments
+ARG ENV_UID=0
+ARG ENV_GID=0
+
+RUN echo ENV_UID=${ENV_UID}
+RUN echo ENV_GID=${ENV_GID}
+
+RUN \
+		if [ ${ENV_UID} -eq 0 ] || [ ${ENV_GID} -eq 0 ]; \
+		then \
+			echo ""; \
+			echo "WARNING: when passing UID or GID equal to zero, new user and/or group are created."; \
+			echo "         On Linux, if you run docker image by different UID or GID you could not able to write in docker mount data directory."; \
+			echo ""; \
+		fi
+
+# Check if GID already exists
+RUN cat /etc/group
+RUN \
+		if [ ${ENV_GID} -eq 0 ]; \
+		then \
+			addgroup -S ${GROUP_NAME}; \
+		elif grep -q -e "[^:][^:]*:[^:][^:]*:${ENV_GID}:.*$" /etc/group; \
+		then \
+			GROUP_NAME_ALREADY_EXISTS=$(grep  -e "[^:][^:]*:[^:][^:]*:${ENV_GID}:.*$" /etc/group | cut -f 1 -d':'); \
+			echo "GID ${ENV_GID} already exists with group name ${GROUP_NAME_ALREADY_EXISTS}"; \
+			groupmod -n ${GROUP_NAME} ${GROUP_NAME_ALREADY_EXISTS}; \
+		else \
+			echo "GID ${ENV_GID} does not exist"; \
+			addgroup -g ${ENV_GID} -S ${GROUP_NAME}; \
+		fi
+
+# Check if UID already exists
+RUN cat /etc/passwd
+RUN \
+		if [ ${ENV_UID} -eq 0 ]; \
+		then \
+			adduser -S -h ${HOMEDIR_USER} -G ${GROUP_NAME} -s /bin/bash ${USER_NAME}; \
+		elif grep -q -e "[^:][^:]*:[^:][^:]*:${ENV_UID}:.*$" /etc/passwd; \
+		then \
+			USER_NAME_ALREADY_EXISTS=$(grep  -e "[^:][^:]*:[^:][^:]*:${ENV_UID}:.*$" /etc/passwd | cut -f 1 -d':'); \
+			echo "UID ${ENV_UID} already exists with user name ${USER_NAME_ALREADY_EXISTS}"; \
+			usermod -g ${ENV_GID} -l ${USER_NAME} ${USER_NAME_ALREADY_EXISTS}; \
+		else \
+			echo "UID ${ENV_UID} does not exist"; \
+			adduser -u ${ENV_UID} -S -h ${HOMEDIR_USER} -g ${ENV_GID} -G ${GROUP_NAME} -s /bin/bash ${USER_NAME}; \
+		fi
+
+		# && \
+		# adduser  ${ENV_UID} -S -h ${HOMEDIR_USER} -G ${GROUP_NAME} -s /bin/bash ${USER_NAME}
+
+# Remove package 'shadow'
+RUN apk --no-cache del shadow
+
 # Change passwords
 RUN echo "root:rootDocker!" | chpasswd
 RUN echo "${USER_NAME}:${PASSWORD_USER}" | chpasswd

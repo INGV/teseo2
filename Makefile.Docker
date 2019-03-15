@@ -11,10 +11,14 @@ CONTAINER_INSTANCE ?= default
 export PATH := $(XHOST_PATH):$(PATH)
 XHOST = `which xhost`
 
+# Conditional variables
+ENV_UID ?= 0
+ENV_GID ?= 0
+
 .PHONY: build push shell run run_xlocal run_xhost run_ssh_xhost xhost_disable_control xhost_enable_control xhost_add_localhost start stop rm release
 
 build: Dockerfile
-	docker build -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
+	docker build --build-arg ENV_UID="$(ENV_UID)" --build-arg ENV_GID="$(ENV_GID)" -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
 
 push:
 	docker push $(NS)/$(IMAGE_NAME):$(VERSION)
@@ -44,6 +48,7 @@ run_xhost:
 
 run_ssh_xhost:
 	ssh-keygen -R [localhost]:$(SSH_CONTAINER_PORT)
+	chmod 600 ./DockerResources/id_rsa
 	ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -R $(X11_PORT):localhost:$(X11_PORT) -p $(SSH_CONTAINER_PORT) teseo@localhost -C "export DISPLAY=localhost:0 && gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
 
 xhost_disable_control:
