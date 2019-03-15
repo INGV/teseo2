@@ -49,7 +49,10 @@ run_xhost:
 run_ssh_xhost:
 	ssh-keygen -R [localhost]:$(SSH_CONTAINER_PORT)
 	chmod 600 ./DockerResources/id_rsa
-	ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -R $(X11_PORT):localhost:$(X11_PORT) -p $(SSH_CONTAINER_PORT) teseo@localhost -C "export DISPLAY=localhost:0 && gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
+	# Manual reverse SSH tunneling X11 port forwarding
+	# ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -R $(X11_PORT):localhost:$(X11_PORT) -p $(SSH_CONTAINER_PORT) teseo@localhost -C "export DISPLAY=localhost:0 && gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
+	# X11 port forwarding by ssh -Y option
+	ssh -i ./DockerResources/id_rsa -oStrictHostKeyChecking=no -Y -p $(SSH_CONTAINER_PORT) teseo@localhost -C "gimp" || (echo ""; echo "WARNING: Did you run 'make -f Makefile.Docker start' before run_ssh_xhost?"; echo "";)
 
 xhost_disable_control:
 	# WARNING: access control disabled, clients can connect from any host
