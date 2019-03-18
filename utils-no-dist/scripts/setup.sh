@@ -13,7 +13,7 @@
 #	- help directory
 
 # Teseo-2 GIMP Plug-in
-# Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
+# Copyright (C) 2005-2019  Stefano Pintore, Matteo Quintiliani (the "Authors").
 # All Rights Reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a

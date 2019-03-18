@@ -1,5 +1,5 @@
 /* Teseo-2 Plug-in
- * Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
+ * Copyright (C) 2005-2019  Stefano Pintore, Matteo Quintiliani (the "Authors").
  * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -52,7 +52,7 @@
 
 #define TESEO_CAPTION_DEV teseo_caption(TRUE)
 #define TESEO_CAPTION     teseo_caption(FALSE)
-#define TESEO_YEAR "2005"
+#define TESEO_YEAR "(2005 - 2019)"
 
 
 /* ***********

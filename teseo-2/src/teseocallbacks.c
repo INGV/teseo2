@@ -1,5 +1,5 @@
 /* Teseo-2 Plug-in
- * Copyright (C) 2005  Stefano Pintore, Matteo Quintiliani (the "Authors").
+ * Copyright (C) 2005-2019  Stefano Pintore, Matteo Quintiliani (the "Authors").
  * All Rights Reserved.
  *
  * 2017 - h2d -- h2d-teseo at programmer dot net (ported the plugin from gtkdatabox 0.4.0.1 to version >= 0.9.1.1).
