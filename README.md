@@ -26,7 +26,7 @@ Teseo2 is developed following the "Open-Source" philosophy and it is freely dist
 - GIMP: [https://www.gimp.org/](https://www.gimp.org/)
 
 ## Documentation links
-  - Teseo User Manual: [http://teseo.rm.ingv.it/docs/en/](http://teseo.rm.ingv.it/docs/en/)
+  - Teseo User Manual: [TeseoUserManual.md](Documentation/Teseo2UserManual/Teseo2UserManual.md)
   - Teseo and Seismogram Digitization Workflow: [http://teseo.rm.ingv.it/docs/posters/poster_ssa.pdf](http://teseo.rm.ingv.it/docs/posters/poster_ssa.pdf)
   - Teseo for Dummies: [http://teseo.rm.ingv.it/pub/teseo/doc/teseo2_for_dummies.pdf](http://teseo.rm.ingv.it/pub/teseo/doc/teseo2_for_dummies.pdf)
 
@@ -48,6 +48,10 @@ We recommend to run Teseo by Docker in a Unix-like environment (Linux or Mac OS 
   - **make**
     - Mac OS X: Xcode - `xcode-select --install`
 
+#### Optional packages
+
+  - **ssh client**
+    - *ssh client* is only required for running Teseo Docker Image by `make -f Makefile.Docker run_ssh_xhost` (see below the option based on *ssh* and *xhost*).
 
 #### Download teseo2 repository
  
