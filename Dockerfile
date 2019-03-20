@@ -105,7 +105,7 @@ RUN cd ./teseo-dist/newuoa \
 RUN cd ./teseo-dist/teseo-2 \
 		&& mkdir m4 \
 		&&  ./bootstrap \
-		&&  ./configure && make && sudo make install
+		&&  ./configure --datadir=/usr/share/gimp/2.0 && make && sudo make install
 
 ##################################
 # Create user and add to sudo users
