@@ -1,11 +1,10 @@
 include Makefile.Docker.env
 
-NS ?= me
-VERSION ?= latest
-
-IMAGE_NAME ?= mx-fs
-CONTAINER_NAME ?= mx-fs
-CONTAINER_INSTANCE ?= default
+NS ?= ns_unknown
+IMAGE_NAME ?= image_name_unknown
+VERSION ?= version_unknown
+CONTAINER_NAME ?= container_name_unknown
+CONTAINER_INSTANCE ?= container_instance_unknown
 
 # Set complete path to xhost command
 export PATH := $(XHOST_PATH):$(PATH)
