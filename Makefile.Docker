@@ -17,8 +17,8 @@ ENV_GID ?= 0
 
 .PHONY: build push shell run run_xlocal run_xhost run_ssh_xhost xhost_disable_control xhost_enable_control xhost_add_localhost start stop rm release
 
-build: Dockerfile
-	docker build --build-arg ENV_UID="$(ENV_UID)" --build-arg ENV_GID="$(ENV_GID)" -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
+build: $(DOCKERFILE)
+	docker build --build-arg ENV_UID="$(ENV_UID)" --build-arg ENV_GID="$(ENV_GID)" -t $(NS)/$(IMAGE_NAME):$(VERSION) -f $(DOCKERFILE) .
 
 push:
 	docker push $(NS)/$(IMAGE_NAME):$(VERSION)
