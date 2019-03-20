@@ -69,6 +69,9 @@ Edit the file `Makefile.Docker.env` and set properly the following custom variab
 # Custom variables
 ######################################
 
+#Dockerfile
+DOCKERFILE=Dockerfile.alpine
+
 # Custom SSH port used to access to docker container
 SSH_CONTAINER_PORT = 10022
 
