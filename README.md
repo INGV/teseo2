@@ -70,7 +70,8 @@ Edit the file `Makefile.Docker.env` and set properly the following custom variab
 ######################################
 
 #Dockerfile
-DOCKERFILE=Dockerfile.alpine
+DOCKERBASEIMAGE=alpine
+DOCKERFILE=Dockerfile.$(DOCKERBASEIMAGE)
 
 # Custom SSH port used to access to docker container
 SSH_CONTAINER_PORT = 10022
@@ -188,7 +189,7 @@ make -f Makefile.Docker build
 
 ### Requirements
 
-  - gimp-2.2.9 up to gimp-2.8.x
+  - gimp-2.2.9 up to gimp-2.10.x
 
 The configure scripts might fail asking you the dependency libraries you have to install or to specify into PKG\_CONFIG\_PATH.
 
