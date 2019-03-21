@@ -1,6 +1,6 @@
 # Docker for GIMP Development Environment based on alpine
-# To guarantee gimp-2.8.x use alpine 3.8.4
-FROM alpine:3.8.4
+# To guarantee gimp-2.10.x use alpine 3.9.2
+FROM alpine:3.9.2
 
 LABEL maintainer="Matteo Quintiliani <matteo.quintiliani@ingv.it>"
 
@@ -41,7 +41,23 @@ RUN apk add --no-cache \
 		screen \
 		xauth \
 		glade3 \
-		gimp-dev
+		gimp-dev \
+		iso-codes \
+		gconf \
+		xdg-utils \
+		dbus-x11 \
+		firefox-esr
+
+######### ##########################
+# # gimp-help
+# ##################################
+# RUN apk add --no-cache curl py2-libxml2
+# ENV GIMP_HELP_PREFIX=gimp-help-2.8.2
+# ENV GIMP_HELP_TAR_FILE=${GIMP_HELP_PREFIX}.tar.bz2
+# RUN curl -O -J -L https://download.gimp.org/mirror/pub/gimp/help/${GIMP_HELP_TAR_FILE}
+# RUN tar xvfj ${GIMP_HELP_TAR_FILE}
+# RUN apk add --no-cache libxslt docbook-xsl
+# RUN cd ${GIMP_HELP_PREFIX} && ./configure ALL_LINGUAS=en && make && make install
 
 ##################################
 # Configure SSH server
@@ -203,8 +219,16 @@ RUN echo 'export PATH=/usr/local/bin:${PATH}' >> ${BASHRC_USER} \
 		&& echo "alias ll='ls -l --color'" >> ${BASHRC_USER} \
 		&&  echo ". ${BASHRC_USER}" >> ${HOMEDIR_USER}/.bashrc
 
+# Set default browser for teseo user
+RUN \
+		mkdir -p ~/.config \
+		&& xdg-settings set default-web-browser firefox.desktop
+
 # Copy SSH public key in authorized_keys
 COPY ./DockerResources/id_rsa.pub ${HOMEDIR_USER}/.ssh/authorized_keys
+
+# Fake Xauthority file
+RUN touch ${HOMEDIR_USER}/.Xauthority
 
 # Test .dockerignore
 RUN echo "Test" >> ${DOCKERIGNORED_DIR}/test
@@ -216,6 +240,8 @@ RUN mkdir -p ${DATADIR_USER}
 USER ${USER_NAME}
 WORKDIR ${HOMEDIR_USER}
 COPY ./DockerResources/entrypoint.sh /opt/docker/entrypoint.sh
+
+# RUN sudo apk del dbus-x11
 
 EXPOSE 22
 ENTRYPOINT ["/opt/docker/entrypoint.sh"]
