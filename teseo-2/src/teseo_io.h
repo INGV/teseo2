@@ -28,9 +28,9 @@
 #ifndef __TESEO_IO_H__
 #define __TESEO_IO_H__ 1
 
-#define GIMP_ENABLE_COMPAT_CRUFT 1
+// #define GIMP_ENABLE_COMPAT_CRUFT 1
 #include <libgimp/gimp.h>
-#include <libgimp/gimpcompat.h>
+// #include <libgimp/gimpcompat.h>
 #include <gtk/gtk.h>
 #include <string.h>
 #include <stdio.h>

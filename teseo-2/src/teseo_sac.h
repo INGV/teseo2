@@ -28,7 +28,7 @@
 #ifndef __TESEO_SAC_H__
 #define __TESEO_SAC_H__ 1
 
-#define GIMP_ENABLE_COMPAT_CRUFT 1
+// #define GIMP_ENABLE_COMPAT_CRUFT 1
 #include <libgimp/gimp.h>
 #include "sac.h"
 
