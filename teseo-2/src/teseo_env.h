@@ -50,8 +50,8 @@
 #define PROCEDURE_NAME   "teseo-2"
 #endif
 
-#define TESEO_CAPTION_DEV teseo_caption(TRUE)
-#define TESEO_CAPTION     teseo_caption(FALSE)
+#define TESEO_CAPTION_COMPLETE_VERSION      teseo_caption_version(FALSE)
+#define TESEO_CAPTION_MAJOR_MINOR_VERSION   teseo_caption_version(TRUE)
 #define TESEO_YEAR "(2005 - 2019)"
 
 
@@ -85,9 +85,9 @@ char *getenv_teseo_deprecated(const char *name_var) ;
 
 
 /*!
-  teseo_caption returns a string with name and current version
+  teseo_caption_version returns a string with name and current version
   */
-const gchar * teseo_caption(gboolean ver_devel);
+const gchar * teseo_caption_version(gboolean only_major_and_minor_version);
 
 
 /*!

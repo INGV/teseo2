@@ -11,9 +11,18 @@ dnl These three define the plug-in version number
 m4_define([plugin_major_version], [2])
 m4_define([plugin_minor_version], [8])
 m4_define([plugin_micro_version], [0])
+m4_define([plugin_build_version], [rc2])
 
-m4_define([plugin_version],
-          [plugin_major_version.plugin_minor_version.plugin_micro_version])
+m4_ifdef([plugin_build_version],
+		 [
+		  m4_define([plugin_version],
+					["plugin_major_version.plugin_minor_version.plugin_micro_version-plugin_build_version"])
+		  ],
+		  [
+		  m4_define([plugin_version],
+					["plugin_major_version.plugin_minor_version.plugin_micro_version"])
+		  ]
+		  )
 
 m4_define([bug_report_address], [matteo.quintiliani@ingv.it])
 
@@ -25,6 +34,7 @@ AC_DEFINE(PLUGIN_VERSION, plugin_version, [Plug-In version])
 AC_DEFINE(PLUGIN_MAJOR_VERSION, plugin_major_version, [Plug-In major version])
 AC_DEFINE(PLUGIN_MINOR_VERSION, plugin_minor_version, [Plug-In minor version])
 AC_DEFINE(PLUGIN_MICRO_VERSION, plugin_micro_version, [Plug-In micro version])
+AC_DEFINE(PLUGIN_BUILD_VERSION, plugin_build_version, [Plug-In build version])
 
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])

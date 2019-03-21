@@ -1489,7 +1489,7 @@ on_dlg_about_show_label_ver            (GtkWidget       *widget,
                                         gpointer         user_data)
 {
     gchar teseo_caption_markup[200];
-    g_sprintf(teseo_caption_markup, "<small>Open source software &#169; %s\n%s</small>", TESEO_YEAR, TESEO_CAPTION_DEV);
+    g_sprintf(teseo_caption_markup, "<small>Open source software &#169; %s\n%s</small>", TESEO_YEAR, TESEO_CAPTION_COMPLETE_VERSION);
     gtk_label_set_label((GtkLabel *) widget, teseo_caption_markup);
 }
 
