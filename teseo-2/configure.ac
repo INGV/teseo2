@@ -9,9 +9,9 @@ m4_define([plugin_name], [teseo-2])
 
 dnl These three define the plug-in version number
 m4_define([plugin_major_version], [2])
-m4_define([plugin_minor_version], [8])
+m4_define([plugin_minor_version], [10])
 m4_define([plugin_micro_version], [0])
-m4_define([plugin_build_version], [rc2])
+m4_define([plugin_build_version], [rc1])
 
 m4_ifdef([plugin_build_version],
 		 [
