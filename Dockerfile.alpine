@@ -37,6 +37,7 @@ RUN apk add --no-cache \
 		autoconf \
 		libtool \
 		ttf-dejavu \
+		curl \
 		vim \
 		screen \
 		xauth \
@@ -51,7 +52,7 @@ RUN apk add --no-cache \
 ######### ##########################
 # # gimp-help
 # ##################################
-# RUN apk add --no-cache curl py2-libxml2
+# RUN apk add --no-cache py2-libxml2
 # ENV GIMP_HELP_PREFIX=gimp-help-2.8.2
 # ENV GIMP_HELP_TAR_FILE=${GIMP_HELP_PREFIX}.tar.bz2
 # RUN curl -O -J -L https://download.gimp.org/mirror/pub/gimp/help/${GIMP_HELP_TAR_FILE}
@@ -87,11 +88,8 @@ WORKDIR ${SOFTDIR_USER}
 ##################################
 # Compile and Install gtkdatabox
 ##################################
-# wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.3.0/gtkdatabox-0.9.3.0.tar.gz
-# wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.1.1/gtkdatabox-0.9.1.1.tar.gz
-# wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/0.9.1.3/gtkdatabox-0.9.1.3.tar.gz
 ENV GTKDATABOX_VERSION=0.9.3.1
-RUN wget https://netcologne.dl.sourceforge.net/project/gtkdatabox/gtkdatabox/${GTKDATABOX_VERSION}/gtkdatabox-${GTKDATABOX_VERSION}.tar.gz \
+RUN curl -O -J -L https://sourceforge.net/projects/gtkdatabox/files/gtkdatabox/${GTKDATABOX_VERSION}/gtkdatabox-${GTKDATABOX_VERSION}.tar.gz/download \
 		&& tar xvfz gtkdatabox-${GTKDATABOX_VERSION}.tar.gz \
 		&& cd gtkdatabox-${GTKDATABOX_VERSION} \
 		&& ./configure && make && sudo make install
@@ -240,8 +238,6 @@ RUN mkdir -p ${DATADIR_USER}
 USER ${USER_NAME}
 WORKDIR ${HOMEDIR_USER}
 COPY ./DockerResources/entrypoint.sh /opt/docker/entrypoint.sh
-
-# RUN sudo apk del dbus-x11
 
 EXPOSE 22
 ENTRYPOINT ["/opt/docker/entrypoint.sh"]
