@@ -5,83 +5,67 @@ Foundation, Inc.
 unlimited permission to copy, distribute and modify it.
 
 Teseo-2 INSTALL Contents
-        * WINDOWS BINARIES INSTALLATION
-        * MAC OS X BINARIES INSTALLATION
-        * LINUX BINARIES INSTALLATION
+
+        * TESEO REFERENCE
+        * DOCKER INSTALLATION
         * SOURCE INSTALLATION
 
+Our advice is therefore to use the docker installation on Linux or Mac OS X as
+reported on the homepage https://github.com/INGV/teseo2/blob/master/README.md
 
-Teseo WebSite http://teseo.rm.ingv.it/
+***************************************************
+*** TESEO REFERENCE
+***************************************************
+
+Teseo Websites
+
+        * http://teseo.rm.ingv.it/
+        * https://github.com/INGV/teseo2
+
+GitHub Repository
+
+        * git clone https://github.com/INGV/teseo2.git
+
+Teseo source releases
+
+        * https://github.com/INGV/teseo2/releases
 
 
 ***************************************************
-*** WINDOWS BINARIES INSTALLATION
+*** DOCKER INSTALLATION
 ***************************************************
 
-Basic Installation
-==================
+We recommend to run Teseo by Docker in a Unix-like environment
+(Linux or Mac OS X).
 
-These are basic installation instructions for Teseo-2 on WIN32 platforms.
-Teseo-2 is a gimp-2.8 plugin so you need gimp-2.8.x to use it.
+Please read file README.md, available also at
+https://github.com/INGV/teseo2/blob/master/README.md
 
-
-Pre-requisite
-=============
-
-1 - Install gimp-2.8.x or maybe newer : files and instructions at https://www.gimp.org/downloads/
-
-2 - (Optional) Install gimp-help.
-
-
-Install teseo2
-==============
-
-Extract teseo-2.x.x-setup.exe from the distibuted teseo-2.x.x-setup.zip, then run teseo-2.x.x-setup.exe.
-
-Restart Gimp if it was opened.
-
-
-
-
-***************************************************
-*** MAC OS X BINARIES INSTALLATION
-***************************************************
-
-You have 2 possibilities to install teseo-2 on Mac Os X.
-
-1- Download DMG image that contain Gimp.app with teseo-2 bundled
-	(DMG image is about 90 MB)
-
-2- Download binary distribution pack and use shell script configuration:
-	(distribution is about 1 MB)
-
-	Unpack binary distribution teseo-2.x.x-bin-macosx.tar.gz
-	cd teseo-2.x.x-bin-macosx
-	./setup.sh macosx Gimp.App
-
-	To uninstall run:
-	cd teseo-2.x.x-bin-macosx
-	./setup.sh macosxuninstall Gimp.App
-
-
-
-***************************************************
-*** LINUX BINARIES INSTALLATION
-***************************************************
-
-	Unpack binary distribution teseo-2.x.x-bin-linux.tar.gz
-	cd teseo-2.x.x-bin-linux
-	./setup.sh linux
-
-	To uninstall run:
-	cd teseo-2.x.x-bin-linux
-	./setup.sh linuxuninstall
-
+We tested the new docker installation on Linux and Mac OS X.
+We have not had a chance to test the docker installation on Windows as well.
+But with an X server, an ssh client and a few other little tweaks it should
+work.
 
 
 ***************************************************
 *** SOURCE INSTALLATION
 ***************************************************
+
+Linux Source Installation
+=========================
+
+If dependencies are properly installed it's rather straight forward.
+
+    $ tar xzvf teseo*.tar.gz
+    $ cd teseo*/
+    $ cd gtk-addons
+    $ ./configure && make && sudo make install
+	$ cd ../newuoa
+	$ ./configure && make && sudo make install
+	$ cd ../teseo-2
+	$ ./configure && make && sudo make install
+
+NOTE: The configure script might fail asking you the dependency libraries you have to install or to specify into PKG_CONFIG_PATH.
 
 
 Mac OS X Source Installation
@@ -128,22 +112,6 @@ Here, are steps to follow for installing necessary dependencies, compile and ins
 	$ make && sudo make install
 	$ cd ..
 
-Linux Source Installation
-=========================
-
-If dependencies are properly installed it's rather straight forward.
-
-        $ tar xzvf teseo*.tar.gz
-        $ cd teseo*/
-        $ cd gtk-addons
-        $ ./configure && make && sudo make install
-	$ cd ../newuoa
-	$ ./configure && make && sudo make install
-	$ cd ../teseo-2
-	$ ./configure && make && sudo make install
-
-
-NOTE: The configure script might fail asking you the dependency libraries you have to install or to specify into PKG_CONFIG_PATH.
 
 Basic Installation
 ==================

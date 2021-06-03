@@ -34,6 +34,8 @@ Teseo2 is developed following the "Open-Source" philosophy and it is freely dist
 
 We recommend to run Teseo by Docker in a Unix-like environment (Linux or Mac OS X).
 
+We tested the new docker installation on Linux and Mac OS X. We have not had a chance to test the docker installation on Windows as well. But with an X server, an ssh client and a few other little tweaks it should work.
+
 ### Installation and use Teseo by Docker
 
 #### Requirements
