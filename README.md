@@ -19,6 +19,7 @@ In order to keep track of the stages and parameters of a seismogram vectorizatio
 
 Teseo2 is developed following the "Open-Source" philosophy and it is freely distributed under GPL license. It is cross-platform and the sources, the binaries for Linux, Windows and Mac OS X, are periodically updated on the Sismos web site.
 
+- GitHub website: https://github.com/INGV/teseo2
 - Website: [http://teseo.rm.ingv.it/](http://teseo.rm.ingv.it/)
 - Developer e-mail: *teseo [at] ingv.it*
 - User mailing list: *teseo-user [at] yahoogroups.com*
@@ -50,13 +51,11 @@ We tested the new docker installation on Linux and Mac OS X. We have not had a c
   - **make**
     - Mac OS X: Xcode - `xcode-select --install`
 
-#### Optional packages
-
   - **ssh client**
-    - *ssh client* is only required for running Teseo Docker Image by `make -f Makefile.Docker run_ssh_xhost` (see below the option based on *ssh* and *xhost*).
+    - *ssh client* is required for running Teseo Docker Image by `make run_ssh` (see below the option based on *ssh* and *X11*).
 
 #### Download teseo2 repository
- 
+
 ```
 git clone https://github.com/INGV/teseo2.git
 cd teseo2
@@ -64,7 +63,7 @@ cd teseo2
 
 #### Build Docker Image
 
-Edit the file `Makefile.Docker.env` and set properly the following custom variables:
+Edit the file `Makefile.env` and set properly the following custom variables:
 
 ```sh
 ######################################
@@ -89,87 +88,51 @@ ENV_GID=`id -g`
 
 # Default docker mount data directory
 BASEMOUNTDIR = `pwd`/DockerMount
-
-# X11 Server Hostname or IP
-# Try to catch docker host IP when running run_xhost
-MYIP = `ifconfig | grep -w inet | egrep -v -w "127.0.0.1" | awk '{print $$2}' | head -n 1`
-# You can manually set
-# MYIP = X11_server_hostname_or_IP
-
-# Set path where searching xhost command
-XHOST_PATH = /usr/X11R6/bin:/usr/bin/X11:/opt/X11/bin
 ```
 
 Then run:
 
 ```
-make -f Makefile.Docker build
+make build
 ```
 
 #### Run Docker Image
 
 Teseo Docker Image is based on X11 environment. You need to set up an X11 server on your computer.
 
-You can run Teseo Docker Image by one of the following option:
+You can run Teseo Docker Image by one of the two following options:
 
-##### 1) Based on X11 local socket.
+##### 1) Based on *ssh* and *X11*.
+
+**NOTE: This is the general solution based on docker SSH server service.**
+
+This solution should work on all cases.
+
+You have to run the docker container as a SSH service by:
+
+```
+make up
+```
+
+Then run teseo2:
+
+```
+make run_ssh
+```
+
+When you finished to use the docker container remember to stop it by:
+
+```
+make down
+```
+
+##### 2) Based on X11 local socket.
 
 **WARNING: It works only on Linux**. It does not work on Mac OS X!
 
 ```
-make -f Makefile.Docker run_xlocal
+make run_xlocal
 ```
-
-##### 2) Based on *xhost*.
-
-**WARNING: Not when the machine is offline.**
-
-It is not possible running in this mode when you are offline (that is when your Docker host does not have any visible IP from docker container).
-
-When you run this mode, you have to disable the access control to your X11 server, clients can connect from any host. Run `xhost +` or `make -f Makefile.Docker xhost_disable_control`.
-
-Run:
-
-```
-# OPTIONAL:
-#    xhost +
-#    make -f Makefile.Docker xhost_disable_control
-
-make -f Makefile.Docker run_xhost
-```
-
-##### 3) Based on *ssh* and *xhost*.
-
-**NOTE: This is the general solution.**
-
-This solution should work on all cases:
-
-  - it is more general than previous based on *xhost*
-  - it is safer because enable access control only to the localhost machine. Run `xhost +localhost` or `make -f Makefile.Docker xhost_add_localhost`
-  - and you can run also when your machine is offline.
-
-Before you start, you have to run the docker container as an SSH server service by:
-
-```
-# OPTIONAL:
-#    xhost +localhost
-#    make -f Makefile.Docker xhost_add_localhost
-
-make -f Makefile.Docker start
-```
-
-Then run:
-
-```
-make -f Makefile.Docker run_ssh_xhost
-```
-
-Note: when you finished to use the docker container remember to stop it by:
-
-```
-make -f Makefile.Docker stop
-```
-
 
 #### Update Docker Image
 
@@ -183,7 +146,7 @@ git pull
 Rebuild
 
 ```
-make -f Makefile.Docker build
+make build
 ```
 
 
